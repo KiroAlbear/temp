@@ -1,0 +1,26 @@
+{
+  "login": "Login",
+  "enterMobileNumber": "Enter mobile number",
+  "yourMobile": "Mobile",
+  "chooseYourCountry": "Choose your country",
+  "password": "Password",
+  "enterYourPassword": "Enter your password",
+  "forgotPassword": "Forgot password?",
+  "loginEnter": "Enter",
+  "doNotHaveAccount": "Don't have account?",
+  "registerNow": "Register",
+  "failed": "Failed",
+  "loading": "Loading",
+  "success": "Success",
+  "ok": "Ok",
+  "generalError": "General error.\nPlease try again later!",
+  "openSetting": "${PermissionName} has been denied. our app required this permission in order to continue.",
+  "noInternetConnection": "No internet Connection.\nPlease try again later",
+  "emailRequired": "Email required",
+  "inValidEmail": "Invalid email",
+  "required": "Filed required",
+  "passwordNotMatched": "Password and confirm password didn't match",
+  "invalidMobile": "Invalid mobile"
+
+
+}

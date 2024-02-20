@@ -1,0 +1,30 @@
+app:
+  android:
+    flavorDimensions: "flavor-type"
+
+flavors:
+  app_live:
+    app:
+      name: "Dokkan"
+    android:
+      applicationId: "com.icons.dokkan"
+    ios:
+      bundleId: "com.icons.dokkan"
+
+  app_stage:
+    app:
+      name: "Dokan stage"
+    android:
+      applicationId: "com.icons.stage.dokkan"
+    ios:
+      bundleId: "com.icons.stage.dokkan"
+
+  app_test:
+    app:
+      name: "Dokkan test"
+    android:
+      applicationId: "com.icons.test.dokkan"
+    ios:
+      bundleId: "com.icons.test.dokkan"
+
+ide: idea

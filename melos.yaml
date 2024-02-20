@@ -1,0 +1,13 @@
+name: Dokkan
+
+environment:
+  sdk: '>=3.2.5 <4.0.0'
+
+packages:
+  - core
+  - dokkan
+  - authentication
+
+scripts:
+  analyze:
+    exec: dart analyze

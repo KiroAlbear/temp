@@ -1,0 +1,6 @@
+#include "Generated.xcconfig"
+
+FLUTTER_TARGET=lib/main_app_live.dart
+ASSET_PREFIX=app_live
+BUNDLE_NAME=Dokkan
+BUNDLE_DISPLAY_NAME=Dokkan
