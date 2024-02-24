@@ -1,13 +1,26 @@
 import 'package:core/core.dart';
+import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
+import 'package:core/dto/modules/custom_navigator_module.dart';
+import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/base_state.dart';
+import 'package:core/ui/bases/bloc_base.dart';
+import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class LogoTopWidget extends BaseStatefulWidget {
   final bool canBack;
   final Widget child;
   final String logo;
-  const LogoTopWidget({super.key, required this.canBack, required this.child, required this.logo});
+  final BlocBase blocBase;
+
+  const LogoTopWidget(
+      {super.key,
+      required this.canBack,
+      required this.child,
+      required this.logo,
+      required this.blocBase});
 
   @override
   State<LogoTopWidget> createState() => _LogoTopWidgetState();
@@ -18,29 +31,50 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
   PreferredSizeWidget? appBar() => null;
 
   @override
-  Widget getBody(BuildContext context)=> Container(
-    color: primaryColor,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(height: 90.h,),
-        LogoWidget(height: 94.h,width: 253.h,
-        logo: widget.logo),
-        SizedBox(height: 67.h,),
-        _bottomWidget,
-      ],
-    ),
-  );
+  Widget getBody(BuildContext context) => BlocProvider(
+        bloc: widget.blocBase,
+        child: Container(
+          color: primaryColor,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _skipText,
+              SizedBox(
+                height: 90.h,
+              ),
+              Center(
+                child:
+                    LogoWidget(height: 94.h, width: 253.h, logo: widget.logo),
+              ),
+              SizedBox(
+                height: 67.h,
+              ),
+              _bottomWidget,
+            ],
+          ),
+        ),
+      );
 
-  Widget get _bottomWidget=> Expanded(
-    child: Container(
-      decoration: leftRadiusWhiteBorder,
-      child: SingleChildScrollView(
-        child: widget.child,
-      ),
-    ),
-  );
+  Widget get _bottomWidget => Expanded(
+        child: Container(
+          decoration: leftRadiusWhiteBorder,
+          child: SingleChildScrollView(
+            child: widget.child,
+          ),
+        ),
+      );
+
+  Widget get _skipText => InkWell(
+        onTap: () => CustomNavigatorModule.navigatorKey.currentState
+            ?.pushNamed(AppScreenEnum.home.name),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+          child: CustomText(
+              text: S.of(context).skip,
+              customTextStyle: MediumStyle(fontSize: 14.sp, color: blackColor)),
+        ),
+      );
 
   @override
   bool isSafeArea() => true;

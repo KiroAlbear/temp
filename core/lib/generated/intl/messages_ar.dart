@@ -20,18 +20,40 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(PermissionName) =>
+  static String m0(codeLength, mobileNumber) =>
+      "ادخل ال\$${codeLength} ارقام التي ارسلناها الي رقم \$${mobileNumber}";
+
+  static String m1(PermissionName) =>
       "\$${PermissionName} تم رفضه. تطبيقنا يتطلب هذا الإذن للمتابعة.";
+
+  static String m2(time) => "يمكن إعادة ارسال الكود بعد \$${time} ثانية";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AtLeastOneSpecialCharacter":
+            MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على رمز (@#_,)"),
+        "atLeastOneCapChar": MessageLookupByLibrary.simpleMessage(
+            "يجب أن تحتوي على حرف كبير على الأقل"),
+        "atLeastOneNumber": MessageLookupByLibrary.simpleMessage(
+            "يجب أن تحتوي على رقم واحد على الأقل"),
+        "atLeastOneSmallLetter": MessageLookupByLibrary.simpleMessage(
+            "يجب أن تحتوي على حرف صغير على الأقل"),
         "chooseYourCountry": MessageLookupByLibrary.simpleMessage("اختر بلدك"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
         "emailRequired":
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني مطلوب"),
+        "enterConfirmPassword":
+            MessageLookupByLibrary.simpleMessage("ادخل تاكيد كلمة السر"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك"),
+        "enterVerificationCode":
+            MessageLookupByLibrary.simpleMessage("ادخل رمز التفعيل"),
+        "enterVerificationCodeSentTo": m0,
+        "enterYouRegisteredMobile":
+            MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك المسجل"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("ادخل كلمة السر"),
         "failed": MessageLookupByLibrary.simpleMessage("فشل"),
@@ -46,16 +68,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
+        "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "لا يوجد اتصال بالإنترنت.\nيرجى المحاولة مرة أخرى لاحقًا"),
+        "noSpaceAllowed":
+            MessageLookupByLibrary.simpleMessage("يجب ألا تحتوي على مسافات"),
         "ok": MessageLookupByLibrary.simpleMessage("حسنًا"),
-        "openSetting": m0,
+        "openSetting": m1,
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
+        "passwordMinimumCharacters":
+            MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور وتأكيد كلمة المرور غير متطابقين"),
         "registerNow": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
         "required": MessageLookupByLibrary.simpleMessage("حقل مطلوب"),
+        "resendOtpAfter": m2,
+        "resetPassword":
+            MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
+        "sendOTP": MessageLookupByLibrary.simpleMessage("ارسال كود التحقيق"),
+        "sendOtpAgain":
+            MessageLookupByLibrary.simpleMessage("ارسال الكود مرة أخري"),
+        "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
+        "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
       };
 }

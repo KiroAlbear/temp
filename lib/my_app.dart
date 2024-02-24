@@ -1,4 +1,5 @@
-import 'package:authentication/ui/login/login_widget.dart';
+import 'package:authentication/authentication.dart';
+import 'package:authentication/ui/otp/otp_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
@@ -10,6 +11,7 @@ import 'package:dokkan/generated/assets.dart';
 import 'package:dokkan/splash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:authentication/ui/changePassword/change_password_widget.dart';
 
 import 'flavors.dart';
 

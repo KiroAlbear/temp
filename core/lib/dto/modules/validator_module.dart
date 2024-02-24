@@ -36,6 +36,15 @@ class ValidatorModule {
   bool isPasswordValid(String? value, {BuildContext? context}) =>
       passwordValidator(context).isValid(value);
 
+  MultiValidator customValidator(BuildContext? context, String regex) => MultiValidator([
+    RequiredValidator(
+        errorText: context == null ? '' : S.of(context).required),
+    PatternValidator(regex, errorText: '')
+  ]);
+
+  bool isCustomValid(String? value, String regex,{BuildContext? context}) =>
+      customValidator(context, regex).isValid(value);
+
   /// match filed validation
   MatchValidator matchValidator(BuildContext? context) => MatchValidator(
       errorText: context == null ? "" : S.of(context).passwordNotMatched);

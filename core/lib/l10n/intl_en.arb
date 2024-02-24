@@ -20,7 +20,26 @@
   "inValidEmail": "Invalid email",
   "required": "Filed required",
   "passwordNotMatched": "Password and confirm password didn't match",
-  "invalidMobile": "Invalid mobile"
+  "invalidMobile": "Invalid mobile",
+  "enterYouRegisteredMobile": "Enter your registered mobile",
+  "sendOTP": "Send OTP",
+  "skip": "Skip",
+  "enterVerificationCode": "Enter verification code",
+  "enterVerificationCodeSentTo": "Enter ${codeLength} number sent to ${mobileNumber}",
+  "resendOtpAfter": "Resend OTP after ${time} seconds",
+  "sendOtpAgain": "Send OTP again",
+  "validateOtp": "Validate",
+  "resetPassword": "Reset password",
+  "confirmPassword": "Confirm password",
+  "enterConfirmPassword": "Enter confirm password",
+  "atLeastOneCapChar": "At least one capital letter",
+  "atLeastOneSmallLetter": "At least one small letter",
+  "atLeastOneNumber": "At least one number",
+  "AtLeastOneSpecialCharacter": "At least one special Character",
+  "noSpaceAllowed": "No space allowed",
+  "passwordMinimumCharacters": "At lest 8 characters",
+  "next": "Next"
+
 
 
 }

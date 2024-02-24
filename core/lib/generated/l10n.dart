@@ -269,6 +269,186 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter your registered mobile`
+  String get enterYouRegisteredMobile {
+    return Intl.message(
+      'Enter your registered mobile',
+      name: 'enterYouRegisteredMobile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send OTP`
+  String get sendOTP {
+    return Intl.message(
+      'Send OTP',
+      name: 'sendOTP',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter verification code`
+  String get enterVerificationCode {
+    return Intl.message(
+      'Enter verification code',
+      name: 'enterVerificationCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter ${codeLength} number sent to ${mobileNumber}`
+  String enterVerificationCodeSentTo(Object codeLength, Object mobileNumber) {
+    return Intl.message(
+      'Enter \$$codeLength number sent to \$$mobileNumber',
+      name: 'enterVerificationCodeSentTo',
+      desc: '',
+      args: [codeLength, mobileNumber],
+    );
+  }
+
+  /// `Resend OTP after ${time} seconds`
+  String resendOtpAfter(Object time) {
+    return Intl.message(
+      'Resend OTP after \$$time seconds',
+      name: 'resendOtpAfter',
+      desc: '',
+      args: [time],
+    );
+  }
+
+  /// `Send OTP again`
+  String get sendOtpAgain {
+    return Intl.message(
+      'Send OTP again',
+      name: 'sendOtpAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Validate`
+  String get validateOtp {
+    return Intl.message(
+      'Validate',
+      name: 'validateOtp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm password`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirm password',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter confirm password`
+  String get enterConfirmPassword {
+    return Intl.message(
+      'Enter confirm password',
+      name: 'enterConfirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At least one capital letter`
+  String get atLeastOneCapChar {
+    return Intl.message(
+      'At least one capital letter',
+      name: 'atLeastOneCapChar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At least one small letter`
+  String get atLeastOneSmallLetter {
+    return Intl.message(
+      'At least one small letter',
+      name: 'atLeastOneSmallLetter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At least one number`
+  String get atLeastOneNumber {
+    return Intl.message(
+      'At least one number',
+      name: 'atLeastOneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At least one special Character`
+  String get AtLeastOneSpecialCharacter {
+    return Intl.message(
+      'At least one special Character',
+      name: 'AtLeastOneSpecialCharacter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No space allowed`
+  String get noSpaceAllowed {
+    return Intl.message(
+      'No space allowed',
+      name: 'noSpaceAllowed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At lest 8 characters`
+  String get passwordMinimumCharacters {
+    return Intl.message(
+      'At lest 8 characters',
+      name: 'passwordMinimumCharacters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

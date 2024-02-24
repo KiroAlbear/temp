@@ -4,7 +4,6 @@ part of 'my_app.dart';
 // Create an instance of CustomTransitionModule for transitions.
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 
-
 // Function to generate routes based on screen names.
 Route? _onGenerateRoute(String screenName, BuildContext context) {
   LoggerModule.log(
@@ -16,32 +15,41 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
   switch (appScreenEnum) {
     case AppScreenEnum.splash:
       return _buildPageRoute(const SplashWidget());
-    case AppScreenEnum.none:
-      // TODO: Handle this case.
+
     case AppScreenEnum.login:
-    return _buildPageRoute(const LoginWidget(logo: Assets.imagesIcLogo,));
+      return _buildPageRoute(const LoginWidget(
+        logo: Assets.imagesIcLogo,
+      ));
     case AppScreenEnum.register:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
     case AppScreenEnum.forgetPassword:
-      // TODO: Handle this case.
+      return _buildPageRoute(const ForgotPasswordWidget(
+        logo: Assets.imagesIcLogo,
+      ));
     case AppScreenEnum.otp:
-      // TODO: Handle this case.
+      return _buildPageRoute(const OtpWidget(
+        logo: Assets.imagesIcLogo,
+      ));
     case AppScreenEnum.changePassword:
-      // TODO: Handle this case.
+      return _buildPageRoute(const ChangePasswordWidget(
+        logo: Assets.imagesIcLogo,
+      ));
     case AppScreenEnum.newAccount:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
     case AppScreenEnum.newAccountInfo:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
     case AppScreenEnum.newAccountLocation:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
     case AppScreenEnum.newAccountMap:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
     case AppScreenEnum.home:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
+    case AppScreenEnum.none:
+      /// use none in case if you need to rebuild all screen again
+    return _buildPageRoute(const SplashWidget());
   }
   return null;
 }
-
 
 // Build a MaterialPageRoute with a custom transition.
 Route _buildPageRoute(Widget widget) => TransitionEasy(

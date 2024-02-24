@@ -20,18 +20,40 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(PermissionName) =>
+  static String m0(codeLength, mobileNumber) =>
+      "Enter \$${codeLength} number sent to \$${mobileNumber}";
+
+  static String m1(PermissionName) =>
       "\$${PermissionName} has been denied. our app required this permission in order to continue.";
+
+  static String m2(time) => "Resend OTP after \$${time} seconds";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AtLeastOneSpecialCharacter": MessageLookupByLibrary.simpleMessage(
+            "At least one special Character"),
+        "atLeastOneCapChar":
+            MessageLookupByLibrary.simpleMessage("At least one capital letter"),
+        "atLeastOneNumber":
+            MessageLookupByLibrary.simpleMessage("At least one number"),
+        "atLeastOneSmallLetter":
+            MessageLookupByLibrary.simpleMessage("At least one small letter"),
         "chooseYourCountry":
             MessageLookupByLibrary.simpleMessage("Choose your country"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm password"),
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "emailRequired": MessageLookupByLibrary.simpleMessage("Email required"),
+        "enterConfirmPassword":
+            MessageLookupByLibrary.simpleMessage("Enter confirm password"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("Enter mobile number"),
+        "enterVerificationCode":
+            MessageLookupByLibrary.simpleMessage("Enter verification code"),
+        "enterVerificationCodeSentTo": m0,
+        "enterYouRegisteredMobile": MessageLookupByLibrary.simpleMessage(
+            "Enter your registered mobile"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "failed": MessageLookupByLibrary.simpleMessage("Failed"),
@@ -44,16 +66,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No internet Connection.\nPlease try again later"),
+        "noSpaceAllowed":
+            MessageLookupByLibrary.simpleMessage("No space allowed"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
-        "openSetting": m0,
+        "openSetting": m1,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordMinimumCharacters":
+            MessageLookupByLibrary.simpleMessage("At lest 8 characters"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password didn\'t match"),
         "registerNow": MessageLookupByLibrary.simpleMessage("Register"),
         "required": MessageLookupByLibrary.simpleMessage("Filed required"),
+        "resendOtpAfter": m2,
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "sendOTP": MessageLookupByLibrary.simpleMessage("Send OTP"),
+        "sendOtpAgain": MessageLookupByLibrary.simpleMessage("Send OTP again"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")
       };
 }

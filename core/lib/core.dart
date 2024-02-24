@@ -24,6 +24,7 @@ export 'package:core/ui/logo_widget.dart';
 export 'package:core/dto/modules/app_default_style.dart';
 export 'package:core/ui/country_widget.dart';
 export 'package:core/ui/mobile_country_widget.dart';
+export 'package:core/dto/commonBloc/password_validation_bloc.dart';
 // export 'package:firebase_core/firebase_core.dart';
 // export 'package:firebase_crashlytics/firebase_crashlytics.dart';
 // export 'package:firebase_analytics/firebase_analytics.dart';

@@ -2,11 +2,10 @@ import 'package:authentication/ui/login/login_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/app_default_style.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
@@ -29,13 +28,14 @@ class _LoginWidgetState extends State<LoginWidget> {
   Widget build(BuildContext context) => LogoTopWidget(
         canBack: false,
         logo: widget.logo,
+    blocBase: _bloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 42.h,
+                height: 22.h,
               ),
               CustomText(
                   text: S.of(context).login,
@@ -87,7 +87,9 @@ class _LoginWidgetState extends State<LoginWidget> {
         labelText: S.of(context).enterYourPassword,
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
         onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
+        validator: (value) => ValidatorModule().passwordValidator(context).call(value),
         textInputAction: TextInputAction.done,
+
         isPassword: true,
       );
 

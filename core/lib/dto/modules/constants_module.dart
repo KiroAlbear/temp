@@ -14,14 +14,15 @@ class ConstantModule {
   static const String mobileRegex = r'(^[0-9]{6,12}$)';
   static const String passwordRegex =
       '$atLeastLowerCaseRegex$atLeastUpperCaseRegex'
-      '$atLeastNumberCaseRegex$atLeastSpecialCharacter{8,16}';
+      '$atLeastNumberCaseRegex$atLeastSpecialCharacter$noSpaceRegex$passwordLength';
+  static const String passwordLength = '{8,16}';
   static const String atLeastLowerCaseRegex = '(?=.*[a-z])';
   static const String atLeastUpperCaseRegex = '(?=.*[A-Z])';
   static const String atLeastNumberCaseRegex = '(?=.*[0-9])';
+  static const String noSpaceRegex = '[^\\s]';
 
   // static const String atLeastSpecialCharacter = '(?=.*[\\W-_])';
   static const String atLeastSpecialCharacter = '(?=.*[!|@|#|%|&|\$])';
-  static const String noSpaceAllow = '';
   static const String pointText = "\u2022";
   static const String urlRegex =
       r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:,.;]*)?)';
