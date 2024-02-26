@@ -12,7 +12,7 @@ import 'package:dokkan/splash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/ui/changePassword/change_password_widget.dart';
-
+import 'package:authentication/ui/register/register_widget.dart';
 import 'flavors.dart';
 
 

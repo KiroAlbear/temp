@@ -24,6 +24,7 @@ class OtpWidget extends StatefulWidget {
 class _OtpWidgetState extends State<OtpWidget> {
   late DropDownMapper _countryDropDownMapper;
   late String _mobileNumber;
+  late String _nextScreen;
   String? _signature;
   final OtpBloc _bloc = OtpBloc();
 
@@ -116,6 +117,8 @@ class _OtpWidgetState extends State<OtpWidget> {
           as List<Object>)[0] as DropDownMapper;
       _mobileNumber = (ModalRoute.of(context)?.settings.arguments
           as List<Object>)[1] as String;
+      _nextScreen = (ModalRoute.of(context)?.settings.arguments
+      as List<Object>)[2] as String;
     }
   }
 
@@ -171,7 +174,7 @@ class _OtpWidgetState extends State<OtpWidget> {
             List<Object> arguments = [];
             arguments.add(_bloc.userData);
             CustomNavigatorModule.navigatorKey.currentState?.pushNamed(
-                AppScreenEnum.changePassword.name,
+                _nextScreen,
                 arguments: arguments);
           }
         },

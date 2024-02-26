@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--    location permission here-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+<!--    end of location permission-->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"

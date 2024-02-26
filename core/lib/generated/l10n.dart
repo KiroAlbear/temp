@@ -449,6 +449,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Register new account`
+  String get registerNewAccount {
+    return Intl.message(
+      'Register new account',
+      name: 'registerNewAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Once you press on next you will receive message to activate your account`
+  String get registerMessageOtp {
+    return Intl.message(
+      'Once you press on next you will receive message to activate your account',
+      name: 'registerMessageOtp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account?`
+  String get haveAccount {
+    return Intl.message(
+      'Already have an account?',
+      name: 'haveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get Login {
+    return Intl.message(
+      'Login',
+      name: 'Login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get fullName {
+    return Intl.message(
+      'Full name',
+      name: 'fullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter full name`
+  String get enterFullName {
+    return Intl.message(
+      'Enter full name',
+      name: 'enterFullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Establishment name`
+  String get platformName {
+    return Intl.message(
+      'Establishment name',
+      name: 'platformName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter establishment name`
+  String get enterPlatformName {
+    return Intl.message(
+      'Enter establishment name',
+      name: 'enterPlatformName',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AtLeastOneSpecialCharacter":
             MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على رمز (@#_,)"),
+        "Login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "atLeastOneCapChar": MessageLookupByLibrary.simpleMessage(
             "يجب أن تحتوي على حرف كبير على الأقل"),
         "atLeastOneNumber": MessageLookupByLibrary.simpleMessage(
@@ -47,8 +48,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني مطلوب"),
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("ادخل تاكيد كلمة السر"),
+        "enterFullName":
+            MessageLookupByLibrary.simpleMessage("ادخل اسمك بالكامل"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك"),
+        "enterPlatformName":
+            MessageLookupByLibrary.simpleMessage("ادخل اسم المنشأه"),
         "enterVerificationCode":
             MessageLookupByLibrary.simpleMessage("ادخل رمز التفعيل"),
         "enterVerificationCodeSentTo": m0,
@@ -59,8 +64,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "failed": MessageLookupByLibrary.simpleMessage("فشل"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة السر؟"),
+        "fullName": MessageLookupByLibrary.simpleMessage("الاسم بالكامل"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "خطأ عام.\nيرجى المحاولة مرة أخرى في وقت لاحق!"),
+        "haveAccount": MessageLookupByLibrary.simpleMessage("لديك حساب؟"),
         "inValidEmail":
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
@@ -80,6 +87,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور وتأكيد كلمة المرور غير متطابقين"),
+        "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
+        "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
+            "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
+        "registerNewAccount":
+            MessageLookupByLibrary.simpleMessage("تسجيل حساب جديد"),
         "registerNow": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
         "required": MessageLookupByLibrary.simpleMessage("حقل مطلوب"),
         "resendOtpAfter": m2,

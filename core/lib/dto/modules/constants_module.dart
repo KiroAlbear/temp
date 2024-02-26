@@ -1,5 +1,5 @@
 class ConstantModule {
-  static const String appTitle = "Availo Kiosk";
+  static const String appTitle = "Dokkan";
 
   /// debug, live or stage versioning
   static const bool isLive = false;

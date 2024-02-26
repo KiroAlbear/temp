@@ -69,6 +69,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
             List<Object> arguments = [];
             arguments.add(_bloc.countryBloc.value!);
             arguments.add(_bloc.mobileBloc.value);
+            arguments.add(AppScreenEnum.changePassword.name);
             CustomNavigatorModule.navigatorKey.currentState
                 ?.pushNamed(AppScreenEnum.otp.name, arguments: arguments);
           }

@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AtLeastOneSpecialCharacter": MessageLookupByLibrary.simpleMessage(
             "At least one special Character"),
+        "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":
@@ -47,8 +48,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailRequired": MessageLookupByLibrary.simpleMessage("Email required"),
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("Enter confirm password"),
+        "enterFullName":
+            MessageLookupByLibrary.simpleMessage("Enter full name"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("Enter mobile number"),
+        "enterPlatformName":
+            MessageLookupByLibrary.simpleMessage("Enter establishment name"),
         "enterVerificationCode":
             MessageLookupByLibrary.simpleMessage("Enter verification code"),
         "enterVerificationCodeSentTo": m0,
@@ -59,8 +64,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "failed": MessageLookupByLibrary.simpleMessage("Failed"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
+        "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "General error.\nPlease try again later!"),
+        "haveAccount":
+            MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
@@ -78,6 +86,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("At lest 8 characters"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password didn\'t match"),
+        "platformName":
+            MessageLookupByLibrary.simpleMessage("Establishment name"),
+        "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
+            "Once you press on next you will receive message to activate your account"),
+        "registerNewAccount":
+            MessageLookupByLibrary.simpleMessage("Register new account"),
         "registerNow": MessageLookupByLibrary.simpleMessage("Register"),
         "required": MessageLookupByLibrary.simpleMessage("Filed required"),
         "resendOtpAfter": m2,

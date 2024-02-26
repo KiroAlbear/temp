@@ -38,5 +38,13 @@
   "AtLeastOneSpecialCharacter": "يجب أن تحتوي على رمز (@#_,)",
   "noSpaceAllowed": "يجب ألا تحتوي على مسافات",
   "passwordMinimumCharacters": "يجب ألا تقل عن 8 حروف",
-  "next": "التالي"
+  "next": "التالي",
+  "registerNewAccount": "تسجيل حساب جديد",
+  "registerMessageOtp": "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك",
+  "haveAccount": "لديك حساب؟",
+  "Login": "تسجيل الدخول",
+  "fullName": "الاسم بالكامل",
+  "enterFullName": "ادخل اسمك بالكامل",
+  "platformName": "اسم المنشأه",
+  "enterPlatformName": "ادخل اسم المنشأه"
 }

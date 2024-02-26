@@ -6,9 +6,6 @@ enum AppScreenEnum {
   forgetPassword,
   otp,
   changePassword,
-  newAccount,
   newAccountInfo,
-  newAccountLocation,
-  newAccountMap,
   home,
 }

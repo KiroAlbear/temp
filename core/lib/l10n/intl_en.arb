@@ -38,7 +38,15 @@
   "AtLeastOneSpecialCharacter": "At least one special Character",
   "noSpaceAllowed": "No space allowed",
   "passwordMinimumCharacters": "At lest 8 characters",
-  "next": "Next"
+  "next": "Next",
+  "registerNewAccount": "Register new account",
+  "registerMessageOtp": "Once you press on next you will receive message to activate your account",
+  "haveAccount": "Already have an account?",
+  "Login": "Login",
+  "fullName": "Full name",
+  "enterFullName": "Enter full name",
+  "platformName": "Establishment name",
+  "enterPlatformName": "Enter establishment name"
 
 
 
