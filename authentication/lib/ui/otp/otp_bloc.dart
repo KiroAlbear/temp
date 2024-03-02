@@ -4,6 +4,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/button_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
 import 'package:core/ui/bases/bloc_base.dart';
+import 'package:flutter/cupertino.dart';
 
 class OtpBloc extends BlocBase {
   final TextFormFiledBloc otpBloc = TextFormFiledBloc();
@@ -17,8 +18,7 @@ class OtpBloc extends BlocBase {
   String userData = '';
 
   OtpBloc() {
-    _startTime();
-    _timeBehaviour.sink.add(_otpTimerInSeconds);
+    _setTimerToStart();
   }
 
   Stream<bool> get enableSendOtpStream => _enableSendOtpBehaviour.stream;
@@ -32,15 +32,23 @@ class OtpBloc extends BlocBase {
       otpBloc.value.isNotEmpty && otpBloc.value.length == otpCodeLength;
 
   void sendOtp() {
-    _enableSendOtpBehaviour.sink.add(true);
+   /// TODO missing call api
+    _setTimerToStart();
+  }
+
+  void _setTimerToStart(){
+    _enableSendOtpBehaviour.sink.add(false);
+    _startTime();
+    _timeBehaviour.sink.add(_otpTimerInSeconds);
   }
 
   void _startTime() {
-    _timer = Timer.periodic(Duration(seconds: _otpTimerInSeconds), (timer) {
-      if (_timeBehaviour.value == _otpTimerInSeconds) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_timeBehaviour.value == 0) {
         timer.cancel();
+        _enableSendOtpBehaviour.sink.add(true);
       } else {
-        _timeBehaviour.sink.add(_timeBehaviour.value + 1);
+        _timeBehaviour.sink.add(_timeBehaviour.value - 1);
       }
     });
   }

@@ -1,5 +1,4 @@
 library core;
-
 export 'package:core/dto/remote/base_remote_module.dart';
 export 'package:custom_progress_button/custom_progress_button.dart';
 export 'package:dio_builder/dio_builder.dart' hide Headers, HttpResponse;
@@ -25,6 +24,9 @@ export 'package:core/dto/modules/app_default_style.dart';
 export 'package:core/ui/country_widget.dart';
 export 'package:core/ui/mobile_country_widget.dart';
 export 'package:core/dto/commonBloc/password_validation_bloc.dart';
+export 'package:core/dto/modules/local_auth_module.dart';
+export 'package:core/dto/modules/map_module.dart';
+
 // export 'package:firebase_core/firebase_core.dart';
 // export 'package:firebase_crashlytics/firebase_crashlytics.dart';
 // export 'package:firebase_analytics/firebase_analytics.dart';

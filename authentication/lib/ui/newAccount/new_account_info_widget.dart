@@ -22,6 +22,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
   @override
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 12.h,
@@ -43,7 +44,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
                   RegularStyle(fontSize: 20.sp, color: secondaryColor)),
           _platformNameTextFiled,
           SizedBox(
-            height: 260.h,
+            height: 160.h,
           ),
           _button,
         ],
@@ -56,7 +57,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
         onChanged: (value) =>
             widget.newAccountBloc.fullNameBloc.updateStringBehaviour(value),
         validator: (value) =>
-            ValidatorModule().emailValidator(context).call(value),
+            ValidatorModule().emptyValidator(context).call(value),
         textInputType: TextInputType.text,
         textInputAction: TextInputAction.next,
       );
@@ -64,11 +65,11 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
   Widget get _platformNameTextFiled => CustomTextFormFiled(
         labelText: S.of(context).platformName,
         textFiledControllerStream:
-            widget.newAccountBloc.platformNameBloc.textFormFiledStream,
+            widget.newAccountBloc.facilityNameBloc.textFormFiledStream,
         onChanged: (value) =>
-            widget.newAccountBloc.platformNameBloc.updateStringBehaviour(value),
+            widget.newAccountBloc.facilityNameBloc.updateStringBehaviour(value),
         validator: (value) =>
-            ValidatorModule().emailValidator(context).call(value),
+            ValidatorModule().emptyValidator(context).call(value),
         textInputType: TextInputType.text,
         textInputAction: TextInputAction.next,
       );
@@ -77,8 +78,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
         idleText: S.of(context).next,
         onTap: () {
           if (widget.newAccountBloc.isInfoValid) {
-            widget.newAccountBloc.stepBehaviour.sink
-                .add(NewAccountStepEnum.location);
+            widget.newAccountBloc.nextStep(NewAccountStepEnum.editLocation);
           }
         },
         buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,

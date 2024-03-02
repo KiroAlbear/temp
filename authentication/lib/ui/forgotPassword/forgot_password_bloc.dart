@@ -21,7 +21,7 @@ class ForgotPasswordBloc extends BlocBase{
   bool get isValid {
     if (countryBloc.value != null) {
       return _validatorModule.isMobileValid(
-          mobileBloc.value, countryBloc.value?.description ?? '');
+          mobileBloc.value, countryBloc.value?.customValidator ?? '');
     } else {
       return false;
     }

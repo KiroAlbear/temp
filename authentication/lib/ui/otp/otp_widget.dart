@@ -1,8 +1,8 @@
 import 'package:authentication/ui/otp/otp_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
 import 'package:core/core.dart';
-import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
+import 'package:core/dto/modules/app_provider_module.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -10,21 +10,24 @@ import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/otp_field_style.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 
 class OtpWidget extends StatefulWidget {
   final String logo;
 
-  const OtpWidget({super.key, required this.logo});
+  final AuthenticationSharedBloc authenticationSharedBloc;
+
+  const OtpWidget(
+      {super.key, required this.logo, required this.authenticationSharedBloc});
 
   @override
   State<OtpWidget> createState() => _OtpWidgetState();
 }
 
 class _OtpWidgetState extends State<OtpWidget> {
-  late DropDownMapper _countryDropDownMapper;
-  late String _mobileNumber;
-  late String _nextScreen;
   String? _signature;
   final OtpBloc _bloc = OtpBloc();
 
@@ -54,7 +57,6 @@ class _OtpWidgetState extends State<OtpWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _getDataFromArguments(context);
     return LogoTopWidget(
         canBack: true,
         logo: widget.logo,
@@ -81,7 +83,7 @@ class _OtpWidgetState extends State<OtpWidget> {
               SizedBox(
                 height: 68.h,
               ),
-              _sendOtpAgain,
+              Center(child: _sendOtpAgain),
               SizedBox(
                 height: 12.h,
               ),
@@ -89,42 +91,77 @@ class _OtpWidgetState extends State<OtpWidget> {
             ])));
   }
 
-  Widget get _otpWidget => TextFieldPin(
-      textController: _bloc.otpBloc.textFormFiledBehaviour.value,
-      autoFocus: true,
-      codeLength: _bloc.otpCodeLength,
-      alignment: MainAxisAlignment.center,
-      defaultBoxSize: 50.h,
-      margin: 0,
-      selectedBoxSize: 50.h,
-      textStyle:
-          SemiBoldStyle(color: secondaryColor, fontSize: 32.sp).getStyle(),
-      defaultDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.w),
-          border: Border.all(color: greyColor, width: 1)),
-      selectedDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.w),
-          border: Border.all(color: secondaryColor, width: 1)),
-      onChange: (code) {
-        _bloc.otpBloc.textFormFiledBehaviour.sink
-            .add(TextEditingController(text: code));
-        _bloc.otpBloc.updateStringBehaviour(code);
-      });
+ /* Widget get _otpWidget => StreamBuilder<TextEditingController>(
+      stream: _bloc.otpBloc.textFormFiledStream,
+      initialData: TextEditingController(text: ''),
+      builder: (context, snapshot) => Directionality(
+            textDirection: AppProviderModule().locale == 'en'
+                ? TextDirection.ltr
+                : TextDirection.rtl,
+            child: TextFieldPin(
+              autoFocus: true,
+              codeLength: _bloc.otpCodeLength,
+              alignment: MainAxisAlignment.center,
+              defaultBoxSize: 45.h,
+              margin: 6.w,
+              selectedBoxSize: 45.h,
+              textStyle: SemiBoldStyle(color: secondaryColor, fontSize: 32.sp)
+                  .getStyle(),
+              defaultDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.w),
+                  border: Border.all(color: greyColor, width: 1)),
+              selectedDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.w),
+                  border: Border.all(color: secondaryColor, width: 1)),
+              onChange: (code) {
+                _bloc.otpBloc.textFormFiledBehaviour.sink
+                    .add(TextEditingController(text: code));
+                _bloc.otpBloc.updateStringBehaviour(code);
+              },
+              textController: snapshot.data ?? TextEditingController(text: ''),
+            ),
+          ));*/
 
-  void _getDataFromArguments(BuildContext context) {
-    if (ModalRoute.of(context)?.settings.arguments != null) {
-      _countryDropDownMapper = (ModalRoute.of(context)?.settings.arguments
-          as List<Object>)[0] as DropDownMapper;
-      _mobileNumber = (ModalRoute.of(context)?.settings.arguments
-          as List<Object>)[1] as String;
-      _nextScreen = (ModalRoute.of(context)?.settings.arguments
-      as List<Object>)[2] as String;
-    }
-  }
+  Widget get _otpWidget => StreamBuilder<TextEditingController>(
+      stream: _bloc.otpBloc.textFormFiledStream,
+      initialData: TextEditingController(text: ''),
+      builder: (context, snapshot) => Directionality(
+        textDirection: AppProviderModule().locale == 'en'
+            ? TextDirection.ltr
+            : TextDirection.rtl,
+        child: OTPTextField(
+          width: MediaQuery.of(context).size.width,
+          controller: OtpFieldController(),
+          length: _bloc.otpCodeLength,
+          fieldStyle: FieldStyle.box,
+          keyboardType: TextInputType.number,
+          otpFieldStyle: OtpFieldStyle(
+            backgroundColor: whiteColor,
+            borderColor: greyColor,
+            disabledBorderColor: greyColor,
+            enabledBorderColor: greyColor,
+            focusBorderColor: secondaryColor,
+            errorBorderColor: redColor,
+          ),
+          style: SemiBoldStyle(color: secondaryColor, fontSize: 32.sp)
+              .getStyle(),
+          outlineBorderRadius: 5.w,
+          spaceBetween: 12.w,
+          fieldWidth: 50.w,
+          obscureText: false,
+          isDense: false,
+          onChanged: (value){
+            _bloc.otpBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: value));
+            _bloc.otpBloc.updateStringBehaviour(value);
+          },
+        ),
+      ));
 
   Widget get _otpWithMobile => CustomText(
-      text: S.of(context).enterVerificationCodeSentTo(_bloc.otpCodeLength,
-          _countryDropDownMapper.description + _mobileNumber),
+      text: S.of(context).enterVerificationCodeSentTo(
+          _bloc.otpCodeLength,
+          widget.authenticationSharedBloc.countryMapper.description +
+              widget.authenticationSharedBloc.mobile),
       customTextStyle: RegularStyle(fontSize: 14.sp, color: secondaryColor));
 
   Widget get _sendOtpAgain => StreamBuilder(
@@ -138,11 +175,11 @@ class _OtpWidgetState extends State<OtpWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Visibility(
-                visible: (enableSnapShot.data ?? false),
+                visible: !(enableSnapShot.data ?? false),
                 child: CustomText(
                     text: S
                         .of(context)
-                        .resendOtpAfter('${timeSnapShot.data ?? 60}:00'),
+                        .resendOtpAfter('00:${timeSnapShot.data ?? 60}'),
                     customTextStyle:
                         RegularStyle(color: secondaryColor, fontSize: 14.sp)),
               ),
@@ -159,7 +196,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                       text: S.of(context).sendOtpAgain,
                       customTextStyle: RegularStyle(
                           fontSize: 14.sp,
-                          color: (enableSnapShot.data ?? false)
+                          color: !(enableSnapShot.data ?? false)
                               ? greyColor
                               : secondaryColor)))
             ],
@@ -171,11 +208,10 @@ class _OtpWidgetState extends State<OtpWidget> {
         idleText: S.of(context).validateOtp,
         onTap: () {
           if (_bloc.isValid) {
-            List<Object> arguments = [];
-            arguments.add(_bloc.userData);
-            CustomNavigatorModule.navigatorKey.currentState?.pushNamed(
-                _nextScreen,
-                arguments: arguments);
+            widget.authenticationSharedBloc.userData = _bloc.userData;
+            CustomNavigatorModule.navigatorKey.currentState?.pushReplacementNamed(
+              widget.authenticationSharedBloc.nextScreen,
+            );
           }
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,

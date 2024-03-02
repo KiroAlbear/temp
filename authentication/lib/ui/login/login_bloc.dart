@@ -13,6 +13,18 @@ class LoginBloc extends BlocBase {
   final TextFormFiledBloc passwordBloc = TextFormFiledBloc();
   final DropDownBloc countryBloc = DropDownBloc();
   final ValidatorModule _validatorModule = ValidatorModule();
+  final BehaviorSubject<bool> _biometricSupportedBehaviour = BehaviorSubject()..sink.add(false);
+
+
+  Stream<bool> get biometricSupportedStream=> _biometricSupportedBehaviour.stream;
+
+  LoginBloc(){
+    _checkBiometricSupported();
+  }
+
+  void _checkBiometricSupported(){
+    LocalAuthModule().isSupported.then((value) => _biometricSupportedBehaviour.sink.add(value));
+  }
 
   Stream<bool> get validate => Rx.combineLatest3(
       mobileBloc.stringStream,
@@ -23,7 +35,7 @@ class LoginBloc extends BlocBase {
   bool get isValid {
     if (countryBloc.value != null) {
       return _validatorModule.isMobileValid(
-              mobileBloc.value, countryBloc.value?.description ?? '') &&
+              mobileBloc.value, countryBloc.value?.customValidator ?? '') &&
           _validatorModule.isPasswordValid(passwordBloc.value);
     } else {
       return false;
@@ -96,6 +108,8 @@ class LoginBloc extends BlocBase {
             image:
                 'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
       ];
+
+  Future<bool> authenticateWithBiometric(String message)=> LocalAuthModule().isAuthenticated(message);
 
   @override
   void dispose() {

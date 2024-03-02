@@ -46,7 +46,7 @@ class MobileCountryWidget extends StatelessWidget {
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.number,
         validator: (value) => ValidatorModule()
-            .mobileValidator(context, countryBloc.value?.description)
+            .mobileValidator(context, countryBloc.value?.customValidator)
             .call(value),
       );
 }

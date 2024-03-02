@@ -21,12 +21,12 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   static String m0(codeLength, mobileNumber) =>
-      "Enter \$${codeLength} number sent to \$${mobileNumber}";
+      "Enter ${codeLength} number sent to ${mobileNumber}";
 
   static String m1(PermissionName) =>
-      "\$${PermissionName} has been denied. our app required this permission in order to continue.";
+      "${PermissionName} has been denied. our app required this permission in order to continue.";
 
-  static String m2(time) => "Resend OTP after \$${time} seconds";
+  static String m2(time) => "Resend OTP after ${time} seconds";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -39,21 +39,34 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("At least one number"),
         "atLeastOneSmallLetter":
             MessageLookupByLibrary.simpleMessage("At least one small letter"),
+        "biometricLoginMessage": MessageLookupByLibrary.simpleMessage(
+            "Please authenticate to login"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseYourCountry":
             MessageLookupByLibrary.simpleMessage("Choose your country"),
+        "city": MessageLookupByLibrary.simpleMessage("Governorate"),
+        "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to exit Dokkan?"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "emailRequired": MessageLookupByLibrary.simpleMessage("Email required"),
+        "enterCity": MessageLookupByLibrary.simpleMessage(
+            "Enter the name of the governorate"),
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("Enter confirm password"),
         "enterFullName":
             MessageLookupByLibrary.simpleMessage("Enter full name"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("Enter mobile number"),
+        "enterNeighborhood":
+            MessageLookupByLibrary.simpleMessage("Enter the neighborhood name"),
         "enterPlatformName":
             MessageLookupByLibrary.simpleMessage("Enter establishment name"),
+        "enterStreetName": MessageLookupByLibrary.simpleMessage(
+            "Enter the building number and street name"),
         "enterVerificationCode":
             MessageLookupByLibrary.simpleMessage("Enter verification code"),
         "enterVerificationCodeSentTo": m0,
@@ -72,8 +85,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
+        "locationYourLocation":
+            MessageLookupByLibrary.simpleMessage("Locate your location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
+        "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No internet Connection.\nPlease try again later"),
@@ -86,8 +102,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("At lest 8 characters"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password didn\'t match"),
+        "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to select this location?"),
         "platformName":
             MessageLookupByLibrary.simpleMessage("Establishment name"),
+        "previous": MessageLookupByLibrary.simpleMessage("previous"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "Once you press on next you will receive message to activate your account"),
         "registerNewAccount":
@@ -96,11 +115,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "required": MessageLookupByLibrary.simpleMessage("Filed required"),
         "resendOtpAfter": m2,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "selectLocation":
+            MessageLookupByLibrary.simpleMessage("Select your location"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("Send OTP"),
         "sendOtpAgain": MessageLookupByLibrary.simpleMessage("Send OTP again"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "streetName": MessageLookupByLibrary.simpleMessage(
+            "Building number / street name"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
+        "welcomeToDokkan":
+            MessageLookupByLibrary.simpleMessage("Welcome to Dokkan"),
+        "youCanStartOrderNow":
+            MessageLookupByLibrary.simpleMessage("You can start order now"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")
       };
 }

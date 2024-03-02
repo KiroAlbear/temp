@@ -9,11 +9,15 @@ import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 
 class ForgotPasswordWidget extends StatefulWidget {
   final String logo;
 
-  const ForgotPasswordWidget({super.key, required this.logo});
+  final AuthenticationSharedBloc authenticationSharedBloc;
+
+  const ForgotPasswordWidget(
+      {super.key, required this.logo, required this.authenticationSharedBloc});
 
   @override
   State<ForgotPasswordWidget> createState() => _ForgotPasswordWidgetState();
@@ -66,12 +70,12 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
         idleText: S.of(context).loginEnter,
         onTap: () {
           if (_bloc.isValid) {
-            List<Object> arguments = [];
-            arguments.add(_bloc.countryBloc.value!);
-            arguments.add(_bloc.mobileBloc.value);
-            arguments.add(AppScreenEnum.changePassword.name);
+            widget.authenticationSharedBloc.setDataToAuth(
+                _bloc.countryBloc.value!,
+                _bloc.mobileBloc.value,
+                AppScreenEnum.changePassword.name);
             CustomNavigatorModule.navigatorKey.currentState
-                ?.pushNamed(AppScreenEnum.otp.name, arguments: arguments);
+                ?.pushReplacementNamed(AppScreenEnum.otp.name);
           }
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,

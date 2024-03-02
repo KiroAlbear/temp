@@ -1,3 +1,4 @@
+import 'package:core/dto/modules/logger_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -36,13 +37,14 @@ class ValidatorModule {
   bool isPasswordValid(String? value, {BuildContext? context}) =>
       passwordValidator(context).isValid(value);
 
-  MultiValidator customValidator(BuildContext? context, String regex) => MultiValidator([
-    RequiredValidator(
-        errorText: context == null ? '' : S.of(context).required),
-    PatternValidator(regex, errorText: '')
-  ]);
+  MultiValidator customValidator(BuildContext? context, String regex) =>
+      MultiValidator([
+        RequiredValidator(
+            errorText: context == null ? '' : S.of(context).required),
+        PatternValidator(regex, errorText: '')
+      ]);
 
-  bool isCustomValid(String? value, String regex,{BuildContext? context}) =>
+  bool isCustomValid(String? value, String regex, {BuildContext? context}) =>
       customValidator(context, regex).isValid(value);
 
   /// match filed validation
@@ -51,14 +53,15 @@ class ValidatorModule {
 
   isMatchValid(String? value1, String? value2, {BuildContext? context}) =>
       value1 != null && value2 != null
-          ? matchValidator(context).validateMatch(value1, value2)
+          ? value1 == value2
           : false;
 
   /// mobile validator
-  MultiValidator mobileValidator(BuildContext? context, String? mobileRegex) => MultiValidator([
+  MultiValidator mobileValidator(BuildContext? context, String? mobileRegex) =>
+      MultiValidator([
         RequiredValidator(
             errorText: context == null ? "" : S.of(context).required),
-        PatternValidator(mobileRegex?? ConstantModule.mobileRegex,
+        PatternValidator(mobileRegex ?? ConstantModule.mobileRegex,
             errorText: context == null ? "" : S.of(context).invalidMobile)
       ]);
 

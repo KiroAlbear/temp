@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 
 class PasswordValidationWidget extends StatefulWidget {
   final TextEditingController passwordController;
+  final ValueChanged<bool>? isValid;
 
-  const PasswordValidationWidget({super.key, required this.passwordController});
+  const PasswordValidationWidget({super.key, required this.passwordController,this.isValid});
 
   @override
   State<PasswordValidationWidget> createState() =>
@@ -22,11 +23,17 @@ class _PasswordValidationWidgetState extends State<PasswordValidationWidget> {
   void initState() {
     super.initState();
     _bloc = PasswordValidationBloc(widget.passwordController);
+    _bloc.isAllValid.listen((event) {
+      if(widget.isValid !=null){
+        widget.isValid!(event);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _passwordType(_bloc.passwordLengthStream,
               S.of(context).passwordMinimumCharacters),

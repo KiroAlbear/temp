@@ -2,6 +2,8 @@ import 'package:authentication/ui/changePassword/change_password_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
 import 'package:authentication/ui/widget/password_validation_widget.dart';
 import 'package:core/core.dart';
+import 'package:core/dto/modules/logger_module.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
@@ -15,8 +17,10 @@ import 'package:flutter/material.dart';
 
 class ChangePasswordWidget extends StatefulWidget {
   final String logo;
+  final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const ChangePasswordWidget({super.key, required this.logo});
+  const ChangePasswordWidget(
+      {super.key, required this.logo, required this.authenticationSharedBloc});
 
   @override
   State<ChangePasswordWidget> createState() => _ChangePasswordWidgetState();
@@ -24,6 +28,11 @@ class ChangePasswordWidget extends StatefulWidget {
 
 class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
   final ChangePasswordBloc _bloc = ChangePasswordBloc();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => LogoTopWidget(
@@ -68,8 +77,9 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
               height: 8.h,
             ),
             PasswordValidationWidget(
-                passwordController:
-                    _bloc.passwordBloc.textFormFiledBehaviour.value),
+              passwordController:
+                  _bloc.passwordBloc.textFormFiledBehaviour.value,
+            ),
             SizedBox(
               height: 28.h,
             ),
@@ -83,6 +93,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
         labelText: S.of(context).enterYourPassword,
         textInputAction: TextInputAction.next,
+    textInputType: TextInputType.text,
         validator: (value) =>
             ValidatorModule().passwordValidator(context).call(value),
         isPassword: true,
@@ -95,9 +106,10 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
             _bloc.confirmPasswordBloc.textFormFiledStream,
         labelText: S.of(context).enterConfirmPassword,
         textInputAction: TextInputAction.done,
+        textInputType: TextInputType.text,
         validator: (value) => ValidatorModule()
             .matchValidator(context)
-            .validateMatch(value ?? '', _bloc.confirmPasswordBloc.value),
+            .validateMatch(value ?? '', _bloc.passwordBloc.value),
         isPassword: true,
       );
 
@@ -106,11 +118,11 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         onTap: () {
           if (_bloc.isValid) {
             CustomNavigatorModule.navigatorKey.currentState
-                ?.pushNamed(AppScreenEnum.login.name);
+                ?.pushReplacementNamed(AppScreenEnum.login.name);
           }
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
         failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-        validateStream: _bloc.validate,
+        validateStream: _bloc.validateStream,
       );
 }

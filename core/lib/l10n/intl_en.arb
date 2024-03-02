@@ -14,7 +14,7 @@
   "success": "Success",
   "ok": "Ok",
   "generalError": "General error.\nPlease try again later!",
-  "openSetting": "${PermissionName} has been denied. our app required this permission in order to continue.",
+  "openSetting": "{PermissionName} has been denied. our app required this permission in order to continue.",
   "noInternetConnection": "No internet Connection.\nPlease try again later",
   "emailRequired": "Email required",
   "inValidEmail": "Invalid email",
@@ -25,8 +25,8 @@
   "sendOTP": "Send OTP",
   "skip": "Skip",
   "enterVerificationCode": "Enter verification code",
-  "enterVerificationCodeSentTo": "Enter ${codeLength} number sent to ${mobileNumber}",
-  "resendOtpAfter": "Resend OTP after ${time} seconds",
+  "enterVerificationCodeSentTo": "Enter {codeLength} number sent to {mobileNumber}",
+  "resendOtpAfter": "Resend OTP after {time} seconds",
   "sendOtpAgain": "Send OTP again",
   "validateOtp": "Validate",
   "resetPassword": "Reset password",
@@ -46,7 +46,25 @@
   "fullName": "Full name",
   "enterFullName": "Enter full name",
   "platformName": "Establishment name",
-  "enterPlatformName": "Enter establishment name"
+  "enterPlatformName": "Enter establishment name",
+  "biometricLoginMessage": "Please authenticate to login",
+  "createAccount": "Create account",
+  "locationYourLocation": "Locate your location",
+  "selectLocation": "Select your location",
+  "streetName": "Building number / street name",
+  "enterStreetName": "Enter the building number and street name",
+  "neighborhood": "District",
+  "enterNeighborhood": "Enter the neighborhood name",
+  "city": "Governorate",
+  "enterCity": "Enter the name of the governorate",
+  "previous": "previous",
+  "pickLocationEnsureMessage": "Are you sure you want to select this location?",
+  "cancel" :"Cancel",
+  "welcomeToDokkan": "Welcome to Dokkan",
+  "youCanStartOrderNow": "You can start order now",
+  "start": "Start",
+  "closeApplicationMessage": "Are you sure you want to exit Dokkan?"
+
 
 
 

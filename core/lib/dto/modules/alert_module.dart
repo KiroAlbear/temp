@@ -88,8 +88,10 @@ class AlertModule {
       }
     });
     Future.delayed(const Duration(seconds: 4)).then((value) {
-      isBannerShowed = false;
-      ScaffoldMessenger.maybeOf(context)?.hideCurrentMaterialBanner();
+      if(materialBannerType  != MaterialBannerType.info){
+        isBannerShowed = false;
+        ScaffoldMessenger.maybeOf(context)?.hideCurrentMaterialBanner();
+      }
     });
     // _showSnakeBar(key, duration, context, message);
   }

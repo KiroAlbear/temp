@@ -21,12 +21,12 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
   static String m0(codeLength, mobileNumber) =>
-      "ادخل ال\$${codeLength} ارقام التي ارسلناها الي رقم \$${mobileNumber}";
+      "ادخل ال${codeLength} ارقام التي ارسلناها الي رقم ${mobileNumber}";
 
   static String m1(PermissionName) =>
-      "\$${PermissionName} تم رفضه. تطبيقنا يتطلب هذا الإذن للمتابعة.";
+      "${PermissionName} تم رفضه. تطبيقنا يتطلب هذا الإذن للمتابعة.";
 
-  static String m2(time) => "يمكن إعادة ارسال الكود بعد \$${time} ثانية";
+  static String m2(time) => "يمكن إعادة ارسال الكود بعد ${time} ثانية";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -39,21 +39,33 @@ class MessageLookup extends MessageLookupByLibrary {
             "يجب أن تحتوي على رقم واحد على الأقل"),
         "atLeastOneSmallLetter": MessageLookupByLibrary.simpleMessage(
             "يجب أن تحتوي على حرف صغير على الأقل"),
+        "biometricLoginMessage":
+            MessageLookupByLibrary.simpleMessage("يرجى المصادقة لتسجيل الدخول"),
+        "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "chooseYourCountry": MessageLookupByLibrary.simpleMessage("اختر بلدك"),
+        "city": MessageLookupByLibrary.simpleMessage("المحافظة"),
+        "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد أنك تريد الخروج من دُكان؟"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
         "emailRequired":
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني مطلوب"),
+        "enterCity": MessageLookupByLibrary.simpleMessage("ادخل اسم المحافظة"),
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("ادخل تاكيد كلمة السر"),
         "enterFullName":
             MessageLookupByLibrary.simpleMessage("ادخل اسمك بالكامل"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك"),
+        "enterNeighborhood":
+            MessageLookupByLibrary.simpleMessage("ادخل اسم الحي"),
         "enterPlatformName":
             MessageLookupByLibrary.simpleMessage("ادخل اسم المنشأه"),
+        "enterStreetName": MessageLookupByLibrary.simpleMessage(
+            "ادخل رقم البناية واسم الشارع"),
         "enterVerificationCode":
             MessageLookupByLibrary.simpleMessage("ادخل رمز التفعيل"),
         "enterVerificationCodeSentTo": m0,
@@ -73,8 +85,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidMobile":
             MessageLookupByLibrary.simpleMessage("رقم الجوال غير صالح"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
+        "locationYourLocation":
+            MessageLookupByLibrary.simpleMessage("حدد مكان محللك"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
+        "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "لا يوجد اتصال بالإنترنت.\nيرجى المحاولة مرة أخرى لاحقًا"),
@@ -87,22 +102,33 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور وتأكيد كلمة المرور غير متطابقين"),
+        "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
+        "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
         "registerNewAccount":
             MessageLookupByLibrary.simpleMessage("تسجيل حساب جديد"),
-        "registerNow": MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+        "registerNow": MessageLookupByLibrary.simpleMessage("انشئ حساب جديد"),
         "required": MessageLookupByLibrary.simpleMessage("حقل مطلوب"),
         "resendOtpAfter": m2,
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
+        "selectLocation": MessageLookupByLibrary.simpleMessage("حدد موقعك"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("ارسال كود التحقيق"),
         "sendOtpAgain":
             MessageLookupByLibrary.simpleMessage("ارسال الكود مرة أخري"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+        "start": MessageLookupByLibrary.simpleMessage("ابدأ"),
+        "streetName":
+            MessageLookupByLibrary.simpleMessage("رقم البناية / اسم الشارع"),
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
+        "welcomeToDokkan":
+            MessageLookupByLibrary.simpleMessage("مرحباً بك في دُكان"),
+        "youCanStartOrderNow":
+            MessageLookupByLibrary.simpleMessage("تقدر تطلب دلوقتي"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
       };
 }

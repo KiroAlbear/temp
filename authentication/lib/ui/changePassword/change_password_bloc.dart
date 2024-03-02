@@ -3,6 +3,7 @@ import 'package:core/dto/commonBloc/button_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/ui/bases/bloc_base.dart';
+import 'package:flutter/cupertino.dart';
 
 class ChangePasswordBloc extends BlocBase {
   final TextFormFiledBloc passwordBloc = TextFormFiledBloc();
@@ -11,8 +12,9 @@ class ChangePasswordBloc extends BlocBase {
 
   final ValidatorModule _validatorModule = ValidatorModule();
 
-  Stream<bool> get validate => Rx.combineLatest2(passwordBloc.stringStream,
-      confirmPasswordBloc.stringStream, (password, confirmPassword) => isValid);
+  Stream<bool> get validateStream => Rx.combineLatest(
+      [passwordBloc.stringStream, confirmPasswordBloc.stringStream],
+      (value) => isValid);
 
   bool get isValid =>
       _validatorModule.isPasswordValid(passwordBloc.value) &&

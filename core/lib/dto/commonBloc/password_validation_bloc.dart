@@ -30,6 +30,22 @@ class PasswordValidationBloc extends BlocBase {
 
   Stream<bool> get noSpaceStream => _noSpaceBehaviour.stream;
 
+  Stream<bool> get isAllValid => Rx.combineLatest6(
+      capitalCharStream,
+      smallCharStream,
+      numberStream,
+      passwordLengthStream,
+      specialCharStream,
+      noSpaceStream,
+      (hasCapChar, hasSmallChar, hasNumber, matchPasswordLength, hasSpecialChar,
+              noSpaceAllowed) =>
+          hasCapChar &&
+          hasSmallChar &&
+          hasNumber &&
+          matchPasswordLength &&
+          hasSpecialChar &&
+          noSpaceAllowed);
+
   PasswordValidationBloc(TextEditingController textEditingController) {
     ValidatorModule validatorModule = ValidatorModule();
     textEditingController.addListener(() {
@@ -71,7 +87,8 @@ class PasswordValidationBloc extends BlocBase {
   }
 
   void _validateLength(ValidatorModule validatorModule, String value) {
-    if (validatorModule.isCustomValid(value, ConstantModule.passwordLength)) {
+    if (value.length == ConstantModule.passwordMinLength ||
+        value.length > ConstantModule.passwordMinLength) {
       _passwordLengthBehaviour.sink.add(true);
     } else {
       _passwordLengthBehaviour.sink.add(false);

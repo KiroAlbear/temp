@@ -14,13 +14,15 @@ class LogoTopWidget extends BaseStatefulWidget {
   final Widget child;
   final String logo;
   final BlocBase blocBase;
+  final bool canSkip;
 
   const LogoTopWidget(
       {super.key,
       required this.canBack,
       required this.child,
       required this.logo,
-      required this.blocBase});
+      required this.blocBase,
+      this.canSkip = false});
 
   @override
   State<LogoTopWidget> createState() => _LogoTopWidgetState();
@@ -39,7 +41,7 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _skipText,
+              if (widget.canSkip) _skipText,
               SizedBox(
                 height: 90.h,
               ),
@@ -65,20 +67,32 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
         ),
       );
 
-  Widget get _skipText => InkWell(
-        onTap: () => CustomNavigatorModule.navigatorKey.currentState
-            ?.pushNamed(AppScreenEnum.home.name),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-          child: CustomText(
-              text: S.of(context).skip,
-              customTextStyle: MediumStyle(fontSize: 14.sp, color: blackColor)),
-        ),
+  Widget get _skipText => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          InkWell(
+            onTap: () => CustomNavigatorModule.navigatorKey.currentState
+                ?.pushReplacementNamed(AppScreenEnum.home.name),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+              child: CustomText(
+                  text: S.of(context).skip,
+                  customTextStyle:
+                      MediumStyle(fontSize: 14.sp, color: blackColor)),
+            ),
+          ),
+        ],
       );
+
+  @override
+  void onPopInvoked(didPop) {
+    super.onPopInvoked(didPop);
+    handleCloseApplication();
+  }
 
   @override
   bool isSafeArea() => true;
 
   @override
-  bool canPop() => widget.canBack;
+  bool canPop() => false;
 }

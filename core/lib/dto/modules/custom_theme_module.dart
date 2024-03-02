@@ -14,20 +14,35 @@ class CustomTheme {
       bottomNavigationBarTheme: _whiteBottomNavigationBarThemeData,
       hoverColor: primaryColorLightMode,
       highlightColor: primaryColorLightMode,
+      textTheme: TextTheme(
+        bodyLarge: MediumStyle(color: secondaryLightMode, fontSize: 12.sp).getStyle(),
+      ),
+      listTileTheme: ListTileThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.w),
+        ),
+        textColor: secondaryLightMode,
+        subtitleTextStyle: MediumStyle(color: secondaryLightMode, fontSize: 10.sp).getStyle(),
+        titleTextStyle: MediumStyle(color: secondaryLightMode, fontSize: 10.sp).getStyle(),
+          dense: true,
+      ),
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: primaryColorLightMode,
-        onPrimary: primaryColorLightMode.withOpacity(0.8),
+        onPrimary: primaryColorLightMode,
         secondary: secondaryLightMode,
-        onSecondary: secondaryLightMode.withOpacity(0.8),
+        onSecondary: secondaryLightMode,
         error: redColorLightMode,
-        onError: redColorLightMode.withOpacity(0.8),
-        errorContainer: redColorLightMode.withOpacity(0.8),
+        onError: redColorLightMode,
+        errorContainer: redColorLightMode,
         background: whiteColor,
-        onBackground: whiteColor.withOpacity(0.8),
-        surface: lightGreyColorLightMode.withOpacity(0.4),
-        onSurface: lightGreyColorLightMode.withOpacity(0.4),
-      ));
+        onBackground: whiteColor,
+        surface: lightGreyColorLightMode,
+        onSurface: lightGreyColorLightMode,
+        outline: secondaryLightMode,
+        onSurfaceVariant: secondaryLightMode,
+      )
+  );
 
   ThemeData get darkTheme => ThemeData(
       scaffoldBackgroundColor: secondaryLightMode,
@@ -36,19 +51,34 @@ class CustomTheme {
       bottomNavigationBarTheme: _darkBottomNavigationBarThemeData,
       hoverColor: primaryColorDarkMode,
       highlightColor: primaryColorDarkMode,
+      textTheme: TextTheme(
+        bodyLarge: MediumStyle(color: secondaryDarkMode, fontSize: 12.sp).getStyle(),
+      ),
+      listTileTheme: ListTileThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.w),
+        ),
+        textColor: secondaryDarkMode,
+        subtitleTextStyle: MediumStyle(color: secondaryDarkMode, fontSize: 10.sp).getStyle(),
+        titleTextStyle: MediumStyle(color: secondaryDarkMode, fontSize: 10.sp).getStyle(),
+        dense: true,
+      ),
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: primaryColorDarkMode,
-        onPrimary: primaryColorDarkMode.withOpacity(0.8),
+        onPrimary: primaryColorDarkMode,
         secondary: secondaryDarkMode,
-        onSecondary: secondaryDarkMode.withOpacity(0.8),
+        onSecondary: secondaryDarkMode,
         error: redColorDarkMode,
-        onError: redColorDarkMode.withOpacity(0.8),
-        errorContainer: redColorDarkMode.withOpacity(0.8),
+        onError: redColorDarkMode,
+        errorContainer: redColorDarkMode,
         background: secondaryLightMode,
-        onBackground: blackColor.withOpacity(0.8),
-        surface: lightGreyColorDarkMode.withOpacity(0.4),
-        onSurface: lightGreyColorDarkMode.withOpacity(0.4),));
+        onBackground: blackColor,
+        surface: lightGreyColorDarkMode,
+        onSurface: lightGreyColorDarkMode,
+        outline: secondaryColor,
+        onSurfaceVariant: secondaryColor,
+      ));
 
   BottomNavigationBarThemeData get _whiteBottomNavigationBarThemeData =>
       BottomNavigationBarThemeData(

@@ -200,10 +200,10 @@ class S {
     );
   }
 
-  /// `${PermissionName} has been denied. our app required this permission in order to continue.`
+  /// `{PermissionName} has been denied. our app required this permission in order to continue.`
   String openSetting(Object PermissionName) {
     return Intl.message(
-      '\$$PermissionName has been denied. our app required this permission in order to continue.',
+      '$PermissionName has been denied. our app required this permission in order to continue.',
       name: 'openSetting',
       desc: '',
       args: [PermissionName],
@@ -310,20 +310,20 @@ class S {
     );
   }
 
-  /// `Enter ${codeLength} number sent to ${mobileNumber}`
+  /// `Enter {codeLength} number sent to {mobileNumber}`
   String enterVerificationCodeSentTo(Object codeLength, Object mobileNumber) {
     return Intl.message(
-      'Enter \$$codeLength number sent to \$$mobileNumber',
+      'Enter $codeLength number sent to $mobileNumber',
       name: 'enterVerificationCodeSentTo',
       desc: '',
       args: [codeLength, mobileNumber],
     );
   }
 
-  /// `Resend OTP after ${time} seconds`
+  /// `Resend OTP after {time} seconds`
   String resendOtpAfter(Object time) {
     return Intl.message(
-      'Resend OTP after \$$time seconds',
+      'Resend OTP after $time seconds',
       name: 'resendOtpAfter',
       desc: '',
       args: [time],
@@ -525,6 +525,176 @@ class S {
     return Intl.message(
       'Enter establishment name',
       name: 'enterPlatformName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please authenticate to login`
+  String get biometricLoginMessage {
+    return Intl.message(
+      'Please authenticate to login',
+      name: 'biometricLoginMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create account`
+  String get createAccount {
+    return Intl.message(
+      'Create account',
+      name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Locate your location`
+  String get locationYourLocation {
+    return Intl.message(
+      'Locate your location',
+      name: 'locationYourLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select your location`
+  String get selectLocation {
+    return Intl.message(
+      'Select your location',
+      name: 'selectLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building number / street name`
+  String get streetName {
+    return Intl.message(
+      'Building number / street name',
+      name: 'streetName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the building number and street name`
+  String get enterStreetName {
+    return Intl.message(
+      'Enter the building number and street name',
+      name: 'enterStreetName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `District`
+  String get neighborhood {
+    return Intl.message(
+      'District',
+      name: 'neighborhood',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the neighborhood name`
+  String get enterNeighborhood {
+    return Intl.message(
+      'Enter the neighborhood name',
+      name: 'enterNeighborhood',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Governorate`
+  String get city {
+    return Intl.message(
+      'Governorate',
+      name: 'city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the name of the governorate`
+  String get enterCity {
+    return Intl.message(
+      'Enter the name of the governorate',
+      name: 'enterCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `previous`
+  String get previous {
+    return Intl.message(
+      'previous',
+      name: 'previous',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to select this location?`
+  String get pickLocationEnsureMessage {
+    return Intl.message(
+      'Are you sure you want to select this location?',
+      name: 'pickLocationEnsureMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to Dokkan`
+  String get welcomeToDokkan {
+    return Intl.message(
+      'Welcome to Dokkan',
+      name: 'welcomeToDokkan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can start order now`
+  String get youCanStartOrderNow {
+    return Intl.message(
+      'You can start order now',
+      name: 'youCanStartOrderNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to exit Dokkan?`
+  String get closeApplicationMessage {
+    return Intl.message(
+      'Are you sure you want to exit Dokkan?',
+      name: 'closeApplicationMessage',
       desc: '',
       args: [],
     );

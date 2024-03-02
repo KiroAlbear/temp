@@ -11,11 +11,12 @@ class ConstantModule {
   static const String lookUpUrl = 'www.google.com';
 
   /// default validation regex
-  static const String mobileRegex = r'(^[0-9]{6,12}$)';
+  static const String mobileRegex = r'(^[0-9]{9,11}$)';
   static const String passwordRegex =
       '$atLeastLowerCaseRegex$atLeastUpperCaseRegex'
       '$atLeastNumberCaseRegex$atLeastSpecialCharacter$noSpaceRegex$passwordLength';
-  static const String passwordLength = '{8,16}';
+  static const String passwordLength = '{$passwordMinLength,}';
+  static const int passwordMinLength = 8;
   static const String atLeastLowerCaseRegex = '(?=.*[a-z])';
   static const String atLeastUpperCaseRegex = '(?=.*[A-Z])';
   static const String atLeastNumberCaseRegex = '(?=.*[0-9])';

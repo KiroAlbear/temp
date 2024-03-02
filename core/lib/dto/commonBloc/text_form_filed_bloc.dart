@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 class TextFormFiledBloc extends BlocBase {
   // A BehaviorSubject for managing the text form field controller.
-  final textFormFiledBehaviour = BehaviorSubject<TextEditingController>();
+  final textFormFiledBehaviour = BehaviorSubject<TextEditingController>()..sink.add(TextEditingController(text: ''));
 
   // A BehaviorSubject for managing a string value.
   final stringBehaviour = BehaviorSubject<String>();

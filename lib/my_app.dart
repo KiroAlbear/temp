@@ -1,6 +1,8 @@
 import 'package:authentication/authentication.dart';
+import 'package:authentication/ui/newAccount/new_account_widget.dart';
 import 'package:authentication/ui/otp/otp_widget.dart';
 import 'package:core/core.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/ui/changePassword/change_password_widget.dart';
 import 'package:authentication/ui/register/register_widget.dart';
+import 'package:authentication/ui/widget/success_register_widget.dart';
 import 'flavors.dart';
 
 

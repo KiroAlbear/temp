@@ -1,49 +1,44 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/app_provider_module.dart';
-import 'package:core/dto/modules/constants_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/logger_module.dart';
 import 'package:flutter/material.dart';
-import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
+import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
 
 class MapModule {
   Widget loadMap(
-      {required Function(PickedData pickedData) onPicked,
-      Function(PickedData pickedData)? onChanged}) {
-    return FlutterLocationPicker(
-      onPicked: (pickedData) => onPicked(pickedData),
-      onChanged: (pickedData) =>
-          onChanged != null ? onChanged(pickedData) : null,
-      contributorBadgeForOSMColor: primaryColor,
-      zoomButtonsColor: primaryColor,
-      mapLoadingBackgroundColor: greyColor,
-      searchBarHintColor: secondaryColor,
-      searchBarTextColor: blackColor,
-      locationButtonsColor: blackColor,
-      searchBarBackgroundColor: whiteColor,
-      contributorBadgeForOSMTextColor: primaryColor,
-      locationButtonBackgroundColor: whiteColor,
-      zoomButtonsBackgroundColor: primaryColor,
-      initZoom: 10,
-      mapLanguage: AppProviderModule().locale,
-      searchbarBorderRadius: BorderRadius.circular(10.w),
-      contributorBadgeForOSMPositionTop: 12.h,
-      contributorBadgeForOSMPositionBottom: 12.h,
-      contributorBadgeForOSMPositionLeft: 12.w,
-      contributorBadgeForOSMPositionRight: 12.w,
-      markerIconOffset: 50.r,
-      onError: (e) =>
-          LoggerModule.log(message: e.toString(), name: runtimeType.toString()),
-      contributorBadgeForOSMText: ConstantModule.appTitle,
-      selectedLocationButtonTextstyle:
-          BoldStyle(color: blackColor, fontSize: 14.sp).getStyle(),
-      showCurrentLocationPointer: true,
-      showZoomController: true,
-      showSelectLocationButton: true,
-      showSearchBar: true,
-      showContributorBadgeForOSM: true,
-      showLocationController: true,
-    );
-  }
+          {required Function(double latitude, double longitude, String city,
+                  String area, String address)
+              onPicked,
+          required String hintText,
+          required String buttonText}) =>
+      Container(
+        height: 400.h,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.w)),
+        child: OpenStreetMapSearchAndPick(
+          onPicked: (pickedData) {
+            onPicked(
+                pickedData.latLong.latitude,
+                pickedData.latLong.longitude,
+                pickedData.address['state'],
+                pickedData.address['village'] ?? '',
+                '${pickedData.address['house_number']} / ${pickedData.address['road']}');
+          },
+          buttonColor: secondaryColor,
+          buttonText: buttonText,
+          locationPinTextStyle:
+              MediumStyle(fontSize: 12.sp, color: secondaryColor).getStyle(),
+          locationPinIcon: Icons.location_pin,
+          zoomInIcon: Icons.zoom_in,
+          zoomOutIcon: Icons.zoom_out_sharp,
+          buttonTextColor: whiteColor,
+          buttonTextStyle:
+              MediumStyle(fontSize: 20.sp, color: whiteColor).getStyle(),
+          currentLocationIcon: Icons.location_searching,
+          locationPinIconColor: primaryColor,
+          buttonWidth: 40.w,
+          hintText: hintText,
+          buttonHeight: 40.h,
+        ),
+      );
 }

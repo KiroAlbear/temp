@@ -33,9 +33,21 @@ class SharedPrefModule {
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.bearerToken));
 
   set bearerToken(String? value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.isDarkMode), value: value ?? '');
+      key: _sharedKey(SharedPRefEnum.bearerToken), value: value ?? '');
 
+  /// userName
+  String? get userName =>
+      _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.userName));
 
+  set userName(String? value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.userName), value: value ?? '');
+
+  /// password
+  String? get password =>
+      _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.password));
+
+  set password(String? value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.password), value: value ?? '');
 
   void get clear => _sharedPref.clear();
 

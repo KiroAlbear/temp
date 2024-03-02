@@ -3,4 +3,6 @@ enum SharedPRefEnum {
   isDarkMode,
   userId,
   bearerToken,
+  password,
+  userName,
 }

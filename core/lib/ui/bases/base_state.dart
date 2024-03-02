@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/constants_module.dart';
+import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
+import 'package:core/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -36,11 +38,14 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
         builder: (context, value, child) =>
             AnnotatedRegion<SystemUiOverlayStyle>(
           value: value.systemUiOverlayStyle,
-          child: useCustomScaffold
-              ? _defaultBody
-              : PopScope(
-                  canPop: canPop(),
-                  child: Scaffold(
+          child: PopScope(
+            canPop: canPop(),
+            onPopInvoked: (didPop) {
+              onPopInvoked(didPop);
+            },
+            child: useCustomScaffold
+                ? _defaultBody
+                : Scaffold(
                     floatingActionButton: customFloatActionButton(),
                     floatingActionButtonLocation:
                         FloatingActionButtonLocation.centerDocked,
@@ -59,9 +64,26 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
                         : _defaultBody,
                     // )
                   ),
-                ),
+          ),
         ),
       );
+
+  void onPopInvoked(didPop){
+
+  }
+
+  void handleCloseApplication() {
+    AlertModule().showCenterDialog(
+      context: context,
+      message: S.of(context).closeApplicationMessage,
+      cancelMessage: S.of(context).cancel,
+      confirmMessage: S.of(context).ok,
+      onCancel: () {},
+      onConfirm: () {
+        exit(0);
+      },
+    );
+  }
 
   Widget get _defaultBody => InkWell(
         onTap: () => hideKeyboard(),

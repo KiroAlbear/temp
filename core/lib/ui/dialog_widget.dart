@@ -1,6 +1,7 @@
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/ui/custom_button_widget.dart';
+import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -47,10 +48,10 @@ class _DialogWidgetState extends State<DialogWidget> {
               borderRadius: BorderRadius.circular(20.r),
               boxShadow: [
                 BoxShadow(
-                    color: whiteColor,
+                    color: greyColor,
                     blurRadius: 10,
                     spreadRadius: 10,
-                    offset: Offset(0, 5))
+                    offset: const Offset(0, 5))
               ],
               color: Theme.of(context).scaffoldBackgroundColor),
           child: child,
@@ -64,6 +65,7 @@ class _DialogWidgetState extends State<DialogWidget> {
           if (widget.headerMessage != null) _headerMessage,
           if (widget.headerSvg != null && widget.headerMessage == null)
             _headerSvg,
+          if (widget.headerSvg != null && widget.headerMessage == null)
           SizedBox(
             height: 10.h,
           ),
@@ -95,7 +97,7 @@ class _DialogWidgetState extends State<DialogWidget> {
       customTextStyle: MediumStyle(
         color: greyColor,
         fontSize: 20.sp,
-      ));
+      ),softWrap: true,maxLines: 4, textAlign: TextAlign.center,);
 
   Widget get _rowButton => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,6 +134,10 @@ class _DialogWidgetState extends State<DialogWidget> {
         idleText: widget.cancelMessage ?? '',
         textSize: 16.sp,
         height: 40.h,
+        buttonColor: secondaryColor,
+        inLineBackgroundColor: whiteColor,
+        textColor: secondaryColor,
+        buttonShapeEnum: ButtonShapeEnum.outline,
         onTap: () {
           if (widget.onCancel != null) {
             widget.onCancel!();

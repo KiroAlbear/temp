@@ -5,6 +5,7 @@ import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
@@ -12,8 +13,10 @@ import 'package:flutter/material.dart';
 
 class RegisterWidget extends StatefulWidget {
   final String logo;
+  final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const RegisterWidget({super.key, required this.logo});
+  const RegisterWidget(
+      {super.key, required this.logo, required this.authenticationSharedBloc});
 
   @override
   State<RegisterWidget> createState() => _RegisterWidgetState();
@@ -24,7 +27,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   @override
   Widget build(BuildContext context) => LogoTopWidget(
-      canBack: false,
+      canBack: true,
       logo: widget.logo,
       blocBase: _bloc,
       child: Padding(
@@ -75,12 +78,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         idleText: S.of(context).next,
         onTap: () {
           if (_bloc.isValid) {
-            List<Object> arguments = [];
-            arguments.add(_bloc.countryBloc.value!);
-            arguments.add(_bloc.mobileBloc.value);
-            arguments.add(AppScreenEnum.newAccountInfo.name);
+            widget.authenticationSharedBloc.setDataToAuth(
+                _bloc.countryBloc.value!,
+                _bloc.mobileBloc.value,
+                AppScreenEnum.newAccount.name);
             CustomNavigatorModule.navigatorKey.currentState
-                ?.pushNamed(AppScreenEnum.otp.name, arguments: arguments);
+                ?.pushReplacementNamed(AppScreenEnum.otp.name);
           }
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
