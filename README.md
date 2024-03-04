@@ -124,3 +124,23 @@ melos exec -- your_command_here
 ```
 
 Feel free to modify these instructions according to your specific project requirements.
+
+
+### Build APK
+
+## Build Test APK
+```bash
+flutter build apk --release --flavor app_test lib/main_app_test.dart
+```
+
+## Build Stage APK
+
+```bash
+flutter build apk --release --flavor app_stage lib/main_app_stage.dart
+```
+
+## Build Stage APK
+
+```bash
+flutter build apk --release--flavor app_live lib/main_app_live.dart
+```

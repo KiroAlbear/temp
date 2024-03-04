@@ -28,7 +28,7 @@ class AppProviderModule with ChangeNotifier {
   String locale = 'ar';
 
   /// late init for application theme mode
-  ThemeMode themeMode = ThemeMode.light;
+  ThemeMode themeMode = ThemeMode.dark;
 
   /// System UI overlay style for different theme modes.
   SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(

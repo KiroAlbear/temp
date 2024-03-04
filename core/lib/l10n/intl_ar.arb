@@ -63,5 +63,13 @@
   "welcomeToDokkan": "مرحباً بك في دُكان",
   "youCanStartOrderNow": "تقدر تطلب دلوقتي",
   "start": "ابدأ",
-  "closeApplicationMessage": "هل أنت متأكد أنك تريد الخروج من دُكان؟"
+  "closeApplicationMessage": "هل أنت متأكد أنك تريد الخروج من دُكان؟",
+  "home": "الرئيسية",
+  "search": "بحث",
+  "promotion": "العروض",
+  "basket": "السلة",
+  "more": "المزيد",
+  "searchProduct": "بتدور على منتج معين؟",
+  "bestOffers": "أقوى العروض",
+  "browseSections": "تصفح الأقسام"
 }

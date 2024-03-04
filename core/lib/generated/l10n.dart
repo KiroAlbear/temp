@@ -699,6 +699,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Promotion`
+  String get promotion {
+    return Intl.message(
+      'Promotion',
+      name: 'promotion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basket`
+  String get basket {
+    return Intl.message(
+      'Basket',
+      name: 'basket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Looking for a specific product?`
+  String get searchProduct {
+    return Intl.message(
+      'Looking for a specific product?',
+      name: 'searchProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Best offers`
+  String get bestOffers {
+    return Intl.message(
+      'Best offers',
+      name: 'bestOffers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Browse sections`
+  String get browseSections {
+    return Intl.message(
+      'Browse sections',
+      name: 'browseSections',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

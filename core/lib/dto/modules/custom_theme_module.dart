@@ -11,7 +11,7 @@ class CustomTheme {
       scaffoldBackgroundColor: whiteColor,
       primaryColor: primaryColorLightMode,
       dividerColor: greyColorLightMode,
-      bottomNavigationBarTheme: _whiteBottomNavigationBarThemeData,
+      bottomNavigationBarTheme: _lightBottomNavigationBarThemeData,
       hoverColor: primaryColorLightMode,
       highlightColor: primaryColorLightMode,
       textTheme: TextTheme(
@@ -80,9 +80,9 @@ class CustomTheme {
         onSurfaceVariant: secondaryColor,
       ));
 
-  BottomNavigationBarThemeData get _whiteBottomNavigationBarThemeData =>
+  BottomNavigationBarThemeData get _lightBottomNavigationBarThemeData =>
       BottomNavigationBarThemeData(
-          backgroundColor: greyColorLightMode.withOpacity(0.5),
+          backgroundColor: offWhiteColorLightMode,
           elevation: 0,
           landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
           selectedItemColor: whiteColor,
@@ -90,8 +90,8 @@ class CustomTheme {
             color: whiteColor,
             fontSize: 9.sp,
           ).getStyle(),
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           unselectedItemColor: greyColorLightMode,
           unselectedLabelStyle: RegularStyle(
             color: greyColorLightMode,
@@ -101,7 +101,7 @@ class CustomTheme {
 
   BottomNavigationBarThemeData get _darkBottomNavigationBarThemeData =>
       BottomNavigationBarThemeData(
-          backgroundColor: greyColorDarkMode.withOpacity(0.5),
+          backgroundColor: offWhiteColorDarkMore,
           elevation: 0,
           landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
           selectedItemColor: blackColor,

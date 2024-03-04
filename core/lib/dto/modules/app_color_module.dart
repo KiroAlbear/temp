@@ -32,6 +32,30 @@ const Color white = Colors.white;
 const Color lightGreyColorLightMode = Color.fromRGBO(240, 240, 240, 1);
 const Color lightGreyColorDarkMode = Color.fromRGBO(120, 120, 120, 1);
 
+/// off white color
+const Color offWhiteColorLightMode = Color.fromRGBO(251, 251, 251, 1);
+const Color offWhiteColorDarkMore = Color.fromRGBO(63, 63, 63, 1);
+
+/// yellow card color
+const Color yellowCardColorLightMode = Color.fromRGBO(254, 255, 239, 1);
+const Color yellowCardColorDarkMode = Color.fromRGBO(254, 255, 239, 1);
+
+/// green card color
+const Color greenCardColorLightMode = Color.fromRGBO(239, 255, 240, 1);
+const Color greenCardColorDarkMode = Color.fromRGBO(239, 255, 240, 1);
+
+/// red card color
+const Color redCardColorLightMode = Color.fromRGBO(255, 239, 239, 1);
+const Color redCardColorDarkMode = Color.fromRGBO(255, 239, 239, 1);
+
+/// promotion card color
+const Color promotionCardColorLightMode = Color.fromRGBO(168, 172, 177, 0.1);
+const Color promotionCardColorDarkMode = Color.fromRGBO(168, 172, 177, 0.1);
+
+/// category card color
+const Color categoryCardColorLightMode = Color.fromRGBO(251, 251, 251, 1);
+const Color categoryCardColorDarkMode = Color.fromRGBO(251, 251, 251, 1);
+
 bool get _isDark => SharedPrefModule().isDarkMode?? false;
 
 Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
@@ -49,3 +73,16 @@ Color redColor = _isDark ? redColorDarkMode : redColorLightMode;
 Color blackColor = _isDark ? white : black;
 
 Color whiteColor = _isDark ? black : white;
+
+Color offWhiteColor = _isDark? offWhiteColorDarkMore:offWhiteColorLightMode;
+
+Color yellowCardColor= _isDark? yellowCardColorDarkMode: yellowCardColorLightMode;
+
+Color greenCardColor= _isDark? greenCardColorDarkMode: greenCardColorLightMode;
+
+Color redCardColor= _isDark? redCardColorDarkMode: redCardColorLightMode;
+
+Color promotionCardColor = _isDark? promotionCardColorDarkMode : promotionCardColorLightMode;
+
+
+Color categoryCardColor = _isDark? categoryCardColorDarkMode : categoryCardColorLightMode;

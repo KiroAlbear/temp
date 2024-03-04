@@ -33,14 +33,9 @@ dependencies:
   connectivity_plus: ^5.0.2
   intl: ^0.18.1
   device_info_plus: ^9.1.2
-#  location_picker_flutter_map: ^3.0.1
-#  firebase_crashlytics: ^3.4.13
-#  firebase_core: ^2.25.3
-#  firebase_analytics: ^10.8.4
   package_info_plus: ^5.0.1
   local_auth: ^2.2.0
   open_street_map_search_and_pick: ^0.1.1
-  location_picker_flutter_map: ^3.0.1
 
 dev_dependencies:
   flutter_test:

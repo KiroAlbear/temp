@@ -1,12 +1,10 @@
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/image_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:custom_progress_button/custom_icon_button.dart';
 import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'custom_progress_widget.dart';
@@ -178,7 +176,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
               color: widget.buttonColor ?? secondaryColor,
               text: widget.idleText),
           ButtonState.fail: CustomIconButton(
-              icon: _getFailIconButton,
+              icon: widget.idleIconButton,
               color: redColor,
               text: widget.idleText)
         },
@@ -201,14 +199,6 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         iconPadding: 4.w,
         padding: EdgeInsets.only(top: 8.h),
 
-      );
-
-  Widget get _getFailIconButton => ImageHelper(
-        image: ImageModule.icRetry,
-        imageType: ImageType.svg,
-        width: 33.w,
-        height: 33.h,
-        boxFit: BoxFit.contain,
       );
 
   Widget _idleText(bool enable) => Text(

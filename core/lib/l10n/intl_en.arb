@@ -63,7 +63,16 @@
   "welcomeToDokkan": "Welcome to Dokkan",
   "youCanStartOrderNow": "You can start order now",
   "start": "Start",
-  "closeApplicationMessage": "Are you sure you want to exit Dokkan?"
+  "closeApplicationMessage": "Are you sure you want to exit Dokkan?",
+  "home": "Home",
+  "search": "Search",
+  "promotion": "Promotion",
+  "basket": "Basket",
+  "more": "More",
+  "searchProduct": "Looking for a specific product?",
+  "bestOffers": "Best offers",
+  "browseSections": "Browse sections"
+
 
 
 

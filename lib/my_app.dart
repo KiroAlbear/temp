@@ -9,6 +9,7 @@ import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_theme_module.dart';
 import 'package:core/dto/modules/logger_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/bases/bloc_base.dart';
 import 'package:dokkan/generated/assets.dart';
 import 'package:dokkan/splash.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:authentication/ui/changePassword/change_password_widget.dart';
 import 'package:authentication/ui/register/register_widget.dart';
 import 'package:authentication/ui/widget/success_register_widget.dart';
+import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
+import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_widget.dart';
+import 'package:home/home.dart';
 import 'flavors.dart';
 
 

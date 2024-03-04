@@ -3,10 +3,20 @@ class Assets {
   Assets._();
 
   static const String imagesIcBottomSplash = 'assets/images/ic_bottom_splash.png';
+  static const String imagesIcHomeLogo = 'assets/images/ic_home_logo.png';
   static const String imagesIcLogo = 'assets/images/ic_logo.png';
+  static const String svgIcBasket = 'assets/svg/ic_basket.svg';
   static const String svgIcBiometric = 'assets/svg/ic_biometric.svg';
   static const String svgIcBottomSplash = 'assets/svg/ic_bottom_splash.svg';
+  static const String svgIcFavourite = 'assets/svg/ic_favourite.svg';
+  static const String svgIcHome = 'assets/svg/ic_home.svg';
+  static const String svgIcHomeLogo = 'assets/svg/ic_home_logo.svg';
   static const String svgIcLogo = 'assets/svg/ic_logo.svg';
+  static const String svgIcMore = 'assets/svg/ic_more.svg';
+  static const String svgIcPromotion = 'assets/svg/ic_promotion.svg';
+  static const String svgIcScan = 'assets/svg/ic_scan.svg';
+  static const String svgIcSearch = 'assets/svg/ic_search.svg';
   static const String svgIcSuccessRegister = 'assets/svg/ic_success_register.svg';
+  static const String svgIcSupport = 'assets/svg/ic_support.svg';
 
 }

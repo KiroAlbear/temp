@@ -39,8 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("At least one number"),
         "atLeastOneSmallLetter":
             MessageLookupByLibrary.simpleMessage("At least one small letter"),
+        "basket": MessageLookupByLibrary.simpleMessage("Basket"),
+        "bestOffers": MessageLookupByLibrary.simpleMessage("Best offers"),
         "biometricLoginMessage": MessageLookupByLibrary.simpleMessage(
             "Please authenticate to login"),
+        "browseSections":
+            MessageLookupByLibrary.simpleMessage("Browse sections"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseYourCountry":
             MessageLookupByLibrary.simpleMessage("Choose your country"),
@@ -82,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "General error.\nPlease try again later!"),
         "haveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
@@ -89,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Locate your location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
+        "more": MessageLookupByLibrary.simpleMessage("More"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
@@ -107,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "platformName":
             MessageLookupByLibrary.simpleMessage("Establishment name"),
         "previous": MessageLookupByLibrary.simpleMessage("previous"),
+        "promotion": MessageLookupByLibrary.simpleMessage("Promotion"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "Once you press on next you will receive message to activate your account"),
         "registerNewAccount":
@@ -115,6 +122,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "required": MessageLookupByLibrary.simpleMessage("Filed required"),
         "resendOtpAfter": m2,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "searchProduct": MessageLookupByLibrary.simpleMessage(
+            "Looking for a specific product?"),
         "selectLocation":
             MessageLookupByLibrary.simpleMessage("Select your location"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("Send OTP"),

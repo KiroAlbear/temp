@@ -39,8 +39,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "يجب أن تحتوي على رقم واحد على الأقل"),
         "atLeastOneSmallLetter": MessageLookupByLibrary.simpleMessage(
             "يجب أن تحتوي على حرف صغير على الأقل"),
+        "basket": MessageLookupByLibrary.simpleMessage("السلة"),
+        "bestOffers": MessageLookupByLibrary.simpleMessage("أقوى العروض"),
         "biometricLoginMessage":
             MessageLookupByLibrary.simpleMessage("يرجى المصادقة لتسجيل الدخول"),
+        "browseSections": MessageLookupByLibrary.simpleMessage("تصفح الأقسام"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "chooseYourCountry": MessageLookupByLibrary.simpleMessage("اختر بلدك"),
         "city": MessageLookupByLibrary.simpleMessage("المحافظة"),
@@ -80,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generalError": MessageLookupByLibrary.simpleMessage(
             "خطأ عام.\nيرجى المحاولة مرة أخرى في وقت لاحق!"),
         "haveAccount": MessageLookupByLibrary.simpleMessage("لديك حساب؟"),
+        "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "inValidEmail":
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
@@ -89,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("حدد مكان محللك"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
+        "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
@@ -106,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
+        "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
         "registerNewAccount":
@@ -115,6 +121,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "resendOtpAfter": m2,
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
+        "search": MessageLookupByLibrary.simpleMessage("بحث"),
+        "searchProduct":
+            MessageLookupByLibrary.simpleMessage("بتدور على منتج معين؟"),
         "selectLocation": MessageLookupByLibrary.simpleMessage("حدد موقعك"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("ارسال كود التحقيق"),
         "sendOtpAgain":
