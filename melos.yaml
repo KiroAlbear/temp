@@ -8,6 +8,8 @@ packages:
   - dokkan
   - authentication
   - bottom_navigation
+  - more
+  - home
 
 scripts:
   analyze:

@@ -17,6 +17,8 @@ dependencies:
     path: bottom_navigation
   home:
     path: home
+  more:
+    path: more
 
 dev_dependencies:
   flutter_test:

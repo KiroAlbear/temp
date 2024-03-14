@@ -116,9 +116,7 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget> {
     textColor: secondaryColor,
     buttonShapeEnum: ButtonShapeEnum.outline,
     onTap: () {
-      if (widget.newAccountBloc.isPasswordValid) {
-        widget.newAccountBloc.nextStep(NewAccountStepEnum.editLocation);
-      }
+      widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
     },
   );
 }

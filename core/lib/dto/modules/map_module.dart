@@ -10,7 +10,9 @@ class MapModule {
                   String area, String address)
               onPicked,
           required String hintText,
-          required String buttonText}) =>
+          required String buttonText,
+          double? latitude,
+          double? longitude}) =>
       Container(
         height: 400.h,
         clipBehavior: Clip.hardEdge,

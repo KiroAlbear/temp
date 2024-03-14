@@ -4,8 +4,6 @@ import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
-import 'package:core/ui/custom_button_widget.dart';
-import 'package:core/ui/custom_material_banner.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +51,7 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
                 );
               },
               hintText: S.of(context).locationYourLocation,
-              buttonText: S.of(context).selectLocation)
+              buttonText: S.of(context).selectLocation),
         ],
       );
 

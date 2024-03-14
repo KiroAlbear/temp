@@ -7,6 +7,8 @@ import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
+import 'package:core/ui/mapPreview/map_preview_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewAccountLocationInfoWidget extends StatefulWidget {
@@ -27,6 +29,14 @@ class _NewAccountLocationInfoWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
+              height: 4.h,
+            ),
+            CustomText(text: S.of(context).selectLocation, customTextStyle: RegularStyle(color: secondaryColor, fontSize: 20.sp)),
+            SizedBox(
+              height: 12.h,
+            ),
+            _mapPreviewStream,
+            SizedBox(
               height: 12.h,
             ),
             CustomText(
@@ -43,114 +53,137 @@ class _NewAccountLocationInfoWidgetState
               height: 24.h,
             ),
             _cityAndDistrictRow,
-            SizedBox(height: 21.h,),
+            SizedBox(
+              height: 21.h,
+            ),
             _nextPreviousButton,
+            SizedBox(height: 21.h,),
           ]);
 
-  Widget get _streetNameTextFormFiled=> CustomTextFormFiled(
-    labelText: S.of(context).enterStreetName,
-    textFiledControllerStream:
-    widget.newAccountBloc.streetNameBloc.textFormFiledStream,
-    onChanged: (value) =>
-        widget.newAccountBloc.streetNameBloc.updateStringBehaviour(value),
-    validator: (value) =>
-        ValidatorModule().emptyValidator(context).call(value),
-    textInputType: TextInputType.text,
-    textInputAction: TextInputAction.next,
-  );
-
-  Widget get _cityAndDistrictRow=> Row(
-    children: [
-      Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-                text: S.of(context).neighborhood,
-                customTextStyle: RegularStyle(
-                  color: secondaryColor,
-                  fontSize: 20.sp,
-                )),
-            SizedBox(height: 12.h,),
-            _districtTextFormFiled,
-          ],
+  Widget get _mapPreviewStream => StreamBuilder(
+        stream: widget.newAccountBloc.latitudeStream,
+        builder: (context, latitudeSnapShot) => StreamBuilder(
+          stream: widget.newAccountBloc.longitudeStream,
+          builder: (context, longitudeSnapShot) => MapPreviewWidget(
+            clickOnChangeLocation: () {
+              widget.newAccountBloc.nextStep(NewAccountStepEnum.editLocation);
+            },
+            latitude: latitudeSnapShot.data,
+            longitude: longitudeSnapShot.data,
+          ),
         ),
-      ),
-      SizedBox(width: 9.w,),
-      Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-                text: S.of(context).city,
-                customTextStyle: RegularStyle(
-                  color: secondaryColor,
-                  fontSize: 20.sp,
-                )),
-            SizedBox(height: 12.h,),
-            _cityTextFormFiled,
-          ],
-        ),
-      ),
-    ],
-  );
+      );
 
-  Widget get _cityTextFormFiled=> CustomTextFormFiled(
-    labelText: S.of(context).enterCity,
-    textFiledControllerStream:
-    widget.newAccountBloc.cityBloc.textFormFiledStream,
-    onChanged: (value) =>
-        widget.newAccountBloc.cityBloc.updateStringBehaviour(value),
-    validator: (value) =>
-        ValidatorModule().emptyValidator(context).call(value),
-    textInputType: TextInputType.text,
-    textInputAction: TextInputAction.next,
-  );
+  Widget get _streetNameTextFormFiled => CustomTextFormFiled(
+        labelText: S.of(context).enterStreetName,
+        textFiledControllerStream:
+            widget.newAccountBloc.streetNameBloc.textFormFiledStream,
+        onChanged: (value) =>
+            widget.newAccountBloc.streetNameBloc.updateStringBehaviour(value),
+        validator: (value) =>
+            ValidatorModule().emptyValidator(context).call(value),
+        textInputType: TextInputType.text,
+        textInputAction: TextInputAction.next,
+      );
 
-  Widget get _districtTextFormFiled=> CustomTextFormFiled(
-    labelText: S.of(context).enterNeighborhood,
-    textFiledControllerStream:
-    widget.newAccountBloc.neighborhoodBloc.textFormFiledStream,
-    onChanged: (value) =>
-        widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(value),
-    validator: (value) =>
-        ValidatorModule().emptyValidator(context).call(value),
-    textInputType: TextInputType.text,
-    textInputAction: TextInputAction.next,
-  );
+  Widget get _cityAndDistrictRow => Row(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                    text: S.of(context).neighborhood,
+                    customTextStyle: RegularStyle(
+                      color: secondaryColor,
+                      fontSize: 20.sp,
+                    )),
+                SizedBox(
+                  height: 12.h,
+                ),
+                _districtTextFormFiled,
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 9.w,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                    text: S.of(context).city,
+                    customTextStyle: RegularStyle(
+                      color: secondaryColor,
+                      fontSize: 20.sp,
+                    )),
+                SizedBox(
+                  height: 12.h,
+                ),
+                _cityTextFormFiled,
+              ],
+            ),
+          ),
+        ],
+      );
 
-  Widget get _nextPreviousButton=> Row(
-    children: [
-      Expanded(child: _previous),
-      SizedBox(width: 9.w,),
-      Expanded(child: _nextButton),
-    ],
-  );
+  Widget get _cityTextFormFiled => CustomTextFormFiled(
+        labelText: S.of(context).enterCity,
+        textFiledControllerStream:
+            widget.newAccountBloc.cityBloc.textFormFiledStream,
+        onChanged: (value) =>
+            widget.newAccountBloc.cityBloc.updateStringBehaviour(value),
+        validator: (value) =>
+            ValidatorModule().emptyValidator(context).call(value),
+        textInputType: TextInputType.text,
+        textInputAction: TextInputAction.next,
+      );
+
+  Widget get _districtTextFormFiled => CustomTextFormFiled(
+        labelText: S.of(context).enterNeighborhood,
+        textFiledControllerStream:
+            widget.newAccountBloc.neighborhoodBloc.textFormFiledStream,
+        onChanged: (value) =>
+            widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(value),
+        validator: (value) =>
+            ValidatorModule().emptyValidator(context).call(value),
+        textInputType: TextInputType.text,
+        textInputAction: TextInputAction.next,
+      );
+
+  Widget get _nextPreviousButton => Row(
+        children: [
+          Expanded(child: _previous),
+          SizedBox(
+            width: 9.w,
+          ),
+          Expanded(child: _nextButton),
+        ],
+      );
 
   Widget get _nextButton => CustomButtonWidget(
-    idleText: S.of(context).next,
-    onTap: () {
-      if (widget.newAccountBloc.isLocationValid) {
-        widget.newAccountBloc.nextStep(NewAccountStepEnum.password);
-      }
-    },
-    buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
-    failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
-    validateStream: widget.newAccountBloc.validateLocationStream,
-  );
+        idleText: S.of(context).next,
+        onTap: () {
+          if (widget.newAccountBloc.isLocationValid) {
+            widget.newAccountBloc.nextStep(NewAccountStepEnum.password);
+          }
+        },
+        buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
+        failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
+        validateStream: widget.newAccountBloc.validateLocationStream,
+      );
 
   Widget get _previous => CustomButtonWidget(
-    idleText: S.of(context).previous,
-    buttonColor: secondaryColor,
-    inLineBackgroundColor: whiteColor,
-    textColor: secondaryColor,
-    buttonShapeEnum: ButtonShapeEnum.outline,
-    onTap: () {
-      if (widget.newAccountBloc.isInfoValid) {
-        widget.newAccountBloc.nextStep(NewAccountStepEnum.editLocation);
-      }
-    },
-  );
+        idleText: S.of(context).previous,
+        buttonColor: secondaryColor,
+        inLineBackgroundColor: whiteColor,
+        textColor: secondaryColor,
+        buttonShapeEnum: ButtonShapeEnum.outline,
+        onTap: () {
+          widget.newAccountBloc.nextStep(NewAccountStepEnum.info);
+        },
+      );
 }

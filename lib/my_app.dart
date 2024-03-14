@@ -20,6 +20,8 @@ import 'package:authentication/ui/widget/success_register_widget.dart';
 import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_widget.dart';
 import 'package:home/home.dart';
+import 'package:more/ui/more/more_bloc.dart';
+import 'package:more/ui/more/more_widget.dart';
 import 'flavors.dart';
 
 

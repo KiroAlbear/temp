@@ -5,12 +5,13 @@ part of 'my_app.dart';
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
 final HomeBloc _homeBloc = HomeBloc();
+final MoreBloc _moreBloc = MoreBloc();
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
   Container(),
   Container(),
   Container(),
-  Container(),
+  _moreBlocProvider,
 ]);
 
 // Function to generate routes based on screen names.
@@ -74,6 +75,24 @@ BlocProvider get _homeBlocProvider => BlocProvider(
         scanIcon: Assets.svgIcScan,
         searchIcon: Assets.svgIcSearch,
         supportIcon: Assets.svgIcSupport,
+      ),
+    );
+
+BlocProvider get _moreBlocProvider => BlocProvider(
+      bloc: _moreBloc,
+      child: MoreWidget(
+        accountSettingIcon: Assets.svgIcPersonRounded,
+        appLogo: Assets.imagesIcLogo,
+        currentOrderIcon: Assets.svgIcCurrentOrder,
+        moreBloc: _moreBloc,
+        cameraIcon: Assets.svgIcCamera,
+        changePasswordIcon: Assets.svgIcLock,
+        contactUsIcon: Assets.svgIcSupport,
+        deleteAccountIcon: Assets.svgIcDelete,
+        faqIcon: Assets.svgIfFaq,
+        logoutIcon: Assets.svgIcLogout,
+        previewsOrderIcon: Assets.svgIcPreviousOrder,
+        shopIcon: Assets.svgIcEmptyShopIcon,
       ),
     );
 

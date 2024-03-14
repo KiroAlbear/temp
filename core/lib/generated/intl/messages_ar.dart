@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+        "editLocation": MessageLookupByLibrary.simpleMessage("تعديل الموقع"),
         "emailRequired":
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني مطلوب"),
         "enterCity": MessageLookupByLibrary.simpleMessage("ادخل اسم المحافظة"),

@@ -78,7 +78,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
         idleText: S.of(context).next,
         onTap: () {
           if (widget.newAccountBloc.isInfoValid) {
-            widget.newAccountBloc.nextStep(NewAccountStepEnum.editLocation);
+            widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
           }
         },
         buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,

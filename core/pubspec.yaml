@@ -36,6 +36,7 @@ dependencies:
   package_info_plus: ^5.0.1
   local_auth: ^2.2.0
   open_street_map_search_and_pick: ^0.1.1
+  flutter_map: ^6.1.0
 
 dev_dependencies:
   flutter_test:

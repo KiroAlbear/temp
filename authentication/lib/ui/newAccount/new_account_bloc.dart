@@ -19,15 +19,21 @@ class NewAccountBloc extends BlocBase {
     ..sink.add(NewAccountStepEnum.info);
   final ValidatorModule _validatorModule = ValidatorModule();
   final ButtonBloc buttonBloc = ButtonBloc();
-
+  final BehaviorSubject<double?> _latitudeBehaviour = BehaviorSubject();
+  final BehaviorSubject<double?> _longitudeBehaviour = BehaviorSubject();
   /// info recorded from preview steps
 
-  double _latitude = 0.0;
-  double _longitude = 0.0;
+  set latitude(double value) => _latitudeBehaviour.sink.add(value);
 
-  set latitude(double value) => _latitude = value;
+  set longitude(double value) => _longitudeBehaviour.sink.add(value);
 
-  set longitude(double value) => _longitude = value;
+  double get latitude=> _latitudeBehaviour.value??0.0;
+
+  double get longitude=> _latitudeBehaviour.value??0.0;
+
+  Stream<double?> get latitudeStream=> _latitudeBehaviour.stream;
+
+  Stream<double?> get longitudeStream=> _longitudeBehaviour.stream;
 
   Stream<bool> get validateInfoStream => Rx.combineLatest2(
       fullNameBloc.stringStream,
@@ -57,8 +63,8 @@ class NewAccountBloc extends BlocBase {
   bool get isLocationValid =>
       _validatorModule.isFiledNotEmpty(neighborhoodBloc.value) &&
       _validatorModule.isFiledNotEmpty(cityBloc.value) &&
-      (_latitude != 0.0) &&
-      (_longitude != 0.0);
+      (latitude != 0.0) &&
+      (longitude != 0.0);
 
   bool get isPasswordValid =>
       _validatorModule.isPasswordValid(passwordBloc.value) &&
@@ -76,5 +82,7 @@ class NewAccountBloc extends BlocBase {
     cityBloc.dispose();
     passwordBloc.dispose();
     confirmPasswordBloc.dispose();
+    _latitudeBehaviour.close();
+    _longitudeBehaviour.close();
   }
 }
