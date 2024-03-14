@@ -72,9 +72,19 @@
   "searchProduct": "Looking for a specific product?",
   "bestOffers": "Best offers",
   "browseSections": "Browse sections",
-  "editLocation": "Edit location"
-
-
+  "editLocation": "Edit location",
+  "currentOrder": "Current orders",
+  "previousOrder": "Previous orders",
+  "settings": "Settings",
+  "accountInfo": "Account info",
+  "changePassword": "Change password",
+  "deleteAccount": "Delete account",
+  "favourites": "Favourites",
+  "accountBalance": "Account balance",
+  "supportAndAssistance": "Support & Assistance",
+  "contactUs": "Contact us",
+  "faq": "FAQ",
+  "logout": "Logout"
 
 
 

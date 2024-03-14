@@ -72,5 +72,17 @@
   "searchProduct": "بتدور على منتج معين؟",
   "bestOffers": "أقوى العروض",
   "browseSections": "تصفح الأقسام",
-  "editLocation": "تعديل الموقع"
+  "editLocation": "تعديل الموقع",
+  "currentOrder": "الطلبات الحالية",
+  "previousOrder": "طلباتي السابقة",
+  "settings": "الإعدادات",
+  "accountInfo": "بيانات حسابي",
+  "changePassword": "تغيير كلمة السر",
+  "deleteAccount": "حذف الحساب",
+  "favourites": "المفضلة",
+  "accountBalance": "رصيد الحساب",
+  "supportAndAssistance": "الدعم والمساعدة",
+  "contactUs": "تواصل معنا",
+  "faq": "الأسئلة الشائعة",
+  "logout": "تسجيل خروج"
 }

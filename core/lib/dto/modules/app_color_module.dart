@@ -56,6 +56,10 @@ const Color promotionCardColorDarkMode = Color.fromRGBO(168, 172, 177, 0.1);
 const Color categoryCardColorLightMode = Color.fromRGBO(251, 251, 251, 1);
 const Color categoryCardColorDarkMode = Color.fromRGBO(251, 251, 251, 1);
 
+/// menu order card color
+const Color menuOrderCardColorLightMode = Color.fromRGBO(249, 249, 249, 1);
+const Color menuOrderCardColorDarkMode = Color.fromRGBO(249, 249, 249, 1);
+
 bool get _isDark => SharedPrefModule().isDarkMode?? false;
 
 Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
@@ -84,5 +88,6 @@ Color redCardColor= _isDark? redCardColorDarkMode: redCardColorLightMode;
 
 Color promotionCardColor = _isDark? promotionCardColorDarkMode : promotionCardColorLightMode;
 
-
 Color categoryCardColor = _isDark? categoryCardColorDarkMode : categoryCardColorLightMode;
+
+Color menuOrderCardColor= _isDark?menuOrderCardColorDarkMode: menuOrderCardColorLightMode;

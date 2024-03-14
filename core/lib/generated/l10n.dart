@@ -789,6 +789,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Current orders`
+  String get currentOrder {
+    return Intl.message(
+      'Current orders',
+      name: 'currentOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous orders`
+  String get previousOrder {
+    return Intl.message(
+      'Previous orders',
+      name: 'previousOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account info`
+  String get accountInfo {
+    return Intl.message(
+      'Account info',
+      name: 'accountInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password`
+  String get changePassword {
+    return Intl.message(
+      'Change password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favourites`
+  String get favourites {
+    return Intl.message(
+      'Favourites',
+      name: 'favourites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account balance`
+  String get accountBalance {
+    return Intl.message(
+      'Account balance',
+      name: 'accountBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support & Assistance`
+  String get supportAndAssistance {
+    return Intl.message(
+      'Support & Assistance',
+      name: 'supportAndAssistance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact us`
+  String get contactUs {
+    return Intl.message(
+      'Contact us',
+      name: 'contactUs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FAQ`
+  String get faq {
+    return Intl.message(
+      'FAQ',
+      name: 'faq',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message(
+      'Logout',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

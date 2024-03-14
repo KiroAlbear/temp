@@ -138,10 +138,10 @@ class HomeBloc extends BlocBase {
 
   @override
   void dispose() {
-    searchBloc.dispose();
-    _offersBehaviour.close();
-    _categoryBehaviour.close();
-    _promotionBehaviour.close();
+    // searchBloc.dispose();
+    // _offersBehaviour.close();
+    // _categoryBehaviour.close();
+    // _promotionBehaviour.close();
   }
 
   doSearch() {}

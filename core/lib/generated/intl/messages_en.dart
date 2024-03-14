@@ -33,6 +33,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "AtLeastOneSpecialCharacter": MessageLookupByLibrary.simpleMessage(
             "At least one special Character"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
+        "accountBalance":
+            MessageLookupByLibrary.simpleMessage("Account balance"),
+        "accountInfo": MessageLookupByLibrary.simpleMessage("Account info"),
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":
@@ -46,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "browseSections":
             MessageLookupByLibrary.simpleMessage("Browse sections"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Change password"),
         "chooseYourCountry":
             MessageLookupByLibrary.simpleMessage("Choose your country"),
         "city": MessageLookupByLibrary.simpleMessage("Governorate"),
@@ -53,7 +58,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to exit Dokkan?"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
+        "currentOrder": MessageLookupByLibrary.simpleMessage("Current orders"),
+        "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "editLocation": MessageLookupByLibrary.simpleMessage("Edit location"),
@@ -80,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "failed": MessageLookupByLibrary.simpleMessage("Failed"),
+        "faq": MessageLookupByLibrary.simpleMessage("FAQ"),
+        "favourites": MessageLookupByLibrary.simpleMessage("Favourites"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
@@ -95,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Locate your location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
@@ -114,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "platformName":
             MessageLookupByLibrary.simpleMessage("Establishment name"),
         "previous": MessageLookupByLibrary.simpleMessage("previous"),
+        "previousOrder":
+            MessageLookupByLibrary.simpleMessage("Previous orders"),
         "promotion": MessageLookupByLibrary.simpleMessage("Promotion"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "Once you press on next you will receive message to activate your account"),
@@ -130,11 +143,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select your location"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("Send OTP"),
         "sendOtpAgain": MessageLookupByLibrary.simpleMessage("Send OTP again"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "streetName": MessageLookupByLibrary.simpleMessage(
             "Building number / street name"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "supportAndAssistance":
+            MessageLookupByLibrary.simpleMessage("Support & Assistance"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
             MessageLookupByLibrary.simpleMessage("Welcome to Dokkan"),
