@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/ui/bases/base_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:more/ui/more/more_bloc.dart';
 
@@ -45,7 +44,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   }
 
   @override
-  PreferredSizeWidget? appBar() =>null;
+  PreferredSizeWidget? appBar() => null;
 
   @override
   bool canPop() => false;
@@ -54,26 +53,45 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   bool isSafeArea() => true;
 
   @override
-  Widget getBody(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.w), topRight: Radius.circular(30.w)),
-          color: whiteColor,
-        ),
-        child: Stack(
-          clipBehavior: Clip.none,
+  Widget getBody(BuildContext context) => SingleChildScrollView(
+        child: Column(
           children: [
-            _shopLogoWidget,
-            // _cameraWidget,
+            Container(
+              height: 130.h,
+              width: MediaQuery.of(context).size.width,
+              color: primaryColor,
+              child: _logoWidget,
+            ),
+            IntrinsicHeight(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.w),
+                        topRight: Radius.circular(30.w))),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    _shopLogoWidget,
+                    _cameraWidget,
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       );
 
-  Widget get _logoWidget => ImageHelper(
-        image: widget.appLogo,
-        imageType: ImageType.asset,
+  Widget get _logoWidget => Container(
+        alignment: Alignment.center,
         width: 150.w,
         height: 65.h,
+        child: ImageHelper(
+          image: widget.appLogo,
+          imageType: ImageType.asset,
+          width: 150.w,
+          height: 65.h,
+        ),
       );
 
   Widget get _shopLogoWidget => Positioned(
@@ -101,8 +119,8 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       ));
 
   Widget get _cameraWidget => Positioned(
-        top: 186.h,
-        left: 94.w,
+        top: 60.h,
+        left: MediaQuery.of(context).size.width / 2 - 70.w,
         child: InkWell(
           onTap: () => _updateImage(),
           child: Container(
