@@ -31,8 +31,9 @@ FutureOr<void> main() async {
   // addFireBaseCrashReporting();
 
   /// set base url for dioModule
-  // DioModule().baseUrl = F.apiUrl;
-  // DioModule().init();
+  DioModule().baseUrl = F.apiUrl;
+  DioModule().init();
+  DioModule().setAppHeaders();
 
   /// allow Chucker to show in release mode
   ChuckerFlutter.showOnRelease = false;

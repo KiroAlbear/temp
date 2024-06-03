@@ -16,20 +16,27 @@ HeaderResponse<T> _$HeaderResponseFromJson<T>(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['Status', 'Message', 'Data'],
+          allowedKeys: const [
+            'status',
+            'message',
+            'isSuccess',
+            'errors',
+            'data'
+          ],
         );
         final val = HeaderResponse<T>();
-        $checkedConvert('Status', (v) => val.status = v as bool?);
-        $checkedConvert('Message', (v) => val.message = v as String?);
+        $checkedConvert('status', (v) => val.status = (v as num?)?.toInt());
+        $checkedConvert('message', (v) => val.message = v as String?);
+        $checkedConvert('isSuccess', (v) => val.isSuccess = v as String?);
         $checkedConvert(
-            'Data', (v) => val.data = _$nullableGenericFromJson(v, fromJsonT));
+            'errors',
+            (v) => val.error =
+                (v as List<dynamic>?)?.map((e) => e as String).toList());
+        $checkedConvert(
+            'data', (v) => val.data = _$nullableGenericFromJson(v, fromJsonT));
         return val;
       },
-      fieldKeyMap: const {
-        'status': 'Status',
-        'message': 'Message',
-        'data': 'Data'
-      },
+      fieldKeyMap: const {'error': 'errors'},
     );
 
 Map<String, dynamic> _$HeaderResponseToJson<T>(
@@ -37,9 +44,11 @@ Map<String, dynamic> _$HeaderResponseToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'Status': instance.status,
-      'Message': instance.message,
-      'Data': _$nullableGenericToJson(instance.data, toJsonT),
+      'status': instance.status,
+      'message': instance.message,
+      'isSuccess': instance.isSuccess,
+      'errors': instance.error,
+      'data': _$nullableGenericToJson(instance.data, toJsonT),
     };
 
 T? _$nullableGenericFromJson<T>(

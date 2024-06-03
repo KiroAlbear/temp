@@ -45,7 +45,7 @@ class CountryWidget extends StatelessWidget {
                           )
                         : Container(),
                     Icon(
-                      Icons.keyboard_arrow_down_rounded,
+                      Icons.keyboard_arrow_down_sharp,
                       size: 25.r,
                       color: secondaryColor,
                     ),

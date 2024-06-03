@@ -4,11 +4,23 @@ part of 'my_app.dart';
 // Create an instance of CustomTransitionModule for transitions.
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
-final HomeBloc _homeBloc = HomeBloc();
+final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
+final HomeBloc _homeBloc = HomeBloc(onCategoryClick: (categoryMapper) {
+  LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
+  _productCategoryBloc.reset();
+  _productCategoryBloc.categoryId == categoryMapper.id;
+
+},
+doSearch: (value) {
+  _productCategoryBloc.reset();
+  CustomNavigatorModule.navigatorKey.currentState?.pushNamed(AppScreenEnum.product.name);
+  _productCategoryBloc.doSearch(value);
+},);
 final MoreBloc _moreBloc = MoreBloc();
+
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
-  Container(),
+  _productCategoryWidget,
   Container(),
   Container(),
   _moreBlocProvider,
@@ -22,6 +34,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     (element) => _getScreenName(element) == screenName,
     orElse: () => AppScreenEnum.none,
   );
+  _listenForDataChange();
   switch (appScreenEnum) {
     case AppScreenEnum.none:
       return _buildPageRoute(const SplashWidget());
@@ -29,60 +42,88 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.login:
       return _buildPageRoute(const LoginWidget(
-        logo: Assets.imagesIcLogo,
+        logo: Assets.svgIcLogoH,
         biometricImage: Assets.svgIcBiometric,
       ));
     case AppScreenEnum.register:
       return _buildPageRoute(RegisterWidget(
-        logo: Assets.imagesIcLogo,
+        logo: Assets.svgIcLogoH,
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.forgetPassword:
       return _buildPageRoute(ForgotPasswordWidget(
-        logo: Assets.imagesIcLogo,
+        logo: Assets.svgIcLogoH,
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.otp:
       return _buildPageRoute(OtpWidget(
-        logo: Assets.imagesIcLogo,
+        logo: Assets.svgIcLogoH,
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.changePassword:
       return _buildPageRoute(ChangePasswordWidget(
-        logo: Assets.imagesIcLogo,
+        logo: Assets.svgIcLogoH,
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.newAccount:
       return _buildPageRoute(const NewAccountWidget(
-        logo: Assets.imagesIcLogo,
+        logo: Assets.svgIcLogoH,
       ));
     case AppScreenEnum.home:
       return _buildPageRoute(_bottomNavigationBlocProvider);
     case AppScreenEnum.successRegister:
       return _buildPageRoute(const SuccessRegisterWidget(
-          logo: Assets.imagesIcLogo,
+          logo: Assets.svgIcLogoH,
           successRegister: Assets.svgIcSuccessRegister));
+    case AppScreenEnum.product:
+      return _buildPageRoute(_productCategoryWidget);
   }
+
 }
+
+void _listenForDataChange() {
+  _listenForBottomNavigationChange();
+}
+
+void _listenForBottomNavigationChange(){
+  _bottomNavigationBloc.selectedTabStream.listen((event) {
+    LoggerModule.log(message: '${event}', name: '_listenForBottomNavigationChange');
+    if(event == 1){
+      _productCategoryBloc.isForFavourite = true;
+      _productCategoryBloc.reset();
+    }else{
+      _productCategoryBloc.reset();
+    }
+  });
+}
+
 
 // Get a BlocProvider for HomeBloc.
 BlocProvider get _homeBlocProvider => BlocProvider(
       bloc: _homeBloc,
       child: HomeWidget(
         homeBloc: _homeBloc,
-        favouriteIcon: Assets.svgIcFavourite,
-        homeLogo: Assets.imagesIcHomeLogo,
+        notificationIcon: Assets.svgIcNotification,
+        homeLogo: Assets.svgIcHomeLogo,
         scanIcon: Assets.svgIcScan,
         searchIcon: Assets.svgIcSearch,
-        supportIcon: Assets.svgIcSupport,
+        supportIcon: Assets.svgIcContactUs,
       ),
     );
 
 BlocProvider get _moreBlocProvider => BlocProvider(
       bloc: _moreBloc,
       child: MoreWidget(
+        openCamera: () {
+          ChristianPickerImage.pickImages(maxImages: 1).then((value){
+            if(value.isNotEmpty){
+              CustomNavigatorModule.navigatorKey.currentState?.pop();
+              _moreBloc.uploadImage(value[0].path);
+            }
+          });
+        },
         accountSettingIcon: Assets.svgIcPersonRounded,
-        appLogo: Assets.imagesIcLogo,
+        appLogo: Assets.svgIcHomeLogo,
         currentOrderIcon: Assets.svgIcCurrentOrder,
         moreBloc: _moreBloc,
         cameraIcon: Assets.svgIcCamera,
@@ -103,13 +144,29 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
         homeBloc: _bottomNavigationBloc,
         svgIconsPath: const [
           Assets.svgIcHome,
-          Assets.svgIcSearch,
-          Assets.svgIcPromotion,
-          Assets.svgIcBasket,
+          Assets.svgIcFavourite,
+          Assets.svgIcPromo,
+          Assets.svgIcCart,
           Assets.svgIcMore
         ],
       ),
     );
+
+BlocProvider get _productCategoryWidget => BlocProvider(
+  bloc: _productCategoryBloc,
+  child: ProductCategoryWidget(
+    backIcon: Assets.svgIcBack,
+    favouriteIcon: Assets.svgIcFavourite,
+    homeBloc: _homeBloc,
+    homeLogo: Assets.svgIcHomeLogo,
+    notificationIcon: Assets.svgIcNotification,
+    scanIcon: Assets.svgIcScan,
+    searchIcon: Assets.svgIcSearch,
+    supportIcon: Assets.svgIcContactUs,
+    productCategoryBloc: _productCategoryBloc,
+  )
+);
+
 
 // Build a MaterialPageRoute with a custom transition.
 Route _buildPageRoute(Widget widget) => TransitionEasy(

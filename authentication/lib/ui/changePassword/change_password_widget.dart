@@ -13,6 +13,7 @@ import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordWidget extends StatefulWidget {
@@ -44,13 +45,12 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 42.h,
+            Center(
+              child: CustomText(
+                  text: S.of(context).resetPassword,
+                  customTextStyle:
+                      BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
             ),
-            CustomText(
-                text: S.of(context).resetPassword,
-                customTextStyle:
-                    BoldStyle(color: secondaryColor, fontSize: 24.sp)),
             SizedBox(
               height: 12.h,
             ),
@@ -94,6 +94,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         labelText: S.of(context).enterYourPassword,
         textInputAction: TextInputAction.next,
     textInputType: TextInputType.text,
+    textCapitalization: TextCapitalization.none,
         validator: (value) =>
             ValidatorModule().passwordValidator(context).call(value),
         isPassword: true,
@@ -107,6 +108,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         labelText: S.of(context).enterConfirmPassword,
         textInputAction: TextInputAction.done,
         textInputType: TextInputType.text,
+    textCapitalization: TextCapitalization.none,
         validator: (value) => ValidatorModule()
             .matchValidator(context)
             .validateMatch(value ?? '', _bloc.passwordBloc.value),

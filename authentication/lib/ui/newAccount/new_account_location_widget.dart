@@ -24,12 +24,12 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 12.h,
+            height: 30.h,
           ),
           CustomText(
               text: S.of(context).selectLocation,
               customTextStyle:
-                  RegularStyle(color: secondaryColor, fontSize: 20.sp)),
+                  RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
           SizedBox(
             height: 12.h,
           ),

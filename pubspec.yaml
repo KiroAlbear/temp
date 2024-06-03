@@ -4,7 +4,7 @@ description: "A new Flutter project."
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.5 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -19,12 +19,13 @@ dependencies:
     path: home
   more:
     path: more
+  christian_picker_image: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
-  flutter_flavorizr: ^2.2.1
+  flutter_lints: ^3.0.2
+  flutter_flavorizr: ^2.2.3
 
 
 

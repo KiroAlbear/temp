@@ -53,24 +53,24 @@ mixin ResponseHandlerModule {
   }) {
     if (apiState is IdleState) {
       if (useExpanded) {
-        return Expanded(child: _getAnimatedWidget(child: onSuccess));
+        return Expanded(child: _getAnimWidget(child: onSuccess));
       } else {
-        return _getAnimatedWidget(child: onSuccess);
+        return _getAnimWidget(child: onSuccess);
       }
     } else if (apiState is LoadingState) {
       if (useExpanded) {
         return Expanded(
-            child: _getAnimatedWidget(
+            child: _getAnimWidget(
                 child: _getLoadingWidget(loaderColor, loaderSize, context)));
       } else {
-        return _getAnimatedWidget(
+        return _getAnimWidget(
             child: _getLoadingWidget(loaderColor, loaderSize, context));
       }
     } else if (apiState is SuccessState) {
       if (useExpanded) {
-        return Expanded(child: _getAnimatedWidget(child: onSuccess));
+        return Expanded(child: _getAnimWidget(child: onSuccess));
       } else {
-        return _getAnimatedWidget(child: onSuccess);
+        return _getAnimWidget(child: onSuccess);
       }
     } else if (apiState is ErrorState || apiState is FailedState && showError) {
       showErrorDialog(apiState.message, context,
@@ -101,7 +101,7 @@ mixin ResponseHandlerModule {
   //       child: child,
   //     );
 
-  Widget _getAnimatedWidget({required Widget child}) => child;
+  Widget _getAnimWidget({required Widget child}) => child;
 
   Widget _getLoadingWidget(Color? color, double? size, BuildContext context) => CustomProgress(
         color: color ?? Theme.of(context).colorScheme.primary,

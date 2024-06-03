@@ -20,13 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(codeLength, mobileNumber) =>
+  static String m0(percent) => "خصم ${percent}";
+
+  static String m1(codeLength, mobileNumber) =>
       "ادخل ال${codeLength} ارقام التي ارسلناها الي رقم ${mobileNumber}";
 
-  static String m1(PermissionName) =>
+  static String m2(PermissionName) =>
       "${PermissionName} تم رفضه. تطبيقنا يتطلب هذا الإذن للمتابعة.";
 
-  static String m2(time) => "يمكن إعادة ارسال الكود بعد ${time} ثانية";
+  static String m3(time) => "يمكن إعادة ارسال الكود بعد ${time} ثانية";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -35,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "accountBalance": MessageLookupByLibrary.simpleMessage("رصيد الحساب"),
         "accountInfo": MessageLookupByLibrary.simpleMessage("بيانات حسابي"),
+        "addToCart": MessageLookupByLibrary.simpleMessage("أضف الي السلة"),
         "atLeastOneCapChar": MessageLookupByLibrary.simpleMessage(
             "يجب أن تحتوي على حرف كبير على الأقل"),
         "atLeastOneNumber": MessageLookupByLibrary.simpleMessage(
@@ -59,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "currentOrder": MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+        "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
         "editLocation": MessageLookupByLibrary.simpleMessage("تعديل الموقع"),
@@ -79,13 +83,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "ادخل رقم البناية واسم الشارع"),
         "enterVerificationCode":
             MessageLookupByLibrary.simpleMessage("ادخل رمز التفعيل"),
-        "enterVerificationCodeSentTo": m0,
+        "enterVerificationCodeSentTo": m1,
         "enterYouRegisteredMobile":
             MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك المسجل"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("ادخل كلمة السر"),
         "failed": MessageLookupByLibrary.simpleMessage("فشل"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
+        "favourite": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "favourites": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة السر؟"),
@@ -112,7 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noSpaceAllowed":
             MessageLookupByLibrary.simpleMessage("يجب ألا تحتوي على مسافات"),
         "ok": MessageLookupByLibrary.simpleMessage("حسنًا"),
-        "openSetting": m1,
+        "openSetting": m2,
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
@@ -123,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
+        "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
         "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
@@ -130,7 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تسجيل حساب جديد"),
         "registerNow": MessageLookupByLibrary.simpleMessage("انشئ حساب جديد"),
         "required": MessageLookupByLibrary.simpleMessage("حقل مطلوب"),
-        "resendOtpAfter": m2,
+        "resendOtpAfter": m3,
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),

@@ -9,7 +9,7 @@ part of 'add_file_request.dart';
 AddFileRequest _$AddFileRequestFromJson(Map<String, dynamic> json) =>
     AddFileRequest(
       fileName: json['FileName'] as String,
-      fileType: json['FileType'] as int,
+      fileType: (json['FileType'] as num).toInt(),
       accountId: json['AccountID'] as String?,
       voiceTextId: json['VoiceTextID'] as String? ?? '',
       userId: json['UserID'] as String,

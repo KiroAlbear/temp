@@ -127,10 +127,10 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         },
         stateColors: {
           ButtonState.idle:
-              enable ?? true ? (widget.buttonColor ?? secondaryColor) : greyColor,
+              enable ?? true ? (widget.buttonColor ?? primaryColor) : greyColor,
           ButtonState.fail: redColor,
-          ButtonState.loading: widget.buttonColor ?? secondaryColor,
-          ButtonState.success: widget.successColor ?? (widget.buttonColor ?? secondaryColor),
+          ButtonState.loading: widget.buttonColor ?? primaryColor,
+          ButtonState.success: widget.successColor ?? (widget.buttonColor ?? primaryColor),
         },
         onPressed: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -143,11 +143,12 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
             FittedBox(child: CustomProgress(color: widget.progressColor?? primaryColor)),
         progressIndicatorSize: 30.r,
         padding: EdgeInsets.zero,
-        height: widget.height == null ? 50.h : widget.height!,
+        height: widget.height?? 50.h,
         enable: widget.enableClick,
         buttonShapeEnum: widget.buttonShapeEnum,
         progressAlignment: MainAxisAlignment.center,
-        minWidth: 60.w,
+        minWidth: widget.width?? 60.w,
+        maxWidth: widget.width?? 60.w,
         // minWidth: widget.width ?? MediaQuery.of(context).size.width / 2,
         // maxWidth: widget.width ?? MediaQuery.of(context).size.width,
         radius: widget.borderRadius ?? 12.0.r,
@@ -163,17 +164,17 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         iconButtons: {
           ButtonState.idle: CustomIconButton(
               icon: widget.idleIconButton,
-              color: widget.buttonColor ?? secondaryColor,
+              color: widget.buttonColor ?? primaryColor,
               text: widget.idleText),
           ButtonState.loading: CustomIconButton(
               icon: CustomProgress(
-                color: widget.buttonColor ?? secondaryColor,
+                color: widget.buttonColor ?? primaryColor,
               ),
-              color: widget.buttonColor ?? secondaryColor,
+              color: widget.buttonColor ?? primaryColor,
               text: widget.idleText),
           ButtonState.success: CustomIconButton(
               icon: widget.idleIconButton,
-              color: widget.buttonColor ?? secondaryColor,
+              color: widget.buttonColor ?? primaryColor,
               text: widget.idleText),
           ButtonState.fail: CustomIconButton(
               icon: widget.idleIconButton,
@@ -234,7 +235,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       style: widget.textStyle ?? _textStyle);
 
   TextStyle get _textStyle => MediumStyle(
-          color: widget.textColor?? whiteColor,
+          color: widget.textColor?? lightBlackColor,
           fontSize: widget.textSize == null ? 20.sp : widget.textSize!)
       .getStyle();
 }

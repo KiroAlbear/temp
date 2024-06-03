@@ -11,7 +11,7 @@ AccountLanguageResponse _$AccountLanguageResponseFromJson(
     AccountLanguageResponse()
       ..name = json['Name'] as String?
       ..code = json['Code'] as String?
-      ..id = json['ID'] as int?;
+      ..id = (json['ID'] as num?)?.toInt();
 
 Map<String, dynamic> _$AccountLanguageResponseToJson(
         AccountLanguageResponse instance) =>

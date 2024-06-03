@@ -12,7 +12,7 @@ class LogoWidget extends StatelessWidget {
   Widget build(BuildContext context) => Center(
     child: ImageHelper(
         image: logo,
-        imageType: ImageType.asset,
+        imageType: ImageType.svg,
         height: height,
         width: width,
         boxFit: BoxFit.contain,

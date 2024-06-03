@@ -5,7 +5,6 @@ import 'package:core/ui/bases/base_state.dart';
 import 'package:dokkan/generated/assets.dart';
 import 'package:flutter/material.dart';
 
-
 class SplashWidget extends BaseStatefulWidget {
   const SplashWidget({super.key});
 
@@ -15,31 +14,35 @@ class SplashWidget extends BaseStatefulWidget {
 
 class _SplashWidgetState extends BaseState<SplashWidget> {
   @override
-  PreferredSizeWidget? appBar()=> null;
+  PreferredSizeWidget? appBar() => null;
 
   @override
   void initState() {
     customBackgroundColor = primaryColor;
     super.initState();
-    Future.delayed(const Duration(seconds: 2)).then((value) => AppProviderModule().init(context));
+    Future.delayed(const Duration(seconds: 2))
+        .then((value) => AppProviderModule().init(context));
   }
 
   @override
-  Widget getBody(BuildContext context) => Stack(
-    clipBehavior: Clip.none,
-    children: [
-      const Positioned(left: 0, right: 0, top: 0, bottom: 0,child: LogoWidget(logo: Assets.imagesIcLogo,),),
-      Positioned(right: 0, bottom: 0,child: _bottomImage,),
-    ],
-  );
-
-  Widget get _bottomImage=> ImageHelper(image: Assets.imagesIcBottomSplash, imageType: ImageType.asset,
-  boxFit: BoxFit.contain, width: 356.w, height: 452.h,);
+  Widget getBody(BuildContext context) => const Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: LogoWidget(
+              logo: Assets.svgIcLogo,
+            ),
+          ),
+        ],
+      );
 
   @override
   bool isSafeArea() => true;
 
   @override
   bool canPop() => false;
-
 }

@@ -7,12 +7,8 @@ import 'app_provider_module.dart';
 BoxDecoration get leftRadiusWhiteBorder => BoxDecoration(
     color: whiteColor,
     borderRadius: BorderRadius.only(
-        topLeft: AppProviderModule().locale == 'en'
-            ? Radius.circular(40.w)
-            : Radius.zero,
-        topRight: AppProviderModule().locale == 'ar'
-            ? Radius.circular(40.w)
-            : Radius.zero));
+        topLeft: Radius.circular(40.w),
+        topRight: Radius.circular(40.w)));
 
 
 BoxDecoration get grayRectangleBorder=> BoxDecoration(

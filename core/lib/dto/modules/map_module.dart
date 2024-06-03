@@ -26,10 +26,10 @@ class MapModule {
                 pickedData.address['village'] ?? '',
                 '${pickedData.address['house_number']} / ${pickedData.address['road']}');
           },
-          buttonColor: secondaryColor,
+          buttonColor: lightBlackColor,
           buttonText: buttonText,
           locationPinTextStyle:
-              MediumStyle(fontSize: 12.sp, color: secondaryColor).getStyle(),
+              MediumStyle(fontSize: 12.sp, color: lightBlackColor).getStyle(),
           locationPinIcon: Icons.location_pin,
           zoomInIcon: Icons.zoom_in,
           zoomOutIcon: Icons.zoom_out_sharp,
@@ -37,7 +37,7 @@ class MapModule {
           buttonTextStyle:
               MediumStyle(fontSize: 20.sp, color: whiteColor).getStyle(),
           currentLocationIcon: Icons.location_searching,
-          locationPinIconColor: primaryColor,
+          locationPinIconColor: redColor,
           buttonWidth: 40.w,
           hintText: hintText,
           buttonHeight: 40.h,

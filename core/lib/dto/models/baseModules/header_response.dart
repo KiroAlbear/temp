@@ -13,11 +13,18 @@ part 'header_response.g.dart';
   includeIfNull: true,
 )
 class HeaderResponse<T> {
-  @JsonKey(name: 'Status')
-  bool? status;
-  @JsonKey(name: 'Message')
+  @JsonKey(name: 'status')
+  int? status;
+  @JsonKey(name: 'message')
   String? message;
-  @JsonKey(name: 'Data', includeIfNull: true)
+
+  @JsonKey(name: 'isSuccess')
+  String? isSuccess;
+
+  @JsonKey(name: 'errors')
+  List<String>? error;
+
+  @JsonKey(name: 'data', includeIfNull: true)
   T? data;
 
   HeaderResponse();

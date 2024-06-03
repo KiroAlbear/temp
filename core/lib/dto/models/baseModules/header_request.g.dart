@@ -27,10 +27,12 @@ HeaderRequest<T> _$HeaderRequestFromJson<T>(
         );
         final val = HeaderRequest<T>(
           userID: $checkedConvert('UserID', (v) => v as String?),
-          pageNumber: $checkedConvert('PageNumber', (v) => v as int? ?? 1),
-          pageSize: $checkedConvert('PageSize', (v) => v as int? ?? 10),
-          timeZoneOffset:
-              $checkedConvert('TimeZoneOffset', (v) => v as int? ?? -1),
+          pageNumber:
+              $checkedConvert('PageNumber', (v) => (v as num?)?.toInt() ?? 1),
+          pageSize:
+              $checkedConvert('PageSize', (v) => (v as num?)?.toInt() ?? 10),
+          timeZoneOffset: $checkedConvert(
+              'TimeZoneOffset', (v) => (v as num?)?.toInt() ?? -1),
           requstId: $checkedConvert('RequstId', (v) => v as String?),
           data: $checkedConvert(
               'Data', (v) => _$nullableGenericFromJson(v, fromJsonT)),

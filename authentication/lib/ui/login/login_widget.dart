@@ -5,6 +5,8 @@ import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/dio_module.dart';
+import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -24,7 +26,7 @@ class LoginWidget extends StatefulWidget {
   State<LoginWidget> createState() => _LoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
   final LoginBloc _bloc = LoginBloc();
 
   @override
@@ -38,20 +40,17 @@ class _LoginWidgetState extends State<LoginWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 22.h,
-              ),
-              CustomText(
+              Center(child: CustomText(
                   text: S.of(context).login,
                   customTextStyle:
-                      BoldStyle(color: blackColor, fontSize: 24.sp)),
+                  BoldStyle(color: lightBlackColor, fontSize: 24.sp)),),
               SizedBox(
-                height: 12.h,
+                height: 30.h,
               ),
               CustomText(
                   text: S.of(context).enterMobileNumber,
                   customTextStyle:
-                      MediumStyle(fontSize: 20.sp, color: blackColor)),
+                      MediumStyle(fontSize: 20.sp, color: lightBlackColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -65,17 +64,15 @@ class _LoginWidgetState extends State<LoginWidget> {
               CustomText(
                   text: S.of(context).password,
                   customTextStyle:
-                      MediumStyle(fontSize: 20.sp, color: blackColor)),
+                      MediumStyle(fontSize: 20.sp, color: lightBlackColor)),
               SizedBox(
                 height: 12.h,
               ),
               _passwordTextFormFiled,
-              SizedBox(
-                height: 60.h,
-              ),
+              SizedBox(height: 8.h,),
               _forgetPassword,
               SizedBox(
-                height: 10.h,
+                height: 40.h,
               ),
               _buttonRow,
               SizedBox(
@@ -92,18 +89,21 @@ class _LoginWidgetState extends State<LoginWidget> {
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
         onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
         validator: (value) =>
-            ValidatorModule().passwordValidator(context).call(value),
+            ValidatorModule().emptyValidator(context).call(value),
         textInputAction: TextInputAction.done,
         isPassword: true,
       );
 
-  Widget get _forgetPassword => InkWell(
-        onTap: () => CustomNavigatorModule.navigatorKey.currentState
-            ?.pushNamed(AppScreenEnum.forgetPassword.name),
-        child: CustomText(
-            text: S.of(context).forgotPassword,
-            customTextStyle: RegularStyle(color: blackColor, fontSize: 14.sp)),
-      );
+  Widget get _forgetPassword => Container(
+    alignment: Alignment.centerLeft,
+    child: InkWell(
+          onTap: () => CustomNavigatorModule.navigatorKey.currentState
+              ?.pushNamed(AppScreenEnum.forgetPassword.name),
+          child: CustomText(
+              text: S.of(context).forgotPassword,
+              customTextStyle: RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
+        ),
+  );
 
   Widget get _buttonRow => StreamBuilder(
         stream: _bloc.biometricSupportedStream,
@@ -112,7 +112,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             Expanded(child: _button),
             if (snapshot.data ?? false)
               SizedBox(
-                width: 7.w,
+                width: 21.w,
               ),
             if (snapshot.data ?? false) _biometricButton,
           ],
@@ -126,22 +126,22 @@ class _LoginWidgetState extends State<LoginWidget> {
               .authenticateWithBiometric(S.of(context).biometricLoginMessage)
               .then((value) {
             if (value) {
-              _navigateHome();
+              _bloc.login.listen((event) {
+                checkResponseStateWithButton(event, context,
+                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                    onSuccess: () {
+                  _navigateHome();
+                });
+              });
             }
           });
         },
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-          decoration: BoxDecoration(
-              color: whiteColor,
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(color: blackColor, width: 1)),
-          child: ImageHelper(
-            image: widget.biometricImage,
-            imageType: ImageType.svg,
-            width: 42.w,
-            height: 42.h,
-          ),
+        child: ImageHelper(
+          image: widget.biometricImage,
+          imageType: ImageType.svg,
+          width: 71.w,
+          height: 71.h,
         ),
       );
 
@@ -150,8 +150,17 @@ class _LoginWidgetState extends State<LoginWidget> {
         height: 62.h,
         onTap: () {
           if (_bloc.isValid) {
-            /// TODO success login here
-            _navigateHome();
+            _bloc.login.listen((event) {
+              checkResponseStateWithButton(
+                event,
+                context,
+                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                onSuccess: () {
+                  _navigateHome();
+                },
+              );
+            });
           }
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
@@ -169,14 +178,14 @@ class _LoginWidgetState extends State<LoginWidget> {
             CustomText(
                 text: S.of(context).doNotHaveAccount,
                 customTextStyle:
-                    RegularStyle(fontSize: 14.sp, color: blackColor)),
+                    RegularStyle(fontSize: 14.sp, color: lightBlackColor)),
             SizedBox(
               width: 5.w,
             ),
             CustomText(
                 text: S.of(context).registerNow,
                 customTextStyle:
-                    SemiBoldStyle(color: blackColor, fontSize: 14.sp))
+                    SemiBoldStyle(color: lightBlackColor, fontSize: 14.sp))
           ],
         ),
       );

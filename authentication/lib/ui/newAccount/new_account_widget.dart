@@ -32,9 +32,6 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(
-            height: 34.h,
-          ),
           _stepRow,
           _registerInfoWidget,
         ]),
@@ -90,7 +87,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
           CustomText(
               text: S.of(context).createAccount,
               customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: secondaryColor)),
+                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
           const Spacer(),
           _stepContainer(2, false, false),
           SizedBox(
@@ -114,7 +111,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
           CustomText(
               text: S.of(context).locationYourLocation,
               customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: secondaryColor)),
+                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
           const Spacer(),
           _stepContainer(3, false, false),
         ],
@@ -138,7 +135,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
           CustomText(
               text: S.of(context).password,
               customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: secondaryColor)),
+                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
         ],
       );
 
@@ -149,9 +146,9 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
           height: 32.h,
           padding: !finished? EdgeInsets.symmetric(vertical: 3.h): null,
           decoration: BoxDecoration(
-              color: current ? secondaryColor : whiteColor,
+              color: current ? lightBlackColor : whiteColor,
               borderRadius: BorderRadius.circular(7.w),
-              border: Border.all(color: secondaryColor, width: 1.w)),
+              border: Border.all(color: lightBlackColor, width: 1.w)),
           child: Center(
             child: finished
                 ? Icon(
@@ -162,7 +159,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
                 : CustomText(
                 text: step.toString(),
                 customTextStyle: SemiBoldStyle(
-                    color: current ? whiteColor : secondaryColor,
+                    color: current ? whiteColor : lightBlackColor,
                     fontSize: 20.sp)),
           ));
 }

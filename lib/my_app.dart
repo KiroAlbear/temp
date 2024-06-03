@@ -1,6 +1,7 @@
 import 'package:authentication/authentication.dart';
 import 'package:authentication/ui/newAccount/new_account_widget.dart';
 import 'package:authentication/ui/otp/otp_widget.dart';
+import 'package:christian_picker_image/christian_picker_image.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
@@ -22,6 +23,8 @@ import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_widget.d
 import 'package:home/home.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
+import 'package:home/ui/home/product/product_category_widget.dart';
+import 'package:home/ui/home/product/product_category_bloc.dart';
 import 'flavors.dart';
 
 

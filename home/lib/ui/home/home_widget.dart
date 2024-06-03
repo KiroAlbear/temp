@@ -7,20 +7,21 @@ import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:home/ui/home/category_widget.dart';
 import 'package:home/ui/home/home_bloc.dart';
-import 'package:home/ui/home/home_top_widget.dart';
+import 'package:core/ui/app_top_widget.dart';
+import 'package:home/ui/home/offers_widget.dart';
 import 'package:home/ui/home/promotion_widget.dart';
 
 class HomeWidget extends BaseStatefulWidget {
   final String homeLogo;
   final String supportIcon;
-  final String favouriteIcon;
+  final String notificationIcon;
   final String scanIcon;
   final String searchIcon;
   final HomeBloc homeBloc;
 
   const HomeWidget(
       {super.key,
-      required this.favouriteIcon,
+      required this.notificationIcon,
       required this.homeLogo,
       required this.scanIcon,
       required this.searchIcon,
@@ -33,6 +34,7 @@ class HomeWidget extends BaseStatefulWidget {
 
 class _HomeWidgetState extends BaseState<HomeWidget> {
   final ScrollController _scrollController = ScrollController();
+
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -50,13 +52,14 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
 
   @override
   Widget getBody(BuildContext context) => ListView(
-    controller: _scrollController,
+        controller: _scrollController,
         shrinkWrap: true,
         children: [
           _topWidget,
           SizedBox(
-            height: 112.h,
+            height: 23.h,
           ),
+          // OffersWidget(homeBloc: widget.homeBloc),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: CustomText(
@@ -79,15 +82,21 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
           SizedBox(
             height: 12.h,
           ),
-          CategoryWidget(homeBloc: widget.homeBloc, scrollController: _scrollController)
+          CategoryWidget(
+              homeBloc: widget.homeBloc, scrollController: _scrollController)
         ],
       );
 
-  Widget get _topWidget => HomeTopWidget(
-      favouriteIcon: widget.favouriteIcon,
-      homeLogo: widget.homeLogo,
-      scanIcon: widget.scanIcon,
-      searchIcon: widget.searchIcon,
-      supportIcon: widget.supportIcon,
-      homeBloc: widget.homeBloc);
+  Widget get _topWidget => AppTopWidget(
+        notificationIcon: widget.notificationIcon,
+        homeLogo: widget.homeLogo,
+        scanIcon: widget.scanIcon,
+        searchIcon: widget.searchIcon,
+        supportIcon: widget.supportIcon,
+        onChanged: (value) =>
+            widget.homeBloc.searchBloc.updateStringBehaviour(value),
+        textFiledControllerStream:
+            widget.homeBloc.searchBloc.textFormFiledStream,
+        doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value),
+      );
 }

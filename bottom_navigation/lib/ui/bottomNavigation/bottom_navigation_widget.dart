@@ -46,7 +46,7 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
             children: [
               BottomNavigationBar(
                   items: _items,
-                  backgroundColor: offWhiteColor,
+                  backgroundColor: secondaryColor,
                   currentIndex: snapshot.data ?? 0,
                   landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
                   onTap: (value) {
@@ -67,7 +67,7 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
 
   BottomNavigationBarItem _searchBottomNavigationBarItem(int selectedIndex) =>
       _getBottomNavBarItem(
-          widget.svgIconsPath[1], S.of(context).search, selectedIndex, 1);
+          widget.svgIconsPath[1], S.of(context).favourite, selectedIndex, 1);
 
   BottomNavigationBarItem _promotionBottomNavigationBarItem(
           int selectedIndex) =>
@@ -85,27 +85,19 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
   BottomNavigationBarItem _getBottomNavBarItem(
           String svgPath, String name, int selectedIndex, int tabIndex) =>
       BottomNavigationBarItem(
-          activeIcon: Container(
-            width: 43.w,
-            height: 47.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.w),
-              color: secondaryColor,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _imageIcon(svgPath, selectedIndex, tabIndex),
-                SizedBox(
-                  height: 4.h,
-                ),
-                CustomText(
-                    text: name,
-                    customTextStyle:
-                        RegularStyle(color: whiteColor, fontSize: 9.sp))
-              ],
-            ),
+          activeIcon: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _imageIcon(svgPath, selectedIndex, tabIndex),
+              SizedBox(
+                height: 4.h,
+              ),
+              CustomText(
+                  text: name,
+                  customTextStyle:
+                      RegularStyle(color: primaryColor, fontSize: 9.sp))
+            ],
           ),
           icon: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +110,7 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
               CustomText(
                   text: name,
                   customTextStyle:
-                      RegularStyle(color: greyColor, fontSize: 9.sp))
+                      RegularStyle(color: whiteColor, fontSize: 9.sp))
             ],
           ),
           label: name);

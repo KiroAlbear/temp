@@ -20,13 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(codeLength, mobileNumber) =>
+  static String m0(percent) => "Discount ${percent}";
+
+  static String m1(codeLength, mobileNumber) =>
       "Enter ${codeLength} number sent to ${mobileNumber}";
 
-  static String m1(PermissionName) =>
+  static String m2(PermissionName) =>
       "${PermissionName} has been denied. our app required this permission in order to continue.";
 
-  static String m2(time) => "Resend OTP after ${time} seconds";
+  static String m3(time) => "Resend OTP after ${time} seconds";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -36,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountBalance":
             MessageLookupByLibrary.simpleMessage("Account balance"),
         "accountInfo": MessageLookupByLibrary.simpleMessage("Account info"),
+        "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":
@@ -62,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
         "currentOrder": MessageLookupByLibrary.simpleMessage("Current orders"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
+        "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "editLocation": MessageLookupByLibrary.simpleMessage("Edit location"),
@@ -82,13 +86,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Enter the building number and street name"),
         "enterVerificationCode":
             MessageLookupByLibrary.simpleMessage("Enter verification code"),
-        "enterVerificationCodeSentTo": m0,
+        "enterVerificationCodeSentTo": m1,
         "enterYouRegisteredMobile": MessageLookupByLibrary.simpleMessage(
             "Enter your registered mobile"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "failed": MessageLookupByLibrary.simpleMessage("Failed"),
         "faq": MessageLookupByLibrary.simpleMessage("FAQ"),
+        "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "favourites": MessageLookupByLibrary.simpleMessage("Favourites"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
@@ -114,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noSpaceAllowed":
             MessageLookupByLibrary.simpleMessage("No space allowed"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
-        "openSetting": m1,
+        "openSetting": m2,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("At lest 8 characters"),
@@ -127,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "previous": MessageLookupByLibrary.simpleMessage("previous"),
         "previousOrder":
             MessageLookupByLibrary.simpleMessage("Previous orders"),
+        "products": MessageLookupByLibrary.simpleMessage("Products"),
         "promotion": MessageLookupByLibrary.simpleMessage("Promotion"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "Once you press on next you will receive message to activate your account"),
@@ -134,7 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Register new account"),
         "registerNow": MessageLookupByLibrary.simpleMessage("Register"),
         "required": MessageLookupByLibrary.simpleMessage("Filed required"),
-        "resendOtpAfter": m2,
+        "resendOtpAfter": m3,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchProduct": MessageLookupByLibrary.simpleMessage(

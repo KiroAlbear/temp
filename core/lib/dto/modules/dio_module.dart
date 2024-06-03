@@ -51,14 +51,14 @@ class DioModule extends DioBuilder {
           'Authorization', () => 'Bearer ${_getBearerToken(customToken)}');
     }
     header.putIfAbsent(
-        'Language', () => '${AppProviderModule().locale == 'en' ? 1 : 0}');
+        'token', () => '02594d4802787f020527c324d111afedb2989c32');
     setHeaders(header);
     initialize();
   }
 
   // Get the Bearer token from the logged-in user or custom token
   String _getBearerToken(String? customToken) =>
-      customToken ?? SharedPrefModule().bearerToken?? '';
+      customToken ?? SharedPrefModule().bearerToken ?? '';
 
   // Handle Dio errors and exceptions
   @override
@@ -72,7 +72,8 @@ class DioModule extends DioBuilder {
       case 401:
         handler.next(DioException(
             requestOptions: _options,
-            message: UnAuthorizedException().toString()));
+            message: UnAuthorizedException().toString(),
+            response: dioException.response));
       case -1:
         handler.next(DioException(
             requestOptions: _options,
@@ -130,7 +131,7 @@ class DioModule extends DioBuilder {
     } else {
       final HeaderResponse headerResponse =
           HeaderResponse.fromJson(response.data, (json) => null);
-      if (headerResponse.status! == true) {
+      if (headerResponse.status! == 200) {
         return handler.next(response);
       } else {
         throw DioException.badResponse(
@@ -140,8 +141,8 @@ class DioModule extends DioBuilder {
   }
 
   void _logApiRequestAndResponse(Response<dynamic> response) {
-       LoggerModule.log(
-        message:'api log:'
+    LoggerModule.log(
+        message: 'api log:'
             'api url: ${_options.path}\n'
             'body: ${_options.data.toString()}\n'
             'header: ${_options.headers.toString()}\n'

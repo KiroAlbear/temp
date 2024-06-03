@@ -34,9 +34,9 @@ class AppProviderModule with ChangeNotifier {
   SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark,
     statusBarIconBrightness: Brightness.dark,
-    statusBarColor: primaryColorLightMode,
-    systemNavigationBarColor: primaryColorLightMode,
-    systemNavigationBarDividerColor: primaryColorLightMode,
+    statusBarColor: secondaryLightMode,
+    systemNavigationBarColor: secondaryLightMode,
+    systemNavigationBarDividerColor: secondaryLightMode,
     systemNavigationBarContrastEnforced: false,
     systemStatusBarContrastEnforced: false,
     systemNavigationBarIconBrightness: Brightness.dark,
@@ -84,9 +84,9 @@ class AppProviderModule with ChangeNotifier {
   SystemUiOverlayStyle get _darkSystemUIOverlay => const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: primaryColorDarkMode,
-        systemNavigationBarColor: primaryColorDarkMode,
-        systemNavigationBarDividerColor: primaryColorDarkMode,
+        statusBarColor: secondaryDarkMode,
+        systemNavigationBarColor: secondaryDarkMode,
+        systemNavigationBarDividerColor: secondaryDarkMode,
         systemNavigationBarContrastEnforced: false,
         systemStatusBarContrastEnforced: false,
         systemNavigationBarIconBrightness: Brightness.light,
@@ -96,9 +96,9 @@ class AppProviderModule with ChangeNotifier {
   SystemUiOverlayStyle get _lightSystemUIOverlay => const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
-        statusBarColor: primaryColorLightMode,
-        systemNavigationBarColor: primaryColorLightMode,
-        systemNavigationBarDividerColor: primaryColorLightMode,
+        statusBarColor: secondaryLightMode,
+        systemNavigationBarColor: secondaryLightMode,
+        systemNavigationBarDividerColor: secondaryLightMode,
         systemNavigationBarContrastEnforced: false,
         systemStatusBarContrastEnforced: false,
         systemNavigationBarIconBrightness: Brightness.dark,
@@ -107,7 +107,7 @@ class AppProviderModule with ChangeNotifier {
   /// Initialize the app's state and check user authentication status.
   Future<void> init(BuildContext context) async {
     _isLoggedIn = SharedPrefModule().bearerToken != null;
-    if (_isLoggedIn && _isTokenExpired()) {
+    if (_isLoggedIn) {
       /// TODO replace it with bearer token refresh
       final isRefreshed = true;
       if (isRefreshed) {

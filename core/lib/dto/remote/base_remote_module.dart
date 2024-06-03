@@ -20,6 +20,7 @@ import 'package:flutter/foundation.dart';
 ///   - K: The type of response received from the API.
 abstract class BaseRemoteModule<T, K> {
   /// The future representing the API call.
+  late bool isFormLogin = false;
   late final Future<HeaderResponse<K>> _apiFuture;
 
   /// The header response received from the API.
@@ -61,9 +62,9 @@ abstract class BaseRemoteModule<T, K> {
   /// Checks if the device is connected to any source of internet.
   Future<bool> _checkIfConnectToAnySourceType() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.vpn) {
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi) ||
+        connectivityResult.contains(ConnectivityResult.vpn)) {
       return true;
     } else {
       return false;
@@ -92,12 +93,12 @@ abstract class BaseRemoteModule<T, K> {
           LoggerModule.log(
               message: 'callApiAsStream', name: runtimeType.toString());
 
-          if (value.status ?? true) {
+          if ((value.status ?? 400) == 200) {
             headerResponse = value;
             return onSuccessHandle(value.data); // Handle success
           } else {
             return FailedState(
-                message: value.message ?? '',
+                message: value.message ?? value.error?.first ?? '',
                 loggerName: runtimeType.toString());
           }
         });
@@ -126,7 +127,7 @@ abstract class BaseRemoteModule<T, K> {
         return NoInternetState();
       } else {
         return await _apiFuture.then((value) {
-          if (value.status ?? true) {
+          if ((value.status ?? 400) == 200) {
             return onSuccessHandle(value.data); // Handle success
           } else {
             return FailedState(
@@ -150,9 +151,16 @@ abstract class BaseRemoteModule<T, K> {
     if (e is DioException) {
       if (e.message == UnAuthorizedException().toString()) {
         // Token unauthorized, attempt token refresh
-        await refreshToken();
-        callApiAsStream();
-        return LoadingState();
+        if (!isFormLogin) {
+          await refreshToken();
+          callApiAsStream();
+          return LoadingState();
+        } else {
+          return FailedState(
+            message: e.response?.data['errors'][0] ?? S.current.generalError,
+            loggerName: runtimeType.toString(),
+          );
+        }
       } else if (e.message == NoInternetDioException().toString()) {
         return NoInternetState(); // No internet connectivity
       } else if (e.message == CustomDioException().toString()) {

@@ -29,9 +29,12 @@ class _NewAccountLocationInfoWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 4.h,
+              height: 30.h,
             ),
-            CustomText(text: S.of(context).selectLocation, customTextStyle: RegularStyle(color: secondaryColor, fontSize: 20.sp)),
+            CustomText(
+                text: S.of(context).selectLocation,
+                customTextStyle:
+                    RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
             SizedBox(
               height: 12.h,
             ),
@@ -42,7 +45,7 @@ class _NewAccountLocationInfoWidgetState
             CustomText(
                 text: S.of(context).streetName,
                 customTextStyle: RegularStyle(
-                  color: secondaryColor,
+                  color: lightBlackColor,
                   fontSize: 20.sp,
                 )),
             SizedBox(
@@ -57,7 +60,9 @@ class _NewAccountLocationInfoWidgetState
               height: 21.h,
             ),
             _nextPreviousButton,
-            SizedBox(height: 21.h,),
+            SizedBox(
+              height: 21.h,
+            ),
           ]);
 
   Widget get _mapPreviewStream => StreamBuilder(
@@ -96,7 +101,7 @@ class _NewAccountLocationInfoWidgetState
                 CustomText(
                     text: S.of(context).neighborhood,
                     customTextStyle: RegularStyle(
-                      color: secondaryColor,
+                      color: lightBlackColor,
                       fontSize: 20.sp,
                     )),
                 SizedBox(
@@ -117,7 +122,7 @@ class _NewAccountLocationInfoWidgetState
                 CustomText(
                     text: S.of(context).city,
                     customTextStyle: RegularStyle(
-                      color: secondaryColor,
+                      color: lightBlackColor,
                       fontSize: 20.sp,
                     )),
                 SizedBox(
@@ -178,9 +183,9 @@ class _NewAccountLocationInfoWidgetState
 
   Widget get _previous => CustomButtonWidget(
         idleText: S.of(context).previous,
-        buttonColor: secondaryColor,
+        buttonColor: lightBlackColor,
         inLineBackgroundColor: whiteColor,
-        textColor: secondaryColor,
+        textColor: lightBlackColor,
         buttonShapeEnum: ButtonShapeEnum.outline,
         onTap: () {
           widget.newAccountBloc.nextStep(NewAccountStepEnum.info);

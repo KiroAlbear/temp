@@ -40,7 +40,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
             ),
             ImageHelper(
               image: widget.logo,
-              imageType: ImageType.asset,
+              imageType: ImageType.svg,
               height: 88.h,
               width: 241.w,
             ),
@@ -59,14 +59,14 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
             CustomText(
                 text: S.of(context).welcomeToDokkan,
                 customTextStyle:
-                    SemiBoldStyle(fontSize: 26.sp, color: secondaryColor)),
+                    SemiBoldStyle(fontSize: 26.sp, color: lightBlackColor)),
             SizedBox(
               height: 5.h,
             ),
             CustomText(
                 text: S.of(context).youCanStartOrderNow,
                 customTextStyle:
-                    RegularStyle(fontSize: 20.sp, color: secondaryColor)),
+                    RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
             SizedBox(
               height: 60.h,
             ),

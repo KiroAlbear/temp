@@ -909,6 +909,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Favourite`
+  String get favourite {
+    return Intl.message(
+      'Favourite',
+      name: 'favourite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discount {percent}`
+  String discount(Object percent) {
+    return Intl.message(
+      'Discount $percent',
+      name: 'discount',
+      desc: '',
+      args: [percent],
+    );
+  }
+
+  /// `Add to cart`
+  String get addToCart {
+    return Intl.message(
+      'Add to cart',
+      name: 'addToCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Products`
+  String get products {
+    return Intl.message(
+      'Products',
+      name: 'products',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

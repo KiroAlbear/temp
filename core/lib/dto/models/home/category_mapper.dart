@@ -1,9 +1,15 @@
-class CategoryMapper{
-  final String name;
-  final String image;
-  final int id;
-  final bool clickable;
+import 'package:core/dto/models/category/category_response.dart';
 
-  CategoryMapper(
-      {this.name = '', this.image = '', this.id = 0, this.clickable = false});
+class CategoryMapper{
+  String name = '';
+  String image= '';
+  int id= -1;
+  bool clickable = false;
+
+  CategoryMapper(CategoryResponse categoryResponse){
+    name = categoryResponse.name??'';
+    image = categoryResponse.image??'';
+    id = categoryResponse.id?? -1;
+    clickable = true;
+  }
 }

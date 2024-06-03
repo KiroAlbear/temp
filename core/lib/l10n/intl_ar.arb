@@ -84,5 +84,9 @@
   "supportAndAssistance": "الدعم والمساعدة",
   "contactUs": "تواصل معنا",
   "faq": "الأسئلة الشائعة",
-  "logout": "تسجيل خروج"
+  "logout": "تسجيل خروج",
+  "favourite": "المفضلة",
+  "discount": "خصم {percent}",
+  "addToCart": "أضف الي السلة",
+  "products": "المنتجات"
 }

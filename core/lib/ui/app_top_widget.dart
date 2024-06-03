@@ -1,57 +1,70 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
+import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:home/ui/home/home_bloc.dart';
-import 'package:home/ui/home/offers_widget.dart';
 
-class HomeTopWidget extends StatefulWidget {
+class AppTopWidget extends StatefulWidget {
   final String homeLogo;
   final String supportIcon;
-  final String favouriteIcon;
+  final String notificationIcon;
   final String scanIcon;
   final String searchIcon;
-  final HomeBloc homeBloc;
 
-  const HomeTopWidget(
+  final String title;
+
+
+  final String backIcon;
+
+  final bool hideTop;
+
+  final Stream<TextEditingController>? textFiledControllerStream;
+
+  final ValueChanged<String>? onChanged;
+
+  final VoidCallback? doSearch;
+
+  const AppTopWidget(
       {super.key,
-      required this.favouriteIcon,
+      required this.notificationIcon,
       required this.homeLogo,
       required this.scanIcon,
       required this.searchIcon,
       required this.supportIcon,
-      required this.homeBloc});
+      this.title = '',
+      this.backIcon = '',
+      this.hideTop = false,
+      this.doSearch,
+      this.onChanged,
+      this.textFiledControllerStream});
 
   @override
-  State<HomeTopWidget> createState() => _HomeTopWidgetState();
+  State<AppTopWidget> createState() => _AppTopWidgetState();
 }
 
-class _HomeTopWidgetState extends State<HomeTopWidget> {
+class _AppTopWidgetState extends State<AppTopWidget> {
   @override
   Widget build(BuildContext context) => _topStack;
 
   Widget get _topStack => Container(
-        height: 182.h,
+        height: widget.hideTop ? 95.h : 150.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16.w),
               bottomRight: Radius.circular(16.w)),
-          color: primaryColor,
+          color: secondaryColor,
         ),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            _logoWidget,
-            _supportWidget,
-            _favouriteWidget,
-            _searchWidget,
-            Positioned(
-                left: 0,
-                right: 0,
-                top: 137.h,
-                height: 140.h,
-                child: OffersWidget(homeBloc: widget.homeBloc)),
+            if (!widget.hideTop) ...[
+              _logoWidget,
+              _supportWidget,
+              _favouriteWidget,
+            ],
+            if (widget.title.isEmpty) ...[_searchWidget] else ...[_titleRow]
           ],
         ),
       );
@@ -62,7 +75,7 @@ class _HomeTopWidgetState extends State<HomeTopWidget> {
       child: InkWell(
         onTap: () => _clickOnFavourite(),
         child: ImageHelper(
-          image: widget.favouriteIcon,
+          image: widget.notificationIcon,
           imageType: ImageType.svg,
           width: 40.w,
           height: 40.h,
@@ -87,7 +100,7 @@ class _HomeTopWidgetState extends State<HomeTopWidget> {
       right: 16.w,
       child: ImageHelper(
         image: widget.homeLogo,
-        imageType: ImageType.asset,
+        imageType: ImageType.svg,
         width: 40.w,
         height: 40.h,
       ));
@@ -107,9 +120,9 @@ class _HomeTopWidgetState extends State<HomeTopWidget> {
         child: CustomTextFormFiled(
           labelText: S.of(context).searchProduct,
           textFiledControllerStream:
-              widget.homeBloc.searchBloc.textFormFiledStream,
+              widget.textFiledControllerStream!,
           onChanged: (value) =>
-              widget.homeBloc.searchBloc.updateStringBehaviour(value),
+              widget.onChanged!(value),
           textInputType: TextInputType.text,
           textInputAction: TextInputAction.search,
           prefixIcon: _searchProductWidget,
@@ -127,7 +140,7 @@ class _HomeTopWidgetState extends State<HomeTopWidget> {
       );
 
   Widget get _searchProductWidget => InkWell(
-        onTap: () => widget.homeBloc.doSearch(),
+        onTap: () => widget.doSearch!(),
         child: ImageHelper(
           image: widget.searchIcon,
           imageType: ImageType.svg,
@@ -135,6 +148,37 @@ class _HomeTopWidgetState extends State<HomeTopWidget> {
           width: 19.w,
           height: 19.h,
           boxFit: BoxFit.scaleDown,
+        ),
+      );
+
+  Widget get _titleRow => Positioned(
+        top: !widget.hideTop? 72.h: 25.h,
+        left: 17.w,
+        right: 17.w,
+        bottom: !widget.hideTop ? null: 30.h,
+        child: Row(
+          children: [
+            if (widget.backIcon.isNotEmpty)
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: ImageHelper(
+                  image: widget.backIcon,
+                  imageType: ImageType.svg,
+                  height: 20.h,
+                  width: 20.w,
+                  color: whiteColor,
+                ),
+              ),
+            SizedBox(
+              width: 11.w,
+            ),
+            CustomText(
+                text: widget.title,
+                customTextStyle:
+                    MediumStyle(fontSize: 26.sp, color: whiteColor)),
+          ],
         ),
       );
 }

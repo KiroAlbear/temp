@@ -30,7 +30,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
           CustomText(
               text: S.of(context).fullName,
               customTextStyle:
-                  RegularStyle(fontSize: 20.sp, color: secondaryColor)),
+                  RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
           SizedBox(
             height: 12.h,
           ),
@@ -41,7 +41,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
           CustomText(
               text: S.of(context).platformName,
               customTextStyle:
-                  RegularStyle(fontSize: 20.sp, color: secondaryColor)),
+                  RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
           _platformNameTextFiled,
           SizedBox(
             height: 160.h,

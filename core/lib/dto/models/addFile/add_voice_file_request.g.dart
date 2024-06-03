@@ -12,7 +12,7 @@ AddVoiceFileRequest _$AddVoiceFileRequestFromJson(Map<String, dynamic> json) =>
       fileName: json['FileName'] as String? ?? 'VoiceFile',
       voiceTextId: json['VoiceTextID'] as String,
       base64: json['Base64'] as String? ?? '',
-      fileType: json['FileType'] as int? ?? 2,
+      fileType: (json['FileType'] as num?)?.toInt() ?? 2,
     );
 
 Map<String, dynamic> _$AddVoiceFileRequestToJson(

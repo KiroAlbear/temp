@@ -28,13 +28,10 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 12.h,
-            ),
             CustomText(
                 text: S.of(context).password,
                 customTextStyle:
-                    RegularStyle(fontSize: 20.sp, color: secondaryColor)),
+                    RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
             SizedBox(
               height: 12.h,
             ),
@@ -45,7 +42,7 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget> {
             CustomText(
                 text: S.of(context).confirmPassword,
                 customTextStyle:
-                    RegularStyle(color: secondaryColor, fontSize: 20.sp)),
+                    RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
             SizedBox(
               height: 12.h,
             ),
@@ -69,6 +66,7 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget> {
     labelText: S.of(context).enterYourPassword,
     textInputAction: TextInputAction.next,
     textInputType: TextInputType.text,
+    textCapitalization: TextCapitalization.none,
     validator: (value) =>
         ValidatorModule().passwordValidator(context).call(value),
     isPassword: true,
@@ -82,6 +80,7 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget> {
     labelText: S.of(context).enterConfirmPassword,
     textInputAction: TextInputAction.done,
     textInputType: TextInputType.text,
+    textCapitalization: TextCapitalization.none,
     validator: (value) => ValidatorModule()
         .matchValidator(context)
         .validateMatch(value ?? '', widget.newAccountBloc.passwordBloc.value),
@@ -111,9 +110,9 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget> {
 
   Widget get _previous => CustomButtonWidget(
     idleText: S.of(context).previous,
-    buttonColor: secondaryColor,
+    buttonColor: lightBlackColor,
     inLineBackgroundColor: whiteColor,
-    textColor: secondaryColor,
+    textColor: lightBlackColor,
     buttonShapeEnum: ButtonShapeEnum.outline,
     onTap: () {
       widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);

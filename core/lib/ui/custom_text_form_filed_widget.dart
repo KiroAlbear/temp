@@ -181,6 +181,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         controller: controller,
         keyboardType: widget.textInputType,
         enabled: widget.enable,
+
         enableInteractiveSelection: widget.enableInteractiveSelection,
         expands: widget.expanded,
         autofocus: widget.autoFocus,
@@ -226,7 +227,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         fillColor: widget.fillColor ?? whiteColor,
         filled: true,
         floatingLabelBehavior:
-            widget.floatingLabelBehavior ?? FloatingLabelBehavior.auto,
+            widget.floatingLabelBehavior ?? FloatingLabelBehavior.never,
         label: widget.customLabelText ?? _labelText,
         suffixIcon: widget.isPassword ? _passwordIcon : widget.suffixIcon,
         prefixIcon: widget.prefixIcon,
@@ -250,7 +251,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
               // imageType: ImageType.svg,
               // boxFit: BoxFit.scaleDown,
               // scale: 0.5,
-              color: secondaryColor,
+              color: greyColor,
             ),
             onTap: () => _passwordToggleBehaviour.sink
                 .add(!_passwordToggleBehaviour.value),
@@ -275,7 +276,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
                         color: snapshot.data ?? false
                             ? whiteColor
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(3.sp)),
+                        borderRadius: BorderRadius.circular(6.sp)),
                     child: CustomText(
                       text: widget.labelText,
                       customTextStyle: MediumStyle(
@@ -325,7 +326,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
 
   InputBorder getOutLineBorder(Color color) => OutlineInputBorder(
       borderRadius:
-          BorderRadius.circular(widget.radius == null ? 12.r : widget.radius!),
+          BorderRadius.circular(widget.radius == null ? 6.r : widget.radius!),
       borderSide: BorderSide(
           color: widget.borderColor == null ? color : widget.borderColor!,
           width: 1.0.w));

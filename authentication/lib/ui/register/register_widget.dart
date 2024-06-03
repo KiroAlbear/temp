@@ -9,7 +9,9 @@ import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class RegisterWidget extends StatefulWidget {
   final String logo;
@@ -35,20 +37,19 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 42.h,
+              Center(
+                child: CustomText(
+                    text: S.of(context).registerNewAccount,
+                    customTextStyle:
+                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
               ),
-              CustomText(
-                  text: S.of(context).registerNewAccount,
-                  customTextStyle:
-                      BoldStyle(color: blackColor, fontSize: 24.sp)),
               SizedBox(
-                height: 12.h,
+                height: 30.h,
               ),
               CustomText(
                   text: S.of(context).enterMobileNumber,
                   customTextStyle:
-                      MediumStyle(fontSize: 20.sp, color: blackColor)),
+                      MediumStyle(fontSize: 20.sp, color: lightBlackColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -59,10 +60,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               SizedBox(
                 height: 112.h,
               ),
-              CustomText(
-                  text: S.of(context).registerMessageOtp,
-                  customTextStyle:
-                      RegularStyle(color: blackColor, fontSize: 14.sp)),
+              Center(
+                child: CustomText(
+                    text: S.of(context).registerMessageOtp,
+                    customTextStyle:
+                        RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
+              ),
               SizedBox(
                 height: 10.h,
               ),
@@ -103,14 +106,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               CustomText(
                   text: S.of(context).haveAccount,
                   customTextStyle:
-                      RegularStyle(fontSize: 14.sp, color: blackColor)),
+                      RegularStyle(fontSize: 14.sp, color: lightBlackColor)),
               SizedBox(
                 height: 15.h,
               ),
               CustomText(
                   text: S.of(context).login,
                   customTextStyle:
-                      SemiBoldStyle(color: blackColor, fontSize: 14.sp)),
+                      SemiBoldStyle(color: lightBlackColor, fontSize: 14.sp)),
             ],
           ),
         ),

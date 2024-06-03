@@ -84,7 +84,11 @@
   "supportAndAssistance": "Support & Assistance",
   "contactUs": "Contact us",
   "faq": "FAQ",
-  "logout": "Logout"
+  "logout": "Logout",
+  "favourite": "Favourite",
+  "discount": "Discount {percent}",
+  "addToCart": "Add to cart",
+  "products": "Products"
 
 
 

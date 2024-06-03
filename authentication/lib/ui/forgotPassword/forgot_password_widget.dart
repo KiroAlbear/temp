@@ -8,6 +8,7 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 
@@ -36,15 +37,14 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 42.h,
+              Center(
+                child: CustomText(
+                    text: S.of(context).forgotPassword,
+                    customTextStyle:
+                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
               ),
-              CustomText(
-                  text: S.of(context).forgotPassword,
-                  customTextStyle:
-                      BoldStyle(color: blackColor, fontSize: 24.sp)),
               SizedBox(
-                height: 12.h,
+                height: 30.h,
               ),
               CustomText(
                   text: S.of(context).enterYouRegisteredMobile,

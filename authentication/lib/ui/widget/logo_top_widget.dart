@@ -36,21 +36,21 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
   Widget getBody(BuildContext context) => BlocProvider(
         bloc: widget.blocBase,
         child: Container(
-          color: primaryColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               if (widget.canSkip) _skipText,
               SizedBox(
-                height: 90.h,
+                height: 82.h,
               ),
               Center(
                 child:
                     LogoWidget(height: 94.h, width: 253.h, logo: widget.logo),
               ),
               SizedBox(
-                height: 67.h,
+                height: 30.h,
               ),
               _bottomWidget,
             ],
@@ -60,7 +60,7 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
 
   Widget get _bottomWidget => Expanded(
         child: Container(
-          decoration: leftRadiusWhiteBorder,
+          // decoration: leftRadiusWhiteBorder,
           child: SingleChildScrollView(
             child: widget.child,
           ),

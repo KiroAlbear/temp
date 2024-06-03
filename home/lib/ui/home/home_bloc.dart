@@ -4,6 +4,7 @@ import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/home/promotion_mapper.dart';
+import 'package:core/dto/remote/category_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
 class HomeBloc extends BlocBase {
@@ -14,6 +15,11 @@ class HomeBloc extends BlocBase {
       BehaviorSubject()..sink.add(LoadingState());
   final BehaviorSubject<ApiState<List<CategoryMapper>>> _categoryBehaviour =
       BehaviorSubject()..sink.add(LoadingState());
+
+  final Function(CategoryMapper categoryMapper) onCategoryClick;
+  final Function(String value) doSearch;
+
+  HomeBloc({required this.onCategoryClick, required this.doSearch});
 
   Stream<ApiState<List<OfferMapper>>> get offerStream =>
       _offersBehaviour.stream;
@@ -88,51 +94,8 @@ class HomeBloc extends BlocBase {
   }
 
   void _loadCategory() {
-    Future.delayed(const Duration(seconds: 4)).then((value) {
-      List<CategoryMapper> list = [];
-      list.add(
-        CategoryMapper(
-            name: 'منتجات عربيه',
-            image:
-                'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-            id: 1),
-      );
-      list.add(CategoryMapper(
-          name: 'منتجات عربيه',
-          image:
-              'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-          id: 2));
-      list.add(CategoryMapper(
-          name: 'منتجات عربيه',
-          image:
-              'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-          id: 3));
-      list.add(CategoryMapper(
-          name: 'منتجات عربيه',
-          image:
-          'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-          id: 4));
-      list.add(CategoryMapper(
-          name: 'منتجات عربيه',
-          image:
-          'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-          id: 5));
-      list.add(CategoryMapper(
-          name: 'منتجات عربيه',
-          image:
-          'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-          id: 6));
-      list.add(CategoryMapper(
-          name: 'منتجات عربيه',
-          image:
-          'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-          id: 7));
-      list.add(CategoryMapper(
-          name: 'منتجات عربيه',
-          image:
-          'https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=996&t=st=1709542076~exp=1709542676~hmac=30332dc7ec46b0180ea0cc70f1a118673d9c94ca3602abee3d9bc1cee5035442',
-          id: 8));
-      _categoryBehaviour.sink.add(SuccessState(list));
+    CategoryRemote().callApiAsStream().listen((event) {
+      _categoryBehaviour.sink.add(event);
     });
   }
 
@@ -143,6 +106,4 @@ class HomeBloc extends BlocBase {
     // _categoryBehaviour.close();
     // _promotionBehaviour.close();
   }
-
-  doSearch() {}
 }

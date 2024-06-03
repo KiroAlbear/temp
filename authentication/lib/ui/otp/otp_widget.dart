@@ -9,7 +9,9 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -65,13 +67,12 @@ class _OtpWidgetState extends State<OtpWidget> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(
-                height: 42.h,
+              Center(
+                child: CustomText(
+                    text: S.of(context).enterVerificationCode,
+                    customTextStyle:
+                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
               ),
-              CustomText(
-                  text: S.of(context).enterVerificationCode,
-                  customTextStyle:
-                      BoldStyle(color: secondaryColor, fontSize: 24.sp)),
               SizedBox(
                 height: 33.h,
               ),
@@ -79,7 +80,7 @@ class _OtpWidgetState extends State<OtpWidget> {
               SizedBox(
                 height: 16.h,
               ),
-              _otpWithMobile,
+              Center(child: _otpWithMobile),
               SizedBox(
                 height: 68.h,
               ),
@@ -140,10 +141,10 @@ class _OtpWidgetState extends State<OtpWidget> {
             borderColor: greyColor,
             disabledBorderColor: greyColor,
             enabledBorderColor: greyColor,
-            focusBorderColor: secondaryColor,
+            focusBorderColor: lightBlackColor,
             errorBorderColor: redColor,
           ),
-          style: SemiBoldStyle(color: secondaryColor, fontSize: 32.sp)
+          style: SemiBoldStyle(color: lightBlackColor, fontSize: 32.sp)
               .getStyle(),
           outlineBorderRadius: 5.w,
           spaceBetween: 12.w,
@@ -160,9 +161,9 @@ class _OtpWidgetState extends State<OtpWidget> {
   Widget get _otpWithMobile => CustomText(
       text: S.of(context).enterVerificationCodeSentTo(
           _bloc.otpCodeLength,
-          widget.authenticationSharedBloc.countryMapper.description +
+          widget.authenticationSharedBloc.countryMapper.description.replaceRange(0, 3, '') +
               widget.authenticationSharedBloc.mobile),
-      customTextStyle: RegularStyle(fontSize: 14.sp, color: secondaryColor));
+      customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor));
 
   Widget get _sendOtpAgain => StreamBuilder(
         stream: _bloc.enableSendOtpStream,
@@ -181,7 +182,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                         .of(context)
                         .resendOtpAfter('00:${timeSnapShot.data ?? 60}'),
                     customTextStyle:
-                        RegularStyle(color: secondaryColor, fontSize: 14.sp)),
+                        RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
               ),
               SizedBox(
                 height: 2.h,
