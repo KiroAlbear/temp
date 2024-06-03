@@ -211,7 +211,7 @@ class AlertModule {
   //       elevation: 1.r,
   //     );
 
-  Future<dynamic> showCenterDialog(
+  Future<dynamic> showDialog(
       {required BuildContext context,
       required String message,
       String? confirmMessage,
@@ -219,8 +219,9 @@ class AlertModule {
       String? headerMessage,
       String? cancelMessage,
       VoidCallback? onCancel,
-      VoidCallback? onConfirm}) async {
-    return NavigationModule().pushDialog(
+      VoidCallback? onConfirm,
+      bool errorColorInConfirm = false}) async {
+    return NavigationModule().pushBottomDialog(
       widget: DialogWidget(
         message: message,
         confirmMessage: confirmMessage ?? S.of(context).ok,
@@ -229,6 +230,7 @@ class AlertModule {
         headerSvg: headerSvg,
         onCancel: onCancel,
         onConfirm: onConfirm,
+          errorColorInConfirm: errorColorInConfirm,
       ),
       context: context,
     );

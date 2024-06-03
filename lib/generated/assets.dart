@@ -5,6 +5,7 @@ class Assets {
   static const String imagesIcBottomSplash = 'assets/images/ic_bottom_splash.png';
   static const String imagesIcHomeLogo = 'assets/images/ic_home_logo.png';
   static const String imagesIcLogo = 'assets/images/ic_logo.png';
+  static const String svgIcAlert = 'assets/svg/ic_alert.svg';
   static const String svgIcBack = 'assets/svg/ic_back.svg';
   static const String svgIcBasket = 'assets/svg/ic_basket.svg';
   static const String svgIcBiometric = 'assets/svg/ic_biometric.svg';
@@ -12,10 +13,14 @@ class Assets {
   static const String svgIcCamera = 'assets/svg/ic_camera.svg';
   static const String svgIcCart = 'assets/svg/ic_cart.svg';
   static const String svgIcContactUs = 'assets/svg/ic_contact_us.svg';
+  static const String svgIcContactUsMore = 'assets/svg/ic_contact_us_more.svg';
   static const String svgIcCurrentOrder = 'assets/svg/ic_current_order.svg';
   static const String svgIcDelete = 'assets/svg/ic_delete.svg';
+  static const String svgIcEmptyShop = 'assets/svg/ic_empty_shop.svg';
   static const String svgIcEmptyShopIcon = 'assets/svg/ic_empty_shop_icon.svg';
+  static const String svgIcFaq = 'assets/svg/ic_faq.svg';
   static const String svgIcFavourite = 'assets/svg/ic_favourite.svg';
+  static const String svgIcHealthCheck = 'assets/svg/ic_health_check.svg';
   static const String svgIcHome = 'assets/svg/ic_home.svg';
   static const String svgIcHomeLogo = 'assets/svg/ic_home_logo.svg';
   static const String svgIcLock = 'assets/svg/ic_lock.svg';
@@ -23,7 +28,9 @@ class Assets {
   static const String svgIcLogoH = 'assets/svg/ic_logo_h.svg';
   static const String svgIcLogout = 'assets/svg/ic_logout.svg';
   static const String svgIcMore = 'assets/svg/ic_more.svg';
+  static const String svgIcMyOrders = 'assets/svg/ic_my_orders.svg';
   static const String svgIcNotification = 'assets/svg/ic_notification.svg';
+  static const String svgIcPerson = 'assets/svg/ic_person.svg';
   static const String svgIcPersonRounded = 'assets/svg/ic_person_rounded.svg';
   static const String svgIcPreviousOrder = 'assets/svg/ic_previous_order.svg';
   static const String svgIcPromo = 'assets/svg/ic_promo.svg';

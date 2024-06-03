@@ -40,10 +40,12 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: CustomText(
-                  text: S.of(context).login,
-                  customTextStyle:
-                  BoldStyle(color: lightBlackColor, fontSize: 24.sp)),),
+              Center(
+                child: CustomText(
+                    text: S.of(context).login,
+                    customTextStyle:
+                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
+              ),
               SizedBox(
                 height: 30.h,
               ),
@@ -69,7 +71,9 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
                 height: 12.h,
               ),
               _passwordTextFormFiled,
-              SizedBox(height: 8.h,),
+              SizedBox(
+                height: 8.h,
+              ),
               _forgetPassword,
               SizedBox(
                 height: 40.h,
@@ -95,26 +99,30 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
       );
 
   Widget get _forgetPassword => Container(
-    alignment: Alignment.centerLeft,
-    child: InkWell(
+        alignment: Alignment.centerLeft,
+        child: InkWell(
           onTap: () => CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.forgetPassword.name),
           child: CustomText(
               text: S.of(context).forgotPassword,
-              customTextStyle: RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
+              customTextStyle:
+                  RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
         ),
-  );
+      );
 
   Widget get _buttonRow => StreamBuilder(
         stream: _bloc.biometricSupportedStream,
         builder: (context, snapshot) => Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: _button),
+            _button(snapshot.data?? false),
             if (snapshot.data ?? false)
-              SizedBox(
-                width: 21.w,
-              ),
-            if (snapshot.data ?? false) _biometricButton,
+            SizedBox(
+              width: 21.w,
+            ),
+            if (snapshot.data ?? false)
+            _biometricButton,
           ],
         ),
         initialData: false,
@@ -145,9 +153,12 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
         ),
       );
 
-  Widget get _button => CustomButtonWidget(
+  Widget _button(bool hasBiometric) => CustomButtonWidget(
         idleText: S.of(context).loginEnter,
         height: 62.h,
+        width: hasBiometric
+            ? (MediaQuery.of(context).size.width - 156.w)
+            : (MediaQuery.of(context).size.width - 32.w),
         onTap: () {
           if (_bloc.isValid) {
             _bloc.login.listen((event) {

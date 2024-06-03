@@ -7,6 +7,7 @@ import 'package:more/dto/models/more_mapper.dart';
 class MoreBloc extends BlocBase{
   final BehaviorSubject<ApiState<MoreMapper>> _moreBehaviour = BehaviorSubject();
   final PermissionBloc cameraPermissionBloc = PermissionBloc();
+  final PermissionBloc galleryPermissionBloc = PermissionBloc();
   final BehaviorSubject<String> _selectedFileBehaviour= BehaviorSubject()..sink.add('');
 
   void uploadImage(String filePath){

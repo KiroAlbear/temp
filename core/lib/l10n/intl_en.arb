@@ -88,7 +88,12 @@
   "favourite": "Favourite",
   "discount": "Discount {percent}",
   "addToCart": "Add to cart",
-  "products": "Products"
+  "products": "Products",
+  "usagePolicy": "Usage Policy",
+  "logoutMessage": "Are you sure you want to logout?",
+  "deleteAccountMessage": "Are you sure you want to delete account?",
+  "yes": "Yes"
+
 
 
 

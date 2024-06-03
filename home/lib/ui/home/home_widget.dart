@@ -60,25 +60,25 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             height: 23.h,
           ),
           // OffersWidget(homeBloc: widget.homeBloc),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: CustomText(
-                  text: S.of(context).bestOffers,
-                  customTextStyle:
-                      RegularStyle(color: secondaryColor, fontSize: 26.sp))),
-          SizedBox(
-            height: 12.h,
-          ),
-          PromotionWidget(homeBloc: widget.homeBloc),
-          SizedBox(
-            height: 12.h,
-          ),
+          // Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 16.w),
+          //     child: CustomText(
+          //         text: S.of(context).bestOffers,
+          //         customTextStyle:
+          //             RegularStyle(color: secondaryColor, fontSize: 26.sp))),
+          // SizedBox(
+          //   height: 12.h,
+          // ),
+          // PromotionWidget(homeBloc: widget.homeBloc),
+          // SizedBox(
+          //   height: 12.h,
+          // ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: CustomText(
                   text: S.of(context).browseSections,
                   customTextStyle:
-                      RegularStyle(color: secondaryColor, fontSize: 26.sp))),
+                      RegularStyle(color: lightBlackColor, fontSize: 26.sp))),
           SizedBox(
             height: 12.h,
           ),

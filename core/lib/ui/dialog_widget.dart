@@ -16,6 +16,7 @@ class DialogWidget extends StatefulWidget {
   final String? cancelMessage;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
+  final bool errorColorInConfirm;
 
   const DialogWidget(
       {super.key,
@@ -25,7 +26,8 @@ class DialogWidget extends StatefulWidget {
       this.headerMessage,
       this.cancelMessage,
       this.onCancel,
-      this.onConfirm});
+      this.onConfirm,
+      this.errorColorInConfirm = false});
 
   @override
   State<DialogWidget> createState() => _DialogWidgetState();
@@ -35,71 +37,82 @@ class _DialogWidgetState extends State<DialogWidget> {
   @override
   Widget build(BuildContext context) => _getContainer(child: _column);
 
-  Widget _getContainer({required Widget child}) => OverflowBox(
-        minWidth: MediaQuery.of(context).size.width - 40.w,
-        minHeight: MediaQuery.of(context).size.height * 0.1,
-        maxHeight: MediaQuery.of(context).size.height * 0.3,
-        maxWidth: MediaQuery.of(context).size.width - 40.w,
-        child: Container(
-          alignment: Alignment.topCenter,
-          margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.r),
-              boxShadow: [
-                BoxShadow(
-                    color: greyColor,
-                    blurRadius: 10,
-                    spreadRadius: 10,
-                    offset: const Offset(0, 5))
-              ],
-              color: Theme.of(context).scaffoldBackgroundColor),
-          child: child,
+  Widget _getContainer({required Widget child}) => Dialog(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        alignment: Alignment.bottomCenter,
+        insetPadding: EdgeInsets.symmetric(vertical: 35.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.w),
+            topRight: Radius.circular(20.w),
+          ),
         ),
+        elevation: 20.w,
+        clipBehavior: Clip.none,
+        shadowColor: lightBlackColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+        child: Container(
+            width: MediaQuery.of(context).size.width,child: IntrinsicHeight(child: child,)),
       );
 
   Widget get _column => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(height: 35.h,),
           if (widget.headerMessage != null) _headerMessage,
-          if (widget.headerSvg != null && widget.headerMessage == null)
+          if (widget.headerSvg != null)...[
+            SizedBox(height: 21.h,),
             _headerSvg,
-          if (widget.headerSvg != null && widget.headerMessage == null)
-          SizedBox(
-            height: 10.h,
-          ),
+          ],
+          if (widget.headerSvg != null && widget.headerMessage != null)
+            SizedBox(
+              height: 14.h,
+            ),
           _message,
           SizedBox(
-            height: 15.h,
+            height: 20.h,
           ),
-          _rowButton,
+            _confirmButton,
+          if (widget.cancelMessage != null)...[
+            SizedBox(
+              height: 17.h,
+            ),
+            _cancelButton,
+            SizedBox(
+              height: 28.h,
+            )
+          ]
         ],
       );
 
   Widget get _headerMessage => CustomText(
       text: widget.headerMessage ?? '',
       customTextStyle: BoldStyle(
-        color: secondaryColor,
-        fontSize: 24.sp,
+        color: widget.errorColorInConfirm? redColor: secondaryColor,
+        fontSize: 26.sp,
       ));
 
   Widget get _headerSvg => ImageHelper(
         image: widget.headerSvg ?? '',
         imageType: ImageType.svg,
-        width: 30.w,
-        height: 30.h,
+        width: 88.w,
+        height: 88.h,
         boxFit: BoxFit.contain,
       );
 
   Widget get _message => CustomText(
-      text: widget.message,
-      customTextStyle: MediumStyle(
-        color: greyColor,
-        fontSize: 20.sp,
-      ),softWrap: true,maxLines: 4, textAlign: TextAlign.center,);
+        text: widget.message,
+        customTextStyle: MediumStyle(
+          color: lightBlackColor,
+          fontSize: 18.sp,
+        ),
+        softWrap: true,
+        maxLines: 4,
+        textAlign: TextAlign.center,
+      );
 
-  Widget get _rowButton => Row(
+/*  Widget get _rowButton => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -114,35 +127,32 @@ class _DialogWidgetState extends State<DialogWidget> {
             ),
           if (widget.cancelMessage != null) _cancelButton,
         ],
-      );
+      );*/
 
-  Widget get _confirmButton => Expanded(
-    child: CustomButtonWidget(
-        idleText: widget.confirmMessage,
-        textSize: 16.sp,
-        height: 40.h,
-        onTap: () {
-          if (widget.onConfirm != null) {
-            widget.onConfirm!();
-          }
-          Navigator.pop(context);
-        }),
-  );
+  Widget get _confirmButton => CustomButtonWidget(
+      idleText: widget.confirmMessage,
+      textSize: 20.sp,
+      height: 38.h,
+      buttonColor: widget.errorColorInConfirm? redColor: primaryColor,
+      textColor: widget.errorColorInConfirm? whiteColor: lightBlackColor,
+      onTap: () {
+        if (widget.onConfirm != null) {
+          widget.onConfirm!();
+        }
+        Navigator.pop(context);
+      });
 
-  Widget get _cancelButton => Expanded(
-    child: CustomButtonWidget(
-        idleText: widget.cancelMessage ?? '',
-        textSize: 16.sp,
-        height: 40.h,
-        buttonColor: secondaryColor,
-        inLineBackgroundColor: whiteColor,
-        textColor: secondaryColor,
-        buttonShapeEnum: ButtonShapeEnum.outline,
-        onTap: () {
-          if (widget.onCancel != null) {
-            widget.onCancel!();
-          }
-          Navigator.pop(context);
-        }),
-  );
+  Widget get _cancelButton => CustomButtonWidget(
+      idleText: widget.cancelMessage ?? '',
+      textSize: 20.sp,
+      height: 38.h,
+      buttonColor: greyColor,
+      textColor: whiteColor,
+      buttonShapeEnum: ButtonShapeEnum.flat,
+      onTap: () {
+        if (widget.onCancel != null) {
+          widget.onCancel!();
+        }
+        Navigator.pop(context);
+      });
 }

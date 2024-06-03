@@ -149,7 +149,7 @@ class AppProviderModule with ChangeNotifier {
     _isLoggedIn = true;
     notifyListeners();
     CustomNavigatorModule.navigatorKey.currentState
-        ?.pushReplacementNamed(AppScreenEnum.login.name);
+        ?.pushReplacementNamed(AppScreenEnum.splash.name);
   }
 
   /// Check if the user's token is expired or about to expire.

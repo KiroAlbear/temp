@@ -949,6 +949,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Usage Policy`
+  String get usagePolicy {
+    return Intl.message(
+      'Usage Policy',
+      name: 'usagePolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to logout?`
+  String get logoutMessage {
+    return Intl.message(
+      'Are you sure you want to logout?',
+      name: 'logoutMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete account?`
+  String get deleteAccountMessage {
+    return Intl.message(
+      'Are you sure you want to delete account?',
+      name: 'deleteAccountMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -45,12 +45,17 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to location when open.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This app needs access to location when in the background.</string>
     <key>NSFaceIDUsageDescription</key>
     <string>This app needs to access face id</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Allow camera permission. In order to make face detection &amp; use our app</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Allow location permission. In order to get current location</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Allow location permission. In order to get current location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Allow location permission. In order to get current location</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>App requires access to the photo library.</string>
 </dict>
 </plist>

@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -18,14 +19,11 @@ class CustomProgress extends StatefulWidget {
 class _CustomProgressState extends State<CustomProgress>
     with SingleTickerProviderStateMixin {
   @override
-  Widget build(BuildContext context) => Container(
-        color: Colors.transparent,
-        child: SpinKitFadingCircle(
-          color: widget.color,
-          size: widget.size,
-          duration: const Duration(seconds: 2),
-        ),
-      );
+  Widget build(BuildContext context) => SpinKitFadingCircle(
+    color: widget.color,
+    size: widget.size.r,
+    duration: const Duration(seconds: 2),
+  );
 
   // @override
   // Widget build(BuildContext context) => CustomAnimationProgressWidget(

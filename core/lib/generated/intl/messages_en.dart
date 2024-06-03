@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
         "currentOrder": MessageLookupByLibrary.simpleMessage("Current orders"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
+        "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete account?"),
         "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
@@ -111,6 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "logoutMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to logout?"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
@@ -157,9 +161,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("Support & Assistance"),
+        "usagePolicy": MessageLookupByLibrary.simpleMessage("Usage Policy"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
             MessageLookupByLibrary.simpleMessage("Welcome to Dokkan"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("You can start order now"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")

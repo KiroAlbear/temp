@@ -35,7 +35,7 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
           ),
           MapModule().loadMap(
               onPicked: (latitude, longitude, city, area, address) {
-                AlertModule().showCenterDialog(
+                AlertModule().showDialog(
                   context: context,
                   message: S.of(context).pickLocationEnsureMessage,
                   cancelMessage: S.of(context).cancel,

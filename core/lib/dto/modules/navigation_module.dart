@@ -1,3 +1,4 @@
+import 'package:core/dto/modules/app_color_module.dart';
 import 'package:flutter/material.dart';
 import 'package:transition_easy/custom_transition_module.dart';
 import 'package:transition_easy/easy_fade_in_transition.dart';
@@ -25,12 +26,6 @@ class NavigationModule {
       {required Widget widget,
       required BuildContext context,
       CustomTransitionModule? customTransitionModule}) {
-    // customTransitionModule ??= EasySlideTopTransition();
-    // DialogRoute route = TransitionEasy(
-    //         child: widget,
-    //         curve: Curves.linearToEaseOut,
-    //         customTransitionModule: customTransitionModule).buildDialogRoute(context);
-    // return CustomNavigatorModule.navigatorKey.currentState!.push(route);
     return Navigator.of(context).push(PageRouteBuilder(
         opaque: false,
         barrierDismissible: true,
@@ -45,4 +40,26 @@ class NavigationModule {
             ),
         pageBuilder: (context, animation, secondaryAnimation) => widget));
   }
+
+  Future<dynamic> pushBottomDialog({
+    required Widget widget,
+    required BuildContext context,
+    CustomTransitionModule? customTransitionModule,
+  }) {
+    return Navigator.of(context).push(PageRouteBuilder(
+      opaque: false,
+      barrierColor: greyColor.withOpacity(0.5),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 1), // Start from the bottom
+            end: Offset.zero,
+          ).chain(CurveTween(curve: Curves.linear)).animate(animation),
+          child: child,
+        ),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return widget;
+      },
+    ));
+  }
+
 }

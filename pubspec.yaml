@@ -19,7 +19,7 @@ dependencies:
     path: home
   more:
     path: more
-  christian_picker_image: ^2.0.0
+  hl_image_picker: ^1.2.16
 
 dev_dependencies:
   flutter_test:

@@ -36,9 +36,9 @@ class _CategoryWidgetState extends State<CategoryWidget>
 
   Widget _buildWidget(List<CategoryMapper> list) => GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+          crossAxisCount: 4,
           crossAxisSpacing: 15.w,
-          mainAxisExtent: 110.w,
+          mainAxisExtent: 120.w,
           mainAxisSpacing: 15.h,
         ),
         itemBuilder: (context, index) => _buildItem(list[index]),
@@ -55,32 +55,34 @@ class _CategoryWidgetState extends State<CategoryWidget>
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.product.name);
         },
-        child: Container(
-          width: 110.h,
-          height: 110.h,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.w),
-              border: Border.all(width: 1.w, color: primaryColor),
-              color: categoryCardColor),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ImageHelper(
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 75.h,
+              height: 75.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6.w),
+                  color: greyColor.withOpacity(0.1)),
+              child: ImageHelper(
                 image: item.image,
                 imageType: ImageType.network,
-                height: 70.h,
-                width: 70.w,
+                height: 46.h,
+                width: 46.w,
                 boxFit: BoxFit.contain,
               ),
-              SizedBox(
-                height: 7.h,
-              ),
-              CustomText(
-                  text: item.name,
-                  customTextStyle:
-                      MediumStyle(fontSize: 14.sp, color: secondaryColor))
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            CustomText(
+                text: item.name,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                customTextStyle:
+                MediumStyle(fontSize: 14.sp, color: secondaryColor))
+          ],
         ),
       );
 }

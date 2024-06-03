@@ -62,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "currentOrder": MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+        "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد من أنك تريد حذف الحساب؟"),
         "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
@@ -109,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
+        "logoutMessage": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد من أنك تريد تسجيل الخروج؟"),
         "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
@@ -154,9 +158,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("الدعم والمساعدة"),
+        "usagePolicy": MessageLookupByLibrary.simpleMessage("سياسة الاستخدام"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "welcomeToDokkan":
             MessageLookupByLibrary.simpleMessage("مرحباً بك في دُكان"),
+        "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("تقدر تطلب دلوقتي"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")

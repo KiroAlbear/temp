@@ -73,7 +73,7 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   }
 
   void handleCloseApplication() {
-    AlertModule().showCenterDialog(
+    AlertModule().showDialog(
       context: context,
       message: S.of(context).closeApplicationMessage,
       cancelMessage: S.of(context).cancel,

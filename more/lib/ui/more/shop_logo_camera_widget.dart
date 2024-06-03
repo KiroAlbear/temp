@@ -1,5 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
+import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:more/ui/more/more_bloc.dart';
 
@@ -7,10 +9,11 @@ class ShopLogoCameraWidget extends StatefulWidget {
   final String shopLogo;
   final String placeHolder;
   final String cameraIcon;
+  final String name;
+  final String mobile;
   final MoreBloc moreBloc;
   final Function(File file) onImagePick;
   final VoidCallback openCamera;
-
 
   const ShopLogoCameraWidget(
       {super.key,
@@ -19,38 +22,65 @@ class ShopLogoCameraWidget extends StatefulWidget {
       required this.cameraIcon,
       required this.moreBloc,
       required this.onImagePick,
-      required this.openCamera});
+      required this.openCamera,
+      required this.name,
+      required this.mobile});
 
   @override
   State<ShopLogoCameraWidget> createState() => _ShopLogoCameraWidgetState();
 }
 
-class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget> with LifecycleMixin {
-
+class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
+    with LifecycleMixin {
   @override
   void onAppLifecycleChange(AppLifecycleState state) {
     super.onAppLifecycleChange(state);
     if (state case AppLifecycleState.resumed) {
       if (widget.moreBloc.cameraPermissionBloc.isOpenSettings &&
-          !widget.moreBloc.cameraPermissionBloc.easyPermissionHandler
-              .isGranted) {
+          !widget
+              .moreBloc.cameraPermissionBloc.easyPermissionHandler.isGranted) {
         widget.moreBloc.cameraPermissionBloc.handleOnResumedForPermission();
+      }else if(widget.moreBloc.galleryPermissionBloc.isOpenSettings &&
+          !widget
+              .moreBloc.galleryPermissionBloc.easyPermissionHandler.isGranted){
+        widget.moreBloc.galleryPermissionBloc.handleOnResumedForPermission();
       }
     }
   }
+
   @override
   Widget build(BuildContext context) => Stack(
-    clipBehavior: Clip.none,
+        clipBehavior: Clip.none,
         children: [
           _shopLogoWidget,
           _cameraWidget,
+          _nameAndMobileWidget,
         ],
       );
 
+  Widget get _nameAndMobileWidget => Positioned(
+        right: 192,
+        top: 30,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomText(
+                text: widget.name,
+                customTextStyle:
+                    MediumStyle(color: lightBlackColor, fontSize: 22.sp)),
+            CustomText(
+                text: widget.mobile,
+                customTextStyle:
+                    RegularStyle(color: lightBlackColor, fontSize: 22.sp))
+          ],
+        ),
+      );
+
   Widget get _shopLogoWidget => Positioned(
-    right: 91,
-    top: 20,
-    child: InkWell(
+        right: 91,
+        top: 20,
+        child: InkWell(
           onTap: () => _updateImage(),
           child: Container(
             height: 74.h,
@@ -73,11 +103,11 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget> with Lifecy
             ),
           ),
         ),
-  );
+      );
 
   Widget get _cameraWidget => Positioned(
         top: 78,
-        left: 147,
+        right: 147,
         child: InkWell(
           onTap: () => _updateImage(),
           child: Container(
@@ -102,15 +132,15 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget> with Lifecy
   void _updateImage() {
     _requestCameraPermission();
     _listenForPermissionResult();
-
   }
 
   void _listenForPermissionResult() {
-    widget
-        .moreBloc.cameraPermissionBloc.easyPermissionHandler.isPermissionGrantedStream
+    widget.moreBloc.cameraPermissionBloc.easyPermissionHandler
+        .isPermissionGrantedStream
         .listen((event) {
       if (event) {
-        widget.openCamera();
+        _requestGalleryPermission();
+        _listenForGalleryPermission();
       }
     });
   }
@@ -121,4 +151,19 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget> with Lifecy
     widget.moreBloc.cameraPermissionBloc.listenFormOpenSettings();
   }
 
+  void _requestGalleryPermission() {
+    widget.moreBloc.galleryPermissionBloc
+        .requestPermission(context, Permission.photos);
+    widget.moreBloc.galleryPermissionBloc.listenFormOpenSettings();
+  }
+
+  void _listenForGalleryPermission() {
+    widget.moreBloc.galleryPermissionBloc.easyPermissionHandler
+        .isPermissionGrantedStream
+        .listen((event) {
+          if(event){
+            widget.openCamera();
+          }
+    });
+  }
 }

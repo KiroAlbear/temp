@@ -5,25 +5,29 @@ part of 'my_app.dart';
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
 final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
-final HomeBloc _homeBloc = HomeBloc(onCategoryClick: (categoryMapper) {
-  LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
-  _productCategoryBloc.reset();
-  _productCategoryBloc.categoryId == categoryMapper.id;
-
-},
-doSearch: (value) {
-  _productCategoryBloc.reset();
-  CustomNavigatorModule.navigatorKey.currentState?.pushNamed(AppScreenEnum.product.name);
-  _productCategoryBloc.doSearch(value);
-},);
+final HomeBloc _homeBloc = HomeBloc(
+  onCategoryClick: (categoryMapper) {
+    LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
+    _productCategoryBloc.reset();
+    _productCategoryBloc.categoryId == categoryMapper.id;
+  },
+  doSearch: (value) {
+    _productCategoryBloc.reset();
+    CustomNavigatorModule.navigatorKey.currentState
+        ?.pushNamed(AppScreenEnum.product.name);
+    _productCategoryBloc.doSearch(value);
+  },
+);
 final MoreBloc _moreBloc = MoreBloc();
 
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
+  // SharedPrefModule().userId != null ? _productCategoryWidget: _loginWidget,
   _productCategoryWidget,
   Container(),
   Container(),
-  _moreBlocProvider,
+  // SharedPrefModule().userId != null ? _moreBlocProvider : _loginWidget,
+  _moreBlocProvider
 ]);
 
 // Function to generate routes based on screen names.
@@ -39,12 +43,10 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.none:
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
+      _bottomNavigationBloc.setSelectedTab(0);
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.login:
-      return _buildPageRoute(const LoginWidget(
-        logo: Assets.svgIcLogoH,
-        biometricImage: Assets.svgIcBiometric,
-      ));
+      return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
       return _buildPageRoute(RegisterWidget(
         logo: Assets.svgIcLogoH,
@@ -78,25 +80,29 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.product:
       return _buildPageRoute(_productCategoryWidget);
   }
-
 }
+
+Widget get _loginWidget => const LoginWidget(
+      logo: Assets.svgIcLogoH,
+      biometricImage: Assets.svgIcBiometric,
+    );
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
 }
 
-void _listenForBottomNavigationChange(){
+void _listenForBottomNavigationChange() {
   _bottomNavigationBloc.selectedTabStream.listen((event) {
-    LoggerModule.log(message: '${event}', name: '_listenForBottomNavigationChange');
-    if(event == 1){
+    LoggerModule.log(
+        message: '${event}', name: '_listenForBottomNavigationChange');
+    if (event == 1) {
       _productCategoryBloc.isForFavourite = true;
       _productCategoryBloc.reset();
-    }else{
+    } else {
       _productCategoryBloc.reset();
     }
   });
 }
-
 
 // Get a BlocProvider for HomeBloc.
 BlocProvider get _homeBlocProvider => BlocProvider(
@@ -115,25 +121,34 @@ BlocProvider get _moreBlocProvider => BlocProvider(
       bloc: _moreBloc,
       child: MoreWidget(
         openCamera: () {
-          ChristianPickerImage.pickImages(maxImages: 1).then((value){
-            if(value.isNotEmpty){
-              CustomNavigatorModule.navigatorKey.currentState?.pop();
-              _moreBloc.uploadImage(value[0].path);
-            }
+          HLImagePicker()
+              .openPicker(
+                  cropping: false,
+                  pickerOptions: const HLPickerOptions(
+                    compressQuality: 40,
+                    compressFormat: CompressFormat.png,
+                    enablePreview: true,
+                    maxSelectedAssets: 1,
+                    usedCameraButton: true,
+                  ))
+              .then((value) {
+            _moreBloc.uploadImage(value[0].path);
           });
         },
-        accountSettingIcon: Assets.svgIcPersonRounded,
+        accountSettingIcon: Assets.svgIcPerson,
         appLogo: Assets.svgIcHomeLogo,
-        currentOrderIcon: Assets.svgIcCurrentOrder,
+        myOrdersIcon: Assets.svgIcMyOrders,
         moreBloc: _moreBloc,
         cameraIcon: Assets.svgIcCamera,
         changePasswordIcon: Assets.svgIcLock,
-        contactUsIcon: Assets.svgIcSupport,
+        contactUsIcon: Assets.svgIcContactUsMore,
         deleteAccountIcon: Assets.svgIcDelete,
-        faqIcon: Assets.svgIfFaq,
+        faqIcon: Assets.svgIcFaq,
         logoutIcon: Assets.svgIcLogout,
         previewsOrderIcon: Assets.svgIcPreviousOrder,
-        shopIcon: Assets.svgIcEmptyShopIcon,
+        shopIcon: Assets.svgIcEmptyShop,
+        usagePolicyIcon: Assets.svgIcHealthCheck,
+        alertIcon: Assets.svgIcAlert,
       ),
     );
 
@@ -153,20 +168,18 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
     );
 
 BlocProvider get _productCategoryWidget => BlocProvider(
-  bloc: _productCategoryBloc,
-  child: ProductCategoryWidget(
-    backIcon: Assets.svgIcBack,
-    favouriteIcon: Assets.svgIcFavourite,
-    homeBloc: _homeBloc,
-    homeLogo: Assets.svgIcHomeLogo,
-    notificationIcon: Assets.svgIcNotification,
-    scanIcon: Assets.svgIcScan,
-    searchIcon: Assets.svgIcSearch,
-    supportIcon: Assets.svgIcContactUs,
-    productCategoryBloc: _productCategoryBloc,
-  )
-);
-
+    bloc: _productCategoryBloc,
+    child: ProductCategoryWidget(
+      backIcon: Assets.svgIcBack,
+      favouriteIcon: Assets.svgIcFavourite,
+      homeBloc: _homeBloc,
+      homeLogo: Assets.svgIcHomeLogo,
+      notificationIcon: Assets.svgIcNotification,
+      scanIcon: Assets.svgIcScan,
+      searchIcon: Assets.svgIcSearch,
+      supportIcon: Assets.svgIcContactUs,
+      productCategoryBloc: _productCategoryBloc,
+    ));
 
 // Build a MaterialPageRoute with a custom transition.
 Route _buildPageRoute(Widget widget) => TransitionEasy(

@@ -103,14 +103,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.4.0"
-  christian_picker_image:
-    dependency: "direct main"
-    description:
-      name: christian_picker_image
-      sha256: "9b125257b84a50e660e59d2265862810afddb9b6e7b16ca13321001ce2418d4a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   chucker_flutter:
     dependency: transitive
     description:
@@ -466,6 +458,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.1"
+  hl_image_picker:
+    dependency: "direct main"
+    description:
+      name: hl_image_picker
+      sha256: a7455f51259941922ec23e87cccf99c8e54d9a13249d56d7184866622c563021
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.16"
+  hl_image_picker_android:
+    dependency: transitive
+    description:
+      name: hl_image_picker_android
+      sha256: d274e74d313d0fd40edd2820e02cf8b492e98ef965e96bd63d3089ce9008523b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.11"
+  hl_image_picker_ios:
+    dependency: transitive
+    description:
+      name: hl_image_picker_ios
+      sha256: "70ef73e2736514c1a5f53d97086fdce00e5b01ec002435daeafc406450123e1f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.10"
+  hl_image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: hl_image_picker_platform_interface
+      sha256: "8b9510ca6f12f80184368661738dde1c6b78fdbca04e835f2c2e0bb79f2a175b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.4"
   home:
     dependency: "direct main"
     description:
