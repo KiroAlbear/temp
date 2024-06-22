@@ -7,6 +7,7 @@ enum Flavor {
 class F {
   static Flavor? appFlavor;
   static String apiUrl = '';
+  static String adminApiUrl = '';
   static String get name => appFlavor?.name ?? '';
 
   static String get title {

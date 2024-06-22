@@ -90,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك المسجل"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("ادخل كلمة السر"),
+        "faceBook": MessageLookupByLibrary.simpleMessage("فيس بوك"),
         "failed": MessageLookupByLibrary.simpleMessage("فشل"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
         "favourite": MessageLookupByLibrary.simpleMessage("المفضلة"),
@@ -101,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "خطأ عام.\nيرجى المحاولة مرة أخرى في وقت لاحق!"),
         "haveAccount": MessageLookupByLibrary.simpleMessage("لديك حساب؟"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+        "hotline": MessageLookupByLibrary.simpleMessage("الخط الساخن"),
+        "howCanWeHelp": MessageLookupByLibrary.simpleMessage("ازاي نساعدك"),
         "inValidEmail":
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
@@ -162,6 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "welcomeToDokkan":
             MessageLookupByLibrary.simpleMessage("مرحباً بك في دُكان"),
+        "whatsApp": MessageLookupByLibrary.simpleMessage("واتساب"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("تقدر تطلب دلوقتي"),

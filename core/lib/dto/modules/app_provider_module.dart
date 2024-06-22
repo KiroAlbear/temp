@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import 'custom_navigator_module.dart';
-import 'dio_module.dart';
+import 'odoo_dio_module.dart';
 
 /// This module manages various application-level states and configurations.
 /// It provides methods to change settings like locale, theme mode, and more.
@@ -46,7 +46,7 @@ class AppProviderModule with ChangeNotifier {
   void changeLocale(String locale) {
     this.locale = locale;
     SharedPrefModule().language = locale;
-    DioModule().setAppHeaders();
+    OdooDioModule().setAppHeaders();
     notifyListeners();
   }
 
@@ -111,7 +111,7 @@ class AppProviderModule with ChangeNotifier {
       /// TODO replace it with bearer token refresh
       final isRefreshed = true;
       if (isRefreshed) {
-        DioModule().setAppHeaders();
+        OdooDioModule().setAppHeaders();
 
         CustomNavigatorModule.navigatorKey.currentState
             ?.pushReplacementNamed(AppScreenEnum.home.name);

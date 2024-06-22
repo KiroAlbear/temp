@@ -10,22 +10,11 @@ AdminHeaderResponse<T> _$AdminHeaderResponseFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    $checkedCreate(
-      'AdminHeaderResponse',
-      json,
-      ($checkedConvert) {
-        $checkKeys(
-          json,
-          allowedKeys: const ['message', 'isSuccess', 'data'],
-        );
-        final val = AdminHeaderResponse<T>();
-        $checkedConvert('message', (v) => val.message = v as String?);
-        $checkedConvert('isSuccess', (v) => val.isSuccess = v as String?);
-        $checkedConvert(
-            'data', (v) => val.data = _$nullableGenericFromJson(v, fromJsonT));
-        return val;
-      },
-    );
+    AdminHeaderResponse<T>()
+      ..message = json['message'] as String?
+      ..isSuccess = json['isSuccess'] as bool?
+      ..error = json['errors'] as List<dynamic>?
+      ..data = _$nullableGenericFromJson(json['data'], fromJsonT);
 
 Map<String, dynamic> _$AdminHeaderResponseToJson<T>(
   AdminHeaderResponse<T> instance,
@@ -34,6 +23,7 @@ Map<String, dynamic> _$AdminHeaderResponseToJson<T>(
     <String, dynamic>{
       'message': instance.message,
       'isSuccess': instance.isSuccess,
+      'errors': instance.error,
       'data': _$nullableGenericToJson(instance.data, toJsonT),
     };
 

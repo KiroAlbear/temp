@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Enter your registered mobile"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
+        "faceBook": MessageLookupByLibrary.simpleMessage("Facebook"),
         "failed": MessageLookupByLibrary.simpleMessage("Failed"),
         "faq": MessageLookupByLibrary.simpleMessage("FAQ"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
@@ -105,6 +106,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "haveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "hotline": MessageLookupByLibrary.simpleMessage("Hotline"),
+        "howCanWeHelp":
+            MessageLookupByLibrary.simpleMessage("How can we help?"),
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
@@ -165,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
             MessageLookupByLibrary.simpleMessage("Welcome to Dokkan"),
+        "whatsApp": MessageLookupByLibrary.simpleMessage("WhatsApp"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("You can start order now"),

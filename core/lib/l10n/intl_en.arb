@@ -92,7 +92,11 @@
   "usagePolicy": "Usage Policy",
   "logoutMessage": "Are you sure you want to logout?",
   "deleteAccountMessage": "Are you sure you want to delete account?",
-  "yes": "Yes"
+  "yes": "Yes",
+  "howCanWeHelp": "How can we help?",
+  "hotline": "Hotline",
+  "whatsApp": "WhatsApp",
+  "faceBook": "Facebook"
 
 
 

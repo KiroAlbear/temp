@@ -989,6 +989,46 @@ class S {
       args: [],
     );
   }
+
+  /// `How can we help?`
+  String get howCanWeHelp {
+    return Intl.message(
+      'How can we help?',
+      name: 'howCanWeHelp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hotline`
+  String get hotline {
+    return Intl.message(
+      'Hotline',
+      name: 'hotline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WhatsApp`
+  String get whatsApp {
+    return Intl.message(
+      'WhatsApp',
+      name: 'whatsApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Facebook`
+  String get faceBook {
+    return Intl.message(
+      'Facebook',
+      name: 'faceBook',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

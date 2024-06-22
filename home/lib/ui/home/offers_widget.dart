@@ -35,23 +35,30 @@ class _OffersWidgetState extends State<OffersWidget>
         initialData: LoadingState(),
       );
 
-  Widget _loadList(List<OfferMapper> list) => ListView.separated(
-        itemBuilder: (context, index) =>
-            _buildItem(context, index, list[index]),
-        shrinkWrap: false,
-        physics: const PageScrollPhysics(),
-        controller: _pageScrollController,
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
-        scrollDirection: Axis.horizontal,
-        itemCount: list.length,
-        separatorBuilder: (BuildContext context, int index) => SizedBox(
-          width: 10.w,
-        ),
-      );
+  Widget _loadList(List<OfferMapper> list) => Column(
+    children: [
+      ListView.separated(
+            itemBuilder: (context, index) =>
+                _buildItem(context, index, list[index]),
+            shrinkWrap: true,
+            physics: const PageScrollPhysics(),
+            controller: _pageScrollController,
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            scrollDirection: Axis.horizontal,
+            itemCount: list.length,
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+              width: 10.w,
+            ),
+          ),
+      list.isNotEmpty ? SizedBox(
+        height: 50.h,
+      ): Container()
+    ],
+  );
 
   Widget _buildItem(BuildContext context, int index, OfferMapper item) =>
       Container(
-        height: 140.h,
+        height: 90.h,
         width: MediaQuery.of(context).size.width - 40.w,
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
         decoration: BoxDecoration(
@@ -71,11 +78,12 @@ class _OffersWidgetState extends State<OffersWidget>
                       text: item.name,
                       customTextStyle:
                           BoldStyle(color: secondaryColor, fontSize: 14.sp)),
-                  CustomText(
-                      text: item.offerDetails,
-                      customTextStyle:
-                          RegularStyle(color: secondaryColor, fontSize: 14.sp),
-                      maxLines: 5),
+                  // CustomText(
+                  //     text: item.offerDetails,
+                  //     customTextStyle:
+                  //         RegularStyle(color: secondaryColor, fontSize: 14.sp),
+                  //     maxLines: 5)
+                  // ,
                 ],
               ),
             ),

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:core/core.dart';
+import 'package:core/dto/models/baseModules/admin_header_response.dart';
 import 'package:core/dto/models/baseModules/header_response.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
@@ -8,15 +11,9 @@ import 'package:dio_builder/dio_builder.dart';
 import 'constants_module.dart'; // Import constants for base URLs
 import 'logger_module.dart'; // Import logger module for logging
 
-class DioModule extends DioBuilder {
-  static final DioModule _instance = DioModule.internal();
+abstract class DioModule extends DioBuilder {
+
   late RequestOptions _options;
-
-  DioModule.internal();
-
-  factory DioModule() {
-    return _instance;
-  }
 
   void init() {
     // Initialize DioModule with base URLs and configuration options
@@ -116,6 +113,7 @@ class DioModule extends DioBuilder {
   // Intercept the request and store request options for error handling
   @override
   handleOnRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    LoggerModule.log(message: baseUrl, name: runtimeType.toString());
     _options = options;
     return handler.next(options);
   }
@@ -129,13 +127,24 @@ class DioModule extends DioBuilder {
       throw DioException.badResponse(
           statusCode: 500, requestOptions: _options, response: response);
     } else {
-      final HeaderResponse headerResponse =
-          HeaderResponse.fromJson(response.data, (json) => null);
-      if (headerResponse.status! == 200) {
-        return handler.next(response);
-      } else {
-        throw DioException.badResponse(
-            statusCode: 405, requestOptions: _options, response: response);
+      try{
+        final HeaderResponse headerResponse =
+        HeaderResponse.fromJson(response.data, (json) => null);
+        if (headerResponse.status! == 200) {
+          return handler.next(response);
+        } else {
+          throw DioException.badResponse(
+              statusCode: 405, requestOptions: _options, response: response);
+        }
+      }catch(e){
+        final AdminHeaderResponse headerResponse =
+        AdminHeaderResponse.fromJson(response.data, (json) => null);
+        if ((headerResponse.isSuccess?? false) == true) {
+          return handler.next(response);
+        } else {
+          throw DioException.badResponse(
+              statusCode: 405, requestOptions: _options, response: response);
+        }
       }
     }
   }

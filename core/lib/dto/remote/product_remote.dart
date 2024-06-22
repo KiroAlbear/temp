@@ -3,7 +3,7 @@ import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/models/product/product_response.dart';
-import 'package:core/dto/modules/dio_module.dart';
+import 'package:core/dto/modules/odoo_dio_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
 class ProductRemote
@@ -21,10 +21,10 @@ class ProductRemote
   Stream<ApiState<List<ProductMapper>>> loadProduct(PageRequest pageRequest,
       {bool isForAll = true, int categoryId = 0}) {
     if (isForAll) {
-      apiFuture = ApiClient(DioModule().build()).getAllProduct(pageRequest);
+      apiFuture = ApiClient(OdooDioModule().build()).getAllProduct(pageRequest);
     } else {
       apiFuture =
-          ApiClient(DioModule().build()).getProductByCategory(pageRequest);
+          ApiClient(OdooDioModule().build()).getProductByCategory(pageRequest);
     }
     return callApiAsStream();
   }

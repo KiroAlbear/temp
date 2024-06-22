@@ -1,7 +1,10 @@
 import 'package:core/dto/modules/navigation_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/contactUs/contact_us_bloc.dart';
+import 'package:core/ui/contactUs/contact_us_widget.dart';
 import 'package:core/ui/custom_material_banner.dart';
 import 'package:core/ui/dialog_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlertModule {
@@ -231,6 +234,18 @@ class AlertModule {
         onCancel: onCancel,
         onConfirm: onConfirm,
           errorColorInConfirm: errorColorInConfirm,
+      ),
+      context: context,
+    );
+    // _flushBar(key, duration, context, message);
+  }
+
+  Future<dynamic> showContactUsDialog(
+      {required ContactUsBloc contactUsBloc,
+        required BuildContext context}) async {
+    return NavigationModule().pushBottomDialog(
+      widget: ContactUsWidget(
+        contactUsBloc: contactUsBloc,
       ),
       context: context,
     );

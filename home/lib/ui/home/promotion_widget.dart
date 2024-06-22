@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/home/promotion_mapper.dart';
+import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
@@ -24,15 +24,15 @@ class _PromotionWidgetState extends State<PromotionWidget>
 
   @override
   Widget build(BuildContext context) =>
-      StreamBuilder<ApiState<List<PromotionMapper>>>(
+      StreamBuilder<ApiState<List<OfferMapper>>>(
         stream: widget.homeBloc.promotionStream,
         builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
-            snapshot.data ?? LoadingState<List<PromotionMapper>>(), context,
+            snapshot.data ?? LoadingState<List<OfferMapper>>(), context,
             onSuccess: _buildWidget(snapshot.data?.response ?? [])),
       );
 
-  Widget _buildWidget(List<PromotionMapper> list) => SizedBox(
-    height: 180.h,
+  Widget _buildWidget(List<OfferMapper> list) => SizedBox(
+    height: 83.h,
     child: ListView.separated(
         shrinkWrap: false,
         scrollDirection: Axis.horizontal,
@@ -46,7 +46,7 @@ class _PromotionWidgetState extends State<PromotionWidget>
         itemCount: list.length),
   );
 
-  Widget _buildItem(PromotionMapper item) => Container(
+  Widget _buildItem(OfferMapper item) => Container(
         height: 180.h,
         width: 263.w,
         decoration: BoxDecoration(
@@ -63,10 +63,10 @@ class _PromotionWidgetState extends State<PromotionWidget>
                 text: item.name,
                 customTextStyle:
                     BoldStyle(fontSize: 20.sp, color: secondaryColor)),
-            CustomText(
-                text: item.description,
-                customTextStyle:
-                    MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
+            // CustomText(
+            //     text: item.description,
+            //     customTextStyle:
+            //         MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
             SizedBox(height: 13.h,),
             ImageHelper(
               image: item.image,

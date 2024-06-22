@@ -8,6 +8,6 @@ class  _ApiClientKey {
   static const String _productByCategory = 'product/by_subcategory';
   static const String _favouriteProduct = 'get/fav';
   static const String _searchProduct= 'search/product';
-
   static const String _addFavourite= 'add/favorite';
+  static const String _signUp= 'app/signup';
 }

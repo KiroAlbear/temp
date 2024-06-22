@@ -19,6 +19,9 @@ abstract class ApiClient {
   @POST(_ApiClientKey._login)
   Future<HeaderResponse<LoginResponse>> login(@Body() LoginRequest request);
 
+  @POST(_ApiClientKey._signUp)
+  Future<HeaderResponse<LoginResponse>> signUp(@Body() LoginRequest request);
+
   @POST(_ApiClientKey._category)
   Future<HeaderResponse<List<CategoryResponse>>> category(
       @Body() PageRequest request);

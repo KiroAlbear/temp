@@ -9,6 +9,7 @@ export 'package:http_parser/http_parser.dart';
 export 'package:image_loader/image_helper.dart';
 export 'package:json_annotation/json_annotation.dart';
 // export 'package:path_provider/path_provider.dart';
+export 'package:core/ui/expanded_widget.dart';
 export 'package:permission_handler/permission_handler.dart';
 export 'package:provider/provider.dart';
 export 'package:retrofit/http.dart';

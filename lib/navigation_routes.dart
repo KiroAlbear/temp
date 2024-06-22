@@ -79,8 +79,13 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
           successRegister: Assets.svgIcSuccessRegister));
     case AppScreenEnum.product:
       return _buildPageRoute(_productCategoryWidget);
+    case AppScreenEnum.faq:
+      return _buildPageRoute(_faqWidget);
   }
 }
+
+Widget get _faqWidget => const FaqWidget(
+        backIcon: Assets.svgIcBack, arrowDown: Assets.svgIcArrowDown);
 
 Widget get _loginWidget => const LoginWidget(
       logo: Assets.svgIcLogoH,
@@ -114,6 +119,7 @@ BlocProvider get _homeBlocProvider => BlocProvider(
         scanIcon: Assets.svgIcScan,
         searchIcon: Assets.svgIcSearch,
         supportIcon: Assets.svgIcContactUs,
+        contactUsBloc: _contactUsBloc,
       ),
     );
 
@@ -149,6 +155,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
         shopIcon: Assets.svgIcEmptyShop,
         usagePolicyIcon: Assets.svgIcHealthCheck,
         alertIcon: Assets.svgIcAlert,
+        contactUsBloc: _contactUsBloc,
       ),
     );
 
@@ -180,6 +187,12 @@ BlocProvider get _productCategoryWidget => BlocProvider(
       supportIcon: Assets.svgIcContactUs,
       productCategoryBloc: _productCategoryBloc,
     ));
+
+ContactUsBloc get _contactUsBloc => ContactUsBloc(
+    closeIcon: Assets.svgIcClose,
+    facebookIcon: Assets.svgIcFaceBook,
+    hotLine: Assets.svgIcPhone,
+    whatsAppIcon: Assets.svgIcWhatsApp);
 
 // Build a MaterialPageRoute with a custom transition.
 Route _buildPageRoute(Widget widget) => TransitionEasy(

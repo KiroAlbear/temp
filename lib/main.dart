@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
-import 'package:core/dto/modules/dio_module.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
+import 'package:core/dto/modules/admin_dio_module.dart';
+import 'package:core/dto/modules/logger_module.dart';
+import 'package:core/dto/modules/odoo_dio_module.dart';
 import 'package:flutter/material.dart';
 import 'flavors.dart';
 import 'my_app.dart';
@@ -31,10 +31,10 @@ FutureOr<void> main() async {
   // addFireBaseCrashReporting();
 
   /// set base url for dioModule
-  DioModule().baseUrl = F.apiUrl;
-  DioModule().init();
-  DioModule().setAppHeaders();
-
+  _initOdooDio();
+  _initAdminDio();
+  LoggerModule.log(message: AdminDioModule().baseUrl, name: 'admin dio module');
+  LoggerModule.log(message: OdooDioModule().baseUrl, name: 'odoo dio module');
   /// allow Chucker to show in release mode
   ChuckerFlutter.showOnRelease = false;
 
@@ -47,6 +47,18 @@ FutureOr<void> main() async {
     }),
   ], child: const MyApp()));
   // _runAppWithSentry();
+}
+
+void _initAdminDio() {
+  AdminDioModule().baseUrl = F.adminApiUrl;
+  AdminDioModule().init();
+  AdminDioModule().setAppHeaders();
+}
+
+void _initOdooDio() {
+  OdooDioModule().baseUrl = F.apiUrl;
+  OdooDioModule().init();
+  OdooDioModule().setAppHeaders();
 }
 
 // void addFireBaseCrashReporting() {

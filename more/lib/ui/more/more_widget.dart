@@ -1,10 +1,13 @@
 import 'package:core/core.dart';
+import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
+import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/base_state.dart';
+import 'package:core/ui/contactUs/contact_us_bloc.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:more/ui/more/more_bloc.dart';
@@ -26,6 +29,7 @@ class MoreWidget extends BaseStatefulWidget {
   final VoidCallback openCamera;
   final String usagePolicyIcon;
   final String alertIcon;
+  final ContactUsBloc contactUsBloc;
 
   const MoreWidget(
       {super.key,
@@ -43,7 +47,8 @@ class MoreWidget extends BaseStatefulWidget {
       required this.shopIcon,
       required this.openCamera,
       required this.usagePolicyIcon,
-      required this.alertIcon});
+      required this.alertIcon,
+      required this.contactUsBloc});
 
   @override
   State<MoreWidget> createState() => _MoreWidgetState();
@@ -145,11 +150,15 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
             height: 10.h,
           ),
-          _menuItem(S.of(context).contactUs, widget.contactUsIcon, () {}),
+          _menuItem(S.of(context).contactUs, widget.contactUsIcon, () {
+            AlertModule().showContactUsDialog(contactUsBloc: widget.contactUsBloc, context: context);
+          }),
           SizedBox(
             height: 10.h,
           ),
-          _menuItem(S.of(context).faq, widget.faqIcon, () {}),
+          _menuItem(S.of(context).faq, widget.faqIcon, () {
+            CustomNavigatorModule.navigatorKey.currentState?.pushNamed(AppScreenEnum.faq.name);
+          }),
           SizedBox(
             height: 10.h,
           ),

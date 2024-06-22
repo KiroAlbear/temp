@@ -6,18 +6,21 @@ class Assets {
   static const String imagesIcHomeLogo = 'assets/images/ic_home_logo.png';
   static const String imagesIcLogo = 'assets/images/ic_logo.png';
   static const String svgIcAlert = 'assets/svg/ic_alert.svg';
+  static const String svgIcArrowDown = 'assets/svg/ic_arrow_down.svg';
   static const String svgIcBack = 'assets/svg/ic_back.svg';
   static const String svgIcBasket = 'assets/svg/ic_basket.svg';
   static const String svgIcBiometric = 'assets/svg/ic_biometric.svg';
   static const String svgIcBottomSplash = 'assets/svg/ic_bottom_splash.svg';
   static const String svgIcCamera = 'assets/svg/ic_camera.svg';
   static const String svgIcCart = 'assets/svg/ic_cart.svg';
+  static const String svgIcClose = 'assets/svg/ic_close.svg';
   static const String svgIcContactUs = 'assets/svg/ic_contact_us.svg';
   static const String svgIcContactUsMore = 'assets/svg/ic_contact_us_more.svg';
   static const String svgIcCurrentOrder = 'assets/svg/ic_current_order.svg';
   static const String svgIcDelete = 'assets/svg/ic_delete.svg';
   static const String svgIcEmptyShop = 'assets/svg/ic_empty_shop.svg';
   static const String svgIcEmptyShopIcon = 'assets/svg/ic_empty_shop_icon.svg';
+  static const String svgIcFaceBook = 'assets/svg/ic_face_book.svg';
   static const String svgIcFaq = 'assets/svg/ic_faq.svg';
   static const String svgIcFavourite = 'assets/svg/ic_favourite.svg';
   static const String svgIcHealthCheck = 'assets/svg/ic_health_check.svg';
@@ -32,6 +35,7 @@ class Assets {
   static const String svgIcNotification = 'assets/svg/ic_notification.svg';
   static const String svgIcPerson = 'assets/svg/ic_person.svg';
   static const String svgIcPersonRounded = 'assets/svg/ic_person_rounded.svg';
+  static const String svgIcPhone = 'assets/svg/ic_phone.svg';
   static const String svgIcPreviousOrder = 'assets/svg/ic_previous_order.svg';
   static const String svgIcPromo = 'assets/svg/ic_promo.svg';
   static const String svgIcPromotion = 'assets/svg/ic_promotion.svg';
@@ -39,6 +43,7 @@ class Assets {
   static const String svgIcSearch = 'assets/svg/ic_search.svg';
   static const String svgIcSuccessRegister = 'assets/svg/ic_success_register.svg';
   static const String svgIcSupport = 'assets/svg/ic_support.svg';
+  static const String svgIcWhatsApp = 'assets/svg/ic_whats_app.svg';
   static const String svgIfFaq = 'assets/svg/if_faq.svg';
 
 }

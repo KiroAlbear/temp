@@ -1,7 +1,9 @@
 import 'package:core/core.dart';
+import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/contactUs/contact_us_bloc.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ class AppTopWidget extends StatefulWidget {
   final ValueChanged<String>? onChanged;
 
   final VoidCallback? doSearch;
+  final ContactUsBloc? contactUsBloc;
 
   const AppTopWidget(
       {super.key,
@@ -38,7 +41,8 @@ class AppTopWidget extends StatefulWidget {
       this.hideTop = false,
       this.doSearch,
       this.onChanged,
-      this.textFiledControllerStream});
+      this.textFiledControllerStream,
+      this.contactUsBloc});
 
   @override
   State<AppTopWidget> createState() => _AppTopWidgetState();
@@ -110,7 +114,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   }
 
   _clickOnSupport() {
-    /// TODO missing click on support
+    AlertModule().showContactUsDialog(contactUsBloc: widget.contactUsBloc!, context: context);
   }
 
   Widget get _searchWidget => Positioned(

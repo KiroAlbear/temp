@@ -9,5 +9,6 @@ enum AppScreenEnum {
   newAccount,
   home,
   successRegister,
-  product
+  product,
+  faq,
 }

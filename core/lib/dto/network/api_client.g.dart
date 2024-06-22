@@ -46,6 +46,33 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<HeaderResponse<LoginResponse>> signUp(request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HeaderResponse<LoginResponse>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'app/signup',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = HeaderResponse<LoginResponse>.fromJson(
+      _result.data!,
+      (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<HeaderResponse<List<CategoryResponse>>> category(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

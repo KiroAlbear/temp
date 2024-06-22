@@ -1,6 +1,7 @@
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/ui/custom_button_widget.dart';
+import 'package:core/ui/dialog_header_widget.dart';
 import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,32 +38,20 @@ class _DialogWidgetState extends State<DialogWidget> {
   @override
   Widget build(BuildContext context) => _getContainer(child: _column);
 
-  Widget _getContainer({required Widget child}) => Dialog(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        alignment: Alignment.bottomCenter,
-        insetPadding: EdgeInsets.symmetric(vertical: 35.h),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.w),
-            topRight: Radius.circular(20.w),
-          ),
-        ),
-        elevation: 20.w,
-        clipBehavior: Clip.none,
-        shadowColor: lightBlackColor,
-        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
-        child: Container(
-            width: MediaQuery.of(context).size.width,child: IntrinsicHeight(child: child,)),
-      );
+  Widget _getContainer({required Widget child}) => DialogHeaderWidget(child: child);
 
   Widget get _column => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 35.h,),
+          SizedBox(
+            height: 35.h,
+          ),
           if (widget.headerMessage != null) _headerMessage,
-          if (widget.headerSvg != null)...[
-            SizedBox(height: 21.h,),
+          if (widget.headerSvg != null) ...[
+            SizedBox(
+              height: 21.h,
+            ),
             _headerSvg,
           ],
           if (widget.headerSvg != null && widget.headerMessage != null)
@@ -73,8 +62,8 @@ class _DialogWidgetState extends State<DialogWidget> {
           SizedBox(
             height: 20.h,
           ),
-            _confirmButton,
-          if (widget.cancelMessage != null)...[
+          _confirmButton,
+          if (widget.cancelMessage != null) ...[
             SizedBox(
               height: 17.h,
             ),
@@ -89,7 +78,7 @@ class _DialogWidgetState extends State<DialogWidget> {
   Widget get _headerMessage => CustomText(
       text: widget.headerMessage ?? '',
       customTextStyle: BoldStyle(
-        color: widget.errorColorInConfirm? redColor: secondaryColor,
+        color: widget.errorColorInConfirm ? redColor : secondaryColor,
         fontSize: 26.sp,
       ));
 
@@ -133,8 +122,8 @@ class _DialogWidgetState extends State<DialogWidget> {
       idleText: widget.confirmMessage,
       textSize: 20.sp,
       height: 38.h,
-      buttonColor: widget.errorColorInConfirm? redColor: primaryColor,
-      textColor: widget.errorColorInConfirm? whiteColor: lightBlackColor,
+      buttonColor: widget.errorColorInConfirm ? redColor : primaryColor,
+      textColor: widget.errorColorInConfirm ? whiteColor : lightBlackColor,
       onTap: () {
         if (widget.onConfirm != null) {
           widget.onConfirm!();

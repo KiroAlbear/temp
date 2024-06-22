@@ -3,6 +3,7 @@ import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/base_state.dart';
+import 'package:core/ui/contactUs/contact_us_bloc.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:home/ui/home/category_widget.dart';
@@ -18,6 +19,7 @@ class HomeWidget extends BaseStatefulWidget {
   final String scanIcon;
   final String searchIcon;
   final HomeBloc homeBloc;
+  final ContactUsBloc contactUsBloc;
 
   const HomeWidget(
       {super.key,
@@ -26,7 +28,8 @@ class HomeWidget extends BaseStatefulWidget {
       required this.scanIcon,
       required this.searchIcon,
       required this.supportIcon,
-      required this.homeBloc});
+      required this.homeBloc,
+      required this.contactUsBloc});
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
@@ -59,20 +62,13 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
           SizedBox(
             height: 23.h,
           ),
-          // OffersWidget(homeBloc: widget.homeBloc),
-          // Padding(
-          //     padding: EdgeInsets.symmetric(horizontal: 16.w),
-          //     child: CustomText(
-          //         text: S.of(context).bestOffers,
-          //         customTextStyle:
-          //             RegularStyle(color: secondaryColor, fontSize: 26.sp))),
-          // SizedBox(
-          //   height: 12.h,
-          // ),
+          OffersWidget(homeBloc: widget.homeBloc),
+
+
           // PromotionWidget(homeBloc: widget.homeBloc),
-          // SizedBox(
-          //   height: 12.h,
-          // ),
+          SizedBox(
+            height: 12.h,
+          ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: CustomText(
@@ -98,5 +94,6 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
         textFiledControllerStream:
             widget.homeBloc.searchBloc.textFormFiledStream,
         doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value),
+    contactUsBloc: widget.contactUsBloc
       );
 }

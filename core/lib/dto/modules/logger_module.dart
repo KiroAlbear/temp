@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
-import 'package:core/dto/modules/dio_module.dart';
+
+import 'odoo_dio_module.dart';
 
 class LoggerModule {
   /// Logs a message with optional error information and stack trace.
@@ -14,7 +15,7 @@ class LoggerModule {
     dynamic error,
     StackTrace? stackTrace,
   }) {
-    if (name != DioModule.internal().runtimeType.toString()) {
+    if (name != OdooDioModule.odooInternal().runtimeType.toString()) {
       developer.log(
         message,
         name: name,

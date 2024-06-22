@@ -92,5 +92,9 @@
   "usagePolicy": "سياسة الاستخدام",
   "logoutMessage": "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
   "deleteAccountMessage": "هل أنت متأكد من أنك تريد حذف الحساب؟",
-  "yes": "نعم"
+  "yes": "نعم",
+  "howCanWeHelp": "ازاي نساعدك",
+  "hotline": "الخط الساخن",
+  "whatsApp": "واتساب",
+  "faceBook": "فيس بوك"
 }
