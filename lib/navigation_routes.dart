@@ -81,11 +81,15 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_productCategoryWidget);
     case AppScreenEnum.faq:
       return _buildPageRoute(_faqWidget);
+    case AppScreenEnum.accountChangePassword:
+      return _buildPageRoute(const AccountChangePassword(
+        backIcon: Assets.svgIcBack,
+      ));
   }
 }
 
 Widget get _faqWidget => const FaqWidget(
-        backIcon: Assets.svgIcBack, arrowDown: Assets.svgIcArrowDown);
+    backIcon: Assets.svgIcBack, arrowDown: Assets.svgIcArrowDown);
 
 Widget get _loginWidget => const LoginWidget(
       logo: Assets.svgIcLogoH,

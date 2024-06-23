@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "currentOrder": MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
+        "currentPassword":
+            MessageLookupByLibrary.simpleMessage("كلمة السر الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من أنك تريد حذف الحساب؟"),
@@ -146,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resendOtpAfter": m3,
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
+        "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "searchProduct":
             MessageLookupByLibrary.simpleMessage("بتدور على منتج معين؟"),

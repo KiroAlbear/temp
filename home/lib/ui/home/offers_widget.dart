@@ -5,6 +5,7 @@ import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/logger_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -30,26 +31,28 @@ class _OffersWidgetState extends State<OffersWidget>
         stream: widget.homeBloc.offerStream,
         builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
             snapshot.data ?? LoadingState<List<OfferMapper>>(), context,
-            loaderColor: greenColor,
             onSuccess: _loadList(snapshot.data?.response ?? [])),
         initialData: LoadingState(),
       );
 
   Widget _loadList(List<OfferMapper> list) => Column(
     children: [
-      ListView.separated(
-            itemBuilder: (context, index) =>
-                _buildItem(context, index, list[index]),
-            shrinkWrap: true,
-            physics: const PageScrollPhysics(),
-            controller: _pageScrollController,
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            scrollDirection: Axis.horizontal,
-            itemCount: list.length,
-            separatorBuilder: (BuildContext context, int index) => SizedBox(
-              width: 10.w,
+      SizedBox(
+        height: 100.h,
+        child: ListView.separated(
+              itemBuilder: (context, index) =>
+                  _buildItem(context, index, list[index]),
+              shrinkWrap: true,
+              // physics: const PageScrollPhysics(),
+              // controller: _pageScrollController,
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              scrollDirection: Axis.horizontal,
+              itemCount: list.length,
+              separatorBuilder: (BuildContext context, int index) => SizedBox(
+                width: 10.w,
+              ),
             ),
-          ),
+      ),
       list.isNotEmpty ? SizedBox(
         height: 50.h,
       ): Container()
@@ -70,27 +73,15 @@ class _OffersWidgetState extends State<OffersWidget>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomText(
-                      text: item.name,
-                      customTextStyle:
-                          BoldStyle(color: secondaryColor, fontSize: 14.sp)),
-                  // CustomText(
-                  //     text: item.offerDetails,
-                  //     customTextStyle:
-                  //         RegularStyle(color: secondaryColor, fontSize: 14.sp),
-                  //     maxLines: 5)
-                  // ,
-                ],
-              ),
+              child: CustomText(
+                  text: item.name,
+                  customTextStyle:
+                      BoldStyle(color: lightBlackColor, fontSize: 14.sp)),
             ),
             Expanded(
                 child: ImageHelper(
               image: item.image,
-              imageType: ImageType.network,
+              imageType: ImageType.networkSvg,
               boxFit: BoxFit.cover,
             ))
           ],

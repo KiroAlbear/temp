@@ -32,12 +32,12 @@ class _PromotionWidgetState extends State<PromotionWidget>
       );
 
   Widget _buildWidget(List<OfferMapper> list) => SizedBox(
-    height: 83.h,
+    height: 85.h,
     child: ListView.separated(
-        shrinkWrap: false,
+        shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        physics: const PageScrollPhysics(),
-        controller: _pageScrollController,
+        // physics: const PageScrollPhysics(),
+        // controller: _pageScrollController,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         itemBuilder: (context, index) => _buildItem(list[index]),
         separatorBuilder: (context, index) => SizedBox(
@@ -47,34 +47,35 @@ class _PromotionWidgetState extends State<PromotionWidget>
   );
 
   Widget _buildItem(OfferMapper item) => Container(
-        height: 180.h,
-        width: 263.w,
+        height: 82.h,
+        width: 258.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
-            border: Border.all(width: 1.w, color: primaryColor),
             color: promotionCardColor),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 14.h,
+            SizedBox(width: 16.w,),
+            Expanded(
+              flex: 2,
+              child: CustomText(
+                  text: item.name,
+                  customTextStyle:
+                      BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
             ),
-            CustomText(
-                text: item.name,
-                customTextStyle:
-                    BoldStyle(fontSize: 20.sp, color: secondaryColor)),
             // CustomText(
             //     text: item.description,
             //     customTextStyle:
             //         MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
-            SizedBox(height: 13.h,),
-            ImageHelper(
-              image: item.image,
-              imageType: ImageType.network,
-              height: 83.h,
-              width: 159.w,
-              boxFit: BoxFit.fill,
-            )
+            Expanded(
+              flex: 1,
+              child: ImageHelper(
+                image: item.image,
+                imageType: ImageType.svg,
+                boxFit: BoxFit.fill,
+              ),
+            ),
+            SizedBox(width: 16.w,),
           ],
         ),
       );

@@ -1,5 +1,5 @@
 import 'package:authentication/ui/newAccount/new_account_bloc.dart';
-import 'package:authentication/ui/widget/password_validation_widget.dart';
+import 'package:core/ui/password_validation_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';

@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
         "currentOrder": MessageLookupByLibrary.simpleMessage("Current orders"),
+        "currentPassword":
+            MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete account?"),
@@ -150,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "required": MessageLookupByLibrary.simpleMessage("Filed required"),
         "resendOtpAfter": m3,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchProduct": MessageLookupByLibrary.simpleMessage(
             "Looking for a specific product?"),

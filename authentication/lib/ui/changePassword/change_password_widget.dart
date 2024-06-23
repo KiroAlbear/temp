@@ -1,8 +1,6 @@
 import 'package:authentication/ui/changePassword/change_password_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
-import 'package:authentication/ui/widget/password_validation_widget.dart';
 import 'package:core/core.dart';
-import 'package:core/dto/modules/logger_module.dart';
 import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -15,6 +13,7 @@ import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:core/ui/password_validation_widget.dart';
 
 class ChangePasswordWidget extends StatefulWidget {
   final String logo;
@@ -57,7 +56,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
             CustomText(
                 text: S.of(context).password,
                 customTextStyle:
-                    RegularStyle(fontSize: 20.sp, color: secondaryColor)),
+                    RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
             SizedBox(
               height: 12.h,
             ),
@@ -68,7 +67,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
             CustomText(
                 text: S.of(context).confirmPassword,
                 customTextStyle:
-                    RegularStyle(color: secondaryColor, fontSize: 20.sp)),
+                    RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
             SizedBox(
               height: 12.h,
             ),

@@ -38,9 +38,9 @@ class HomeBloc extends BlocBase {
   }
 
   void _loadOffers() {
-    // OfferRemote().callApiAsStream().listen((event) {
-    //   _offersBehaviour.sink.add(event);
-    // },);
+    OfferRemote().callApiAsStream().listen((event) {
+      _offersBehaviour.sink.add(event);
+    },);
   }
 
   void _loadPromotion() {
@@ -51,9 +51,9 @@ class HomeBloc extends BlocBase {
   }
 
   void _loadCategory() {
-    // CategoryRemote().callApiAsStream().listen((event) {
-    //   _categoryBehaviour.sink.add(event);
-    // });
+    CategoryRemote().callApiAsStream().listen((event) {
+      _categoryBehaviour.sink.add(event);
+    });
   }
 
   @override

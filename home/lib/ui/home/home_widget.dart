@@ -63,9 +63,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             height: 23.h,
           ),
           OffersWidget(homeBloc: widget.homeBloc),
-
-
-          // PromotionWidget(homeBloc: widget.homeBloc),
+          PromotionWidget(homeBloc: widget.homeBloc),
           SizedBox(
             height: 12.h,
           ),
@@ -84,16 +82,15 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
       );
 
   Widget get _topWidget => AppTopWidget(
-        notificationIcon: widget.notificationIcon,
-        homeLogo: widget.homeLogo,
-        scanIcon: widget.scanIcon,
-        searchIcon: widget.searchIcon,
-        supportIcon: widget.supportIcon,
-        onChanged: (value) =>
-            widget.homeBloc.searchBloc.updateStringBehaviour(value),
-        textFiledControllerStream:
-            widget.homeBloc.searchBloc.textFormFiledStream,
-        doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value),
-    contactUsBloc: widget.contactUsBloc
-      );
+      notificationIcon: widget.notificationIcon,
+      homeLogo: widget.homeLogo,
+      scanIcon: widget.scanIcon,
+      searchIcon: widget.searchIcon,
+      supportIcon: widget.supportIcon,
+      onChanged: (value) =>
+          widget.homeBloc.searchBloc.updateStringBehaviour(value),
+      textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
+      doSearch: () =>
+          widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value),
+      contactUsBloc: widget.contactUsBloc);
 }

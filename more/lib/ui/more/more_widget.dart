@@ -48,7 +48,7 @@ class MoreWidget extends BaseStatefulWidget {
       required this.openCamera,
       required this.usagePolicyIcon,
       required this.alertIcon,
-      required this.contactUsBloc});
+      required this.contactUsBloc,});
 
   @override
   State<MoreWidget> createState() => _MoreWidgetState();
@@ -100,8 +100,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
             height: 10.h,
           ),
-          _menuItem(
-              S.of(context).changePassword, widget.changePasswordIcon, () {}),
+          _menuItem(S.of(context).changePassword, widget.changePasswordIcon,
+              () {
+            CustomNavigatorModule.navigatorKey.currentState
+                ?.pushNamed(AppScreenEnum.accountChangePassword.name);
+          }),
           SizedBox(
             height: 10.h,
           ),
@@ -151,13 +154,15 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             height: 10.h,
           ),
           _menuItem(S.of(context).contactUs, widget.contactUsIcon, () {
-            AlertModule().showContactUsDialog(contactUsBloc: widget.contactUsBloc, context: context);
+            AlertModule().showContactUsDialog(
+                contactUsBloc: widget.contactUsBloc, context: context);
           }),
           SizedBox(
             height: 10.h,
           ),
           _menuItem(S.of(context).faq, widget.faqIcon, () {
-            CustomNavigatorModule.navigatorKey.currentState?.pushNamed(AppScreenEnum.faq.name);
+            CustomNavigatorModule.navigatorKey.currentState
+                ?.pushNamed(AppScreenEnum.faq.name);
           }),
           SizedBox(
             height: 10.h,
@@ -326,7 +331,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       headerSvg: widget.alertIcon,
       errorColorInConfirm: true,
       onConfirm: () {
-        Future.delayed(const Duration(milliseconds: 600)).then((value){
+        Future.delayed(const Duration(milliseconds: 600)).then((value) {
           AppProviderModule().logout(context);
         });
       },

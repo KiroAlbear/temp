@@ -29,6 +29,7 @@ import 'package:more/ui/more/more_widget.dart';
 import 'package:home/ui/home/product/product_category_widget.dart';
 import 'package:home/ui/home/product/product_category_bloc.dart';
 import 'flavors.dart';
+import 'package:more/ui/accountChangePasswordBloc/account_change_password.dart';
 
 
 part 'navigation_routes.dart';
