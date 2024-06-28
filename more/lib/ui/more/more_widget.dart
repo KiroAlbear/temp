@@ -31,24 +31,25 @@ class MoreWidget extends BaseStatefulWidget {
   final String alertIcon;
   final ContactUsBloc contactUsBloc;
 
-  const MoreWidget(
-      {super.key,
-      required this.accountSettingIcon,
-      required this.appLogo,
-      required this.moreBloc,
-      required this.cameraIcon,
-      required this.changePasswordIcon,
-      required this.contactUsIcon,
-      required this.myOrdersIcon,
-      required this.deleteAccountIcon,
-      required this.faqIcon,
-      required this.logoutIcon,
-      required this.previewsOrderIcon,
-      required this.shopIcon,
-      required this.openCamera,
-      required this.usagePolicyIcon,
-      required this.alertIcon,
-      required this.contactUsBloc,});
+  const MoreWidget({
+    super.key,
+    required this.accountSettingIcon,
+    required this.appLogo,
+    required this.moreBloc,
+    required this.cameraIcon,
+    required this.changePasswordIcon,
+    required this.contactUsIcon,
+    required this.myOrdersIcon,
+    required this.deleteAccountIcon,
+    required this.faqIcon,
+    required this.logoutIcon,
+    required this.previewsOrderIcon,
+    required this.shopIcon,
+    required this.openCamera,
+    required this.usagePolicyIcon,
+    required this.alertIcon,
+    required this.contactUsBloc,
+  });
 
   @override
   State<MoreWidget> createState() => _MoreWidgetState();
@@ -108,7 +109,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
             height: 10.h,
           ),
-          _menuItem(S.of(context).currentOrder, widget.myOrdersIcon, () {}),
+          _menuItem(S.of(context).currentOrders, widget.myOrdersIcon, () {}),
           SizedBox(
             height: 10.h,
           ),

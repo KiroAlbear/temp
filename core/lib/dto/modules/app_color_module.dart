@@ -44,6 +44,14 @@ const Color offWhiteColorDarkMore = Color.fromRGBO(63, 63, 63, 1);
 const Color yellowCardColorLightMode = Color.fromRGBO(254, 255, 239, 1);
 const Color yellowCardColorDarkMode = Color.fromRGBO(254, 255, 239, 1);
 
+/// yellow switch color
+const Color yellowSwitchColorLightMode = Color.fromRGBO(249, 243, 147, 1);
+const Color yellowSwitchColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
+
+/// yellow switch color
+const Color yellowSwitchColorBorderLightMode = Color.fromRGBO(255, 194, 0, 1);
+const Color yellowSwitchColorBorderDarkMode = Color.fromRGBO(255, 194, 0, 1);
+
 /// green card color
 const Color greenCardColorLightMode = Color.fromRGBO(239, 255, 240, 1);
 const Color greenCardColorDarkMode = Color.fromRGBO(239, 255, 240, 1);
@@ -71,7 +79,7 @@ const Color productCardColorDarkMode = Color.fromRGBO(246, 247, 247, 1);
 const Color faqCardColorLightMode = Color.fromRGBO(238, 238, 239, 1);
 const Color faqCardColorDarkMode = Color.fromRGBO(238, 238, 239, 1);
 
-bool get _isDark => SharedPrefModule().isDarkMode?? false;
+bool get _isDark => SharedPrefModule().isDarkMode ?? false;
 
 Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
 
@@ -91,20 +99,35 @@ Color lightBlackColor = _isDark ? lightBlackDarkMode : lightBlackDarkMode;
 
 Color whiteColor = _isDark ? black : white;
 
-Color offWhiteColor = _isDark? offWhiteColorDarkMore:offWhiteColorLightMode;
+Color offWhiteColor = _isDark ? offWhiteColorDarkMore : offWhiteColorLightMode;
 
-Color yellowCardColor= _isDark? yellowCardColorDarkMode: yellowCardColorLightMode;
+Color yellowCardColor =
+    _isDark ? yellowCardColorDarkMode : yellowCardColorLightMode;
 
-Color greenCardColor= _isDark? greenCardColorDarkMode: greenCardColorLightMode;
+Color greenCardColor =
+    _isDark ? greenCardColorDarkMode : greenCardColorLightMode;
 
-Color redCardColor= _isDark? redCardColorDarkMode: redCardColorLightMode;
+Color redCardColor = _isDark ? redCardColorDarkMode : redCardColorLightMode;
 
-Color promotionCardColor = _isDark? promotionCardColorDarkMode : promotionCardColorLightMode;
+Color promotionCardColor =
+    _isDark ? promotionCardColorDarkMode : promotionCardColorLightMode;
 
-Color categoryCardColor = _isDark? categoryCardColorDarkMode : categoryCardColorLightMode;
+Color categoryCardColor =
+    _isDark ? categoryCardColorDarkMode : categoryCardColorLightMode;
 
-Color menuOrderCardColor= _isDark?menuOrderCardColorDarkMode: menuOrderCardColorLightMode;
+Color menuOrderCardColor =
+    _isDark ? menuOrderCardColorDarkMode : menuOrderCardColorLightMode;
 
-Color productCardColor= _isDark?productCardColorDarkMode: productCardColorLightMode;
+Color productCardColor =
+    _isDark ? productCardColorDarkMode : productCardColorLightMode;
 
-Color faqCardColor= _isDark?faqCardColorDarkMode: faqCardColorLightMode;
+Color faqCardColor = _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
+Color myOrdersCardColor =
+    _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
+
+Color switchColor =
+    _isDark ? yellowSwitchColorDarkMode : yellowSwitchColorLightMode;
+
+Color switchBorderColor = _isDark
+    ? yellowSwitchColorBorderDarkMode
+    : yellowSwitchColorBorderLightMode;

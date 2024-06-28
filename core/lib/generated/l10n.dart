@@ -791,10 +791,10 @@ class S {
   }
 
   /// `Current orders`
-  String get currentOrder {
+  String get currentOrders {
     return Intl.message(
       'Current orders',
-      name: 'currentOrder',
+      name: 'currentOrders',
       desc: '',
       args: [],
     );
@@ -1045,6 +1045,126 @@ class S {
     return Intl.message(
       'Save',
       name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Past orders`
+  String get pastOrders {
+    return Intl.message(
+      'Past orders',
+      name: 'pastOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My orders`
+  String get myOrders {
+    return Intl.message(
+      'My orders',
+      name: 'myOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order number:`
+  String get orderNumber {
+    return Intl.message(
+      'Order number:',
+      name: 'orderNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order total:`
+  String get orderTotal {
+    return Intl.message(
+      'Order total:',
+      name: 'orderTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items count:`
+  String get orderItemCount {
+    return Intl.message(
+      'Items count:',
+      name: 'orderItemCount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sending order`
+  String get orderSending {
+    return Intl.message(
+      'Sending order',
+      name: 'orderSending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accepting order`
+  String get orderAccepting {
+    return Intl.message(
+      'Accepting order',
+      name: 'orderAccepting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping order`
+  String get orderShipping {
+    return Intl.message(
+      'Shipping order',
+      name: 'orderShipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outside for delivery`
+  String get orderOutside {
+    return Intl.message(
+      'Outside for delivery',
+      name: 'orderOutside',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order delivered`
+  String get orderDelivered {
+    return Intl.message(
+      'Order delivered',
+      name: 'orderDelivered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order in progress`
+  String get orderInProgress {
+    return Intl.message(
+      'Order in progress',
+      name: 'orderInProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order details`
+  String get orderDetails {
+    return Intl.message(
+      'Order details',
+      name: 'orderDetails',
       desc: '',
       args: [],
     );

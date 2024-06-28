@@ -73,7 +73,7 @@
   "bestOffers": "أقوى العروض",
   "browseSections": "تصفح الأقسام",
   "editLocation": "تعديل الموقع",
-  "currentOrder": "الطلبات الحالية",
+  "currentOrders": "الطلبات الحالية",
   "previousOrder": "طلباتي السابقة",
   "settings": "الإعدادات",
   "accountInfo": "بيانات حسابي",
@@ -98,5 +98,16 @@
   "whatsApp": "واتساب",
   "faceBook": "فيس بوك",
   "currentPassword": "كلمة السر الحالية",
-  "save": "حفظ"
+  "save": "حفظ",
+  "pastOrders": "الطلبات السابقة",
+  "orderNumber": "الطلب رقم:",
+  "orderTotal": "الإجمالي:",
+  "orderItemCount": "عدد القطع:",
+  "orderSending": "ارسال الطلب",
+  "orderAccepting": "الموافقة على الطلب",
+  "orderShipping": "شحن الطلب",
+  "orderOutside": "خارج للتوصيل",
+  "orderDelivered": "تسليم الطلب",
+  "orderInProgress": "قيد التنفيذ",
+  "orderDetails": "تفاصيل الطلب"
 }

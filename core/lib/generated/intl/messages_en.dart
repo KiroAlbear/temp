@@ -63,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
-        "currentOrder": MessageLookupByLibrary.simpleMessage("Current orders"),
+        "currentOrders": MessageLookupByLibrary.simpleMessage("Current orders"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
@@ -122,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to logout?"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
+        "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
@@ -130,11 +131,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No space allowed"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "openSetting": m2,
+        "orderAccepting":
+            MessageLookupByLibrary.simpleMessage("Accepting order"),
+        "orderDelivered":
+            MessageLookupByLibrary.simpleMessage("Order delivered"),
+        "orderDetails": MessageLookupByLibrary.simpleMessage("Order details"),
+        "orderInProgress":
+            MessageLookupByLibrary.simpleMessage("Order in progress"),
+        "orderItemCount": MessageLookupByLibrary.simpleMessage("Items count:"),
+        "orderNumber": MessageLookupByLibrary.simpleMessage("Order number:"),
+        "orderOutside":
+            MessageLookupByLibrary.simpleMessage("Outside for delivery"),
+        "orderSending": MessageLookupByLibrary.simpleMessage("Sending order"),
+        "orderShipping": MessageLookupByLibrary.simpleMessage("Shipping order"),
+        "orderTotal": MessageLookupByLibrary.simpleMessage("Order total:"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("At lest 8 characters"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password didn\'t match"),
+        "pastOrders": MessageLookupByLibrary.simpleMessage("Past orders"),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to select this location?"),
         "platformName":

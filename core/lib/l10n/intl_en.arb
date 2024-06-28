@@ -73,7 +73,7 @@
   "bestOffers": "Best offers",
   "browseSections": "Browse sections",
   "editLocation": "Edit location",
-  "currentOrder": "Current orders",
+  "currentOrders": "Current orders",
   "previousOrder": "Previous orders",
   "settings": "Settings",
   "accountInfo": "Account info",
@@ -98,7 +98,19 @@
   "whatsApp": "WhatsApp",
   "faceBook": "Facebook",
   "currentPassword": "Current password",
-  "save": "Save"
+  "save": "Save",
+  "pastOrders": "Past orders",
+  "myOrders": "My orders",
+  "orderNumber": "Order number:",
+  "orderTotal": "Order total:",
+  "orderItemCount": "Items count:",
+  "orderSending": "Sending order",
+  "orderAccepting": "Accepting order",
+  "orderShipping": "Shipping order",
+  "orderOutside": "Outside for delivery",
+  "orderDelivered": "Order delivered",
+  "orderInProgress": "Order in progress",
+  "orderDetails": "Order details"
 
 
 

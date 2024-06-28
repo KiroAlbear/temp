@@ -60,7 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
-        "currentOrder": MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
+        "currentOrders":
+            MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("كلمة السر الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
@@ -127,11 +128,23 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب ألا تحتوي على مسافات"),
         "ok": MessageLookupByLibrary.simpleMessage("حسنًا"),
         "openSetting": m2,
+        "orderAccepting":
+            MessageLookupByLibrary.simpleMessage("الموافقة على الطلب"),
+        "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
+        "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
+        "orderInProgress": MessageLookupByLibrary.simpleMessage("قيد التنفيذ"),
+        "orderItemCount": MessageLookupByLibrary.simpleMessage("عدد القطع:"),
+        "orderNumber": MessageLookupByLibrary.simpleMessage("الطلب رقم:"),
+        "orderOutside": MessageLookupByLibrary.simpleMessage("خارج للتوصيل"),
+        "orderSending": MessageLookupByLibrary.simpleMessage("ارسال الطلب"),
+        "orderShipping": MessageLookupByLibrary.simpleMessage("شحن الطلب"),
+        "orderTotal": MessageLookupByLibrary.simpleMessage("الإجمالي:"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور وتأكيد كلمة المرور غير متطابقين"),
+        "pastOrders": MessageLookupByLibrary.simpleMessage("الطلبات السابقة"),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
