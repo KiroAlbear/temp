@@ -4,11 +4,11 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class OrderItemState extends StatelessWidget {
+class CurrentOrderItemState extends StatelessWidget {
   final String date;
   final String title;
   final String icon;
-  const OrderItemState({
+  const CurrentOrderItemState({
     required this.date,
     required this.title,
     required this.icon,

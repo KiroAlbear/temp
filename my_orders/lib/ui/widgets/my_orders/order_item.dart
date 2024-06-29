@@ -2,14 +2,20 @@ import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:my_orders/gen/assets.gen.dart';
-import 'package:my_orders/ui/widgets/order_item_grey_text.dart';
-import 'package:my_orders/ui/widgets/order_item_state.dart';
+import 'package:my_orders/ui/widgets/current_orders/current_orders_states.dart';
+import 'package:my_orders/ui/widgets/my_orders/order_item_grey_text.dart';
+import 'package:my_orders/ui/widgets/past_orders/past_orders_states.dart';
+
+enum OrderItemType { pastOrder, currentOrder }
 
 class OrderItem extends StatelessWidget {
-  OrderItem({super.key});
+  final OrderItemType orderItemType;
+
+  OrderItem({required this.orderItemType});
 
   final CustomTextStyleModule titleTextStyle =
       MediumStyle(color: lightBlackColor, fontSize: 18.sp);
@@ -31,6 +37,7 @@ class OrderItem extends StatelessWidget {
       direction: DismissDirection.endToStart,
       background: Container(
         child: icDelete,
+        color: Colors.white,
         alignment: Alignment.centerLeft,
       ),
       child: Container(
@@ -42,7 +49,10 @@ class OrderItem extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadious),
           ),
-          trailing: _getTrailingWidget(),
+          // trailing: _getCurrentOrdersTrailingWidget(),
+          trailing: orderItemType == OrderItemType.pastOrder
+              ? _getPastOrdersTrailingWidget(context, true)
+              : _getCurrentOrdersTrailingWidget(),
           onExpansionChanged: (value) {
             isExpanded.value = value;
           },
@@ -86,31 +96,16 @@ class OrderItem extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  OrderItemState(
-                    icon: Assets.svg.icSendingOrderGreen,
-                    title: S.of(context).orderSending,
-                    date: "12/12/2021",
-                  ),
-                  OrderItemState(
-                    icon: Assets.svg.icAcceptedOrderGreen,
-                    title: S.of(context).orderAccepting,
-                    date: "12/12/2021",
-                  ),
-                  OrderItemState(
-                    icon: Assets.svg.icShippingOrderGreen,
-                    title: S.of(context).orderShipping,
-                    date: "12/12/2021",
-                  ),
-                  OrderItemState(
-                    icon: Assets.svg.icOutsideOrderGray,
-                    title: S.of(context).orderOutside,
-                    date: "قيد التنفيذ",
-                  ),
-                  OrderItemState(
-                    icon: Assets.svg.icDeliveredOrderGray,
-                    title: S.of(context).orderDelivered,
-                    date: "قيد التنفيذ",
-                  ),
+                  orderItemType == OrderItemType.currentOrder
+                      ? CurrentOrdersStates()
+                      : PastOrdersStates(),
+                  CustomButtonWidget(
+                      buttonColor: secondaryColor,
+                      textColor: Colors.white,
+                      idleText: orderItemType == OrderItemType.currentOrder
+                          ? S.of(context).orderDetails
+                          : S.of(context).orderAgain,
+                      onTap: () {}),
                   SizedBox(
                     height: 12,
                   ),
@@ -123,7 +118,27 @@ class OrderItem extends StatelessWidget {
     );
   }
 
-  ValueListenableBuilder<bool> _getTrailingWidget() {
+  Widget _getPastOrdersTrailingWidget(
+      BuildContext context, bool isOrderReceived) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 5,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: isOrderReceived ? greenColor : Colors.red,
+      ),
+      child: CustomText(
+        // text: S.of(context).orderNotRecieved,
+        text: isOrderReceived
+            ? S.of(context).orderRecieved
+            : S.of(context).orderNotRecieved,
+        customTextStyle: SemiBoldStyle(color: Colors.white, fontSize: 12.sp),
+      ),
+    );
+  }
+
+  ValueListenableBuilder<bool> _getCurrentOrdersTrailingWidget() {
     return ValueListenableBuilder(
       valueListenable: isExpanded,
       builder: (context, value, child) {

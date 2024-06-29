@@ -110,9 +110,9 @@
   "orderOutside": "Outside for delivery",
   "orderDelivered": "Order delivered",
   "orderInProgress": "Order in progress",
-  "orderDetails": "Order details"
-
-
-
+  "orderDetails": "Order details",
+  "orderRecieved": "Order received",
+  "orderNotRecieved": "Order canceled",
+  "orderAgain": "Order again"
 
 }

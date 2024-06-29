@@ -133,15 +133,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "openSetting": m2,
         "orderAccepting":
             MessageLookupByLibrary.simpleMessage("Accepting order"),
+        "orderAgain": MessageLookupByLibrary.simpleMessage("Order again"),
         "orderDelivered":
             MessageLookupByLibrary.simpleMessage("Order delivered"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order details"),
         "orderInProgress":
             MessageLookupByLibrary.simpleMessage("Order in progress"),
         "orderItemCount": MessageLookupByLibrary.simpleMessage("Items count:"),
+        "orderNotRecieved":
+            MessageLookupByLibrary.simpleMessage("Order canceled"),
         "orderNumber": MessageLookupByLibrary.simpleMessage("Order number:"),
         "orderOutside":
             MessageLookupByLibrary.simpleMessage("Outside for delivery"),
+        "orderRecieved": MessageLookupByLibrary.simpleMessage("Order received"),
         "orderSending": MessageLookupByLibrary.simpleMessage("Sending order"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("Shipping order"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("Order total:"),

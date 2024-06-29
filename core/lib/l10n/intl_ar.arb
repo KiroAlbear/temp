@@ -109,5 +109,8 @@
   "orderOutside": "خارج للتوصيل",
   "orderDelivered": "تسليم الطلب",
   "orderInProgress": "قيد التنفيذ",
-  "orderDetails": "تفاصيل الطلب"
+  "orderDetails": "تفاصيل الطلب",
+  "orderRecieved": "تم استلام الطلب",
+  "orderNotRecieved": "تم الغاء الطلب",
+  "orderAgain": "أطلب مرة كمان"
 }

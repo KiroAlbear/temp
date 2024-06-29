@@ -1169,6 +1169,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Order received`
+  String get orderRecieved {
+    return Intl.message(
+      'Order received',
+      name: 'orderRecieved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order canceled`
+  String get orderNotRecieved {
+    return Intl.message(
+      'Order canceled',
+      name: 'orderNotRecieved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order again`
+  String get orderAgain {
+    return Intl.message(
+      'Order again',
+      name: 'orderAgain',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

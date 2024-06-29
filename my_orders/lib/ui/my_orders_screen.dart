@@ -5,7 +5,8 @@ import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/toggel_button.dart';
 import 'package:flutter/material.dart';
-import 'package:my_orders/ui/widgets/order_item.dart';
+import 'package:my_orders/ui/widgets/current_orders/current_orders_page.dart';
+import 'package:my_orders/ui/widgets/past_orders/past_orders_page.dart';
 
 class MyOrdersScreen extends BaseStatefulWidget {
   MyOrdersScreen({required this.backIcon, super.key});
@@ -15,9 +16,10 @@ class MyOrdersScreen extends BaseStatefulWidget {
   State<MyOrdersScreen> createState() => _MyOrdersScreenState();
 }
 
-class _MyOrdersScreenState extends BaseState<MyOrdersScreen> {
-  ValueNotifier<double> mynotifier = ValueNotifier<double>(-1);
-
+class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
+    with SingleTickerProviderStateMixin {
+  ValueNotifier<double> _toggleXAlign = ValueNotifier<double>(-1);
+  late final TabController _tabController;
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -26,6 +28,19 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen> {
 
   @override
   bool isSafeArea() => true;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.index == 0) {
+        _toggleXAlign.value = ToggleButton.leftToggleAlign;
+      } else {
+        _toggleXAlign.value = ToggleButton.rightToggleAlign;
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget getBody(BuildContext context) {
@@ -55,20 +70,25 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen> {
           leftDescription: S.of(context).pastOrders,
           rightDescription: S.of(context).currentOrders,
           onLeftToggleActive: () {
-            // mynotifier.value = ToggleButton.leftToggleAlign;
+            _tabController.animateTo(0);
           },
           onRightToggleActive: () {
-            // mynotifier.value = ToggleButton.rightToggleAlign;
+            _tabController.animateTo(1);
           },
-          toggleXAlign: mynotifier,
+          toggleXAlign: _toggleXAlign,
         ),
         SizedBox(
           height: 20,
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: OrderItem(),
-        )
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 17.0),
+            child: TabBarView(controller: _tabController, children: [
+              PastOrdersPage(),
+              CurrentOrdersPage(),
+            ]),
+          ),
+        ),
       ],
     );
   }

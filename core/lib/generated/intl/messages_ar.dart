@@ -130,12 +130,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "openSetting": m2,
         "orderAccepting":
             MessageLookupByLibrary.simpleMessage("الموافقة على الطلب"),
+        "orderAgain": MessageLookupByLibrary.simpleMessage("أطلب مرة كمان"),
         "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "orderInProgress": MessageLookupByLibrary.simpleMessage("قيد التنفيذ"),
         "orderItemCount": MessageLookupByLibrary.simpleMessage("عدد القطع:"),
+        "orderNotRecieved":
+            MessageLookupByLibrary.simpleMessage("تم الغاء الطلب"),
         "orderNumber": MessageLookupByLibrary.simpleMessage("الطلب رقم:"),
         "orderOutside": MessageLookupByLibrary.simpleMessage("خارج للتوصيل"),
+        "orderRecieved":
+            MessageLookupByLibrary.simpleMessage("تم استلام الطلب"),
         "orderSending": MessageLookupByLibrary.simpleMessage("ارسال الطلب"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("شحن الطلب"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("الإجمالي:"),
