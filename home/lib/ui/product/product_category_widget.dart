@@ -66,7 +66,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
             title: widget.productCategoryBloc.isForFavourite
                 ? S.of(context).favourites
                 : S.of(context).products,
-            hideTop: widget.productCategoryBloc.isForFavourite,
+            hideTop: true,
           ),
           Expanded(
             child: Padding(

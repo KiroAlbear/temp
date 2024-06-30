@@ -11,5 +11,7 @@ enum AppScreenEnum {
   successRegister,
   product,
   faq,
-  accountChangePassword
+  accountChangePassword,
+
+  scanBarcode
 }

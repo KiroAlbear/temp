@@ -4,14 +4,17 @@ import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
+import 'package:core/generated/l10n.dart';
+import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
 
 class PromotionWidget extends StatefulWidget {
   final HomeBloc homeBloc;
+  final bool isForPromoTap;
 
-  const PromotionWidget({super.key, required this.homeBloc});
+  const PromotionWidget({super.key, required this.homeBloc, this.isForPromoTap = false});
 
   @override
   State<PromotionWidget> createState() => _PromotionWidgetState();
@@ -47,8 +50,8 @@ class _PromotionWidgetState extends State<PromotionWidget>
   );
 
   Widget _buildItem(OfferMapper item) => Container(
-        height: 82.h,
-        width: 258.w,
+        height:  widget.isForPromoTap? 104.h: 82.h,
+        width: widget.isForPromoTap? MediaQuery.of(context).size.width - 40.w: 258.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
             color: promotionCardColor),
@@ -58,10 +61,26 @@ class _PromotionWidgetState extends State<PromotionWidget>
             SizedBox(width: 16.w,),
             Expanded(
               flex: 2,
-              child: CustomText(
-                  text: item.name,
-                  customTextStyle:
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                      text: item.name,
+                      customTextStyle:
                       BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
+                  if(widget.isForPromoTap)...[
+                    Container(decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(9.w),
+                      border: Border.all(color: primaryColor, width: 1.w)
+                    ),
+                        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 16.w),
+                    child: CustomText(text: S.of(context).promoDetails, customTextStyle: MediumStyle(
+                      color: lightBlackColor, fontSize: 12.sp
+                    ),),),
+                  ],
+                ],
+              ),
             ),
             // CustomText(
             //     text: item.description,
@@ -69,10 +88,13 @@ class _PromotionWidgetState extends State<PromotionWidget>
             //         MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
             Expanded(
               flex: 1,
-              child: ImageHelper(
-                image: item.image,
-                imageType: ImageType.svg,
-                boxFit: BoxFit.fill,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: ImageHelper(
+                  image: item.image,
+                  imageType: ImageType.networkSvg,
+                  boxFit: BoxFit.contain,
+                ),
               ),
             ),
             SizedBox(width: 16.w,),

@@ -1,9 +1,7 @@
 import 'package:authentication/authentication.dart';
 import 'package:authentication/ui/newAccount/new_account_widget.dart';
 import 'package:authentication/ui/otp/otp_widget.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/ui/contactUs/contact_us_bloc.dart';
-import 'package:hl_image_picker/hl_image_picker.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
@@ -23,11 +21,12 @@ import 'package:authentication/ui/widget/success_register_widget.dart';
 import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_widget.dart';
 import 'package:home/home.dart';
+import 'package:home/ui/scanBarcode/scan_barcode_widget.dart';
 import 'package:more/ui/faq/faq_widget.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
-import 'package:home/ui/home/product/product_category_widget.dart';
-import 'package:home/ui/home/product/product_category_bloc.dart';
+import 'package:home/ui/product/product_category_widget.dart';
+import 'package:home/ui/product/product_category_bloc.dart';
 import 'flavors.dart';
 import 'package:more/ui/accountChangePasswordBloc/account_change_password.dart';
 

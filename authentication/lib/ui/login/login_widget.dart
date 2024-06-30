@@ -18,9 +18,10 @@ import 'package:flutter/material.dart';
 class LoginWidget extends StatefulWidget {
   final String logo;
   final String biometricImage;
+  final bool enableSkip;
 
   const LoginWidget(
-      {super.key, required this.logo, required this.biometricImage});
+      {super.key, required this.logo, required this.biometricImage, required this.enableSkip});
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -34,7 +35,7 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
         canBack: false,
         logo: widget.logo,
         blocBase: _bloc,
-        canSkip: true,
+        canSkip: widget.enableSkip,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(

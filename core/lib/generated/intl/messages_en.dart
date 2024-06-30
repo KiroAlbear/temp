@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please authenticate to login"),
         "browseSections":
             MessageLookupByLibrary.simpleMessage("Browse sections"),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change password"),
@@ -103,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
+        "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "General error.\nPlease try again later!"),
         "haveAccount":
@@ -118,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Locate your location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
+        "loginNow": MessageLookupByLibrary.simpleMessage("Login now"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to logout?"),
@@ -143,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "previousOrder":
             MessageLookupByLibrary.simpleMessage("Previous orders"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
+        "promoDetails": MessageLookupByLibrary.simpleMessage("Promo details"),
         "promotion": MessageLookupByLibrary.simpleMessage("Promotion"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "Once you press on next you will receive message to activate your account"),
@@ -153,11 +157,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "resendOtpAfter": m3,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "scanBarcode":
+            MessageLookupByLibrary.simpleMessage("Search by Barcode"),
+        "scanText": MessageLookupByLibrary.simpleMessage(
+            "Make sure barcode is\nblack mark to scan"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchProduct": MessageLookupByLibrary.simpleMessage(
             "Looking for a specific product?"),
         "selectLocation":
             MessageLookupByLibrary.simpleMessage("Select your location"),
+        "selectPhotoFromCameraOrGallery": MessageLookupByLibrary.simpleMessage(
+            "Which you would like to use?"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("Send OTP"),
         "sendOtpAgain": MessageLookupByLibrary.simpleMessage("Send OTP again"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
@@ -176,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("You can start order now"),
+        "youNeedToLoginToUseApp":
+            MessageLookupByLibrary.simpleMessage("You need to login"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")
       };
 }

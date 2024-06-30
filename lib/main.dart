@@ -36,7 +36,7 @@ FutureOr<void> main() async {
   LoggerModule.log(message: AdminDioModule().baseUrl, name: 'admin dio module');
   LoggerModule.log(message: OdooDioModule().baseUrl, name: 'odoo dio module');
   /// allow Chucker to show in release mode
-  ChuckerFlutter.showOnRelease = false;
+  ChuckerFlutter.showOnRelease = true;
 
   /// run app and use provider for app config
   runApp(MultiProvider(providers: [

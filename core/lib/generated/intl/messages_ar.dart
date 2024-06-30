@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "biometricLoginMessage":
             MessageLookupByLibrary.simpleMessage("يرجى المصادقة لتسجيل الدخول"),
         "browseSections": MessageLookupByLibrary.simpleMessage("تصفح الأقسام"),
+        "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("تغيير كلمة السر"),
@@ -100,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة السر؟"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم بالكامل"),
+        "gallery": MessageLookupByLibrary.simpleMessage("معرض الصور"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "خطأ عام.\nيرجى المحاولة مرة أخرى في وقت لاحق!"),
         "haveAccount": MessageLookupByLibrary.simpleMessage("لديك حساب؟"),
@@ -115,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("حدد مكان محللك"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
+        "loginNow": MessageLookupByLibrary.simpleMessage("تسجيل الدخول الآن"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من أنك تريد تسجيل الخروج؟"),
@@ -138,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
         "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
+        "promoDetails": MessageLookupByLibrary.simpleMessage("تفاصيل العرض"),
         "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
@@ -149,10 +153,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "scanBarcode":
+            MessageLookupByLibrary.simpleMessage("البحث عن طريق الباركود"),
+        "scanText": MessageLookupByLibrary.simpleMessage(
+            "تأكد من وجود الباركود ضمن\nالعلامات السوداء لمسح العنصر\nضوئيًا"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "searchProduct":
             MessageLookupByLibrary.simpleMessage("بتدور على منتج معين؟"),
         "selectLocation": MessageLookupByLibrary.simpleMessage("حدد موقعك"),
+        "selectPhotoFromCameraOrGallery":
+            MessageLookupByLibrary.simpleMessage("ماذا تفضل؟"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("ارسال كود التحقيق"),
         "sendOtpAgain":
             MessageLookupByLibrary.simpleMessage("ارسال الكود مرة أخري"),
@@ -172,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("تقدر تطلب دلوقتي"),
+        "youNeedToLoginToUseApp":
+            MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
       };
 }

@@ -98,5 +98,13 @@
   "whatsApp": "واتساب",
   "faceBook": "فيس بوك",
   "currentPassword": "كلمة السر الحالية",
-  "save": "حفظ"
+  "save": "حفظ",
+  "camera": "الكاميرا",
+  "gallery": "معرض الصور",
+  "selectPhotoFromCameraOrGallery": "ماذا تفضل؟",
+  "youNeedToLoginToUseApp": "انت تحتاج الي تسجيل الدخول",
+  "loginNow": "تسجيل الدخول الآن",
+  "scanBarcode": "البحث عن طريق الباركود",
+  "scanText": "تأكد من وجود الباركود ضمن\nالعلامات السوداء لمسح العنصر\nضوئيًا",
+  "promoDetails": "تفاصيل العرض"
 }

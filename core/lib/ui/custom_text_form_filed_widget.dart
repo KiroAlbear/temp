@@ -167,6 +167,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
           {required TextEditingController controller,
           bool showPassword = false}) =>
       TextFormField(
+        focusNode: widget.focusNode,
         onTap: widget.onTap,
         style: widget.defaultTextStyle ?? _defaultTextStyle,
         textAlignVertical: TextAlignVertical.center,

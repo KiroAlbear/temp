@@ -36,7 +36,7 @@ class _OtpWidgetState extends State<OtpWidget> {
   @override
   void initState() {
     super.initState();
-    _initSignature();
+    // _initSignature();
   }
 
   void _initSignature() async {

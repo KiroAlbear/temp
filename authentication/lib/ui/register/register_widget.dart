@@ -9,9 +9,7 @@ import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class RegisterWidget extends StatefulWidget {
   final String logo;

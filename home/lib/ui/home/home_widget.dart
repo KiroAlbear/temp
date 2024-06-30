@@ -37,6 +37,7 @@ class HomeWidget extends BaseStatefulWidget {
 
 class _HomeWidgetState extends BaseState<HomeWidget> {
   final ScrollController _scrollController = ScrollController();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -77,7 +78,8 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             height: 12.h,
           ),
           CategoryWidget(
-              homeBloc: widget.homeBloc, scrollController: _scrollController)
+              homeBloc: widget.homeBloc, scrollController: _scrollController),
+          SizedBox(height: 90.h,),
         ],
       );
 
@@ -85,12 +87,38 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
       notificationIcon: widget.notificationIcon,
       homeLogo: widget.homeLogo,
       scanIcon: widget.scanIcon,
+      focusNode: _focusNode,
       searchIcon: widget.searchIcon,
       supportIcon: widget.supportIcon,
       onChanged: (value) =>
           widget.homeBloc.searchBloc.updateStringBehaviour(value),
       textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
-      doSearch: () =>
-          widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value),
+      doSearch: () {
+        widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value);
+
+      },
       contactUsBloc: widget.contactUsBloc);
+  
+  @override
+  Widget? customFloatActionButton() => FloatingActionButton(onPressed: (){
+      _scrollController.jumpTo(0);
+      FocusScope.of(context).requestFocus(_focusNode);
+    },
+    backgroundColor: secondaryColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.w)),
+      child: ImageHelper(
+        image: widget.searchIcon,
+        imageType: ImageType.svg,
+        color: whiteColor,
+        width: 26.w,
+        height: 26.h,
+      ),
+    );
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
 }

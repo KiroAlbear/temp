@@ -38,16 +38,19 @@ class HomeBloc extends BlocBase {
   }
 
   void _loadOffers() {
-    OfferRemote().callApiAsStream().listen((event) {
-      _offersBehaviour.sink.add(event);
-    },);
+    OfferRemote().callApiAsStream().listen(
+      (event) {
+        _offersBehaviour.sink.add(event);
+      },
+    );
   }
 
   void _loadPromotion() {
-    HeroBannerRemote().callApiAsStream().listen((event) {
-      _promotionBehaviour.sink.add(event);
-    },);
-
+    HeroBannerRemote().callApiAsStream().listen(
+      (event) {
+        _promotionBehaviour.sink.add(event);
+      },
+    );
   }
 
   void _loadCategory() {

@@ -1049,6 +1049,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gallery`
+  String get gallery {
+    return Intl.message(
+      'Gallery',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which you would like to use?`
+  String get selectPhotoFromCameraOrGallery {
+    return Intl.message(
+      'Which you would like to use?',
+      name: 'selectPhotoFromCameraOrGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You need to login`
+  String get youNeedToLoginToUseApp {
+    return Intl.message(
+      'You need to login',
+      name: 'youNeedToLoginToUseApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login now`
+  String get loginNow {
+    return Intl.message(
+      'Login now',
+      name: 'loginNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search by Barcode`
+  String get scanBarcode {
+    return Intl.message(
+      'Search by Barcode',
+      name: 'scanBarcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make sure barcode is\nblack mark to scan`
+  String get scanText {
+    return Intl.message(
+      'Make sure barcode is\nblack mark to scan',
+      name: 'scanText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Promo details`
+  String get promoDetails {
+    return Intl.message(
+      'Promo details',
+      name: 'promoDetails',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

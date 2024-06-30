@@ -98,9 +98,13 @@
   "whatsApp": "WhatsApp",
   "faceBook": "Facebook",
   "currentPassword": "Current password",
-  "save": "Save"
-
-
-
-
+  "save": "Save",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "selectPhotoFromCameraOrGallery": "Which you would like to use?",
+  "youNeedToLoginToUseApp": "You need to login",
+  "loginNow": "Login now",
+  "scanBarcode": "Search by Barcode",
+  "scanText": "Make sure barcode is\nblack mark to scan",
+  "promoDetails": "Promo details"
 }

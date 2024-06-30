@@ -45,10 +45,8 @@ abstract class DioModule extends DioBuilder {
     Map<String, dynamic> header = {};
     if (SharedPrefModule().bearerToken != null || customToken != null) {
       header.putIfAbsent(
-          'Authorization', () => 'Bearer ${_getBearerToken(customToken)}');
+          'token', () => _getBearerToken(customToken));
     }
-    header.putIfAbsent(
-        'token', () => '02594d4802787f020527c324d111afedb2989c32');
     setHeaders(header);
     initialize();
   }

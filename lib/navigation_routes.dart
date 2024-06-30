@@ -12,23 +12,24 @@ final HomeBloc _homeBloc = HomeBloc(
     _productCategoryBloc.categoryId == categoryMapper.id;
   },
   doSearch: (value) {
-    _productCategoryBloc.reset();
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushNamed(AppScreenEnum.product.name);
-    _productCategoryBloc.doSearch(value);
+   if(value.isNotEmpty){
+     _productCategoryBloc.isForFavourite = false;
+     _productCategoryBloc.reset();
+     CustomNavigatorModule.navigatorKey.currentState
+         ?.pushNamed(AppScreenEnum.product.name);
+     _productCategoryBloc.doSearch(value);
+   }
   },
 );
 final MoreBloc _moreBloc = MoreBloc();
 
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
-  // SharedPrefModule().userId != null ? _productCategoryWidget: _loginWidget,
   _productCategoryWidget,
   Container(),
   Container(),
-  // SharedPrefModule().userId != null ? _moreBlocProvider : _loginWidget,
   _moreBlocProvider
-]);
+], _loginWidgetWithoutSkip);
 
 // Function to generate routes based on screen names.
 Route? _onGenerateRoute(String screenName, BuildContext context) {
@@ -43,7 +44,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.none:
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
-      _bottomNavigationBloc.setSelectedTab(0);
+      _bottomNavigationBloc.setSelectedTab(0, null);
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
@@ -68,9 +69,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.newAccount:
-      return _buildPageRoute(const NewAccountWidget(
-        logo: Assets.svgIcLogoH,
-      ));
+      return _buildPageRoute(_newAccountWidget);
     case AppScreenEnum.home:
       return _buildPageRoute(_bottomNavigationBlocProvider);
     case AppScreenEnum.successRegister:
@@ -85,6 +84,8 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const AccountChangePassword(
         backIcon: Assets.svgIcBack,
       ));
+    case AppScreenEnum.scanBarcode:
+      return _buildPageRoute(_scanBarcodeWidget);
   }
 }
 
@@ -94,7 +95,16 @@ Widget get _faqWidget => const FaqWidget(
 Widget get _loginWidget => const LoginWidget(
       logo: Assets.svgIcLogoH,
       biometricImage: Assets.svgIcBiometric,
+      enableSkip: true,
     );
+
+Widget get _loginWidgetWithoutSkip => const LoginWidget(
+      logo: Assets.svgIcLogoH,
+      biometricImage: Assets.svgIcBiometric,
+      enableSkip: false,
+    );
+
+Widget get _scanBarcodeWidget=> ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
@@ -130,21 +140,6 @@ BlocProvider get _homeBlocProvider => BlocProvider(
 BlocProvider get _moreBlocProvider => BlocProvider(
       bloc: _moreBloc,
       child: MoreWidget(
-        openCamera: () {
-          HLImagePicker()
-              .openPicker(
-                  cropping: false,
-                  pickerOptions: const HLPickerOptions(
-                    compressQuality: 40,
-                    compressFormat: CompressFormat.png,
-                    enablePreview: true,
-                    maxSelectedAssets: 1,
-                    usedCameraButton: true,
-                  ))
-              .then((value) {
-            _moreBloc.uploadImage(value[0].path);
-          });
-        },
         accountSettingIcon: Assets.svgIcPerson,
         appLogo: Assets.svgIcHomeLogo,
         myOrdersIcon: Assets.svgIcMyOrders,
@@ -197,6 +192,12 @@ ContactUsBloc get _contactUsBloc => ContactUsBloc(
     facebookIcon: Assets.svgIcFaceBook,
     hotLine: Assets.svgIcPhone,
     whatsAppIcon: Assets.svgIcWhatsApp);
+
+Widget get _newAccountWidget => NewAccountWidget(
+      logo: Assets.svgIcLogoH,
+      mobileNumber: _authSharedBloc.mobile,
+      countryId: int.parse(_authSharedBloc.countryMapper.id),
+    );
 
 // Build a MaterialPageRoute with a custom transition.
 Route _buildPageRoute(Widget widget) => TransitionEasy(

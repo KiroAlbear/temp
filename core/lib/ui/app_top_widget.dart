@@ -1,6 +1,8 @@
 import 'package:core/core.dart';
+import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
+import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/contactUs/contact_us_bloc.dart';
@@ -29,6 +31,8 @@ class AppTopWidget extends StatefulWidget {
   final VoidCallback? doSearch;
   final ContactUsBloc? contactUsBloc;
 
+  final FocusNode? focusNode;
+
   const AppTopWidget(
       {super.key,
       required this.notificationIcon,
@@ -42,7 +46,8 @@ class AppTopWidget extends StatefulWidget {
       this.doSearch,
       this.onChanged,
       this.textFiledControllerStream,
-      this.contactUsBloc});
+      this.contactUsBloc,
+      this.focusNode});
 
   @override
   State<AppTopWidget> createState() => _AppTopWidgetState();
@@ -66,7 +71,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
             if (!widget.hideTop) ...[
               _logoWidget,
               _supportWidget,
-              _favouriteWidget,
+              // _favouriteWidget,
             ],
             if (widget.title.isEmpty) ...[_searchWidget] else ...[_titleRow]
           ],
@@ -88,7 +93,8 @@ class _AppTopWidgetState extends State<AppTopWidget> {
 
   Widget get _supportWidget => Positioned(
       top: 18.w,
-      left: 64.w,
+      // left: 64.w,
+      left: 16.w,
       child: InkWell(
         onTap: () => _clickOnSupport(),
         child: ImageHelper(
@@ -130,18 +136,24 @@ class _AppTopWidgetState extends State<AppTopWidget> {
           textInputType: TextInputType.text,
           textInputAction: TextInputAction.search,
           prefixIcon: _searchProductWidget,
+          focusNode: widget.focusNode,
           suffixIcon: _scanIconWidget,
+          useOnFieldSubmitted: true,
+          onFieldSubmitted: (value) =>widget.doSearch!(),
         ),
       );
 
-  Widget get _scanIconWidget => ImageHelper(
-        image: widget.scanIcon,
-        imageType: ImageType.svg,
-        color: secondaryColor,
-        width: 19.w,
-        height: 19.h,
-        boxFit: BoxFit.scaleDown,
-      );
+  Widget get _scanIconWidget => InkWell(
+    onTap: () => CustomNavigatorModule.navigatorKey.currentState?.pushNamed(AppScreenEnum.scanBarcode.name),
+    child: ImageHelper(
+          image: widget.scanIcon,
+          imageType: ImageType.svg,
+          color: secondaryColor,
+          width: 19.w,
+          height: 19.h,
+          boxFit: BoxFit.scaleDown,
+        ),
+  );
 
   Widget get _searchProductWidget => InkWell(
         onTap: () => widget.doSearch!(),

@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/logger_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +79,7 @@ class _OffersWidgetState extends State<OffersWidget>
                 child: ImageHelper(
               image: item.image,
               imageType: ImageType.networkSvg,
-              boxFit: BoxFit.cover,
+              boxFit: BoxFit.contain,
             ))
           ],
         ),
