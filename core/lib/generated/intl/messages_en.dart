@@ -135,9 +135,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderAccepting":
             MessageLookupByLibrary.simpleMessage("Accepting order"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order again"),
+        "orderCancelBackButton": MessageLookupByLibrary.simpleMessage("Back"),
+        "orderCancelConfirmButton":
+            MessageLookupByLibrary.simpleMessage("Confirm Cancellation"),
         "orderCancelConfirmation": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to cancel this order?"),
-        "orderCancelReason": MessageLookupByLibrary.simpleMessage(
+        "orderCancelReasonHint": MessageLookupByLibrary.simpleMessage(
+            "Reason for canceling the order"),
+        "orderCancelReasonTitle": MessageLookupByLibrary.simpleMessage(
             "Reason for canceling your order"),
         "orderDelivered":
             MessageLookupByLibrary.simpleMessage("Order delivered"),

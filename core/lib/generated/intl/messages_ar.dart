@@ -132,9 +132,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderAccepting":
             MessageLookupByLibrary.simpleMessage("الموافقة على الطلب"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("أطلب مرة كمان"),
+        "orderCancelBackButton": MessageLookupByLibrary.simpleMessage("الرجوع"),
+        "orderCancelConfirmButton":
+            MessageLookupByLibrary.simpleMessage("تأكيد الإلغاء"),
         "orderCancelConfirmation": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من إلغاء الطلب؟"),
-        "orderCancelReason":
+        "orderCancelReasonHint":
+            MessageLookupByLibrary.simpleMessage("سبب إلغاء الطلب"),
+        "orderCancelReasonTitle":
             MessageLookupByLibrary.simpleMessage("سبب إلغاء طلبك"),
         "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),

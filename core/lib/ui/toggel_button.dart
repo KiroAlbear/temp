@@ -24,7 +24,7 @@ class ToggleButton extends StatefulWidget {
 
   final VoidCallback onLeftToggleActive;
   final VoidCallback onRightToggleActive;
-  ValueNotifier<double> toggleXAlign = ValueNotifier<double>(-1);
+  final ValueNotifier<double> toggleXAlign;
   ToggleButton(
       {Key? key,
       required this.width,
@@ -60,8 +60,8 @@ class _ToggleButtonState extends State<ToggleButton> {
   void initState() {
     super.initState();
 
-    _leftDescriptionColor.value = widget.inactiveTextColor;
-    _rightDescriptionColor.value = widget.activeTextColor;
+    _leftDescriptionColor.value = widget.activeTextColor;
+    _rightDescriptionColor.value = widget.inactiveTextColor;
     // widget.toggleXAlign.value = ToggleButton.rightToggleAlign;
   }
 
@@ -110,9 +110,9 @@ class _ToggleButtonState extends State<ToggleButton> {
           ),
           GestureDetector(
             onTap: () {
-              widget.toggleXAlign.value = ToggleButton.leftToggleAlign;
+              widget.toggleXAlign.value = ToggleButton.rightToggleAlign;
 
-              widget.onLeftToggleActive();
+              widget.onRightToggleActive();
             },
             child: ValueListenableBuilder<Color>(
               valueListenable: _leftDescriptionColor,
@@ -147,9 +147,9 @@ class _ToggleButtonState extends State<ToggleButton> {
           ),
           GestureDetector(
             onTap: () {
-              widget.toggleXAlign.value = ToggleButton.rightToggleAlign;
+              widget.toggleXAlign.value = ToggleButton.leftToggleAlign;
 
-              widget.onRightToggleActive();
+              widget.onLeftToggleActive();
             },
             child: ValueListenableBuilder<Color>(
                 valueListenable: _rightDescriptionColor,
@@ -158,29 +158,26 @@ class _ToggleButtonState extends State<ToggleButton> {
                       ? Colors.grey
                       : Colors.transparent;
 
-                  return Align(
-                    alignment: Alignment(1, 0),
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 500),
-                      width: widget.width * 0.5,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border(
-                            top: BorderSide(color: borderColor),
-                            bottom: BorderSide(color: borderColor),
-                            right: BorderSide(color: borderColor),
-                          ),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(borderRadious),
-                            bottomRight: Radius.circular(borderRadious),
-                            bottomLeft: Radius.circular(borderRadious - 1),
-                            topLeft: Radius.circular(borderRadious - 1),
-                          )),
-                      child: CustomText(
-                        text: widget.rightDescription,
-                        customTextStyle:
-                            RegularStyle(color: value, fontSize: 14.sp),
-                      ),
+                  return AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    width: widget.width * 0.5,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: borderColor),
+                          bottom: BorderSide(color: borderColor),
+                          right: BorderSide(color: borderColor),
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(borderRadious),
+                          bottomRight: Radius.circular(borderRadious),
+                          bottomLeft: Radius.circular(borderRadious - 1),
+                          topLeft: Radius.circular(borderRadious - 1),
+                        )),
+                    child: CustomText(
+                      text: widget.rightDescription,
+                      customTextStyle:
+                          RegularStyle(color: value, fontSize: 14.sp),
                     ),
                   );
                 }),

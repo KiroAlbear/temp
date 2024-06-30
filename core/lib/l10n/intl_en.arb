@@ -116,5 +116,8 @@
   "orderAgain": "Order again",
   "itemsDetails": "Items details",
   "orderCancelConfirmation": "Are you sure you want to cancel this order?",
-  "orderCancelReason": "Reason for canceling your order"
+  "orderCancelReasonTitle": "Reason for canceling your order",
+  "orderCancelReasonHint": "Reason for canceling the order",
+  "orderCancelConfirmButton": "Confirm Cancellation",
+  "orderCancelBackButton": "Back"
 }

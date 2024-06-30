@@ -1221,10 +1221,40 @@ class S {
   }
 
   /// `Reason for canceling your order`
-  String get orderCancelReason {
+  String get orderCancelReasonTitle {
     return Intl.message(
       'Reason for canceling your order',
-      name: 'orderCancelReason',
+      name: 'orderCancelReasonTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason for canceling the order`
+  String get orderCancelReasonHint {
+    return Intl.message(
+      'Reason for canceling the order',
+      name: 'orderCancelReasonHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Cancellation`
+  String get orderCancelConfirmButton {
+    return Intl.message(
+      'Confirm Cancellation',
+      name: 'orderCancelConfirmButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get orderCancelBackButton {
+    return Intl.message(
+      'Back',
+      name: 'orderCancelBackButton',
       desc: '',
       args: [],
     );

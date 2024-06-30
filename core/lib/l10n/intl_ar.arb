@@ -115,7 +115,11 @@
   "orderAgain": "أطلب مرة كمان",
   "itemsDetails": "تفاصيل المنتجات",
   "orderCancelConfirmation": "هل أنت متأكد من إلغاء الطلب؟",
-  "orderCancelReason": "سبب إلغاء طلبك"
+  "orderCancelReasonTitle": "سبب إلغاء طلبك",
+  "orderCancelReasonHint": "سبب إلغاء الطلب",
+  "orderCancelConfirmButton": "تأكيد الإلغاء",
+  "orderCancelBackButton": "الرجوع"
+
 
 
 }

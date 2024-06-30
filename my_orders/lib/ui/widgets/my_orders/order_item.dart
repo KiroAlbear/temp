@@ -34,7 +34,9 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: UniqueKey(),
-      direction: DismissDirection.endToStart,
+      direction: orderItemType == OrderItemType.currentOrder
+          ? DismissDirection.endToStart
+          : DismissDirection.none,
       background: Container(
         decoration: BoxDecoration(
           color: Colors.grey[100],
