@@ -112,5 +112,10 @@
   "orderDetails": "تفاصيل الطلب",
   "orderRecieved": "تم استلام الطلب",
   "orderNotRecieved": "تم الغاء الطلب",
-  "orderAgain": "أطلب مرة كمان"
+  "orderAgain": "أطلب مرة كمان",
+  "itemsDetails": "تفاصيل المنتجات",
+  "orderCancelConfirmation": "هل أنت متأكد من إلغاء الطلب؟",
+  "orderCancelReason": "سبب إلغاء طلبك"
+
+
 }

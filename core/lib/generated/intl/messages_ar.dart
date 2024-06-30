@@ -111,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
             MessageLookupByLibrary.simpleMessage("رقم الجوال غير صالح"),
+        "itemsDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":
             MessageLookupByLibrary.simpleMessage("حدد مكان محللك"),
@@ -131,6 +132,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderAccepting":
             MessageLookupByLibrary.simpleMessage("الموافقة على الطلب"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("أطلب مرة كمان"),
+        "orderCancelConfirmation": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد من إلغاء الطلب؟"),
+        "orderCancelReason":
+            MessageLookupByLibrary.simpleMessage("سبب إلغاء طلبك"),
         "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "orderInProgress": MessageLookupByLibrary.simpleMessage("قيد التنفيذ"),

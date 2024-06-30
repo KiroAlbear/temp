@@ -1199,6 +1199,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Items details`
+  String get itemsDetails {
+    return Intl.message(
+      'Items details',
+      name: 'itemsDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to cancel this order?`
+  String get orderCancelConfirmation {
+    return Intl.message(
+      'Are you sure you want to cancel this order?',
+      name: 'orderCancelConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason for canceling your order`
+  String get orderCancelReason {
+    return Intl.message(
+      'Reason for canceling your order',
+      name: 'orderCancelReason',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

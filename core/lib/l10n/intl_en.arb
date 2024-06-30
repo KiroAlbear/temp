@@ -113,6 +113,8 @@
   "orderDetails": "Order details",
   "orderRecieved": "Order received",
   "orderNotRecieved": "Order canceled",
-  "orderAgain": "Order again"
-
+  "orderAgain": "Order again",
+  "itemsDetails": "Items details",
+  "orderCancelConfirmation": "Are you sure you want to cancel this order?",
+  "orderCancelReason": "Reason for canceling your order"
 }

@@ -113,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("How can we help?"),
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
+        "itemsDetails": MessageLookupByLibrary.simpleMessage("Items details"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "locationYourLocation":
             MessageLookupByLibrary.simpleMessage("Locate your location"),
@@ -134,6 +135,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderAccepting":
             MessageLookupByLibrary.simpleMessage("Accepting order"),
         "orderAgain": MessageLookupByLibrary.simpleMessage("Order again"),
+        "orderCancelConfirmation": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to cancel this order?"),
+        "orderCancelReason": MessageLookupByLibrary.simpleMessage(
+            "Reason for canceling your order"),
         "orderDelivered":
             MessageLookupByLibrary.simpleMessage("Order delivered"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order details"),

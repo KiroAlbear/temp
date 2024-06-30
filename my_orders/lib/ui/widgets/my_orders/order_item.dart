@@ -36,8 +36,14 @@ class OrderItem extends StatelessWidget {
       key: UniqueKey(),
       direction: DismissDirection.endToStart,
       background: Container(
-        child: icDelete,
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.grey[100],
+          borderRadius: BorderRadius.circular(borderRadious),
+        ),
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+          child: icDelete,
+        ),
         alignment: Alignment.centerLeft,
       ),
       child: Container(

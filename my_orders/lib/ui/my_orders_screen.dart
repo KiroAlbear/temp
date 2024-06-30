@@ -5,8 +5,7 @@ import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/toggel_button.dart';
 import 'package:flutter/material.dart';
-import 'package:my_orders/ui/widgets/current_orders/current_orders_page.dart';
-import 'package:my_orders/ui/widgets/past_orders/past_orders_page.dart';
+import 'package:my_orders/ui/widgets/current_orders/cancel_order_bottom_sheet.dart';
 
 class MyOrdersScreen extends BaseStatefulWidget {
   MyOrdersScreen({required this.backIcon, super.key});
@@ -20,6 +19,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
     with SingleTickerProviderStateMixin {
   ValueNotifier<double> _toggleXAlign = ValueNotifier<double>(-1);
   late final TabController _tabController;
+  final double horizontalPadding = 17;
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -80,15 +80,22 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
         SizedBox(
           height: 20,
         ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 17.0),
-            child: TabBarView(controller: _tabController, children: [
-              PastOrdersPage(),
-              CurrentOrdersPage(),
-            ]),
-          ),
-        ),
+        CancelOrderBottomSheet()
+        // CustomButtonWidget(
+        //     idleText: "idleText",
+        //     onTap: () {
+        //       UtilityModule().showBottomSheetDialog(
+        //           child: CurrentOrderBottomSheet(), context: context);
+        //     }),
+        // Expanded(
+        //   child: Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+        //     child: TabBarView(controller: _tabController, children: [
+        //       PastOrdersPage(),
+        //       CurrentOrdersPage(),
+        //     ]),
+        //   ),
+        // ),
       ],
     );
   }
