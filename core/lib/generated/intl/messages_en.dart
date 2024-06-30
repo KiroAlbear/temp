@@ -149,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order details"),
         "orderInProgress":
             MessageLookupByLibrary.simpleMessage("Order in progress"),
+        "orderItem": MessageLookupByLibrary.simpleMessage("Items"),
         "orderItemCount": MessageLookupByLibrary.simpleMessage("Items count:"),
         "orderNotRecieved":
             MessageLookupByLibrary.simpleMessage("Order canceled"),
@@ -159,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderSending": MessageLookupByLibrary.simpleMessage("Sending order"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("Shipping order"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("Order total:"),
+        "ordersNotFound": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have any order till now"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("At lest 8 characters"),

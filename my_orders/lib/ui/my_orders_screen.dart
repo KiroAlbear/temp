@@ -1,19 +1,18 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/utility_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/toggel_button.dart';
 import 'package:flutter/material.dart';
-import 'package:my_orders/ui/widgets/current_orders/cancel_order_bottom_sheet.dart';
-import 'package:my_orders/ui/widgets/current_orders/current_orders_page.dart';
-import 'package:my_orders/ui/widgets/past_orders/past_orders_page.dart';
+import 'package:my_orders/ui/my_orders_bloc.dart';
+import 'package:my_orders/ui/widgets/my_orders/orders_page.dart';
 
 class MyOrdersScreen extends BaseStatefulWidget {
-  MyOrdersScreen({required this.backIcon, super.key});
   final String backIcon;
+  final MyOrdersBloc myOrdersBloc;
+  MyOrdersScreen(
+      {required this.backIcon, required this.myOrdersBloc, super.key});
 
   @override
   State<MyOrdersScreen> createState() => _MyOrdersScreenState();
@@ -37,6 +36,11 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     // _tabController.animateTo(1, duration: Duration(milliseconds: 1));
+    // MyOrdersRemote().callApiAsStream().listen(
+    //   (event) {
+    //     LoggerModule.log(message: "my orders", name: "getting my orders");
+    //   },
+    // );
     _toggleXAlign.value = ToggleButton.rightToggleAlign;
     _tabController.addListener(() {
       if (_tabController.index == 1) {
@@ -86,21 +90,18 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
         SizedBox(
           height: 20,
         ),
-        CustomButtonWidget(
-            idleText: "idleText",
-            onTap: () {
-              // UtilityModule().showBottomSheetDialog(
-              //     child: CurrentOrderBottomSheet(), context: context);
-
-              UtilityModule().showBottomSheetDialog(
-                  child: CancelOrderBottomSheet(), context: context);
-            }),
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
             child: TabBarView(controller: _tabController, children: [
-              CurrentOrdersPage(),
-              PastOrdersPage(),
+              OrdersPage(
+                myOrdersBloc: widget.myOrdersBloc,
+                orderType: OrderType.currentOrder,
+              ),
+              OrdersPage(
+                myOrdersBloc: widget.myOrdersBloc,
+                orderType: OrderType.pastOrder,
+              ),
             ]),
           ),
         ),

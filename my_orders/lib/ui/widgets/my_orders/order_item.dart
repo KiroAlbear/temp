@@ -1,21 +1,32 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/my_orders/my_orders_mappers.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/utility_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:my_orders/gen/assets.gen.dart';
+import 'package:my_orders/ui/widgets/current_orders/cancel_order_bottom_sheet.dart';
 import 'package:my_orders/ui/widgets/current_orders/current_orders_states.dart';
 import 'package:my_orders/ui/widgets/my_orders/order_item_grey_text.dart';
 import 'package:my_orders/ui/widgets/past_orders/past_orders_states.dart';
 
-enum OrderItemType { pastOrder, currentOrder }
+import 'order_details_bottom_sheet.dart';
+import 'orders_page.dart';
 
 class OrderItem extends StatelessWidget {
-  final OrderItemType orderItemType;
+  final OrderType orderItemType;
+  final OrdersMapper? currentOrder;
+  final List<OrderItemMapper> items;
+  final List<String?> orderStatuses;
 
-  OrderItem({required this.orderItemType});
+  OrderItem(
+      {required this.orderItemType,
+      this.currentOrder,
+      required this.items,
+      required this.orderStatuses});
 
   final CustomTextStyleModule titleTextStyle =
       MediumStyle(color: lightBlackColor, fontSize: 18.sp);
@@ -34,9 +45,14 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: UniqueKey(),
-      direction: orderItemType == OrderItemType.currentOrder
+      direction: orderItemType == OrderType.currentOrder
           ? DismissDirection.endToStart
           : DismissDirection.none,
+      confirmDismiss: (direction) async {
+        await UtilityModule().showBottomSheetDialog(
+            child: const CancelOrderBottomSheet(), context: context);
+        return false;
+      },
       background: Container(
         decoration: BoxDecoration(
           color: Colors.grey[100],
@@ -58,7 +74,7 @@ class OrderItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadious),
           ),
           // trailing: _getCurrentOrdersTrailingWidget(),
-          trailing: orderItemType == OrderItemType.pastOrder
+          trailing: orderItemType == OrderType.pastOrder
               ? _getPastOrdersTrailingWidget(context, true)
               : _getCurrentOrdersTrailingWidget(),
           onExpansionChanged: (value) {
@@ -78,14 +94,16 @@ class OrderItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    text: "${S.of(context).orderNumber} #36450",
+                    text: "${S.of(context).orderNumber} #${currentOrder!.id}",
                     customTextStyle: titleTextStyle,
                   ),
                   OrderItemGreyText(
-                    text: "${S.of(context).orderTotal} 1064 ر.ي.",
+                    text:
+                        "${S.of(context).orderTotal} ${currentOrder!.totalPrice}",
                   ),
                   OrderItemGreyText(
-                    text: "${S.of(context).orderItemCount} 15 قطعة",
+                    text:
+                        "${S.of(context).orderItemCount} ${currentOrder!.items.length} ${S.of(context).orderItem}",
                   ),
                 ],
               ),
@@ -104,16 +122,24 @@ class OrderItem extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  orderItemType == OrderItemType.currentOrder
-                      ? CurrentOrdersStates()
-                      : PastOrdersStates(),
+                  orderItemType == OrderType.currentOrder
+                      ? CurrentOrdersStates(
+                          statuses: orderStatuses,
+                        )
+                      : PastOrdersStates(
+                          orderStatuses: orderStatuses,
+                        ),
                   CustomButtonWidget(
                       buttonColor: secondaryColor,
                       textColor: Colors.white,
-                      idleText: orderItemType == OrderItemType.currentOrder
-                          ? S.of(context).orderDetails
-                          : S.of(context).orderAgain,
-                      onTap: () {}),
+                      idleText: S.of(context).orderDetails,
+                      onTap: () {
+                        UtilityModule().showBottomSheetDialog(
+                            child: OrderDetailsBottomSheet(
+                              items: items,
+                            ),
+                            context: context);
+                      }),
                   SizedBox(
                     height: 12,
                   ),
@@ -158,8 +184,9 @@ class OrderItem extends StatelessWidget {
             opacity: value ? 1.0 : 0.0,
             duration: Duration(milliseconds: 500),
             child: InkWell(
-              onTap: () {
-                // LoggerModule.log(message: "delete is pressed", name: "hey");
+              onTap: () async {
+                await UtilityModule().showBottomSheetDialog(
+                    child: const CancelOrderBottomSheet(), context: context);
               },
               child: ImageHelper(
                 image: Assets.svg.icDeleteOrder,

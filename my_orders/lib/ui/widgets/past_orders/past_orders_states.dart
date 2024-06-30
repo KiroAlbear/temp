@@ -9,7 +9,8 @@ import 'package:timelines/timelines.dart';
 import '../my_orders/order_item_grey_text.dart';
 
 class PastOrdersStates extends StatefulWidget {
-  const PastOrdersStates({super.key});
+  final List<String?> orderStatuses;
+  const PastOrdersStates({required this.orderStatuses});
 
   @override
   State<PastOrdersStates> createState() => _PastOrdersStatesState();
@@ -69,7 +70,9 @@ class _PastOrdersStatesState extends State<PastOrdersStates> {
                 Padding(
                   padding: const EdgeInsetsDirectional.only(end: 8.0),
                   child: OrderItemGreyText(
-                    text: '18/12/2023',
+                    text: widget.orderStatuses[index] == null
+                        ? S.of(context).orderInProgress
+                        : widget.orderStatuses[index]!,
                   ),
                 ),
               ],

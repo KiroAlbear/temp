@@ -44,7 +44,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0);
-      return _buildPageRoute(MyOrdersScreen(backIcon: Assets.svgIcBack));
+      return _buildPageRoute(_myOrdersBlocProvider);
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
@@ -85,6 +85,8 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const AccountChangePassword(
         backIcon: Assets.svgIcBack,
       ));
+    case AppScreenEnum.myOrders:
+      return _buildPageRoute(_myOrdersBlocProvider);
   }
 }
 
@@ -163,6 +165,13 @@ BlocProvider get _moreBlocProvider => BlocProvider(
       ),
     );
 
+BlocProvider get _myOrdersBlocProvider => BlocProvider(
+    bloc: MyOrdersBloc(),
+    child: MyOrdersScreen(
+      backIcon: Assets.svgIcBack,
+      myOrdersBloc: _myOrdersBloc,
+    ));
+
 // Get a BlocProvider for HomeBloc.
 BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
       bloc: _bottomNavigationBloc,
@@ -197,6 +206,8 @@ ContactUsBloc get _contactUsBloc => ContactUsBloc(
     facebookIcon: Assets.svgIcFaceBook,
     hotLine: Assets.svgIcPhone,
     whatsAppIcon: Assets.svgIcWhatsApp);
+
+MyOrdersBloc get _myOrdersBloc => MyOrdersBloc();
 
 // Build a MaterialPageRoute with a custom transition.
 Route _buildPageRoute(Widget widget) => TransitionEasy(

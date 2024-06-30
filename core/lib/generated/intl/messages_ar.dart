@@ -144,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "orderInProgress": MessageLookupByLibrary.simpleMessage("قيد التنفيذ"),
+        "orderItem": MessageLookupByLibrary.simpleMessage("قطعة"),
         "orderItemCount": MessageLookupByLibrary.simpleMessage("عدد القطع:"),
         "orderNotRecieved":
             MessageLookupByLibrary.simpleMessage("تم الغاء الطلب"),
@@ -154,6 +155,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderSending": MessageLookupByLibrary.simpleMessage("ارسال الطلب"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("شحن الطلب"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("الإجمالي:"),
+        "ordersNotFound":
+            MessageLookupByLibrary.simpleMessage("م تقم بطلب اي منتج حتي الان"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),

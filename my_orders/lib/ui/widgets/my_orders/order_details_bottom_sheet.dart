@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/my_orders/my_orders_mappers.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -6,10 +7,11 @@ import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:my_orders/gen/assets.gen.dart';
 
-import 'current_order_details_item.dart';
+import '../current_orders/current_order_details_item.dart';
 
-class CurrentOrderBottomSheet extends StatelessWidget {
-  const CurrentOrderBottomSheet({super.key});
+class OrderDetailsBottomSheet extends StatelessWidget {
+  final List<OrderItemMapper> items;
+  const OrderDetailsBottomSheet({required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +47,28 @@ class CurrentOrderBottomSheet extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        CurrentOrderDetailsItem(
-          title: "ربيع",
-          subtitle:
-              "شاي أخضر بالليمون - 25 فتلة   (x6 علبة)  شاي أخضر بالليمون - 25 فتلة   (x6 علبة) شاي أخضر بالليمون - 25 فتلة   (x6 علبة)",
-          price: "25",
-          orderImage: Assets.svg.icClose,
-          quantity: 5,
+        ListView.separated(
+          shrinkWrap: true,
+          separatorBuilder: (context, index) => SizedBox(height: 15),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return CurrentOrderDetailsItem(
+              title: items[index].title,
+              subtitle: items[index].description,
+              price: items[index].price,
+              orderImage: Assets.svg.icClose,
+              quantity: items[index].count,
+            );
+          },
         ),
+        // CurrentOrderDetailsItem(
+        //   title: "ربيع",
+        //   subtitle:
+        //       "شاي أخضر بالليمون - 25 فتلة   (x6 علبة)  شاي أخضر بالليمون - 25 فتلة   (x6 علبة) شاي أخضر بالليمون - 25 فتلة   (x6 علبة)",
+        //   price: "25",
+        //   orderImage: Assets.svg.icClose,
+        //   quantity: 5,
+        // ),
         SizedBox(
           height: 20,
         ),

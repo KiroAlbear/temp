@@ -28,6 +28,7 @@ import 'package:more/ui/accountChangePasswordBloc/account_change_password.dart';
 import 'package:more/ui/faq/faq_widget.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
+import 'package:my_orders/ui/my_orders_bloc.dart';
 import 'package:my_orders/ui/my_orders_screen.dart';
 
 import 'flavors.dart';

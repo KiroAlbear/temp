@@ -1259,6 +1259,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Items`
+  String get orderItem {
+    return Intl.message(
+      'Items',
+      name: 'orderItem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any order till now`
+  String get ordersNotFound {
+    return Intl.message(
+      'You don\'t have any order till now',
+      name: 'ordersNotFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

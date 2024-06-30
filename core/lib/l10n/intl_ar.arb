@@ -118,7 +118,10 @@
   "orderCancelReasonTitle": "سبب إلغاء طلبك",
   "orderCancelReasonHint": "سبب إلغاء الطلب",
   "orderCancelConfirmButton": "تأكيد الإلغاء",
-  "orderCancelBackButton": "الرجوع"
+  "orderCancelBackButton": "الرجوع",
+  "orderItem": "قطعة",
+  "ordersNotFound": "م تقم بطلب اي منتج حتي الان"
+
 
 
 
