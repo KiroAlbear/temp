@@ -12,13 +12,13 @@ final HomeBloc _homeBloc = HomeBloc(
     _productCategoryBloc.categoryId == categoryMapper.id;
   },
   doSearch: (value) {
-   if(value.isNotEmpty){
-     _productCategoryBloc.isForFavourite = false;
-     _productCategoryBloc.reset();
-     CustomNavigatorModule.navigatorKey.currentState
-         ?.pushNamed(AppScreenEnum.product.name);
-     _productCategoryBloc.doSearch(value);
-   }
+    if (value.isNotEmpty) {
+      _productCategoryBloc.isForFavourite = false;
+      _productCategoryBloc.reset();
+      CustomNavigatorModule.navigatorKey.currentState
+          ?.pushNamed(AppScreenEnum.product.name);
+      _productCategoryBloc.doSearch(value);
+    }
   },
 );
 final MoreBloc _moreBloc = MoreBloc();
@@ -45,7 +45,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0, null);
-      return _buildPageRoute(const SplashWidget());
+      return _buildPageRoute(CartScreen(backIcon: Assets.svgIcBack));
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
@@ -104,7 +104,8 @@ Widget get _loginWidgetWithoutSkip => const LoginWidget(
       enableSkip: false,
     );
 
-Widget get _scanBarcodeWidget=> ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
+Widget get _scanBarcodeWidget =>
+    ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();

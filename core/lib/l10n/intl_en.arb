@@ -106,5 +106,6 @@
   "loginNow": "Login now",
   "scanBarcode": "Search by Barcode",
   "scanText": "Make sure barcode is\nblack mark to scan",
-  "promoDetails": "Promo details"
+  "promoDetails": "Promo details",
+  "cartTitle": "Basket"
 }
