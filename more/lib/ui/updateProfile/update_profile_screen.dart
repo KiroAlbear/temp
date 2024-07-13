@@ -10,20 +10,24 @@ import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:core/ui/mapPreview/map_preview_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:update_profile/ui/update_profile_bloc.dart';
+import 'package:more/ui/more/more_bloc.dart';
+import 'package:more/ui/updateProfile/update_profile_bloc.dart';
 
 class UpdateProfileScreen extends BaseStatefulWidget {
   final String backIcon;
-  final UpdateProfileBloc bloc;
+  final MoreBloc moreBloc;
+
 
   const UpdateProfileScreen(
-      {required this.backIcon, required this.bloc, super.key});
+      {required this.backIcon, required this.moreBloc, super.key});
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
 
 class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
+
+  final UpdateProfileBloc _bloc = UpdateProfileBloc();
   final double _headerSpacing = 12.h;
   final double _textfieldsSpacing = 15.h;
   final double _textfieldsLabelSpacing = 8.h;
@@ -37,7 +41,11 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   bool isSafeArea() => true;
 
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+    _bloc.fullNameBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: widget.moreBloc.user.name.split('-')[0]));
+    _bloc.fullNameBloc.updateStringBehaviour(widget.moreBloc.user.name.split('-')[0]);
+  }
 
   @override
   Widget getBody(BuildContext context) {
@@ -161,11 +169,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
           defaultTextStyle: _getTextStyle(),
           readOnly: true,
           labelText: S.of(context).enterMobileNumber,
-          textFiledControllerStream: widget.bloc.phoneBehavior.stream,
-          onChanged: (value) => (),
-          validator: (value) {
-            return null;
-          },
+          textFiledControllerStream: _bloc.mobileNameBloc.textFormFiledBehaviour,
+          onChanged: (value) => _bloc.mobileNameBloc.updateStringBehaviour(value),
           textInputAction: TextInputAction.next,
         ),
       ],

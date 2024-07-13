@@ -137,7 +137,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             height: 10.h,
           ),
           _menuItem(
-              S.of(context).accountInfo, widget.accountSettingIcon, () {}),
+              S.of(context).accountInfo, widget.accountSettingIcon, () {
+            CustomNavigatorModule.navigatorKey.currentState
+                ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
+          }),
           SizedBox(
             height: 10.h,
           ),

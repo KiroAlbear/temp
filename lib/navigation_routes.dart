@@ -46,8 +46,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0, null);
-      return _buildPageRoute(UpdateProfileScreen(
-          backIcon: Assets.svgIcBack, bloc: _updateProfileBloc));
+      return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
@@ -89,7 +88,8 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.scanBarcode:
       return _buildPageRoute(_scanBarcodeWidget);
     case AppScreenEnum.updateProfileScreen:
-      return _buildPageRoute(_updateProfileBlocProvider);
+      return _buildPageRoute(
+          UpdateProfileScreen(backIcon: Assets.svgIcBack, moreBloc: _moreBloc));
   }
 }
 
@@ -162,13 +162,6 @@ BlocProvider get _moreBlocProvider => BlocProvider(
         contactUsBloc: _contactUsBloc,
       ),
     );
-
-BlocProvider get _updateProfileBlocProvider => BlocProvider(
-    bloc: UpdateProfileBloc(),
-    child: UpdateProfileScreen(
-      backIcon: Assets.svgIcBack,
-      bloc: _updateProfileBloc,
-    ));
 
 // Get a BlocProvider for HomeBloc.
 BlocProvider get _bottomNavigationBlocProvider => BlocProvider(

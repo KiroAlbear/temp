@@ -49,6 +49,8 @@ class MoreBloc extends BlocBase {
 
   Stream<ApiState<LoginMapper>> get userStream => _profileBehaviour.stream;
 
+  LoginMapper get user => _profileBehaviour.value.response!;
+
   MoreBloc() {
     _selectedFileBehaviour.listen((value) {
       if (value.isNotEmpty) {

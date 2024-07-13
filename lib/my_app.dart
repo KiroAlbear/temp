@@ -28,6 +28,7 @@ import 'package:more/ui/accountChangePasswordBloc/account_change_password.dart';
 import 'package:more/ui/faq/faq_widget.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
+import 'package:more/ui/updateProfile/update_profile_screen.dart';
 import 'package:update_profile/ui/update_profile_bloc.dart';
 import 'package:update_profile/ui/update_profile_screen.dart';
 
