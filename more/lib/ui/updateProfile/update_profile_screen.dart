@@ -42,10 +42,32 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _bloc.fullNameBloc.textFormFiledBehaviour.sink.add(
-        TextEditingController(text: widget.moreBloc.user.name.split('-')[0]));
-    _bloc.fullNameBloc
-        .updateStringBehaviour(widget.moreBloc.user.name.split('-')[0]);
+
+    getUserData();
+
+    // _bloc.fullNameBloc.textFormFiledBehaviour.sink
+    //     .add(TextEditingController(text: widget.moreBloc.user.phone));
+    // _bloc.fullNameBloc.updateStringBehaviour(widget.moreBloc.user.phone);
+  }
+
+  Future<void> getUserData() async {
+    _bloc.loadDeliveryAddress();
+
+    String name = widget.moreBloc.user.name;
+    String userName = name.split('-')[0];
+    String buildingName = name.split('-').length > 1 ? name.split('-')[1] : '';
+
+    _bloc.fullNameBloc.textFormFiledBehaviour.sink
+        .add(TextEditingController(text: userName));
+    _bloc.fullNameBloc.updateStringBehaviour(userName);
+
+    _bloc.phoneBloc.textFormFiledBehaviour.sink
+        .add(TextEditingController(text: widget.moreBloc.user.phone));
+    _bloc.phoneBloc.updateStringBehaviour(widget.moreBloc.user.phone);
+
+    _bloc.buildingNameBloc.textFormFiledBehaviour.sink
+        .add(TextEditingController(text: buildingName));
+    _bloc.buildingNameBloc.updateStringBehaviour(buildingName);
   }
 
   @override
@@ -147,10 +169,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
         CustomTextFormFiled(
           labelText: S.of(context).fullName,
           defaultTextStyle: _getTextStyle(),
-          textFiledControllerStream: widget.bloc.nameBehavior.stream,
-          onChanged: (value) => widget.bloc.updateName(value),
-          validator: (value) =>
-              ValidatorModule().emptyValidator(context).call(value),
+          textFiledControllerStream: _bloc.fullNameBloc.textFormFiledBehaviour,
+          onChanged: (value) {},
           textInputAction: TextInputAction.next,
         ),
       ],
@@ -170,10 +190,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
           defaultTextStyle: _getTextStyle(),
           readOnly: true,
           labelText: S.of(context).enterMobileNumber,
-          textFiledControllerStream:
-              _bloc.mobileNameBloc.textFormFiledBehaviour,
-          onChanged: (value) =>
-              _bloc.mobileNameBloc.updateStringBehaviour(value),
+          textFiledControllerStream: _bloc.phoneBloc.textFormFiledBehaviour,
+          onChanged: (value) {},
           textInputAction: TextInputAction.next,
         ),
       ],
@@ -188,11 +206,19 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
         SizedBox(
           height: _textfieldsLabelSpacing,
         ),
-        MapPreviewWidget(
-          latitude: widget.bloc.locationBehavior.stream.value.latitude,
-          longitude: widget.bloc.locationBehavior.stream.value.longitude,
-          showEditLocation: false,
-          clickOnChangeLocation: () {},
+        StreamBuilder(
+          stream: _bloc.latLongBloc.latitudeBehaviour.stream,
+          builder: (context, snapshot) {
+            return !snapshot.hasData
+                ? SizedBox()
+                : MapPreviewWidget(
+                    latitude: _bloc.latLongBloc.latitudeBehaviour.stream.value,
+                    longitude:
+                        _bloc.latLongBloc.longitudeBehaviour.stream.value,
+                    showEditLocation: false,
+                    clickOnChangeLocation: () {},
+                  );
+          },
         )
       ],
     );
@@ -209,8 +235,10 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
         CustomTextFormFiled(
           labelText: S.of(context).updateProfileBuildingName,
           defaultTextStyle: _getTextStyle(),
-          textFiledControllerStream: widget.bloc.buildingNameBehavior.stream,
-          onChanged: (value) => widget.bloc.updateBuildingName(value),
+          textFiledControllerStream:
+              _bloc.buildingNameBloc.textFormFiledBehaviour,
+          onChanged: (value) =>
+              _bloc.buildingNameBloc.updateStringBehaviour(value),
           validator: (value) =>
               ValidatorModule().emptyValidator(context).call(value),
           textInputAction: TextInputAction.done,
@@ -231,11 +259,9 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
           readOnly: true,
           labelText: S.of(context).updateProfileBuildingNumber,
           defaultTextStyle: _getTextStyle(),
-          textFiledControllerStream: widget.bloc.buildingNumberBehavior.stream,
-          onChanged: (value) => (),
-          validator: (value) {
-            return null;
-          },
+          textFiledControllerStream:
+              _bloc.buildingNumberBloc.textFormFiledBehaviour,
+          onChanged: (value) {},
           textInputAction: TextInputAction.done,
         ),
       ],
@@ -254,11 +280,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
           readOnly: true,
           labelText: S.of(context).updateProfileDistrict,
           defaultTextStyle: _getTextStyle(),
-          textFiledControllerStream: widget.bloc.districtBehavior.stream,
+          textFiledControllerStream: _bloc.districtBloc.textFormFiledBehaviour,
           onChanged: (value) => (),
-          validator: (value) {
-            return null;
-          },
           textInputAction: TextInputAction.done,
         ),
       ],
@@ -277,11 +300,9 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
           readOnly: true,
           labelText: S.of(context).updateProfileGovernorate,
           defaultTextStyle: _getTextStyle(),
-          textFiledControllerStream: widget.bloc.governorateBehavior.stream,
+          textFiledControllerStream:
+              _bloc.governorateBloc.textFormFiledBehaviour,
           onChanged: (value) => (),
-          validator: (value) {
-            return null;
-          },
           textInputAction: TextInputAction.done,
         ),
       ],

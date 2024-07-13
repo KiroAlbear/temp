@@ -13,11 +13,10 @@ import 'package:core/dto/models/product/favourite_product_response.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
 import 'package:core/dto/models/register/register_request.dart';
-import 'package:retrofit/http.dart';
-import 'package:retrofit/retrofit.dart';
+
+import '../models/update_profile/delivery_address_response.dart';
 
 part 'api_client.g.dart';
-
 part 'api_client_key.dart';
 
 @RestApi()
@@ -59,8 +58,7 @@ abstract class ApiClient {
       @Body() ClientRequest request);
 
   @POST(_ApiClientKey._changePassword)
-  Future<HeaderResponse> changePassword(
-      @Body() ChangePasswordRequest request);
+  Future<HeaderResponse> changePassword(@Body() ChangePasswordRequest request);
 
   @PUT('${_ApiClientKey._updateProfileImage}/{mobileNumber}')
   Future<HeaderResponse<LoginResponse>> updateProfileImage(
@@ -71,8 +69,14 @@ abstract class ApiClient {
   Future<HeaderResponse> deActiveProfile(@Body() PhoneRequest request);
 
   @PUT(_ApiClientKey._updateAddress)
-  Future<HeaderResponse<LoginResponse>> updateAddress(@Body() AddressRequest request);
+  Future<HeaderResponse<LoginResponse>> updateAddress(
+      @Body() AddressRequest request);
+
+  @GET('${_ApiClientKey._deliveryAddress}/{userId}')
+  Future<HeaderResponse<DeliveryAddressResponse>> getDeliveryAddress(
+      @Path("userId") String userId);
 
   @POST(_ApiClientKey._getProfile)
-  Future<HeaderResponse<LoginResponse>> getProfile(@Body() ClientRequest request);
+  Future<HeaderResponse<LoginResponse>> getProfile(
+      @Body() ClientRequest request);
 }

@@ -12,6 +12,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       ..partnerId = json['partner_id'] as List<dynamic>?
       ..active = json['active'] as bool?
       ..name = json['name'] as String?
+      ..phone = json['phone'] as String?
       ..token = json['token'] as String?;
 
 Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
@@ -20,5 +21,6 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'partner_id': instance.partnerId,
       'active': instance.active,
       'name': instance.name,
+      'phone': instance.phone,
       'token': instance.token,
     };
