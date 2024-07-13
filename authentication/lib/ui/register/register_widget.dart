@@ -77,6 +77,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).next,
+    textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
+        height: 60.h,
         onTap: () {
           if (_bloc.isValid) {
             widget.authenticationSharedBloc.setDataToAuth(
@@ -106,7 +108,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   customTextStyle:
                       RegularStyle(fontSize: 14.sp, color: lightBlackColor)),
               SizedBox(
-                height: 15.h,
+                width: 5.w,
               ),
               CustomText(
                   text: S.of(context).login,

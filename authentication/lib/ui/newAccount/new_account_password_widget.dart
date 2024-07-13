@@ -136,6 +136,8 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
             );
           }
         },
+    textStyle: SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+    height: 60.h,
         buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
         failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
         validateStream: widget.newAccountBloc.validatePasswordStream,
@@ -146,7 +148,9 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
         buttonColor: lightBlackColor,
         inLineBackgroundColor: whiteColor,
         textColor: lightBlackColor,
+    height: 60.h,
         buttonShapeEnum: ButtonShapeEnum.outline,
+    textStyle: SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         onTap: () {
           widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
         },

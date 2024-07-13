@@ -26,6 +26,7 @@ class CountryWidget extends StatelessWidget {
           enableDrag: false,
         ),
         child: Container(
+          height: 55.h,
           decoration: grayRectangleBorder,
           padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 13.w),
           child: StreamBuilder<DropDownMapper?>(
@@ -39,14 +40,17 @@ class CountryWidget extends StatelessWidget {
                         ? ImageHelper(
                             image: snapshot.data?.image ?? '',
                             imageType: ImageType.network,
-                            width: 40.w,
+                            width: 39.w,
                             height: 26.h,
                             boxFit: BoxFit.fill,
                           )
                         : Container(),
-                    Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      size: 25.r,
+                    SizedBox(width: 8.w,),
+                    ImageHelper(
+                      image: 'assets/svg/ic_arrow_down.svg',
+                      imageType: ImageType.svg,
+                      width: 17.w,
+                      height: 9.h,
                       color: secondaryColor,
                     ),
                   ],

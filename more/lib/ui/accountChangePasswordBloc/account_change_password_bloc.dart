@@ -9,10 +9,8 @@ import 'package:core/dto/remote/change_password_remote.dart';
 class AccountChangePasswordBloc extends BlocBase{
   final TextFormFiledBloc currentPasswordBloc = TextFormFiledBloc();
   final TextFormFiledBloc passwordBloc = TextFormFiledBloc();
-
   final TextFormFiledBloc confirmPasswordBloc = TextFormFiledBloc();
   final ButtonBloc buttonBloc = ButtonBloc();
-
   final ValidatorModule _validatorModule = ValidatorModule();
 
 

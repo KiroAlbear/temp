@@ -24,7 +24,7 @@ class MapPreviewBloc extends BlocBase {
 
   Stream<bool> get mapReadyStream => _mapReadyBehaviour.stream;
 
-  void initPermissionAndLocation(BuildContext context) {
+  void initPermissionAndLocation(BuildContext context, {Function(double latitude, double longitude)? onLocationDetection}) {
     _permissionBloc.requestPermission(context, Permission.location);
     _mapReadyBehaviour.listen((mapReady) {
       if (mapReady) {
@@ -36,6 +36,9 @@ class MapPreviewBloc extends BlocBase {
             _currentLocationBloc.currentLocationStream.listen((event) {
               if (!isLocationChanged) {
                 latLng(event.latitude ?? 0.0, event.longitude ?? 0.0);
+                if(onLocationDetection != null){
+                  onLocationDetection(event.latitude ?? 0.0, event.longitude ?? 0.0);
+                }
               }
             });
           }

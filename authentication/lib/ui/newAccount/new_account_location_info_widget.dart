@@ -75,6 +75,10 @@ class _NewAccountLocationInfoWidgetState
             },
             latitude: latitudeSnapShot.data,
             longitude: longitudeSnapShot.data,
+            onLocationDetection: (latitude, longitude) {
+              widget.newAccountBloc.latitude = latitude;
+              widget.newAccountBloc.longitude = longitude;
+            },
           ),
         ),
       );
@@ -176,6 +180,8 @@ class _NewAccountLocationInfoWidgetState
             widget.newAccountBloc.nextStep(NewAccountStepEnum.password);
           }
         },
+    height: 60.h,
+    textStyle: SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
         failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
         validateStream: widget.newAccountBloc.validateLocationStream,
@@ -186,6 +192,8 @@ class _NewAccountLocationInfoWidgetState
         buttonColor: lightBlackColor,
         inLineBackgroundColor: whiteColor,
         textColor: lightBlackColor,
+    height: 60.h,
+    textStyle: SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         buttonShapeEnum: ButtonShapeEnum.outline,
         onTap: () {
           widget.newAccountBloc.nextStep(NewAccountStepEnum.info);

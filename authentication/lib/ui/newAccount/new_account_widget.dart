@@ -166,9 +166,6 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
   Widget _stepContainer(int step, bool current, bool finished) =>
       AnimatedContainer(
           duration: const Duration(milliseconds: 500),
-          width: 31.w,
-          height: 32.h,
-          padding: !finished ? EdgeInsets.symmetric(vertical: 3.h) : null,
           decoration: BoxDecoration(
               color: current ? lightBlackColor : whiteColor,
               borderRadius: BorderRadius.circular(7.w),
@@ -180,10 +177,13 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
               color: whiteColor,
               size: 20.w,
             )
-                : CustomText(
-                text: step.toString(),
-                customTextStyle: SemiBoldStyle(
-                    color: current ? whiteColor : lightBlackColor,
-                    fontSize: 20.sp)),
+                : Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
+                  child: CustomText(
+                  text: step.toString(),
+                  customTextStyle: SemiBoldStyle(
+                      color: current ? whiteColor : lightBlackColor,
+                      fontSize: 20.sp)),
+                ),
           ));
 }
