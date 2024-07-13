@@ -70,28 +70,75 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CartOrderDetailsItem(
-                          icon: Assets.svg.icLocation,
-                          title: "5 شارع الحدادين، عدن. ",
+                        StreamBuilder(
+                          stream: widget.bloc.addressBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                : CartOrderDetailsItem(
+                                    icon: Assets.svg.icLocation,
+                                    title: snapshot.data!,
+                                  );
+                          },
                         ),
-                        MapPreviewWidget(
-                            clickOnChangeLocation: () {},
-                            latitude: 12.787,
-                            longitude: 45.036),
-                        CartOrderDetailsItem(
-                          icon: Assets.svg.icDate,
-                          title: "الخميس 20/12/2023",
+                        StreamBuilder(
+                          stream: widget.bloc.latLongBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                : MapPreviewWidget(
+                                    clickOnChangeLocation: () {},
+                                    latitude: snapshot.data!.lat,
+                                    longitude: snapshot.data!.long,
+                                    height: 200.h,
+                                    showEditLocation: false,
+                                  );
+                          },
+                        ),
+                        StreamBuilder(
+                          stream: widget.bloc.dateBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                : CartOrderDetailsItem(
+                                    icon: Assets.svg.icDate,
+                                    title: snapshot.data!,
+                                  );
+                          },
                         ),
                         _getSeperator(),
-                        CartOrderDetailsItem(
-                          icon: Assets.svg.icTime,
-                          title: "8 - 9 صباحاً",
+                        StreamBuilder(
+                          stream: widget.bloc.timeBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                : CartOrderDetailsItem(
+                                    icon: Assets.svg.icTime,
+                                    title: snapshot.data!,
+                                  );
+                          },
                         ),
                         _getSeperator(),
-                        CartOrderDetailsItem(
-                          icon: Assets.svg.icTime,
-                          title: "ربيع - شاي أخضر بالليمون - 25 فتلة",
-                          count: 2,
+                        StreamBuilder(
+                          stream: widget.bloc.itemsBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                : ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return CartOrderDetailsItem(
+                                        icon: index != 0
+                                            ? null
+                                            : Assets.svg.icItems,
+                                        title: snapshot.data![index].title,
+                                        count: snapshot.data![index].qty,
+                                      );
+                                    },
+                                  );
+                          },
                         ),
                         deliveryFeesRow(),
                         _getSeperator(),
@@ -129,19 +176,25 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
   }
 
   Widget deliveryFeesRow() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          CustomText(
-              text: "+ 20 ر.ي. التوصيل",
-              textAlign: TextAlign.start,
-              customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
-        ],
-      ),
-    );
+    return StreamBuilder(
+        stream: widget.bloc.cartTotalDeliveryBehaviour.stream,
+        builder: (context, snapshot) {
+          return !snapshot.hasData
+              ? SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomText(
+                          text: snapshot.data!,
+                          textAlign: TextAlign.start,
+                          customTextStyle: RegularStyle(
+                              color: lightBlackColor, fontSize: 14.sp)),
+                    ],
+                  ),
+                );
+        });
   }
 
   Widget _totalRow() {
@@ -157,11 +210,18 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
               space: 8,
             ),
           ),
-          CustomText(
-              text: "1.064 ر.ي.",
-              textAlign: TextAlign.start,
-              customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 16.sp)),
+          StreamBuilder(
+            stream: widget.bloc.cartTotalBehaviour.stream,
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? SizedBox()
+                  : CustomText(
+                      text: snapshot.data!,
+                      textAlign: TextAlign.start,
+                      customTextStyle: RegularStyle(
+                          color: lightBlackColor, fontSize: 16.sp));
+            },
+          ),
         ],
       ),
     );
