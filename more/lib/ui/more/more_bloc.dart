@@ -9,45 +9,52 @@ import 'package:core/dto/models/balance/balance_mapper.dart';
 import 'package:core/dto/remote/balance_remote.dart';
 import 'package:core/dto/remote/profile_remote.dart';
 import 'package:core/dto/models/login/login_mapper.dart';
-class MoreBloc extends BlocBase{
+
+class MoreBloc extends BlocBase {
   final PermissionBloc cameraPermissionBloc = PermissionBloc();
   final PermissionBloc galleryPermissionBloc = PermissionBloc();
 
-  final BehaviorSubject<ApiState<LoginMapper>> _profileBehaviour = BehaviorSubject()..sink.add(LoadingState());
-  final BehaviorSubject<String> _selectedFileBehaviour= BehaviorSubject()..sink.add('');
+  final BehaviorSubject<
+      ApiState<LoginMapper>> _profileBehaviour = BehaviorSubject()
+    ..sink.add(LoadingState());
+  final BehaviorSubject<String> _selectedFileBehaviour = BehaviorSubject()
+    ..sink.add('');
   final ImagePicker _picker = ImagePicker();
 
-  Stream<String> get selectedFileStream=> _selectedFileBehaviour.stream;
+  Stream<String> get selectedFileStream => _selectedFileBehaviour.stream;
 
 
-  void uploadImage(String filePath){
+  void uploadImage(String filePath) {
     _selectedFileBehaviour.sink.add(filePath);
   }
 
-  Future<XFile?> takePhoto()async{
-    return await _picker.pickImage(source: ImageSource.camera,
-    imageQuality: 100,
-    maxHeight: 500,
-    maxWidth: 500,
-    preferredCameraDevice: CameraDevice.rear,);
+  Future<XFile?> takePhoto() async {
+    return await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 100,
+      maxHeight: 500,
+      maxWidth: 500,
+      preferredCameraDevice: CameraDevice.rear,);
   }
 
-  Future<XFile?> pickFromGallery() async{
-    return  await _picker.pickImage(source: ImageSource.gallery,
-    maxWidth: 500,
-    maxHeight: 500,
-    imageQuality: 100);
+  Future<XFile?> pickFromGallery() async {
+    return await _picker.pickImage(source: ImageSource.gallery,
+        maxWidth: 500,
+        maxHeight: 500,
+        imageQuality: 100);
   }
 
-  Stream<ApiState<BalanceMapper>> get balanceStream=> BalanceRemote().callApiAsStream();
+  Stream<ApiState<BalanceMapper>> get balanceStream =>
+      BalanceRemote().callApiAsStream();
 
-  Stream<ApiState<LoginMapper>> get userStream=> _profileBehaviour.stream;
+  Stream<ApiState<LoginMapper>> get userStream => _profileBehaviour.stream;
 
-  MoreBloc(){
+  MoreBloc() {
     _selectedFileBehaviour.listen((value) {
-      if(value.isNotEmpty){
-        UpdateProfileImageRemote(file: File(value)).callApiAsStream().listen((event) {
-          if(event is SuccessState){
+      if (value.isNotEmpty) {
+        UpdateProfileImageRemote(file: File(value)).callApiAsStream().listen((
+            event) {
+          if (event is SuccessState) {
             _selectedFileBehaviour.sink.add('');
             getProfileData();
           }
@@ -56,15 +63,22 @@ class MoreBloc extends BlocBase{
     });
   }
 
-  void getProfileData(){
-    if((SharedPrefModule().userId??'').isNotEmpty){
+  void getProfileData() {
+    if ((SharedPrefModule().userId ?? '').isNotEmpty) {
       ProfileRemote().callApiAsStream().listen((event) {
         _profileBehaviour.sink.add(event);
       },);
-    }else{
+    } else {
       _profileBehaviour.sink.add(IdleState());
     }
   }
+
+  void updateProfile(String name, String shopName){
+    LoginMapper loginMapper = _profileBehaviour.valueOrNull!.response!;
+    loginMapper.name = '$name-$shopName';
+    _profileBehaviour.sink.add(SuccessState(loginMapper));
+  }
+
   @override
   void dispose() {
     cameraPermissionBloc.dispose();

@@ -105,7 +105,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               height: 100.h,
               child: _imageWithCameraWidget(
                   mobile: SharedPrefModule().userName ?? '',
-                  name: snapshot.data?.response?.name ?? '',
+                  name: (snapshot.data?.response?.name ?? '').split('-')[0],
                   image: snapshot.data?.response?.image ?? '')),
         ] else ...[
           SizedBox(
