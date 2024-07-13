@@ -17,7 +17,6 @@ class UpdateProfileScreen extends BaseStatefulWidget {
   final String backIcon;
   final MoreBloc moreBloc;
 
-
   const UpdateProfileScreen(
       {required this.backIcon, required this.moreBloc, super.key});
 
@@ -26,11 +25,11 @@ class UpdateProfileScreen extends BaseStatefulWidget {
 }
 
 class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
-
   final UpdateProfileBloc _bloc = UpdateProfileBloc();
   final double _headerSpacing = 12.h;
   final double _textfieldsSpacing = 15.h;
   final double _textfieldsLabelSpacing = 8.h;
+
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -43,8 +42,10 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _bloc.fullNameBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: widget.moreBloc.user.name.split('-')[0]));
-    _bloc.fullNameBloc.updateStringBehaviour(widget.moreBloc.user.name.split('-')[0]);
+    _bloc.fullNameBloc.textFormFiledBehaviour.sink.add(
+        TextEditingController(text: widget.moreBloc.user.name.split('-')[0]));
+    _bloc.fullNameBloc
+        .updateStringBehaviour(widget.moreBloc.user.name.split('-')[0]);
   }
 
   @override
@@ -169,8 +170,10 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
           defaultTextStyle: _getTextStyle(),
           readOnly: true,
           labelText: S.of(context).enterMobileNumber,
-          textFiledControllerStream: _bloc.mobileNameBloc.textFormFiledBehaviour,
-          onChanged: (value) => _bloc.mobileNameBloc.updateStringBehaviour(value),
+          textFiledControllerStream:
+              _bloc.mobileNameBloc.textFormFiledBehaviour,
+          onChanged: (value) =>
+              _bloc.mobileNameBloc.updateStringBehaviour(value),
           textInputAction: TextInputAction.next,
         ),
       ],
