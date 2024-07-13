@@ -116,6 +116,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               child: CustomButtonWidget(
                 idleText: S.of(context).loginNow,
                 onTap: () => AppProviderModule().logout(context),
+                textStyle: MediumStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+                height: 60.h,
+
               )),
           SizedBox(
             height: 27.h,
@@ -385,7 +388,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 16.w,
+              width: 13.w,
             ),
             ImageHelper(
               image: imagePath,
@@ -396,7 +399,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               boxFit: BoxFit.fill,
             ),
             SizedBox(
-              width: 20.w,
+              width: 16.w,
             ),
             CustomText(
                 text: text,

@@ -390,20 +390,20 @@ class S {
     );
   }
 
-  /// `At least one small letter`
+  /// `Must contain letters`
   String get atLeastOneSmallLetter {
     return Intl.message(
-      'At least one small letter',
+      'Must contain letters',
       name: 'atLeastOneSmallLetter',
       desc: '',
       args: [],
     );
   }
 
-  /// `At least one number`
+  /// `Must contain numbers`
   String get atLeastOneNumber {
     return Intl.message(
-      'At least one number',
+      'Must contain numbers',
       name: 'atLeastOneNumber',
       desc: '',
       args: [],
@@ -970,10 +970,10 @@ class S {
     );
   }
 
-  /// `Are you sure you want to delete account?`
+  /// `\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.`
   String get deleteAccountMessage {
     return Intl.message(
-      'Are you sure you want to delete account?',
+      '\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.',
       name: 'deleteAccountMessage',
       desc: '',
       args: [],
@@ -1125,6 +1125,26 @@ class S {
     return Intl.message(
       'Promo details',
       name: 'promoDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the new password`
+  String get newPassword {
+    return Intl.message(
+      'Enter the new password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter to confirm the new password`
+  String get confirmNewPassword {
+    return Intl.message(
+      'Enter to confirm the new password',
+      name: 'confirmNewPassword',
       desc: '',
       args: [],
     );

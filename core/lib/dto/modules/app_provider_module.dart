@@ -143,13 +143,17 @@ class AppProviderModule with ChangeNotifier {
   void logout(BuildContext context) {
     var language = SharedPrefModule().language;
     var isDark = SharedPrefModule().isDarkMode;
+    var userName = SharedPrefModule().userName;
+    var password = SharedPrefModule().password;
     SharedPrefModule().clear;
     SharedPrefModule().isDarkMode = isDark;
     SharedPrefModule().language = language;
+    SharedPrefModule().password = password;
+    SharedPrefModule().userName = userName;
     _isLoggedIn = true;
     notifyListeners();
     CustomNavigatorModule.navigatorKey.currentState
-        ?.pushReplacementNamed(AppScreenEnum.splash.name);
+        ?.pushReplacementNamed(AppScreenEnum.login.name);
   }
 
   /// Check if the user's token is expired or about to expire.

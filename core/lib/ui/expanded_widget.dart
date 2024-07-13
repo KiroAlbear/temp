@@ -78,7 +78,7 @@ class _ExpandedWidgetState extends BaseState<ExpandedWidget>
 
   Widget _expandedItem(bool expanded) => Column(
     crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       _row(expanded),
       SizedBox(height: 7.h,),
@@ -102,7 +102,7 @@ class _ExpandedWidgetState extends BaseState<ExpandedWidget>
 
   Widget _row(bool expanded) => Row(
     mainAxisSize: MainAxisSize.min,
-    mainAxisAlignment: MainAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       _headerText(expanded),
@@ -145,13 +145,17 @@ class _ExpandedWidgetState extends BaseState<ExpandedWidget>
     ),
   );
 
-  ImageHelper get _arrow => ImageHelper(
-    image: widget.arrow,
-    imageType: ImageType.svg,
-    width: 17.w,
-    height: 8.h,
-    boxFit: BoxFit.fill,
-    color: lightBlackColor,
+  Widget get _arrow => Padding(
+    padding: EdgeInsets.only(top: 7.h),
+    child: ImageHelper(
+      image: widget.arrow,
+      imageType: ImageType.svg,
+      width: 17.w,
+      height: 8.h,
+      boxFit: BoxFit.contain,
+      color: lightBlackColor,
+      imageShape: ImageShape.rectangle,
+    ),
   );
 
 

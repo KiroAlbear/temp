@@ -40,10 +40,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "addToCart": MessageLookupByLibrary.simpleMessage("أضف الي السلة"),
         "atLeastOneCapChar": MessageLookupByLibrary.simpleMessage(
             "يجب أن تحتوي على حرف كبير على الأقل"),
-        "atLeastOneNumber": MessageLookupByLibrary.simpleMessage(
-            "يجب أن تحتوي على رقم واحد على الأقل"),
-        "atLeastOneSmallLetter": MessageLookupByLibrary.simpleMessage(
-            "يجب أن تحتوي على حرف صغير على الأقل"),
+        "atLeastOneNumber":
+            MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على أرقام"),
+        "atLeastOneSmallLetter":
+            MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على حروف"),
         "basket": MessageLookupByLibrary.simpleMessage("السلة"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("أقوى العروض"),
         "biometricLoginMessage":
@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد الخروج من دُكان؟"),
+        "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+            "ادخل تاكيد كلمة السر الجديدة"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
@@ -66,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة السر الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
-            "هل أنت متأكد من أنك تريد حذف الحساب؟"),
+            "هل انت متأكد من حذف حسابك؟\nدا هيمسح كل بياناتك وطلباتك السابقة."),
         "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
@@ -123,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل أنت متأكد من أنك تريد تسجيل الخروج؟"),
         "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
+        "newPassword":
+            MessageLookupByLibrary.simpleMessage("ادخل كلمة السر الجديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "لا يوجد اتصال بالإنترنت.\nيرجى المحاولة مرة أخرى لاحقًا"),

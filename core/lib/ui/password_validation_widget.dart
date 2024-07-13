@@ -38,11 +38,11 @@ class _PasswordValidationWidgetState extends State<PasswordValidationWidget> {
         children: [
           _passwordType(_bloc.passwordLengthStream,
               S.of(context).passwordMinimumCharacters),
-          SizedBox(
-            height: 2.h,
-          ),
-          _passwordType(
-              _bloc.capitalCharStream, S.of(context).atLeastOneCapChar),
+          // SizedBox(
+          //   height: 2.h,
+          // ),
+          // _passwordType(
+          //     _bloc.capitalCharStream, S.of(context).atLeastOneCapChar),
           SizedBox(
             height: 2.h,
           ),
@@ -55,11 +55,11 @@ class _PasswordValidationWidgetState extends State<PasswordValidationWidget> {
           SizedBox(
             height: 2.h,
           ),
-          _passwordType(_bloc.specialCharStream,
-              S.of(context).AtLeastOneSpecialCharacter),
-          SizedBox(
-            height: 2.h,
-          ),
+          // _passwordType(_bloc.specialCharStream,
+          //     S.of(context).AtLeastOneSpecialCharacter),
+          // SizedBox(
+          //   height: 2.h,
+          // ),
           _passwordType(_bloc.noSpaceStream, S.of(context).noSpaceAllowed),
         ],
       );
@@ -69,7 +69,11 @@ class _PasswordValidationWidgetState extends State<PasswordValidationWidget> {
         builder: (context, snapshot) => CustomText(
             text: text,
             customTextStyle: RegularStyle(
-                fontSize: 10.sp,
-                color: (snapshot.data ?? false) ? greenColor : redColor)),
+                fontSize: 12.sp,
+                color: _bloc.textEditingController.value.text.isEmpty
+                    ? lightBlackColor
+                    : (snapshot.data ?? false)
+                        ? greenColor
+                        : redColor)),
       );
 }

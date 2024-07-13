@@ -40,7 +40,7 @@ class HomeBloc extends BlocBase {
   void _loadOffers() {
     OfferRemote().callApiAsStream().listen(
       (event) {
-        _offersBehaviour.sink.add(event);
+        _promotionBehaviour.sink.add(event);
       },
     );
   }
@@ -48,7 +48,7 @@ class HomeBloc extends BlocBase {
   void _loadPromotion() {
     HeroBannerRemote().callApiAsStream().listen(
       (event) {
-        _promotionBehaviour.sink.add(event);
+        _offersBehaviour.sink.add(event);
       },
     );
   }

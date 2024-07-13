@@ -42,9 +42,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":
-            MessageLookupByLibrary.simpleMessage("At least one number"),
+            MessageLookupByLibrary.simpleMessage("Must contain numbers"),
         "atLeastOneSmallLetter":
-            MessageLookupByLibrary.simpleMessage("At least one small letter"),
+            MessageLookupByLibrary.simpleMessage("Must contain letters"),
         "basket": MessageLookupByLibrary.simpleMessage("Basket"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("Best offers"),
         "biometricLoginMessage": MessageLookupByLibrary.simpleMessage(
@@ -60,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("Governorate"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to exit Dokkan?"),
+        "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+            "Enter to confirm the new password"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
@@ -69,7 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to delete account?"),
+            "\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests."),
         "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
@@ -126,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to logout?"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
+        "newPassword":
+            MessageLookupByLibrary.simpleMessage("Enter the new password"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No internet Connection.\nPlease try again later"),

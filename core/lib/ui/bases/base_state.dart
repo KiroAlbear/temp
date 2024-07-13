@@ -88,6 +88,8 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   Widget get _defaultBody => InkWell(
         onTap: () => hideKeyboard(),
         splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         child: getBody(context),
       );
 

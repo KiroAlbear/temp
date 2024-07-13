@@ -33,8 +33,8 @@
   "confirmPassword": "تأكيد كلمة السر",
   "enterConfirmPassword": "ادخل تاكيد كلمة السر",
   "atLeastOneCapChar": "يجب أن تحتوي على حرف كبير على الأقل",
-  "atLeastOneSmallLetter": "يجب أن تحتوي على حرف صغير على الأقل",
-  "atLeastOneNumber": "يجب أن تحتوي على رقم واحد على الأقل",
+  "atLeastOneSmallLetter": "يجب أن تحتوي على حروف",
+  "atLeastOneNumber": "يجب أن تحتوي على أرقام",
   "AtLeastOneSpecialCharacter": "يجب أن تحتوي على رمز (@#_,)",
   "noSpaceAllowed": "يجب ألا تحتوي على مسافات",
   "passwordMinimumCharacters": "يجب ألا تقل عن 8 حروف",
@@ -91,7 +91,7 @@
   "products": "المنتجات",
   "usagePolicy": "سياسة الاستخدام",
   "logoutMessage": "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
-  "deleteAccountMessage": "هل أنت متأكد من أنك تريد حذف الحساب؟",
+  "deleteAccountMessage": "هل انت متأكد من حذف حسابك؟\nدا هيمسح كل بياناتك وطلباتك السابقة.",
   "yes": "نعم",
   "howCanWeHelp": "ازاي نساعدك",
   "hotline": "الخط الساخن",
@@ -106,5 +106,7 @@
   "loginNow": "تسجيل الدخول الآن",
   "scanBarcode": "البحث عن طريق الباركود",
   "scanText": "تأكد من وجود الباركود ضمن\nالعلامات السوداء لمسح العنصر\nضوئيًا",
-  "promoDetails": "تفاصيل العرض"
+  "promoDetails": "تفاصيل العرض",
+  "newPassword": "ادخل كلمة السر الجديدة",
+  "confirmNewPassword": "ادخل تاكيد كلمة السر الجديدة"
 }

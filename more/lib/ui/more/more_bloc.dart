@@ -26,7 +26,7 @@ class MoreBloc extends BlocBase{
 
   Future<XFile?> takePhoto()async{
     return await _picker.pickImage(source: ImageSource.camera,
-    imageQuality: 70,
+    imageQuality: 100,
     maxHeight: 500,
     maxWidth: 500,
     preferredCameraDevice: CameraDevice.rear,);
@@ -36,7 +36,7 @@ class MoreBloc extends BlocBase{
     return  await _picker.pickImage(source: ImageSource.gallery,
     maxWidth: 500,
     maxHeight: 500,
-    imageQuality: 70);
+    imageQuality: 100);
   }
 
   Stream<ApiState<BalanceMapper>> get balanceStream=> BalanceRemote().callApiAsStream();

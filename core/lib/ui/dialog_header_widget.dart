@@ -10,7 +10,7 @@ class DialogHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) => Dialog(
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     alignment: Alignment.bottomCenter,
-    insetPadding: EdgeInsets.symmetric(vertical: 35.h),
+    insetPadding: EdgeInsets.symmetric(vertical: 0.h),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20.w),

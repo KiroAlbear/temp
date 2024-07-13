@@ -13,8 +13,12 @@ class ConstantModule {
   /// default validation regex
   static const String mobileRegex = r'(^[0-9]{9,11}$)';
   static const String passwordRegex =
-      '$atLeastLowerCaseRegex$atLeastUpperCaseRegex'
-      '$atLeastNumberCaseRegex$atLeastSpecialCharacter$noSpaceRegex$passwordLength';
+      '$atLeastLowerCaseRegex'
+      // '$atLeastUpperCaseRegex'
+      '$atLeastNumberCaseRegex'
+      // '$atLeastSpecialCharacter'
+      '$noSpaceRegex'
+      '$passwordLength';
   static const String passwordLength = '{$passwordMinLength,}';
   static const int passwordMinLength = 8;
   static const String atLeastLowerCaseRegex = '(?=.*[a-z])';

@@ -40,7 +40,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
       BlocProvider(bloc: _bloc, child: _screenDesign);
 
   Widget get _screenDesign => SingleChildScrollView(
-    child: Column(
+        child: Column(
           children: [
             AppTopWidget(
               notificationIcon: '',
@@ -62,8 +62,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                   ),
                   CustomText(
                       text: S.of(context).currentPassword,
-                      customTextStyle:
-                          RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+                      customTextStyle: RegularStyle(
+                          color: lightBlackColor, fontSize: 20.sp)),
                   SizedBox(
                     height: 16.h,
                   ),
@@ -73,8 +73,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                   ),
                   CustomText(
                       text: S.of(context).password,
-                      customTextStyle:
-                          RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
+                      customTextStyle: RegularStyle(
+                          fontSize: 20.sp, color: lightBlackColor)),
                   SizedBox(
                     height: 12.h,
                   ),
@@ -84,8 +84,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                   ),
                   CustomText(
                       text: S.of(context).confirmPassword,
-                      customTextStyle:
-                          RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+                      customTextStyle: RegularStyle(
+                          color: lightBlackColor, fontSize: 20.sp)),
                   SizedBox(
                     height: 12.h,
                   ),
@@ -106,7 +106,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
             )
           ],
         ),
-  );
+      );
 
   Widget get _currentPasswordFiled => CustomTextFormFiled(
         onChanged: (value) =>
@@ -118,14 +118,14 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
         validator: (value) =>
-            ValidatorModule().passwordValidator(context).call(value),
+            ValidatorModule().emptyValidator(context).call(value),
         isPassword: true,
       );
 
   Widget get _passwordFiled => CustomTextFormFiled(
         onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
-        labelText: S.of(context).enterYourPassword,
+        labelText: S.of(context).newPassword,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
@@ -139,10 +139,11 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
             _bloc.confirmPasswordBloc.updateStringBehaviour(value),
         textFiledControllerStream:
             _bloc.confirmPasswordBloc.textFormFiledStream,
-        labelText: S.of(context).enterConfirmPassword,
+        labelText: S.of(context).confirmNewPassword,
         textInputAction: TextInputAction.done,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
+
         validator: (value) => ValidatorModule()
             .matchValidator(context)
             .validateMatch(value ?? '', _bloc.passwordBloc.value),
@@ -158,13 +159,16 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                 checkResponseStateWithButton(event, context,
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                    onSuccess: (){
-                      Navigator.pop(context);
-                    });
+                    onSuccess: () {
+                  Navigator.pop(context);
+                });
               },
             );
           }
         },
+        height: 60.h,
+        textStyle:
+            SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
         failedBehaviour: _bloc.buttonBloc.failedBehaviour,
         validateStream: _bloc.validateStream,

@@ -95,10 +95,13 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
             onTap: () =>
                 EasyLauncher.url(
                     url: contactUsMapper.facebook, mode: Mode.externalApp),
-            child: _buildContactUsItem(contactUsMapper.facebook,
-                widget.contactUsBloc.facebookIcon, S
-                    .of(context)
-                    .faceBook),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: _buildContactUsItem(contactUsMapper.facebook,
+                  widget.contactUsBloc.facebookIcon, S
+                      .of(context)
+                      .faceBook),
+            ),
           ),
           SizedBox(
             height: 50.h,
@@ -108,6 +111,8 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
 
   Widget _buildContactUsItem(String linkTo, String imagePath, String text) =>
       Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             width: 47.w,
@@ -117,6 +122,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
             imageType: ImageType.svg,
             width: 24.w,
             height: 24.h,
+            boxFit: BoxFit.contain,
           ),
           SizedBox(
             width: 35.w,
