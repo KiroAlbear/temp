@@ -11,11 +11,10 @@ import 'package:core/dto/remote/update_address_remote.dart';
 enum NewAccountStepEnum { info, locationInfo, editLocation, password }
 
 class NewAccountBloc extends BlocBase {
-
   late final String _mobileNumber;
   late final int _countryId;
 
-  void init({int countryId = 245, required String mobileNumber}){
+  void init({int countryId = 245, required String mobileNumber}) {
     _mobileNumber = mobileNumber;
     _countryId = countryId;
   }
@@ -48,23 +47,20 @@ class NewAccountBloc extends BlocBase {
 
   Stream<double?> get longitudeStream => _longitudeBehaviour.stream;
 
-  Stream<bool> get validateInfoStream =>
-      Rx.combineLatest2(
-          fullNameBloc.stringStream,
-          facilityNameBloc.stringStream,
-              (fullName, platformName) => isInfoValid);
+  Stream<bool> get validateInfoStream => Rx.combineLatest2(
+      fullNameBloc.stringStream,
+      facilityNameBloc.stringStream,
+      (fullName, platformName) => isInfoValid);
 
-  Stream<bool> get validateLocationStream =>
-      Rx.combineLatest3(
-          streetNameBloc.stringStream,
-          neighborhoodBloc.stringStream,
-          cityBloc.stringStream,
-              (street, neighborhood, cityBloc) => isLocationValid);
+  Stream<bool> get validateLocationStream => Rx.combineLatest3(
+      streetNameBloc.stringStream,
+      neighborhoodBloc.stringStream,
+      cityBloc.stringStream,
+      (street, neighborhood, cityBloc) => isLocationValid);
 
-  Stream<bool> get validatePasswordStream =>
-      Rx.combineLatest(
-          [passwordBloc.stringStream, confirmPasswordBloc.stringStream],
-              (value) => isPasswordValid);
+  Stream<bool> get validatePasswordStream => Rx.combineLatest(
+      [passwordBloc.stringStream, confirmPasswordBloc.stringStream],
+      (value) => isPasswordValid);
 
   Stream<NewAccountStepEnum> get stepsStream => _stepBehaviour.stream;
 
@@ -74,36 +70,39 @@ class NewAccountBloc extends BlocBase {
 
   bool get isInfoValid =>
       _validatorModule.isFiledNotEmpty(fullNameBloc.value) &&
-          _validatorModule.isFiledNotEmpty(facilityNameBloc.value);
+      _validatorModule.isFiledNotEmpty(facilityNameBloc.value);
 
   bool get isLocationValid =>
       _validatorModule.isFiledNotEmpty(neighborhoodBloc.value) &&
-          _validatorModule.isFiledNotEmpty(cityBloc.value) &&
-          (latitude != 0.0) &&
-          (longitude != 0.0);
+      _validatorModule.isFiledNotEmpty(cityBloc.value) &&
+      (latitude != 0.0) &&
+      (longitude != 0.0);
 
   bool get isPasswordValid =>
       _validatorModule.isPasswordValid(passwordBloc.value) &&
-          _validatorModule.isMatchValid(
-              passwordBloc.value, confirmPasswordBloc.value);
+      _validatorModule.isMatchValid(
+          passwordBloc.value, confirmPasswordBloc.value);
 
-  Stream<ApiState<LoginMapper>> get register =>
-      RegisterRemote(shopName: facilityNameBloc.value,
+  Stream<ApiState<LoginMapper>> get register => RegisterRemote(
+          shopName: facilityNameBloc.value,
           name: fullNameBloc.value,
           phone: _mobileNumber,
           password: passwordBloc.value,
           latitude: _longitudeBehaviour.valueOrNull.toString(),
           longitude: _latitudeBehaviour.valueOrNull.toString())
-          .callApiAsStream();
+      .callApiAsStream();
 
-  Stream<ApiState<LoginMapper>> updateAddress(int clientId) =>
-      UpdateAddressRemote(clientId: clientId,
-          street: '${streetNameBloc.value}-${neighborhoodBloc.value}-${cityBloc.value}',
+  Stream<
+      ApiState<LoginMapper>> updateAddress(int clientId) => UpdateAddressRemote(
+          clientId: clientId,
+          street:
+              '${streetNameBloc.value}-${neighborhoodBloc.value}-${cityBloc.value}',
           street2: '',
           countryId: _countryId,
           city: cityBloc.value,
-          latitude: _latitudeBehaviour.valueOrNull?? 0.0,
-          longitude: _longitudeBehaviour.valueOrNull?? 0.0).callApiAsStream();
+          latitude: _latitudeBehaviour.valueOrNull ?? 0.0,
+          longitude: _longitudeBehaviour.valueOrNull ?? 0.0)
+      .callApiAsStream();
 
   @override
   void dispose() {
@@ -119,6 +118,4 @@ class NewAccountBloc extends BlocBase {
     _latitudeBehaviour.close();
     _longitudeBehaviour.close();
   }
-
-
 }
