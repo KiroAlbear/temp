@@ -1,71 +1,156 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/product/product_mapper.dart';
+import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
-import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:core/dto/models/product/product_mapper.dart';
 
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
-  final String favouriteIcon;
-  final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
-  final Function(ProductMapper productMapper) addToCart;
-  const ProductWidget(
-      {super.key,
-      required this.productMapper,
-      required this.addToCart,
-      required this.favouriteIcon,
-      required this.onTapFavourite});
+  final String? favouriteIcon;
+  final String? icDelete;
+  final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
+  final Function(ProductMapper productMapper)? addToCart;
+  final bool isCartProduct;
+  final Function()? onDeleteClicked;
+  ProductWidget({
+    super.key,
+    required this.productMapper,
+    this.icDelete,
+    this.addToCart,
+    this.favouriteIcon,
+    this.onTapFavourite,
+    this.onDeleteClicked,
+    this.isCartProduct = false,
+  }) {
+    if (!isCartProduct &&
+        (favouriteIcon == null ||
+            onTapFavourite == null && addToCart == null)) {
+      assert(false,
+          'isCartProduct is false, favouriteIcon, onTapFavourite and addToCart should be provided');
+    }
+    if (isCartProduct && (icDelete == null || onDeleteClicked == null)) {
+      assert(false,
+          'isCartProduct is true, icDelete and onDeleteClicked should be provided');
+    }
+  }
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
 }
 
 class _ProductWidgetState extends State<ProductWidget> {
+  ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(1);
+
   @override
   Widget build(BuildContext context) => Container(
-      decoration: BoxDecoration(
-        color: productCardColor,
-        borderRadius: BorderRadius.circular(16.w),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        decoration: BoxDecoration(
+          color: productCardColor,
+          borderRadius: BorderRadius.circular(16.w),
+        ),
+        child: widget.isCartProduct
+            ? _getCartProductWidget()
+            : _getProductWidget(),
+      );
+
+  _getCartProductWidget() {
+    return Padding(
+      padding: EdgeInsetsDirectional.only(top: 8.h, bottom: 8.h, end: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: 12.h,
+          Column(
+            children: [
+              Column(
+                children: [
+                  _productName,
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                  _priceRow,
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              _notAvailableProduct()
+            ],
           ),
-          _favouriteAndDiscountRow,
-          SizedBox(
-            height: 4.h,
-          ),
-          _productImage,
-          SizedBox(
-            height: 5.h,
-          ),
-          _productName,
-          SizedBox(
-            height: 4.h,
-          ),
-          _priceRow,
-          SizedBox(
-            height: 4.h,
-          ),
-          _productDescription,
-          SizedBox(
-            height: 9.h,
-          ),
-          Center(child: _addCartButton),
-          SizedBox(
-            height: 10.h,
+          Column(
+            children: [
+              _productImage,
+              SizedBox(
+                height: 8.h,
+              ),
+              _incrementDecrementButton(),
+            ],
           )
         ],
       ),
     );
+  }
+
+  Widget _notAvailableProduct() {
+    return Padding(
+      padding: EdgeInsetsDirectional.only(start: 16.w),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.red.withOpacity(.5),
+          borderRadius: BorderRadius.circular(5.r),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
+          child: CustomText(
+            text: "المنتج غير متوفر",
+            customTextStyle:
+                RegularStyle(color: lightBlackColor, fontSize: 8.sp),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _getProductWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 12.h,
+        ),
+        _favouriteAndDiscountRow,
+        SizedBox(
+          height: 4.h,
+        ),
+        _productImage,
+        SizedBox(
+          height: 5.h,
+        ),
+        _productName,
+        SizedBox(
+          height: 4.h,
+        ),
+        _priceRow,
+        SizedBox(
+          height: 4.h,
+        ),
+        _productDescription,
+        SizedBox(
+          height: 9.h,
+        ),
+        Center(child: _addCartButton),
+        SizedBox(
+          height: 10.h,
+        )
+      ],
+    );
+  }
 
   Widget get _favouriteAndDiscountRow => Row(
         children: [
@@ -101,11 +186,11 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _favouriteIcon => InkWell(
         onTap: () {
-          widget.onTapFavourite(
+          widget.onTapFavourite!(
               !widget.productMapper.isFavourite, widget.productMapper);
         },
         child: ImageHelper(
-          image: widget.favouriteIcon,
+          image: widget.favouriteIcon!,
           imageType: ImageType.svg,
           width: 18.w,
           height: 18.h,
@@ -125,9 +210,10 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _productName => Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: CustomText(
-            text: widget.productMapper.name,
-            customTextStyle:
-                MediumStyle(color: lightBlackColor, fontSize: 12.sp),maxLines: 1,),
+          text: widget.productMapper.name,
+          customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+          maxLines: 1,
+        ),
       );
 
   Widget get _priceRow => Padding(
@@ -141,10 +227,13 @@ class _ProductWidgetState extends State<ProductWidget> {
                     '${widget.productMapper.getPrice().toString()} ${widget.productMapper.currency}',
                 customTextStyle:
                     MediumStyle(fontSize: 14.sp, color: secondaryColor)),
-            SizedBox(width: 10.w,),
+            SizedBox(
+              width: 10.w,
+            ),
             if (widget.productMapper.discountPercentage > 0)
               CustomText(
-                text: '${widget.productMapper.price.toString()} ${widget.productMapper.currency}',
+                text:
+                    '${widget.productMapper.price.toString()} ${widget.productMapper.currency}',
                 customTextStyle: MediumStyle(
                     color: redColor,
                     fontSize: 10.sp,
@@ -163,10 +252,115 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
       );
 
+  void _showAlertDialog(String message) {
+    AlertModule().showDialog(
+      context: context,
+      confirmMessage: S.of(context).ok,
+      message: message,
+      onConfirm: () {},
+    );
+  }
+
+  void _showDeleteAlertDialog(String message) {
+    AlertModule().showDialog(
+      context: context,
+      message: message,
+      confirmMessage: S.of(context).ok,
+      cancelMessage: S.of(context).cancel,
+      onCancel: () {},
+      onConfirm: () {
+        widget.onDeleteClicked!();
+      },
+    );
+  }
+
+  Widget _incrementDecrementButton() {
+    final SizedBox horizontalSpace = 10.horizontalSpace;
+    final SizedBox spacing = 0.horizontalSpace;
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.r),
+        color: primaryColor,
+      ),
+      child: Row(
+        children: [
+          horizontalSpace,
+          Container(
+            height: 20.h,
+            width: 20.w,
+            child: InkWell(
+              onTap: () {
+                if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
+                  qtyValueNotifier.value++;
+                } else {
+                  _showAlertDialog(S.of(context).cartMaximumProductsReached);
+                }
+              },
+              child: CustomText(
+                text: '+',
+                customTextStyle:
+                    MediumStyle(color: cartSuccessBlueColor, fontSize: 14.sp),
+              ),
+            ),
+          ),
+          spacing,
+          Container(
+            height: 20.h,
+            width: 20.w,
+            child: ValueListenableBuilder(
+              valueListenable: qtyValueNotifier,
+              builder: (context, value, child) {
+                return Center(
+                  child: CustomText(
+                    text: value.toString(),
+                    textAlign: TextAlign.center,
+                    customTextStyle: MediumStyle(
+                        color: cartSuccessBlueColor, fontSize: 14.sp),
+                  ),
+                );
+              },
+            ),
+          ),
+          spacing,
+          InkWell(
+            onTap: () {
+              if (qtyValueNotifier.value > widget.productMapper.minQuantity) {
+                qtyValueNotifier.value--;
+              } else {
+                _showDeleteAlertDialog(S.of(context).cartDeleteMessage);
+              }
+            },
+            child: Container(
+              height: 30.h,
+              width: 20.w,
+              child: Center(
+                child: ValueListenableBuilder(
+                  valueListenable: qtyValueNotifier,
+                  builder: (context, value, child) {
+                    return value == widget.productMapper.minQuantity
+                        ? ImageHelper(
+                            image: widget.icDelete!, imageType: ImageType.svg)
+                        : CustomText(
+                            text: '-',
+                            textAlign: TextAlign.center,
+                            customTextStyle: MediumStyle(
+                                color: cartSuccessBlueColor, fontSize: 14.sp),
+                          );
+                  },
+                ),
+              ),
+            ),
+          ),
+          horizontalSpace
+        ],
+      ),
+    );
+  }
+
   Widget get _addCartButton => InkWell(
         onTap: () {
           if (widget.productMapper.addToCart()) {
-            widget.addToCart(widget.productMapper);
+            widget.addToCart!(widget.productMapper);
           }
         },
         child: Container(

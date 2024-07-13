@@ -5,6 +5,7 @@ part of 'my_app.dart';
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
 final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
+final CartBloc _cartBloc = CartBloc();
 final HomeBloc _homeBloc = HomeBloc(
   onCategoryClick: (categoryMapper) {
     LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
@@ -45,7 +46,10 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0, null);
-      return _buildPageRoute(CartScreen(backIcon: Assets.svgIcBack));
+      return _buildPageRoute(CartOrderDetails(
+        bloc: _cartBloc,
+        backIcon: Assets.svgIcBack,
+      ));
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
@@ -86,6 +90,12 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       ));
     case AppScreenEnum.scanBarcode:
       return _buildPageRoute(_scanBarcodeWidget);
+    case AppScreenEnum.cartScreen:
+      return _buildPageRoute(_cartScreen);
+    case AppScreenEnum.cartSuccessScreen:
+      return _buildPageRoute(CartSuccessWidget());
+    case AppScreenEnum.cartOrderDetailsScreen:
+      return _buildPageRoute(_cartOrderDetailsScreen);
   }
 }
 
@@ -186,6 +196,21 @@ BlocProvider get _productCategoryWidget => BlocProvider(
       searchIcon: Assets.svgIcSearch,
       supportIcon: Assets.svgIcContactUs,
       productCategoryBloc: _productCategoryBloc,
+    ));
+
+BlocProvider get _cartScreen => BlocProvider(
+    bloc: _cartBloc,
+    child: CartScreen(
+      bloc: _cartBloc,
+      backIcon: Assets.svgIcBack,
+      icDelete: Assets.svgIcDelete,
+    ));
+
+BlocProvider get _cartOrderDetailsScreen => BlocProvider(
+    bloc: _cartBloc,
+    child: CartOrderDetails(
+      bloc: _cartBloc,
+      backIcon: Assets.svgIcBack,
     ));
 
 ContactUsBloc get _contactUsBloc => ContactUsBloc(

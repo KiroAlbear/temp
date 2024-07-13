@@ -12,6 +12,8 @@ enum AppScreenEnum {
   product,
   faq,
   accountChangePassword,
-
-  scanBarcode
+  scanBarcode,
+  cartScreen,
+  cartSuccessScreen,
+  cartOrderDetailsScreen,
 }

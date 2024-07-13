@@ -71,7 +71,10 @@ const Color productCardColorDarkMode = Color.fromRGBO(246, 247, 247, 1);
 const Color faqCardColorLightMode = Color.fromRGBO(238, 238, 239, 1);
 const Color faqCardColorDarkMode = Color.fromRGBO(238, 238, 239, 1);
 
-bool get _isDark => SharedPrefModule().isDarkMode?? false;
+const Color cartSuccessBlueLightMode = Color.fromRGBO(0, 69, 122, 1);
+const Color cartSuccessBlueDarkMode = Color.fromRGBO(0, 69, 122, 1);
+
+bool get _isDark => SharedPrefModule().isDarkMode ?? false;
 
 Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
 
@@ -91,20 +94,29 @@ Color lightBlackColor = _isDark ? lightBlackDarkMode : lightBlackDarkMode;
 
 Color whiteColor = _isDark ? black : white;
 
-Color offWhiteColor = _isDark? offWhiteColorDarkMore:offWhiteColorLightMode;
+Color offWhiteColor = _isDark ? offWhiteColorDarkMore : offWhiteColorLightMode;
 
-Color yellowCardColor= _isDark? yellowCardColorDarkMode: yellowCardColorLightMode;
+Color yellowCardColor =
+    _isDark ? yellowCardColorDarkMode : yellowCardColorLightMode;
 
-Color greenCardColor= _isDark? greenCardColorDarkMode: greenCardColorLightMode;
+Color greenCardColor =
+    _isDark ? greenCardColorDarkMode : greenCardColorLightMode;
 
-Color redCardColor= _isDark? redCardColorDarkMode: redCardColorLightMode;
+Color redCardColor = _isDark ? redCardColorDarkMode : redCardColorLightMode;
 
-Color promotionCardColor = _isDark? promotionCardColorDarkMode : promotionCardColorLightMode;
+Color promotionCardColor =
+    _isDark ? promotionCardColorDarkMode : promotionCardColorLightMode;
 
-Color categoryCardColor = _isDark? categoryCardColorDarkMode : categoryCardColorLightMode;
+Color categoryCardColor =
+    _isDark ? categoryCardColorDarkMode : categoryCardColorLightMode;
 
-Color menuOrderCardColor= _isDark?menuOrderCardColorDarkMode: menuOrderCardColorLightMode;
+Color menuOrderCardColor =
+    _isDark ? menuOrderCardColorDarkMode : menuOrderCardColorLightMode;
 
-Color productCardColor= _isDark?productCardColorDarkMode: productCardColorLightMode;
+Color productCardColor =
+    _isDark ? productCardColorDarkMode : productCardColorLightMode;
 
-Color faqCardColor= _isDark?faqCardColorDarkMode: faqCardColorLightMode;
+Color faqCardColor = _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
+
+Color cartSuccessBlueColor =
+    _isDark ? cartSuccessBlueDarkMode : cartSuccessBlueLightMode;
