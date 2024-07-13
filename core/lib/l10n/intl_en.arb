@@ -118,5 +118,8 @@
   "cartMinimumProductsReached": "The minimum amount you can add to this product is",
   "cartOrderNow": "Order now",
   "cartOrderOrderDetails": "Order details",
-  "cartConfirmOrder": "Confirm order"
+  "cartConfirmOrder": "Confirm order",
+  "cartCashOnDelivery": "Cash on delivery",
+  "cartPaymentOptions": "Payment method that suits you",
+  "cartDokkanWallet": "Dokkan wallet"
 }

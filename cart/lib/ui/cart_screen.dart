@@ -1,4 +1,5 @@
 import 'package:cart/ui/cart_bloc.dart';
+import 'package:cart/ui/widgets/cart_bottom_sheet.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -72,7 +73,17 @@ class _CartScreenState extends BaseState<CartScreen> {
                     textStyle:
                         MediumStyle(color: lightBlackColor, fontSize: 20.sp)
                             .getStyle(),
-                    onTap: () {}),
+                    onTap: () async {
+                      showModalBottomSheet(
+                          backgroundColor: whiteColor,
+                          constraints: BoxConstraints(
+                              maxHeight:
+                                  MediaQuery.of(context).size.height * 0.3),
+                          context: context,
+                          builder: (context) {
+                            return CartBottomSheet();
+                          });
+                    }),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

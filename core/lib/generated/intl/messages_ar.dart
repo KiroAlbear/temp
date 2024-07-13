@@ -51,9 +51,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "browseSections": MessageLookupByLibrary.simpleMessage("تصفح الأقسام"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "cartCashOnDelivery":
+            MessageLookupByLibrary.simpleMessage("كاش عند الاستلام"),
         "cartConfirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد من ازاله المنتج من السله؟"),
+        "cartDokkanWallet": MessageLookupByLibrary.simpleMessage("محفظة دكان"),
         "cartEmpty":
             MessageLookupByLibrary.simpleMessage("لا يوجد طلبات حالياً"),
         "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(
@@ -63,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartOrderNow": MessageLookupByLibrary.simpleMessage("أطلب دلوقتي"),
         "cartOrderOrderDetails":
             MessageLookupByLibrary.simpleMessage("تفاصيل طلبك"),
+        "cartPaymentOptions":
+            MessageLookupByLibrary.simpleMessage("طريقة الدفع المناسبة ليك"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "cartSuccessConfirmation":

@@ -1249,6 +1249,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Cash on delivery`
+  String get cartCashOnDelivery {
+    return Intl.message(
+      'Cash on delivery',
+      name: 'cartCashOnDelivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment method that suits you`
+  String get cartPaymentOptions {
+    return Intl.message(
+      'Payment method that suits you',
+      name: 'cartPaymentOptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dokkan wallet`
+  String get cartDokkanWallet {
+    return Intl.message(
+      'Dokkan wallet',
+      name: 'cartDokkanWallet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

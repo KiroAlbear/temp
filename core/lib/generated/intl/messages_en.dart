@@ -53,10 +53,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Browse sections"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cartCashOnDelivery":
+            MessageLookupByLibrary.simpleMessage("Cash on delivery"),
         "cartConfirmOrder":
             MessageLookupByLibrary.simpleMessage("Confirm order"),
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure to remove the product from the cart?"),
+        "cartDokkanWallet":
+            MessageLookupByLibrary.simpleMessage("Dokkan wallet"),
         "cartEmpty": MessageLookupByLibrary.simpleMessage("There is no orders"),
         "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(
             "The maximum quantity you can add to this product is"),
@@ -65,6 +69,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartOrderNow": MessageLookupByLibrary.simpleMessage("Order now"),
         "cartOrderOrderDetails":
             MessageLookupByLibrary.simpleMessage("Order details"),
+        "cartPaymentOptions": MessageLookupByLibrary.simpleMessage(
+            "Payment method that suits you"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
         "cartSuccessConfirmation": MessageLookupByLibrary.simpleMessage(
