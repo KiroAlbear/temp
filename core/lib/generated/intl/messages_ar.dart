@@ -174,6 +174,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("الدعم والمساعدة"),
+        "updateProfileBuildingData":
+            MessageLookupByLibrary.simpleMessage("بيانات المنشأه"),
+        "updateProfileBuildingName":
+            MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
+        "updateProfileBuildingNumber":
+            MessageLookupByLibrary.simpleMessage("رقم البناية / اسم الشارع"),
+        "updateProfileDistrict": MessageLookupByLibrary.simpleMessage("الحي"),
+        "updateProfileGovernorate":
+            MessageLookupByLibrary.simpleMessage("المحافظة"),
+        "updateProfileLocation": MessageLookupByLibrary.simpleMessage("الموقع"),
+        "updateProfilePersonalData":
+            MessageLookupByLibrary.simpleMessage("بياناتي الشخصية"),
+        "updateProfileTitle":
+            MessageLookupByLibrary.simpleMessage("بيانات حسابي"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("سياسة الاستخدام"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "welcomeToDokkan":

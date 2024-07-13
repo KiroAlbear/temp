@@ -1,0 +1,37 @@
+name: update_profile
+description: "A new Flutter package project."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: ../core
+  timelines: ^0.1.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner:
+  flutter_gen_runner:
+  image_loader: ^1.10.0
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter_gen:
+  assets:
+    outputs:
+      package_parameter_enabled: true # <- Add this line.
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/svg/
+

@@ -106,5 +106,13 @@
   "loginNow": "Login now",
   "scanBarcode": "Search by Barcode",
   "scanText": "Make sure barcode is\nblack mark to scan",
-  "promoDetails": "Promo details"
+  "promoDetails": "Promo details",
+  "updateProfileTitle": "Update profile",
+  "updateProfilePersonalData": "Personal Information",
+  "updateProfileBuildingData": "Building Information",
+  "updateProfileBuildingName": "Building Name",
+  "updateProfileLocation": "Location",
+  "updateProfileBuildingNumber": "Building number / Street name",
+  "updateProfileDistrict": "District",
+  "updateProfileGovernorate": "Governorate"
 }

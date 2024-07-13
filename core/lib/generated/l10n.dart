@@ -1129,6 +1129,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Update profile`
+  String get updateProfileTitle {
+    return Intl.message(
+      'Update profile',
+      name: 'updateProfileTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Information`
+  String get updateProfilePersonalData {
+    return Intl.message(
+      'Personal Information',
+      name: 'updateProfilePersonalData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building Information`
+  String get updateProfileBuildingData {
+    return Intl.message(
+      'Building Information',
+      name: 'updateProfileBuildingData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building Name`
+  String get updateProfileBuildingName {
+    return Intl.message(
+      'Building Name',
+      name: 'updateProfileBuildingName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get updateProfileLocation {
+    return Intl.message(
+      'Location',
+      name: 'updateProfileLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building number / Street name`
+  String get updateProfileBuildingNumber {
+    return Intl.message(
+      'Building number / Street name',
+      name: 'updateProfileBuildingNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `District`
+  String get updateProfileDistrict {
+    return Intl.message(
+      'District',
+      name: 'updateProfileDistrict',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Governorate`
+  String get updateProfileGovernorate {
+    return Intl.message(
+      'Governorate',
+      name: 'updateProfileGovernorate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

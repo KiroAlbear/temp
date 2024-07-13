@@ -106,5 +106,13 @@
   "loginNow": "تسجيل الدخول الآن",
   "scanBarcode": "البحث عن طريق الباركود",
   "scanText": "تأكد من وجود الباركود ضمن\nالعلامات السوداء لمسح العنصر\nضوئيًا",
+  "updateProfileTitle": "بيانات حسابي",
+  "updateProfilePersonalData": "بياناتي الشخصية",
+  "updateProfileBuildingData": "بيانات المنشأه",
+  "updateProfileBuildingName": "اسم المنشأه",
+  "updateProfileLocation": "الموقع",
+  "updateProfileBuildingNumber": "رقم البناية / اسم الشارع",
+  "updateProfileDistrict": "الحي",
+  "updateProfileGovernorate": "المحافظة",
   "promoDetails": "تفاصيل العرض"
 }
