@@ -108,5 +108,13 @@
   "scanText": "تأكد من وجود الباركود ضمن\nالعلامات السوداء لمسح العنصر\nضوئيًا",
   "promoDetails": "تفاصيل العرض",
   "newPassword": "ادخل كلمة السر الجديدة",
-  "confirmNewPassword": "ادخل تاكيد كلمة السر الجديدة"
+  "confirmNewPassword": "ادخل تاكيد كلمة السر الجديدة",
+  "updateProfileTitle": "بيانات حسابي",
+  "updateProfilePersonalData": "بياناتي الشخصية",
+  "updateProfileBuildingData": "بيانات المنشأه",
+  "updateProfileBuildingName": "اسم المنشأه",
+  "updateProfileLocation": "الموقع",
+  "updateProfileBuildingNumber": "رقم البناية / اسم الشارع",
+  "updateProfileDistrict": "الحي",
+  "updateProfileGovernorate": "المحافظة",
 }

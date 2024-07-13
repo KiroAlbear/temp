@@ -390,20 +390,20 @@ class S {
     );
   }
 
-  /// `Must contain letters`
+  /// `At least one small letter`
   String get atLeastOneSmallLetter {
     return Intl.message(
-      'Must contain letters',
+      'At least one small letter',
       name: 'atLeastOneSmallLetter',
       desc: '',
       args: [],
     );
   }
 
-  /// `Must contain numbers`
+  /// `At least one number`
   String get atLeastOneNumber {
     return Intl.message(
-      'Must contain numbers',
+      'At least one number',
       name: 'atLeastOneNumber',
       desc: '',
       args: [],
@@ -970,10 +970,10 @@ class S {
     );
   }
 
-  /// `\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.`
+  /// `Are you sure you want to delete account?`
   String get deleteAccountMessage {
     return Intl.message(
-      '\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.',
+      'Are you sure you want to delete account?',
       name: 'deleteAccountMessage',
       desc: '',
       args: [],
@@ -1130,21 +1130,81 @@ class S {
     );
   }
 
-  /// `Enter the new password`
-  String get newPassword {
+  /// `Update profile`
+  String get updateProfileTitle {
     return Intl.message(
-      'Enter the new password',
-      name: 'newPassword',
+      'Update profile',
+      name: 'updateProfileTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter to confirm the new password`
-  String get confirmNewPassword {
+  /// `Personal Information`
+  String get updateProfilePersonalData {
     return Intl.message(
-      'Enter to confirm the new password',
-      name: 'confirmNewPassword',
+      'Personal Information',
+      name: 'updateProfilePersonalData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building Information`
+  String get updateProfileBuildingData {
+    return Intl.message(
+      'Building Information',
+      name: 'updateProfileBuildingData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building Name`
+  String get updateProfileBuildingName {
+    return Intl.message(
+      'Building Name',
+      name: 'updateProfileBuildingName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get updateProfileLocation {
+    return Intl.message(
+      'Location',
+      name: 'updateProfileLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building number / Street name`
+  String get updateProfileBuildingNumber {
+    return Intl.message(
+      'Building number / Street name',
+      name: 'updateProfileBuildingNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `District`
+  String get updateProfileDistrict {
+    return Intl.message(
+      'District',
+      name: 'updateProfileDistrict',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Governorate`
+  String get updateProfileGovernorate {
+    return Intl.message(
+      'Governorate',
+      name: 'updateProfileGovernorate',
       desc: '',
       args: [],
     );

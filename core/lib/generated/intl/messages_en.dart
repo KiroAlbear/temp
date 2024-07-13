@@ -182,6 +182,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("Support & Assistance"),
+        "updateProfileBuildingData":
+            MessageLookupByLibrary.simpleMessage("Building Information"),
+        "updateProfileBuildingName":
+            MessageLookupByLibrary.simpleMessage("Building Name"),
+        "updateProfileBuildingNumber": MessageLookupByLibrary.simpleMessage(
+            "Building number / Street name"),
+        "updateProfileDistrict":
+            MessageLookupByLibrary.simpleMessage("District"),
+        "updateProfileGovernorate":
+            MessageLookupByLibrary.simpleMessage("Governorate"),
+        "updateProfileLocation":
+            MessageLookupByLibrary.simpleMessage("Location"),
+        "updateProfilePersonalData":
+            MessageLookupByLibrary.simpleMessage("Personal Information"),
+        "updateProfileTitle":
+            MessageLookupByLibrary.simpleMessage("Update profile"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("Usage Policy"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
