@@ -51,9 +51,11 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   }
 
   Future<void> getUserData() async {
-    // _bloc.loadDeliveryAddress();
+    _bloc.loadDeliveryAddress();
 
     String name = widget.moreBloc.user.name;
+    String userId = widget.moreBloc.user.userId.toString();
+    String email = widget.moreBloc.user.phone;
     String userName = name.split('-')[0];
     String buildingName = name.split('-').length > 1 ? name.split('-')[1] : '';
 
@@ -68,6 +70,9 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
     _bloc.buildingNameBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: buildingName));
     _bloc.buildingNameBloc.updateStringBehaviour(buildingName);
+
+    _bloc.clientIDBehaviour.sink.add(int.parse(userId));
+    _bloc.clientEmailBehaviour.sink.add(email);
   }
 
   @override
@@ -148,6 +153,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                                     _bloc.buttonBloc.failedBehaviour,
                                 buttonBehaviour: _bloc
                                     .buttonBloc.buttonBehavior, onSuccess: () {
+                              widget.moreBloc.getProfileData();
                               Navigator.pop(context);
                             });
                           },
@@ -180,7 +186,9 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
           labelText: S.of(context).fullName,
           defaultTextStyle: _getTextStyle(),
           textFiledControllerStream: _bloc.fullNameBloc.textFormFiledBehaviour,
-          onChanged: (value) {},
+          onChanged: (value) => _bloc.fullNameBloc.updateStringBehaviour(value),
+          validator: (value) =>
+              ValidatorModule().emptyValidator(context).call(value),
           textInputAction: TextInputAction.next,
         ),
       ],

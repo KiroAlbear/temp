@@ -47,10 +47,13 @@ class UpdateProfileBloc extends BlocBase {
       ValidatorModule().isFiledNotEmpty(fullNameBloc.value);
 
   void loadDeliveryAddress() {
-    DeliveryAddressRemote().callApiAsStream().listen((event) {
-      _deliveryAddressBehaviour.sink.add(event);
-      initAddress(event.response!);
-    });
+    if (fullNameBloc.textFormFiledBehaviour.value.text.isNotEmpty &&
+        buildingNameBloc.textFormFiledBehaviour.value.text.isNotEmpty) {
+      DeliveryAddressRemote().callApiAsStream().listen((event) {
+        _deliveryAddressBehaviour.sink.add(event);
+        initAddress(event.response!);
+      });
+    }
   }
 
   void initAddress(DeliveryAddressMapper deliveryAddress) {
