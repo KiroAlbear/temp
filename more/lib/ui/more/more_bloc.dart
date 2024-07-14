@@ -1,28 +1,26 @@
 import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/permission_bloc.dart';
+import 'package:core/dto/models/balance/balance_mapper.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/login/login_mapper.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
+import 'package:core/dto/remote/balance_remote.dart';
+import 'package:core/dto/remote/profile_remote.dart';
 import 'package:core/dto/remote/update_profile_image_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:core/dto/models/balance/balance_mapper.dart';
-import 'package:core/dto/remote/balance_remote.dart';
-import 'package:core/dto/remote/profile_remote.dart';
-import 'package:core/dto/models/login/login_mapper.dart';
 
 class MoreBloc extends BlocBase {
   final PermissionBloc cameraPermissionBloc = PermissionBloc();
   final PermissionBloc galleryPermissionBloc = PermissionBloc();
 
-  final BehaviorSubject<
-      ApiState<LoginMapper>> _profileBehaviour = BehaviorSubject()
-    ..sink.add(LoadingState());
+  final BehaviorSubject<ApiState<LoginMapper>> _profileBehaviour =
+      BehaviorSubject()..sink.add(LoadingState());
   final BehaviorSubject<String> _selectedFileBehaviour = BehaviorSubject()
     ..sink.add('');
   final ImagePicker _picker = ImagePicker();
 
   Stream<String> get selectedFileStream => _selectedFileBehaviour.stream;
-
 
   void uploadImage(String filePath) {
     _selectedFileBehaviour.sink.add(filePath);
@@ -34,11 +32,13 @@ class MoreBloc extends BlocBase {
       imageQuality: 100,
       maxHeight: 500,
       maxWidth: 500,
-      preferredCameraDevice: CameraDevice.rear,);
+      preferredCameraDevice: CameraDevice.rear,
+    );
   }
 
   Future<XFile?> pickFromGallery() async {
-    return await _picker.pickImage(source: ImageSource.gallery,
+    return await _picker.pickImage(
+        source: ImageSource.gallery,
         maxWidth: 500,
         maxHeight: 500,
         imageQuality: 100);
@@ -54,30 +54,34 @@ class MoreBloc extends BlocBase {
   MoreBloc() {
     _selectedFileBehaviour.listen((value) {
       if (value.isNotEmpty) {
-        UpdateProfileImageRemote(file: File(value)).callApiAsStream().listen((
-            event) {
-          if (event is SuccessState) {
-            _selectedFileBehaviour.sink.add('');
-            getProfileData();
-          }
-        },);
+        UpdateProfileImageRemote(file: File(value)).callApiAsStream().listen(
+          (event) {
+            if (event is SuccessState) {
+              _selectedFileBehaviour.sink.add('');
+              getProfileData();
+            }
+          },
+        );
       }
     });
   }
 
   void getProfileData() {
     if ((SharedPrefModule().userId ?? '').isNotEmpty) {
-      ProfileRemote().callApiAsStream().listen((event) {
-        _profileBehaviour.sink.add(event);
-      },);
+      ProfileRemote().callApiAsStream().listen(
+        (event) {
+          _profileBehaviour.sink.add(event);
+          updateProfile(event.response!.name);
+        },
+      );
     } else {
       _profileBehaviour.sink.add(IdleState());
     }
   }
 
-  void updateProfile(String name, String shopName){
+  void updateProfile(String name) {
     LoginMapper loginMapper = _profileBehaviour.valueOrNull!.response!;
-    loginMapper.name = '$name-$shopName';
+    loginMapper.name = '$name';
     _profileBehaviour.sink.add(SuccessState(loginMapper));
   }
 
@@ -85,5 +89,4 @@ class MoreBloc extends BlocBase {
   void dispose() {
     cameraPermissionBloc.dispose();
   }
-
 }

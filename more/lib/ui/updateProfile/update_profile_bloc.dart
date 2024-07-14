@@ -23,16 +23,22 @@ class UpdateProfileBloc extends BlocBase {
   final BehaviorSubject<String> clientEmailBehaviour = BehaviorSubject();
 
   final BehaviorSubject<ApiState<DeliveryAddressMapper>>
-      _deliveryAddressBehaviour = BehaviorSubject();
+      deliveryAddressBehaviour = BehaviorSubject();
 
-  Stream<ApiState<void>> get updateProfile => UpdateProfiledRemote(
+  Stream<ApiState<void>> updateProfile() {
+    if (fullNameBloc.textFormFiledBehaviour.value.text.isNotEmpty &&
+        buildingNameBloc.textFormFiledBehaviour.value.text.isNotEmpty) {
+      return UpdateProfiledRemote(
         body: UpdateProfileRequestBody(
           clientId: clientIDBehaviour.value,
           email: clientEmailBehaviour.value,
           mobile: phoneBloc.value,
-          name: fullNameBloc.value,
+          name: "${fullNameBloc.value}-${buildingNameBloc.value}",
         ),
       ).callApiAsStream();
+    } else
+      return Stream.value(IdleState());
+  }
 
   final ButtonBloc buttonBloc = ButtonBloc();
 
@@ -47,13 +53,10 @@ class UpdateProfileBloc extends BlocBase {
       ValidatorModule().isFiledNotEmpty(fullNameBloc.value);
 
   void loadDeliveryAddress() {
-    if (fullNameBloc.textFormFiledBehaviour.value.text.isNotEmpty &&
-        buildingNameBloc.textFormFiledBehaviour.value.text.isNotEmpty) {
-      DeliveryAddressRemote().callApiAsStream().listen((event) {
-        _deliveryAddressBehaviour.sink.add(event);
-        initAddress(event.response!);
-      });
-    }
+    DeliveryAddressRemote().callApiAsStream().listen((event) {
+      deliveryAddressBehaviour.sink.add(event);
+      initAddress(event.response!);
+    });
   }
 
   void initAddress(DeliveryAddressMapper deliveryAddress) {
@@ -63,17 +66,17 @@ class UpdateProfileBloc extends BlocBase {
     List<String> numberAndStreet = dashSplitting[0].split(' ');
 
     String buildingNumber = numberAndStreet[0];
-    String buildingName = '';
-    for (int i = 1; i < numberAndStreet.length; i++) {
-      buildingName += numberAndStreet[i] + ' ';
-    }
+    // String buildingName = '';
+    // for (int i = 1; i < numberAndStreet.length; i++) {
+    //   buildingName += numberAndStreet[i] + ' ';
+    // }
 
     String district = dashSplitting.length > 1 ? dashSplitting[1] : '';
     String governorate = dashSplitting.length > 2 ? dashSplitting[2] : '';
 
-    buildingNameBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: buildingName));
-    buildingNameBloc.updateStringBehaviour(buildingName);
+    // buildingNameBloc.textFormFiledBehaviour.sink
+    //     .add(TextEditingController(text: buildingName));
+    // buildingNameBloc.updateStringBehaviour(buildingName);
 
     buildingNumberBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: buildingNumber));
