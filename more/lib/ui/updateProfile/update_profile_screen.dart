@@ -51,7 +51,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   }
 
   Future<void> getUserData() async {
-    _bloc.loadDeliveryAddress();
+    // _bloc.loadDeliveryAddress();
 
     String name = widget.moreBloc.user.name;
     String userName = name.split('-')[0];
@@ -141,7 +141,17 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                   child: CustomButtonWidget(
                       idleText: S.of(context).save,
                       onTap: () {
-                        Navigator.pop(context);
+                        _bloc.updateProfile.listen(
+                          (event) {
+                            checkResponseStateWithButton(event, context,
+                                failedBehaviour:
+                                    _bloc.buttonBloc.failedBehaviour,
+                                buttonBehaviour: _bloc
+                                    .buttonBloc.buttonBehavior, onSuccess: () {
+                              Navigator.pop(context);
+                            });
+                          },
+                        );
                       }),
                 )
               ],

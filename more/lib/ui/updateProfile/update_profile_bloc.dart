@@ -4,8 +4,10 @@ import 'package:core/dto/commonBloc/latlong_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/update_profile/delivery_address_mapper.dart';
+import 'package:core/dto/models/update_profile/update_profile_request.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/dto/remote/deliver_address_remote.dart';
+import 'package:core/dto/remote/update_profile_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +19,20 @@ class UpdateProfileBloc extends BlocBase {
   final TextFormFiledBloc districtBloc = TextFormFiledBloc();
   final LatLongBloc latLongBloc = LatLongBloc();
   final TextFormFiledBloc governorateBloc = TextFormFiledBloc();
+  final BehaviorSubject<int> clientIDBehaviour = BehaviorSubject();
+  final BehaviorSubject<String> clientEmailBehaviour = BehaviorSubject();
+
   final BehaviorSubject<ApiState<DeliveryAddressMapper>>
       _deliveryAddressBehaviour = BehaviorSubject();
+
+  Stream<ApiState<void>> get updateProfile => UpdateProfiledRemote(
+        body: UpdateProfileRequestBody(
+          clientId: clientIDBehaviour.value,
+          email: clientEmailBehaviour.value,
+          mobile: phoneBloc.value,
+          name: fullNameBloc.value,
+        ),
+      ).callApiAsStream();
 
   final ButtonBloc buttonBloc = ButtonBloc();
 

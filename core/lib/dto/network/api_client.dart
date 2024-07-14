@@ -13,6 +13,7 @@ import 'package:core/dto/models/product/favourite_product_response.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
 import 'package:core/dto/models/register/register_request.dart';
+import 'package:core/dto/models/update_profile/update_profile_request.dart';
 
 import '../models/update_profile/delivery_address_response.dart';
 
@@ -75,6 +76,9 @@ abstract class ApiClient {
   @GET('${_ApiClientKey._deliveryAddress}/{userId}')
   Future<HeaderResponse<DeliveryAddressResponse>> getDeliveryAddress(
       @Path("userId") String userId);
+
+  @PUT(_ApiClientKey._updateProfile)
+  Future<HeaderResponse> updateProfile(@Body() UpdateProfileRequestBody body);
 
   @POST(_ApiClientKey._getProfile)
   Future<HeaderResponse<LoginResponse>> getProfile(
