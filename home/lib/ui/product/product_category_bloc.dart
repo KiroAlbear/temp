@@ -1,5 +1,7 @@
 import 'package:core/dto/commonBloc/load_more_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/category/subcategory_request.dart';
+import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
@@ -7,6 +9,7 @@ import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/favourite_product_remote.dart';
 import 'package:core/dto/remote/product_remote.dart';
 import 'package:core/dto/remote/search_product_remote.dart';
+import 'package:core/dto/remote/subcategory_remote.dart';
 
 class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int categoryId = 1;
@@ -16,8 +19,16 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   String? _searchValue;
 
   Stream<ApiState<List<ProductMapper>>> loadMore() async* {
+    Stream<ApiState<List<CategoryMapper>>> stream2 =
+        _getSubcategoryByCategory(1);
+    stream2.listen((event) {
+      if (event is SuccessState) {
+        print("Subcategory: ${event.response}");
+      }
+    });
+
     Stream<ApiState<List<ProductMapper>>> stream =
-        _loadWithSubcategoryBrand(12, 1);
+        _loadProductWithSubcategoryBrand(12, 1);
     stream.listen((event) {
       if (event is SuccessState) {
         setLoaded(event.response ?? []);
@@ -52,10 +63,15 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
       ProductRemote()
           .loadProduct(PageRequest(pageSize, pageNumber, categoryId, null));
 
-  Stream<ApiState<List<ProductMapper>>> _loadWithSubcategoryBrand(
+  Stream<ApiState<List<ProductMapper>>> _loadProductWithSubcategoryBrand(
           int subCategory, int brand) =>
       ProductRemote().loadProductBySubCategoryBrand(
           ProductSubcategoryBrandRequest(subCategory, brand));
+
+  Stream<ApiState<List<CategoryMapper>>> _getSubcategoryByCategory(
+          int subCategory) =>
+      SubcategoryRemote().loadSubCategoryByCategoryId(subCategory,
+          SubcategoryRequest(int.parse(SharedPrefModule().userId ?? '0')));
 
   void doSearch(String value) {
     _searchValue = value;

@@ -4,6 +4,8 @@ class _ApiClientKey {
   static const String _login = 'app/login';
 
   static const String _category = 'get/category';
+  static const String _brandBySubCategory = 'get/brand/by_subcategory';
+  static const String _subCategoryByCategory = 'get/category';
   static const String _allProduct = 'get/product';
   static const String _productBySubCategoryBrand = 'get/product/by_subcategory';
   static const String _favouriteProduct = 'get/fav';

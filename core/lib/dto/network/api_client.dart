@@ -2,6 +2,8 @@ import 'package:core/core.dart';
 import 'package:core/dto/models/address/address_request.dart';
 import 'package:core/dto/models/balance/balance_response.dart';
 import 'package:core/dto/models/baseModules/header_response.dart';
+import 'package:core/dto/models/brand/brand_request.dart';
+import 'package:core/dto/models/brand/brand_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
 import 'package:core/dto/models/client/client_request.dart';
 import 'package:core/dto/models/login/login_request.dart';
@@ -14,6 +16,8 @@ import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/models/register/register_request.dart';
+
+import '../models/category/subcategory_request.dart';
 
 part 'api_client.g.dart';
 part 'api_client_key.dart';
@@ -31,6 +35,14 @@ abstract class ApiClient {
   @POST(_ApiClientKey._category)
   Future<HeaderResponse<List<CategoryResponse>>> category(
       @Body() PageRequest request);
+
+  @GET("${_ApiClientKey._subCategoryByCategory}/{categoryId}")
+  Future<HeaderResponse<List<CategoryResponse>>> getSubCategoryByCategoryId(
+      @Path() String categoryId, @Body() SubcategoryRequest request);
+
+  @POST(_ApiClientKey._brandBySubCategory)
+  Future<HeaderResponse<List<BrandResponse>>> getBrandBySubCategory(
+      @Body() BrandRequest request);
 
   @POST(_ApiClientKey._allProduct)
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(
