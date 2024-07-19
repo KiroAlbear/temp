@@ -12,12 +12,10 @@ import 'package:core/dto/models/phone/phone_request.dart';
 import 'package:core/dto/models/product/favourite_product_response.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
+import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/models/register/register_request.dart';
-import 'package:retrofit/http.dart';
-import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
-
 part 'api_client_key.dart';
 
 @RestApi()
@@ -38,9 +36,9 @@ abstract class ApiClient {
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(
       @Body() PageRequest request);
 
-  @POST(_ApiClientKey._productByCategory)
-  Future<HeaderResponse<List<ProductResponse>>> getProductByCategory(
-      @Body() PageRequest request);
+  @GET(_ApiClientKey._productBySubCategoryBrand)
+  Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
+      @Body() ProductSubcategoryBrandRequest request);
 
   @POST(_ApiClientKey._favouriteProduct)
   Future<HeaderResponse<List<FavouriteProductResponse>>> getFavouriteProduct(
@@ -59,8 +57,7 @@ abstract class ApiClient {
       @Body() ClientRequest request);
 
   @POST(_ApiClientKey._changePassword)
-  Future<HeaderResponse> changePassword(
-      @Body() ChangePasswordRequest request);
+  Future<HeaderResponse> changePassword(@Body() ChangePasswordRequest request);
 
   @PUT('${_ApiClientKey._updateProfileImage}/{mobileNumber}')
   Future<HeaderResponse<LoginResponse>> updateProfileImage(
@@ -71,8 +68,10 @@ abstract class ApiClient {
   Future<HeaderResponse> deActiveProfile(@Body() PhoneRequest request);
 
   @PUT(_ApiClientKey._updateAddress)
-  Future<HeaderResponse<LoginResponse>> updateAddress(@Body() AddressRequest request);
+  Future<HeaderResponse<LoginResponse>> updateAddress(
+      @Body() AddressRequest request);
 
   @POST(_ApiClientKey._getProfile)
-  Future<HeaderResponse<LoginResponse>> getProfile(@Body() ClientRequest request);
+  Future<HeaderResponse<LoginResponse>> getProfile(
+      @Body() ClientRequest request);
 }

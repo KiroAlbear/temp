@@ -1,11 +1,12 @@
+import 'package:core/dto/commonBloc/load_more_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/page_request.dart';
-import 'package:core/dto/remote/search_product_remote.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/dto/remote/product_remote.dart';
-import 'package:core/dto/commonBloc/load_more_bloc.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
+import 'package:core/dto/models/product_subcategory_brand_request.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/favourite_product_remote.dart';
+import 'package:core/dto/remote/product_remote.dart';
+import 'package:core/dto/remote/search_product_remote.dart';
 
 class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int categoryId = 1;
@@ -15,16 +16,24 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   String? _searchValue;
 
   Stream<ApiState<List<ProductMapper>>> loadMore() async* {
-    Stream<ApiState<List<ProductMapper>>> stream = isForFavourite
-        ? loadWithFavourites
-        : _searchValue != null
-            ? _loadWithSearch(_searchValue!)
-            : loadWithSubCategory;
+    Stream<ApiState<List<ProductMapper>>> stream =
+        _loadWithSubcategoryBrand(12, 1);
     stream.listen((event) {
       if (event is SuccessState) {
         setLoaded(event.response ?? []);
       }
     });
+
+    // Stream<ApiState<List<ProductMapper>>> stream = isForFavourite
+    //     ? loadWithFavourites
+    //     : _searchValue != null
+    //         ? _loadWithSearch(_searchValue!)
+    //         : loadWithSubCategory;
+    // stream.listen((event) {
+    //   if (event is SuccessState) {
+    //     setLoaded(event.response ?? []);
+    //   }
+    // });
     yield* loadedListStream;
   }
 
@@ -42,6 +51,11 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   Stream<ApiState<List<ProductMapper>>> get loadWithSubCategory =>
       ProductRemote()
           .loadProduct(PageRequest(pageSize, pageNumber, categoryId, null));
+
+  Stream<ApiState<List<ProductMapper>>> _loadWithSubcategoryBrand(
+          int subCategory, int brand) =>
+      ProductRemote().loadProductBySubCategoryBrand(
+          ProductSubcategoryBrandRequest(subCategory, brand));
 
   void doSearch(String value) {
     _searchValue = value;
