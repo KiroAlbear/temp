@@ -8,8 +8,8 @@ import '../models/update_profile/delivery_address_response.dart';
 
 class DeliveryAddressRemote
     extends BaseRemoteModule<DeliveryAddressMapper, DeliveryAddressResponse> {
-  DeliveryAddressRemote() {
-    apiFuture = ApiClient(OdooDioModule().build()).getDeliveryAddress('51');
+  DeliveryAddressRemote(String userId) {
+    apiFuture = ApiClient(OdooDioModule().build()).getDeliveryAddress(userId);
   }
 
   @override

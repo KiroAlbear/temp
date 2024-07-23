@@ -20,6 +20,8 @@ class UpdateProfileBloc extends BlocBase {
   final LatLongBloc latLongBloc = LatLongBloc();
   final TextFormFiledBloc governorateBloc = TextFormFiledBloc();
   final BehaviorSubject<int> clientIDBehaviour = BehaviorSubject();
+  final BehaviorSubject<int> countryIdBehaviour = BehaviorSubject();
+  final BehaviorSubject<int> stateIdBehaviour = BehaviorSubject();
   final BehaviorSubject<String> clientEmailBehaviour = BehaviorSubject();
 
   final BehaviorSubject<ApiState<DeliveryAddressMapper>>
@@ -33,7 +35,15 @@ class UpdateProfileBloc extends BlocBase {
           clientId: clientIDBehaviour.value,
           email: clientEmailBehaviour.value,
           mobile: phoneBloc.value,
-          name: "${fullNameBloc.value}-${buildingNameBloc.value}",
+          name: fullNameBloc.value,
+          shopName: buildingNameBloc.value,
+          district: districtBloc.value,
+          city: governorateBloc.value,
+          street: buildingNumberBloc.value,
+          country_id: countryIdBehaviour.value,
+          state_id: stateIdBehaviour.value,
+          partner_latitude: latLongBloc.latitudeBehaviour.value,
+          partner_longitude: latLongBloc.longitudeBehaviour.value,
         ),
       ).callApiAsStream();
     } else
@@ -52,27 +62,27 @@ class UpdateProfileBloc extends BlocBase {
       ValidatorModule().isFiledNotEmpty(buildingNameBloc.value) &&
       ValidatorModule().isFiledNotEmpty(fullNameBloc.value);
 
-  void loadDeliveryAddress() {
-    DeliveryAddressRemote().callApiAsStream().listen((event) {
+  void loadDeliveryAddress(String userId) {
+    DeliveryAddressRemote(userId).callApiAsStream().listen((event) {
       deliveryAddressBehaviour.sink.add(event);
       initAddress(event.response!);
     });
   }
 
   void initAddress(DeliveryAddressMapper deliveryAddress) {
-    String fullAddress = deliveryAddress.street ?? '';
-    // List<String> spaceSplitting = fullAddress.split(' ');
-    List<String> dashSplitting = fullAddress.split('-');
-    List<String> numberAndStreet = dashSplitting[0].split(' ');
+    // String fullAddress = deliveryAddress.street ?? '';
+    // // List<String> spaceSplitting = fullAddress.split(' ');
+    // List<String> dashSplitting = fullAddress.split('-');
+    // List<String> numberAndStreet = dashSplitting[0].split(' ');
 
-    String buildingNumber = numberAndStreet[0];
+    String buildingNumber = deliveryAddress.street;
     // String buildingName = '';
     // for (int i = 1; i < numberAndStreet.length; i++) {
     //   buildingName += numberAndStreet[i] + ' ';
     // }
 
-    String district = dashSplitting.length > 1 ? dashSplitting[1] : '';
-    String governorate = dashSplitting.length > 2 ? dashSplitting[2] : '';
+    String district = deliveryAddress.street2;
+    String governorate = deliveryAddress.city ?? '';
 
     // buildingNameBloc.textFormFiledBehaviour.sink
     //     .add(TextEditingController(text: buildingName));

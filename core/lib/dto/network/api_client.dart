@@ -82,5 +82,6 @@ abstract class ApiClient {
   Future<HeaderResponse> updateProfile(@Body() UpdateProfileRequestBody body);
 
   @POST(_ApiClientKey._getProfile)
-  Future<HeaderResponse<ProfileResponse>> getProfile(@Body() ClientRequest request);
+  Future<HeaderResponse<ProfileResponse>> getProfile(
+      @Body() ClientRequest request);
 }

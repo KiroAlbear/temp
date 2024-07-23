@@ -19,8 +19,6 @@ dependencies:
     path: home
   more:
     path: more
-  update_profile:
-    path: update_profile
 
   hl_image_picker: ^1.2.16
 

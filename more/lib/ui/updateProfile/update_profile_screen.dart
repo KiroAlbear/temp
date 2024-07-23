@@ -51,21 +51,31 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   }
 
   Future<void> getUserData() async {
-    _bloc.loadDeliveryAddress();
+    String userId =
+        widget.moreBloc.profileBehaviour.value.response?.id.toString() ?? '';
+    _bloc.loadDeliveryAddress(userId);
 
-    String name = widget.moreBloc.user.name;
-    String userId = widget.moreBloc.user.userId.toString();
-    String email = widget.moreBloc.user.phone;
-    String userName = name.split('-')[0];
-    String buildingName = name.split('-').length > 1 ? name.split('-')[1] : '';
+    // String name = widget.moreBloc.profileBehaviour.value.response?.name ?? '';
+
+    String email = widget.moreBloc.profileBehaviour.value.response?.email ?? '';
+    String phone =
+        widget.moreBloc.profileBehaviour.value.response?.mobile ?? '';
+    String userName =
+        widget.moreBloc.profileBehaviour.value.response?.name ?? '';
+    String buildingName =
+        widget.moreBloc.profileBehaviour.value.response?.shopName ?? '';
+
+    int countryId =
+        widget.moreBloc.profileBehaviour.value.response?.countryId ?? 0;
+    int stateId = widget.moreBloc.profileBehaviour.value.response?.stateId ?? 0;
 
     _bloc.fullNameBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: userName));
     _bloc.fullNameBloc.updateStringBehaviour(userName);
 
     _bloc.phoneBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: widget.moreBloc.user.phone));
-    _bloc.phoneBloc.updateStringBehaviour(widget.moreBloc.user.phone);
+        .add(TextEditingController(text: phone));
+    _bloc.phoneBloc.updateStringBehaviour(phone);
 
     _bloc.buildingNameBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: buildingName));
@@ -73,6 +83,9 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
 
     _bloc.clientIDBehaviour.sink.add(int.parse(userId));
     _bloc.clientEmailBehaviour.sink.add(email);
+
+    _bloc.countryIdBehaviour.sink.add(countryId);
+    _bloc.stateIdBehaviour.sink.add(stateId);
   }
 
   @override
