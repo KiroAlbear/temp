@@ -21,7 +21,10 @@ class LoginWidget extends StatefulWidget {
   final bool enableSkip;
 
   const LoginWidget(
-      {super.key, required this.logo, required this.biometricImage, required this.enableSkip});
+      {super.key,
+      required this.logo,
+      required this.biometricImage,
+      required this.enableSkip});
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -57,10 +60,7 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
               SizedBox(
                 height: 12.h,
               ),
-              MobileCountryWidget(
-                  mobileBloc: _bloc.mobileBloc,
-                  countryList: _bloc.fakeList,
-                  countryBloc: _bloc.countryBloc),
+              _countryStream,
               SizedBox(
                 height: 24.h,
               ),
@@ -87,6 +87,16 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
             ],
           ),
         ),
+      );
+
+  Widget get _countryStream => StreamBuilder(
+        stream: _bloc.countryStream,
+        builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
+            snapshot.data!, context,
+            onSuccess:  MobileCountryWidget(
+                mobileBloc: _bloc.mobileBloc,
+                countryList: snapshot.data?.response ?? [],
+                countryBloc: _bloc.countryBloc)),
       );
 
   Widget get _passwordTextFormFiled => CustomTextFormFiled(
@@ -117,13 +127,12 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: _button(snapshot.data?? false)),
+            Expanded(child: _button(snapshot.data ?? false)),
             if (snapshot.data ?? false)
-            SizedBox(
-              width: 21.w,
-            ),
-            if (snapshot.data ?? false)
-            _biometricButton,
+              SizedBox(
+                width: 21.w,
+              ),
+            if (snapshot.data ?? false) _biometricButton,
           ],
         ),
         initialData: false,
@@ -135,10 +144,14 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
               .authenticateWithBiometric(S.of(context).biometricLoginMessage)
               .then((value) {
             if (value) {
-              _bloc.mobileBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: SharedPrefModule().userName));
-              _bloc.passwordBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: SharedPrefModule().password));
-              _bloc.mobileBloc.updateStringBehaviour(SharedPrefModule().userName??'');
-              _bloc.passwordBloc.updateStringBehaviour(SharedPrefModule().password??'');
+              _bloc.mobileBloc.textFormFiledBehaviour.sink.add(
+                  TextEditingController(text: SharedPrefModule().userName));
+              _bloc.passwordBloc.textFormFiledBehaviour.sink.add(
+                  TextEditingController(text: SharedPrefModule().password));
+              _bloc.mobileBloc
+                  .updateStringBehaviour(SharedPrefModule().userName ?? '');
+              _bloc.passwordBloc
+                  .updateStringBehaviour(SharedPrefModule().password ?? '');
               _bloc.login.listen((event) {
                 checkResponseStateWithButton(event, context,
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,

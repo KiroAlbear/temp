@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/odoo_dio_module.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,9 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                 height: 16.h,
               ),
               _buildList,
-              SizedBox(height: 20.h,),
+              SizedBox(
+                height: 20.h,
+              ),
             ],
           ),
         ),
@@ -54,14 +57,16 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
       customTextStyle: MediumStyle(fontSize: 26.sp, color: secondaryColor));
 
   Widget get _buildList => Expanded(
-    child: ListView.separated(
+        child: ListView.separated(
           itemBuilder: (context, index) => _item(widget.dropDownList[index]),
           scrollDirection: Axis.vertical,
           itemCount: widget.dropDownList.length,
           shrinkWrap: true,
-      separatorBuilder: (context, index) => SizedBox(height: 8.h,),
+          separatorBuilder: (context, index) => SizedBox(
+            height: 8.h,
+          ),
         ),
-  );
+      );
 
   Widget _item(DropDownMapper item) => InkWell(
         onTap: () {
@@ -76,13 +81,15 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               ImageHelper(
-                image: item.image,
+                image: OdooDioModule().baseUrl + item.image,
                 imageType: ImageType.network,
                 width: 40.w,
                 height: 26.h,
                 boxFit: BoxFit.fill,
               ),
-              SizedBox(width: 16.w,),
+              SizedBox(
+                width: 16.w,
+              ),
               CustomText(
                   text: item.name,
                   customTextStyle:

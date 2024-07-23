@@ -2,9 +2,11 @@ import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/button_bloc.dart';
 import 'package:core/dto/commonBloc/drop_down_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
-import 'package:core/dto/modules/constants_module.dart';
+import 'package:core/dto/remote/check_phone_remote.dart';
 import 'package:core/dto/modules/validator_module.dart';
+import 'package:core/dto/remote/country_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
 class RegisterBloc extends BlocBase {
@@ -25,15 +27,10 @@ class RegisterBloc extends BlocBase {
     }
   }
 
-  List<DropDownMapper> get fakeList => [
-        DropDownMapper(
-            name: 'Egypt',
-            id: '245',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-      ];
+  Stream<ApiState<List<DropDownMapper>>> get countryStream =>
+      CountryRemote().callApiAsStream();
+
+  Stream<ApiState<bool>> get checkPhone=> CheckPhoneRemote(mobileBloc.value).callApiAsStream();
 
   @override
   void dispose() {

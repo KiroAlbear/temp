@@ -108,5 +108,6 @@
   "scanText": "تأكد من وجود الباركود ضمن\nالعلامات السوداء لمسح العنصر\nضوئيًا",
   "promoDetails": "تفاصيل العرض",
   "newPassword": "ادخل كلمة السر الجديدة",
-  "confirmNewPassword": "ادخل تاكيد كلمة السر الجديدة"
+  "confirmNewPassword": "ادخل تاكيد كلمة السر الجديدة",
+  "mobileAlreadyRegistered": "رقم الهاتف مسجل بالفعل من قبل"
 }

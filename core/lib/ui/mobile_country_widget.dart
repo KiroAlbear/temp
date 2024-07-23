@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/drop_down_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -38,7 +39,7 @@ class MobileCountryWidget extends StatelessWidget {
 
   Widget get _countryPicker => CountryWidget(
         countryBloc: countryBloc,
-        countryList: countryList,
+    countryList: countryList,
       );
 
   Widget _mobileTextFormFiled(BuildContext context) => CustomTextFormFiled(

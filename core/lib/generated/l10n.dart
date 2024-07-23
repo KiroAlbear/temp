@@ -1149,6 +1149,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Mobile already registered before`
+  String get mobileAlreadyRegistered {
+    return Intl.message(
+      'Mobile already registered before',
+      name: 'mobileAlreadyRegistered',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

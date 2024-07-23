@@ -108,5 +108,6 @@
   "scanText": "Make sure barcode is\nblack mark to scan",
   "promoDetails": "Promo details",
   "newPassword": "Enter the new password",
-  "confirmNewPassword": "Enter to confirm the new password"
+  "confirmNewPassword": "Enter to confirm the new password",
+  "mobileAlreadyRegistered": "Mobile already registered before"
 }

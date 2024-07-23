@@ -3,6 +3,8 @@ import 'package:core/dto/models/address/address_request.dart';
 import 'package:core/dto/models/balance/balance_response.dart';
 import 'package:core/dto/models/baseModules/header_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
+import 'package:core/dto/models/checkPhone/check_phone_request.dart';
+import 'package:core/dto/models/checkPhone/check_phone_response.dart';
 import 'package:core/dto/models/client/client_request.dart';
 import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
@@ -14,8 +16,7 @@ import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
 import 'package:core/dto/models/profile/profile_response.dart';
 import 'package:core/dto/models/register/register_request.dart';
-import 'package:retrofit/http.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:core/dto/models/country/country_response.dart';
 
 part 'api_client.g.dart';
 
@@ -76,4 +77,10 @@ abstract class ApiClient {
 
   @POST(_ApiClientKey._getProfile)
   Future<HeaderResponse<ProfileResponse>> getProfile(@Body() ClientRequest request);
+
+  @POST(_ApiClientKey._getCountry)
+  Future<HeaderResponse<List<CountryResponse>>> getCountry();
+
+  @GET(_ApiClientKey._checkPhone)
+  Future<HeaderResponse<CheckPhoneResponse>> checkPhone(@Body() CheckPhoneRequest request);
 }
