@@ -12,6 +12,7 @@ import 'package:core/dto/models/phone/phone_request.dart';
 import 'package:core/dto/models/product/favourite_product_response.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
+import 'package:core/dto/models/profile/profile_response.dart';
 import 'package:core/dto/models/register/register_request.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
@@ -74,5 +75,5 @@ abstract class ApiClient {
   Future<HeaderResponse<LoginResponse>> updateAddress(@Body() AddressRequest request);
 
   @POST(_ApiClientKey._getProfile)
-  Future<HeaderResponse<LoginResponse>> getProfile(@Body() ClientRequest request);
+  Future<HeaderResponse<ProfileResponse>> getProfile(@Body() ClientRequest request);
 }

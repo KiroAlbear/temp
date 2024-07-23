@@ -22,6 +22,9 @@ class RegisterRequest {
   @JsonKey(name: 'partner_latitude')
   String latitude;
 
+  @JsonKey(name: 'shop_name')
+  String shopName;
+
   @JsonKey(name: 'partner_longitude')
   String longitude;
 
@@ -33,6 +36,7 @@ class RegisterRequest {
     required this.name,
     required this.latitude,
     required this.longitude,
+    required this.shopName
   });
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) =>

@@ -396,14 +396,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<LoginResponse>> getProfile(request) async {
+  Future<HeaderResponse<ProfileResponse>> getProfile(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<LoginResponse>>(Options(
+        _setStreamType<HeaderResponse<ProfileResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -415,9 +415,9 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<LoginResponse>.fromJson(
+    final value = HeaderResponse<ProfileResponse>.fromJson(
       _result.data!,
-      (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
+      (json) => ProfileResponse.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

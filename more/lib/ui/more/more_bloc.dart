@@ -8,14 +8,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:core/dto/models/balance/balance_mapper.dart';
 import 'package:core/dto/remote/balance_remote.dart';
 import 'package:core/dto/remote/profile_remote.dart';
-import 'package:core/dto/models/login/login_mapper.dart';
+import 'package:core/dto/models/profile/profile_mapper.dart';
 
 class MoreBloc extends BlocBase {
   final PermissionBloc cameraPermissionBloc = PermissionBloc();
   final PermissionBloc galleryPermissionBloc = PermissionBloc();
 
   final BehaviorSubject<
-      ApiState<LoginMapper>> _profileBehaviour = BehaviorSubject()
+      ApiState<ProfileMapper>> _profileBehaviour = BehaviorSubject()
     ..sink.add(LoadingState());
   final BehaviorSubject<String> _selectedFileBehaviour = BehaviorSubject()
     ..sink.add('');
@@ -47,7 +47,7 @@ class MoreBloc extends BlocBase {
   Stream<ApiState<BalanceMapper>> get balanceStream =>
       BalanceRemote().callApiAsStream();
 
-  Stream<ApiState<LoginMapper>> get userStream => _profileBehaviour.stream;
+  Stream<ApiState<ProfileMapper>> get userStream => _profileBehaviour.stream;
 
   MoreBloc() {
     _selectedFileBehaviour.listen((value) {
@@ -74,9 +74,9 @@ class MoreBloc extends BlocBase {
   }
 
   void updateProfile(String name, String shopName){
-    LoginMapper loginMapper = _profileBehaviour.valueOrNull!.response!;
-    loginMapper.name = '$name-$shopName';
-    _profileBehaviour.sink.add(SuccessState(loginMapper));
+    ProfileMapper profileMapper = _profileBehaviour.valueOrNull!.response!;
+    profileMapper.name = '$name-$shopName';
+    _profileBehaviour.sink.add(SuccessState(profileMapper));
   }
 
   @override
