@@ -16,6 +16,9 @@ class CategoryResponse{
   @JsonKey(name: 'image_1920')
   String? image;
 
+  @JsonKey(name: 'parent_id')
+  List<Object>? parentId;
+
   CategoryResponse();
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>

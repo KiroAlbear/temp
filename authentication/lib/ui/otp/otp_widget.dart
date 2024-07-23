@@ -170,7 +170,7 @@ class _OtpWidgetState extends State<OtpWidget> {
         initialData: false,
         builder: (context, enableSnapShot) => StreamBuilder(
           stream: _bloc.timeStream,
-          initialData: 60,
+          initialData: 59,
           builder: (context, timeSnapShot) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,7 +180,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                 child: CustomText(
                     text: S
                         .of(context)
-                        .resendOtpAfter('00:${timeSnapShot.data ?? 60}'),
+                        .resendOtpAfter('0:${timeSnapShot.data ?? 59}'),
                     customTextStyle:
                         RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
               ),
@@ -206,7 +206,9 @@ class _OtpWidgetState extends State<OtpWidget> {
       );
 
   Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).validateOtp,
+        idleText: S.of(context).next,
+        height: 60.h,
+        textStyle: SemiBoldStyle(fontSize: 16.w, color: lightBlackColor).getStyle(),
         onTap: () {
           if (_bloc.isValid) {
             widget.authenticationSharedBloc.userData = _bloc.userData;

@@ -22,7 +22,8 @@ class RegisterRemote extends BaseRemoteModule<LoginMapper, LoginResponse> {
         password: password,
         confirmPassword: password,
         phone: phone,
-        name: '$name-$shopName',
+        name: name,
+        shopName: shopName,
         latitude: latitude,
         longitude: longitude));
   }

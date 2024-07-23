@@ -134,21 +134,26 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
         isPassword: true,
       );
 
-  Widget get _confirmPasswordFiled => CustomTextFormFiled(
-        onChanged: (value) =>
-            _bloc.confirmPasswordBloc.updateStringBehaviour(value),
-        textFiledControllerStream:
-            _bloc.confirmPasswordBloc.textFormFiledStream,
-        labelText: S.of(context).confirmNewPassword,
-        textInputAction: TextInputAction.done,
-        textInputType: TextInputType.text,
-        textCapitalization: TextCapitalization.none,
-
-        validator: (value) => ValidatorModule()
-            .matchValidator(context)
-            .validateMatch(value ?? '', _bloc.passwordBloc.value),
-        isPassword: true,
-      );
+  Widget get _confirmPasswordFiled => StreamBuilder<String>(
+    stream: _bloc.passwordBloc.stringStream,
+    initialData: '',
+    builder: (context, snapshot) {
+      return CustomTextFormFiled(
+            onChanged: (value) =>
+                _bloc.confirmPasswordBloc.updateStringBehaviour(value),
+            textFiledControllerStream:
+                _bloc.confirmPasswordBloc.textFormFiledStream,
+            labelText: S.of(context).confirmNewPassword,
+            textInputAction: TextInputAction.done,
+            textInputType: TextInputType.text,
+            textCapitalization: TextCapitalization.none,
+            validator: (value) => ValidatorModule()
+                .matchValidator(context)
+                .validateMatch(value ?? '', snapshot.data??''),
+            isPassword: true,
+          );
+    }
+  );
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).save,

@@ -95,9 +95,8 @@ class NewAccountBloc extends BlocBase {
   Stream<
       ApiState<LoginMapper>> updateAddress(int clientId) => UpdateAddressRemote(
           clientId: clientId,
-          street:
-              '${streetNameBloc.value}-${neighborhoodBloc.value}-${cityBloc.value}',
-          street2: '',
+          street: streetNameBloc.value,
+          street2: neighborhoodBloc.value,
           countryId: _countryId,
           city: cityBloc.value,
           latitude: _latitudeBehaviour.valueOrNull ?? 0.0,

@@ -15,6 +15,7 @@ RegisterRequest _$RegisterRequestFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       latitude: json['partner_latitude'] as String,
       longitude: json['partner_longitude'] as String,
+      shopName: json['shop_name'] as String,
     );
 
 Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
@@ -25,5 +26,6 @@ Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
       'phone': instance.phone,
       'name': instance.name,
       'partner_latitude': instance.latitude,
+      'shop_name': instance.shopName,
       'partner_longitude': instance.longitude,
     };

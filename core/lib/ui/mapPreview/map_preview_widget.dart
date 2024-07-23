@@ -1,11 +1,16 @@
 import 'package:core/core.dart';
+import 'package:core/dto/commonBloc/current_location_bloc.dart';
+import 'package:core/dto/commonBloc/permission_bloc.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/bloc_base.dart';
+import 'package:core/ui/custom_progress_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/mapPreview/map_preview_bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 
 class MapPreviewWidget extends StatefulWidget {
@@ -16,6 +21,8 @@ class MapPreviewWidget extends StatefulWidget {
   final bool showEditLocation;
   final VoidCallback clickOnChangeLocation;
 
+  final Function(double latitude, double longitude)? onLocationDetection;
+
   const MapPreviewWidget(
       {super.key,
       this.latitude,
@@ -23,7 +30,8 @@ class MapPreviewWidget extends StatefulWidget {
       this.height,
       this.width,
       this.showEditLocation = true,
-      required this.clickOnChangeLocation});
+      required this.clickOnChangeLocation,
+      this.onLocationDetection});
 
   @override
   State<MapPreviewWidget> createState() => _MapPreviewWidgetState();
@@ -52,7 +60,7 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
       _bloc.isLocationChanged = true;
       _bloc.latLng(widget.latitude ?? 0.0, widget.longitude ?? 0.0);
     }
-    _bloc.initPermissionAndLocation(context);
+    _bloc.initPermissionAndLocation(context, onLocationDetection: widget.onLocationDetection);
     return _blocProvider;
   }
 

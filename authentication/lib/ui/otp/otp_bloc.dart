@@ -13,7 +13,7 @@ class OtpBloc extends BlocBase {
   final BehaviorSubject<bool> _enableSendOtpBehaviour = BehaviorSubject()
     ..sink.add(false);
   late Timer _timer;
-  final int _otpTimerInSeconds = 60;
+  final int _otpTimerInSeconds = 59;
   final BehaviorSubject<int> _timeBehaviour = BehaviorSubject()..sink.add(0);
   String userData = '';
 

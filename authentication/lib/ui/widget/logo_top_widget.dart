@@ -74,7 +74,7 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
             onTap: () => CustomNavigatorModule.navigatorKey.currentState
                 ?.pushReplacementNamed(AppScreenEnum.home.name),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 26.w),
               child: CustomText(
                   text: S.of(context).skip,
                   customTextStyle:

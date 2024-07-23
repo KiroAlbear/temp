@@ -183,8 +183,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         controller: controller,
         keyboardType: widget.textInputType,
         enabled: widget.enable,
-
-        enableInteractiveSelection: widget.enableInteractiveSelection,
+        enableInteractiveSelection: widget.isPassword ? false : widget.enableInteractiveSelection,
         expands: widget.expanded,
         autofocus: widget.autoFocus,
         maxLength: widget.maxLength,
