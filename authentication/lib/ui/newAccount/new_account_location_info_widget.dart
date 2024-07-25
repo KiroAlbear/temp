@@ -1,10 +1,14 @@
 import 'package:authentication/ui/newAccount/new_account_bloc.dart';
 import 'package:core/core.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
+import 'package:core/ui/custom_drop_down_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:core/ui/mapPreview/map_preview_widget.dart';
@@ -22,7 +26,7 @@ class NewAccountLocationInfoWidget extends StatefulWidget {
 }
 
 class _NewAccountLocationInfoWidgetState
-    extends State<NewAccountLocationInfoWidget> {
+    extends State<NewAccountLocationInfoWidget> with ResponseHandlerModule {
   @override
   Widget build(BuildContext context) => Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -75,9 +79,10 @@ class _NewAccountLocationInfoWidgetState
             },
             latitude: latitudeSnapShot.data,
             longitude: longitudeSnapShot.data,
-            onLocationDetection: (latitude, longitude) {
+            onLocationDetection: (latitude, longitude) async{
               widget.newAccountBloc.latitude = latitude;
               widget.newAccountBloc.longitude = longitude;
+              await widget.newAccountBloc.pickLocationInfo();
             },
           ),
         ),
@@ -139,16 +144,42 @@ class _NewAccountLocationInfoWidgetState
         ],
       );
 
-  Widget get _cityTextFormFiled => CustomTextFormFiled(
-        labelText: S.of(context).enterCity,
-        textFiledControllerStream:
-            widget.newAccountBloc.cityBloc.textFormFiledStream,
-        onChanged: (value) =>
-            widget.newAccountBloc.cityBloc.updateStringBehaviour(value),
-        validator: (value) =>
-            ValidatorModule().emptyValidator(context).call(value),
-        textInputType: TextInputType.text,
-        textInputAction: TextInputAction.next,
+  Widget get _cityTextFormFiled =>
+      StreamBuilder<ApiState<List<DropDownMapper>>>(
+          stream: widget.newAccountBloc.stateStream,
+          initialData: LoadingState(),
+          builder: (context, snapshot) =>
+              checkResponseStateWithLoadingWidget(snapshot.data!, context,
+                  onSuccess: CustomTextFormFiled(
+                    labelText: S.of(context).enterCity,
+                    textFiledControllerStream:
+                        widget.newAccountBloc.cityBloc.textFormFiledStream,
+                    onChanged: (value) => widget.newAccountBloc.cityBloc
+                        .updateStringBehaviour(value),
+                    validator: (value) =>
+                        ValidatorModule().emptyValidator(context).call(value),
+                    textInputType: TextInputType.none,
+                    textInputAction: TextInputAction.done,
+                    readOnly: true,
+                    onTap: () {
+                      _showStateDropDown(snapshot.data?.response ?? []);
+                    },
+                  )));
+
+  void _showStateDropDown(List<DropDownMapper> list) => showModalBottomSheet(
+        context: context,
+        builder: (context) => CustomDropDownWidget(
+          dropDownList: list,
+          onSelect: (value) {
+            widget.newAccountBloc.selectedState = value;
+            widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink
+                .add(TextEditingController(text: value.name));
+            widget.newAccountBloc.cityBloc.updateStringBehaviour(value.name);
+          },
+          headerText: S.of(context).chooseCity,
+        ),
+        backgroundColor: Colors.transparent,
+        enableDrag: false,
       );
 
   Widget get _districtTextFormFiled => CustomTextFormFiled(
@@ -180,8 +211,9 @@ class _NewAccountLocationInfoWidgetState
             widget.newAccountBloc.nextStep(NewAccountStepEnum.password);
           }
         },
-    height: 60.h,
-    textStyle: SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+        height: 60.h,
+        textStyle:
+            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
         failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
         validateStream: widget.newAccountBloc.validateLocationStream,
@@ -192,8 +224,9 @@ class _NewAccountLocationInfoWidgetState
         buttonColor: lightBlackColor,
         inLineBackgroundColor: whiteColor,
         textColor: lightBlackColor,
-    height: 60.h,
-    textStyle: SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+        height: 60.h,
+        textStyle:
+            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         buttonShapeEnum: ButtonShapeEnum.outline,
         onTap: () {
           widget.newAccountBloc.nextStep(NewAccountStepEnum.info);

@@ -41,6 +41,7 @@ dependencies:
   easy_url_launcher: ^0.0.7
   flutter_zxing: ^1.7.0
   country_codes: ^3.1.0+2
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:

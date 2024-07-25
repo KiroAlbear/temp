@@ -18,5 +18,7 @@ class  _ApiClientKey {
   static const String _getProfile ='get/profile';
   static const String _getCountry = 'get/country';
   static const String _checkPhone = 'app/checkphone';
+
+  static const String _getState = 'get/state';
   
 }

@@ -50,6 +50,8 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
                   },
                 );
               },
+              latitude: widget.newAccountBloc.latitude,
+              longitude: widget.newAccountBloc.longitude,
               hintText: S.of(context).locationYourLocation,
               buttonText: S.of(context).selectLocation),
         ],
@@ -84,9 +86,6 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     widget.newAccountBloc.longitude = longitude;
     widget.newAccountBloc.latitude = latitude;
-    widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: city));
-    widget.newAccountBloc.cityBloc.updateStringBehaviour(city);
     widget.newAccountBloc.neighborhoodBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: area));
     widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(area);
@@ -94,5 +93,13 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
         .add(TextEditingController(text: address));
     widget.newAccountBloc.streetNameBloc.updateStringBehaviour(address);
     widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
+    for (var element in widget.newAccountBloc.stateList) {
+      if(element.name == city){
+        widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink
+            .add(TextEditingController(text: city));
+        widget.newAccountBloc.cityBloc.updateStringBehaviour(city);
+        break;
+      }
+    }
   }
 }

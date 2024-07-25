@@ -10,12 +10,14 @@ class CustomDropDownWidget extends StatefulWidget {
   final List<DropDownMapper> dropDownList;
   final ValueChanged<DropDownMapper> onSelect;
   final String headerText;
+  final bool hasImage;
 
   const CustomDropDownWidget(
       {super.key,
       required this.dropDownList,
       required this.onSelect,
-      required this.headerText});
+      required this.headerText,
+      this.hasImage = false});
 
   @override
   State<CustomDropDownWidget> createState() => _CustomDropDownWidgetState();
@@ -80,6 +82,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              if(widget.hasImage)
               ImageHelper(
                 image: OdooDioModule().baseUrl + item.image,
                 imageType: ImageType.network,
@@ -87,6 +90,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
                 height: 26.h,
                 boxFit: BoxFit.fill,
               ),
+              if(widget.hasImage)
               SizedBox(
                 width: 16.w,
               ),

@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "chooseCity": MessageLookupByLibrary.simpleMessage("Choose your city"),
         "chooseYourCountry":
             MessageLookupByLibrary.simpleMessage("Choose your country"),
         "city": MessageLookupByLibrary.simpleMessage("Governorate"),

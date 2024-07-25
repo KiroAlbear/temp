@@ -109,5 +109,6 @@
   "promoDetails": "Promo details",
   "newPassword": "Enter the new password",
   "confirmNewPassword": "Enter to confirm the new password",
-  "mobileAlreadyRegistered": "Mobile already registered before"
+  "mobileAlreadyRegistered": "Mobile already registered before",
+  "chooseCity": "Choose your city"
 }
