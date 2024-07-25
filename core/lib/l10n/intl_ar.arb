@@ -109,6 +109,14 @@
   "promoDetails": "تفاصيل العرض",
   "newPassword": "ادخل كلمة السر الجديدة",
   "confirmNewPassword": "ادخل تاكيد كلمة السر الجديدة",
+  "updateProfileTitle": "بيانات حسابي",
+  "updateProfilePersonalData": "بياناتي الشخصية",
+  "updateProfileBuildingData": "بيانات المنشأه",
+  "updateProfileBuildingName": "اسم المنشأه",
+  "updateProfileLocation": "الموقع",
+  "updateProfileBuildingNumber": "رقم البناية / اسم الشارع",
+  "updateProfileDistrict": "الحي",
+  "updateProfileGovernorate": "المحافظة",
   "mobileAlreadyRegistered": "رقم الهاتف مسجل بالفعل من قبل",
   "chooseCity": "اختر محافظتك"
 }

@@ -16,6 +16,9 @@ class LoginResponse {
   @JsonKey(name: 'name')
   String? name;
 
+  @JsonKey(name: 'phone')
+  String? phone;
+
   @JsonKey(name: 'token')
   String? token;
 

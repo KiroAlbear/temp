@@ -12,16 +12,17 @@ final HomeBloc _homeBloc = HomeBloc(
     _productCategoryBloc.categoryId == categoryMapper.id;
   },
   doSearch: (value) {
-   if(value.isNotEmpty){
-     _productCategoryBloc.isForFavourite = false;
-     _productCategoryBloc.reset();
-     CustomNavigatorModule.navigatorKey.currentState
-         ?.pushNamed(AppScreenEnum.product.name);
-     _productCategoryBloc.doSearch(value);
-   }
+    if (value.isNotEmpty) {
+      _productCategoryBloc.isForFavourite = false;
+      _productCategoryBloc.reset();
+      CustomNavigatorModule.navigatorKey.currentState
+          ?.pushNamed(AppScreenEnum.product.name);
+      _productCategoryBloc.doSearch(value);
+    }
   },
 );
 final MoreBloc _moreBloc = MoreBloc();
+final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
 
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
@@ -86,6 +87,9 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       ));
     case AppScreenEnum.scanBarcode:
       return _buildPageRoute(_scanBarcodeWidget);
+    case AppScreenEnum.updateProfileScreen:
+      return _buildPageRoute(
+          UpdateProfileScreen(backIcon: Assets.svgIcBack, moreBloc: _moreBloc));
   }
 }
 
@@ -104,7 +108,8 @@ Widget get _loginWidgetWithoutSkip => const LoginWidget(
       enableSkip: false,
     );
 
-Widget get _scanBarcodeWidget=> ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
+Widget get _scanBarcodeWidget =>
+    ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
