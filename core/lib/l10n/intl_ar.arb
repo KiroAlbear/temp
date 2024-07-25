@@ -118,5 +118,6 @@
   "updateProfileDistrict": "الحي",
   "updateProfileGovernorate": "المحافظة",
   "mobileAlreadyRegistered": "رقم الهاتف مسجل بالفعل من قبل",
-  "chooseCity": "اختر محافظتك"
+  "chooseCity": "اختر محافظتك",
+  "mobileExistBefore": "رقم الهاتف مسجل لدينا بالفعل"
 }

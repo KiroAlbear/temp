@@ -126,6 +126,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل أنت متأكد من أنك تريد تسجيل الخروج؟"),
         "mobileAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
             "رقم الهاتف مسجل بالفعل من قبل"),
+        "mobileExistBefore": MessageLookupByLibrary.simpleMessage(
+            "رقم الهاتف مسجل لدينا بالفعل"),
         "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
         "newPassword":

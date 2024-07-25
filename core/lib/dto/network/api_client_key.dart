@@ -2,7 +2,6 @@ part of 'api_client.dart';
 
 class _ApiClientKey {
   static const String _login = 'app/login';
-
   static const String _category = 'get/category';
   static const String _allProduct = 'get/product';
   static const String _productByCategory = 'product/by_subcategory';
@@ -18,11 +17,8 @@ class _ApiClientKey {
   static const String _getProfile ='get/profile';
   static const String _getCountry = 'get/country';
   static const String _checkPhone = 'app/checkphone';
-
   static const String _getState = 'get/state';
-  
   static const String _deliveryAddress = 'get/delivery_address/';
   static const String _updateProfile = 'update/profile';
 
-  static const String _getProfile = 'get/profile';
 }

@@ -118,5 +118,6 @@
   "updateProfileLocation": "Location",
   "updateProfileBuildingNumber": "Building number / Street name",
   "updateProfileDistrict": "District",
-  "updateProfileGovernorate": "Governorate"
+  "updateProfileGovernorate": "Governorate",
+  "mobileExistBefore": "You mobile exist before"
 }

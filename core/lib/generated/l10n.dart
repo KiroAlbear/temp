@@ -1249,6 +1249,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You mobile exist before`
+  String get mobileExistBefore {
+    return Intl.message(
+      'You mobile exist before',
+      name: 'mobileExistBefore',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

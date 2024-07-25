@@ -25,6 +25,7 @@ import 'package:core/dto/models/state/state_response.dart';
 import 'package:retrofit/http.dart';
 
 part 'api_client.g.dart';
+
 part 'api_client_key.dart';
 
 @RestApi()
@@ -90,14 +91,15 @@ abstract class ApiClient {
   @POST(_ApiClientKey._getProfile)
   Future<HeaderResponse<ProfileResponse>> getProfile(
       @Body() ClientRequest request);
-  Future<HeaderResponse<ProfileResponse>> getProfile(@Body() ClientRequest request);
 
   @POST(_ApiClientKey._getCountry)
   Future<HeaderResponse<List<CountryResponse>>> getCountry();
 
   @GET(_ApiClientKey._checkPhone)
-  Future<HeaderResponse<CheckPhoneResponse>> checkPhone(@Body() CheckPhoneRequest request);
+  Future<HeaderResponse<CheckPhoneResponse>> checkPhone(
+      @Body() CheckPhoneRequest request);
 
   @POST(_ApiClientKey._getState)
-  Future<HeaderResponse<List<StateResponse>>> getState(@Body() StateRequest request);
+  Future<HeaderResponse<List<StateResponse>>> getState(
+      @Body() StateRequest request);
 }

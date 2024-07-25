@@ -129,6 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to logout?"),
         "mobileAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
             "Mobile already registered before"),
+        "mobileExistBefore":
+            MessageLookupByLibrary.simpleMessage("You mobile exist before"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
         "newPassword":
