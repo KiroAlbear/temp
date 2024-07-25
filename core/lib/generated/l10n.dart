@@ -1150,6 +1150,26 @@ class S {
     );
   }
 
+  /// `Mobile already registered before`
+  String get mobileAlreadyRegistered {
+    return Intl.message(
+      'Mobile already registered before',
+      name: 'mobileAlreadyRegistered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your city`
+  String get chooseCity {
+    return Intl.message(
+      'Choose your city',
+      name: 'chooseCity',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Update profile`
   String get updateProfileTitle {
     return Intl.message(
