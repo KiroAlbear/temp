@@ -157,7 +157,7 @@ class NewAccountBloc extends BlocBase {
   void _setState(Map<dynamic, dynamic> address) {
     if (stateList.isNotEmpty) {
       for (var element in stateList) {
-        if (element.name == address['state']) {
+        if (element.name.toLowerCase().contains(address['state'].toString().toLowerCase())) {
           cityBloc.textFormFiledBehaviour.sink
               .add(TextEditingController(text: element.name));
           cityBloc.updateStringBehaviour(element.name);

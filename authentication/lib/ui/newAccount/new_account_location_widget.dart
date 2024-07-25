@@ -94,10 +94,11 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
     widget.newAccountBloc.streetNameBloc.updateStringBehaviour(address);
     widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
     for (var element in widget.newAccountBloc.stateList) {
-      if(element.name == city){
+      if(element.name.toLowerCase().contains(city.toLowerCase())){
         widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink
-            .add(TextEditingController(text: city));
-        widget.newAccountBloc.cityBloc.updateStringBehaviour(city);
+            .add(TextEditingController(text: element.name));
+        widget.newAccountBloc.cityBloc.updateStringBehaviour(element.name);
+        widget.newAccountBloc.selectedState = element;
         break;
       }
     }
