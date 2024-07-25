@@ -170,6 +170,7 @@ class _NewAccountLocationInfoWidgetState
         context: context,
         builder: (context) => CustomDropDownWidget(
           dropDownList: list,
+          hasImage: false,
           onSelect: (value) {
             widget.newAccountBloc.selectedState = value;
             widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink

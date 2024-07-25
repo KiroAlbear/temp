@@ -21,16 +21,22 @@ class LoginBloc extends BlocBase {
   final BehaviorSubject<bool> _biometricSupportedBehaviour = BehaviorSubject()
     ..sink.add(false);
 
+  final BehaviorSubject<ApiState<List<DropDownMapper>>> _countryBehaviour = BehaviorSubject()..sink.add(LoadingState());
+
+
+  LoginBloc(){
+    _checkBiometricSupported();
+    CountryRemote().callApiAsStream().listen((event) {
+      _countryBehaviour.sink.add(event);
+    },);
+  }
+
   Stream<bool> get biometricSupportedStream =>
       _biometricSupportedBehaviour.stream;
 
   bool get _isLoggedBefore =>
       (SharedPrefModule().userName ?? '').isNotEmpty &&
       (SharedPrefModule().password ?? '').isNotEmpty;
-
-  LoginBloc() {
-    _checkBiometricSupported();
-  }
 
   void _checkBiometricSupported() {
     LocalAuthModule().isSupported.then((value) =>
@@ -53,7 +59,7 @@ class LoginBloc extends BlocBase {
     }
   }
 
-  Stream<ApiState<List<DropDownMapper>>> get countryStream => CountryRemote().callApiAsStream();
+  Stream<ApiState<List<DropDownMapper>>> get countryStream => _countryBehaviour.stream;
 
   Stream<ApiState<LoginMapper>> get login => LoginRemote(
           loginRequest: LoginRequest(

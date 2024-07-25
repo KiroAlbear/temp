@@ -15,6 +15,17 @@ class RegisterBloc extends BlocBase {
   final ValidatorModule _validatorModule = ValidatorModule();
   final ButtonBloc buttonBloc = ButtonBloc();
 
+  final BehaviorSubject<ApiState<List<DropDownMapper>>> _countryBehaviour =
+      BehaviorSubject()..sink.add(LoadingState());
+
+  RegisterBloc() {
+    CountryRemote().callApiAsStream().listen(
+      (event) {
+        _countryBehaviour.sink.add(event);
+      },
+    );
+  }
+
   Stream<bool> get validate => Rx.combineLatest2(mobileBloc.stringStream,
       countryBloc.selectedDropDownStream, (mobile, country) => isValid);
 
@@ -28,9 +39,10 @@ class RegisterBloc extends BlocBase {
   }
 
   Stream<ApiState<List<DropDownMapper>>> get countryStream =>
-      CountryRemote().callApiAsStream();
+      _countryBehaviour.stream;
 
-  Stream<ApiState<bool>> get checkPhone=> CheckPhoneRemote(mobileBloc.value).callApiAsStream();
+  Stream<ApiState<bool>> get checkPhone =>
+      CheckPhoneRemote(mobileBloc.value).callApiAsStream();
 
   @override
   void dispose() {

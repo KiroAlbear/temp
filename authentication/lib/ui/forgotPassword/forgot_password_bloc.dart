@@ -9,16 +9,25 @@ import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/dto/remote/country_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
-class ForgotPasswordBloc extends BlocBase{
+class ForgotPasswordBloc extends BlocBase {
   final DropDownBloc countryBloc = DropDownBloc();
   final ValidatorModule _validatorModule = ValidatorModule();
   final ButtonBloc buttonBloc = ButtonBloc();
   final TextFormFiledBloc mobileBloc = TextFormFiledBloc();
 
-  Stream<bool> get validate => Rx.combineLatest2(
-      mobileBloc.stringStream,
-      countryBloc.selectedDropDownStream,
-          (mobile, country) => isValid);
+  final BehaviorSubject<ApiState<List<DropDownMapper>>> _countryBehaviour =
+      BehaviorSubject()..sink.add(LoadingState());
+
+  ForgotPasswordBloc() {
+    CountryRemote().callApiAsStream().listen(
+      (event) {
+        _countryBehaviour.sink.add(event);
+      },
+    );
+  }
+
+  Stream<bool> get validate => Rx.combineLatest2(mobileBloc.stringStream,
+      countryBloc.selectedDropDownStream, (mobile, country) => isValid);
 
   bool get isValid {
     if (countryBloc.value != null) {
@@ -29,7 +38,8 @@ class ForgotPasswordBloc extends BlocBase{
     }
   }
 
-  Stream<ApiState<List<DropDownMapper>>> get countryStream => CountryRemote().callApiAsStream();
+  Stream<ApiState<List<DropDownMapper>>> get countryStream =>
+      _countryBehaviour.stream;
 
   @override
   void dispose() {
@@ -37,5 +47,4 @@ class ForgotPasswordBloc extends BlocBase{
     mobileBloc.dispose();
     countryBloc.dispose();
   }
-
 }

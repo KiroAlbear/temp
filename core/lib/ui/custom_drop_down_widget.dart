@@ -17,7 +17,7 @@ class CustomDropDownWidget extends StatefulWidget {
       required this.dropDownList,
       required this.onSelect,
       required this.headerText,
-      this.hasImage = false});
+      this.hasImage = true});
 
   @override
   State<CustomDropDownWidget> createState() => _CustomDropDownWidgetState();

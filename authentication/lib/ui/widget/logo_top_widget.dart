@@ -94,5 +94,5 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
   bool isSafeArea() => true;
 
   @override
-  bool canPop() => false;
+  bool canPop() => widget.canBack;
 }

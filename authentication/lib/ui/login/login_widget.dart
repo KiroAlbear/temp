@@ -93,7 +93,7 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
         stream: _bloc.countryStream,
         builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
             snapshot.data!, context,
-            onSuccess:  MobileCountryWidget(
+            onSuccess: MobileCountryWidget(
                 mobileBloc: _bloc.mobileBloc,
                 countryList: snapshot.data?.response ?? [],
                 countryBloc: _bloc.countryBloc)),
