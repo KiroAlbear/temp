@@ -38,7 +38,8 @@ class _DialogWidgetState extends State<DialogWidget> {
   @override
   Widget build(BuildContext context) => _getContainer(child: _column);
 
-  Widget _getContainer({required Widget child}) => DialogHeaderWidget(child: child);
+  Widget _getContainer({required Widget child}) =>
+      DialogHeaderWidget(child: child);
 
   Widget get _column => Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -137,6 +138,7 @@ class _DialogWidgetState extends State<DialogWidget> {
       height: 38.h,
       buttonColor: greyColor,
       textColor: whiteColor,
+      validateStream: Stream.value(true),
       buttonShapeEnum: ButtonShapeEnum.flat,
       onTap: () {
         if (widget.onCancel != null) {
