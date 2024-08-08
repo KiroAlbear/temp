@@ -5,7 +5,6 @@ import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/dio_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
