@@ -14,11 +14,10 @@ class _ApiClientKey {
   static const String _updateProfileImage = 'app/update_image';
   static const String _deActiveProfile = 'profile/deactivate';
   static const String _updateAddress = 'app/update_address';
-  static const String _getProfile ='get/profile';
+  static const String _getProfile = 'get/profile';
   static const String _getCountry = 'get/country';
   static const String _checkPhone = 'app/checkphone';
   static const String _getState = 'get/state';
   static const String _deliveryAddress = 'get/delivery_address/';
   static const String _updateProfile = 'update/profile';
-
 }
