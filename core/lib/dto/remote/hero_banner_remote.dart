@@ -27,6 +27,6 @@ class HeroBannerRemote
 
   HeroBannerRemote() {
     apiFuture = AdminClient(AdminDioModule().build())
-        .getHeroBanner(AdminHeaderRequest(pageIndex: 1, pageSize: 10));
+        .getHeroBanner(AdminHeaderRequest(pageIndex: 0, pageSize: 0));
   }
 }

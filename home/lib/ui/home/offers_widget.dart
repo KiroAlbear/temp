@@ -4,14 +4,17 @@ import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
+import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
 
 class OffersWidget extends StatefulWidget {
   final HomeBloc homeBloc;
+  final bool isForPromoTap;
 
-  const OffersWidget({super.key, required this.homeBloc});
+  const OffersWidget(
+      {super.key, required this.homeBloc, this.isForPromoTap = false});
 
   @override
   State<OffersWidget> createState() => _OffersWidgetState();
@@ -20,94 +23,92 @@ class OffersWidget extends StatefulWidget {
 class _OffersWidgetState extends State<OffersWidget>
     with ResponseHandlerModule {
   final PageController _pageScrollController =
-      PageController(viewportFraction: 0.89, initialPage: 0, keepPage: true);
+      PageController(viewportFraction: 0.6, keepPage: true);
 
   @override
   Widget build(BuildContext context) =>
       StreamBuilder<ApiState<List<OfferMapper>>>(
-        stream: widget.homeBloc.offerStream,
+        stream: widget.homeBloc.offersStream,
         builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
             snapshot.data ?? LoadingState<List<OfferMapper>>(), context,
-            onSuccess: _loadList(snapshot.data?.response ?? [])),
-        initialData: LoadingState(),
+            onSuccess: _buildWidget(snapshot.data?.response ?? [])),
       );
 
-  Widget _loadList(List<OfferMapper> list) => Column(
-    children: [
-      SizedBox(
-        height: 100.h,
+  Widget _buildWidget(List<OfferMapper> list) => SizedBox(
+        height: 85.h,
         child: ListView.separated(
-              itemBuilder: (context, index) =>
-                  _buildItem(context, index, list[index]),
-              shrinkWrap: true,
-              // physics: const PageScrollPhysics(),
-              // controller: _pageScrollController,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              scrollDirection: Axis.horizontal,
-              itemCount: list.length,
-              separatorBuilder: (BuildContext context, int index) => SizedBox(
-                width: 10.w,
-              ),
-            ),
-      ),
-      list.isNotEmpty ? SizedBox(
-        height: 50.h,
-      ): Container()
-    ],
-  );
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            // physics: const PageScrollPhysics(),
+            // controller: _pageScrollController,
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            itemBuilder: (context, index) => _buildItem(list[index]),
+            separatorBuilder: (context, index) => SizedBox(
+                  width: 20.w,
+                ),
+            itemCount: list.length),
+      );
 
-  Widget _buildItem(BuildContext context, int index, OfferMapper item) =>
-      Container(
-        height: 90.h,
-        width: MediaQuery.of(context).size.width - 40.w,
-        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
+  Widget _buildItem(OfferMapper item) => Container(
+        height: widget.isForPromoTap ? 104.h : 82.h,
+        width: widget.isForPromoTap
+            ? MediaQuery.of(context).size.width - 40.w
+            : 258.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
-            border: Border.all(width: 1.w, color: _whichBorderColor(index)),
-            color: _whichCardColor(index)),
+            color: promotionCardColor),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: CustomText(
-                  text: item.name,
-                  customTextStyle:
-                      BoldStyle(color: lightBlackColor, fontSize: 14.sp)),
+            SizedBox(
+              width: 16.w,
             ),
             Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                      text: item.name,
+                      customTextStyle:
+                          BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
+                  if (widget.isForPromoTap) ...[
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(9.w),
+                          border: Border.all(color: primaryColor, width: 1.w)),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 4.h, horizontal: 16.w),
+                      child: CustomText(
+                        text: S.of(context).promoDetails,
+                        customTextStyle: MediumStyle(
+                            color: lightBlackColor, fontSize: 12.sp),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            // CustomText(
+            //     text: item.description,
+            //     customTextStyle:
+            //         MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
                 child: ImageHelper(
-              image: item.image,
-              imageType: ImageType.networkSvg,
-              boxFit: BoxFit.contain,
-            ))
+                  image: item.image,
+                  imageType: ImageType.networkSvg,
+                  boxFit: BoxFit.contain,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 16.w,
+            ),
           ],
         ),
       );
-
-  Color _whichBorderColor(int index) {
-    if (index % 3 == 0) {
-      return primaryColor;
-    } else if (index % 3 == 1) {
-      return greenColor;
-    } else {
-      return redColor;
-    }
-  }
-
-  Color _whichCardColor(int index) {
-    if (index % 3 == 0) {
-      return yellowCardColor;
-    } else if (index % 3 == 1) {
-      return greenCardColor;
-    } else {
-      return redCardColor;
-    }
-  }
-
-  @override
-  void dispose() {
-    _pageScrollController.dispose();
-    super.dispose();
-  }
 }
