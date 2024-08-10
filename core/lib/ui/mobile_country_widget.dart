@@ -1,13 +1,13 @@
 import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/drop_down_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:flutter/material.dart';
+
 import 'custom_text_form_filed_widget.dart';
 
 class MobileCountryWidget extends StatelessWidget {
@@ -39,7 +39,7 @@ class MobileCountryWidget extends StatelessWidget {
 
   Widget get _countryPicker => CountryWidget(
         countryBloc: countryBloc,
-    countryList: countryList,
+        countryList: countryList,
       );
 
   Widget _mobileTextFormFiled(BuildContext context) => CustomTextFormFiled(
@@ -48,7 +48,8 @@ class MobileCountryWidget extends StatelessWidget {
         onChanged: (value) => mobileBloc.updateStringBehaviour(value),
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.number,
-        defaultTextStyle: RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+        defaultTextStyle:
+            RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         validator: (value) => ValidatorModule()
             .mobileValidator(context, countryBloc.value?.customValidator)
             .call(value),
