@@ -32,8 +32,8 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
 
   @override
   Widget getBody(BuildContext context) => Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.w),
-    child: Column(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Column(
           children: [
             SizedBox(
               height: 44.h,
@@ -72,14 +72,15 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
             ),
             CustomButtonWidget(
               idleText: S.of(context).start,
-              textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
+              textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 16.w)
+                  .getStyle(),
               height: 60.h,
               onTap: () => CustomNavigatorModule.navigatorKey.currentState
                   ?.pushReplacementNamed(AppScreenEnum.home.name),
             )
           ],
         ),
-  );
+      );
 
   @override
   void onPopInvoked(didPop) {
