@@ -12,8 +12,8 @@ import 'package:core/ui/custom_drop_down_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:core/ui/mapPreview/map_preview_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NewAccountLocationInfoWidget extends StatefulWidget {
   final NewAccountBloc newAccountBloc;
@@ -79,7 +79,7 @@ class _NewAccountLocationInfoWidgetState
             },
             latitude: latitudeSnapShot.data,
             longitude: longitudeSnapShot.data,
-            onLocationDetection: (latitude, longitude) async{
+            onLocationDetection: (latitude, longitude) async {
               widget.newAccountBloc.latitude = latitude;
               widget.newAccountBloc.longitude = longitude;
               await widget.newAccountBloc.pickLocationInfo();
@@ -97,6 +97,9 @@ class _NewAccountLocationInfoWidgetState
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         textInputType: TextInputType.text,
+        inputFormatter: [
+          FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
+        ],
         textInputAction: TextInputAction.next,
       );
 
@@ -192,6 +195,9 @@ class _NewAccountLocationInfoWidgetState
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         textInputType: TextInputType.text,
+        inputFormatter: [
+          FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
+        ],
         textInputAction: TextInputAction.next,
       );
 
