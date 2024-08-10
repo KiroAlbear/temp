@@ -107,82 +107,86 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
       StreamBuilder(
         stream: _bloc.deliveryAddressBehaviour.stream,
         builder: (context, snapshot) {
-          return checkResponseStateWithLoadingWidget(snapshot.data!, context,
-              onSuccess: Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                            text: S.of(context).updateProfilePersonalData,
-                            customTextStyle: BoldStyle(
-                                fontSize: 24.sp, color: lightBlackColor)),
-                        SizedBox(
-                          height: _headerSpacing,
-                        ),
-                        _nameTextField(context),
-                        SizedBox(
-                          height: _textfieldsSpacing,
-                        ),
-                        _phoneTextField(context),
-                        SizedBox(
-                          height: _textfieldsSpacing,
-                        ),
-                        CustomText(
-                            text: S.of(context).updateProfileBuildingData,
-                            customTextStyle: BoldStyle(
-                                fontSize: 24.sp, color: lightBlackColor)),
-                        SizedBox(
-                          height: _headerSpacing,
-                        ),
-                        _buildingNameTextField(context),
-                        SizedBox(
-                          height: _textfieldsSpacing,
-                        ),
-                        _locationView(context),
-                        SizedBox(
-                          height: _textfieldsSpacing,
-                        ),
-                        _buildingNumberTextField(context),
-                        SizedBox(
-                          height: _textfieldsSpacing,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(child: _districtTextField(context)),
-                            SizedBox(
-                              width: 16.w,
-                            ),
-                            Expanded(child: _governorateTextField(context)),
-                          ],
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 50.0, top: 33.0),
-                          child: CustomButtonWidget(
-                              idleText: S.of(context).save,
-                              onTap: () {
-                                _bloc.updateProfile().listen(
-                                  (event) {
-                                    checkResponseStateWithButton(event, context,
-                                        failedBehaviour:
-                                            _bloc.buttonBloc.failedBehaviour,
-                                        buttonBehaviour: _bloc.buttonBloc
-                                            .buttonBehavior, onSuccess: () {
-                                      widget.moreBloc.getProfileData();
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                );
-                              }),
-                        )
-                      ],
+          if (snapshot.data == null) {
+            return const SizedBox();
+          } else
+            return checkResponseStateWithLoadingWidget(snapshot.data!, context,
+                onSuccess: Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                              text: S.of(context).updateProfilePersonalData,
+                              customTextStyle: BoldStyle(
+                                  fontSize: 24.sp, color: lightBlackColor)),
+                          SizedBox(
+                            height: _headerSpacing,
+                          ),
+                          _nameTextField(context),
+                          SizedBox(
+                            height: _textfieldsSpacing,
+                          ),
+                          _phoneTextField(context),
+                          SizedBox(
+                            height: _textfieldsSpacing,
+                          ),
+                          CustomText(
+                              text: S.of(context).updateProfileBuildingData,
+                              customTextStyle: BoldStyle(
+                                  fontSize: 24.sp, color: lightBlackColor)),
+                          SizedBox(
+                            height: _headerSpacing,
+                          ),
+                          _buildingNameTextField(context),
+                          SizedBox(
+                            height: _textfieldsSpacing,
+                          ),
+                          _locationView(context),
+                          SizedBox(
+                            height: _textfieldsSpacing,
+                          ),
+                          _buildingNumberTextField(context),
+                          SizedBox(
+                            height: _textfieldsSpacing,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(child: _districtTextField(context)),
+                              SizedBox(
+                                width: 16.w,
+                              ),
+                              Expanded(child: _governorateTextField(context)),
+                            ],
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(bottom: 50.0, top: 33.0),
+                            child: CustomButtonWidget(
+                                idleText: S.of(context).save,
+                                onTap: () {
+                                  _bloc.updateProfile().listen(
+                                    (event) {
+                                      checkResponseStateWithButton(
+                                          event, context,
+                                          failedBehaviour:
+                                              _bloc.buttonBloc.failedBehaviour,
+                                          buttonBehaviour: _bloc.buttonBloc
+                                              .buttonBehavior, onSuccess: () {
+                                        widget.moreBloc.getProfileData();
+                                        Navigator.pop(context);
+                                      });
+                                    },
+                                  );
+                                }),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ));
+                ));
         },
       )
     ]);

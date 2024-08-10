@@ -7,23 +7,26 @@ import 'package:core/dto/network/admin_client.dart';
 
 import 'admin_base_remote_module.dart';
 
-class HeroBannerRemote extends AdminBaseRemoteModule<List<OfferMapper>, BannersResponse>{
+class HeroBannerRemote
+    extends AdminBaseRemoteModule<List<OfferMapper>, BannersResponse> {
   @override
   ApiState<List<OfferMapper>> onSuccessHandle(BannersResponse? response) {
     List<OfferMapper> list = [];
-    response?.bannerList?.forEach((element) {
-      list.add(OfferMapper(element));
-    },);
+    response?.bannerList?.forEach(
+      (element) {
+        list.add(OfferMapper(element));
+      },
+    );
     return SuccessState(list);
   }
 
   @override
-  Future<bool> refreshToken() async{
+  Future<bool> refreshToken() async {
     return true;
   }
 
-  HeroBannerRemote(){
+  HeroBannerRemote() {
     apiFuture = AdminClient(AdminDioModule().build())
-        .getHeroBanner(AdminHeaderRequest(pageIndex: 0, pageSize: 0));
+        .getHeroBanner(AdminHeaderRequest(pageIndex: 1, pageSize: 10));
   }
 }
