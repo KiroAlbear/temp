@@ -42,6 +42,9 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
       _bloc.nextStep(NewAccountStepEnum.info);
     } else if (await _bloc.stepsStream.first == NewAccountStepEnum.password) {
       _bloc.nextStep(NewAccountStepEnum.locationInfo);
+    } else if (await _bloc.stepsStream.first ==
+        NewAccountStepEnum.editLocation) {
+      _bloc.nextStep(NewAccountStepEnum.locationInfo);
     } else {
       // Navigator.pop(context);
       // Navigator.pop(context);
