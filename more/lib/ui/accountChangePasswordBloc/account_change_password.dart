@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_navigator_module.dart';
+import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -10,8 +10,9 @@ import 'package:core/ui/bases/bloc_base.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:core/ui/password_validation_widget.dart';
+import 'package:flutter/material.dart';
+
 import 'account_change_password_bloc.dart';
 
 class AccountChangePassword extends BaseStatefulWidget {
@@ -135,25 +136,24 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
       );
 
   Widget get _confirmPasswordFiled => StreamBuilder<String>(
-    stream: _bloc.passwordBloc.stringStream,
-    initialData: '',
-    builder: (context, snapshot) {
-      return CustomTextFormFiled(
-            onChanged: (value) =>
-                _bloc.confirmPasswordBloc.updateStringBehaviour(value),
-            textFiledControllerStream:
-                _bloc.confirmPasswordBloc.textFormFiledStream,
-            labelText: S.of(context).confirmNewPassword,
-            textInputAction: TextInputAction.done,
-            textInputType: TextInputType.text,
-            textCapitalization: TextCapitalization.none,
-            validator: (value) => ValidatorModule()
-                .matchValidator(context)
-                .validateMatch(value ?? '', snapshot.data??''),
-            isPassword: true,
-          );
-    }
-  );
+      stream: _bloc.passwordBloc.stringStream,
+      initialData: '',
+      builder: (context, snapshot) {
+        return CustomTextFormFiled(
+          onChanged: (value) =>
+              _bloc.confirmPasswordBloc.updateStringBehaviour(value),
+          textFiledControllerStream:
+              _bloc.confirmPasswordBloc.textFormFiledStream,
+          labelText: S.of(context).confirmNewPassword,
+          textInputAction: TextInputAction.done,
+          textInputType: TextInputType.text,
+          textCapitalization: TextCapitalization.none,
+          validator: (value) => ValidatorModule()
+              .matchValidator(context)
+              .validateMatch(value ?? '', snapshot.data ?? ''),
+          isPassword: true,
+        );
+      });
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).save,
@@ -165,7 +165,11 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
                     onSuccess: () {
-                  Navigator.pop(context);
+                  Future.delayed(const Duration(milliseconds: 600))
+                      .then((value) {
+                    AppProviderModule().logout(context);
+                  });
+                  // Navigator.pop(context);
                 });
               },
             );
