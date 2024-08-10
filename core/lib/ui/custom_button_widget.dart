@@ -115,8 +115,16 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       );
 
   Widget _button(ButtonState buttonState,
-          {String failedText = '', bool? enable}) =>
-      CustomProgressButton(
+      {String failedText = '', bool? enable}) {
+    bool isIgnoring = false;
+    if (enable == null)
+      isIgnoring = false;
+    else
+      isIgnoring = !enable;
+
+    return IgnorePointer(
+      ignoring: isIgnoring,
+      child: CustomProgressButton(
         stateWidgets: {
           ButtonState.idle: _idleText(enable ?? true),
           ButtonState.fail: _failText(failedText),
@@ -130,7 +138,8 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
               enable ?? true ? (widget.buttonColor ?? primaryColor) : greyColor,
           ButtonState.fail: redColor,
           ButtonState.loading: widget.buttonColor ?? primaryColor,
-          ButtonState.success: widget.successColor ?? (widget.buttonColor ?? primaryColor),
+          ButtonState.success:
+              widget.successColor ?? (widget.buttonColor ?? primaryColor),
         },
         onPressed: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -139,20 +148,23 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
           }
         },
         elevation: widget.elevation == null ? 0.r : widget.elevation!,
-        progressWidget:
-            FittedBox(child: CustomProgress(color: widget.progressColor?? secondaryColor)),
+        progressWidget: FittedBox(
+            child:
+                CustomProgress(color: widget.progressColor ?? secondaryColor)),
         progressIndicatorSize: 30.r,
         padding: EdgeInsets.zero,
-        height: widget.height?? 50.h,
+        height: widget.height ?? 50.h,
         enable: widget.enableClick,
         buttonShapeEnum: widget.buttonShapeEnum,
         progressAlignment: MainAxisAlignment.center,
         minWidth: 60.w,
-        maxWidth: widget.width?? MediaQuery.of(context).size.width -34.w,
+        maxWidth: widget.width ?? MediaQuery.of(context).size.width - 34.w,
         radius: widget.borderRadius ?? 12.0.r,
         state: buttonState,
         inLineBackgroundColor: widget.inLineBackgroundColor ?? whiteColor,
-      );
+      ),
+    );
+  }
 
   Widget _iconButton(ButtonState buttonState,
           {String failedText = '', bool? enable}) =>
@@ -184,8 +196,8 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
           widget.onTap();
         },
         elevation: widget.elevation == null ? 8.r : widget.elevation!,
-        progressWidget:
-            FittedBox(child: CustomProgress(color: widget.progressColor?? primaryColor)),
+        progressWidget: FittedBox(
+            child: CustomProgress(color: widget.progressColor ?? primaryColor)),
         progressIndicatorSize: 30.r,
         height: widget.height == null ? 45.h : widget.height!,
         enable: widget.enableClick,
@@ -197,7 +209,6 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         progressIndicatorAlignment: MainAxisAlignment.center,
         iconPadding: 4.w,
         padding: EdgeInsets.only(top: 8.h),
-
       );
 
   Widget _idleText(bool enable) => Text(
@@ -219,8 +230,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
     return failedText;
   }
 
-  Widget get _loadingText =>
-      Text('', style: widget.textStyle ?? _textStyle);
+  Widget get _loadingText => Text('', style: widget.textStyle ?? _textStyle);
 
   String get loadingString =>
       widget.loadingText == null ? S.of(context).loading : widget.loadingText!;
@@ -233,7 +243,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       style: widget.textStyle ?? _textStyle);
 
   TextStyle get _textStyle => MediumStyle(
-          color: widget.textColor?? lightBlackColor,
+          color: widget.textColor ?? lightBlackColor,
           fontSize: widget.textSize == null ? 20.sp : widget.textSize!)
       .getStyle();
 }
