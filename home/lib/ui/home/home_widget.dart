@@ -49,6 +49,12 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   bool isSafeArea() => true;
 
   @override
+  void onPopInvoked(didPop) {
+    handleCloseApplication();
+    super.onPopInvoked(didPop);
+  }
+
+  @override
   void initState() {
     super.initState();
     widget.homeBloc.loadData();

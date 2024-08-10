@@ -87,7 +87,7 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
   @override
   void onPopInvoked(didPop) {
     super.onPopInvoked(didPop);
-    handleCloseApplication();
+    // handleCloseApplication();
   }
 
   @override

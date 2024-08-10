@@ -85,7 +85,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
       );
 
   Widget get _button => Center(
-    child: CustomButtonWidget(
+        child: CustomButtonWidget(
           idleText: S.of(context).next,
           textStyle:
               SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
@@ -105,7 +105,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                           _bloc.mobileBloc.value,
                           AppScreenEnum.newAccount.name);
                       CustomNavigatorModule.navigatorKey.currentState
-                          ?.pushReplacementNamed(AppScreenEnum.otp.name);
+                          ?.pushNamed(AppScreenEnum.otp.name);
                     },
                   );
                 },
@@ -116,7 +116,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
           failedBehaviour: _bloc.buttonBloc.failedBehaviour,
           validateStream: _bloc.validate,
         ),
-  );
+      );
 
   Widget get _loginWidget => InkWell(
         onTap: () => CustomNavigatorModule.navigatorKey.currentState

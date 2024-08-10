@@ -5,16 +5,16 @@ import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:flutter/material.dart';
 
-class LoginWidget extends StatefulWidget {
+class LoginWidget extends BaseStatefulWidget {
   final String logo;
   final String biometricImage;
   final bool enableSkip;
@@ -29,11 +29,11 @@ class LoginWidget extends StatefulWidget {
   State<LoginWidget> createState() => _LoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
+class _LoginWidgetState extends BaseState<LoginWidget> {
   final LoginBloc _bloc = LoginBloc();
 
   @override
-  Widget build(BuildContext context) => LogoTopWidget(
+  Widget getBody(BuildContext context) => LogoTopWidget(
         canBack: false,
         logo: widget.logo,
         blocBase: _bloc,
@@ -198,7 +198,7 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
 
   Widget get _registerWidget => InkWell(
         onTap: () => CustomNavigatorModule.navigatorKey.currentState
-            ?.pushReplacementNamed(AppScreenEnum.register.name),
+            ?.pushNamed(AppScreenEnum.register.name),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -224,4 +224,18 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
     CustomNavigatorModule.navigatorKey.currentState
         ?.pushReplacementNamed(AppScreenEnum.home.name);
   }
+
+  @override
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => true;
+
+  @override
+  void onPopInvoked(didPop) {
+    handleCloseApplication();
+  }
+
+  @override
+  bool isSafeArea() => false;
 }

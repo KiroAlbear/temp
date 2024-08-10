@@ -37,16 +37,22 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
     _bloc.init(mobileNumber: widget.mobileNumber, countryId: widget.countryId);
   }
 
-  // void _handleBackPressing() async {
-  //   if (await _bloc.stepsStream.first == NewAccountStepEnum.locationInfo) {
-  //     _bloc.nextStep(NewAccountStepEnum.info);
-  //   } else if (await _bloc.stepsStream.first == NewAccountStepEnum.password) {
-  //     _bloc.nextStep(NewAccountStepEnum.locationInfo);
-  //   } else {
-  //     handleCloseApplication();
-  //     // Navigator.of(context).pop();
-  //   }
-  // }
+  void _handleBackPressing() async {
+    if (await _bloc.stepsStream.first == NewAccountStepEnum.locationInfo) {
+      _bloc.nextStep(NewAccountStepEnum.info);
+    } else if (await _bloc.stepsStream.first == NewAccountStepEnum.password) {
+      _bloc.nextStep(NewAccountStepEnum.locationInfo);
+    } else {
+      // Navigator.pop(context);
+      // Navigator.pop(context);
+      Navigator.pop(context);
+
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushNamed(AppScreenEnum.register.name);
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushNamed(AppScreenEnum.register.name);
+    }
+  }
 
   @override
   Widget getBody(BuildContext context) => BlocProvider(
@@ -196,12 +202,12 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   PreferredSizeWidget? appBar() => null;
 
   @override
-  bool canPop() => true;
+  bool canPop() => false;
 
-  // @override
-  // void onPopInvoked(didPop) {
-  //   _handleBackPressing();
-  // }
+  @override
+  void onPopInvoked(didPop) {
+    _handleBackPressing();
+  }
 
   @override
   bool isSafeArea() => false;

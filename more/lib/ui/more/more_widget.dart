@@ -76,6 +76,12 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   bool isSafeArea() => true;
 
   @override
+  void onPopInvoked(didPop) {
+    handleCloseApplication();
+    super.onPopInvoked(didPop);
+  }
+
+  @override
   Widget getBody(BuildContext context) =>
       StreamBuilder<ApiState<ProfileMapper>>(
         stream: widget.moreBloc.userStream,
