@@ -62,7 +62,8 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         inputFormatter: [
-          FilteringTextInputFormatter.allow(RegExp(r'[a-z\u0621-\u064a-\ ]'))
+          FilteringTextInputFormatter.allow(RegExp(r'[a-z\u0621-\u064a-\ ]')),
+          FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
         textInputAction: TextInputAction.next,
       );
@@ -78,7 +79,9 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         inputFormatter: [
-          FilteringTextInputFormatter.allow(RegExp(r'[a-z0-9\u0621-\u064a-\ ]'))
+          FilteringTextInputFormatter.allow(
+              RegExp(r'[a-z0-9\u0621-\u064a-\ ]')),
+          FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
         textInputAction: TextInputAction.next,
       );
