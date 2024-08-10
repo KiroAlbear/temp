@@ -6,26 +6,25 @@ import 'package:core/dto/models/category/category_response.dart';
 import 'package:core/dto/models/checkPhone/check_phone_request.dart';
 import 'package:core/dto/models/checkPhone/check_phone_response.dart';
 import 'package:core/dto/models/client/client_request.dart';
+import 'package:core/dto/models/country/country_response.dart';
 import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/password/change_password_request.dart';
 import 'package:core/dto/models/phone/phone_request.dart';
 import 'package:core/dto/models/product/favourite_product_response.dart';
+import 'package:core/dto/models/product/product_request.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
 import 'package:core/dto/models/profile/profile_response.dart';
 import 'package:core/dto/models/register/register_request.dart';
+import 'package:core/dto/models/state/state_request.dart';
+import 'package:core/dto/models/state/state_response.dart';
 import 'package:core/dto/models/update_profile/update_profile_request.dart';
 
 import '../models/update_profile/delivery_address_response.dart';
-import 'package:core/dto/models/country/country_response.dart';
-import 'package:core/dto/models/state/state_request.dart';
-import 'package:core/dto/models/state/state_response.dart';
-import 'package:retrofit/http.dart';
 
 part 'api_client.g.dart';
-
 part 'api_client_key.dart';
 
 @RestApi()
@@ -44,7 +43,7 @@ abstract class ApiClient {
 
   @POST(_ApiClientKey._allProduct)
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(
-      @Body() PageRequest request);
+      @Body() ProductRequest request);
 
   @POST(_ApiClientKey._productByCategory)
   Future<HeaderResponse<List<ProductResponse>>> getProductByCategory(
