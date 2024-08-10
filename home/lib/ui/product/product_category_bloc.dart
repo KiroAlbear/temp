@@ -1,11 +1,12 @@
+import 'package:core/dto/commonBloc/load_more_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/page_request.dart';
-import 'package:core/dto/remote/search_product_remote.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/dto/remote/product_remote.dart';
-import 'package:core/dto/commonBloc/load_more_bloc.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
+import 'package:core/dto/models/product/product_request.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/favourite_product_remote.dart';
+import 'package:core/dto/remote/product_remote.dart';
+import 'package:core/dto/remote/search_product_remote.dart';
 
 class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int categoryId = 1;
@@ -40,8 +41,10 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
           searchValue);
 
   Stream<ApiState<List<ProductMapper>>> get loadWithSubCategory =>
-      ProductRemote()
-          .loadProduct(PageRequest(pageSize, pageNumber, categoryId, null));
+      ProductRemote().loadProduct(
+        PageRequest(pageSize, pageNumber, categoryId, null),
+        ProductRequest(pageSize, pageNumber, categoryId),
+      );
 
   void doSearch(String value) {
     _searchValue = value;
