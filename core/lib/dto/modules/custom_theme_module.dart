@@ -1,9 +1,7 @@
-import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_color_module.dart';
-import 'app_provider_module.dart';
 import 'custom_text_style_module.dart';
 
 class CustomTheme {
@@ -15,16 +13,19 @@ class CustomTheme {
       hoverColor: primaryColorLightMode,
       highlightColor: primaryColorLightMode,
       textTheme: TextTheme(
-        bodyLarge: MediumStyle(color: secondaryLightMode, fontSize: 12.sp).getStyle(),
+        bodyLarge:
+            MediumStyle(color: secondaryLightMode, fontSize: 12.sp).getStyle(),
       ),
       listTileTheme: ListTileThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.w),
         ),
         textColor: secondaryLightMode,
-        subtitleTextStyle: MediumStyle(color: secondaryLightMode, fontSize: 10.sp).getStyle(),
-        titleTextStyle: MediumStyle(color: secondaryLightMode, fontSize: 10.sp).getStyle(),
-          dense: true,
+        subtitleTextStyle:
+            MediumStyle(color: secondaryLightMode, fontSize: 10.sp).getStyle(),
+        titleTextStyle:
+            MediumStyle(color: secondaryLightMode, fontSize: 10.sp).getStyle(),
+        dense: true,
       ),
       colorScheme: ColorScheme(
         brightness: Brightness.light,
@@ -37,12 +38,11 @@ class CustomTheme {
         errorContainer: redColorLightMode,
         background: whiteColor,
         onBackground: whiteColor,
-        surface: lightGreyColorLightMode,
-        onSurface: lightGreyColorLightMode,
+        surface: whiteColor,
+        onSurface: Colors.black,
         outline: secondaryLightMode,
         onSurfaceVariant: secondaryLightMode,
-      )
-  );
+      ));
 
   ThemeData get darkTheme => ThemeData(
       scaffoldBackgroundColor: secondaryLightMode,
@@ -52,15 +52,18 @@ class CustomTheme {
       hoverColor: primaryColorDarkMode,
       highlightColor: primaryColorDarkMode,
       textTheme: TextTheme(
-        bodyLarge: MediumStyle(color: secondaryDarkMode, fontSize: 12.sp).getStyle(),
+        bodyLarge:
+            MediumStyle(color: secondaryDarkMode, fontSize: 12.sp).getStyle(),
       ),
       listTileTheme: ListTileThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.w),
         ),
         textColor: secondaryDarkMode,
-        subtitleTextStyle: MediumStyle(color: secondaryDarkMode, fontSize: 10.sp).getStyle(),
-        titleTextStyle: MediumStyle(color: secondaryDarkMode, fontSize: 10.sp).getStyle(),
+        subtitleTextStyle:
+            MediumStyle(color: secondaryDarkMode, fontSize: 10.sp).getStyle(),
+        titleTextStyle:
+            MediumStyle(color: secondaryDarkMode, fontSize: 10.sp).getStyle(),
         dense: true,
       ),
       colorScheme: ColorScheme(
@@ -74,8 +77,8 @@ class CustomTheme {
         errorContainer: redColorDarkMode,
         background: secondaryLightMode,
         onBackground: blackColor,
-        surface: lightGreyColorDarkMode,
-        onSurface: lightGreyColorDarkMode,
+        surface: whiteColor,
+        onSurface: Colors.black,
         outline: secondaryColor,
         onSurfaceVariant: secondaryColor,
       ));
