@@ -102,6 +102,8 @@ class _NewAccountLocationInfoWidgetState
         inputFormatter: [
           FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         textInputAction: TextInputAction.next,
       );
 
@@ -157,6 +159,9 @@ class _NewAccountLocationInfoWidgetState
               checkResponseStateWithLoadingWidget(snapshot.data!, context,
                   onSuccess: CustomTextFormFiled(
                     labelText: S.of(context).enterCity,
+                    defaultTextStyle:
+                        RegularStyle(color: lightBlackColor, fontSize: 16.w)
+                            .getStyle(),
                     textFiledControllerStream:
                         widget.newAccountBloc.cityBloc.textFormFiledStream,
                     onChanged: (value) => widget.newAccountBloc.cityBloc
@@ -200,6 +205,8 @@ class _NewAccountLocationInfoWidgetState
         inputFormatter: [
           FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         textInputAction: TextInputAction.next,
       );
 
