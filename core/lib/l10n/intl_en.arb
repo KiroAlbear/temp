@@ -51,6 +51,7 @@
   "createAccount": "Create account",
   "locationYourLocation": "Locate your location",
   "selectLocation": "Select your location",
+  "confirm": "Confirm",
   "streetName": "Building number / street name",
   "enterStreetName": "Enter the building number and street name",
   "neighborhood": "District",

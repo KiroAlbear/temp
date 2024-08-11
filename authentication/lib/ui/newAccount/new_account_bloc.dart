@@ -57,7 +57,7 @@ class NewAccountBloc extends BlocBase {
 
   double get latitude => _latitudeBehaviour.value ?? 0.0;
 
-  double get longitude => _latitudeBehaviour.value ?? 0.0;
+  double get longitude => _longitudeBehaviour.value ?? 0.0;
 
   Stream<double?> get latitudeStream => _latitudeBehaviour.stream;
 

@@ -68,24 +68,45 @@ class _NewAccountLocationInfoWidgetState
               height: 21.h,
             ),
           ]);
+  // ValueNotifier<bool> _isLocationDetected = ValueNotifier(true);
 
   Widget get _mapPreviewStream => StreamBuilder(
         stream: widget.newAccountBloc.latitudeStream,
         builder: (context, latitudeSnapShot) => StreamBuilder(
-          stream: widget.newAccountBloc.longitudeStream,
-          builder: (context, longitudeSnapShot) => MapPreviewWidget(
-            clickOnChangeLocation: () {
-              widget.newAccountBloc.nextStep(NewAccountStepEnum.editLocation);
-            },
-            latitude: latitudeSnapShot.data,
-            longitude: longitudeSnapShot.data,
-            onLocationDetection: (latitude, longitude) async {
-              widget.newAccountBloc.latitude = latitude;
-              widget.newAccountBloc.longitude = longitude;
-              await widget.newAccountBloc.pickLocationInfo();
-            },
-          ),
-        ),
+            stream: widget.newAccountBloc.longitudeStream,
+            builder: (context, longitudeSnapShot) {
+              bool showMap =
+                  (latitudeSnapShot.hasData && longitudeSnapShot.hasData);
+              return Stack(
+                children: [
+                  Opacity(
+                    opacity: showMap ? 1 : 0,
+                    child: MapPreviewWidget(
+                      clickOnChangeLocation: () {
+                        widget.newAccountBloc
+                            .nextStep(NewAccountStepEnum.editLocation);
+                      },
+                      latitude: latitudeSnapShot.data,
+                      longitude: longitudeSnapShot.data,
+                      onLocationDetection: (latitude, longitude) async {
+                        widget.newAccountBloc.latitude = latitude;
+                        widget.newAccountBloc.longitude = longitude;
+
+                        await widget.newAccountBloc.pickLocationInfo();
+                        // _isLocationDetected.value = true;
+                      },
+                    ),
+                  ),
+                  showMap
+                      ? SizedBox()
+                      : Center(
+                          child: Padding(
+                          padding: EdgeInsets.only(top: 40.0),
+                          child: CircularProgressIndicator(),
+                        )),
+                ],
+              );
+            }),
       );
 
   Widget get _streetNameTextFormFiled => CustomTextFormFiled(
@@ -100,6 +121,8 @@ class _NewAccountLocationInfoWidgetState
         inputFormatter: [
           FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         textInputAction: TextInputAction.next,
       );
 
@@ -155,6 +178,9 @@ class _NewAccountLocationInfoWidgetState
               checkResponseStateWithLoadingWidget(snapshot.data!, context,
                   onSuccess: CustomTextFormFiled(
                     labelText: S.of(context).enterCity,
+                    defaultTextStyle:
+                        RegularStyle(color: lightBlackColor, fontSize: 16.w)
+                            .getStyle(),
                     textFiledControllerStream:
                         widget.newAccountBloc.cityBloc.textFormFiledStream,
                     onChanged: (value) => widget.newAccountBloc.cityBloc
@@ -198,6 +224,8 @@ class _NewAccountLocationInfoWidgetState
         inputFormatter: [
           FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         textInputAction: TextInputAction.next,
       );
 

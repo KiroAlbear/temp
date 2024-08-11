@@ -4,6 +4,7 @@ import 'package:core/ui/bases/bloc_base.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+
 import '../../dto/commonBloc/current_location_bloc.dart';
 
 class MapPreviewBloc extends BlocBase {
@@ -24,20 +25,23 @@ class MapPreviewBloc extends BlocBase {
 
   Stream<bool> get mapReadyStream => _mapReadyBehaviour.stream;
 
-  void initPermissionAndLocation(BuildContext context, {Function(double latitude, double longitude)? onLocationDetection}) {
+  void initPermissionAndLocation(BuildContext context,
+      {Function(double latitude, double longitude)? onLocationDetection}) {
     _permissionBloc.requestPermission(context, Permission.location);
     _mapReadyBehaviour.listen((mapReady) {
       if (mapReady) {
         _updateMapCamera();
         _permissionBloc.easyPermissionHandler.isPermissionGrantedStream
-            .listen((locationPermissionGranted) {
+            .listen((locationPermissionGranted) async {
           if (locationPermissionGranted) {
-            _currentLocationBloc.requestLocation();
-            _currentLocationBloc.currentLocationStream.listen((event) {
+            await _currentLocationBloc.requestLocation();
+            _currentLocationBloc.currentLocationStream.listen((event) async {
               if (!isLocationChanged) {
                 latLng(event.latitude ?? 0.0, event.longitude ?? 0.0);
-                if(onLocationDetection != null){
-                  onLocationDetection(event.latitude ?? 0.0, event.longitude ?? 0.0);
+                if (onLocationDetection != null) {
+                  await Future.delayed(Duration(seconds: 1));
+                  onLocationDetection(
+                      event.latitude ?? 0.0, event.longitude ?? 0.0);
                 }
               }
             });
@@ -49,7 +53,7 @@ class MapPreviewBloc extends BlocBase {
 
   void _updateMapCamera() {
     _latLngBehaviour.listen((location) {
-      Future.delayed(const Duration(seconds: 1)).then((value) {
+      Future.delayed(const Duration(seconds: 0)).then((value) {
         if (location != null) {
           mapController.move(location, 18);
         }

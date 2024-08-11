@@ -105,6 +105,8 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         textInputAction: TextInputAction.done,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         isPassword: true,
       );
 
