@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد الخروج من دُكان؟"),
+        "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "ادخل تاكيد كلمة السر الجديدة"),
         "confirmPassword":
@@ -117,7 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("رقم الجوال غير صالح"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":
-            MessageLookupByLibrary.simpleMessage("حدد مكان محللك"),
+            MessageLookupByLibrary.simpleMessage("حدد مكان محلك"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
         "loginNow": MessageLookupByLibrary.simpleMessage("تسجيل الدخول الآن"),

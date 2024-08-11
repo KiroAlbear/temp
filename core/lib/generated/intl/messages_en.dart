@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("Governorate"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to exit Dokkan?"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "Enter to confirm the new password"),
         "confirmPassword":
