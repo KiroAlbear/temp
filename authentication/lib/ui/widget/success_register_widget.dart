@@ -31,6 +31,9 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
   bool isSafeArea() => false;
 
   @override
+  bool isTransparentStatusBar() => true;
+
+  @override
   Widget getBody(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
