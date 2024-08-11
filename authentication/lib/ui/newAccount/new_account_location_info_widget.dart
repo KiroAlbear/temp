@@ -72,20 +72,22 @@ class _NewAccountLocationInfoWidgetState
   Widget get _mapPreviewStream => StreamBuilder(
         stream: widget.newAccountBloc.latitudeStream,
         builder: (context, latitudeSnapShot) => StreamBuilder(
-          stream: widget.newAccountBloc.longitudeStream,
-          builder: (context, longitudeSnapShot) => MapPreviewWidget(
-            clickOnChangeLocation: () {
-              widget.newAccountBloc.nextStep(NewAccountStepEnum.editLocation);
-            },
-            latitude: latitudeSnapShot.data,
-            longitude: longitudeSnapShot.data,
-            onLocationDetection: (latitude, longitude) async {
-              widget.newAccountBloc.latitude = latitude;
-              widget.newAccountBloc.longitude = longitude;
-              await widget.newAccountBloc.pickLocationInfo();
-            },
-          ),
-        ),
+            stream: widget.newAccountBloc.longitudeStream,
+            builder: (context, longitudeSnapShot) {
+              return MapPreviewWidget(
+                clickOnChangeLocation: () {
+                  widget.newAccountBloc
+                      .nextStep(NewAccountStepEnum.editLocation);
+                },
+                latitude: latitudeSnapShot.data,
+                longitude: longitudeSnapShot.data,
+                onLocationDetection: (latitude, longitude) async {
+                  widget.newAccountBloc.latitude = latitude;
+                  widget.newAccountBloc.longitude = longitude;
+                  await widget.newAccountBloc.pickLocationInfo();
+                },
+              );
+            }),
       );
 
   Widget get _streetNameTextFormFiled => CustomTextFormFiled(
