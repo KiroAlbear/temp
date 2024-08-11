@@ -28,7 +28,10 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
   bool canPop() => false;
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
+
+  @override
+  bool isTransparentStatusBar() => true;
 
   @override
   Widget getBody(BuildContext context) => Padding(

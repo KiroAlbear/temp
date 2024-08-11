@@ -1,8 +1,6 @@
 import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import 'custom_navigator_module.dart';
@@ -31,16 +29,16 @@ class AppProviderModule with ChangeNotifier {
   ThemeMode themeMode = ThemeMode.dark;
 
   /// System UI overlay style for different theme modes.
-  SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
-    statusBarBrightness: Brightness.dark,
-    statusBarIconBrightness: Brightness.dark,
-    statusBarColor: secondaryLightMode,
-    systemNavigationBarColor: secondaryLightMode,
-    systemNavigationBarDividerColor: secondaryLightMode,
-    systemNavigationBarContrastEnforced: false,
-    systemStatusBarContrastEnforced: false,
-    systemNavigationBarIconBrightness: Brightness.dark,
-  );
+  // SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+  //   statusBarBrightness: Brightness.dark,
+  //   statusBarIconBrightness: Brightness.dark,
+  //   statusBarColor: Colors.transparent,
+  //   systemNavigationBarColor: Colors.transparent,
+  //   systemNavigationBarDividerColor: Colors.transparent,
+  //   systemNavigationBarContrastEnforced: false,
+  //   systemStatusBarContrastEnforced: false,
+  //   systemNavigationBarIconBrightness: Brightness.dark,
+  // );
 
   /// Toggle between English and Arabic locales.
   void changeLocale(String locale) {
@@ -54,11 +52,11 @@ class AppProviderModule with ChangeNotifier {
   void changeThemeMode(ThemeMode themeMode) {
     if (themeMode == ThemeMode.light) {
       this.themeMode = ThemeMode.light;
-      systemUiOverlayStyle = _lightSystemUIOverlay;
+      // systemUiOverlayStyle = _lightSystemUIOverlay;
       SharedPrefModule().isDarkMode = false;
     } else {
       this.themeMode = ThemeMode.dark;
-      systemUiOverlayStyle = _darkSystemUIOverlay;
+      // systemUiOverlayStyle = _darkSystemUIOverlay;
       SharedPrefModule().isDarkMode = true;
     }
     notifyListeners();
@@ -69,40 +67,40 @@ class AppProviderModule with ChangeNotifier {
     if (themeMode == ThemeMode.system) {
       if (WidgetsBinding.instance.platformDispatcher.platformBrightness ==
           Brightness.light) {
-        systemUiOverlayStyle = _lightSystemUIOverlay;
+        // systemUiOverlayStyle = _lightSystemUIOverlay;
       } else {
-        systemUiOverlayStyle = _darkSystemUIOverlay;
+        // systemUiOverlayStyle = _darkSystemUIOverlay;
       }
     } else if (ThemeMode.dark == themeMode) {
-      systemUiOverlayStyle = _darkSystemUIOverlay;
+      // systemUiOverlayStyle = _darkSystemUIOverlay;
     } else {
-      systemUiOverlayStyle = _lightSystemUIOverlay;
+      // systemUiOverlayStyle = _lightSystemUIOverlay;
     }
   }
 
   /// System UI overlay style for dark theme mode.
-  SystemUiOverlayStyle get _darkSystemUIOverlay => const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: secondaryDarkMode,
-        systemNavigationBarColor: secondaryDarkMode,
-        systemNavigationBarDividerColor: secondaryDarkMode,
-        systemNavigationBarContrastEnforced: false,
-        systemStatusBarContrastEnforced: false,
-        systemNavigationBarIconBrightness: Brightness.light,
-      );
+  // SystemUiOverlayStyle get _darkSystemUIOverlay => const SystemUiOverlayStyle(
+  //       statusBarBrightness: Brightness.light,
+  //       statusBarIconBrightness: Brightness.light,
+  //       statusBarColor: Colors.transparent,
+  //       systemNavigationBarColor: Colors.transparent,
+  //       systemNavigationBarDividerColor: Colors.transparent,
+  //       systemNavigationBarContrastEnforced: false,
+  //       systemStatusBarContrastEnforced: false,
+  //       systemNavigationBarIconBrightness: Brightness.light,
+  //     );
 
   /// System UI overlay style for light theme mode.
-  SystemUiOverlayStyle get _lightSystemUIOverlay => const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: secondaryLightMode,
-        systemNavigationBarColor: secondaryLightMode,
-        systemNavigationBarDividerColor: secondaryLightMode,
-        systemNavigationBarContrastEnforced: false,
-        systemStatusBarContrastEnforced: false,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      );
+  // SystemUiOverlayStyle get _lightSystemUIOverlay => const SystemUiOverlayStyle(
+  //       statusBarBrightness: Brightness.dark,
+  //       statusBarIconBrightness: Brightness.dark,
+  //       statusBarColor: Colors.transparent,
+  //       systemNavigationBarColor: Colors.transparent,
+  //       systemNavigationBarDividerColor: Colors.transparent,
+  //       systemNavigationBarContrastEnforced: false,
+  //       systemStatusBarContrastEnforced: false,
+  //       systemNavigationBarIconBrightness: Brightness.dark,
+  //     );
 
   /// Initialize the app's state and check user authentication status.
   Future<void> init(BuildContext context) async {
