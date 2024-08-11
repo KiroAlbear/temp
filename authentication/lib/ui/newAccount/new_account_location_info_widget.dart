@@ -68,24 +68,43 @@ class _NewAccountLocationInfoWidgetState
               height: 21.h,
             ),
           ]);
+  // ValueNotifier<bool> _isLocationDetected = ValueNotifier(true);
 
   Widget get _mapPreviewStream => StreamBuilder(
         stream: widget.newAccountBloc.latitudeStream,
         builder: (context, latitudeSnapShot) => StreamBuilder(
             stream: widget.newAccountBloc.longitudeStream,
             builder: (context, longitudeSnapShot) {
-              return MapPreviewWidget(
-                clickOnChangeLocation: () {
-                  widget.newAccountBloc
-                      .nextStep(NewAccountStepEnum.editLocation);
-                },
-                latitude: latitudeSnapShot.data,
-                longitude: longitudeSnapShot.data,
-                onLocationDetection: (latitude, longitude) async {
-                  widget.newAccountBloc.latitude = latitude;
-                  widget.newAccountBloc.longitude = longitude;
-                  await widget.newAccountBloc.pickLocationInfo();
-                },
+              bool showMap =
+                  (latitudeSnapShot.hasData && longitudeSnapShot.hasData);
+              return Stack(
+                children: [
+                  Opacity(
+                    opacity: showMap ? 1 : 0,
+                    child: MapPreviewWidget(
+                      clickOnChangeLocation: () {
+                        widget.newAccountBloc
+                            .nextStep(NewAccountStepEnum.editLocation);
+                      },
+                      latitude: latitudeSnapShot.data,
+                      longitude: longitudeSnapShot.data,
+                      onLocationDetection: (latitude, longitude) async {
+                        widget.newAccountBloc.latitude = latitude;
+                        widget.newAccountBloc.longitude = longitude;
+
+                        await widget.newAccountBloc.pickLocationInfo();
+                        // _isLocationDetected.value = true;
+                      },
+                    ),
+                  ),
+                  showMap
+                      ? SizedBox()
+                      : Center(
+                          child: Padding(
+                          padding: EdgeInsets.only(top: 40.0),
+                          child: CircularProgressIndicator(),
+                        )),
+                ],
               );
             }),
       );
