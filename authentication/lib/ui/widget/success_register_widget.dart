@@ -28,7 +28,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
   bool canPop() => false;
 
   @override
-  bool isSafeArea() => false;
+  bool isSafeArea() => true;
 
   @override
   bool isTransparentStatusBar() => true;
