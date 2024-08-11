@@ -1,5 +1,4 @@
 import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,9 +33,9 @@ class AppProviderModule with ChangeNotifier {
   SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark,
     statusBarIconBrightness: Brightness.dark,
-    statusBarColor: secondaryLightMode,
-    systemNavigationBarColor: secondaryLightMode,
-    systemNavigationBarDividerColor: secondaryLightMode,
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent,
     systemNavigationBarContrastEnforced: false,
     systemStatusBarContrastEnforced: false,
     systemNavigationBarIconBrightness: Brightness.dark,
@@ -84,9 +83,9 @@ class AppProviderModule with ChangeNotifier {
   SystemUiOverlayStyle get _darkSystemUIOverlay => const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: secondaryDarkMode,
-        systemNavigationBarColor: secondaryDarkMode,
-        systemNavigationBarDividerColor: secondaryDarkMode,
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarContrastEnforced: false,
         systemStatusBarContrastEnforced: false,
         systemNavigationBarIconBrightness: Brightness.light,
@@ -96,9 +95,9 @@ class AppProviderModule with ChangeNotifier {
   SystemUiOverlayStyle get _lightSystemUIOverlay => const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
-        statusBarColor: secondaryLightMode,
-        systemNavigationBarColor: secondaryLightMode,
-        systemNavigationBarDividerColor: secondaryLightMode,
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarContrastEnforced: false,
         systemStatusBarContrastEnforced: false,
         systemNavigationBarIconBrightness: Brightness.dark,
