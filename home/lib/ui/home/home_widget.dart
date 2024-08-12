@@ -105,6 +105,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
         widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value);
         widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
             .add(TextEditingController(text: ''));
+        FocusScope.of(context).requestFocus(new FocusNode()); //remove focus
       },
       contactUsBloc: widget.contactUsBloc);
 
@@ -128,6 +129,8 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
 
   @override
   void dispose() {
+    widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
+        .add(TextEditingController(text: ''));
     _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();
