@@ -2,9 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
-import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
 
@@ -71,12 +69,12 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: CustomText(
-                  text: item.name,
-                  customTextStyle:
-                      BoldStyle(color: lightBlackColor, fontSize: 14.sp)),
-            ),
+            // Expanded(
+            //   child: CustomText(
+            //       text: item.name,
+            //       customTextStyle:
+            //           BoldStyle(color: lightBlackColor, fontSize: 14.sp)),
+            // ),
             Expanded(
                 child: ImageHelper(
               image: item.image,

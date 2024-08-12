@@ -69,10 +69,10 @@ class _OffersWidgetState extends State<OffersWidget>
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(
-                      text: item.name,
-                      customTextStyle:
-                          BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
+                  // CustomText(
+                  //     text: item.name,
+                  //     customTextStyle:
+                  //         BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
                   if (widget.isForPromoTap) ...[
                     Container(
                       decoration: BoxDecoration(
