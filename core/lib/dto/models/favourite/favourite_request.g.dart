@@ -8,8 +8,8 @@ part of 'favourite_request.dart';
 
 FavouriteRequest _$FavouriteRequestFromJson(Map<String, dynamic> json) =>
     FavouriteRequest(
-      json['product_id'] as String?,
-      json['client_id'] as String?,
+      (json['product_id'] as num?)?.toInt(),
+      (json['client_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$FavouriteRequestToJson(FavouriteRequest instance) =>
