@@ -12,6 +12,10 @@ dependencies:
     sdk: flutter
   core:
     path: ../core
+
+  home:
+    path: ../home
+
   timelines: ^0.1.0
 dev_dependencies:
   flutter_test:

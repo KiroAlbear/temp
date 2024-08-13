@@ -10,15 +10,18 @@ import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/product/product_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:home/ui/product/product_category_bloc.dart';
 
 class CartScreen extends BaseStatefulWidget {
   final String backIcon;
   final String icDelete;
   final CartBloc bloc;
+  final ProductCategoryBloc productCategoryBloc;
   CartScreen(
       {required this.bloc,
       required this.backIcon,
       required this.icDelete,
+      required this.productCategoryBloc,
       super.key});
 
   @override
@@ -134,10 +137,12 @@ class _CartScreenState extends BaseState<CartScreen> {
                   itemCount: snapshot.data!.response!.length,
                   itemBuilder: (context, index) {
                     return ProductWidget(
-                        isCartProduct: true,
-                        icDelete: widget.icDelete,
-                        onDeleteClicked: () {},
-                        productMapper: snapshot.data!.response![index]);
+                      isCartProduct: true,
+                      icDelete: widget.icDelete,
+                      onDeleteClicked: () {},
+                      productMapper: snapshot.data!.response![index],
+                      productCategoryBloc: widget.productCategoryBloc,
+                    );
                   },
                 ),
               );

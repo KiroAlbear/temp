@@ -48,10 +48,16 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0, null);
       // return _buildPageRoute(const SplashWidget());
-      return _buildPageRoute(CartOrderDetails(
+      return _buildPageRoute(CartScreen(
+        productCategoryBloc: _productCategoryBloc,
+        icDelete: Assets.svgIcDelete,
         bloc: _cartBloc,
         backIcon: Assets.svgIcBack,
       ));
+    // return _buildPageRoute(CartOrderDetails(
+    //   bloc: _cartBloc,
+    //   backIcon: Assets.svgIcBack,
+    // ));
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
@@ -119,7 +125,8 @@ Widget get _loginWidgetWithoutSkip => const LoginWidget(
       enableSkip: false,
     );
 
-Widget get _scanBarcodeWidget=> ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
+Widget get _scanBarcodeWidget =>
+    ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
@@ -207,6 +214,7 @@ BlocProvider get _cartScreen => BlocProvider(
     bloc: _cartBloc,
     child: CartScreen(
       bloc: _cartBloc,
+      productCategoryBloc: _productCategoryBloc,
       backIcon: Assets.svgIcBack,
       icDelete: Assets.svgIcDelete,
     ));

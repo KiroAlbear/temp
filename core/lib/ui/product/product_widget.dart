@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -6,14 +7,10 @@ import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/generated/l10n.dart';
-import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:home/ui/product/product_category_bloc.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/product/product_mapper.dart';
+
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
   final ProductCategoryBloc productCategoryBloc;
@@ -175,7 +172,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                       height: 18, width: 18, child: CircularProgressIndicator())
                   : InkWell(
                       onTap: () {
-                        widget.onTapFavourite(!widget.productMapper.isFavourite,
+                        widget.onTapFavourite!(
+                            !widget.productMapper.isFavourite,
                             widget.productMapper);
 
                         if (widget.productMapper.isFavourite) {
@@ -242,7 +240,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       );
 
   Widget get _favouriteIcon => ImageHelper(
-        image: widget.favouriteIcon,
+        image: widget.favouriteIcon!,
         imageType: ImageType.svg,
         width: 18.w,
         height: 18.h,
@@ -261,9 +259,10 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _productName => Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: CustomText(
-            text: widget.productMapper.name,
-            customTextStyle:
-                MediumStyle(color: lightBlackColor, fontSize: 12.sp),maxLines: 1,),
+          text: widget.productMapper.name,
+          customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+          maxLines: 1,
+        ),
       );
 
   Widget get _priceRow => Padding(
@@ -277,10 +276,13 @@ class _ProductWidgetState extends State<ProductWidget> {
                     '${widget.productMapper.getPrice().toString()} ${widget.productMapper.currency}',
                 customTextStyle:
                     MediumStyle(fontSize: 14.sp, color: secondaryColor)),
-            SizedBox(width: 10.w,),
+            SizedBox(
+              width: 10.w,
+            ),
             if (widget.productMapper.discountPercentage > 0)
               CustomText(
-                text: '${widget.productMapper.price.toString()} ${widget.productMapper.currency}',
+                text:
+                    '${widget.productMapper.price.toString()} ${widget.productMapper.currency}',
                 customTextStyle: MediumStyle(
                     color: redColor,
                     fontSize: 10.sp,

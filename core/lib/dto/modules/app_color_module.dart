@@ -97,21 +97,27 @@ Color lightBlackColor = _isDark ? lightBlackDarkMode : lightBlackDarkMode;
 
 Color whiteColor = _isDark ? black : white;
 
-Color offWhiteColor = _isDark? offWhiteColorDarkMore:offWhiteColorLightMode;
+Color offWhiteColor = _isDark ? offWhiteColorDarkMore : offWhiteColorLightMode;
 
-Color yellowCardColor= _isDark? yellowCardColorDarkMode: yellowCardColorLightMode;
+Color yellowCardColor =
+    _isDark ? yellowCardColorDarkMode : yellowCardColorLightMode;
 
-Color greenCardColor= _isDark? greenCardColorDarkMode: greenCardColorLightMode;
+Color greenCardColor =
+    _isDark ? greenCardColorDarkMode : greenCardColorLightMode;
 
-Color redCardColor= _isDark? redCardColorDarkMode: redCardColorLightMode;
+Color redCardColor = _isDark ? redCardColorDarkMode : redCardColorLightMode;
 
-Color promotionCardColor = _isDark? promotionCardColorDarkMode : promotionCardColorLightMode;
+Color promotionCardColor =
+    _isDark ? promotionCardColorDarkMode : promotionCardColorLightMode;
 
-Color categoryCardColor = _isDark? categoryCardColorDarkMode : categoryCardColorLightMode;
+Color categoryCardColor =
+    _isDark ? categoryCardColorDarkMode : categoryCardColorLightMode;
 
-Color menuOrderCardColor= _isDark?menuOrderCardColorDarkMode: menuOrderCardColorLightMode;
+Color menuOrderCardColor =
+    _isDark ? menuOrderCardColorDarkMode : menuOrderCardColorLightMode;
 
-Color productCardColor= _isDark?productCardColorDarkMode: productCardColorLightMode;
+Color productCardColor =
+    _isDark ? productCardColorDarkMode : productCardColorLightMode;
 
 Color faqCardColor = _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
 Color yellowColor = _isDark ? yellowColorDarkMode : yellowColorLightMode;
