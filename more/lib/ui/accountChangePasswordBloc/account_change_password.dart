@@ -118,6 +118,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         isPassword: true,
@@ -130,6 +132,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         validator: (value) =>
             ValidatorModule().passwordValidator(context).call(value),
         isPassword: true,
@@ -148,6 +152,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
           textInputAction: TextInputAction.done,
           textInputType: TextInputType.text,
           textCapitalization: TextCapitalization.none,
+          defaultTextStyle:
+              RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
           validator: (value) => ValidatorModule()
               .matchValidator(context)
               .validateMatch(value ?? '', snapshot.data ?? ''),

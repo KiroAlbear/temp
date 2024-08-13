@@ -8,6 +8,7 @@ class _ApiClientKey {
   static const String _favouriteProduct = 'get/fav';
   static const String _searchProduct = 'search/product';
   static const String _addFavourite = 'add/favorite';
+  static const String _deleteFavourite = 'delete/fav';
   static const String _signUp = 'app/signup';
   static const String _balance = 'get/wallet';
   static const String _changePassword = 'reset/password';

@@ -7,6 +7,8 @@ import 'package:core/dto/models/checkPhone/check_phone_request.dart';
 import 'package:core/dto/models/checkPhone/check_phone_response.dart';
 import 'package:core/dto/models/client/client_request.dart';
 import 'package:core/dto/models/country/country_response.dart';
+import 'package:core/dto/models/favourite/favourite_request.dart';
+import 'package:core/dto/models/favourite/favourite_response.dart';
 import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
 import 'package:core/dto/models/page_request.dart';
@@ -52,6 +54,14 @@ abstract class ApiClient {
   @POST(_ApiClientKey._favouriteProduct)
   Future<HeaderResponse<List<FavouriteProductResponse>>> getFavouriteProduct(
       @Body() PageRequest request);
+
+  @POST(_ApiClientKey._addFavourite)
+  Future<HeaderResponse<FavouriteResponse>> addProductToFavourite(
+      @Body() FavouriteRequest request);
+
+  @POST(_ApiClientKey._deleteFavourite)
+  Future<HeaderResponse<FavouriteResponse>> deleteProductFromFavourite(
+      @Body() FavouriteRequest request);
 
   @POST(_ApiClientKey._searchProduct)
   Future<HeaderResponse<List<ProductResponse>>> searchProduct(
