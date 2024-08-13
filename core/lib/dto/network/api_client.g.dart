@@ -225,27 +225,30 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<MyOrdersResponse>> getMyOrders() async {
+  Future<HeaderResponse<List<MyOrdersResponse>>> getMyOrders(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = request;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<MyOrdersResponse>>(Options(
-      method: 'GET',
+        _setStreamType<HeaderResponse<List<MyOrdersResponse>>>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'b325d792-ebae-41ee-8910-bd5f45e4402d',
+              'get/all_order',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<MyOrdersResponse>.fromJson(
+    final value = HeaderResponse<List<MyOrdersResponse>>.fromJson(
       _result.data!,
-      (json) => MyOrdersResponse.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<MyOrdersResponse>(
+              (i) => MyOrdersResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }

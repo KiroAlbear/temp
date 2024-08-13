@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/my_orders/my_orders_mappers.dart';
+import 'package:core/dto/models/my_orders/my_orders_request.dart';
 import 'package:core/dto/remote/my_orders_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
@@ -11,8 +12,10 @@ class MyOrdersBloc extends BlocBase {
   Stream<ApiState<MyOrdersMapper>> get myOrdersStream =>
       _myOrdersBehavior.stream;
 
-  MyOrdersBloc() {
-    MyOrdersRemote().callApiAsStream().listen((event) {
+  MyOrdersBloc();
+
+  void getMyOrders(MyOrdersRequest request) {
+    MyOrdersRemote(request).callApiAsStream().listen((event) {
       _myOrdersBehavior.sink.add(event);
     });
   }

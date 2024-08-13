@@ -1,48 +1,29 @@
 import 'my_orders_response.dart';
 
 class MyOrdersMapper {
-  List<OrdersMapper>? currentOrders;
-  List<OrdersMapper>? pastOrders;
+  List<OrdersMapper> currentOrders = [];
+  List<OrdersMapper> pastOrders = [];
 
-  MyOrdersMapper(MyOrdersResponse response) {
-    currentOrders = response.orders!
-        .map((e) => OrdersMapper(
-            id: e.id!,
-            totalPrice: e.totalPrice!,
-            itemsCount: e.itemsCount!,
-            sendingOrder: e.sendingOrder,
-            acceptingOrder: e.acceptingOrder,
-            shippingOrder: e.shippingOrder,
-            outOrder: e.outOrder,
-            deliverOrder: e.deliverOrder,
-            items: e.items!
-                .map((e) => OrderItemMapper(
-                    id: e.id!,
-                    title: e.title!,
-                    description: e.description!,
-                    price: e.price!,
-                    count: e.count!))
-                .toList()))
-        .toList();
-    pastOrders = response.pastOrders!
-        .map((e) => OrdersMapper(
-            id: e.id!,
-            totalPrice: e.totalPrice!,
-            itemsCount: e.itemsCount!,
-            sendingOrder: e.sendingOrder,
-            acceptingOrder: e.acceptingOrder,
-            shippingOrder: e.shippingOrder,
-            outOrder: e.outOrder,
-            deliverOrder: e.deliverOrder,
-            items: e.items!
-                .map((e) => OrderItemMapper(
-                    id: e.id!,
-                    title: e.title!,
-                    description: e.description!,
-                    price: e.price!,
-                    count: e.count!))
-                .toList()))
-        .toList();
+  MyOrdersMapper(List<MyOrdersResponse> response) {
+    for (var i = 0; i < response.length; i++) {
+      MyOrdersResponse e = response[i];
+      OrdersMapper order = OrdersMapper(
+          id: e.id!,
+          totalPrice:
+              e.amountUnpaid!.toString() + e.currencyId!.code!.toString(),
+          itemsCount: e.itemsCount!,
+          sendingOrder: e.sendingOrder,
+          acceptingOrder: e.acceptingOrder,
+          shippingOrder: e.shippingOrder,
+          outOrder: e.outOrder,
+          deliverOrder: e.deliveredOrder,
+          items: []);
+      if (e.deliveredOrder == null) {
+        currentOrders.add(order);
+      } else {
+        pastOrders.add(order);
+      }
+    }
   }
 }
 

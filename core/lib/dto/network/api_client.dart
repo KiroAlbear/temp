@@ -3,6 +3,7 @@ import 'package:core/dto/models/baseModules/header_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
 import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
+import 'package:core/dto/models/my_orders/my_orders_request.dart';
 import 'package:core/dto/models/my_orders/my_orders_response.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/product/favourite_product_response.dart';
@@ -42,6 +43,7 @@ abstract class ApiClient {
   Future<HeaderResponse<List<ProductResponse>>> searchProduct(
       @Body() SearchProductRequest request);
 
-  @GET(_ApiClientKey._myOrders)
-  Future<HeaderResponse<MyOrdersResponse>> getMyOrders();
+  @POST(_ApiClientKey._myOrders)
+  Future<HeaderResponse<List<MyOrdersResponse>>> getMyOrders(
+      @Body() MyOrdersRequest request);
 }

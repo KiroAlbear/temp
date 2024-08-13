@@ -10,5 +10,5 @@ class _ApiClientKey {
   static const String _searchProduct = 'search/product';
   static const String _addFavourite = 'add/favorite';
   static const String _signUp = 'app/signup';
-  static const String _myOrders = 'b325d792-ebae-41ee-8910-bd5f45e4402d';
+  static const String _myOrders = 'get/all_order';
 }

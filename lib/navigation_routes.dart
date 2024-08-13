@@ -44,7 +44,8 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0);
-      return _buildPageRoute(_myOrdersBlocProvider);
+      // return _buildPageRoute(_myOrdersBlocProvider);
+      return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
