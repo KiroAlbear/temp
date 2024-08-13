@@ -19,9 +19,9 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   String? _searchValue;
 
   Stream<ApiState<List<ProductMapper>>> loadMore() async* {
-    Stream<ApiState<List<CategoryMapper>>> stream2 =
+    Stream<ApiState<List<CategoryMapper>>> subCategoryByCategory =
         _getSubcategoryByCategory(1);
-    stream2.listen((event) {
+    subCategoryByCategory.listen((event) {
       if (event is SuccessState) {
         print("Subcategory: ${event.response}");
       }
