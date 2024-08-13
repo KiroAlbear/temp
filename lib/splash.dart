@@ -25,20 +25,25 @@ class _SplashWidgetState extends BaseState<SplashWidget> {
   }
 
   @override
-  Widget getBody(BuildContext context) => const Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            child: LogoWidget(
-              logo: Assets.svgIcLogo,
-            ),
+  bool isTransparentStatusBar() => true;
+
+  @override
+  Widget getBody(BuildContext context) {
+    return const Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Positioned(
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          child: LogoWidget(
+            logo: Assets.svgIcLogo,
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 
   @override
   bool isSafeArea() => true;

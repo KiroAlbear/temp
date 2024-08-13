@@ -12,8 +12,7 @@ class ShopLogoCameraWidget extends StatefulWidget {
   final String name;
   final String mobile;
   final MoreBloc moreBloc;
-  final Function(File file) onImagePick;
-  final VoidCallback openCamera;
+  final VoidCallback openCameraOrGallery;
 
   const ShopLogoCameraWidget(
       {super.key,
@@ -21,8 +20,7 @@ class ShopLogoCameraWidget extends StatefulWidget {
       required this.shopLogo,
       required this.cameraIcon,
       required this.moreBloc,
-      required this.onImagePick,
-      required this.openCamera,
+      required this.openCameraOrGallery,
       required this.name,
       required this.mobile});
 
@@ -61,6 +59,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
   Widget get _nameAndMobileWidget => Positioned(
         right: 192,
         top: 30,
+        left: 20,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,35 +80,42 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
         right: 91,
         top: 20,
         child: InkWell(
-          onTap: () => _updateImage(),
-          child: Container(
-            height: 74.h,
-            width: 74.w,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: greyColor.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(16.w)),
-            child: ImageHelper(
-              width: 58.w,
-              height: 58.h,
-              imageType: ImageType.network,
-              image: widget.shopLogo,
-              errorBuilder: ImageHelper(
-                imageType: ImageType.svg,
-                image: widget.placeHolder,
-                width: 80.w,
-                height: 80.h,
+          onTap: () => widget.openCameraOrGallery(),
+          child: StreamBuilder<String>(
+            builder: (context, snapshot) => Container(
+              height: 74.h,
+              width: 74.w,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: greyColor.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(16.w)),
+              child: ImageHelper(
+                width: snapshot.data!.isEmpty?58.w: 80.w,
+                height: snapshot.data!.isEmpty?58.h: 80.h,
+                imageType: snapshot.data!.isEmpty? ImageType.network : ImageType.file,
+                image: snapshot.data!.isEmpty? widget.shopLogo: snapshot.data!,
+                imageShape: ImageShape.rectangle,
+                borderRadius: BorderRadius.circular(16.w),
+                errorBuilder: ImageHelper(
+                  imageType: ImageType.svg,
+                  image: widget.placeHolder,
+                  width: 80.w,
+                  height: 80.h,
+                ),
               ),
             ),
+            stream: widget.moreBloc.selectedFileStream,
+            initialData: '',
+
           ),
         ),
       );
 
   Widget get _cameraWidget => Positioned(
-        top: 78,
-        right: 147,
+        top: 70,
+        right: 140,
         child: InkWell(
-          onTap: () => _updateImage(),
+          onTap: () => widget.openCameraOrGallery(),
           child: Container(
             width: 32.w,
             height: 32.h,
@@ -129,41 +135,6 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
         ),
       );
 
-  void _updateImage() {
-    _requestCameraPermission();
-    _listenForPermissionResult();
-  }
 
-  void _listenForPermissionResult() {
-    widget.moreBloc.cameraPermissionBloc.easyPermissionHandler
-        .isPermissionGrantedStream
-        .listen((event) {
-      if (event) {
-        _requestGalleryPermission();
-        _listenForGalleryPermission();
-      }
-    });
-  }
 
-  void _requestCameraPermission() {
-    widget.moreBloc.cameraPermissionBloc
-        .requestPermission(context, Permission.camera);
-    widget.moreBloc.cameraPermissionBloc.listenFormOpenSettings();
-  }
-
-  void _requestGalleryPermission() {
-    widget.moreBloc.galleryPermissionBloc
-        .requestPermission(context, Permission.photos);
-    widget.moreBloc.galleryPermissionBloc.listenFormOpenSettings();
-  }
-
-  void _listenForGalleryPermission() {
-    widget.moreBloc.galleryPermissionBloc.easyPermissionHandler
-        .isPermissionGrantedStream
-        .listen((event) {
-          if(event){
-            widget.openCamera();
-          }
-    });
-  }
 }

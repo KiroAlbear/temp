@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/base_state.dart';
@@ -32,8 +33,14 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
   @override
   Widget getBody(BuildContext context) => StreamBuilder(
         stream: widget.homeBloc.selectedTabStream,
-        builder: (context, snapshot) =>
-            widget.homeBloc.widgetList[snapshot.data ?? 0],
+        builder: (context, snapshot) {
+          // if((snapshot.data == 1 || snapshot.data == 3) && (SharedPrefModule().userId??'').isEmpty){
+          //   return widget.homeBloc.loginWidget;
+          // }else{
+          //  return widget.homeBloc.widgetList[snapshot.data ?? 0];
+          // }
+          return widget.homeBloc.widgetList[snapshot.data ?? 0];
+        },
         initialData: 0,
       );
 
@@ -50,9 +57,7 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
                   currentIndex: snapshot.data ?? 0,
                   landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
                   onTap: (value) {
-                    widget.homeBloc.setSelectedTab(
-                      value,
-                    );
+                    widget.homeBloc.setSelectedTab(value, context);
                   },
                   iconSize: 20.r),
             ],

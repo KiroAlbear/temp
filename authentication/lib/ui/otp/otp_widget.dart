@@ -1,17 +1,15 @@
 import 'package:authentication/ui/otp/otp_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
 import 'package:core/core.dart';
-import 'package:core/dto/modules/app_provider_module.dart';
-import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/modules/app_color_module.dart';
+import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -36,7 +34,7 @@ class _OtpWidgetState extends State<OtpWidget> {
   @override
   void initState() {
     super.initState();
-    _initSignature();
+    // _initSignature();
   }
 
   void _initSignature() async {
@@ -82,7 +80,7 @@ class _OtpWidgetState extends State<OtpWidget> {
               ),
               Center(child: _otpWithMobile),
               SizedBox(
-                height: 68.h,
+                height: 100.h,
               ),
               Center(child: _sendOtpAgain),
               SizedBox(
@@ -92,7 +90,7 @@ class _OtpWidgetState extends State<OtpWidget> {
             ])));
   }
 
- /* Widget get _otpWidget => StreamBuilder<TextEditingController>(
+  /* Widget get _otpWidget => StreamBuilder<TextEditingController>(
       stream: _bloc.otpBloc.textFormFiledStream,
       initialData: TextEditingController(text: ''),
       builder: (context, snapshot) => Directionality(
@@ -122,46 +120,48 @@ class _OtpWidgetState extends State<OtpWidget> {
               textController: snapshot.data ?? TextEditingController(text: ''),
             ),
           ));*/
-
+  double _otpSize = 50.w;
   Widget get _otpWidget => StreamBuilder<TextEditingController>(
       stream: _bloc.otpBloc.textFormFiledStream,
       initialData: TextEditingController(text: ''),
       builder: (context, snapshot) => Directionality(
-        textDirection: AppProviderModule().locale == 'en'
-            ? TextDirection.ltr
-            : TextDirection.rtl,
-        child: OTPTextField(
-          width: MediaQuery.of(context).size.width,
-          controller: OtpFieldController(),
-          length: _bloc.otpCodeLength,
-          fieldStyle: FieldStyle.box,
-          keyboardType: TextInputType.number,
-          otpFieldStyle: OtpFieldStyle(
-            backgroundColor: whiteColor,
-            borderColor: greyColor,
-            disabledBorderColor: greyColor,
-            enabledBorderColor: greyColor,
-            focusBorderColor: lightBlackColor,
-            errorBorderColor: redColor,
-          ),
-          style: SemiBoldStyle(color: lightBlackColor, fontSize: 32.sp)
-              .getStyle(),
-          outlineBorderRadius: 5.w,
-          spaceBetween: 12.w,
-          fieldWidth: 50.w,
-          obscureText: false,
-          isDense: false,
-          onChanged: (value){
-            _bloc.otpBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: value));
-            _bloc.otpBloc.updateStringBehaviour(value);
-          },
-        ),
-      ));
+            textDirection: AppProviderModule().locale == 'en'
+                ? TextDirection.ltr
+                : TextDirection.rtl,
+            child: SizedBox(
+              height: _otpSize,
+              child: OTPTextField(
+                width: MediaQuery.of(context).size.width,
+                controller: OtpFieldController(),
+                length: _bloc.otpCodeLength,
+                fieldStyle: FieldStyle.box,
+                keyboardType: TextInputType.number,
+                otpFieldStyle: OtpFieldStyle(
+                  backgroundColor: whiteColor,
+                  borderColor: greyColor,
+                  disabledBorderColor: greyColor,
+                  enabledBorderColor: greyColor,
+                  focusBorderColor: lightBlackColor,
+                  errorBorderColor: redColor,
+                ),
+                style: SemiBoldStyle(color: lightBlackColor, fontSize: 20.sp)
+                    .getStyle(),
+                outlineBorderRadius: 5.w,
+                spaceBetween: 12.w,
+                fieldWidth: _otpSize,
+                onChanged: (value) {
+                  _bloc.otpBloc.textFormFiledBehaviour.sink
+                      .add(TextEditingController(text: value));
+                  _bloc.otpBloc.updateStringBehaviour(value);
+                },
+              ),
+            ),
+          ));
 
   Widget get _otpWithMobile => CustomText(
       text: S.of(context).enterVerificationCodeSentTo(
           _bloc.otpCodeLength,
-          widget.authenticationSharedBloc.countryMapper.description.replaceRange(0, 3, '') +
+          widget.authenticationSharedBloc.countryMapper.description +
               widget.authenticationSharedBloc.mobile),
       customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor));
 
@@ -170,7 +170,7 @@ class _OtpWidgetState extends State<OtpWidget> {
         initialData: false,
         builder: (context, enableSnapShot) => StreamBuilder(
           stream: _bloc.timeStream,
-          initialData: 60,
+          initialData: 59,
           builder: (context, timeSnapShot) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,7 +180,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                 child: CustomText(
                     text: S
                         .of(context)
-                        .resendOtpAfter('00:${timeSnapShot.data ?? 60}'),
+                        .resendOtpAfter('0:${timeSnapShot.data ?? 59}'),
                     customTextStyle:
                         RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
               ),
@@ -206,11 +206,15 @@ class _OtpWidgetState extends State<OtpWidget> {
       );
 
   Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).validateOtp,
+        idleText: S.of(context).next,
+        height: 60.h,
+        textStyle:
+            SemiBoldStyle(fontSize: 16.w, color: lightBlackColor).getStyle(),
         onTap: () {
           if (_bloc.isValid) {
             widget.authenticationSharedBloc.userData = _bloc.userData;
-            CustomNavigatorModule.navigatorKey.currentState?.pushReplacementNamed(
+            CustomNavigatorModule.navigatorKey.currentState
+                ?.pushReplacementNamed(
               widget.authenticationSharedBloc.nextScreen,
             );
           }

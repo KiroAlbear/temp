@@ -1,11 +1,9 @@
+import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/custom_theme_module.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'custom_text.dart';
 
@@ -167,6 +165,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
           {required TextEditingController controller,
           bool showPassword = false}) =>
       TextFormField(
+        focusNode: widget.focusNode,
         onTap: widget.onTap,
         style: widget.defaultTextStyle ?? _defaultTextStyle,
         textAlignVertical: TextAlignVertical.center,
@@ -181,8 +180,8 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         controller: controller,
         keyboardType: widget.textInputType,
         enabled: widget.enable,
-
-        enableInteractiveSelection: widget.enableInteractiveSelection,
+        enableInteractiveSelection:
+            widget.isPassword ? false : widget.enableInteractiveSelection,
         expands: widget.expanded,
         autofocus: widget.autoFocus,
         maxLength: widget.maxLength,
@@ -207,7 +206,9 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
             widget.useOnFieldSubmitted ? widget.onFieldSubmitted!(value) : null,
       );
 
-  InputDecoration _inputDecoration(bool showPassword, TextEditingController controller) => InputDecoration(
+  InputDecoration _inputDecoration(
+          bool showPassword, TextEditingController controller) =>
+      InputDecoration(
         errorStyle: _errorTextStyle,
         errorMaxLines: 4,
         contentPadding: widget.hasContentPadding
@@ -244,13 +245,11 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
       stream: _passwordToggleBehaviour.stream,
       initialData: false,
       builder: (context, snapshot) => InkWell(
-            child: Icon(
-              snapshot.data ?? false
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined,
-              // imageType: ImageType.svg,
-              // boxFit: BoxFit.scaleDown,
-              // scale: 0.5,
+            child: ImageHelper(
+              image: 'assets/svg/ic_eye.svg',
+              imageType: ImageType.svg,
+              boxFit: BoxFit.scaleDown,
+              scale: 0.5,
               color: greyColor,
             ),
             onTap: () => _passwordToggleBehaviour.sink
@@ -303,17 +302,17 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
       MediumStyle(color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
           .getStyle();
 
-  TextStyle get _suffixTextStyle => MediumStyle(
-          color: widget.suffixTextColor ?? greyColor, fontSize: 20.sp)
-      .getStyle();
+  TextStyle get _suffixTextStyle =>
+      MediumStyle(color: widget.suffixTextColor ?? greyColor, fontSize: 20.sp)
+          .getStyle();
 
   TextStyle get _errorTextStyle =>
       MediumStyle(color: widget.errorTextColor ?? redColor, fontSize: 16.sp)
           .getStyle();
 
-  TextStyle get _hintTextStyle =>
-      MediumStyle(color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
-          .getStyle();
+  TextStyle get _hintTextStyle => RegularStyle(
+          color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
+      .getStyle();
 
   TextStyle get _defaultFloatingLabelStyle => RegularStyle(
           color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)

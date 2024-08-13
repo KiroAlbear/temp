@@ -42,23 +42,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":
-            MessageLookupByLibrary.simpleMessage("At least one number"),
+            MessageLookupByLibrary.simpleMessage("Must contain numbers"),
         "atLeastOneSmallLetter":
-            MessageLookupByLibrary.simpleMessage("At least one small letter"),
+            MessageLookupByLibrary.simpleMessage("Must contain letters"),
         "basket": MessageLookupByLibrary.simpleMessage("Basket"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("Best offers"),
         "biometricLoginMessage": MessageLookupByLibrary.simpleMessage(
             "Please authenticate to login"),
         "browseSections":
             MessageLookupByLibrary.simpleMessage("Browse sections"),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "chooseCity": MessageLookupByLibrary.simpleMessage("Choose your city"),
         "chooseYourCountry":
             MessageLookupByLibrary.simpleMessage("Choose your country"),
         "city": MessageLookupByLibrary.simpleMessage("Governorate"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to exit Dokkan?"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+            "Enter to confirm the new password"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
@@ -68,12 +73,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to delete account?"),
+            "\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests."),
         "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "editLocation": MessageLookupByLibrary.simpleMessage("Edit location"),
         "emailRequired": MessageLookupByLibrary.simpleMessage("Email required"),
+        "emptyFavourite": MessageLookupByLibrary.simpleMessage(
+            "There are no favorite products"),
         "enterCity": MessageLookupByLibrary.simpleMessage(
             "Enter the name of the governorate"),
         "enterConfirmPassword":
@@ -103,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
+        "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "General error.\nPlease try again later!"),
         "haveAccount":
@@ -119,12 +127,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Locate your location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
+        "loginNow": MessageLookupByLibrary.simpleMessage("Login now"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to logout?"),
+        "mobileAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
+            "Mobile already registered before"),
+        "mobileExistBefore":
+            MessageLookupByLibrary.simpleMessage("You mobile exist before"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
+        "newPassword":
+            MessageLookupByLibrary.simpleMessage("Enter the new password"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No internet Connection.\nPlease try again later"),
@@ -176,6 +191,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "previousOrder":
             MessageLookupByLibrary.simpleMessage("Previous orders"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
+        "promoDetails": MessageLookupByLibrary.simpleMessage("Promo details"),
         "promotion": MessageLookupByLibrary.simpleMessage("Promotion"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "Once you press on next you will receive message to activate your account"),
@@ -186,11 +202,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "resendOtpAfter": m3,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "scanBarcode":
+            MessageLookupByLibrary.simpleMessage("Search by Barcode"),
+        "scanText": MessageLookupByLibrary.simpleMessage(
+            "Make sure barcode is\nblack mark to scan"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchProduct": MessageLookupByLibrary.simpleMessage(
             "Looking for a specific product?"),
         "selectLocation":
             MessageLookupByLibrary.simpleMessage("Select your location"),
+        "selectPhotoFromCameraOrGallery": MessageLookupByLibrary.simpleMessage(
+            "Which you would like to use?"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("Send OTP"),
         "sendOtpAgain": MessageLookupByLibrary.simpleMessage("Send OTP again"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
@@ -201,6 +223,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("Support & Assistance"),
+        "updateProfileBuildingData":
+            MessageLookupByLibrary.simpleMessage("Building Information"),
+        "updateProfileBuildingName":
+            MessageLookupByLibrary.simpleMessage("Building Name"),
+        "updateProfileBuildingNumber": MessageLookupByLibrary.simpleMessage(
+            "Building number / Street name"),
+        "updateProfileDistrict":
+            MessageLookupByLibrary.simpleMessage("District"),
+        "updateProfileGovernorate":
+            MessageLookupByLibrary.simpleMessage("Governorate"),
+        "updateProfileLocation":
+            MessageLookupByLibrary.simpleMessage("Location"),
+        "updateProfilePersonalData":
+            MessageLookupByLibrary.simpleMessage("Personal Information"),
+        "updateProfileTitle":
+            MessageLookupByLibrary.simpleMessage("Update profile"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("Usage Policy"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
@@ -209,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("You can start order now"),
+        "youNeedToLoginToUseApp":
+            MessageLookupByLibrary.simpleMessage("You need to login"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")
       };
 }

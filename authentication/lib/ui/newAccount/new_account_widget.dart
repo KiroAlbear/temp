@@ -8,34 +8,71 @@ import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/bases/base_state.dart';
+import 'package:core/ui/bases/bloc_base.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class NewAccountWidget extends StatefulWidget {
+class NewAccountWidget extends BaseStatefulWidget {
   final String logo;
+  final String mobileNumber;
+  final int countryId;
 
-  const NewAccountWidget({super.key, required this.logo});
+  const NewAccountWidget(
+      {super.key,
+      required this.logo,
+      required this.mobileNumber,
+      this.countryId = 245});
 
   @override
   State<NewAccountWidget> createState() => _NewAccountWidgetState();
 }
 
-class _NewAccountWidgetState extends State<NewAccountWidget> {
+class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   final NewAccountBloc _bloc = NewAccountBloc();
 
   @override
-  Widget build(BuildContext context) => LogoTopWidget(
-      canBack: false,
-      logo: widget.logo,
-      blocBase: _bloc,
-      canSkip: false,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _stepRow,
-          _registerInfoWidget,
-        ]),
-      ));
+  void initState() {
+    super.initState();
+    _bloc.init(mobileNumber: widget.mobileNumber, countryId: widget.countryId);
+  }
+
+  void _handleBackPressing() async {
+    if (await _bloc.stepsStream.first == NewAccountStepEnum.locationInfo) {
+      _bloc.nextStep(NewAccountStepEnum.info);
+    } else if (await _bloc.stepsStream.first == NewAccountStepEnum.password) {
+      _bloc.nextStep(NewAccountStepEnum.locationInfo);
+    } else if (await _bloc.stepsStream.first ==
+        NewAccountStepEnum.editLocation) {
+      _bloc.nextStep(NewAccountStepEnum.locationInfo);
+    } else {
+      // Navigator.pop(context);
+      // Navigator.pop(context);
+      Navigator.pop(context);
+
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushNamed(AppScreenEnum.register.name);
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushNamed(AppScreenEnum.register.name);
+    }
+  }
+
+  @override
+  Widget getBody(BuildContext context) => BlocProvider(
+      bloc: _bloc,
+      child: LogoTopWidget(
+          canBack: false,
+          logo: widget.logo,
+          blocBase: _bloc,
+          canSkip: false,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              _stepRow,
+              _registerInfoWidget,
+            ]),
+          )));
 
   Widget get _stepRow => StreamBuilder(
         stream: _bloc.stepsStream,
@@ -45,11 +82,11 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
       );
 
   Widget get _registerInfoWidget => StreamBuilder(
-    stream: _bloc.stepsStream,
-    initialData: NewAccountStepEnum.info,
-    builder: (context, snapshot) =>
-        _whichRegisterInfoWidget(snapshot.data ?? NewAccountStepEnum.info),
-  );
+        stream: _bloc.stepsStream,
+        initialData: NewAccountStepEnum.info,
+        builder: (context, snapshot) =>
+            _whichRegisterInfoWidget(snapshot.data ?? NewAccountStepEnum.info),
+      );
 
   Widget _whichRegisterInfoWidget(NewAccountStepEnum step) {
     switch (step) {
@@ -58,7 +95,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
       case NewAccountStepEnum.locationInfo:
         return NewAccountLocationInfoWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.editLocation:
-      return NewAccountLocationWidget(newAccountBloc: _bloc);
+        return NewAccountLocationWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.password:
         return NewAccountPasswordWidget(newAccountBloc: _bloc);
     }
@@ -142,9 +179,6 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
   Widget _stepContainer(int step, bool current, bool finished) =>
       AnimatedContainer(
           duration: const Duration(milliseconds: 500),
-          width: 31.w,
-          height: 32.h,
-          padding: !finished? EdgeInsets.symmetric(vertical: 3.h): null,
           decoration: BoxDecoration(
               color: current ? lightBlackColor : whiteColor,
               borderRadius: BorderRadius.circular(7.w),
@@ -152,14 +186,32 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
           child: Center(
             child: finished
                 ? Icon(
-              Icons.check,
-              color: whiteColor,
-              size: 20.w,
-            )
-                : CustomText(
-                text: step.toString(),
-                customTextStyle: SemiBoldStyle(
-                    color: current ? whiteColor : lightBlackColor,
-                    fontSize: 20.sp)),
+                    Icons.check,
+                    color: whiteColor,
+                    size: 20.w,
+                  )
+                : Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
+                    child: CustomText(
+                        text: step.toString(),
+                        customTextStyle: SemiBoldStyle(
+                            color: current ? whiteColor : lightBlackColor,
+                            fontSize: 20.sp)),
+                  ),
           ));
+
+  @override
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => false;
+
+  @override
+  void onPopInvoked(didPop) {
+    _handleBackPressing();
+  }
+
+  @override
+  bool isSafeArea() => false;
 }

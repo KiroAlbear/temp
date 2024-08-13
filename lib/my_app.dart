@@ -20,16 +20,16 @@ import 'package:dokkan/generated/assets.dart';
 import 'package:dokkan/splash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hl_image_picker/hl_image_picker.dart';
 import 'package:home/home.dart';
-import 'package:home/ui/home/product/product_category_bloc.dart';
-import 'package:home/ui/home/product/product_category_widget.dart';
+import 'package:home/ui/product/product_category_bloc.dart';
+import 'package:home/ui/product/product_category_widget.dart';
+import 'package:home/ui/scanBarcode/scan_barcode_widget.dart';
 import 'package:more/ui/accountChangePasswordBloc/account_change_password.dart';
 import 'package:more/ui/faq/faq_widget.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
-import 'package:my_orders/ui/my_orders_bloc.dart';
-import 'package:my_orders/ui/my_orders_screen.dart';
+import 'package:more/ui/updateProfile/update_profile_bloc.dart';
+import 'package:more/ui/updateProfile/update_profile_screen.dart';
 
 import 'flavors.dart';
 

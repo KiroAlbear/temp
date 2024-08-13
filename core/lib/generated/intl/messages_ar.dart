@@ -40,22 +40,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "addToCart": MessageLookupByLibrary.simpleMessage("أضف الي السلة"),
         "atLeastOneCapChar": MessageLookupByLibrary.simpleMessage(
             "يجب أن تحتوي على حرف كبير على الأقل"),
-        "atLeastOneNumber": MessageLookupByLibrary.simpleMessage(
-            "يجب أن تحتوي على رقم واحد على الأقل"),
-        "atLeastOneSmallLetter": MessageLookupByLibrary.simpleMessage(
-            "يجب أن تحتوي على حرف صغير على الأقل"),
+        "atLeastOneNumber":
+            MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على أرقام"),
+        "atLeastOneSmallLetter":
+            MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على حروف"),
         "basket": MessageLookupByLibrary.simpleMessage("السلة"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("أقوى العروض"),
         "biometricLoginMessage":
             MessageLookupByLibrary.simpleMessage("يرجى المصادقة لتسجيل الدخول"),
         "browseSections": MessageLookupByLibrary.simpleMessage("تصفح الأقسام"),
+        "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("تغيير كلمة السر"),
+        "chooseCity": MessageLookupByLibrary.simpleMessage("اختر محافظتك"),
         "chooseYourCountry": MessageLookupByLibrary.simpleMessage("اختر بلدك"),
         "city": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد الخروج من دُكان؟"),
+        "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+        "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+            "ادخل تاكيد كلمة السر الجديدة"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
@@ -66,13 +71,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة السر الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
-            "هل أنت متأكد من أنك تريد حذف الحساب؟"),
+            "هل انت متأكد من حذف حسابك؟\nدا هيمسح كل بياناتك وطلباتك السابقة."),
         "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
         "editLocation": MessageLookupByLibrary.simpleMessage("تعديل الموقع"),
         "emailRequired":
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني مطلوب"),
+        "emptyFavourite":
+            MessageLookupByLibrary.simpleMessage("لا يوجد منتجات مفضلة لديك"),
         "enterCity": MessageLookupByLibrary.simpleMessage("ادخل اسم المحافظة"),
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("ادخل تاكيد كلمة السر"),
@@ -101,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة السر؟"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم بالكامل"),
+        "gallery": MessageLookupByLibrary.simpleMessage("معرض الصور"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "خطأ عام.\nيرجى المحاولة مرة أخرى في وقت لاحق!"),
         "haveAccount": MessageLookupByLibrary.simpleMessage("لديك حساب؟"),
@@ -114,14 +122,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "itemsDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":
-            MessageLookupByLibrary.simpleMessage("حدد مكان محللك"),
+            MessageLookupByLibrary.simpleMessage("حدد مكان محلك"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
+        "loginNow": MessageLookupByLibrary.simpleMessage("تسجيل الدخول الآن"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من أنك تريد تسجيل الخروج؟"),
+        "mobileAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
+            "رقم الهاتف مسجل بالفعل من قبل"),
+        "mobileExistBefore": MessageLookupByLibrary.simpleMessage(
+            "رقم الهاتف مسجل لدينا بالفعل"),
         "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
+        "newPassword":
+            MessageLookupByLibrary.simpleMessage("ادخل كلمة السر الجديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "لا يوجد اتصال بالإنترنت.\nيرجى المحاولة مرة أخرى لاحقًا"),
@@ -169,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
         "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
+        "promoDetails": MessageLookupByLibrary.simpleMessage("تفاصيل العرض"),
         "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
@@ -180,10 +196,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "scanBarcode":
+            MessageLookupByLibrary.simpleMessage("البحث عن طريق الباركود"),
+        "scanText": MessageLookupByLibrary.simpleMessage(
+            "تأكد من وجود الباركود ضمن\nالعلامات السوداء لمسح العنصر\nضوئيًا"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "searchProduct":
             MessageLookupByLibrary.simpleMessage("بتدور على منتج معين؟"),
         "selectLocation": MessageLookupByLibrary.simpleMessage("حدد موقعك"),
+        "selectPhotoFromCameraOrGallery":
+            MessageLookupByLibrary.simpleMessage("ماذا تفضل؟"),
         "sendOTP": MessageLookupByLibrary.simpleMessage("ارسال كود التحقيق"),
         "sendOtpAgain":
             MessageLookupByLibrary.simpleMessage("ارسال الكود مرة أخري"),
@@ -195,6 +217,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("الدعم والمساعدة"),
+        "updateProfileBuildingData":
+            MessageLookupByLibrary.simpleMessage("بيانات المنشأه"),
+        "updateProfileBuildingName":
+            MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
+        "updateProfileBuildingNumber":
+            MessageLookupByLibrary.simpleMessage("رقم البناية / اسم الشارع"),
+        "updateProfileDistrict": MessageLookupByLibrary.simpleMessage("الحي"),
+        "updateProfileGovernorate":
+            MessageLookupByLibrary.simpleMessage("المحافظة"),
+        "updateProfileLocation": MessageLookupByLibrary.simpleMessage("الموقع"),
+        "updateProfilePersonalData":
+            MessageLookupByLibrary.simpleMessage("بياناتي الشخصية"),
+        "updateProfileTitle":
+            MessageLookupByLibrary.simpleMessage("بيانات حسابي"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("سياسة الاستخدام"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "welcomeToDokkan":
@@ -203,6 +239,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("تقدر تطلب دلوقتي"),
+        "youNeedToLoginToUseApp":
+            MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
       };
 }

@@ -1,21 +1,24 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/generated/l10n.dart';
-import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:core/dto/models/product/product_mapper.dart';
+import 'package:home/ui/product/product_category_bloc.dart';
 
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
   final String favouriteIcon;
+  final ProductCategoryBloc productCategoryBloc;
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
   final Function(ProductMapper productMapper) addToCart;
   const ProductWidget(
       {super.key,
+      required this.productCategoryBloc,
       required this.productMapper,
       required this.addToCart,
       required this.favouriteIcon,
@@ -26,57 +29,106 @@ class ProductWidget extends StatefulWidget {
 }
 
 class _ProductWidgetState extends State<ProductWidget> {
+  final ValueNotifier<bool> isAddingToFavSucess = ValueNotifier(true);
+
   @override
   Widget build(BuildContext context) => Container(
-      decoration: BoxDecoration(
-        color: productCardColor,
-        borderRadius: BorderRadius.circular(16.w),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 12.h,
-          ),
-          _favouriteAndDiscountRow,
-          SizedBox(
-            height: 4.h,
-          ),
-          _productImage,
-          SizedBox(
-            height: 5.h,
-          ),
-          _productName,
-          SizedBox(
-            height: 4.h,
-          ),
-          _priceRow,
-          SizedBox(
-            height: 4.h,
-          ),
-          _productDescription,
-          SizedBox(
-            height: 9.h,
-          ),
-          Center(child: _addCartButton),
-          SizedBox(
-            height: 10.h,
-          )
-        ],
-      ),
-    );
+        decoration: BoxDecoration(
+          color: productCardColor,
+          borderRadius: BorderRadius.circular(16.w),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 12.h,
+            ),
+            _favouriteAndDiscountRow,
+            SizedBox(
+              height: 4.h,
+            ),
+            _productImage,
+            SizedBox(
+              height: 5.h,
+            ),
+            _productName,
+            SizedBox(
+              height: 4.h,
+            ),
+            _priceRow,
+            SizedBox(
+              height: 4.h,
+            ),
+            _productDescription,
+            SizedBox(
+              height: 9.h,
+            ),
+            Center(child: _addCartButton),
+            SizedBox(
+              height: 10.h,
+            )
+          ],
+        ),
+      );
 
   Widget get _favouriteAndDiscountRow => Row(
         children: [
           SizedBox(
             width: 12.w,
           ),
-          _favouriteIcon,
+          ValueListenableBuilder(
+            valueListenable: isAddingToFavSucess,
+            builder: (context, value, child) {
+              return !value
+                  ? SizedBox(
+                      height: 18, width: 18, child: CircularProgressIndicator())
+                  : InkWell(
+                      onTap: () {
+                        widget.onTapFavourite(!widget.productMapper.isFavourite,
+                            widget.productMapper);
+
+                        if (widget.productMapper.isFavourite) {
+                          widget.productCategoryBloc
+                              .removeProductFromFavourite(
+                            productId: widget.productMapper.id,
+                            clientId:
+                                int.parse(SharedPrefModule().userId ?? '0'),
+                          )
+                              .listen((event) {
+                            _handleFavouriteIcon(event, false);
+                          });
+                        } else {
+                          widget.productCategoryBloc
+                              .addProductToFavourite(
+                            productId: widget.productMapper.id,
+                            clientId:
+                                int.parse(SharedPrefModule().userId ?? '0'),
+                          )
+                              .listen((event) {
+                            _handleFavouriteIcon(event, true);
+                          });
+                        }
+                      },
+                      child: _favouriteIcon,
+                    );
+            },
+          ),
           const Spacer(),
           if (widget.productMapper.discountPercentage > 0) _discountWidget,
         ],
       );
+
+  void _handleFavouriteIcon(ApiState<bool> event, bool isAdded) {
+    if (event is SuccessState) {
+      widget.productMapper.isFavourite = isAdded;
+      isAddingToFavSucess.value = true;
+    } else if (event is LoadingState) {
+      isAddingToFavSucess.value = false;
+    } else if (event is! LoadingState && event is! SuccessState) {
+      isAddingToFavSucess.value = true;
+    }
+  }
 
   Widget get _discountWidget => Container(
         padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 7.w),
@@ -99,18 +151,12 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
       );
 
-  Widget get _favouriteIcon => InkWell(
-        onTap: () {
-          widget.onTapFavourite(
-              !widget.productMapper.isFavourite, widget.productMapper);
-        },
-        child: ImageHelper(
-          image: widget.favouriteIcon,
-          imageType: ImageType.svg,
-          width: 18.w,
-          height: 18.h,
-          color: widget.productMapper.isFavourite ? redColor : secondaryColor,
-        ),
+  Widget get _favouriteIcon => ImageHelper(
+        image: widget.favouriteIcon,
+        imageType: ImageType.svg,
+        width: 18.w,
+        height: 18.h,
+        color: widget.productMapper.isFavourite ? redColor : secondaryColor,
       );
 
   Widget get _productImage => Center(
@@ -125,9 +171,10 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _productName => Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: CustomText(
-            text: widget.productMapper.name,
-            customTextStyle:
-                MediumStyle(color: lightBlackColor, fontSize: 12.sp),maxLines: 1,),
+          text: widget.productMapper.name,
+          customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+          maxLines: 1,
+        ),
       );
 
   Widget get _priceRow => Padding(
@@ -141,10 +188,13 @@ class _ProductWidgetState extends State<ProductWidget> {
                     '${widget.productMapper.getPrice().toString()} ${widget.productMapper.currency}',
                 customTextStyle:
                     MediumStyle(fontSize: 14.sp, color: secondaryColor)),
-            SizedBox(width: 10.w,),
+            SizedBox(
+              width: 10.w,
+            ),
             if (widget.productMapper.discountPercentage > 0)
               CustomText(
-                text: '${widget.productMapper.price.toString()} ${widget.productMapper.currency}',
+                text:
+                    '${widget.productMapper.price.toString()} ${widget.productMapper.currency}',
                 customTextStyle: MediumStyle(
                     color: redColor,
                     fontSize: 10.sp,

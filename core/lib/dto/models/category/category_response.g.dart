@@ -11,7 +11,10 @@ CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
       ..id = (json['id'] as num?)?.toInt()
       ..name = json['name'] as String?
       ..parentPath = json['parent_path'] as String?
-      ..image = json['image_1920'] as String?;
+      ..image = json['image_1920'] as String?
+      ..parentId = (json['parent_id'] as List<dynamic>?)
+          ?.map((e) => e as Object)
+          .toList();
 
 Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
     <String, dynamic>{
@@ -19,4 +22,5 @@ Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
       'name': instance.name,
       'parent_path': instance.parentPath,
       'image_1920': instance.image,
+      'parent_id': instance.parentId,
     };

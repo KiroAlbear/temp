@@ -17,6 +17,7 @@ class PasswordValidationBloc extends BlocBase {
     ..sink.add(false);
   final BehaviorSubject<bool> _noSpaceBehaviour = BehaviorSubject()
     ..sink.add(false);
+  final TextEditingController textEditingController;
 
   Stream<bool> get capitalCharStream => _capitalCharBehaviour.stream;
 
@@ -39,22 +40,22 @@ class PasswordValidationBloc extends BlocBase {
       noSpaceStream,
       (hasCapChar, hasSmallChar, hasNumber, matchPasswordLength, hasSpecialChar,
               noSpaceAllowed) =>
-          hasCapChar &&
+          // hasCapChar &&
           hasSmallChar &&
           hasNumber &&
           matchPasswordLength &&
-          hasSpecialChar &&
+          // hasSpecialChar &&
           noSpaceAllowed);
 
-  PasswordValidationBloc(TextEditingController textEditingController) {
+  PasswordValidationBloc(this.textEditingController) {
     ValidatorModule validatorModule = ValidatorModule();
     textEditingController.addListener(() {
       String value = textEditingController.text.toString();
-      _validateCapLetter(validatorModule, value);
+      // _validateCapLetter(validatorModule, value);
       _validateSmallLetter(validatorModule, value);
       _validateNumberLetter(validatorModule, value);
       _validateLength(validatorModule, value);
-      _validateSpecialChar(validatorModule, value);
+      // _validateSpecialChar(validatorModule, value);
       _validateNoSpace(validatorModule, value);
     });
   }

@@ -49,6 +49,9 @@ class NavigationModule {
     return Navigator.of(context).push(PageRouteBuilder(
       opaque: false,
       barrierColor: greyColor.withOpacity(0.5),
+      allowSnapshotting: false,
+      maintainState: false,
+      barrierDismissible: false,
       transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(0, 1), // Start from the bottom

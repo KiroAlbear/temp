@@ -5,6 +5,7 @@ import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
@@ -24,7 +25,8 @@ class ForgotPasswordWidget extends StatefulWidget {
   State<ForgotPasswordWidget> createState() => _ForgotPasswordWidgetState();
 }
 
-class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
+class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
+    with ResponseHandlerModule {
   final ForgotPasswordBloc _bloc = ForgotPasswordBloc();
 
   @override
@@ -53,10 +55,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
               SizedBox(
                 height: 12.h,
               ),
-              MobileCountryWidget(
-                  mobileBloc: _bloc.mobileBloc,
-                  countryList: _bloc.fakeList,
-                  countryBloc: _bloc.countryBloc),
+              _countryStream,
               SizedBox(
                 height: 145.h,
               ),
@@ -64,6 +63,16 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
             ],
           ),
         ),
+      );
+
+  Widget get _countryStream => StreamBuilder(
+        stream: _bloc.countryStream,
+        builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
+            snapshot.data!, context,
+            onSuccess: MobileCountryWidget(
+                mobileBloc: _bloc.mobileBloc,
+                countryList: snapshot.data?.response ?? [],
+                countryBloc: _bloc.countryBloc)),
       );
 
   Widget get _button => CustomButtonWidget(

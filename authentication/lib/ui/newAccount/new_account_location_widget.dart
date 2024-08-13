@@ -1,6 +1,5 @@
 import 'package:authentication/ui/newAccount/new_account_bloc.dart';
 import 'package:core/core.dart';
-import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -9,7 +8,8 @@ import 'package:flutter/material.dart';
 
 class NewAccountLocationWidget extends StatefulWidget {
   final NewAccountBloc newAccountBloc;
-
+  // final double latitude;
+  // final double longitude;
   const NewAccountLocationWidget({super.key, required this.newAccountBloc});
 
   @override
@@ -35,23 +35,26 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
           ),
           MapModule().loadMap(
               onPicked: (latitude, longitude, city, area, address) {
-                AlertModule().showDialog(
-                  context: context,
-                  message: S.of(context).pickLocationEnsureMessage,
-                  cancelMessage: S.of(context).cancel,
-                  confirmMessage: S.of(context).ok,
-                  headerMessage: '',
-                  onConfirm: () {
-                    _confirmPickLocation(
-                        longitude, latitude, city, area, address);
-                  },
-                  onCancel: () {
-                    ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-                  },
-                );
+                _confirmPickLocation(longitude, latitude, city, area, address);
+                // AlertModule().showDialog(
+                //   context: context,
+                //   message: S.of(context).pickLocationEnsureMessage,
+                //   cancelMessage: S.of(context).cancel,
+                //   confirmMessage: S.of(context).ok,
+                //   headerMessage: '',
+                //   onConfirm: () {
+                //     _confirmPickLocation(
+                //         longitude, latitude, city, area, address);
+                //   },
+                //   onCancel: () {
+                //     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                //   },
+                // );
               },
+              latitude: widget.newAccountBloc.latitude,
+              longitude: widget.newAccountBloc.longitude,
               hintText: S.of(context).locationYourLocation,
-              buttonText: S.of(context).selectLocation),
+              buttonText: S.of(context).confirm),
         ],
       );
 
@@ -84,9 +87,6 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     widget.newAccountBloc.longitude = longitude;
     widget.newAccountBloc.latitude = latitude;
-    widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: city));
-    widget.newAccountBloc.cityBloc.updateStringBehaviour(city);
     widget.newAccountBloc.neighborhoodBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: area));
     widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(area);
@@ -94,5 +94,14 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
         .add(TextEditingController(text: address));
     widget.newAccountBloc.streetNameBloc.updateStringBehaviour(address);
     widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
+    for (var element in widget.newAccountBloc.stateList) {
+      if (element.name.toLowerCase().contains(city.toLowerCase())) {
+        widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink
+            .add(TextEditingController(text: element.name));
+        widget.newAccountBloc.cityBloc.updateStringBehaviour(element.name);
+        widget.newAccountBloc.selectedState = element;
+        break;
+      }
+    }
   }
 }

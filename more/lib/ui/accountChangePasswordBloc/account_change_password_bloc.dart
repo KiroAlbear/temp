@@ -1,16 +1,16 @@
 import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 import 'package:core/dto/commonBloc/button_bloc.dart';
+import 'package:core/dto/remote/change_password_remote.dart';
 
 class AccountChangePasswordBloc extends BlocBase{
   final TextFormFiledBloc currentPasswordBloc = TextFormFiledBloc();
   final TextFormFiledBloc passwordBloc = TextFormFiledBloc();
-
   final TextFormFiledBloc confirmPasswordBloc = TextFormFiledBloc();
   final ButtonBloc buttonBloc = ButtonBloc();
-
   final ValidatorModule _validatorModule = ValidatorModule();
 
 
@@ -25,6 +25,11 @@ class AccountChangePasswordBloc extends BlocBase{
           _validatorModule.isPasswordValid(passwordBloc.value) &&
           _validatorModule.isMatchValid(
               passwordBloc.value, confirmPasswordBloc.value);
+
+  Stream<ApiState<void>> get changePassword=> ChangePasswordRemote(
+    newPassword: passwordBloc.value,
+    oldPassword: currentPasswordBloc.value
+  ).callApiAsStream();
 
   @override
   void dispose() {

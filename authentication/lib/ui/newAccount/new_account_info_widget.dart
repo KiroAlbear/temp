@@ -8,6 +8,7 @@ import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NewAccountInfoWidget extends StatefulWidget {
   final NewAccountBloc newAccountBloc;
@@ -51,6 +52,8 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
       );
 
   Widget get _fullNameTextFiled => CustomTextFormFiled(
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         labelText: S.of(context).enterFullName,
         textFiledControllerStream:
             widget.newAccountBloc.fullNameBloc.textFormFiledStream,
@@ -58,24 +61,37 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
             widget.newAccountBloc.fullNameBloc.updateStringBehaviour(value),
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
-        textInputType: TextInputType.text,
+        inputFormatter: [
+          FilteringTextInputFormatter.allow(RegExp(r'[a-z\u0621-\u064a-\ ]')),
+          FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
+        ],
         textInputAction: TextInputAction.next,
       );
 
   Widget get _platformNameTextFiled => CustomTextFormFiled(
         labelText: S.of(context).platformName,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         textFiledControllerStream:
             widget.newAccountBloc.facilityNameBloc.textFormFiledStream,
         onChanged: (value) =>
             widget.newAccountBloc.facilityNameBloc.updateStringBehaviour(value),
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
-        textInputType: TextInputType.text,
+        inputFormatter: [
+          FilteringTextInputFormatter.allow(
+              RegExp(r'[a-z0-9\u0621-\u064a-\u0660-\u0669 ]')),
+          FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
+          // FilteringTextInputFormatter.allow(RegExp(r'^[\u0660-\u0669]+$')),
+        ],
         textInputAction: TextInputAction.next,
       );
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).next,
+        textStyle:
+            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+        height: 60.h,
         onTap: () {
           if (widget.newAccountBloc.isInfoValid) {
             widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);

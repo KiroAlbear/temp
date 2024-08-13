@@ -6,7 +6,7 @@ import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/models/login/login_mapper.dart';
 import 'package:core/dto/models/login/login_request.dart';
-import 'package:core/dto/modules/constants_module.dart';
+import 'package:core/dto/remote/country_remote.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/dto/remote/login_remote.dart';
@@ -21,16 +21,22 @@ class LoginBloc extends BlocBase {
   final BehaviorSubject<bool> _biometricSupportedBehaviour = BehaviorSubject()
     ..sink.add(false);
 
+  final BehaviorSubject<ApiState<List<DropDownMapper>>> _countryBehaviour = BehaviorSubject()..sink.add(LoadingState());
+
+
+  LoginBloc(){
+    _checkBiometricSupported();
+    CountryRemote().callApiAsStream().listen((event) {
+      _countryBehaviour.sink.add(event);
+    },);
+  }
+
   Stream<bool> get biometricSupportedStream =>
       _biometricSupportedBehaviour.stream;
 
   bool get _isLoggedBefore =>
       (SharedPrefModule().userName ?? '').isNotEmpty &&
       (SharedPrefModule().password ?? '').isNotEmpty;
-
-  LoginBloc() {
-    _checkBiometricSupported();
-  }
 
   void _checkBiometricSupported() {
     LocalAuthModule().isSupported.then((value) =>
@@ -53,71 +59,7 @@ class LoginBloc extends BlocBase {
     }
   }
 
-  List<DropDownMapper> get fakeList => [
-        DropDownMapper(
-            name: 'Test 1',
-            id: '1',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'Test 2',
-            id: '2',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'Test 3',
-            id: '3',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'Test 4',
-            id: '4',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'Test 5',
-            id: '5',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'Test 6',
-            id: '6',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'Test 7',
-            id: '7',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'test 8',
-            id: '8',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-        DropDownMapper(
-            name: 'test9',
-            id: '9',
-            description: '+20',
-            customValidator: ConstantModule.mobileRegex,
-            image:
-                'https://th.bing.com/th/id/R.d70f2a93f645082669f4bc412cc5182e?rik=ipC1NMKzHGFIvQ&riu=http%3a%2f%2fwww.theflagman.co.uk%2fwp-content%2fuploads%2f2017%2f03%2fflag-of-Egypt.jpg&ehk=%2fF3guXbzzeNmiHln3JWDor0yLWTpCec7RwlFr0nystk%3d&risl=&pid=ImgRaw&r=0'),
-      ];
+  Stream<ApiState<List<DropDownMapper>>> get countryStream => _countryBehaviour.stream;
 
   Stream<ApiState<LoginMapper>> get login => LoginRemote(
           loginRequest: LoginRequest(

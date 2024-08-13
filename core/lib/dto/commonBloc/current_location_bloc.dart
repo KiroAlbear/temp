@@ -27,7 +27,7 @@ class CurrentLocationBloc extends BlocBase {
       _currentLocationBehaviour.valueOrNull?.longitude ?? 0.0;
 
   // Method to request the user's location.
-  void requestLocation() async {
+  Future<void> requestLocation() async {
     // Check if location services are enabled on the device.
     bool serviceEnabled = await _location.serviceEnabled();
     if (!serviceEnabled) {
@@ -35,7 +35,7 @@ class CurrentLocationBloc extends BlocBase {
       final isEnabled = await _location.requestService();
       // Recursively call requestLocation to start listening once services are enabled.
       if (!isEnabled) {
-        requestLocation();
+        await requestLocation();
       } else {
         _handlePermissionAllowed();
       }
