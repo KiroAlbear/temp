@@ -121,5 +121,6 @@
   "updateProfileDistrict": "District",
   "updateProfileGovernorate": "Governorate",
   "mobileExistBefore": "You mobile exist before",
-  "emptyFavourite": "There are no favorite products"
+  "emptyFavourite": "There are no favorite products",
+  "offersTitle": "Offers"
 }

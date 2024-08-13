@@ -46,7 +46,8 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0, null);
-      return _buildPageRoute(const SplashWidget());
+      return _buildPageRoute(const OffersPage());
+    // return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
@@ -90,6 +91,8 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.updateProfileScreen:
       return _buildPageRoute(
           UpdateProfileScreen(backIcon: Assets.svgIcBack, moreBloc: _moreBloc));
+    case AppScreenEnum.offers:
+      return _buildPageRoute(OffersPage());
   }
 }
 

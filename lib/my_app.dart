@@ -30,6 +30,7 @@ import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
 import 'package:more/ui/updateProfile/update_profile_bloc.dart';
 import 'package:more/ui/updateProfile/update_profile_screen.dart';
+import 'package:offers/ui/screens/offers_page.dart';
 
 import 'flavors.dart';
 

@@ -140,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لا يوجد اتصال بالإنترنت.\nيرجى المحاولة مرة أخرى لاحقًا"),
         "noSpaceAllowed":
             MessageLookupByLibrary.simpleMessage("يجب ألا تحتوي على مسافات"),
+        "offersTitle": MessageLookupByLibrary.simpleMessage("العروض"),
         "ok": MessageLookupByLibrary.simpleMessage("حسنًا"),
         "openSetting": m2,
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),

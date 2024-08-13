@@ -19,6 +19,8 @@ dependencies:
     path: home
   more:
     path: more
+  offers:
+    path: offers
 
   hl_image_picker: ^1.2.16
 
