@@ -79,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "editLocation": MessageLookupByLibrary.simpleMessage("Edit location"),
         "emailRequired": MessageLookupByLibrary.simpleMessage("Email required"),
+        "emptyFavourite": MessageLookupByLibrary.simpleMessage(
+            "There are no favorite products"),
         "enterCity": MessageLookupByLibrary.simpleMessage(
             "Enter the name of the governorate"),
         "enterConfirmPassword":

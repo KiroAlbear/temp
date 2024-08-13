@@ -77,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "editLocation": MessageLookupByLibrary.simpleMessage("تعديل الموقع"),
         "emailRequired":
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني مطلوب"),
+        "emptyFavourite":
+            MessageLookupByLibrary.simpleMessage("لا يوجد منتجات مفضلة لديك"),
         "enterCity": MessageLookupByLibrary.simpleMessage("ادخل اسم المحافظة"),
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("ادخل تاكيد كلمة السر"),

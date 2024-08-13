@@ -120,5 +120,6 @@
   "updateProfileBuildingNumber": "Building number / Street name",
   "updateProfileDistrict": "District",
   "updateProfileGovernorate": "Governorate",
-  "mobileExistBefore": "You mobile exist before"
+  "mobileExistBefore": "You mobile exist before",
+  "emptyFavourite": "There are no favorite products"
 }

@@ -120,5 +120,6 @@
   "updateProfileGovernorate": "المحافظة",
   "mobileAlreadyRegistered": "رقم الهاتف مسجل بالفعل من قبل",
   "chooseCity": "اختر محافظتك",
-  "mobileExistBefore": "رقم الهاتف مسجل لدينا بالفعل"
+  "mobileExistBefore": "رقم الهاتف مسجل لدينا بالفعل",
+  "emptyFavourite": "لا يوجد منتجات مفضلة لديك"
 }

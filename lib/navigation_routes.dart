@@ -181,6 +181,7 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
 BlocProvider get _productCategoryWidget => BlocProvider(
     bloc: _productCategoryBloc,
     child: ProductCategoryWidget(
+      emptyFavouriteScreen: Assets.svgEmptyFavourite,
       backIcon: Assets.svgIcBack,
       favouriteIcon: Assets.svgIcFavourite,
       homeBloc: _homeBloc,

@@ -1269,6 +1269,16 @@ class S {
       args: [],
     );
   }
+
+  /// `There are no favorite products`
+  String get emptyFavourite {
+    return Intl.message(
+      'There are no favorite products',
+      name: 'emptyFavourite',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
