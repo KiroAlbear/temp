@@ -5,7 +5,7 @@ class MyOrdersMapper {
   List<OrdersMapper>? pastOrders;
 
   MyOrdersMapper(MyOrdersResponse response) {
-    currentOrders = response.currentOrders!
+    currentOrders = response.orders!
         .map((e) => OrdersMapper(
             id: e.id!,
             totalPrice: e.totalPrice!,

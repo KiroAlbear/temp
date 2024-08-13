@@ -1,39 +1,14 @@
+import 'package:core/core.dart';
+
+part 'my_orders_response.g.dart';
+
+@JsonSerializable()
 class MyOrdersResponse {
-  List<Orders>? currentOrders;
-  List<Orders>? pastOrders;
-
-  MyOrdersResponse({this.currentOrders, this.pastOrders});
-
-  MyOrdersResponse.fromJson(Map<String, dynamic> json) {
-    if (json['currentOrders'] != null) {
-      currentOrders = <Orders>[];
-      json['currentOrders'].forEach((v) {
-        currentOrders!.add(new Orders.fromJson(v));
-      });
-    }
-
-    if (json['pastOrders'] != null) {
-      pastOrders = <Orders>[];
-      json['pastOrders'].forEach((v) {
-        pastOrders!.add(new Orders.fromJson(v));
-      });
-    }
-  }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   if (this.currentOrders != null) {
-  //     data['currentOrders'] =
-  //         this.currentOrders!.map((v) => v.toJson()).toList();
-  //   }
-  //   return data;
-  // }
-}
-
-class Orders {
+  @JsonKey(name: 'id')
   int? id;
   String? totalPrice;
   int? itemsCount;
+
   String? sendingOrder;
   String? acceptingOrder;
   String? shippingOrder;
@@ -41,7 +16,7 @@ class Orders {
   String? deliverOrder;
   List<Items>? items;
 
-  Orders(
+  MyOrdersResponse(
       {this.id,
       this.totalPrice,
       this.itemsCount,
@@ -52,7 +27,7 @@ class Orders {
       this.deliverOrder,
       this.items});
 
-  Orders.fromJson(Map<String, dynamic> json) {
+  MyOrdersResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     totalPrice = json['totalPrice'];
     itemsCount = json['itemsCount'];
@@ -67,24 +42,19 @@ class Orders {
         items!.add(new Items.fromJson(v));
       });
     }
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['totalPrice'] = this.totalPrice;
-    data['itemsCount'] = this.itemsCount;
-    data['sendingOrder'] = this.sendingOrder;
-    data['acceptingOrder'] = this.acceptingOrder;
-    data['shippingOrder'] = this.shippingOrder;
-    data['outOrder'] = this.outOrder;
-    data['deliverOrder'] = this.deliverOrder;
-    if (this.items != null) {
-      data['items'] = this.items!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    MyOrdersResponse();
   }
 }
+
+// Map<String, dynamic> toJson() {
+//   final Map<String, dynamic> data = new Map<String, dynamic>();
+//   if (this.currentOrders != null) {
+//     data['currentOrders'] =
+//         this.currentOrders!.map((v) => v.toJson()).toList();
+//   }
+//   return data;
+// }
 
 class Items {
   int? id;
