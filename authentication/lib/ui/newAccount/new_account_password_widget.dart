@@ -1,17 +1,17 @@
 import 'package:authentication/ui/newAccount/new_account_bloc.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/modules/response_handler_module.dart';
-import 'package:core/ui/password_validation_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
+import 'package:core/ui/password_validation_widget.dart';
 import 'package:flutter/material.dart';
 
 class NewAccountPasswordWidget extends StatefulWidget {
@@ -70,6 +70,10 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
             widget.newAccountBloc.passwordBloc.textFormFiledStream,
         labelText: S.of(context).enterYourPassword,
         textInputAction: TextInputAction.next,
+        defaultTextStyle: RegularStyle(
+          color: lightBlackColor,
+          fontSize: 16.sp,
+        ).getStyle(),
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
         validator: (value) =>
@@ -86,6 +90,8 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
         textInputAction: TextInputAction.done,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         validator: (value) => ValidatorModule()
             .matchValidator(context)
             .validateMatch(
@@ -136,6 +142,9 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
             );
           }
         },
+        textStyle:
+            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+        height: 60.h,
         buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
         failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
         validateStream: widget.newAccountBloc.validatePasswordStream,
@@ -146,7 +155,10 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
         buttonColor: lightBlackColor,
         inLineBackgroundColor: whiteColor,
         textColor: lightBlackColor,
+        height: 60.h,
         buttonShapeEnum: ButtonShapeEnum.outline,
+        textStyle:
+            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         onTap: () {
           widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
         },

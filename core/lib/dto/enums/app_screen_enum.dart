@@ -16,4 +16,5 @@ enum AppScreenEnum {
   cartScreen,
   cartSuccessScreen,
   cartOrderDetailsScreen,
+  updateProfileScreen
 }

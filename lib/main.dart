@@ -1,10 +1,13 @@
 import 'dart:async';
+
 import 'package:core/core.dart';
-import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/admin_dio_module.dart';
+import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/logger_module.dart';
 import 'package:core/dto/modules/odoo_dio_module.dart';
+import 'package:core/dto/network/app_http_overrides.dart';
 import 'package:flutter/material.dart';
+
 import 'flavors.dart';
 import 'my_app.dart';
 
@@ -18,7 +21,7 @@ FutureOr<void> main() async {
   // );
 
   /// init shared preferences as simple shared pref plugin
-      await SimpleSharedPref().init(allowEncryptAndDecrypt: false);
+  await SimpleSharedPref().init(allowEncryptAndDecrypt: false);
   // if (SharedPrefModule().userId != null) {
   //   FirebaseCrashlytics.instance
   //       .setUserIdentifier(SharedPrefModule().userId?? '');
@@ -35,8 +38,10 @@ FutureOr<void> main() async {
   _initAdminDio();
   LoggerModule.log(message: AdminDioModule().baseUrl, name: 'admin dio module');
   LoggerModule.log(message: OdooDioModule().baseUrl, name: 'odoo dio module');
+
   /// allow Chucker to show in release mode
   ChuckerFlutter.showOnRelease = true;
+  HttpOverrides.global = AppHttpOverrides();
 
   /// run app and use provider for app config
   runApp(MultiProvider(providers: [

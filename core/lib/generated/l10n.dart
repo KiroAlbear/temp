@@ -390,20 +390,20 @@ class S {
     );
   }
 
-  /// `At least one small letter`
+  /// `Must contain letters`
   String get atLeastOneSmallLetter {
     return Intl.message(
-      'At least one small letter',
+      'Must contain letters',
       name: 'atLeastOneSmallLetter',
       desc: '',
       args: [],
     );
   }
 
-  /// `At least one number`
+  /// `Must contain numbers`
   String get atLeastOneNumber {
     return Intl.message(
-      'At least one number',
+      'Must contain numbers',
       name: 'atLeastOneNumber',
       desc: '',
       args: [],
@@ -565,6 +565,16 @@ class S {
     return Intl.message(
       'Select your location',
       name: 'selectLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
       desc: '',
       args: [],
     );
@@ -970,10 +980,10 @@ class S {
     );
   }
 
-  /// `Are you sure you want to delete account?`
+  /// `\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.`
   String get deleteAccountMessage {
     return Intl.message(
-      'Are you sure you want to delete account?',
+      '\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.',
       name: 'deleteAccountMessage',
       desc: '',
       args: [],
@@ -1130,151 +1140,141 @@ class S {
     );
   }
 
-  /// `Basket`
-  String get cartTitle {
+  /// `Enter the new password`
+  String get newPassword {
     return Intl.message(
-      'Basket',
-      name: 'cartTitle',
+      'Enter the new password',
+      name: 'newPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Products Details`
-  String get cartProductDetails {
+  /// `Enter to confirm the new password`
+  String get confirmNewPassword {
     return Intl.message(
-      'Products Details',
-      name: 'cartProductDetails',
+      'Enter to confirm the new password',
+      name: 'confirmNewPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `There is no orders`
-  String get cartEmpty {
+  /// `Mobile already registered before`
+  String get mobileAlreadyRegistered {
     return Intl.message(
-      'There is no orders',
-      name: 'cartEmpty',
+      'Mobile already registered before',
+      name: 'mobileAlreadyRegistered',
       desc: '',
       args: [],
     );
   }
 
-  /// `Order is confirmed successfully`
-  String get cartSuccessConfirmation {
+  /// `Choose your city`
+  String get chooseCity {
     return Intl.message(
-      'Order is confirmed successfully',
-      name: 'cartSuccessConfirmation',
+      'Choose your city',
+      name: 'chooseCity',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your order will be delivered to you within 24 hours \nYou can now track the progress of your orderً`
-  String get cartSuccessIsDelivering {
+  /// `Update profile`
+  String get updateProfileTitle {
     return Intl.message(
-      'Your order will be delivered to you within 24 hours \nYou can now track the progress of your orderً',
-      name: 'cartSuccessIsDelivering',
+      'Update profile',
+      name: 'updateProfileTitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Track your order`
-  String get cartSuccessTrackButton {
+  /// `Personal Information`
+  String get updateProfilePersonalData {
     return Intl.message(
-      'Track your order',
-      name: 'cartSuccessTrackButton',
+      'Personal Information',
+      name: 'updateProfilePersonalData',
       desc: '',
       args: [],
     );
   }
 
-  /// `Are you sure to remove the product from the cart?`
-  String get cartDeleteMessage {
+  /// `Building Information`
+  String get updateProfileBuildingData {
     return Intl.message(
-      'Are you sure to remove the product from the cart?',
-      name: 'cartDeleteMessage',
+      'Building Information',
+      name: 'updateProfileBuildingData',
       desc: '',
       args: [],
     );
   }
 
-  /// `The maximum quantity you can add to this product is`
-  String get cartMaximumProductsReached {
+  /// `Building Name`
+  String get updateProfileBuildingName {
     return Intl.message(
-      'The maximum quantity you can add to this product is',
-      name: 'cartMaximumProductsReached',
+      'Building Name',
+      name: 'updateProfileBuildingName',
       desc: '',
       args: [],
     );
   }
 
-  /// `The minimum amount you can add to this product is`
-  String get cartMinimumProductsReached {
+  /// `Location`
+  String get updateProfileLocation {
     return Intl.message(
-      'The minimum amount you can add to this product is',
-      name: 'cartMinimumProductsReached',
+      'Location',
+      name: 'updateProfileLocation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Order now`
-  String get cartOrderNow {
+  /// `Building number / Street name`
+  String get updateProfileBuildingNumber {
     return Intl.message(
-      'Order now',
-      name: 'cartOrderNow',
+      'Building number / Street name',
+      name: 'updateProfileBuildingNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Order details`
-  String get cartOrderOrderDetails {
+  /// `District`
+  String get updateProfileDistrict {
     return Intl.message(
-      'Order details',
-      name: 'cartOrderOrderDetails',
+      'District',
+      name: 'updateProfileDistrict',
       desc: '',
       args: [],
     );
   }
 
-  /// `Confirm order`
-  String get cartConfirmOrder {
+  /// `Governorate`
+  String get updateProfileGovernorate {
     return Intl.message(
-      'Confirm order',
-      name: 'cartConfirmOrder',
+      'Governorate',
+      name: 'updateProfileGovernorate',
       desc: '',
       args: [],
     );
   }
 
-  /// `Cash on delivery`
-  String get cartCashOnDelivery {
+  /// `You mobile exist before`
+  String get mobileExistBefore {
     return Intl.message(
-      'Cash on delivery',
-      name: 'cartCashOnDelivery',
+      'You mobile exist before',
+      name: 'mobileExistBefore',
       desc: '',
       args: [],
     );
   }
 
-  /// `Payment method that suits you`
-  String get cartPaymentOptions {
+  /// `There are no favorite products`
+  String get emptyFavourite {
     return Intl.message(
-      'Payment method that suits you',
-      name: 'cartPaymentOptions',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Dokkan wallet`
-  String get cartDokkanWallet {
-    return Intl.message(
-      'Dokkan wallet',
-      name: 'cartDokkanWallet',
+      'There are no favorite products',
+      name: 'emptyFavourite',
       desc: '',
       args: [],
     );

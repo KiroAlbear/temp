@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_navigator_module.dart';
+import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -10,8 +10,9 @@ import 'package:core/ui/bases/bloc_base.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:core/ui/password_validation_widget.dart';
+import 'package:flutter/material.dart';
+
 import 'account_change_password_bloc.dart';
 
 class AccountChangePassword extends BaseStatefulWidget {
@@ -40,7 +41,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
       BlocProvider(bloc: _bloc, child: _screenDesign);
 
   Widget get _screenDesign => SingleChildScrollView(
-    child: Column(
+        child: Column(
           children: [
             AppTopWidget(
               notificationIcon: '',
@@ -62,8 +63,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                   ),
                   CustomText(
                       text: S.of(context).currentPassword,
-                      customTextStyle:
-                          RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+                      customTextStyle: RegularStyle(
+                          color: lightBlackColor, fontSize: 20.sp)),
                   SizedBox(
                     height: 16.h,
                   ),
@@ -73,8 +74,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                   ),
                   CustomText(
                       text: S.of(context).password,
-                      customTextStyle:
-                          RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
+                      customTextStyle: RegularStyle(
+                          fontSize: 20.sp, color: lightBlackColor)),
                   SizedBox(
                     height: 12.h,
                   ),
@@ -84,8 +85,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                   ),
                   CustomText(
                       text: S.of(context).confirmPassword,
-                      customTextStyle:
-                          RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+                      customTextStyle: RegularStyle(
+                          color: lightBlackColor, fontSize: 20.sp)),
                   SizedBox(
                     height: 12.h,
                   ),
@@ -106,7 +107,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
             )
           ],
         ),
-  );
+      );
 
   Widget get _currentPasswordFiled => CustomTextFormFiled(
         onChanged: (value) =>
@@ -117,38 +118,49 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         validator: (value) =>
-            ValidatorModule().passwordValidator(context).call(value),
+            ValidatorModule().emptyValidator(context).call(value),
         isPassword: true,
       );
 
   Widget get _passwordFiled => CustomTextFormFiled(
         onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
-        labelText: S.of(context).enterYourPassword,
+        labelText: S.of(context).newPassword,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         validator: (value) =>
             ValidatorModule().passwordValidator(context).call(value),
         isPassword: true,
       );
 
-  Widget get _confirmPasswordFiled => CustomTextFormFiled(
-        onChanged: (value) =>
-            _bloc.confirmPasswordBloc.updateStringBehaviour(value),
-        textFiledControllerStream:
-            _bloc.confirmPasswordBloc.textFormFiledStream,
-        labelText: S.of(context).enterConfirmPassword,
-        textInputAction: TextInputAction.done,
-        textInputType: TextInputType.text,
-        textCapitalization: TextCapitalization.none,
-        validator: (value) => ValidatorModule()
-            .matchValidator(context)
-            .validateMatch(value ?? '', _bloc.passwordBloc.value),
-        isPassword: true,
-      );
-
+  Widget get _confirmPasswordFiled => StreamBuilder<String>(
+      stream: _bloc.passwordBloc.stringStream,
+      initialData: '',
+      builder: (context, snapshot) {
+        return CustomTextFormFiled(
+          onChanged: (value) =>
+              _bloc.confirmPasswordBloc.updateStringBehaviour(value),
+          textFiledControllerStream:
+              _bloc.confirmPasswordBloc.textFormFiledStream,
+          labelText: S.of(context).confirmNewPassword,
+          textInputAction: TextInputAction.done,
+          textInputType: TextInputType.text,
+          textCapitalization: TextCapitalization.none,
+          defaultTextStyle:
+              RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
+          validator: (value) => ValidatorModule()
+              .matchValidator(context)
+              .validateMatch(value ?? '', snapshot.data ?? ''),
+          isPassword: true,
+        );
+      });
+/////////////////////////////
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).save,
         onTap: () {
@@ -158,13 +170,20 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                 checkResponseStateWithButton(event, context,
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                    onSuccess: (){
-                      Navigator.pop(context);
-                    });
+                    onSuccess: () {
+                  Future.delayed(const Duration(milliseconds: 600))
+                      .then((value) {
+                    AppProviderModule().logout(context);
+                  });
+                  // Navigator.pop(context);
+                });
               },
             );
           }
         },
+        height: 60.h,
+        textStyle:
+            SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
         failedBehaviour: _bloc.buttonBloc.failedBehaviour,
         validateStream: _bloc.validateStream,

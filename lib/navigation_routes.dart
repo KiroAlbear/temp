@@ -23,6 +23,7 @@ final HomeBloc _homeBloc = HomeBloc(
   },
 );
 final MoreBloc _moreBloc = MoreBloc();
+final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
 
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
@@ -46,11 +47,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       _bottomNavigationBloc.setSelectedTab(0, null);
-      // return _buildPageRoute(CartScreen(
-      //   bloc: _cartBloc,
-      //   backIcon: Assets.svgIcBack,
-      //   icDelete: Assets.svgIcDelete,
-      // ));
+      // return _buildPageRoute(const SplashWidget());
       return _buildPageRoute(CartOrderDetails(
         bloc: _cartBloc,
         backIcon: Assets.svgIcBack,
@@ -101,6 +98,9 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(CartSuccessWidget());
     case AppScreenEnum.cartOrderDetailsScreen:
       return _buildPageRoute(_cartOrderDetailsScreen);
+    case AppScreenEnum.updateProfileScreen:
+      return _buildPageRoute(
+          UpdateProfileScreen(backIcon: Assets.svgIcBack, moreBloc: _moreBloc));
   }
 }
 
@@ -119,8 +119,7 @@ Widget get _loginWidgetWithoutSkip => const LoginWidget(
       enableSkip: false,
     );
 
-Widget get _scanBarcodeWidget =>
-    ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
+Widget get _scanBarcodeWidget=> ScanBarcodeWidget(backIcon: Assets.svgIcBack, homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
@@ -192,6 +191,7 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
 BlocProvider get _productCategoryWidget => BlocProvider(
     bloc: _productCategoryBloc,
     child: ProductCategoryWidget(
+      emptyFavouriteScreen: Assets.svgEmptyFavourite,
       backIcon: Assets.svgIcBack,
       favouriteIcon: Assets.svgIcFavourite,
       homeBloc: _homeBloc,

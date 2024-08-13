@@ -1,19 +1,19 @@
 import 'package:authentication/ui/changePassword/change_password_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
 import 'package:core/core.dart';
-import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
+import 'package:core/ui/password_validation_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:core/ui/password_validation_widget.dart';
 
 class ChangePasswordWidget extends StatefulWidget {
   final String logo;
@@ -92,8 +92,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
         labelText: S.of(context).enterYourPassword,
         textInputAction: TextInputAction.next,
-    textInputType: TextInputType.text,
-    textCapitalization: TextCapitalization.none,
+        textInputType: TextInputType.text,
+        textCapitalization: TextCapitalization.none,
         validator: (value) =>
             ValidatorModule().passwordValidator(context).call(value),
         isPassword: true,
@@ -107,7 +107,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         labelText: S.of(context).enterConfirmPassword,
         textInputAction: TextInputAction.done,
         textInputType: TextInputType.text,
-    textCapitalization: TextCapitalization.none,
+        textCapitalization: TextCapitalization.none,
         validator: (value) => ValidatorModule()
             .matchValidator(context)
             .validateMatch(value ?? '', _bloc.passwordBloc.value),

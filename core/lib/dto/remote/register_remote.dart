@@ -18,11 +18,12 @@ class RegisterRemote extends BaseRemoteModule<LoginMapper, LoginResponse> {
     SharedPrefModule().userName = phone;
     SharedPrefModule().password = password;
     apiFuture = ApiClient(OdooDioModule().build()).register(RegisterRequest(
-        login: shopName,
+        login: phone,
         password: password,
         confirmPassword: password,
         phone: phone,
         name: name,
+        shopName: shopName,
         latitude: latitude,
         longitude: longitude));
   }

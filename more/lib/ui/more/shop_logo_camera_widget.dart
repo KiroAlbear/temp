@@ -59,6 +59,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
   Widget get _nameAndMobileWidget => Positioned(
         right: 192,
         top: 30,
+        left: 20,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,8 +90,8 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                   color: greyColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16.w)),
               child: ImageHelper(
-                width: 58.w,
-                height: 58.h,
+                width: snapshot.data!.isEmpty?58.w: 80.w,
+                height: snapshot.data!.isEmpty?58.h: 80.h,
                 imageType: snapshot.data!.isEmpty? ImageType.network : ImageType.file,
                 image: snapshot.data!.isEmpty? widget.shopLogo: snapshot.data!,
                 imageShape: ImageShape.rectangle,
@@ -111,8 +112,8 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
       );
 
   Widget get _cameraWidget => Positioned(
-        top: 78,
-        right: 147,
+        top: 70,
+        right: 140,
         child: InkWell(
           onTap: () => widget.openCameraOrGallery(),
           child: Container(

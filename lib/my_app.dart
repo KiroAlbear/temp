@@ -6,10 +6,6 @@ import 'package:authentication/ui/register/register_widget.dart';
 import 'package:authentication/ui/widget/success_register_widget.dart';
 import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_widget.dart';
-import 'package:cart/ui/cart_bloc.dart';
-import 'package:cart/ui/cart_screen.dart';
-import 'package:cart/ui/widgets/cart_order_details.dart';
-import 'package:cart/ui/widgets/cart_success_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
@@ -32,6 +28,8 @@ import 'package:more/ui/accountChangePasswordBloc/account_change_password.dart';
 import 'package:more/ui/faq/faq_widget.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
+import 'package:more/ui/updateProfile/update_profile_bloc.dart';
+import 'package:more/ui/updateProfile/update_profile_screen.dart';
 
 import 'flavors.dart';
 

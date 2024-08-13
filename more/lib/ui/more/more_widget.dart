@@ -2,7 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/models/balance/balance_mapper.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/login/login_mapper.dart';
+import 'package:core/dto/models/profile/profile_mapper.dart';
 import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
@@ -76,7 +76,14 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   bool isSafeArea() => true;
 
   @override
-  Widget getBody(BuildContext context) => StreamBuilder<ApiState<LoginMapper>>(
+  void onPopInvoked(didPop) {
+    handleCloseApplication();
+    super.onPopInvoked(didPop);
+  }
+
+  @override
+  Widget getBody(BuildContext context) =>
+      StreamBuilder<ApiState<ProfileMapper>>(
         stream: widget.moreBloc.userStream,
         initialData: LoadingState(),
         builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
@@ -86,7 +93,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       );
 
   ListView _screenDesign(
-      BuildContext context, AsyncSnapshot<ApiState<LoginMapper>> snapshot) {
+      BuildContext context, AsyncSnapshot<ApiState<ProfileMapper>> snapshot) {
     return ListView(
       shrinkWrap: true,
       children: [
@@ -104,8 +111,8 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
               height: 100.h,
               child: _imageWithCameraWidget(
-                  mobile: SharedPrefModule().userName ?? '',
-                  name: snapshot.data?.response?.name ?? '',
+                  mobile: snapshot.data?.response?.mobile ?? '',
+                  name: snapshot.data?.response?.shopName ?? '',
                   image: snapshot.data?.response?.image ?? '')),
         ] else ...[
           SizedBox(
@@ -116,6 +123,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               child: CustomButtonWidget(
                 idleText: S.of(context).loginNow,
                 onTap: () => AppProviderModule().logout(context),
+                textStyle: MediumStyle(fontSize: 16.sp, color: lightBlackColor)
+                    .getStyle(),
+                height: 60.h,
               )),
           SizedBox(
             height: 27.h,
@@ -133,8 +143,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
             height: 10.h,
           ),
-          _menuItem(
-              S.of(context).accountInfo, widget.accountSettingIcon, () {}),
+          _menuItem(S.of(context).accountInfo, widget.accountSettingIcon, () {
+            CustomNavigatorModule.navigatorKey.currentState
+                ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
+          }),
           SizedBox(
             height: 10.h,
           ),
@@ -171,28 +183,28 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           ),
           _accountBalance()
         ],
-       if((SharedPrefModule().userId?? '').isEmpty)...[
-         SizedBox(
-           height: 18.h,
-         ),
-         Padding(
-           padding: EdgeInsets.symmetric(horizontal: 16.w),
-           child: Divider(
-             height: 1.h,
-             color: secondaryColor,
-           ),
-         ),
-         SizedBox(
-           height: 18.h,
-         ),
-         Padding(
-           padding: EdgeInsets.symmetric(horizontal: 16.w),
-           child: CustomText(
-               text: S.of(context).accountBalance,
-               customTextStyle:
-               BoldStyle(fontSize: 20.sp, color: secondaryColor)),
-         )
-       ],
+        if ((SharedPrefModule().userId ?? '').isEmpty) ...[
+          SizedBox(
+            height: 18.h,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Divider(
+              height: 1.h,
+              color: secondaryColor,
+            ),
+          ),
+          SizedBox(
+            height: 18.h,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CustomText(
+                text: S.of(context).accountBalance,
+                customTextStyle:
+                    BoldStyle(fontSize: 20.sp, color: secondaryColor)),
+          )
+        ],
         SizedBox(
           height: 18.h,
         ),
@@ -378,39 +390,42 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
 */
   Widget _menuItem(String text, String imagePath, VoidCallback onTap,
           {bool isBoldStyle = false, bool disabled = false}) =>
-      InkWell(
-        onTap: () => disabled? null:onTap(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 16.w,
-            ),
-            ImageHelper(
-              image: imagePath,
-              imageType: ImageType.svg,
-              width: 24.w,
-              height: 24.h,
-              color: disabled ? greyColor : lightBlackColor,
-              boxFit: BoxFit.fill,
-            ),
-            SizedBox(
-              width: 20.w,
-            ),
-            CustomText(
-                text: text,
-                customTextStyle: isBoldStyle
-                    ? BoldStyle(
-                        color: disabled ? greyColor : lightBlackColor,
-                        fontSize: 20.sp)
-                    : RegularStyle(
-                        color: disabled ? greyColor : lightBlackColor,
-                        fontSize: 16.w)),
-            SizedBox(
-              width: 16.w,
-            ),
-          ],
+      IgnorePointer(
+        ignoring: disabled,
+        child: InkWell(
+          onTap: () => disabled ? null : onTap(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 13.w,
+              ),
+              ImageHelper(
+                image: imagePath,
+                imageType: ImageType.svg,
+                width: 24.w,
+                height: 24.h,
+                color: disabled ? greyColor : lightBlackColor,
+                boxFit: BoxFit.fill,
+              ),
+              SizedBox(
+                width: 16.w,
+              ),
+              CustomText(
+                  text: text,
+                  customTextStyle: isBoldStyle
+                      ? BoldStyle(
+                          color: disabled ? greyColor : lightBlackColor,
+                          fontSize: 20.sp)
+                      : RegularStyle(
+                          color: disabled ? greyColor : lightBlackColor,
+                          fontSize: 16.w)),
+              SizedBox(
+                width: 16.w,
+              ),
+            ],
+          ),
         ),
       );
 

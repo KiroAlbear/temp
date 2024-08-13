@@ -293,6 +293,14 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  country_codes:
+    dependency: transitive
+    description:
+      name: country_codes
+      sha256: "83a68a4641d6cb1de430d402474fbee3dd3bb65481c0fed85aa8200d5f8bbe06"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0+2"
   cross_file:
     dependency: transitive
     description:
@@ -716,10 +724,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
+      sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   http2:
     dependency: transitive
     description:

@@ -1,14 +1,15 @@
 import 'package:core/core.dart';
-part 'favourite_request.g.dart';
-@JsonSerializable()
-class FavouriteRequest{
 
+part 'favourite_request.g.dart';
+
+@JsonSerializable()
+class FavouriteRequest {
   @JsonKey(name: 'client_id')
-  String? clientId;
+  int? clientId;
 
   @JsonKey(name: 'product_id')
-  String? productId;
-  FavouriteRequest(this.productId, this.clientId);
+  int? productId;
+  FavouriteRequest(this.clientId, this.productId);
 
   factory FavouriteRequest.fromJson(Map<String, dynamic> json) =>
       _$FavouriteRequestFromJson(json);

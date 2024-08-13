@@ -2,10 +2,12 @@
 class Assets {
   Assets._();
 
-  static const String imagesIcBottomSplash = 'assets/images/ic_bottom_splash.png';
+  static const String imagesIcBottomSplash =
+      'assets/images/ic_bottom_splash.png';
   static const String imagesIcHomeLogo = 'assets/images/ic_home_logo.png';
   static const String imagesIcLogo = 'assets/images/ic_logo.png';
   static const String svgIcAlert = 'assets/svg/ic_alert.svg';
+  static const String svgEmptyFavourite = 'assets/svg/empty_favourite.svg';
   static const String svgIcArrowDown = 'assets/svg/ic_arrow_down.svg';
   static const String svgIcBack = 'assets/svg/ic_back.svg';
   static const String svgIcBasket = 'assets/svg/ic_basket.svg';
@@ -41,9 +43,9 @@ class Assets {
   static const String svgIcPromotion = 'assets/svg/ic_promotion.svg';
   static const String svgIcScan = 'assets/svg/ic_scan.svg';
   static const String svgIcSearch = 'assets/svg/ic_search.svg';
-  static const String svgIcSuccessRegister = 'assets/svg/ic_success_register.svg';
+  static const String svgIcSuccessRegister =
+      'assets/svg/ic_success_register.svg';
   static const String svgIcSupport = 'assets/svg/ic_support.svg';
   static const String svgIcWhatsApp = 'assets/svg/ic_whats_app.svg';
   static const String svgIfFaq = 'assets/svg/if_faq.svg';
-
 }

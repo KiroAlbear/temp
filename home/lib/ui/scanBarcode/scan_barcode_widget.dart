@@ -98,6 +98,12 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
           isMultiScan: false,
           lensDirection: CameraLensDirection.back,
           showScannerOverlay: true,
+          actionButtonsBackgroundColor: secondaryColor,
+          scannerOverlay: FixedScannerOverlay(
+            borderColor: secondaryColor,
+            borderLength: 20.w,
+            borderWidth: 4.w,
+          ),
           showToggleCamera: false,
           showGallery: false,
           codeFormat: Format.any,

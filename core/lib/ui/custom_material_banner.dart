@@ -26,9 +26,11 @@ class CustomMaterialBanner extends MaterialBanner {
               ? [
                   InkWell(
                     child: ImageHelper(
-                      image: '',
+                      image: 'assets/svg/ic_alert.svg',
                       imageType: ImageType.svg,
                       color: whiteColor,
+                      width: 25.w,
+                      height: 25.h,
                     ),
                     onTap: () => leadingCallBack != null
                         ? {

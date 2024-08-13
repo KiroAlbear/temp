@@ -6,7 +6,6 @@ import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
 class ChangePasswordRemote extends BaseRemoteModule<void, void> {
-
   ChangePasswordRemote(
       {required String oldPassword, required String newPassword}) {
     apiFuture = ApiClient(OdooDioModule().build()).changePassword(
@@ -22,9 +21,7 @@ class ChangePasswordRemote extends BaseRemoteModule<void, void> {
   }
 
   @override
-  Future<bool> refreshToken() async{
+  Future<bool> refreshToken() async {
     return true;
   }
-
-
 }

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:core/dto/modules/alert_module.dart';
+import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/dto/modules/constants_module.dart';
-import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -33,44 +33,56 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
 
   PreferredSizeWidget? appBar();
 
+  bool isTransparentStatusBar() => false;
+
   @override
-  Widget build(BuildContext context) => Consumer<AppProviderModule>(
-        builder: (context, value, child) =>
-            AnnotatedRegion<SystemUiOverlayStyle>(
-          value: value.systemUiOverlayStyle,
-          child: PopScope(
-            canPop: canPop(),
-            onPopInvoked: (didPop) {
-              onPopInvoked(didPop);
-            },
-            child: useCustomScaffold
-                ? _defaultBody
-                : Scaffold(
-                    floatingActionButton: customFloatActionButton(),
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.startFloat,
-                    bottomNavigationBar: customBottomNavBar(),
-                    resizeToAvoidBottomInset: true,
-                    extendBodyBehindAppBar: true,
-                    extendBody: true,
-                    primary: true,
-                    restorationId: ConstantModule.appTitle,
-                    key: scaffoldKey,
-                    backgroundColor: customBackgroundColor ??
-                        Theme.of(context).scaffoldBackgroundColor,
-                    appBar: appBar(),
-                    body: isSafeArea()
-                        ? SafeArea(child: _defaultBody)
-                        : _defaultBody,
-                    // )
-                  ),
-          ),
-        ),
-      );
-
-  void onPopInvoked(didPop){
-
+  Widget build(BuildContext context) {
+    if (isTransparentStatusBar()) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+      ));
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: secondaryColor,
+        systemNavigationBarColor: secondaryColor,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+      ));
+    }
+    return Consumer<AppProviderModule>(
+      builder: (context, value, child) => PopScope(
+        canPop: canPop(),
+        onPopInvoked: (didPop) {
+          onPopInvoked(didPop);
+        },
+        child: useCustomScaffold
+            ? _defaultBody
+            : Scaffold(
+                floatingActionButton: customFloatActionButton(),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.startFloat,
+                bottomNavigationBar: customBottomNavBar(),
+                resizeToAvoidBottomInset: true,
+                extendBodyBehindAppBar: true,
+                extendBody: true,
+                primary: true,
+                restorationId: ConstantModule.appTitle,
+                key: scaffoldKey,
+                backgroundColor: customBackgroundColor ??
+                    Theme.of(context).scaffoldBackgroundColor,
+                appBar: appBar(),
+                body:
+                    isSafeArea() ? SafeArea(child: _defaultBody) : _defaultBody,
+                // )
+              ),
+      ),
+    );
   }
+
+  void onPopInvoked(didPop) {}
 
   void handleCloseApplication() {
     AlertModule().showDialog(
@@ -88,6 +100,8 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   Widget get _defaultBody => InkWell(
         onTap: () => hideKeyboard(),
         splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         child: getBody(context),
       );
 

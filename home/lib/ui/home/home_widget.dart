@@ -2,15 +2,15 @@ import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/contactUs/contact_us_bloc.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:home/home.dart';
 import 'package:home/ui/home/category_widget.dart';
-import 'package:home/ui/home/home_bloc.dart';
-import 'package:core/ui/app_top_widget.dart';
+import 'package:home/ui/home/hero_banners_widget.dart';
 import 'package:home/ui/home/offers_widget.dart';
-import 'package:home/ui/home/promotion_widget.dart';
 
 class HomeWidget extends BaseStatefulWidget {
   final String homeLogo;
@@ -49,6 +49,12 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   bool isSafeArea() => true;
 
   @override
+  void onPopInvoked(didPop) {
+    handleCloseApplication();
+    super.onPopInvoked(didPop);
+  }
+
+  @override
   void initState() {
     super.initState();
     widget.homeBloc.loadData();
@@ -63,8 +69,8 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
           SizedBox(
             height: 23.h,
           ),
+          HeroBannersWidget(homeBloc: widget.homeBloc),
           OffersWidget(homeBloc: widget.homeBloc),
-          PromotionWidget(homeBloc: widget.homeBloc),
           SizedBox(
             height: 12.h,
           ),
@@ -79,7 +85,9 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
           ),
           CategoryWidget(
               homeBloc: widget.homeBloc, scrollController: _scrollController),
-          SizedBox(height: 90.h,),
+          SizedBox(
+            height: 90.h,
+          ),
         ],
       );
 
@@ -95,28 +103,34 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
       textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
       doSearch: () {
         widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value);
-
+        widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
+            .add(TextEditingController(text: ''));
+        FocusScope.of(context).requestFocus(new FocusNode()); //remove focus
       },
       contactUsBloc: widget.contactUsBloc);
-  
+
   @override
-  Widget? customFloatActionButton() => FloatingActionButton(onPressed: (){
-      _scrollController.jumpTo(0);
-      FocusScope.of(context).requestFocus(_focusNode);
-    },
-    backgroundColor: secondaryColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.w)),
-      child: ImageHelper(
-        image: widget.searchIcon,
-        imageType: ImageType.svg,
-        color: whiteColor,
-        width: 26.w,
-        height: 26.h,
-      ),
-    );
+  Widget? customFloatActionButton() => FloatingActionButton(
+        onPressed: () {
+          _scrollController.jumpTo(0);
+          FocusScope.of(context).requestFocus(_focusNode);
+        },
+        backgroundColor: secondaryColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.w)),
+        child: ImageHelper(
+          image: widget.searchIcon,
+          imageType: ImageType.svg,
+          color: whiteColor,
+          width: 26.w,
+          height: 26.h,
+        ),
+      );
 
   @override
   void dispose() {
+    widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
+        .add(TextEditingController(text: ''));
     _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();

@@ -16,6 +16,8 @@ class MapPreviewWidget extends StatefulWidget {
   final bool showEditLocation;
   final VoidCallback clickOnChangeLocation;
 
+  final Function(double latitude, double longitude)? onLocationDetection;
+
   const MapPreviewWidget(
       {super.key,
       this.latitude,
@@ -23,7 +25,8 @@ class MapPreviewWidget extends StatefulWidget {
       this.height,
       this.width,
       this.showEditLocation = true,
-      required this.clickOnChangeLocation});
+      required this.clickOnChangeLocation,
+      this.onLocationDetection});
 
   @override
   State<MapPreviewWidget> createState() => _MapPreviewWidgetState();
@@ -52,7 +55,8 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
       _bloc.isLocationChanged = true;
       _bloc.latLng(widget.latitude ?? 0.0, widget.longitude ?? 0.0);
     }
-    _bloc.initPermissionAndLocation(context);
+    _bloc.initPermissionAndLocation(context,
+        onLocationDetection: widget.onLocationDetection);
     return _blocProvider;
   }
 
@@ -95,7 +99,7 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
         onTap: () => widget.clickOnChangeLocation(),
         child: Container(
           alignment: Alignment.center,
-          color: primaryColor.withOpacity(0.6),
+          color: yellowColor.withOpacity(0.8),
           padding: EdgeInsets.symmetric(vertical: 6.h),
           child: CustomText(
             text: S.of(context).editLocation,

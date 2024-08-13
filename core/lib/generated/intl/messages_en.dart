@@ -42,9 +42,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":
-            MessageLookupByLibrary.simpleMessage("At least one number"),
+            MessageLookupByLibrary.simpleMessage("Must contain numbers"),
         "atLeastOneSmallLetter":
-            MessageLookupByLibrary.simpleMessage("At least one small letter"),
+            MessageLookupByLibrary.simpleMessage("Must contain letters"),
         "basket": MessageLookupByLibrary.simpleMessage("Basket"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("Best offers"),
         "biometricLoginMessage": MessageLookupByLibrary.simpleMessage(
@@ -82,11 +82,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartTitle": MessageLookupByLibrary.simpleMessage("Basket"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "chooseCity": MessageLookupByLibrary.simpleMessage("Choose your city"),
         "chooseYourCountry":
             MessageLookupByLibrary.simpleMessage("Choose your country"),
         "city": MessageLookupByLibrary.simpleMessage("Governorate"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to exit Dokkan?"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
+            "Enter to confirm the new password"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
@@ -96,12 +100,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to delete account?"),
+            "\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests."),
         "discount": m0,
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have account?"),
         "editLocation": MessageLookupByLibrary.simpleMessage("Edit location"),
         "emailRequired": MessageLookupByLibrary.simpleMessage("Email required"),
+        "emptyFavourite": MessageLookupByLibrary.simpleMessage(
+            "There are no favorite products"),
         "enterCity": MessageLookupByLibrary.simpleMessage(
             "Enter the name of the governorate"),
         "enterConfirmPassword":
@@ -151,8 +157,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to logout?"),
+        "mobileAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
+            "Mobile already registered before"),
+        "mobileExistBefore":
+            MessageLookupByLibrary.simpleMessage("You mobile exist before"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
+        "newPassword":
+            MessageLookupByLibrary.simpleMessage("Enter the new password"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No internet Connection.\nPlease try again later"),
@@ -205,6 +217,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("Support & Assistance"),
+        "updateProfileBuildingData":
+            MessageLookupByLibrary.simpleMessage("Building Information"),
+        "updateProfileBuildingName":
+            MessageLookupByLibrary.simpleMessage("Building Name"),
+        "updateProfileBuildingNumber": MessageLookupByLibrary.simpleMessage(
+            "Building number / Street name"),
+        "updateProfileDistrict":
+            MessageLookupByLibrary.simpleMessage("District"),
+        "updateProfileGovernorate":
+            MessageLookupByLibrary.simpleMessage("Governorate"),
+        "updateProfileLocation":
+            MessageLookupByLibrary.simpleMessage("Location"),
+        "updateProfilePersonalData":
+            MessageLookupByLibrary.simpleMessage("Personal Information"),
+        "updateProfileTitle":
+            MessageLookupByLibrary.simpleMessage("Update profile"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("Usage Policy"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
