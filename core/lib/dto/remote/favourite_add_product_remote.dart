@@ -18,6 +18,12 @@ class FavouriteAddProductRemote
     return callApiAsStream();
   }
 
+  Stream<ApiState<bool>> deleteProduct(FavouriteRequest pageRequest) {
+    apiFuture = ApiClient(OdooDioModule().build())
+        .deleteProductFromFavourite(pageRequest);
+    return callApiAsStream();
+  }
+
   @override
   Future<bool> refreshToken() async {
     return true;

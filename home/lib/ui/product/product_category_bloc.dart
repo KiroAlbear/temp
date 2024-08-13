@@ -36,15 +36,16 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         pageSize, pageNumber, 1, int.parse(SharedPrefModule().userId ?? '0')));
   }
 
-  Stream<ApiState<bool>> get _addProductToFavourite {
-    return FavouriteAddProductRemote().addProduct(FavouriteRequest(1410, 24));
+  Stream<ApiState<bool>> addProductToFavourite(
+      {required int clientId, required int productId}) {
+    return FavouriteAddProductRemote()
+        .addProduct(FavouriteRequest(clientId, productId));
   }
 
-  Stream<ApiState<bool>> addProductToFavourite() async* {
-    Stream<ApiState<bool>> stream = _addProductToFavourite;
-    stream.listen((event) {
-      if (event is SuccessState) {}
-    });
+  Stream<ApiState<bool>> removeProductFromFavourite(
+      {required int clientId, required int productId}) {
+    return FavouriteAddProductRemote()
+        .deleteProduct(FavouriteRequest(clientId, productId));
   }
 
   Stream<ApiState<List<ProductMapper>>> _loadWithSearch(String searchValue) =>

@@ -9,7 +9,7 @@ class FavouriteRequest {
 
   @JsonKey(name: 'product_id')
   int? productId;
-  FavouriteRequest(this.productId, this.clientId);
+  FavouriteRequest(this.clientId, this.productId);
 
   factory FavouriteRequest.fromJson(Map<String, dynamic> json) =>
       _$FavouriteRequestFromJson(json);

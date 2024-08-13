@@ -46,6 +46,8 @@ dependencies:
   flutter_zxing: ^1.7.0
   country_codes: ^3.1.0+2
   http: ^1.2.2
+  home:
+    path: ../home
 
 dev_dependencies:
   flutter_test:
