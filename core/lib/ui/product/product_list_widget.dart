@@ -10,7 +10,7 @@ class ProductListWidget extends StatelessWidget {
   final String favouriteIcon;
   final ProductCategoryBloc productCategoryBloc;
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
-  final Function(ProductMapper productMapper) addToCart;
+  final Function(ProductMapper productMapper) onAddToCart;
 
   final VoidCallback? loadMore;
 
@@ -20,7 +20,7 @@ class ProductListWidget extends StatelessWidget {
       required this.productList,
       required this.favouriteIcon,
       required this.onTapFavourite,
-      required this.addToCart,
+      required this.onAddToCart,
       required this.loadMore});
 
   @override
@@ -39,7 +39,7 @@ class ProductListWidget extends StatelessWidget {
           itemBuilder: (context, index) => ProductWidget(
             productCategoryBloc: productCategoryBloc,
             productMapper: productList[index],
-            addToCart: addToCart,
+            onAddToCart: onAddToCart,
             favouriteIcon: favouriteIcon,
             onTapFavourite: onTapFavourite,
           ),

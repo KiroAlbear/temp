@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:core/Utils/object_box.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/modules/admin_dio_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
@@ -11,10 +12,11 @@ import 'package:flutter/material.dart';
 import 'flavors.dart';
 import 'my_app.dart';
 
-// late final ObjectBox obk;
+// late ObjectBox objectBox;
 FutureOr<void> main() async {
   /// ensure widget init
   WidgetsFlutterBinding.ensureInitialized();
+  await ObjectBox.init();
 
   /// initialize firebase application
   // await Firebase.initializeApp(

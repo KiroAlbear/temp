@@ -1,8 +1,8 @@
 import 'package:cart/models/cart_product_qty.dart';
+import 'package:core/Utils/object_box.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
-import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
 import '../models/latlong.dart';
@@ -63,88 +63,91 @@ class CartBloc extends BlocBase {
     getOrderItems();
     getTotalCartSum();
     getTotalCartDeliverySum();
-    cartProductsBehavior.sink.add(SuccessState([
-      ProductMapper.fromProduct(
-        ProductResponse.fromJson(
-          {
-            "id": 1,
-            "name": "1شاي أحمد",
-            // "description": "وصف المنتج",
-            "price": 1000,
-            "tax_price": 10,
-            "min_qty": 1,
-            "max_qty": 10,
-            "available_quantity": 10,
-            "isFavourite": false,
-            "image": "https://via.placeholder.com/150",
-          },
-        ),
-      ),
-      ProductMapper.fromProduct(
-        ProductResponse.fromJson(
-          {
-            "id": 2,
-            "name": "2شاي أحمد",
-            // "description": "وصف المنتج",
-            "price": 1000,
-            "tax_price": 10,
-            "min_qty": 1,
-            "max_qty": 10,
-            "available_quantity": 10,
-            "isFavourite": false,
-            "image": "https://via.placeholder.com/150",
-          },
-        ),
-      ),
-      ProductMapper.fromProduct(
-        ProductResponse.fromJson(
-          {
-            "id": 3,
-            "name": "شاي أحمد3",
-            // "description": "وصف المنتج",
-            "price": 1000,
-            "tax_price": 10,
-            "min_qty": 1,
-            "max_qty": 10,
-            "available_quantity": 10,
-            "isFavourite": false,
-            "image": "https://via.placeholder.com/150",
-          },
-        ),
-      ),
-      ProductMapper.fromProduct(
-        ProductResponse.fromJson(
-          {
-            "id": 3,
-            "name": "شاي أحمد3",
-            // "description": "وصف المنتج",
-            "price": 1000,
-            "tax_price": 10,
-            "min_qty": 1,
-            "max_qty": 10,
-            "available_quantity": 10,
-            "isFavourite": false,
-            "image": "https://via.placeholder.com/150",
-          },
-        ),
-      ),
-      ProductMapper.fromProduct(
-        ProductResponse.fromJson(
-          {
-            "id": 3,
-            "name": "شاي أحمد3",
-            // "description": "وصف المنتج",
-            "price": 1000,
-            "tax_price": 10,
-            "min_qty": 1,
-            "max_qty": 10,
-            "available_quantity": 10,
-            "isFavourite": false,
-            "image": "https://via.placeholder.com/150",
-          },
-        ),
-      ),
-    ]));
+    List<ProductMapper> products = [];
+    products = ObjectBox.instance!.getAllProducts();
+    cartProductsBehavior.sink.add(SuccessState([...products]));
+    // cartProductsBehavior.sink.add(SuccessState([
+    //   ProductMapper.fromProduct(
+    //     ProductResponse.fromJson(
+    //       {
+    //         "id": 1,
+    //         "name": "1شاي أحمد",
+    //         // "description": "وصف المنتج",
+    //         "price": 1000,
+    //         "tax_price": 10,
+    //         "min_qty": 1,
+    //         "max_qty": 10,
+    //         "available_quantity": 10,
+    //         "isFavourite": false,
+    //         "image": "https://via.placeholder.com/150",
+    //       },
+    //     ),
+    //   ),
+    //   ProductMapper.fromProduct(
+    //     ProductResponse.fromJson(
+    //       {
+    //         "id": 2,
+    //         "name": "2شاي أحمد",
+    //         // "description": "وصف المنتج",
+    //         "price": 1000,
+    //         "tax_price": 10,
+    //         "min_qty": 1,
+    //         "max_qty": 10,
+    //         "available_quantity": 10,
+    //         "isFavourite": false,
+    //         "image": "https://via.placeholder.com/150",
+    //       },
+    //     ),
+    //   ),
+    //   ProductMapper.fromProduct(
+    //     ProductResponse.fromJson(
+    //       {
+    //         "id": 3,
+    //         "name": "شاي أحمد3",
+    //         // "description": "وصف المنتج",
+    //         "price": 1000,
+    //         "tax_price": 10,
+    //         "min_qty": 1,
+    //         "max_qty": 10,
+    //         "available_quantity": 10,
+    //         "isFavourite": false,
+    //         "image": "https://via.placeholder.com/150",
+    //       },
+    //     ),
+    //   ),
+    //   ProductMapper.fromProduct(
+    //     ProductResponse.fromJson(
+    //       {
+    //         "id": 3,
+    //         "name": "شاي أحمد3",
+    //         // "description": "وصف المنتج",
+    //         "price": 1000,
+    //         "tax_price": 10,
+    //         "min_qty": 1,
+    //         "max_qty": 10,
+    //         "available_quantity": 10,
+    //         "isFavourite": false,
+    //         "image": "https://via.placeholder.com/150",
+    //       },
+    //     ),
+    //   ),
+    //   ProductMapper.fromProduct(
+    //     ProductResponse.fromJson(
+    //       {
+    //         "id": 3,
+    //         "name": "شاي أحمد3",
+    //         // "description": "وصف المنتج",
+    //         "price": 1000,
+    //         "tax_price": 10,
+    //         "min_qty": 1,
+    //         "max_qty": 10,
+    //         "available_quantity": 10,
+    //         "isFavourite": false,
+    //         "image": "https://via.placeholder.com/150",
+    //       },
+    //     ),
+    //   ),
+    // ]));
   }
 
   @override

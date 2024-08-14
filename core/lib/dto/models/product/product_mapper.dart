@@ -3,6 +3,8 @@ import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class ProductMapper {
+  @Id()
+  int id2 = 0;
   int id = 0;
   String name = '';
   String image = '';
@@ -50,7 +52,7 @@ class ProductMapper {
     }
   }
 
-  bool addToCart() {
+  bool canAddToCart() {
     if (quantity > 0) {
       isAddedToCart = true;
       return true;
