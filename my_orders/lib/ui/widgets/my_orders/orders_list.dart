@@ -26,9 +26,10 @@ class OrdersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return orders == null
+    return (orders == null || orders!.isEmpty)
         ? CustomText(
             text: S.of(context).ordersNotFound,
+            textAlign: TextAlign.center,
             customTextStyle:
                 MediumStyle(color: lightBlackColor, fontSize: 16.sp))
         : Column(children: [

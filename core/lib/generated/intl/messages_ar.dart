@@ -171,8 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderSending": MessageLookupByLibrary.simpleMessage("ارسال الطلب"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("شحن الطلب"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("الإجمالي:"),
-        "ordersNotFound":
-            MessageLookupByLibrary.simpleMessage("م تقم بطلب اي منتج حتي الان"),
+        "ordersNotFound": MessageLookupByLibrary.simpleMessage(
+            "لم تقم بطلب اي منتج حتي الان"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
