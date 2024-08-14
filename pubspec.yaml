@@ -21,6 +21,10 @@ dependencies:
     path: more
   cart:
     path: cart
+  my_orders:
+    path: my_orders
+
+
   hl_image_picker: ^1.2.16
 
 dev_dependencies:

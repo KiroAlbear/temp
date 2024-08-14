@@ -1,12 +1,8 @@
 import 'dart:convert';
 
 import 'package:core/core.dart';
-import 'package:core/dto/modules/logger_module.dart';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-import 'constants_module.dart';
 
 class UtilityModule {
   /// Checks if the current device is a tablet based on screen width.
@@ -61,37 +57,36 @@ class UtilityModule {
     return requestId;
   }
 
-  void showBottomSheetDialog({
+  Future<void> showBottomSheetDialog({
     required Widget child,
     required BuildContext context,
-  }) {
-    showModalBottomSheet(
+  }) async {
+    await showModalBottomSheet(
         context: context,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.w))),
         elevation: 200,
-        isScrollControlled:true,
-        
+        isScrollControlled: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        builder: (context) =>  FractionallySizedBox(
-        heightFactor: 0.7,
-        child: child,
-      ));
+        builder: (context) => FractionallySizedBox(
+              heightFactor: 0.7,
+              child: child,
+            ));
   }
 
-  Future<String> get deviceId async{
+  Future<String> get deviceId async {
     if (Platform.isIOS) {
       final iosInfo = await DeviceInfoPlugin().iosInfo;
-      return iosInfo.identifierForVendor??'';
-    }else if(Platform.isAndroid){
+      return iosInfo.identifierForVendor ?? '';
+    } else if (Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
       return androidInfo.id;
-    }else {
+    } else {
       return "";
     }
   }
 
-  Future<String> get deviceInfo async{
+  Future<String> get deviceInfo async {
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     Map<String, String> data = {};
     if (Platform.isIOS) {
@@ -103,7 +98,7 @@ class UtilityModule {
         "DeviceId": iosInfo.identifierForVendor!,
         "DeviceModel": iosInfo.model + iosInfo.systemVersion,
       };
-    }else if(Platform.isAndroid){
+    } else if (Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
       data = {
         "OSType": Platform.operatingSystem,

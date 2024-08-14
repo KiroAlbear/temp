@@ -159,8 +159,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
         SizedBox(
           height: 10.h,
         ),
-        _menuItem(S.of(context).currentOrder, widget.myOrdersIcon, () {},
-            disabled: (SharedPrefModule().userId ?? '').isEmpty),
+        _menuItem(S.of(context).currentOrders, widget.myOrdersIcon, () {
+          CustomNavigatorModule.navigatorKey.currentState
+              ?.pushNamed(AppScreenEnum.myOrders.name);
+        }, disabled: (SharedPrefModule().userId ?? '').isEmpty),
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
             height: 10.h,

@@ -11,6 +11,8 @@ import 'package:core/dto/models/favourite/favourite_request.dart';
 import 'package:core/dto/models/favourite/favourite_response.dart';
 import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
+import 'package:core/dto/models/my_orders/my_orders_request.dart';
+import 'package:core/dto/models/my_orders/my_orders_response.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/password/change_password_request.dart';
 import 'package:core/dto/models/phone/phone_request.dart';
@@ -66,6 +68,10 @@ abstract class ApiClient {
   @POST(_ApiClientKey._searchProduct)
   Future<HeaderResponse<List<ProductResponse>>> searchProduct(
       @Body() SearchProductRequest request);
+
+  @POST(_ApiClientKey._myOrders)
+  Future<HeaderResponse<List<MyOrdersResponse>>> getMyOrders(
+      @Body() MyOrdersRequest request);
 
   @POST(_ApiClientKey._signUp)
   Future<HeaderResponse<LoginResponse>> register(
