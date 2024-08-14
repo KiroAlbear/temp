@@ -801,10 +801,10 @@ class S {
   }
 
   /// `Current orders`
-  String get currentOrder {
+  String get currentOrders {
     return Intl.message(
       'Current orders',
-      name: 'currentOrder',
+      name: 'currentOrders',
       desc: '',
       args: [],
     );
@@ -1275,6 +1275,236 @@ class S {
     return Intl.message(
       'There are no favorite products',
       name: 'emptyFavourite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Past orders`
+  String get pastOrders {
+    return Intl.message(
+      'Past orders',
+      name: 'pastOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My orders`
+  String get myOrders {
+    return Intl.message(
+      'My orders',
+      name: 'myOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order number:`
+  String get orderNumber {
+    return Intl.message(
+      'Order number:',
+      name: 'orderNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order total:`
+  String get orderTotal {
+    return Intl.message(
+      'Order total:',
+      name: 'orderTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items count:`
+  String get orderItemCount {
+    return Intl.message(
+      'Items count:',
+      name: 'orderItemCount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sending order`
+  String get orderSending {
+    return Intl.message(
+      'Sending order',
+      name: 'orderSending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accepting order`
+  String get orderAccepting {
+    return Intl.message(
+      'Accepting order',
+      name: 'orderAccepting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping order`
+  String get orderShipping {
+    return Intl.message(
+      'Shipping order',
+      name: 'orderShipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outside for delivery`
+  String get orderOutside {
+    return Intl.message(
+      'Outside for delivery',
+      name: 'orderOutside',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order delivered`
+  String get orderDelivered {
+    return Intl.message(
+      'Order delivered',
+      name: 'orderDelivered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order in progress`
+  String get orderInProgress {
+    return Intl.message(
+      'Order in progress',
+      name: 'orderInProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order details`
+  String get orderDetails {
+    return Intl.message(
+      'Order details',
+      name: 'orderDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order received`
+  String get orderRecieved {
+    return Intl.message(
+      'Order received',
+      name: 'orderRecieved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order canceled`
+  String get orderNotRecieved {
+    return Intl.message(
+      'Order canceled',
+      name: 'orderNotRecieved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order again`
+  String get orderAgain {
+    return Intl.message(
+      'Order again',
+      name: 'orderAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items details`
+  String get itemsDetails {
+    return Intl.message(
+      'Items details',
+      name: 'itemsDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to cancel this order?`
+  String get orderCancelConfirmation {
+    return Intl.message(
+      'Are you sure you want to cancel this order?',
+      name: 'orderCancelConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason for canceling your order`
+  String get orderCancelReasonTitle {
+    return Intl.message(
+      'Reason for canceling your order',
+      name: 'orderCancelReasonTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason for canceling the order`
+  String get orderCancelReasonHint {
+    return Intl.message(
+      'Reason for canceling the order',
+      name: 'orderCancelReasonHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Cancellation`
+  String get orderCancelConfirmButton {
+    return Intl.message(
+      'Confirm Cancellation',
+      name: 'orderCancelConfirmButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get orderCancelBackButton {
+    return Intl.message(
+      'Back',
+      name: 'orderCancelBackButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items`
+  String get orderItem {
+    return Intl.message(
+      'Items',
+      name: 'orderItem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any order till now`
+  String get ordersNotFound {
+    return Intl.message(
+      'You don\'t have any order till now',
+      name: 'ordersNotFound',
       desc: '',
       args: [],
     );

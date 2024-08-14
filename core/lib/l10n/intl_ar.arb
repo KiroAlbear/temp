@@ -74,7 +74,7 @@
   "bestOffers": "أقوى العروض",
   "browseSections": "تصفح الأقسام",
   "editLocation": "تعديل الموقع",
-  "currentOrder": "الطلبات الحالية",
+  "currentOrders": "الطلبات الحالية",
   "previousOrder": "طلباتي السابقة",
   "settings": "الإعدادات",
   "accountInfo": "بيانات حسابي",
@@ -121,5 +121,33 @@
   "mobileAlreadyRegistered": "رقم الهاتف مسجل بالفعل من قبل",
   "chooseCity": "اختر محافظتك",
   "mobileExistBefore": "رقم الهاتف مسجل لدينا بالفعل",
-  "emptyFavourite": "لا يوجد منتجات مفضلة لديك"
+  "emptyFavourite": "لا يوجد منتجات مفضلة لديك",
+  "save": "حفظ",
+  "myOrders": "طلباتي",
+  "pastOrders": "الطلبات السابقة",
+  "orderNumber": "الطلب رقم:",
+  "orderTotal": "الإجمالي:",
+  "orderItemCount": "عدد القطع:",
+  "orderSending": "ارسال الطلب",
+  "orderAccepting": "الموافقة على الطلب",
+  "orderShipping": "شحن الطلب",
+  "orderOutside": "خارج للتوصيل",
+  "orderDelivered": "تسليم الطلب",
+  "orderInProgress": "قيد التنفيذ",
+  "orderDetails": "تفاصيل الطلب",
+  "orderRecieved": "تم استلام الطلب",
+  "orderNotRecieved": "تم الغاء الطلب",
+  "orderAgain": "أطلب مرة كمان",
+  "itemsDetails": "تفاصيل المنتجات",
+  "orderCancelConfirmation": "هل أنت متأكد من إلغاء الطلب؟",
+  "orderCancelReasonTitle": "سبب إلغاء طلبك",
+  "orderCancelReasonHint": "سبب إلغاء الطلب",
+  "orderCancelConfirmButton": "تأكيد الإلغاء",
+  "orderCancelBackButton": "الرجوع",
+  "orderItem": "قطعة",
+  "ordersNotFound": "لم تقم بطلب اي منتج حتي الان"
+
+
+
+
 }

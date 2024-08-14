@@ -68,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
-        "currentOrder": MessageLookupByLibrary.simpleMessage("Current orders"),
+        "currentOrders": MessageLookupByLibrary.simpleMessage("Current orders"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
@@ -121,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("How can we help?"),
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
+        "itemsDetails": MessageLookupByLibrary.simpleMessage("Items details"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "locationYourLocation":
             MessageLookupByLibrary.simpleMessage("Locate your location"),
@@ -135,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mobileExistBefore":
             MessageLookupByLibrary.simpleMessage("You mobile exist before"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
+        "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
         "newPassword":
             MessageLookupByLibrary.simpleMessage("Enter the new password"),
@@ -145,11 +147,42 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No space allowed"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "openSetting": m2,
+        "orderAccepting":
+            MessageLookupByLibrary.simpleMessage("Accepting order"),
+        "orderAgain": MessageLookupByLibrary.simpleMessage("Order again"),
+        "orderCancelBackButton": MessageLookupByLibrary.simpleMessage("Back"),
+        "orderCancelConfirmButton":
+            MessageLookupByLibrary.simpleMessage("Confirm Cancellation"),
+        "orderCancelConfirmation": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to cancel this order?"),
+        "orderCancelReasonHint": MessageLookupByLibrary.simpleMessage(
+            "Reason for canceling the order"),
+        "orderCancelReasonTitle": MessageLookupByLibrary.simpleMessage(
+            "Reason for canceling your order"),
+        "orderDelivered":
+            MessageLookupByLibrary.simpleMessage("Order delivered"),
+        "orderDetails": MessageLookupByLibrary.simpleMessage("Order details"),
+        "orderInProgress":
+            MessageLookupByLibrary.simpleMessage("Order in progress"),
+        "orderItem": MessageLookupByLibrary.simpleMessage("Items"),
+        "orderItemCount": MessageLookupByLibrary.simpleMessage("Items count:"),
+        "orderNotRecieved":
+            MessageLookupByLibrary.simpleMessage("Order canceled"),
+        "orderNumber": MessageLookupByLibrary.simpleMessage("Order number:"),
+        "orderOutside":
+            MessageLookupByLibrary.simpleMessage("Outside for delivery"),
+        "orderRecieved": MessageLookupByLibrary.simpleMessage("Order received"),
+        "orderSending": MessageLookupByLibrary.simpleMessage("Sending order"),
+        "orderShipping": MessageLookupByLibrary.simpleMessage("Shipping order"),
+        "orderTotal": MessageLookupByLibrary.simpleMessage("Order total:"),
+        "ordersNotFound": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have any order till now"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("At lest 8 characters"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password didn\'t match"),
+        "pastOrders": MessageLookupByLibrary.simpleMessage("Past orders"),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to select this location?"),
         "platformName":

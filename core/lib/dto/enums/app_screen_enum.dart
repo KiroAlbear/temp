@@ -12,6 +12,7 @@ enum AppScreenEnum {
   product,
   faq,
   accountChangePassword,
+  myOrders,
   scanBarcode,
   updateProfileScreen
 }
