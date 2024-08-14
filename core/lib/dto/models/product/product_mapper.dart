@@ -1,5 +1,7 @@
 import 'package:core/dto/models/product/product_response.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class ProductMapper {
   int id = 0;
   String name = '';
@@ -25,28 +27,26 @@ class ProductMapper {
   bool isAvailable = false;
 
   bool isAddedToCart = false;
-
-
-
+  ProductMapper();
   ProductMapper.fromProduct(ProductResponse? productResponse) {
-    if(productResponse != null){
+    if (productResponse != null) {
       isFavourite = false;
       barCode = '';
       description = '';
       currency = '';
       maxQuantity = productResponse.maxQty ?? 0;
-      minQuantity = productResponse.minQty ??0;
-      quantity = productResponse.quantity?? 0;
-      if(quantity == 0 ){
+      minQuantity = productResponse.minQty ?? 0;
+      quantity = productResponse.quantity ?? 0;
+      if (quantity == 0) {
         isAvailable = false;
         isAddedToCart = false;
       }
-      price = (productResponse.price ?? 0) + (productResponse.taxPrice??0);
+      price = (productResponse.price ?? 0) + (productResponse.taxPrice ?? 0);
       discountPercentage = 0;
-      image = productResponse.image??'';
-      name = productResponse.name??'';
-      id = productResponse.id?? 0;
-      isFavourite = productResponse.isFavourite?? false;
+      image = productResponse.image ?? '';
+      name = productResponse.name ?? '';
+      id = productResponse.id ?? 0;
+      isFavourite = productResponse.isFavourite ?? false;
     }
   }
 

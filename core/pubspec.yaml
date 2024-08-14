@@ -46,6 +46,7 @@ dependencies:
   flutter_zxing: ^1.7.0
   country_codes: ^3.1.0+2
   http: ^1.2.2
+  objectbox: ^4.0.2
   home:
     path: ../home
 
@@ -56,6 +57,7 @@ dev_dependencies:
   retrofit_generator: '>=5.0.0 <6.0.0'
   build_runner: '>=2.3.0 <4.0.0'
   json_serializable: ^6.8.0
+  objectbox_generator: ^4.0.2
 
 dependency_overrides:
   http: ^0.13.5
