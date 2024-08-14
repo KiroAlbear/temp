@@ -28,7 +28,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
   PreferredSizeWidget? appBar() => null;
 
   @override
-  bool canPop() => false;
+  bool canPop() => true;
 
   @override
   bool isSafeArea() => true;
