@@ -58,7 +58,6 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     //   bloc: _cartBloc,
     //   backIcon: Assets.svgIcBack,
     // ));
-      return _buildPageRoute(const SplashWidget());
     // return _buildPageRoute(MyOrdersScreen(
     //     backIcon: Assets.svgIcBack, myOrdersBloc: MyOrdersBloc()));
 
