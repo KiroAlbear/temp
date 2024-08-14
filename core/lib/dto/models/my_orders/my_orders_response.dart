@@ -2,8 +2,6 @@ import 'package:core/Utils/AppUtils.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/my_orders/tax_total.dart';
 
-import 'currency_id.dart';
-
 part 'my_orders_response.g.dart';
 
 @JsonSerializable()
@@ -18,7 +16,7 @@ class MyOrdersResponse {
   double? amountUnpaid;
 
   @JsonKey(name: 'currency_id')
-  CurrencyId? currencyId;
+  List<dynamic>? currencyId;
 
   @JsonKey(name: 'cart_quantity')
   int? itemsCount;
@@ -55,6 +53,8 @@ class MyOrdersResponse {
 
   factory MyOrdersResponse.fromJson(Map<String, dynamic> json) =>
       _$MyOrdersResponseFromJson(Apputils.convertFlaseToNullJson(json));
+
+  Map<String, dynamic> toJson() => _$MyOrdersResponseToJson(this);
 }
 
 class Items {

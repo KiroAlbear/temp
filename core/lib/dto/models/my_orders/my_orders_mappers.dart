@@ -7,10 +7,12 @@ class MyOrdersMapper {
   MyOrdersMapper(List<MyOrdersResponse> response) {
     for (var i = 0; i < response.length; i++) {
       MyOrdersResponse e = response[i];
+      String currency = (e.currencyId != null && e.currencyId!.length == 2)
+          ? e.currencyId![1]
+          : "";
       OrdersMapper order = OrdersMapper(
           id: e.id!,
-          totalPrice:
-              e.amountUnpaid!.toString() + e.currencyId!.code!.toString(),
+          totalPrice: "${e.amountUnpaid!.toString()} $currency",
           itemsCount: e.itemsCount!,
           sendingOrder: e.sendingOrder,
           acceptingOrder: e.acceptingOrder,

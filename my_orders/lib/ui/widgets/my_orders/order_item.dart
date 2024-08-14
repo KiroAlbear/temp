@@ -103,7 +103,7 @@ class OrderItem extends StatelessWidget {
                   ),
                   OrderItemGreyText(
                     text:
-                        "${S.of(context).orderItemCount} ${currentOrder!.items.length} ${S.of(context).orderItem}",
+                        "${S.of(context).orderItemCount} ${currentOrder!.itemsCount} ${S.of(context).orderItem}",
                   ),
                 ],
               ),

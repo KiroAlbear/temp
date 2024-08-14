@@ -1,6 +1,5 @@
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/my_orders/my_orders_mappers.dart';
-import 'package:core/dto/models/my_orders/my_orders_request.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:flutter/material.dart';
 import 'package:my_orders/ui/widgets/my_orders/orders_list.dart';
@@ -21,7 +20,6 @@ class OrdersPage extends StatefulWidget with ResponseHandlerModule {
 class _OrdersPageState extends State<OrdersPage> {
   @override
   void initState() {
-    widget.myOrdersBloc.getMyOrders(MyOrdersRequest('24', '1', '20'));
     super.initState();
   }
 

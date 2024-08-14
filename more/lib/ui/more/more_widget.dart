@@ -159,7 +159,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
         SizedBox(
           height: 10.h,
         ),
-        _menuItem(S.of(context).currentOrder, widget.myOrdersIcon, () {},
+        _menuItem(S.of(context).currentOrders, widget.myOrdersIcon, () {},
             disabled: (SharedPrefModule().userId ?? '').isEmpty),
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(

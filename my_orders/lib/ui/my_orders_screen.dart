@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/my_orders/my_orders_request.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
@@ -41,6 +42,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
     //     LoggerModule.log(message: "my orders", name: "getting my orders");
     //   },
     // );
+    widget.myOrdersBloc.getMyOrders(MyOrdersRequest('24', '1', '20'));
     _toggleXAlign.value = ToggleButton.rightToggleAlign;
     _tabController.addListener(() {
       if (_tabController.index == 1) {

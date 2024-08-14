@@ -67,12 +67,15 @@ class _PastOrdersStatesState extends State<PastOrdersStates> {
                         RegularStyle(color: secondaryColor, fontSize: 12.sp),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 8.0),
-                  child: OrderItemGreyText(
-                    text: widget.orderStatuses[index] == null
-                        ? S.of(context).orderInProgress
-                        : widget.orderStatuses[index]!,
+                SizedBox(width: 10),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(end: 8.0),
+                    child: OrderItemGreyText(
+                      text: widget.orderStatuses[index] == null
+                          ? S.of(context).orderInProgress
+                          : widget.orderStatuses[index]!,
+                    ),
                   ),
                 ),
               ],

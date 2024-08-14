@@ -390,20 +390,20 @@ class S {
     );
   }
 
-  /// `At least one small letter`
+  /// `Must contain letters`
   String get atLeastOneSmallLetter {
     return Intl.message(
-      'At least one small letter',
+      'Must contain letters',
       name: 'atLeastOneSmallLetter',
       desc: '',
       args: [],
     );
   }
 
-  /// `At least one number`
+  /// `Must contain numbers`
   String get atLeastOneNumber {
     return Intl.message(
-      'At least one number',
+      'Must contain numbers',
       name: 'atLeastOneNumber',
       desc: '',
       args: [],
@@ -565,6 +565,16 @@ class S {
     return Intl.message(
       'Select your location',
       name: 'selectLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
       desc: '',
       args: [],
     );
@@ -970,10 +980,10 @@ class S {
     );
   }
 
-  /// `Are you sure you want to delete account?`
+  /// `\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.`
   String get deleteAccountMessage {
     return Intl.message(
-      'Are you sure you want to delete account?',
+      '\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests.',
       name: 'deleteAccountMessage',
       desc: '',
       args: [],
@@ -1045,6 +1055,226 @@ class S {
     return Intl.message(
       'Save',
       name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gallery`
+  String get gallery {
+    return Intl.message(
+      'Gallery',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which you would like to use?`
+  String get selectPhotoFromCameraOrGallery {
+    return Intl.message(
+      'Which you would like to use?',
+      name: 'selectPhotoFromCameraOrGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You need to login`
+  String get youNeedToLoginToUseApp {
+    return Intl.message(
+      'You need to login',
+      name: 'youNeedToLoginToUseApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login now`
+  String get loginNow {
+    return Intl.message(
+      'Login now',
+      name: 'loginNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search by Barcode`
+  String get scanBarcode {
+    return Intl.message(
+      'Search by Barcode',
+      name: 'scanBarcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make sure barcode is\nblack mark to scan`
+  String get scanText {
+    return Intl.message(
+      'Make sure barcode is\nblack mark to scan',
+      name: 'scanText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Promo details`
+  String get promoDetails {
+    return Intl.message(
+      'Promo details',
+      name: 'promoDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the new password`
+  String get newPassword {
+    return Intl.message(
+      'Enter the new password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter to confirm the new password`
+  String get confirmNewPassword {
+    return Intl.message(
+      'Enter to confirm the new password',
+      name: 'confirmNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mobile already registered before`
+  String get mobileAlreadyRegistered {
+    return Intl.message(
+      'Mobile already registered before',
+      name: 'mobileAlreadyRegistered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your city`
+  String get chooseCity {
+    return Intl.message(
+      'Choose your city',
+      name: 'chooseCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update profile`
+  String get updateProfileTitle {
+    return Intl.message(
+      'Update profile',
+      name: 'updateProfileTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Information`
+  String get updateProfilePersonalData {
+    return Intl.message(
+      'Personal Information',
+      name: 'updateProfilePersonalData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building Information`
+  String get updateProfileBuildingData {
+    return Intl.message(
+      'Building Information',
+      name: 'updateProfileBuildingData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building Name`
+  String get updateProfileBuildingName {
+    return Intl.message(
+      'Building Name',
+      name: 'updateProfileBuildingName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get updateProfileLocation {
+    return Intl.message(
+      'Location',
+      name: 'updateProfileLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building number / Street name`
+  String get updateProfileBuildingNumber {
+    return Intl.message(
+      'Building number / Street name',
+      name: 'updateProfileBuildingNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `District`
+  String get updateProfileDistrict {
+    return Intl.message(
+      'District',
+      name: 'updateProfileDistrict',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Governorate`
+  String get updateProfileGovernorate {
+    return Intl.message(
+      'Governorate',
+      name: 'updateProfileGovernorate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You mobile exist before`
+  String get mobileExistBefore {
+    return Intl.message(
+      'You mobile exist before',
+      name: 'mobileExistBefore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are no favorite products`
+  String get emptyFavourite {
+    return Intl.message(
+      'There are no favorite products',
+      name: 'emptyFavourite',
       desc: '',
       args: [],
     );

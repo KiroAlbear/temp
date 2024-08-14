@@ -15,7 +15,7 @@ class MyOrdersBloc extends BlocBase {
   MyOrdersBloc();
 
   void getMyOrders(MyOrdersRequest request) {
-    MyOrdersRemote(request).callApiAsStream().listen((event) {
+    MyOrdersRemote().getMyOrders(request).listen((event) {
       _myOrdersBehavior.sink.add(event);
     });
   }

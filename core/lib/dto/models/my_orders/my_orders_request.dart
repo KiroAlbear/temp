@@ -17,4 +17,6 @@ class MyOrdersRequest {
 
   factory MyOrdersRequest.fromJson(Map<String, dynamic> json) =>
       _$MyOrdersRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MyOrdersRequestToJson(this);
 }

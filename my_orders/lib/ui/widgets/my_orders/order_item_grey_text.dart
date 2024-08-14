@@ -13,6 +13,9 @@ class OrderItemGreyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomText(text: text, customTextStyle: subtitleTextStyle);
+    return CustomText(
+        textAlign: TextAlign.end,
+        text: text,
+        customTextStyle: subtitleTextStyle);
   }
 }
