@@ -1,26 +1,39 @@
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/login/login_mapper.dart';
-import 'package:core/dto/models/login/login_response.dart';
-import 'package:core/dto/modules/odoo_dio_module.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/dto/network/api_client.dart';
 
-class UpdateProfileImageRemote extends BaseRemoteModule<LoginMapper, LoginResponse>{
+import '../models/login/login_mapper.dart';
+import '../models/login/login_response.dart';
+import '../modules/shared_pref_module.dart';
 
-  UpdateProfileImageRemote({required File file}){
-    apiFuture = ApiClient(OdooDioModule().build()).updateProfileImage(SharedPrefModule().userName??'', file);
+class UpdateProfileImageRemote {
+  BehaviorSubject<ApiState<LoginMapper>> callApiAsStream = BehaviorSubject();
+  UpdateProfileImageRemote() {}
+
+  void uploadImage(File file) async {
+    final url =
+        'https://dokkan.odoo.com/app/update_image/${SharedPrefModule().userName}';
+    final fileName = file.path.split('/').last;
+    var formData = FormData.fromMap({
+      'image': await MultipartFile.fromFile(file.path, filename: fileName),
+    });
+    final response = await Dio().put(url,
+        data: formData,
+        options: Options(headers: {
+          'token': '${SharedPrefModule().bearerToken}',
+          // 'Content-Type': 'multipart/form-data',
+        }));
+    if (response.statusCode == 200) {
+      callApiAsStream.sink.add(
+          SuccessState(LoginMapper(LoginResponse.fromJson(response.data))));
+      // onSuccessHandle(LoginResponse.fromJson(response.data));
+    } else {
+      callApiAsStream.sink.add(FailedState(
+          message: 'image is not uploaded',
+          loggerName: runtimeType.toString()));
+    }
   }
 
-  @override
-  ApiState<LoginMapper> onSuccessHandle(LoginResponse? response) {
-    return SuccessState(LoginMapper(response!));
-  }
-
-  @override
-  Future<bool> refreshToken() async{
-   return true;
-  }
-
-
+  // ApiState<LoginMapper> onSuccessHandle(LoginResponse? response) {
+  //   return SuccessState(LoginMapper(response!));
+  // }
 }

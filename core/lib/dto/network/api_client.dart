@@ -85,9 +85,14 @@ abstract class ApiClient {
   Future<HeaderResponse> changePassword(@Body() ChangePasswordRequest request);
 
   @PUT('${_ApiClientKey._updateProfileImage}/{mobileNumber}')
+  @MultiPart()
+  @Headers(<String, dynamic>{
+    'Content-Type': 'multipart/form-data',
+  })
   Future<HeaderResponse<LoginResponse>> updateProfileImage(
-      @Path("mobileNumber") String mobileNumber,
-      @Part(fileName: 'image') File file);
+    @Path("mobileNumber") String mobileNumber,
+    @Part() File file,
+  );
 
   @PUT(_ApiClientKey._deActiveProfile)
   Future<HeaderResponse> deActiveProfile(@Body() PhoneRequest request);

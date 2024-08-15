@@ -398,7 +398,8 @@ class _ApiClient implements ApiClient {
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'multipart/form-data'};
+    _headers.removeWhere((k, v) => v == null);
     final _data = FormData();
     _data.files.add(MapEntry(
       'file',
@@ -412,6 +413,7 @@ class _ApiClient implements ApiClient {
       method: 'PUT',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,

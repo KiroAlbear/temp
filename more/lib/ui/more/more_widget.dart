@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/shop_logo_camera_widget.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MoreWidget extends BaseStatefulWidget {
   final String appLogo;
@@ -64,6 +65,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   void initState() {
     super.initState();
     widget.moreBloc.getProfileData();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      widget.moreBloc.listenForFileSelection(context);
+    });
   }
 
   @override
@@ -79,6 +83,12 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   void onPopInvoked(didPop) {
     handleCloseApplication();
     super.onPopInvoked(didPop);
+  }
+
+  @override
+  void dispose() {
+    widget.moreBloc.selectedFileBehaviour.drain();
+    super.dispose();
   }
 
   @override
@@ -300,6 +310,8 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
         .isPermissionGrantedStream
         .listen((event) async {
       if (event) {
+        Directory appDocDir = await getApplicationDocumentsDirectory();
+        String appDocPath = appDocDir.path;
         XFile? file = await widget.moreBloc.takePhoto();
         if (file != null) {
           widget.moreBloc.uploadImage(file.path);
@@ -308,8 +320,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
     });
   }
 
-  void _requestGalleryPermission() {
-    widget.moreBloc.galleryPermissionBloc
+  void _requestGalleryPermission() async {
+    await widget.moreBloc.galleryPermissionBloc
+        .requestPermission(context, Permission.storage);
+    await widget.moreBloc.galleryPermissionBloc
         .requestPermission(context, Permission.photos);
     widget.moreBloc.galleryPermissionBloc.listenFormOpenSettings();
   }
