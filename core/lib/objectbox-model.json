@@ -1,0 +1,102 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:960644594881846531",
+      "lastPropertyId": "15:8186608715627276517",
+      "name": "ProductMapper",
+      "properties": [
+        {
+          "id": "1:3750605332216110075",
+          "name": "id",
+          "type": 6
+        },
+        {
+          "id": "2:8900297565974883498",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:1009583478513779326",
+          "name": "image",
+          "type": 9
+        },
+        {
+          "id": "4:9223325459461983908",
+          "name": "discountPercentage",
+          "type": 6
+        },
+        {
+          "id": "5:8230330960848153709",
+          "name": "price",
+          "type": 8
+        },
+        {
+          "id": "6:93210529583266578",
+          "name": "quantity",
+          "type": 8
+        },
+        {
+          "id": "7:6055000411201114065",
+          "name": "minQuantity",
+          "type": 8
+        },
+        {
+          "id": "8:381721952446287124",
+          "name": "maxQuantity",
+          "type": 8
+        },
+        {
+          "id": "9:5731113652245325273",
+          "name": "currency",
+          "type": 9
+        },
+        {
+          "id": "10:454271102339274990",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "11:7216198585303806245",
+          "name": "barCode",
+          "type": 9
+        },
+        {
+          "id": "12:7802836159959262172",
+          "name": "isFavourite",
+          "type": 1
+        },
+        {
+          "id": "13:4905999164653494280",
+          "name": "isAvailable",
+          "type": 1
+        },
+        {
+          "id": "14:6522995013348245211",
+          "name": "isAddedToCart",
+          "type": 1
+        },
+        {
+          "id": "15:8186608715627276517",
+          "name": "id2",
+          "type": 6,
+          "flags": 1
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:960644594881846531",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
