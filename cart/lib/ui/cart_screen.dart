@@ -1,5 +1,6 @@
 import 'package:cart/ui/cart_bloc.dart';
 import 'package:cart/ui/widgets/cart_bottom_sheet.dart';
+import 'package:core/Utils/object_box.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -139,9 +140,18 @@ class _CartScreenState extends BaseState<CartScreen> {
                     return ProductWidget(
                       isCartProduct: true,
                       icDelete: widget.icDelete,
-                      onDeleteClicked: () {},
                       productMapper: snapshot.data!.response![index],
                       productCategoryBloc: widget.productCategoryBloc,
+                      onDeleteClicked: (int productId) {
+                        bool isDeleted =
+                            ObjectBox.instance!.deleteProduct(productId);
+                        if (isDeleted) {
+                          setState(() {
+                            snapshot.data!.response!.removeWhere(
+                                (element) => element.id2 == productId);
+                          });
+                        }
+                      },
                     );
                   },
                 ),

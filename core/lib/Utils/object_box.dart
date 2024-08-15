@@ -40,6 +40,10 @@ class ObjectBox {
     return store.box<ProductMapper>().remove(id);
   }
 
+  bool deleteProduct(int id) {
+    return store.box<ProductMapper>().remove(id);
+  }
+
   int deleteAllProducts() {
     return store.box<ProductMapper>().removeAll();
   }
