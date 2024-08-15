@@ -65,6 +65,9 @@ class CartBloc extends BlocBase {
     getTotalCartDeliverySum();
     List<ProductMapper> products = [];
     products = ObjectBox.instance!.getAllProducts();
+    // products[0].minQuantity = 2;
+    // products[0].maxQuantity = 6;
+    // products[0].quantity = 4;
     cartProductsBehavior.sink.add(SuccessState([...products]));
     // cartProductsBehavior.sink.add(SuccessState([
     //   ProductMapper.fromProduct(

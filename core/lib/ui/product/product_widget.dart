@@ -1,3 +1,4 @@
+import 'package:core/Utils/object_box.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
@@ -17,15 +18,15 @@ class ProductWidget extends StatefulWidget {
   final String? favouriteIcon;
   final String? icDelete;
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
-  final Function(ProductMapper productMapper)? addToCart;
+  final Function(ProductMapper productMapper)? onAddToCart;
   final bool isCartProduct;
-  final Function()? onDeleteClicked;
+  final Function(int)? onDeleteClicked;
   ProductWidget({
     super.key,
     required this.productMapper,
     required this.productCategoryBloc,
     this.icDelete,
-    this.addToCart,
+    this.onAddToCart,
     this.favouriteIcon,
     this.onTapFavourite,
     this.onDeleteClicked,
@@ -33,7 +34,7 @@ class ProductWidget extends StatefulWidget {
   }) {
     if (!isCartProduct &&
         (favouriteIcon == null ||
-            onTapFavourite == null && addToCart == null)) {
+            onTapFavourite == null && onAddToCart == null)) {
       assert(false,
           'isCartProduct is false, favouriteIcon, onTapFavourite and addToCart should be provided');
     }
@@ -51,6 +52,12 @@ class _ProductWidgetState extends State<ProductWidget> {
   final ValueNotifier<bool> isAddingToFavSucess = ValueNotifier(true);
 
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(1);
+
+  @override
+  void initState() {
+    // qtyValueNotifier.value = widget.productMapper.quantity.round();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -301,24 +308,24 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
       );
 
-  void _showAlertDialog(String message) {
+  void _showMaximumAlertDialog(String message, String qty) {
     AlertModule().showDialog(
       context: context,
+      message: "$message $qty",
       confirmMessage: S.of(context).ok,
-      message: message,
       onConfirm: () {},
     );
   }
 
-  void _showDeleteAlertDialog(String message) {
+  void _showDeleteAlertDialog(String message, String qty) {
     AlertModule().showDialog(
       context: context,
-      message: message,
+      message: "$message $qty",
       confirmMessage: S.of(context).ok,
       cancelMessage: S.of(context).cancel,
       onCancel: () {},
       onConfirm: () {
-        widget.onDeleteClicked!();
+        widget.onDeleteClicked!(widget.productMapper.id2);
       },
     );
   }
@@ -342,7 +349,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                 if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
                   qtyValueNotifier.value++;
                 } else {
-                  _showAlertDialog(S.of(context).cartMaximumProductsReached);
+                  _showMaximumAlertDialog(
+                      S.of(context).cartMaximumProductsReached,
+                      widget.productMapper.maxQuantity.round().toString());
                 }
               },
               child: CustomText(
@@ -373,10 +382,19 @@ class _ProductWidgetState extends State<ProductWidget> {
           spacing,
           InkWell(
             onTap: () {
-              if (qtyValueNotifier.value > widget.productMapper.minQuantity) {
+              if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
+                  qtyValueNotifier.value > 1) {
                 qtyValueNotifier.value--;
-              } else {
-                _showDeleteAlertDialog(S.of(context).cartDeleteMessage);
+              }
+              // else if (qtyValueNotifier.value ==
+              //         widget.productMapper.minQuantity &&
+              //     widget.productMapper.minQuantity > 1) {
+              //   _showMaximumAlertDialog(
+              //       S.of(context).cartMinimumProductsReached,
+              //       widget.productMapper.minQuantity.round().toString());
+              // }
+              else {
+                _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
               }
             },
             child: Container(
@@ -386,7 +404,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                 child: ValueListenableBuilder(
                   valueListenable: qtyValueNotifier,
                   builder: (context, value, child) {
-                    return value == widget.productMapper.minQuantity
+                    return (value == widget.productMapper.minQuantity ||
+                            value <= 1)
                         ? ImageHelper(
                             image: widget.icDelete!, imageType: ImageType.svg)
                         : CustomText(
@@ -407,9 +426,20 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   Widget get _addCartButton => InkWell(
-        onTap: () {
-          if (widget.productMapper.addToCart()) {
-            widget.addToCart!(widget.productMapper);
+        onTap: () async {
+          if (widget.productMapper.canAddToCart()) {
+            widget.onAddToCart!(widget.productMapper);
+            // widget.productMapper.id2 = 0;
+            // widget.productMapper.id = 0;
+            // ObjectBox.instance!.deleteAllProducts();
+            ObjectBox.instance!.insetProduct(widget.productMapper);
+            print(ObjectBox.instance!.displayAllData());
+            // ObjectBox.init();
+            // ObjectBox.init().then(
+            //   (value) {
+            //     value.insetProduct(widget.productMapper);
+            //   },
+            // );
           }
         },
         child: Container(
