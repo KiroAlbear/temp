@@ -71,8 +71,13 @@ class _DialogWidgetState extends State<DialogWidget> {
             _cancelButton,
             SizedBox(
               height: 28.h,
-            )
-          ]
+            ),
+          ],
+          widget.cancelMessage == null
+              ? SizedBox(
+                  height: 28.h,
+                )
+              : SizedBox(),
         ],
       );
 
