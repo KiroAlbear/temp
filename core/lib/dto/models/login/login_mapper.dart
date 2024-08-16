@@ -7,6 +7,8 @@ class LoginMapper {
   late final String token;
   late final String name;
   late final String phone;
+  late final double lat;
+  late final double long;
 
   String image = '';
 
@@ -16,10 +18,14 @@ class LoginMapper {
       token = response.token ?? '';
       userId = response.id ?? 0;
       phone = response.phone ?? '';
+      lat = response.latitude ?? 0;
+      long = response.longitude ?? 0;
       if (token.isNotEmpty) {
         SharedPrefModule().bearerToken = token;
         OdooDioModule().setAppHeaders();
       }
+      SharedPrefModule().userLat = lat;
+      SharedPrefModule().userLong = long;
       SharedPrefModule().userId = userId.toString();
     }
   }
