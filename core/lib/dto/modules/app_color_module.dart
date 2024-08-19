@@ -140,5 +140,4 @@ Color switchBorderColor = _isDark
     : yellowSwitchColorBorderLightMode;
 
 Color filterItemColor =
-_isDark ? filterItemColorDarkMode : filterItemColorLightMode;
-
+    _isDark ? filterItemColorDarkMode : filterItemColorLightMode;

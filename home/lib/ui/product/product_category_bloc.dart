@@ -3,22 +3,19 @@ import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/brand/brand_mapper.dart';
 import 'package:core/dto/models/brand/brand_request.dart';
 import 'package:core/dto/models/category/subcategory_request.dart';
-import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/favourite/favourite_request.dart';
+import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
+import 'package:core/dto/models/product/product_request.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/brand_remote.dart';
-import 'package:core/dto/models/product/product_request.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/favourite_add_product_remote.dart';
 import 'package:core/dto/remote/favourite_product_remote.dart';
 import 'package:core/dto/remote/product_remote.dart';
 import 'package:core/dto/remote/search_product_remote.dart';
 import 'package:core/dto/remote/subcategory_remote.dart';
-import 'package:core/dto/remote/product_remote.dart';
-import 'package:core/dto/remote/search_product_remote.dart';
 
 class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int categoryId = 1;
@@ -93,7 +90,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   Stream<ApiState<List<ProductMapper>>> get loadWithSubCategory =>
       ProductRemote()
-          .loadProduct(PageRequest(pageSize, pageNumber, categoryId, null));
+          .loadProduct(ProductRequest(pageSize, pageNumber, categoryId));
 
   Stream<ApiState<List<ProductMapper>>> _loadProductWithSubcategoryBrand(
           int subCategory, int brand) =>

@@ -469,7 +469,7 @@ class _ApiClient implements ApiClient {
       'file',
       MultipartFile.fromFileSync(
         file.path,
-        filename: 'image',
+        filename: file.path.split(Platform.pathSeparator).last,
       ),
     ));
     final _result = await _dio.fetch<Map<String, dynamic>>(
