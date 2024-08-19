@@ -53,17 +53,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("تغيير كلمة السر"),
+        "chooseCity": MessageLookupByLibrary.simpleMessage("اختر محافظتك"),
         "chooseYourCountry": MessageLookupByLibrary.simpleMessage("اختر بلدك"),
         "city": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد الخروج من دُكان؟"),
+        "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "ادخل تاكيد كلمة السر الجديدة"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
-        "currentOrder": MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
+        "currentOrders":
+            MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("كلمة السر الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
@@ -75,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "editLocation": MessageLookupByLibrary.simpleMessage("تعديل الموقع"),
         "emailRequired":
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني مطلوب"),
+        "emptyFavourite":
+            MessageLookupByLibrary.simpleMessage("لا يوجد منتجات مفضلة لديك"),
         "enterCity": MessageLookupByLibrary.simpleMessage("ادخل اسم المحافظة"),
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("ادخل تاكيد كلمة السر"),
@@ -114,16 +119,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
             MessageLookupByLibrary.simpleMessage("رقم الجوال غير صالح"),
+        "itemsDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":
-            MessageLookupByLibrary.simpleMessage("حدد مكان محللك"),
+            MessageLookupByLibrary.simpleMessage("حدد مكان محلك"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
         "loginNow": MessageLookupByLibrary.simpleMessage("تسجيل الدخول الآن"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من أنك تريد تسجيل الخروج؟"),
+        "mobileAlreadyRegistered": MessageLookupByLibrary.simpleMessage(
+            "رقم الهاتف مسجل بالفعل من قبل"),
+        "mobileExistBefore": MessageLookupByLibrary.simpleMessage(
+            "رقم الهاتف مسجل لدينا بالفعل"),
         "more": MessageLookupByLibrary.simpleMessage("المزيد"),
+        "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
         "newPassword":
             MessageLookupByLibrary.simpleMessage("ادخل كلمة السر الجديدة"),
@@ -134,11 +145,40 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب ألا تحتوي على مسافات"),
         "ok": MessageLookupByLibrary.simpleMessage("حسنًا"),
         "openSetting": m2,
+        "orderAccepting":
+            MessageLookupByLibrary.simpleMessage("الموافقة على الطلب"),
+        "orderAgain": MessageLookupByLibrary.simpleMessage("أطلب مرة كمان"),
+        "orderCancelBackButton": MessageLookupByLibrary.simpleMessage("الرجوع"),
+        "orderCancelConfirmButton":
+            MessageLookupByLibrary.simpleMessage("تأكيد الإلغاء"),
+        "orderCancelConfirmation": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد من إلغاء الطلب؟"),
+        "orderCancelReasonHint":
+            MessageLookupByLibrary.simpleMessage("سبب إلغاء الطلب"),
+        "orderCancelReasonTitle":
+            MessageLookupByLibrary.simpleMessage("سبب إلغاء طلبك"),
+        "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
+        "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
+        "orderInProgress": MessageLookupByLibrary.simpleMessage("قيد التنفيذ"),
+        "orderItem": MessageLookupByLibrary.simpleMessage("قطعة"),
+        "orderItemCount": MessageLookupByLibrary.simpleMessage("عدد القطع:"),
+        "orderNotRecieved":
+            MessageLookupByLibrary.simpleMessage("تم الغاء الطلب"),
+        "orderNumber": MessageLookupByLibrary.simpleMessage("الطلب رقم:"),
+        "orderOutside": MessageLookupByLibrary.simpleMessage("خارج للتوصيل"),
+        "orderRecieved":
+            MessageLookupByLibrary.simpleMessage("تم استلام الطلب"),
+        "orderSending": MessageLookupByLibrary.simpleMessage("ارسال الطلب"),
+        "orderShipping": MessageLookupByLibrary.simpleMessage("شحن الطلب"),
+        "orderTotal": MessageLookupByLibrary.simpleMessage("الإجمالي:"),
+        "ordersNotFound": MessageLookupByLibrary.simpleMessage(
+            "لم تقم بطلب اي منتج حتي الان"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور وتأكيد كلمة المرور غير متطابقين"),
+        "pastOrders": MessageLookupByLibrary.simpleMessage("الطلبات السابقة"),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
@@ -178,6 +218,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
         "supportAndAssistance":
             MessageLookupByLibrary.simpleMessage("الدعم والمساعدة"),
+        "updateProfileBuildingData":
+            MessageLookupByLibrary.simpleMessage("بيانات المنشأه"),
+        "updateProfileBuildingName":
+            MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
+        "updateProfileBuildingNumber":
+            MessageLookupByLibrary.simpleMessage("رقم البناية / اسم الشارع"),
+        "updateProfileDistrict": MessageLookupByLibrary.simpleMessage("الحي"),
+        "updateProfileGovernorate":
+            MessageLookupByLibrary.simpleMessage("المحافظة"),
+        "updateProfileLocation": MessageLookupByLibrary.simpleMessage("الموقع"),
+        "updateProfilePersonalData":
+            MessageLookupByLibrary.simpleMessage("بياناتي الشخصية"),
+        "updateProfileTitle":
+            MessageLookupByLibrary.simpleMessage("بيانات حسابي"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("سياسة الاستخدام"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "welcomeToDokkan":

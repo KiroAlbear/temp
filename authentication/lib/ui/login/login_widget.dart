@@ -5,33 +5,35 @@ import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/dio_module.dart';
-import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/custom_text_form_filed_widget.dart';
 import 'package:flutter/material.dart';
 
-class LoginWidget extends StatefulWidget {
+class LoginWidget extends BaseStatefulWidget {
   final String logo;
   final String biometricImage;
   final bool enableSkip;
 
   const LoginWidget(
-      {super.key, required this.logo, required this.biometricImage, required this.enableSkip});
+      {super.key,
+      required this.logo,
+      required this.biometricImage,
+      required this.enableSkip});
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
+class _LoginWidgetState extends BaseState<LoginWidget> {
   final LoginBloc _bloc = LoginBloc();
 
   @override
-  Widget build(BuildContext context) => LogoTopWidget(
+  Widget getBody(BuildContext context) => LogoTopWidget(
         canBack: false,
         logo: widget.logo,
         blocBase: _bloc,
@@ -57,10 +59,7 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
               SizedBox(
                 height: 12.h,
               ),
-              MobileCountryWidget(
-                  mobileBloc: _bloc.mobileBloc,
-                  countryList: _bloc.fakeList,
-                  countryBloc: _bloc.countryBloc),
+              _countryStream,
               SizedBox(
                 height: 24.h,
               ),
@@ -89,6 +88,16 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
         ),
       );
 
+  Widget get _countryStream => StreamBuilder(
+        stream: _bloc.countryStream,
+        builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
+            snapshot.data!, context,
+            onSuccess: MobileCountryWidget(
+                mobileBloc: _bloc.mobileBloc,
+                countryList: snapshot.data?.response ?? [],
+                countryBloc: _bloc.countryBloc)),
+      );
+
   Widget get _passwordTextFormFiled => CustomTextFormFiled(
         labelText: S.of(context).enterYourPassword,
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
@@ -96,6 +105,8 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         textInputAction: TextInputAction.done,
+        defaultTextStyle:
+            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
         isPassword: true,
       );
 
@@ -117,13 +128,12 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: _button(snapshot.data?? false)),
+            Expanded(child: _button(snapshot.data ?? false)),
             if (snapshot.data ?? false)
-            SizedBox(
-              width: 21.w,
-            ),
-            if (snapshot.data ?? false)
-            _biometricButton,
+              SizedBox(
+                width: 21.w,
+              ),
+            if (snapshot.data ?? false) _biometricButton,
           ],
         ),
         initialData: false,
@@ -135,10 +145,14 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
               .authenticateWithBiometric(S.of(context).biometricLoginMessage)
               .then((value) {
             if (value) {
-              _bloc.mobileBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: SharedPrefModule().userName));
-              _bloc.passwordBloc.textFormFiledBehaviour.sink.add(TextEditingController(text: SharedPrefModule().password));
-              _bloc.mobileBloc.updateStringBehaviour(SharedPrefModule().userName??'');
-              _bloc.passwordBloc.updateStringBehaviour(SharedPrefModule().password??'');
+              _bloc.mobileBloc.textFormFiledBehaviour.sink.add(
+                  TextEditingController(text: SharedPrefModule().userName));
+              _bloc.passwordBloc.textFormFiledBehaviour.sink.add(
+                  TextEditingController(text: SharedPrefModule().password));
+              _bloc.mobileBloc
+                  .updateStringBehaviour(SharedPrefModule().userName ?? '');
+              _bloc.passwordBloc
+                  .updateStringBehaviour(SharedPrefModule().password ?? '');
               _bloc.login.listen((event) {
                 checkResponseStateWithButton(event, context,
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
@@ -186,7 +200,7 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
 
   Widget get _registerWidget => InkWell(
         onTap: () => CustomNavigatorModule.navigatorKey.currentState
-            ?.pushReplacementNamed(AppScreenEnum.register.name),
+            ?.pushNamed(AppScreenEnum.register.name),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -212,4 +226,18 @@ class _LoginWidgetState extends State<LoginWidget> with ResponseHandlerModule {
     CustomNavigatorModule.navigatorKey.currentState
         ?.pushReplacementNamed(AppScreenEnum.home.name);
   }
+
+  @override
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => true;
+
+  @override
+  void onPopInvoked(didPop) {
+    handleCloseApplication();
+  }
+
+  @override
+  bool isSafeArea() => false;
 }

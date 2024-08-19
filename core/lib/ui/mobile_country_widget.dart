@@ -7,6 +7,7 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:flutter/material.dart';
+
 import 'custom_text_form_filed_widget.dart';
 
 class MobileCountryWidget extends StatelessWidget {
@@ -47,7 +48,8 @@ class MobileCountryWidget extends StatelessWidget {
         onChanged: (value) => mobileBloc.updateStringBehaviour(value),
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.number,
-        defaultTextStyle: RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+        defaultTextStyle:
+            RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         validator: (value) => ValidatorModule()
             .mobileValidator(context, countryBloc.value?.customValidator)
             .call(value),

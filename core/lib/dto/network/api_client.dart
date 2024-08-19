@@ -5,17 +5,31 @@ import 'package:core/dto/models/baseModules/header_response.dart';
 import 'package:core/dto/models/brand/brand_request.dart';
 import 'package:core/dto/models/brand/brand_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
+import 'package:core/dto/models/checkPhone/check_phone_request.dart';
+import 'package:core/dto/models/checkPhone/check_phone_response.dart';
 import 'package:core/dto/models/client/client_request.dart';
+import 'package:core/dto/models/country/country_response.dart';
+import 'package:core/dto/models/favourite/favourite_request.dart';
+import 'package:core/dto/models/favourite/favourite_response.dart';
 import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
+import 'package:core/dto/models/my_orders/my_orders_request.dart';
+import 'package:core/dto/models/my_orders/my_orders_response.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/password/change_password_request.dart';
 import 'package:core/dto/models/phone/phone_request.dart';
 import 'package:core/dto/models/product/favourite_product_response.dart';
+import 'package:core/dto/models/product/product_request.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
+import 'package:core/dto/models/profile/profile_response.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/models/register/register_request.dart';
+import 'package:core/dto/models/state/state_request.dart';
+import 'package:core/dto/models/state/state_response.dart';
+import 'package:core/dto/models/update_profile/update_profile_request.dart';
+
+import '../models/update_profile/delivery_address_response.dart';
 
 import '../models/category/subcategory_request.dart';
 
@@ -46,7 +60,7 @@ abstract class ApiClient {
 
   @POST(_ApiClientKey._allProduct)
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(
-      @Body() PageRequest request);
+      @Body() ProductRequest request);
 
   @GET(_ApiClientKey._productBySubCategoryBrand)
   Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
@@ -56,9 +70,21 @@ abstract class ApiClient {
   Future<HeaderResponse<List<FavouriteProductResponse>>> getFavouriteProduct(
       @Body() PageRequest request);
 
+  @POST(_ApiClientKey._addFavourite)
+  Future<HeaderResponse<FavouriteResponse>> addProductToFavourite(
+      @Body() FavouriteRequest request);
+
+  @POST(_ApiClientKey._deleteFavourite)
+  Future<HeaderResponse<FavouriteResponse>> deleteProductFromFavourite(
+      @Body() FavouriteRequest request);
+
   @POST(_ApiClientKey._searchProduct)
   Future<HeaderResponse<List<ProductResponse>>> searchProduct(
       @Body() SearchProductRequest request);
+
+  @POST(_ApiClientKey._myOrders)
+  Future<HeaderResponse<List<MyOrdersResponse>>> getMyOrders(
+      @Body() MyOrdersRequest request);
 
   @POST(_ApiClientKey._signUp)
   Future<HeaderResponse<LoginResponse>> register(
@@ -72,9 +98,14 @@ abstract class ApiClient {
   Future<HeaderResponse> changePassword(@Body() ChangePasswordRequest request);
 
   @PUT('${_ApiClientKey._updateProfileImage}/{mobileNumber}')
+  @MultiPart()
+  @Headers(<String, dynamic>{
+    'Content-Type': 'multipart/form-data',
+  })
   Future<HeaderResponse<LoginResponse>> updateProfileImage(
-      @Path("mobileNumber") String mobileNumber,
-      @Part(fileName: 'image') File file);
+    @Path("mobileNumber") String mobileNumber,
+    @Part() File file,
+  );
 
   @PUT(_ApiClientKey._deActiveProfile)
   Future<HeaderResponse> deActiveProfile(@Body() PhoneRequest request);
@@ -83,7 +114,25 @@ abstract class ApiClient {
   Future<HeaderResponse<LoginResponse>> updateAddress(
       @Body() AddressRequest request);
 
+  @GET('${_ApiClientKey._deliveryAddress}/{userId}')
+  Future<HeaderResponse<DeliveryAddressResponse>> getDeliveryAddress(
+      @Path("userId") String userId);
+
+  @PUT(_ApiClientKey._updateProfile)
+  Future<HeaderResponse> updateProfile(@Body() UpdateProfileRequestBody body);
+
   @POST(_ApiClientKey._getProfile)
-  Future<HeaderResponse<LoginResponse>> getProfile(
+  Future<HeaderResponse<ProfileResponse>> getProfile(
       @Body() ClientRequest request);
+
+  @POST(_ApiClientKey._getCountry)
+  Future<HeaderResponse<List<CountryResponse>>> getCountry();
+
+  @GET(_ApiClientKey._checkPhone)
+  Future<HeaderResponse<CheckPhoneResponse>> checkPhone(
+      @Body() CheckPhoneRequest request);
+
+  @POST(_ApiClientKey._getState)
+  Future<HeaderResponse<List<StateResponse>>> getState(
+      @Body() StateRequest request);
 }

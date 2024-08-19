@@ -5,6 +5,7 @@ import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
@@ -22,7 +23,8 @@ class RegisterWidget extends StatefulWidget {
   State<RegisterWidget> createState() => _RegisterWidgetState();
 }
 
-class _RegisterWidgetState extends State<RegisterWidget> {
+class _RegisterWidgetState extends State<RegisterWidget>
+    with ResponseHandlerModule {
   final RegisterBloc _bloc = RegisterBloc();
 
   @override
@@ -51,10 +53,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               SizedBox(
                 height: 12.h,
               ),
-              MobileCountryWidget(
-                  mobileBloc: _bloc.mobileBloc,
-                  countryList: _bloc.fakeList,
-                  countryBloc: _bloc.countryBloc),
+              _countryStream,
               SizedBox(
                 height: 112.h,
               ),
@@ -75,23 +74,48 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             ],
           )));
 
-  Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).next,
-    textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
-        height: 60.h,
-        onTap: () {
-          if (_bloc.isValid) {
-            widget.authenticationSharedBloc.setDataToAuth(
-                _bloc.countryBloc.value!,
-                _bloc.mobileBloc.value,
-                AppScreenEnum.newAccount.name);
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushReplacementNamed(AppScreenEnum.otp.name);
-          }
-        },
-        buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-        failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-        validateStream: _bloc.validate,
+  Widget get _countryStream => StreamBuilder(
+        stream: _bloc.countryStream,
+        builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
+            snapshot.data!, context,
+            onSuccess: MobileCountryWidget(
+                mobileBloc: _bloc.mobileBloc,
+                countryList: snapshot.data?.response ?? [],
+                countryBloc: _bloc.countryBloc)),
+      );
+
+  Widget get _button => Center(
+        child: CustomButtonWidget(
+          idleText: S.of(context).next,
+          textStyle:
+              SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
+          height: 60.h,
+          onTap: () {
+            if (_bloc.isValid) {
+              _bloc.checkPhone.listen(
+                (event) {
+                  checkResponseStateWithButton(
+                    event,
+                    context,
+                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                    onSuccess: () {
+                      widget.authenticationSharedBloc.setDataToAuth(
+                          _bloc.countryBloc.value!,
+                          _bloc.mobileBloc.value,
+                          AppScreenEnum.newAccount.name);
+                      CustomNavigatorModule.navigatorKey.currentState
+                          ?.pushNamed(AppScreenEnum.otp.name);
+                    },
+                  );
+                },
+              );
+            }
+          },
+          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+          validateStream: _bloc.validate,
+        ),
       );
 
   Widget get _loginWidget => InkWell(

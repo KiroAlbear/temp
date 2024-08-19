@@ -87,12 +87,12 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
   @override
   void onPopInvoked(didPop) {
     super.onPopInvoked(didPop);
-    handleCloseApplication();
+    // handleCloseApplication();
   }
 
   @override
   bool isSafeArea() => true;
 
   @override
-  bool canPop() => false;
+  bool canPop() => widget.canBack;
 }

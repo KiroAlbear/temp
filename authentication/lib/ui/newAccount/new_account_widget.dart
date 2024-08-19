@@ -8,23 +8,27 @@ import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class NewAccountWidget extends StatefulWidget {
+class NewAccountWidget extends BaseStatefulWidget {
   final String logo;
   final String mobileNumber;
   final int countryId;
 
   const NewAccountWidget(
-      {super.key, required this.logo, required this.mobileNumber, this.countryId = 245});
+      {super.key,
+      required this.logo,
+      required this.mobileNumber,
+      this.countryId = 245});
 
   @override
   State<NewAccountWidget> createState() => _NewAccountWidgetState();
 }
 
-class _NewAccountWidgetState extends State<NewAccountWidget> {
+class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   final NewAccountBloc _bloc = NewAccountBloc();
 
   @override
@@ -33,32 +37,51 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
     _bloc.init(mobileNumber: widget.mobileNumber, countryId: widget.countryId);
   }
 
+  void _handleBackPressing() async {
+    if (await _bloc.stepsStream.first == NewAccountStepEnum.locationInfo) {
+      _bloc.nextStep(NewAccountStepEnum.info);
+    } else if (await _bloc.stepsStream.first == NewAccountStepEnum.password) {
+      _bloc.nextStep(NewAccountStepEnum.locationInfo);
+    } else if (await _bloc.stepsStream.first ==
+        NewAccountStepEnum.editLocation) {
+      _bloc.nextStep(NewAccountStepEnum.locationInfo);
+    } else {
+      // Navigator.pop(context);
+      // Navigator.pop(context);
+      Navigator.pop(context);
+
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushNamed(AppScreenEnum.register.name);
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushNamed(AppScreenEnum.register.name);
+    }
+  }
+
   @override
-  Widget build(BuildContext context) =>
-      BlocProvider(bloc: _bloc, child: LogoTopWidget(
+  Widget getBody(BuildContext context) => BlocProvider(
+      bloc: _bloc,
+      child: LogoTopWidget(
           canBack: false,
           logo: widget.logo,
           blocBase: _bloc,
           canSkip: false,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               _stepRow,
               _registerInfoWidget,
             ]),
           )));
 
-  Widget get _stepRow =>
-      StreamBuilder(
+  Widget get _stepRow => StreamBuilder(
         stream: _bloc.stepsStream,
         initialData: NewAccountStepEnum.info,
         builder: (context, snapshot) =>
             _whichStep(snapshot.data ?? NewAccountStepEnum.info),
       );
 
-  Widget get _registerInfoWidget =>
-      StreamBuilder(
+  Widget get _registerInfoWidget => StreamBuilder(
         stream: _bloc.stepsStream,
         initialData: NewAccountStepEnum.info,
         builder: (context, snapshot) =>
@@ -70,8 +93,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
       case NewAccountStepEnum.info:
         return NewAccountInfoWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.locationInfo:
-        return NewAccountLocationInfoWidget(
-            newAccountBloc: _bloc);
+        return NewAccountLocationInfoWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.editLocation:
         return NewAccountLocationWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.password:
@@ -92,8 +114,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
     }
   }
 
-  Widget get _firstStep =>
-      Row(
+  Widget get _firstStep => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _stepContainer(1, true, false),
@@ -101,11 +122,9 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
             width: 20.w,
           ),
           CustomText(
-              text: S
-                  .of(context)
-                  .createAccount,
+              text: S.of(context).createAccount,
               customTextStyle:
-              MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
+                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
           const Spacer(),
           _stepContainer(2, false, false),
           SizedBox(
@@ -115,8 +134,7 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
         ],
       );
 
-  Widget get _secondStep =>
-      Row(
+  Widget get _secondStep => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _stepContainer(1, true, true),
@@ -128,18 +146,15 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
             width: 20.w,
           ),
           CustomText(
-              text: S
-                  .of(context)
-                  .locationYourLocation,
+              text: S.of(context).locationYourLocation,
               customTextStyle:
-              MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
+                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
           const Spacer(),
           _stepContainer(3, false, false),
         ],
       );
 
-  Widget get _lastStep =>
-      Row(
+  Widget get _lastStep => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _stepContainer(1, true, true),
@@ -155,11 +170,9 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
             width: 20.w,
           ),
           CustomText(
-              text: S
-                  .of(context)
-                  .password,
+              text: S.of(context).password,
               customTextStyle:
-              MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
+                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
         ],
       );
 
@@ -173,17 +186,32 @@ class _NewAccountWidgetState extends State<NewAccountWidget> {
           child: Center(
             child: finished
                 ? Icon(
-              Icons.check,
-              color: whiteColor,
-              size: 20.w,
-            )
+                    Icons.check,
+                    color: whiteColor,
+                    size: 20.w,
+                  )
                 : Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
-                  child: CustomText(
-                  text: step.toString(),
-                  customTextStyle: SemiBoldStyle(
-                      color: current ? whiteColor : lightBlackColor,
-                      fontSize: 20.sp)),
-                ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
+                    child: CustomText(
+                        text: step.toString(),
+                        customTextStyle: SemiBoldStyle(
+                            color: current ? whiteColor : lightBlackColor,
+                            fontSize: 20.sp)),
+                  ),
           ));
+
+  @override
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => false;
+
+  @override
+  void onPopInvoked(didPop) {
+    _handleBackPressing();
+  }
+
+  @override
+  bool isSafeArea() => false;
 }

@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
+
 part 'banner_response.g.dart';
 
 @JsonSerializable()
 class BannerResponse {
-
   @JsonKey(name: 'id')
   int? id;
 

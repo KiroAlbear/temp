@@ -1,24 +1,19 @@
 import 'package:core/core.dart';
-import 'package:core/dto/commonBloc/current_location_bloc.dart';
-import 'package:core/dto/commonBloc/permission_bloc.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/bloc_base.dart';
-import 'package:core/ui/custom_progress_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/mapPreview/map_preview_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 
 class MapPreviewWidget extends StatefulWidget {
   final double? latitude;
   final double? longitude;
   final double? width;
   final double? height;
+  final bool showEditLocation;
   final VoidCallback clickOnChangeLocation;
 
   final Function(double latitude, double longitude)? onLocationDetection;
@@ -29,6 +24,7 @@ class MapPreviewWidget extends StatefulWidget {
       this.longitude,
       this.height,
       this.width,
+      this.showEditLocation = true,
       required this.clickOnChangeLocation,
       this.onLocationDetection});
 
@@ -51,7 +47,6 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -60,7 +55,8 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
       _bloc.isLocationChanged = true;
       _bloc.latLng(widget.latitude ?? 0.0, widget.longitude ?? 0.0);
     }
-    _bloc.initPermissionAndLocation(context, onLocationDetection: widget.onLocationDetection);
+    _bloc.initPermissionAndLocation(context,
+        onLocationDetection: widget.onLocationDetection);
     return _blocProvider;
   }
 
@@ -77,7 +73,7 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
             clipBehavior: Clip.none,
             children: [
               Positioned.fill(child: _mapWidget),
-              _editLocationWidget,
+              widget.showEditLocation ? _editLocationWidget : SizedBox(),
             ],
           ),
         ),
@@ -103,7 +99,7 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
         onTap: () => widget.clickOnChangeLocation(),
         child: Container(
           alignment: Alignment.center,
-          color: primaryColor.withOpacity(0.6),
+          color: yellowColor.withOpacity(0.8),
           padding: EdgeInsets.symmetric(vertical: 6.h),
           child: CustomText(
             text: S.of(context).editLocation,

@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 const Color primaryColorLightMode = Color.fromRGBO(255, 194, 0, 1);
 const Color primaryColorDarkMode = Color.fromRGBO(255, 194, 0, 1);
 
+const Color yellowColorLightMode = Color.fromRGBO(255, 241, 0, 1);
+const Color yellowColorDarkMode = Color.fromRGBO(255, 241, 0, 1);
+
 const Color filterItemColorLightMode = Color.fromRGBO(249, 243, 147, 1);
 const Color filterItemColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
 
@@ -46,6 +49,14 @@ const Color offWhiteColorDarkMore = Color.fromRGBO(63, 63, 63, 1);
 /// yellow card color
 const Color yellowCardColorLightMode = Color.fromRGBO(254, 255, 239, 1);
 const Color yellowCardColorDarkMode = Color.fromRGBO(254, 255, 239, 1);
+
+/// yellow switch color
+const Color yellowSwitchColorLightMode = Color.fromRGBO(249, 243, 147, 1);
+const Color yellowSwitchColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
+
+/// yellow switch color
+const Color yellowSwitchColorBorderLightMode = Color.fromRGBO(255, 194, 0, 1);
+const Color yellowSwitchColorBorderDarkMode = Color.fromRGBO(255, 194, 0, 1);
 
 /// green card color
 const Color greenCardColorLightMode = Color.fromRGBO(239, 255, 240, 1);
@@ -116,7 +127,18 @@ Color menuOrderCardColor =
 Color productCardColor =
     _isDark ? productCardColorDarkMode : productCardColorLightMode;
 
-Color filterItemColor =
-    _isDark ? filterItemColorDarkMode : filterItemColorLightMode;
-
 Color faqCardColor = _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
+Color yellowColor = _isDark ? yellowColorDarkMode : yellowColorLightMode;
+Color myOrdersCardColor =
+    _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
+
+Color switchColor =
+    _isDark ? yellowSwitchColorDarkMode : yellowSwitchColorLightMode;
+
+Color switchBorderColor = _isDark
+    ? yellowSwitchColorBorderDarkMode
+    : yellowSwitchColorBorderLightMode;
+
+Color filterItemColor =
+_isDark ? filterItemColorDarkMode : filterItemColorLightMode;
+

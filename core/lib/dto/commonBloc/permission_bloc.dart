@@ -18,9 +18,9 @@ class PermissionBloc extends BlocBase {
   }
 
   // Method to request a permission.
-  void requestPermission(BuildContext context, Permission permission,
-      {String? messageOnDenied, String? messageBeforeRequest}) {
-    easyPermissionHandler.handlePermission(
+  Future<void> requestPermission(BuildContext context, Permission permission,
+      {String? messageOnDenied, String? messageBeforeRequest}) async {
+    await easyPermissionHandler.handlePermission(
       permission: permission,
       isRequired: true,
       context: context,
