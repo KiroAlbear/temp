@@ -40,7 +40,7 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
     if (isTransparentStatusBar()) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarColor: secondaryColor.withOpacity(0.002),
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
       ));
