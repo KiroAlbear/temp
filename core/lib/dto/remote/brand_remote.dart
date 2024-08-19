@@ -6,10 +6,6 @@ import 'package:core/dto/models/brand/brand_response.dart';
 import 'package:core/dto/modules/odoo_dio_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
-import '../models/category/category_response.dart';
-import '../models/category/subcategory_request.dart';
-import '../models/home/category_mapper.dart';
-
 class BrandRemote
     extends BaseRemoteModule<List<BrandMapper>, List<BrandResponse>> {
   @override
@@ -21,16 +17,16 @@ class BrandRemote
     return SuccessState(list);
   }
 
-  Stream<ApiState<List<BrandMapper>>> loadSubCategoryByCategoryId(
-      int categoryId, BrandRequest brandRequest) {
-    apiFuture = ApiClient(OdooDioModule().build())
-        .getBrandBySubCategory(brandRequest);
+  Stream<ApiState<List<BrandMapper>>> loadBrandBySubCategoryId(
+      BrandRequest brandRequest) {
+    apiFuture =
+        ApiClient(OdooDioModule().build()).getBrandBySubCategory(brandRequest);
 
     return callApiAsStream();
   }
 
   @override
   Future<bool> refreshToken() async {
-    return true;
+    return false;
   }
 }

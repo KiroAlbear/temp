@@ -1,11 +1,14 @@
 import 'package:core/dto/commonBloc/load_more_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/brand/brand_mapper.dart';
+import 'package:core/dto/models/brand/brand_request.dart';
 import 'package:core/dto/models/category/subcategory_request.dart';
 import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
+import 'package:core/dto/remote/brand_remote.dart';
 import 'package:core/dto/remote/favourite_product_remote.dart';
 import 'package:core/dto/remote/product_remote.dart';
 import 'package:core/dto/remote/search_product_remote.dart';
@@ -19,17 +22,28 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   String? _searchValue;
 
   Stream<ApiState<List<ProductMapper>>> loadMore() async* {
-    Stream<ApiState<List<CategoryMapper>>> subCategoryByCategory =
+    Stream<ApiState<List<CategoryMapper>>> subCategoryByCategoryStream =
         _getSubcategoryByCategory(1);
-    subCategoryByCategory.listen((event) {
+
+    subCategoryByCategoryStream.listen((event) {
       if (event is SuccessState) {
         print("Subcategory: ${event.response}");
       }
     });
 
-    Stream<ApiState<List<ProductMapper>>> stream =
+    Stream<ApiState<List<BrandMapper>>> brandBySubcategoryStream =
+        _getBrandBySubcategoryId(12);
+
+    brandBySubcategoryStream.listen((event) {
+      if (event is SuccessState) {
+        print("Brand: ${event.response}");
+      }
+    });
+
+    Stream<ApiState<List<ProductMapper>>> productBySubCategoryBrandStream =
         _loadProductWithSubcategoryBrand(12, 1);
-    stream.listen((event) {
+
+    productBySubCategoryBrandStream.listen((event) {
       if (event is SuccessState) {
         setLoaded(event.response ?? []);
       }
@@ -67,6 +81,10 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
           int subCategory, int brand) =>
       ProductRemote().loadProductBySubCategoryBrand(
           ProductSubcategoryBrandRequest(subCategory, brand));
+
+  Stream<ApiState<List<BrandMapper>>> _getBrandBySubcategoryId(
+          int subCategory) =>
+      BrandRemote().loadBrandBySubCategoryId(BrandRequest(subCategory, 1, 1));
 
   Stream<ApiState<List<CategoryMapper>>> _getSubcategoryByCategory(
           int subCategory) =>
