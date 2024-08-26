@@ -46,6 +46,7 @@ mixin ResponseHandlerModule {
     Color? loaderColor,
     double? loaderSize,
     required Widget onSuccess,
+    Function? onSuccessFunction,
     Widget? idleWidget,
     bool showError = true,
   }) {
@@ -65,6 +66,7 @@ mixin ResponseHandlerModule {
             child: _getLoadingWidget(loaderColor, loaderSize, context));
       }
     } else if (apiState is SuccessState) {
+      onSuccessFunction?.call();
       if (useExpanded) {
         return Expanded(child: _getAnimWidget(child: onSuccess));
       } else {

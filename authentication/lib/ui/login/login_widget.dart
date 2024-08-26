@@ -45,6 +45,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
             children: [
               Center(
                 child: CustomText(
+                    key: const Key('login'),
                     text: S.of(context).login,
                     customTextStyle:
                         BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
@@ -90,12 +91,16 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
 
   Widget get _countryStream => StreamBuilder(
         stream: _bloc.countryStream,
-        builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
-            snapshot.data!, context,
-            onSuccess: MobileCountryWidget(
-                mobileBloc: _bloc.mobileBloc,
-                countryList: snapshot.data?.response ?? [],
-                countryBloc: _bloc.countryBloc)),
+        builder: (context, snapshot) {
+          if (snapshot.data == null)
+            return Container();
+          else
+            return checkResponseStateWithLoadingWidget(snapshot.data!, context,
+                onSuccess: MobileCountryWidget(
+                    mobileBloc: _bloc.mobileBloc,
+                    countryList: snapshot.data?.response ?? [],
+                    countryBloc: _bloc.countryBloc));
+        },
       );
 
   Widget get _passwordTextFormFiled => CustomTextFormFiled(

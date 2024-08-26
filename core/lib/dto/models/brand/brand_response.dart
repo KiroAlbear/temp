@@ -16,7 +16,7 @@ class BrandResponse {
 
   @JsonKey(name: 'display_name')
   String? display_name;
-  BrandResponse();
+  BrandResponse({this.id, this.name, this.active, this.display_name});
 
   factory BrandResponse.fromJson(Map<String, dynamic> json) =>
       _$BrandResponseFromJson(Apputils.convertFlaseToNullJson(json));

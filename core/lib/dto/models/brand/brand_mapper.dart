@@ -1,13 +1,13 @@
 import 'package:core/dto/models/brand/brand_response.dart';
 
 class BrandMapper {
-  int id = -1;
+  int? id;
   String name = "";
   String displayName = "";
   bool active = true;
 
   BrandMapper(BrandResponse brandResponse) {
-    id = brandResponse.id ?? -1;
+    id = brandResponse.id;
     name = brandResponse.name ?? '';
     displayName = brandResponse.display_name ?? '';
     active = brandResponse.active ?? false;

@@ -8,7 +8,7 @@ class ProductSubcategoryBrandRequest {
   int category_id;
 
   @JsonKey(name: 'brand_id')
-  int brand_id;
+  int? brand_id;
 
   ProductSubcategoryBrandRequest(this.category_id, this.brand_id);
 
