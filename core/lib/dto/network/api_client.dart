@@ -125,7 +125,7 @@ abstract class ApiClient {
       @Body() AddressRequest request);
 
   @GET('${_ApiClientKey._deliveryAddress}/{userId}')
-  Future<HeaderResponse<DeliveryAddressResponse>> getDeliveryAddress(
+  Future<HeaderResponse<List<DeliveryAddressResponse>>> getDeliveryAddress(
       @Path("userId") String userId);
 
   @PUT(_ApiClientKey._updateProfile)

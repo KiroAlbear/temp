@@ -6,16 +6,16 @@ import 'package:core/dto/network/api_client.dart';
 import '../models/update_profile/delivery_address_mapper.dart';
 import '../models/update_profile/delivery_address_response.dart';
 
-class DeliveryAddressRemote
-    extends BaseRemoteModule<DeliveryAddressMapper, DeliveryAddressResponse> {
+class DeliveryAddressRemote extends BaseRemoteModule<DeliveryAddressMapper,
+    List<DeliveryAddressResponse>> {
   DeliveryAddressRemote(String userId) {
     apiFuture = ApiClient(OdooDioModule().build()).getDeliveryAddress(userId);
   }
 
   @override
   ApiState<DeliveryAddressMapper> onSuccessHandle(
-      DeliveryAddressResponse? response) {
-    return SuccessState(DeliveryAddressMapper(response!));
+      List<DeliveryAddressResponse>? response) {
+    return SuccessState(DeliveryAddressMapper(response!.first));
   }
 
   @override
