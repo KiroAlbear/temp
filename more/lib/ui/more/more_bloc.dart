@@ -32,7 +32,7 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
         uploadProfileRemote.callApiAsStream.listen(
           (event) {
             if (event is SuccessState) {
-              // selectedFileBehaviour.sink.add("");
+              selectedFileBehaviour.sink.add("");
               // getProfileData();
             } else if (event is FailedState) {
               showErrorDialog("failed", context);

@@ -502,6 +502,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       onConfirm: () {
         Future.delayed(const Duration(milliseconds: 600)).then((value) {
           AppProviderModule().logout(context);
+          widget.moreBloc.selectedFileBehaviour.sink.add("");
         });
       },
     );
