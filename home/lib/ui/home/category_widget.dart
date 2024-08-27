@@ -9,6 +9,7 @@ import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
+import 'package:home/ui/product/product_category_bloc.dart';
 import 'package:home/ui/product/product_category_widget.dart';
 
 class CategoryWidget extends StatefulWidget {
@@ -51,6 +52,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
   Widget _buildItem(CategoryMapper item) => InkWell(
         onTap: () {
           widget.homeBloc.onCategoryClick(item);
+          ProductCategoryBloc.searchValue = null;
           ProductCategoryWidget.cateogryId = item.id!;
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.product.name);

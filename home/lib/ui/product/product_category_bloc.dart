@@ -32,7 +32,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   bool isForFavourite = false;
   ValueNotifier<bool>? isLoading = null;
 
-  String? _searchValue;
+  static String? searchValue;
   BehaviorSubject<ApiState<List<CategoryMapper>>> subCategoryByCategoryStream =
       BehaviorSubject();
   BehaviorSubject<ApiState<List<BrandMapper>>> brandBySubcategoryStream =
@@ -42,8 +42,20 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   void loadMore() {
     // await loadedListStream.drain();
+    Stream<ApiState<List<ProductMapper>>> stream = Stream.empty();
+    if (isForFavourite) {
+      stream = loadWithFavourites;
+    } else if (searchValue != null) {
+      stream = _loadWithSearch(searchValue!);
+    } else {
+      _getSubcategoryBy(categoryId);
+    }
 
-    _getSubcategoryBy(categoryId);
+    stream.listen((event) {
+      if (event is SuccessState) {
+        setLoaded(event.response ?? []);
+      }
+    });
   }
 
   Stream<ApiState<List<ProductMapper>>> get loadWithFavourites {
@@ -201,6 +213,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   }
 
   void doSearch(String value) {
-    _searchValue = value;
+    searchValue = value;
   }
 }

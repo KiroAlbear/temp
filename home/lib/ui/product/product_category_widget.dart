@@ -91,6 +91,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         widget.productCategoryBloc.brandId);
   }
 
+  bool isFavouriteOrSearch() {
+    return widget.productCategoryBloc.isForFavourite ||
+        ProductCategoryBloc.searchValue != null;
+  }
+
   @override
   Widget getBody(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -123,20 +128,119 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    StreamBuilder<ApiState<List<CategoryMapper>>>(
-                      stream: widget
-                          .productCategoryBloc.subCategoryByCategoryStream,
-                      builder: (context, snapshot) {
-                        return !snapshot.hasData
-                            ? Container()
-                            : SizedBox(
-                                height: 40.h,
-                                child: ValueListenableBuilder<int>(
-                                  valueListenable: widget.selectedCategoryIndex,
-                                  builder: (context, value, child) {
-                                    return !snapshot.hasData
-                                        ? Container()
-                                        : Row(
+                    isFavouriteOrSearch()
+                        ? SizedBox()
+                        : StreamBuilder<ApiState<List<CategoryMapper>>>(
+                            stream: widget.productCategoryBloc
+                                .subCategoryByCategoryStream,
+                            builder: (context, snapshot) {
+                              return !snapshot.hasData
+                                  ? Container()
+                                  : SizedBox(
+                                      height: 40.h,
+                                      child: ValueListenableBuilder<int>(
+                                        valueListenable:
+                                            widget.selectedCategoryIndex,
+                                        builder: (context, value, child) {
+                                          return !snapshot.hasData
+                                              ? Container()
+                                              : Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: ListView.separated(
+                                                        separatorBuilder:
+                                                            (context, index) =>
+                                                                SizedBox(
+                                                                    width: 8.w),
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        shrinkWrap: true,
+                                                        itemCount: snapshot
+                                                            .data!
+                                                            .response!
+                                                            .length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return FilterItemWidget(
+                                                              title: snapshot
+                                                                          .data!
+                                                                          .response![
+                                                                              index]
+                                                                          .name ==
+                                                                      ProductCategoryWidget
+                                                                          .filterAllText
+                                                                  ? S
+                                                                      .of(
+                                                                          context)
+                                                                      .productsFilterAll
+                                                                  : snapshot
+                                                                      .data!
+                                                                      .response![
+                                                                          index]
+                                                                      .name,
+                                                              isSelected:
+                                                                  index ==
+                                                                      value,
+                                                              onTap: () {
+                                                                widget.selectedCategoryIndex
+                                                                        .value =
+                                                                    index;
+                                                                widget.productCategoryBloc
+                                                                        .subcategoryId =
+                                                                    snapshot
+                                                                        .data!
+                                                                        .response![
+                                                                            index]
+                                                                        .id;
+                                                                widget
+                                                                    .productCategoryBloc
+                                                                    .reset();
+                                                                widget
+                                                                    .productCategoryBloc
+                                                                    .getBrandBy(widget
+                                                                        .productCategoryBloc
+                                                                        .subcategoryId);
+                                                                widget
+                                                                    .selectedBrandIndex
+                                                                    .value = 0;
+                                                              },
+                                                              // imageUrl:
+                                                              imageUrl: snapshot
+                                                                  .data!
+                                                                  .response![
+                                                                      index]
+                                                                  .image);
+                                                          // "https://lh3.googleusercontent.com/86arOE_jc_FYR6_mPbeXrzWB4LwvgCRWPGXbbftgG4_zAjY05ajbmq3xiG0Xc_uYCoTccikGvLdo5WIlofH5pmySn1VRejqngh2pwDLquiLJYayCOJKUrZKFnOwmSxKzQqqOM1y5o42TPk6LYR1vbPjrEPx3dQIUEwS4IPRjzt3JdPZT32TkqCECm-PoQtsBAPnyN6g46PbiyD9fblgzuBcT2xuO1AaZgOkR53bom8ATCBkDgcYT_mnsxWuxLGp6cNFUR4lWBFKyYkYJWJY--KmIVCWDDoJ3SxwjimGjwRG-X2Qu3AP4wa6tRazHuBo3a8IOofm6f5arSRdpVy4AaXoacTPz8TSkcofA0YaIttHpek1Gi5v1yMSbi5mHV6Mfv4lyczXPp8c5iNR7IFPvgMz1BiCETTxNwSvDjb2JCN94_256Fzejrs-Dk-kMYeCCYQh2Zd_lt9xiEQDgZ5gufdpxxM9xDiP447vrOqKbBMcAS_6hu43EwRi97ILAhBpS3QLP-4WhKf4GHauWqML_EcBvhszB-6T1iGeCWvpAT9jZVDVgekalBvLZiZNoy5Ow9QlnHA=w1827-h711-no-tmp.jpg");
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                        },
+                                      ),
+                                    );
+                            },
+                          ),
+                    isFavouriteOrSearch()
+                        ? SizedBox()
+                        : SizedBox(
+                            height: 10.h,
+                          ),
+                    isFavouriteOrSearch()
+                        ? SizedBox()
+                        : StreamBuilder<ApiState<List<BrandMapper>>>(
+                            stream: widget
+                                .productCategoryBloc.brandBySubcategoryStream,
+                            builder: (context, snapshot) {
+                              return !snapshot.hasData
+                                  ? Container()
+                                  : SizedBox(
+                                      height: 40.h,
+                                      child: ValueListenableBuilder<int>(
+                                        valueListenable:
+                                            widget.selectedBrandIndex,
+                                        builder: (context, value, child) {
+                                          return Row(
                                             children: [
                                               Expanded(
                                                 child: ListView.separated(
@@ -146,8 +250,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                   scrollDirection:
                                                       Axis.horizontal,
                                                   shrinkWrap: true,
-                                                  itemCount: snapshot
-                                                      .data!.response!.length,
+                                                  itemCount: snapshot.data
+                                                          ?.response?.length ??
+                                                      0,
                                                   itemBuilder:
                                                       (context, index) {
                                                     return FilterItemWidget(
@@ -170,10 +275,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                             index == value,
                                                         onTap: () {
                                                           widget
-                                                              .selectedCategoryIndex
+                                                              .selectedBrandIndex
                                                               .value = index;
                                                           widget.productCategoryBloc
-                                                                  .subcategoryId =
+                                                                  .brandId =
                                                               snapshot
                                                                   .data!
                                                                   .response![
@@ -182,99 +287,23 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                           widget
                                                               .productCategoryBloc
                                                               .reset();
-                                                          widget
-                                                              .productCategoryBloc
-                                                              .getBrandBy(widget
-                                                                  .productCategoryBloc
-                                                                  .subcategoryId);
-                                                          widget
-                                                              .selectedBrandIndex
-                                                              .value = 0;
-                                                        },
-                                                        // imageUrl:
-                                                        imageUrl: snapshot
-                                                            .data!
-                                                            .response![index]
-                                                            .image);
-                                                    // "https://lh3.googleusercontent.com/86arOE_jc_FYR6_mPbeXrzWB4LwvgCRWPGXbbftgG4_zAjY05ajbmq3xiG0Xc_uYCoTccikGvLdo5WIlofH5pmySn1VRejqngh2pwDLquiLJYayCOJKUrZKFnOwmSxKzQqqOM1y5o42TPk6LYR1vbPjrEPx3dQIUEwS4IPRjzt3JdPZT32TkqCECm-PoQtsBAPnyN6g46PbiyD9fblgzuBcT2xuO1AaZgOkR53bom8ATCBkDgcYT_mnsxWuxLGp6cNFUR4lWBFKyYkYJWJY--KmIVCWDDoJ3SxwjimGjwRG-X2Qu3AP4wa6tRazHuBo3a8IOofm6f5arSRdpVy4AaXoacTPz8TSkcofA0YaIttHpek1Gi5v1yMSbi5mHV6Mfv4lyczXPp8c5iNR7IFPvgMz1BiCETTxNwSvDjb2JCN94_256Fzejrs-Dk-kMYeCCYQh2Zd_lt9xiEQDgZ5gufdpxxM9xDiP447vrOqKbBMcAS_6hu43EwRi97ILAhBpS3QLP-4WhKf4GHauWqML_EcBvhszB-6T1iGeCWvpAT9jZVDVgekalBvLZiZNoy5Ow9QlnHA=w1827-h711-no-tmp.jpg");
+                                                          _loadProducts();
+                                                        });
                                                   },
                                                 ),
                                               ),
                                             ],
                                           );
-                                  },
-                                ),
-                              );
-                      },
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    StreamBuilder<ApiState<List<BrandMapper>>>(
-                      stream:
-                          widget.productCategoryBloc.brandBySubcategoryStream,
-                      builder: (context, snapshot) {
-                        return !snapshot.hasData
-                            ? Container()
-                            : SizedBox(
-                                height: 40.h,
-                                child: ValueListenableBuilder<int>(
-                                  valueListenable: widget.selectedBrandIndex,
-                                  builder: (context, value, child) {
-                                    return Row(
-                                      children: [
-                                        Expanded(
-                                          child: ListView.separated(
-                                            separatorBuilder:
-                                                (context, index) =>
-                                                    SizedBox(width: 8.w),
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            itemCount: snapshot
-                                                    .data?.response?.length ??
-                                                0,
-                                            itemBuilder: (context, index) {
-                                              return FilterItemWidget(
-                                                  title: snapshot
-                                                              .data!
-                                                              .response![index]
-                                                              .name ==
-                                                          ProductCategoryWidget
-                                                              .filterAllText
-                                                      ? S
-                                                          .of(context)
-                                                          .productsFilterAll
-                                                      : snapshot
-                                                          .data!
-                                                          .response![index]
-                                                          .name,
-                                                  isSelected: index == value,
-                                                  onTap: () {
-                                                    widget.selectedBrandIndex
-                                                        .value = index;
-                                                    widget.productCategoryBloc
-                                                            .brandId =
-                                                        snapshot
-                                                            .data!
-                                                            .response![index]
-                                                            .id;
-                                                    widget.productCategoryBloc
-                                                        .reset();
-                                                    _loadProducts();
-                                                  });
-                                            },
-                                          ),
-                                        ),
-                                      ],
+                                        },
+                                      ),
                                     );
-                                  },
-                                ),
-                              );
-                      },
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                            },
+                          ),
+                    isFavouriteOrSearch()
+                        ? SizedBox()
+                        : SizedBox(
+                            height: 10.h,
+                          ),
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.symmetric(

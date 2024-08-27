@@ -129,6 +129,7 @@ void _listenForBottomNavigationChange() {
       _productCategoryBloc.isForFavourite = true;
       _productCategoryBloc.reset();
     } else {
+      _productCategoryBloc.isForFavourite = false;
       _productCategoryBloc.reset();
     }
   });

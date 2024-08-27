@@ -16,9 +16,7 @@ class ScanBarcodeWidget extends BaseStatefulWidget {
   final HomeBloc homeBloc;
 
   const ScanBarcodeWidget(
-      {super.key,
-      required this.backIcon,
-      required this.homeBloc});
+      {super.key, required this.backIcon, required this.homeBloc});
 
   @override
   State<ScanBarcodeWidget> createState() => _ScanBarcodeWidgetState();
@@ -77,10 +75,17 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
             height: 40.h,
           ),
           _scanStreamBuilder,
-          SizedBox(height: 30.h,),
-          CustomText(text: S.of(context).scanText, customTextStyle: RegularStyle(
-            color: lightBlackColor, fontSize: 18.sp,
-          ), textAlign: TextAlign.center,),
+          SizedBox(
+            height: 30.h,
+          ),
+          CustomText(
+            text: S.of(context).scanText,
+            customTextStyle: RegularStyle(
+              color: lightBlackColor,
+              fontSize: 18.sp,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
       ));
 
@@ -108,7 +113,7 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
           showGallery: false,
           codeFormat: Format.any,
           onScan: (code) {
-            if (code.text != null) {
+            if (code.text != null && code.text!.isNotEmpty) {
               widget.homeBloc.doSearch(code.text ?? '');
             }
           },
