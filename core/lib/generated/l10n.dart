@@ -1509,6 +1509,16 @@ class S {
       args: [],
     );
   }
+
+  /// `All`
+  String get productsFilterAll {
+    return Intl.message(
+      'All',
+      name: 'productsFilterAll',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

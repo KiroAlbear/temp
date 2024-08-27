@@ -38,9 +38,9 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
           !widget
               .moreBloc.cameraPermissionBloc.easyPermissionHandler.isGranted) {
         widget.moreBloc.cameraPermissionBloc.handleOnResumedForPermission();
-      }else if(widget.moreBloc.galleryPermissionBloc.isOpenSettings &&
+      } else if (widget.moreBloc.galleryPermissionBloc.isOpenSettings &&
           !widget
-              .moreBloc.galleryPermissionBloc.easyPermissionHandler.isGranted){
+              .moreBloc.galleryPermissionBloc.easyPermissionHandler.isGranted) {
         widget.moreBloc.galleryPermissionBloc.handleOnResumedForPermission();
       }
     }
@@ -90,10 +90,14 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                   color: greyColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16.w)),
               child: ImageHelper(
-                width: snapshot.data!.isEmpty?58.w: 80.w,
-                height: snapshot.data!.isEmpty?58.h: 80.h,
-                imageType: snapshot.data!.isEmpty? ImageType.network : ImageType.file,
-                image: snapshot.data!.isEmpty? widget.shopLogo: snapshot.data!,
+                width: snapshot.data!.isEmpty ? 58.w : 150.w,
+                height: snapshot.data!.isEmpty ? 58.h : 80.h,
+                imageType:
+                    snapshot.data!.isEmpty ? ImageType.network : ImageType.file,
+                image:
+                    snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
+                // snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
+                boxFit: BoxFit.cover,
                 imageShape: ImageShape.rectangle,
                 borderRadius: BorderRadius.circular(16.w),
                 errorBuilder: ImageHelper(
@@ -106,7 +110,6 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
             ),
             stream: widget.moreBloc.selectedFileStream,
             initialData: '',
-
           ),
         ),
       );
@@ -134,7 +137,4 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
           ),
         ),
       );
-
-
-
 }

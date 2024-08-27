@@ -7,14 +7,15 @@ part of 'category_response.dart';
 // **************************************************************************
 
 CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
-    CategoryResponse()
-      ..id = (json['id'] as num?)?.toInt()
-      ..name = json['name'] as String?
-      ..parentPath = json['parent_path'] as String?
-      ..image = json['image_1920'] as String?
-      ..parentId = (json['parent_id'] as List<dynamic>?)
+    CategoryResponse(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      parentPath: json['parent_path'] as String?,
+      image: json['image_1920'] as String?,
+      parentId: (json['parent_id'] as List<dynamic>?)
           ?.map((e) => e as Object)
-          .toList();
+          .toList(),
+    );
 
 Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
     <String, dynamic>{

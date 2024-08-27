@@ -145,6 +145,7 @@
   "orderCancelConfirmButton": "Confirm Cancellation",
   "orderCancelBackButton": "Back",
   "orderItem": "Items",
-  "ordersNotFound": "You don't have any order till now"
+  "ordersNotFound": "You don't have any order till now",
+  "productsFilterAll": "All"
 
 }

@@ -1,3 +1,4 @@
+import 'package:core/Utils/AppUtils.dart';
 import 'package:core/core.dart';
 
 part 'profile_response.g.dart';
@@ -37,7 +38,7 @@ class ProfileResponse {
   ProfileResponse();
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) =>
-      _$ProfileResponseFromJson(json);
+      _$ProfileResponseFromJson(Apputils.convertFlaseToNullJson(json));
 
   Map<String, dynamic> toJson() => _$ProfileResponseToJson(this);
 }
