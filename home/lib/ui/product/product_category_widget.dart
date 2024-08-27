@@ -367,7 +367,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                       widget.productCategoryBloc,
                                   productList: snapshot.data?.response ?? [],
                                   favouriteIcon: widget.favouriteIcon,
-                                  addToCart: (productMapper) {},
+                                  onAddToCart: (productMapper) {},
                                   onTapFavourite: (favourite, productMapper) {
                                     // widget.productCategoryBloc.addProductToFavourite();
                                   },

@@ -317,6 +317,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  cryptography:
+    dependency: transitive
+    description:
+      name: cryptography
+      sha256: d146b76d33d94548cf035233fbc2f4338c1242fa119013bead807d033fc4ae05
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.0"
   cupertino_icons:
     dependency: transitive
     description:
@@ -493,6 +501,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  flat_buffers:
+    dependency: transitive
+    description:
+      name: flat_buffers
+      sha256: "380bdcba5664a718bfd4ea20a45d39e13684f5318fcd8883066a55e21f37f4c3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "23.5.26"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -1102,6 +1118,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  my_orders:
+    dependency: "direct main"
+    description:
+      path: my_orders
+      relative: true
+    source: path
+    version: "0.0.1"
   nested:
     dependency: transitive
     description:
@@ -1118,6 +1141,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
+  objectbox:
+    dependency: "direct main"
+    description:
+      name: objectbox
+      sha256: "0dc4482cf03a4c73294aea31b3e217afd154de1c198c115a6b621c5650f273d0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
+  objectbox_flutter_libs:
+    dependency: "direct main"
+    description:
+      name: objectbox_flutter_libs
+      sha256: edc236d248061998a63b37c64a40b28213c1fcb37986a6609857e75823057072
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
+  objectbox_generator:
+    dependency: "direct dev"
+    description:
+      name: objectbox_generator
+      sha256: a83fe9c3bd24246e213cbb58c3f8396d77e7e465dcc32adcc0369e163c6bb0ae
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.2"
   octo_image:
     dependency: transitive
     description:
@@ -1184,7 +1231,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: fec0d61223fba3154d87759e3cc27fe2c8dc498f6386c6d6fc80d1afdd1bf378

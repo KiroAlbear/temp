@@ -157,9 +157,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         model: _entities[0],
         toOneRelations: (ProductMapper object) => [],
         toManyRelations: (ProductMapper object) => {},
-        getId: (ProductMapper object) => object.id,
+        getId: (ProductMapper object) => object.id2,
         setId: (ProductMapper object, int id) {
-          object.id = id;
+          object.id2 = id;
         },
         objectToFB: (ProductMapper object, fb.Builder fbb) {
           final nameOffset = fbb.writeString(object.name);
@@ -184,7 +184,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addBool(13, object.isAddedToCart);
           fbb.addInt64(14, object.id2);
           fbb.finish(fbb.endTable());
-          return object.id;
+          return object.id2;
         },
         objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);

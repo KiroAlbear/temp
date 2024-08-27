@@ -1510,6 +1510,16 @@ class S {
     );
   }
 
+  /// `All`
+  String get productsFilterAll {
+    return Intl.message(
+      'All',
+      name: 'productsFilterAll',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Basket`
   String get cartTitle {
     return Intl.message(
