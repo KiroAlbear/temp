@@ -7,7 +7,7 @@ part of 'brand_request.dart';
 // **************************************************************************
 
 BrandRequest _$BrandRequestFromJson(Map<String, dynamic> json) => BrandRequest(
-      (json['category_id'] as num).toInt(),
+      (json['category_id'] as num?)?.toInt(),
       (json['page'] as num).toInt(),
       (json['limit'] as num).toInt(),
     );

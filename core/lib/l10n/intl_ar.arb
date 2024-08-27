@@ -145,7 +145,8 @@
   "orderCancelConfirmButton": "تأكيد الإلغاء",
   "orderCancelBackButton": "الرجوع",
   "orderItem": "قطعة",
-  "ordersNotFound": "لم تقم بطلب اي منتج حتي الان"
+  "ordersNotFound": "لم تقم بطلب اي منتج حتي الان",
+  "productsFilterAll": "الكل"
 
 
 

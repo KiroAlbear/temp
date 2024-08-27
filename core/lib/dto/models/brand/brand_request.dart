@@ -5,7 +5,7 @@ part 'brand_request.g.dart';
 @JsonSerializable()
 class BrandRequest {
   @JsonKey(name: 'category_id')
-  int categoryId;
+  int? categoryId;
   @JsonKey(name: 'page')
   int page;
   @JsonKey(name: 'limit')

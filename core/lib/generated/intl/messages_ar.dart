@@ -185,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
         "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
+        "productsFilterAll": MessageLookupByLibrary.simpleMessage("الكل"),
         "promoDetails": MessageLookupByLibrary.simpleMessage("تفاصيل العرض"),
         "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(

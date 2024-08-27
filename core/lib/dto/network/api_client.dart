@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/models/address/address_request.dart';
 import 'package:core/dto/models/balance/balance_response.dart';
 import 'package:core/dto/models/baseModules/header_response.dart';
+import 'package:core/dto/models/brand/all_brands_request.dart';
 import 'package:core/dto/models/brand/brand_request.dart';
 import 'package:core/dto/models/brand/brand_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
@@ -22,6 +23,7 @@ import 'package:core/dto/models/product/favourite_product_response.dart';
 import 'package:core/dto/models/product/product_request.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
+import 'package:core/dto/models/product_brand_request.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/models/profile/profile_response.dart';
 import 'package:core/dto/models/register/register_request.dart';
@@ -57,6 +59,10 @@ abstract class ApiClient {
   Future<HeaderResponse<List<BrandResponse>>> getBrandBySubCategory(
       @Body() BrandRequest request);
 
+  @POST(_ApiClientKey._getAllBrands)
+  Future<HeaderResponse<List<BrandResponse>>> getAllBrands(
+      @Body() AllBrandsRequest request);
+
   @POST(_ApiClientKey._allProduct)
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(
       @Body() ProductRequest request);
@@ -64,6 +70,10 @@ abstract class ApiClient {
   @GET(_ApiClientKey._productBySubCategoryBrand)
   Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
       @Body() ProductSubcategoryBrandRequest request);
+
+  @POST(_ApiClientKey._productByBrand)
+  Future<HeaderResponse<List<ProductResponse>>> getProductByBrand(
+      @Body() ProductBrandRequest request);
 
   @POST(_ApiClientKey._favouriteProduct)
   Future<HeaderResponse<List<FavouriteProductResponse>>> getFavouriteProduct(

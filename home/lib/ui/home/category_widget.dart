@@ -5,12 +5,11 @@ import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-
 import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/ui/custom_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
+import 'package:home/ui/product/product_category_widget.dart';
 
 class CategoryWidget extends StatefulWidget {
   final HomeBloc homeBloc;
@@ -52,10 +51,11 @@ class _CategoryWidgetState extends State<CategoryWidget>
   Widget _buildItem(CategoryMapper item) => InkWell(
         onTap: () {
           widget.homeBloc.onCategoryClick(item);
+          ProductCategoryWidget.cateogryId = item.id!;
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.product.name);
         },
-        child:Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -81,7 +81,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 customTextStyle:
-                MediumStyle(fontSize: 13.sp, color: secondaryColor))
+                    MediumStyle(fontSize: 13.sp, color: secondaryColor))
           ],
         ),
       );

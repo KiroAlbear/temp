@@ -167,6 +167,36 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<HeaderResponse<List<BrandResponse>>> getAllBrands(request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HeaderResponse<List<BrandResponse>>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'get/brand',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = HeaderResponse<List<BrandResponse>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<BrandResponse>(
+              (i) => BrandResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -213,6 +243,37 @@ class _ApiClient implements ApiClient {
             .compose(
               _dio.options,
               'get/product/by_subcategory',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = HeaderResponse<List<ProductResponse>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<ProductResponse>(
+              (i) => ProductResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
+  Future<HeaderResponse<List<ProductResponse>>> getProductByBrand(
+      request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HeaderResponse<List<ProductResponse>>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'get/product/by_brand',
               queryParameters: queryParameters,
               data: _data,
             )

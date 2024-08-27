@@ -8,6 +8,7 @@ class Assets {
   static const String imagesIcLogo = 'assets/images/ic_logo.png';
   static const String svgIcAlert = 'assets/svg/ic_alert.svg';
   static const String svgEmptyFavourite = 'assets/svg/empty_favourite.svg';
+  static const String svgIcNotFound = 'assets/svg/ic_not_found.svg';
   static const String svgIcArrowDown = 'assets/svg/ic_arrow_down.svg';
   static const String svgIcBack = 'assets/svg/ic_back.svg';
   static const String svgIcBasket = 'assets/svg/ic_basket.svg';

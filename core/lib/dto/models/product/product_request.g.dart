@@ -8,9 +8,9 @@ part of 'product_request.dart';
 
 ProductRequest _$ProductRequestFromJson(Map<String, dynamic> json) =>
     ProductRequest(
-      (json['limit'] as num).toInt(),
-      (json['page'] as num).toInt(),
-      (json['category_id'] as num?)?.toInt(),
+      limit: (json['limit'] as num?)?.toInt(),
+      page: (json['page'] as num?)?.toInt(),
+      categoryId: (json['category_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$ProductRequestToJson(ProductRequest instance) =>

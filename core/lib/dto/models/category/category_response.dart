@@ -20,7 +20,13 @@ class CategoryResponse {
   @JsonKey(name: 'parent_id')
   List<Object>? parentId;
 
-  CategoryResponse();
+  CategoryResponse({
+    this.id,
+    this.name,
+    this.parentPath,
+    this.image,
+    this.parentId,
+  });
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$CategoryResponseFromJson(Apputils.convertFlaseToNullJson(json));
