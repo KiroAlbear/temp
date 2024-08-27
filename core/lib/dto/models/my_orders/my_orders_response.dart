@@ -2,6 +2,8 @@ import 'package:core/Utils/AppUtils.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/my_orders/tax_total.dart';
 
+import 'my_order_item_response.dart';
+
 part 'my_orders_response.g.dart';
 
 @JsonSerializable()
@@ -36,6 +38,9 @@ class MyOrdersResponse {
   @JsonKey(name: 'date_delivery_done')
   String? deliveredOrder;
 
+  @JsonKey(name: 'order_line')
+  List<MyOrderItemResponse>? items;
+
   // List<Items>? items;
 
   MyOrdersResponse({
@@ -49,6 +54,7 @@ class MyOrdersResponse {
     this.amountUnpaid,
     this.currencyId,
     this.deliveredOrder,
+    this.items,
   });
 
   factory MyOrdersResponse.fromJson(Map<String, dynamic> json) =>
@@ -62,25 +68,15 @@ class Items {
   String? title;
   String? description;
   String? price;
-  int? count;
+  double? count;
 
   Items({this.id, this.title, this.description, this.price, this.count});
 
   Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'];
+    title = json['name'];
     description = json['description'];
-    price = json['price'];
-    count = json['count'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['count'] = this.count;
-    return data;
+    price = json['price_total'];
+    count = json['product_qty'];
   }
 }
