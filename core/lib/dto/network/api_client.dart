@@ -101,7 +101,7 @@ abstract class ApiClient {
       @Body() RegisterRequest request);
 
   @POST(_ApiClientKey._balance)
-  Future<HeaderResponse<BalanceResponse>> getBalance(
+  Future<HeaderResponse<List<BalanceResponse>>> getBalance(
       @Body() ClientRequest request);
 
   @POST(_ApiClientKey._changePassword)

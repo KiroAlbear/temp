@@ -472,14 +472,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<BalanceResponse>> getBalance(request) async {
+  Future<HeaderResponse<List<BalanceResponse>>> getBalance(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<BalanceResponse>>(Options(
+        _setStreamType<HeaderResponse<List<BalanceResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -491,9 +491,12 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<BalanceResponse>.fromJson(
+    final value = HeaderResponse<List<BalanceResponse>>.fromJson(
       _result.data!,
-      (json) => BalanceResponse.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<BalanceResponse>(
+              (i) => BalanceResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }
