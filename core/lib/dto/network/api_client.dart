@@ -45,9 +45,6 @@ abstract class ApiClient {
   Future<HeaderResponse<List<LoginResponse>>> login(
       @Body() LoginRequest request);
 
-  @POST(_ApiClientKey._signUp)
-  Future<HeaderResponse<LoginResponse>> signUp(@Body() LoginRequest request);
-
   @POST(_ApiClientKey._category)
   Future<HeaderResponse<List<CategoryResponse>>> category(
       @Body() PageRequest request);
@@ -97,7 +94,7 @@ abstract class ApiClient {
       @Body() MyOrdersRequest request);
 
   @POST(_ApiClientKey._signUp)
-  Future<HeaderResponse<LoginResponse>> register(
+  Future<HeaderResponse<List<LoginResponse>>> register(
       @Body() RegisterRequest request);
 
   @POST(_ApiClientKey._balance)
@@ -139,7 +136,7 @@ abstract class ApiClient {
   Future<HeaderResponse<List<CountryResponse>>> getCountry();
 
   @GET(_ApiClientKey._checkPhone)
-  Future<HeaderResponse<CheckPhoneResponse>> checkPhone(
+  Future<HeaderResponse<List<CheckPhoneResponse>>> checkPhone(
       @Body() CheckPhoneRequest request);
 
   @POST(_ApiClientKey._getState)

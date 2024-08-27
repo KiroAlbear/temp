@@ -49,33 +49,6 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<LoginResponse>> signUp(request) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<LoginResponse>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'app/signup',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<LoginResponse>.fromJson(
-      _result.data!,
-      (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
-  }
-
-  @override
   Future<HeaderResponse<List<CategoryResponse>>> category(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -445,14 +418,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<LoginResponse>> register(request) async {
+  Future<HeaderResponse<List<LoginResponse>>> register(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<LoginResponse>>(Options(
+        _setStreamType<HeaderResponse<List<LoginResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -464,9 +437,12 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<LoginResponse>.fromJson(
+    final value = HeaderResponse<List<LoginResponse>>.fromJson(
       _result.data!,
-      (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<LoginResponse>(
+              (i) => LoginResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }
@@ -734,14 +710,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<CheckPhoneResponse>> checkPhone(request) async {
+  Future<HeaderResponse<List<CheckPhoneResponse>>> checkPhone(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<CheckPhoneResponse>>(Options(
+        _setStreamType<HeaderResponse<List<CheckPhoneResponse>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -753,9 +729,12 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<CheckPhoneResponse>.fromJson(
+    final value = HeaderResponse<List<CheckPhoneResponse>>.fromJson(
       _result.data!,
-      (json) => CheckPhoneResponse.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<CheckPhoneResponse>(
+              (i) => CheckPhoneResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }

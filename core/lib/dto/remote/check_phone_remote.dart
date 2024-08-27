@@ -6,10 +6,11 @@ import 'package:core/dto/modules/odoo_dio_module.dart';
 import 'package:core/dto/network/api_client.dart';
 import 'package:core/generated/l10n.dart';
 
-class CheckPhoneRemote extends BaseRemoteModule<bool, CheckPhoneResponse> {
+class CheckPhoneRemote
+    extends BaseRemoteModule<bool, List<CheckPhoneResponse>> {
   @override
-  ApiState<bool> onSuccessHandle(CheckPhoneResponse? response) {
-    if (response?.isExist ?? false) {
+  ApiState<bool> onSuccessHandle(List<CheckPhoneResponse>? response) {
+    if (response?.first.isExist ?? false) {
       return FailedState(
           message: S.current.mobileExistBefore,
           loggerName: runtimeType.toString());
