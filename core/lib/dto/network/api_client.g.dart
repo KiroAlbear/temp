@@ -19,14 +19,14 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
-  Future<HeaderResponse<LoginResponse>> login(request) async {
+  Future<HeaderResponse<List<LoginResponse>>> login(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<LoginResponse>>(Options(
+        _setStreamType<HeaderResponse<List<LoginResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -38,9 +38,12 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<LoginResponse>.fromJson(
+    final value = HeaderResponse<List<LoginResponse>>.fromJson(
       _result.data!,
-      (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<LoginResponse>(
+              (i) => LoginResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }
