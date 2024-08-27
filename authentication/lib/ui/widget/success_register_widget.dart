@@ -31,7 +31,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
   bool isSafeArea() => true;
 
   @override
-  bool isTransparentStatusBar() => true;
+  Color? statusBarColor() => whiteColor.withOpacity(0.5);
 
   @override
   Widget getBody(BuildContext context) => Padding(

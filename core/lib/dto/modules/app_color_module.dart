@@ -8,6 +8,9 @@ const Color primaryColorDarkMode = Color.fromRGBO(255, 194, 0, 1);
 const Color yellowColorLightMode = Color.fromRGBO(255, 241, 0, 1);
 const Color yellowColorDarkMode = Color.fromRGBO(255, 241, 0, 1);
 
+const Color filterItemColorLightMode = Color.fromRGBO(249, 243, 147, 1);
+const Color filterItemColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
+
 /// secondary color
 const Color secondaryLightMode = Color.fromRGBO(0, 76, 118, 1);
 const Color secondaryDarkMode = Color.fromRGBO(0, 76, 118, 1);
@@ -138,6 +141,9 @@ Color switchColor =
 Color switchBorderColor = _isDark
     ? yellowSwitchColorBorderDarkMode
     : yellowSwitchColorBorderLightMode;
+
+Color filterItemColor =
+    _isDark ? filterItemColorDarkMode : filterItemColorLightMode;
 
 Color cartSuccessBlueColor =
     _isDark ? cartSuccessBlueDarkMode : cartSuccessBlueLightMode;

@@ -27,7 +27,7 @@ final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
 
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
-  _productCategoryWidget,
+  _productCategoryWidget(),
   Container(),
   Container(),
   _moreBlocProvider
@@ -92,7 +92,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
           logo: Assets.svgIcLogoH,
           successRegister: Assets.svgIcSuccessRegister));
     case AppScreenEnum.product:
-      return _buildPageRoute(_productCategoryWidget);
+      return _buildPageRoute(_productCategoryWidget());
     case AppScreenEnum.faq:
       return _buildPageRoute(_faqWidget);
     case AppScreenEnum.accountChangePassword:
@@ -146,6 +146,7 @@ void _listenForBottomNavigationChange() {
       _productCategoryBloc.isForFavourite = true;
       _productCategoryBloc.reset();
     } else {
+      _productCategoryBloc.isForFavourite = false;
       _productCategoryBloc.reset();
     }
   });
@@ -201,20 +202,23 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
       ),
     );
 
-BlocProvider get _productCategoryWidget => BlocProvider(
-    bloc: _productCategoryBloc,
-    child: ProductCategoryWidget(
-      emptyFavouriteScreen: Assets.svgEmptyFavourite,
-      backIcon: Assets.svgIcBack,
-      favouriteIcon: Assets.svgIcFavourite,
-      homeBloc: _homeBloc,
-      homeLogo: Assets.svgIcHomeLogo,
-      notificationIcon: Assets.svgIcNotification,
-      scanIcon: Assets.svgIcScan,
-      searchIcon: Assets.svgIcSearch,
-      supportIcon: Assets.svgIcContactUs,
-      productCategoryBloc: _productCategoryBloc,
-    ));
+BlocProvider _productCategoryWidget() {
+  return BlocProvider(
+      bloc: _productCategoryBloc,
+      child: ProductCategoryWidget(
+        emptyFavouriteScreen: Assets.svgEmptyFavourite,
+        backIcon: Assets.svgIcBack,
+        favouriteIcon: Assets.svgIcFavourite,
+        homeBloc: _homeBloc,
+        homeLogo: Assets.svgIcHomeLogo,
+        notificationIcon: Assets.svgIcNotification,
+        scanIcon: Assets.svgIcScan,
+        searchIcon: Assets.svgIcSearch,
+        supportIcon: Assets.svgIcContactUs,
+        productNotFoundIcon: Assets.svgIcNotFound,
+        productCategoryBloc: _productCategoryBloc,
+      ));
+}
 
 BlocProvider get _cartScreen => BlocProvider(
     bloc: _cartBloc,

@@ -98,13 +98,15 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
       focusNode: _focusNode,
       searchIcon: widget.searchIcon,
       supportIcon: widget.supportIcon,
-      onChanged: (value) =>
-          widget.homeBloc.searchBloc.updateStringBehaviour(value),
+      onChanged: (value) {
+        widget.homeBloc.searchBloc.updateStringBehaviour(value);
+      },
       textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
       doSearch: () {
         widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value);
         widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
             .add(TextEditingController(text: ''));
+        widget.homeBloc.searchBloc.updateStringBehaviour('');
         FocusScope.of(context).requestFocus(new FocusNode()); //remove focus
       },
       contactUsBloc: widget.contactUsBloc);
@@ -131,6 +133,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   void dispose() {
     widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: ''));
+    widget.homeBloc.searchBloc.updateStringBehaviour('');
     _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();

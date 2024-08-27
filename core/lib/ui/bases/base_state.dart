@@ -33,14 +33,14 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
 
   PreferredSizeWidget? appBar();
 
-  bool isTransparentStatusBar() => false;
+  Color? statusBarColor() => null;
 
   @override
   Widget build(BuildContext context) {
-    if (isTransparentStatusBar()) {
+    if (statusBarColor() != null) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarColor: statusBarColor()!,
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
       ));

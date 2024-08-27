@@ -7,7 +7,8 @@ import 'package:core/dto/modules/odoo_dio_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
-class RegisterRemote extends BaseRemoteModule<LoginMapper, LoginResponse> {
+class RegisterRemote
+    extends BaseRemoteModule<LoginMapper, List<LoginResponse>> {
   RegisterRemote(
       {required String shopName,
       required String name,
@@ -29,8 +30,8 @@ class RegisterRemote extends BaseRemoteModule<LoginMapper, LoginResponse> {
   }
 
   @override
-  ApiState<LoginMapper> onSuccessHandle(LoginResponse? response) {
-    return SuccessState(LoginMapper(response!));
+  ApiState<LoginMapper> onSuccessHandle(List<LoginResponse>? response) {
+    return SuccessState(LoginMapper(response!.first));
   }
 
   @override

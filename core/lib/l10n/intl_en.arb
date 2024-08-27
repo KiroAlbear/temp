@@ -146,6 +146,7 @@
   "orderCancelBackButton": "Back",
   "orderItem": "Items",
   "ordersNotFound": "You don't have any order till now",
+  "productsFilterAll": "All",
   "emptyFavourite": "There are no favorite products",
   "promoDetails": "Promo details",
   "cartTitle": "Basket",

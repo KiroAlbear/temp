@@ -25,7 +25,7 @@ class _SplashWidgetState extends BaseState<SplashWidget> {
   }
 
   @override
-  bool isTransparentStatusBar() => true;
+  Color? statusBarColor() => primaryColor;
 
   @override
   Widget getBody(BuildContext context) {
@@ -37,8 +37,10 @@ class _SplashWidgetState extends BaseState<SplashWidget> {
           right: 0,
           top: 0,
           bottom: 0,
-          child: LogoWidget(
-            logo: Assets.svgIcLogo,
+          child: Expanded(
+            child: LogoWidget(
+              logo: Assets.svgIcLogo,
+            ),
           ),
         ),
       ],
@@ -46,7 +48,7 @@ class _SplashWidgetState extends BaseState<SplashWidget> {
   }
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   bool canPop() => false;

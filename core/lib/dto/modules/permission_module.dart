@@ -1,7 +1,6 @@
 import 'dart:developer' as logger;
 
 import 'package:core/core.dart';
-import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_material_banner.dart';
@@ -44,7 +43,7 @@ class PermissionModule {
   /// - [context]: The BuildContext to show dialogs.
   /// - [messageOnPermissionDeniedForever]: Custom message to show when permission is denied forever.
   /// - [messageBeforeRequestPermission]: Custom message to show before requesting permission.
-  void handlePermission(
+  Future<void> handlePermission(
       {required Permission permission,
       required bool isRequired,
       required BuildContext context,
@@ -95,7 +94,7 @@ class PermissionModule {
     }
   }
 
-  void get requestPermission async {
+  Future<void> get requestPermission async {
     PermissionStatus status = PermissionStatus.denied;
     logger.log('requestPermission');
     if (_permission == Permission.location) {
@@ -103,7 +102,8 @@ class PermissionModule {
     } else {
       status = await _permission.request();
     }
-    if (status == PermissionStatus.permanentlyDenied) {
+    if (status == PermissionStatus.permanentlyDenied ||
+        status == PermissionStatus.denied) {
       _handleOnDeniedForEver;
       _isPermissionGrantedBehaviour.sink.add(false);
     } else {

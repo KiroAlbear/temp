@@ -21,7 +21,9 @@ class CategoryRemote
     response?.forEach((element) {
       list.add(CategoryMapper(element));
     });
-    list.removeWhere((element) => element.isParent = false,);
+    list.removeWhere(
+      (element) => element.isParent = false,
+    );
     return SuccessState(list);
   }
 

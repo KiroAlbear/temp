@@ -6,9 +6,9 @@ import 'package:core/dto/modules/odoo_dio_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
 class FavouriteAddProductRemote
-    extends BaseRemoteModule<bool, FavouriteResponse> {
+    extends BaseRemoteModule<bool, List<FavouriteResponse>> {
   @override
-  ApiState<bool> onSuccessHandle(FavouriteResponse? response) {
+  ApiState<bool> onSuccessHandle(List<FavouriteResponse>? response) {
     return SuccessState(true);
   }
 
