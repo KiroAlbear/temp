@@ -323,7 +323,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<FavouriteResponse>> addProductToFavourite(
+  Future<HeaderResponse<List<FavouriteResponse>>> addProductToFavourite(
       request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -331,7 +331,7 @@ class _ApiClient implements ApiClient {
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<FavouriteResponse>>(Options(
+        _setStreamType<HeaderResponse<List<FavouriteResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -343,15 +343,18 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<FavouriteResponse>.fromJson(
+    final value = HeaderResponse<List<FavouriteResponse>>.fromJson(
       _result.data!,
-      (json) => FavouriteResponse.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<FavouriteResponse>(
+              (i) => FavouriteResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }
 
   @override
-  Future<HeaderResponse<FavouriteResponse>> deleteProductFromFavourite(
+  Future<HeaderResponse<List<FavouriteResponse>>> deleteProductFromFavourite(
       request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -359,7 +362,7 @@ class _ApiClient implements ApiClient {
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HeaderResponse<FavouriteResponse>>(Options(
+        _setStreamType<HeaderResponse<List<FavouriteResponse>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -371,9 +374,12 @@ class _ApiClient implements ApiClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HeaderResponse<FavouriteResponse>.fromJson(
+    final value = HeaderResponse<List<FavouriteResponse>>.fromJson(
       _result.data!,
-      (json) => FavouriteResponse.fromJson(json as Map<String, dynamic>),
+      (json) => (json as List<dynamic>)
+          .map<FavouriteResponse>(
+              (i) => FavouriteResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }

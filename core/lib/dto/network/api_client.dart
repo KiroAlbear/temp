@@ -81,11 +81,11 @@ abstract class ApiClient {
       @Body() PageRequest request);
 
   @POST(_ApiClientKey._addFavourite)
-  Future<HeaderResponse<FavouriteResponse>> addProductToFavourite(
+  Future<HeaderResponse<List<FavouriteResponse>>> addProductToFavourite(
       @Body() FavouriteRequest request);
 
   @POST(_ApiClientKey._deleteFavourite)
-  Future<HeaderResponse<FavouriteResponse>> deleteProductFromFavourite(
+  Future<HeaderResponse<List<FavouriteResponse>>> deleteProductFromFavourite(
       @Body() FavouriteRequest request);
 
   @POST(_ApiClientKey._searchProduct)
