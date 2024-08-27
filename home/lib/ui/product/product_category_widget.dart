@@ -319,6 +319,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                 if (widget.productCategoryBloc.isForFavourite) {
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
                                       ImageHelper(
                                           image: widget.emptyFavouriteScreen,
@@ -327,11 +329,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         height: 37.h,
                                       ),
                                       CustomText(
-                                          text: S.of(context).emptyFavourite,
-                                          customTextStyle: RegularStyle(
-                                            fontSize: 26.sp,
-                                            color: lightBlackColor,
-                                          ))
+                                        text: S.of(context).emptyFavourite,
+                                        customTextStyle: RegularStyle(
+                                          fontSize: 26.sp,
+                                          color: lightBlackColor,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      )
                                     ],
                                   );
                                 } else {
