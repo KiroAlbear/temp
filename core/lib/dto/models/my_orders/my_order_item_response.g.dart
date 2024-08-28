@@ -13,9 +13,7 @@ MyOrderItemResponse _$MyOrderItemResponseFromJson(Map<String, dynamic> json) =>
       description: json['display_name'] as String?,
       price: (json['price_total'] as num?)?.toDouble(),
       count: (json['product_qty'] as num?)?.toDouble(),
-      currency: (json['currency_id'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      currency: json['currency_id'] as List<dynamic>?,
     );
 
 Map<String, dynamic> _$MyOrderItemResponseToJson(

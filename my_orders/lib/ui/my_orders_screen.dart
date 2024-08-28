@@ -47,7 +47,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
     //
 
     widget.myOrdersBloc.getMyOrders(MyOrdersRequest(
-        int.parse(SharedPrefModule().userId ?? '0').toString(), '1', '20'));
+        int.parse(SharedPrefModule().userId ?? '0').toString(), '1', '100'));
     _toggleXAlign.value = ToggleButton.rightToggleAlign;
     _tabController.addListener(() {
       if (_tabController.index == 1) {

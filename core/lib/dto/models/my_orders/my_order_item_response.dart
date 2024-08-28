@@ -17,7 +17,7 @@ class MyOrderItemResponse {
   double? price;
 
   @JsonKey(name: 'currency_id')
-  List<String>? currency;
+  List<dynamic>? currency;
 
   @JsonKey(name: 'product_qty')
   double? count;

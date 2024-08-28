@@ -32,7 +32,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: ImageHelper(
                     image: Assets.svg.icClose,
                     width: 20,
@@ -56,7 +56,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
               title: items[index].title,
               subtitle: items[index].description,
               price: items[index].price,
-              orderImage: Assets.svg.icClose,
+              orderImage: null,
               quantity: items[index].count,
             );
           },
