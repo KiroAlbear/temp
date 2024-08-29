@@ -1,8 +1,9 @@
 import 'package:core/core.dart';
-part 'product_response.g.dart';
-@JsonSerializable()
-class ProductResponse{
 
+part 'product_response.g.dart';
+
+@JsonSerializable()
+class ProductResponse {
   @JsonKey(name: 'id')
   int? id;
 
@@ -12,7 +13,7 @@ class ProductResponse{
   @JsonKey(name: 'price')
   double? price;
 
-  @JsonKey(name:'tax_price')
+  @JsonKey(name: 'tax_price')
   double? taxPrice;
 
   @JsonKey(name: 'min_qty')
@@ -33,8 +34,16 @@ class ProductResponse{
   // @JsonKey(name: 'description')
   // String? description;
 
-
-  ProductResponse();
+  ProductResponse(
+      {this.id,
+      this.name,
+      this.price,
+      this.taxPrice,
+      this.minQty,
+      this.maxQty,
+      this.quantity,
+      this.image,
+      this.isFavourite});
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);
 

@@ -1,3 +1,4 @@
+import 'package:core/dto/models/my_orders/my_order_item_response.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -30,6 +31,22 @@ class ProductMapper {
 
   bool isAddedToCart = false;
   ProductMapper();
+
+  ProductMapper.fromOrderResponse(MyOrderItemResponse orderItem) {
+    id = orderItem.id ?? 0;
+    name = orderItem.name ?? '';
+    description = orderItem.description ?? '';
+    price = orderItem.price ?? 0;
+    quantity = orderItem.count ?? 0;
+    currency = orderItem.currency?[1] ?? '';
+    isFavourite = false;
+    image = '';
+    discountPercentage = 0;
+    minQuantity = 0;
+    maxQuantity = 0;
+    isAvailable = false;
+    isAddedToCart = false;
+  }
   ProductMapper.fromProduct(ProductResponse? productResponse) {
     if (productResponse != null) {
       isFavourite = false;

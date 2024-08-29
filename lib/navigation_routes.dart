@@ -46,12 +46,12 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.none:
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
-      _bottomNavigationBloc.setSelectedTab(0, null);
+      // _bottomNavigationBloc.setSelectedTab(0, null);
       // return _buildPageRoute(const SplashWidget());
       return _buildPageRoute(CartScreen(
         productCategoryBloc: _productCategoryBloc,
         icDelete: Assets.svgIcDelete,
-        bloc: _cartBloc,
+        cartBloc: _cartBloc,
         backIcon: Assets.svgIcBack,
       ));
     // return _buildPageRoute(CartOrderDetails(
@@ -223,7 +223,7 @@ BlocProvider _productCategoryWidget() {
 BlocProvider get _cartScreen => BlocProvider(
     bloc: _cartBloc,
     child: CartScreen(
-      bloc: _cartBloc,
+      cartBloc: _cartBloc,
       productCategoryBloc: _productCategoryBloc,
       backIcon: Assets.svgIcBack,
       icDelete: Assets.svgIcDelete,

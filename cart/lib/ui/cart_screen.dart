@@ -16,10 +16,11 @@ import 'package:home/ui/product/product_category_bloc.dart';
 class CartScreen extends BaseStatefulWidget {
   final String backIcon;
   final String icDelete;
-  final CartBloc bloc;
+  final CartBloc cartBloc;
   final ProductCategoryBloc productCategoryBloc;
+
   CartScreen(
-      {required this.bloc,
+      {required this.cartBloc,
       required this.backIcon,
       required this.icDelete,
       required this.productCategoryBloc,
@@ -41,6 +42,7 @@ class _CartScreenState extends BaseState<CartScreen> {
 
   @override
   void initState() {
+    widget.cartBloc.getMyCart("30");
     super.initState();
   }
 
@@ -92,7 +94,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     StreamBuilder(
-                      stream: widget.bloc.cartTotalBehaviour.stream,
+                      stream: widget.cartBloc.cartTotalBehaviour.stream,
                       builder: (context, snapshot) {
                         return !snapshot.hasData
                             ? SizedBox()
@@ -104,7 +106,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                       },
                     ),
                     StreamBuilder(
-                      stream: widget.bloc.cartTotalDeliveryBehaviour.stream,
+                      stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
                       builder: (context, snapshot) {
                         return !snapshot.hasData
                             ? SizedBox()
@@ -127,7 +129,7 @@ class _CartScreenState extends BaseState<CartScreen> {
 
   Widget _productList() {
     return StreamBuilder(
-      stream: widget.bloc.cartProductsBehavior.stream,
+      stream: widget.cartBloc.cartProductsBehavior.stream,
       builder: (context, snapshot) {
         return !snapshot.hasData
             ? SizedBox()
@@ -135,19 +137,19 @@ class _CartScreenState extends BaseState<CartScreen> {
                 child: ListView.separated(
                   separatorBuilder: (context, index) => 16.verticalSpace,
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.response!.length,
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
                       icDelete: widget.icDelete,
-                      productMapper: snapshot.data!.response![index],
+                      productMapper: snapshot.data![index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDeleteClicked: (int productId) {
                         bool isDeleted =
                             ObjectBox.instance!.deleteProduct(productId);
                         if (isDeleted) {
                           setState(() {
-                            snapshot.data!.response!.removeWhere(
+                            snapshot.data!.removeWhere(
                                 (element) => element.id2 == productId);
                           });
                         }

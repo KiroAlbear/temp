@@ -1,15 +1,16 @@
 import 'package:cart/models/cart_product_qty.dart';
-import 'package:core/Utils/object_box.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/cart/cart_request.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
+import 'package:core/dto/remote/cart_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
 import '../models/latlong.dart';
 
 class CartBloc extends BlocBase {
-  BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
-      BehaviorSubject();
+  BehaviorSubject<List<ProductMapper>> cartProductsBehavior = BehaviorSubject();
 
   BehaviorSubject<String> addressBehaviour = BehaviorSubject();
   BehaviorSubject<Latlong> latLongBehaviour = BehaviorSubject();
@@ -55,6 +56,17 @@ class CartBloc extends BlocBase {
 
   void onItemDeleted() {}
 
+  void getMyCart(String cartOrderIdNumber) {
+    CartRemote()
+        .getMyCart(cartOrderIdNumber,
+            CartRequest(int.parse(SharedPrefModule().userId ?? '0')))
+        .listen((event) {
+      if (event is SuccessState) {
+        cartProductsBehavior.sink.add((event.response!));
+      }
+    });
+  }
+
   CartBloc() {
     getAddress();
     getLocation();
@@ -63,12 +75,26 @@ class CartBloc extends BlocBase {
     getOrderItems();
     getTotalCartSum();
     getTotalCartDeliverySum();
-    List<ProductMapper> products = [];
-    products = ObjectBox.instance!.getAllProducts();
-    // products[0].minQuantity = 2;
-    // products[0].maxQuantity = 6;
-    // products[0].quantity = 4;
-    cartProductsBehavior.sink.add(SuccessState([...products]));
+    // List<ProductMapper> products = [];
+    // products = ObjectBox.instance!.getAllProducts();
+    // // products[0].minQuantity = 2;
+    // // products[0].maxQuantity = 6;
+    // // products[0].quantity = 4;
+    // cartProductsBehavior.sink.add(SuccessState([...products]));
+    // cartProductsBehavior.sink.add(SuccessState([
+    //   ProductMapper.fromProduct(ProductResponse(
+    //     id: 1,
+    //     name: "شاي أحمد",
+    //     price: 1000,
+    //     taxPrice: 10,
+    //     minQty: 1,
+    //     maxQty: 10,
+    //     quantity: 10,
+    //     isFavourite: false,
+    //     image: "https://via.placeholder.com/150",
+    //   ))
+    // ]));
+
     // cartProductsBehavior.sink.add(SuccessState([
     //   ProductMapper.fromProduct(
     //     ProductResponse.fromJson(
