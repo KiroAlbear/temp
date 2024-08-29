@@ -9,6 +9,8 @@ import '../network/api_client.dart';
 
 class CartRemote
     extends BaseRemoteModule<List<ProductMapper>, List<MyOrdersResponse>> {
+  List<MyOrdersResponse>? myOrderResponse;
+
   CartRemote();
 
   Stream<ApiState<List<ProductMapper>>> getMyCart(
@@ -21,6 +23,7 @@ class CartRemote
   @override
   ApiState<List<ProductMapper>> onSuccessHandle(
       List<MyOrdersResponse>? response) {
+    myOrderResponse = response;
     return SuccessState(getCartProductsFromOrderResponse(response),
         message: 'Success');
   }

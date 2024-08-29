@@ -19,6 +19,7 @@ class CartBloc extends BlocBase {
   BehaviorSubject<List<CartProductQty>> itemsBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
+  CartRemote cartRemote = CartRemote();
 
   void getAddress() {
     addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
@@ -36,15 +37,15 @@ class CartBloc extends BlocBase {
     timeBehaviour.sink.add("8 - 9 صباحاً");
   }
 
-  void getOrderItems() {
-    itemsBehaviour.sink.add([
-      CartProductQty(title: "شاي أحمد1", qty: 1),
-      CartProductQty(title: "2شاي أحمد", qty: 4),
-      CartProductQty(title: "3شاي أحمد", qty: 6),
-      CartProductQty(title: "شاي أحمد4", qty: 5),
-      CartProductQty(title: "شاي أحمد", qty: 7),
-    ]);
-  }
+  // void getOrderItems() {
+  //   itemsBehaviour.sink.add([
+  //     CartProductQty(title: "شاي أحمد1", qty: 1),
+  //     CartProductQty(title: "2شاي أحمد", qty: 4),
+  //     CartProductQty(title: "3شاي أحمد", qty: 6),
+  //     CartProductQty(title: "شاي أحمد4", qty: 5),
+  //     CartProductQty(title: "شاي أحمد", qty: 7),
+  //   ]);
+  // }
 
   void getTotalCartSum() {
     cartTotalBehaviour.sink.add('1000 ر.ي');
@@ -57,12 +58,19 @@ class CartBloc extends BlocBase {
   void onItemDeleted() {}
 
   void getMyCart(String cartOrderIdNumber) {
-    CartRemote()
+    cartRemote
         .getMyCart(cartOrderIdNumber,
             CartRequest(int.parse(SharedPrefModule().userId ?? '0')))
         .listen((event) {
       if (event is SuccessState) {
         cartProductsBehavior.sink.add((event.response!));
+        List<CartProductQty> cartProductQtyList = [];
+        event.response!.forEach((elem) => cartProductQtyList
+            .add(CartProductQty(title: elem.name, qty: elem.quantity.toInt())));
+        itemsBehaviour.sink.add(cartProductQtyList);
+        // itemsBehaviour.sink.add([
+        //   CartProductQty(title: )
+        // ]);
       }
     });
   }
@@ -72,7 +80,7 @@ class CartBloc extends BlocBase {
     getLocation();
     getDate();
     getTime();
-    getOrderItems();
+    // getOrderItems();
     getTotalCartSum();
     getTotalCartDeliverySum();
     // List<ProductMapper> products = [];
