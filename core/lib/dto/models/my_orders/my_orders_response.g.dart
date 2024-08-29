@@ -20,6 +20,9 @@ MyOrdersResponse _$MyOrdersResponseFromJson(Map<String, dynamic> json) =>
       amountUnpaid: (json['amount_unpaid'] as num?)?.toDouble(),
       currencyId: json['currency_id'] as List<dynamic>?,
       deliveredOrder: json['date_delivery_done'] as String?,
+      items: (json['order_line'] as List<dynamic>?)
+          ?.map((e) => MyOrderItemResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$MyOrdersResponseToJson(MyOrdersResponse instance) =>
@@ -34,4 +37,5 @@ Map<String, dynamic> _$MyOrdersResponseToJson(MyOrdersResponse instance) =>
       'effective_date': instance.shippingOrder,
       'date_delivery_start': instance.outOrder,
       'date_delivery_done': instance.deliveredOrder,
+      'order_line': instance.items,
     };

@@ -8,7 +8,7 @@ class CurrentOrderDetailsItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final String price;
-  final String orderImage;
+  final String? orderImage;
   final int quantity;
   const CurrentOrderDetailsItem({
     required this.title,
@@ -49,7 +49,7 @@ class CurrentOrderDetailsItem extends StatelessWidget {
                     height: 10,
                   ),
                   CustomText(
-                      text: "$price ر.ى",
+                      text: "$price",
                       customTextStyle: SemiBoldStyle(
                           color: lightBlackColor, fontSize: 18.sp)),
                 ],
@@ -59,7 +59,12 @@ class CurrentOrderDetailsItem extends StatelessWidget {
               padding: EdgeInsetsDirectional.fromSTEB(25, 5, 0, 0),
               child: Column(
                 children: [
-                  ImageHelper(image: orderImage, imageType: ImageType.svg),
+                  orderImage == null
+                      ? SizedBox(
+                          height: 20,
+                        )
+                      : ImageHelper(
+                          image: orderImage!, imageType: ImageType.svg),
                   SizedBox(
                     height: 5,
                   ),

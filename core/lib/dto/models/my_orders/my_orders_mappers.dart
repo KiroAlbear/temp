@@ -19,13 +19,27 @@ class MyOrdersMapper {
           shippingOrder: e.shippingOrder,
           outOrder: e.outOrder,
           deliverOrder: e.deliveredOrder,
-          items: []);
+          items: getOrderItems(e));
       if (e.deliveredOrder == null) {
         currentOrders.add(order);
       } else {
         pastOrders.add(order);
       }
     }
+  }
+
+  List<OrderItemMapper> getOrderItems(MyOrdersResponse orderResponse) {
+    List<OrderItemMapper> items = [];
+    for (var i = 0; i < orderResponse.items!.length; i++) {
+      items.add(OrderItemMapper(
+          id: orderResponse.items![i].id!,
+          title: orderResponse.items![i].name!,
+          description: orderResponse.items![i].description!,
+          price:
+              "${orderResponse.items![i].price!.toString()} ${orderResponse.items![i].currency![1]}",
+          count: orderResponse.items![i].count!.toInt()));
+    }
+    return items;
   }
 }
 
