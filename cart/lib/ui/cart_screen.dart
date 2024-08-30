@@ -42,7 +42,7 @@ class _CartScreenState extends BaseState<CartScreen> {
 
   @override
   void initState() {
-    widget.cartBloc.getMyCart("30");
+    widget.cartBloc.getMyCart();
     super.initState();
   }
 

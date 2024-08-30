@@ -77,8 +77,10 @@ class _ProductWidgetState extends State<ProductWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _productName,
                   SizedBox(

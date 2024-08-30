@@ -56,7 +56,7 @@ class CartBloc extends BlocBase {
 
   void onItemDeleted() {}
 
-  void getMyCart(String cartOrderIdNumber) {
+  void getMyCart() {
     cartRemote
         .getMyCart(CartRequest(int.parse(SharedPrefModule().userId ?? '0')))
         .listen((event) {
