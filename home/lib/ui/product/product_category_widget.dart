@@ -1,3 +1,4 @@
+import 'package:cart/ui/cart_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/brand/brand_mapper.dart';
@@ -8,6 +9,7 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
+import 'package:core/ui/custom_progress_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/product/product_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +32,12 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   static const String filterAllText = "All";
 
   final ProductCategoryBloc productCategoryBloc;
+  final CartBloc cartBloc;
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier(0);
   ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
   ValueNotifier<bool> isLoading = ValueNotifier(false);
-  bool isLoadingWidgetBuilt = false;
+  ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
+  // bool isLoadingWidgetBuilt = false;
 
   ProductCategoryWidget(
       {super.key,
@@ -47,6 +51,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
       required this.searchIcon,
       required this.supportIcon,
       required this.productNotFoundIcon,
+      required this.cartBloc,
       required this.productCategoryBloc});
 
   @override
@@ -367,7 +372,16 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                       widget.productCategoryBloc,
                                   productList: snapshot.data?.response ?? [],
                                   favouriteIcon: widget.favouriteIcon,
-                                  onAddToCart: (productMapper) {},
+                                  onAddToCart: (productMapper) {
+                                    widget.showOverlayLoading.value = true;
+                                    widget.cartBloc
+                                        .saveToCart(productMapper.id, 1)
+                                        .listen((event) {
+                                      if (event is SuccessState) {
+                                        widget.showOverlayLoading.value = false;
+                                      }
+                                    });
+                                  },
                                   onTapFavourite: (favourite, productMapper) {
                                     // widget.productCategoryBloc.addProductToFavourite();
                                   },
@@ -383,9 +397,27 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                   ],
                 ),
                 ValueListenableBuilder(
+                  valueListenable: widget.showOverlayLoading,
+                  builder: (context, value, child) {
+                    // widget.isLoadingWidgetBuilt = true;
+                    return !value
+                        ? SizedBox()
+                        : Expanded(
+                            child: Container(
+                            color: Colors.black.withOpacity(0.3),
+                            child: Center(
+                              child: CustomProgress(
+                                color: Theme.of(context).colorScheme.primary,
+                                size: 30.r,
+                              ),
+                            ),
+                          ));
+                  },
+                ),
+                ValueListenableBuilder(
                   valueListenable: widget.isLoading,
                   builder: (context, value, child) {
-                    widget.isLoadingWidgetBuilt = true;
+                    // widget.isLoadingWidgetBuilt = true;
                     return !value
                         ? SizedBox()
                         : Expanded(

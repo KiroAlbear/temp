@@ -1,11 +1,17 @@
 import 'package:cart/models/cart_product_qty.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/cart/cart_edit_request.dart';
+import 'package:core/dto/models/cart/cart_order_line_edit_request.dart';
+import 'package:core/dto/models/cart/cart_order_line_save_request.dart';
 import 'package:core/dto/models/cart/cart_request.dart';
+import 'package:core/dto/models/cart/cart_save_request.dart';
 import 'package:core/dto/models/my_orders/my_order_item_response.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
+import 'package:core/dto/remote/cart_edit_remote.dart';
 import 'package:core/dto/remote/cart_remote.dart';
+import 'package:core/dto/remote/cart_save_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
 import '../models/latlong.dart';
@@ -21,6 +27,9 @@ class CartBloc extends BlocBase {
   BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
   CartRemote cartRemote = CartRemote();
+  CartSaveRemote cartSaveRemote = CartSaveRemote();
+  CartEditRemote cartEditRemote = CartEditRemote();
+  int clientId = int.parse(SharedPrefModule().userId ?? '0');
 
   void getAddress() {
     addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
@@ -56,11 +65,42 @@ class CartBloc extends BlocBase {
 
   void onItemDeleted() {}
 
+  Stream<ApiState<int>> editCart(int cartItemId, int productId, int quantity) {
+    final CartEditRequest request = CartEditRequest(
+      client_id: clientId,
+      company_id: 1,
+      apply_auto_promo: "yes",
+      order_line: [
+        CartOrderLineEditRequest(
+          product_id: productId,
+          product_uom_qty: quantity,
+          id: cartItemId,
+        )
+      ],
+    );
+    return cartEditRemote.editCart(request);
+  }
+
+  Stream<ApiState<int>> saveToCart(int productId, int quantity) {
+    final CartSaveRequest request = CartSaveRequest(
+      client_id: clientId,
+      company_id: 1,
+      apply_auto_promo: "yes",
+      order_line: [
+        CartOrderLineSaveRequest(
+          product_id: productId,
+          product_uom_qty: quantity,
+        )
+      ],
+    );
+    return CartSaveRemote().saveToCart(request);
+  }
+
   void getMyCart() {
-    cartRemote
-        .getMyCart(CartRequest(int.parse(SharedPrefModule().userId ?? '0')))
-        .listen((event) {
+    cartRemote.getMyCart(CartRequest(clientId)).listen((event) {
       if (event is SuccessState) {
+        // clear the previous data
+        cartProductsBehavior.sink.add([]);
         cartProductsBehavior.sink.add((event.response!));
 
         getcartProductQtyList(event.response!);
@@ -81,111 +121,7 @@ class CartBloc extends BlocBase {
     getLocation();
     getDate();
     getTime();
-    // getOrderItems();
-
     getTotalCartDeliverySum();
-    // List<ProductMapper> products = [];
-    // products = ObjectBox.instance!.getAllProducts();
-    // // products[0].minQuantity = 2;
-    // // products[0].maxQuantity = 6;
-    // // products[0].quantity = 4;
-    // cartProductsBehavior.sink.add(SuccessState([...products]));
-    // cartProductsBehavior.sink.add(SuccessState([
-    //   ProductMapper.fromProduct(ProductResponse(
-    //     id: 1,
-    //     name: "شاي أحمد",
-    //     price: 1000,
-    //     taxPrice: 10,
-    //     minQty: 1,
-    //     maxQty: 10,
-    //     quantity: 10,
-    //     isFavourite: false,
-    //     image: "https://via.placeholder.com/150",
-    //   ))
-    // ]));
-
-    // cartProductsBehavior.sink.add(SuccessState([
-    //   ProductMapper.fromProduct(
-    //     ProductResponse.fromJson(
-    //       {
-    //         "id": 1,
-    //         "name": "1شاي أحمد",
-    //         // "description": "وصف المنتج",
-    //         "price": 1000,
-    //         "tax_price": 10,
-    //         "min_qty": 1,
-    //         "max_qty": 10,
-    //         "available_quantity": 10,
-    //         "isFavourite": false,
-    //         "image": "https://via.placeholder.com/150",
-    //       },
-    //     ),
-    //   ),
-    //   ProductMapper.fromProduct(
-    //     ProductResponse.fromJson(
-    //       {
-    //         "id": 2,
-    //         "name": "2شاي أحمد",
-    //         // "description": "وصف المنتج",
-    //         "price": 1000,
-    //         "tax_price": 10,
-    //         "min_qty": 1,
-    //         "max_qty": 10,
-    //         "available_quantity": 10,
-    //         "isFavourite": false,
-    //         "image": "https://via.placeholder.com/150",
-    //       },
-    //     ),
-    //   ),
-    //   ProductMapper.fromProduct(
-    //     ProductResponse.fromJson(
-    //       {
-    //         "id": 3,
-    //         "name": "شاي أحمد3",
-    //         // "description": "وصف المنتج",
-    //         "price": 1000,
-    //         "tax_price": 10,
-    //         "min_qty": 1,
-    //         "max_qty": 10,
-    //         "available_quantity": 10,
-    //         "isFavourite": false,
-    //         "image": "https://via.placeholder.com/150",
-    //       },
-    //     ),
-    //   ),
-    //   ProductMapper.fromProduct(
-    //     ProductResponse.fromJson(
-    //       {
-    //         "id": 3,
-    //         "name": "شاي أحمد3",
-    //         // "description": "وصف المنتج",
-    //         "price": 1000,
-    //         "tax_price": 10,
-    //         "min_qty": 1,
-    //         "max_qty": 10,
-    //         "available_quantity": 10,
-    //         "isFavourite": false,
-    //         "image": "https://via.placeholder.com/150",
-    //       },
-    //     ),
-    //   ),
-    //   ProductMapper.fromProduct(
-    //     ProductResponse.fromJson(
-    //       {
-    //         "id": 3,
-    //         "name": "شاي أحمد3",
-    //         // "description": "وصف المنتج",
-    //         "price": 1000,
-    //         "tax_price": 10,
-    //         "min_qty": 1,
-    //         "max_qty": 10,
-    //         "available_quantity": 10,
-    //         "isFavourite": false,
-    //         "image": "https://via.placeholder.com/150",
-    //       },
-    //     ),
-    //   ),
-    // ]));
   }
 
   @override

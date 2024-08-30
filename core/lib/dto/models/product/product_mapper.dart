@@ -1,12 +1,9 @@
 import 'package:core/dto/models/my_orders/my_order_item_response.dart';
 import 'package:core/dto/models/product/product_response.dart';
-import 'package:objectbox/objectbox.dart';
 
-@Entity()
 class ProductMapper {
-  @Id()
-  int id2 = 0;
   int id = 0;
+  int productId = 0;
   String name = '';
   String image = '';
   int discountPercentage = 0;
@@ -46,6 +43,7 @@ class ProductMapper {
     maxQuantity = 0;
     isAvailable = false;
     isAddedToCart = false;
+    productId = orderItem.product_id?[0] ?? 0;
   }
   ProductMapper.fromProduct(ProductResponse? productResponse) {
     if (productResponse != null) {

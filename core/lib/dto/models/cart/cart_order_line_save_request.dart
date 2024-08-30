@@ -10,7 +10,8 @@ class CartOrderLineSaveRequest {
   @JsonKey(name: 'product_uom_qty')
   int? product_uom_qty;
 
-  CartOrderLineSaveRequest();
+  CartOrderLineSaveRequest(
+      {required this.product_id, required this.product_uom_qty});
 
   factory CartOrderLineSaveRequest.fromJson(Map<String, dynamic> json) =>
       _$CartOrderLineSaveRequestFromJson(json);

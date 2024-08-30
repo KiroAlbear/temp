@@ -1,3 +1,4 @@
+import 'package:core/Utils/AppUtils.dart';
 import 'package:core/core.dart';
 
 part 'cart_save_response.g.dart';
@@ -16,7 +17,7 @@ class CartSaveResponse {
   CartSaveResponse();
 
   factory CartSaveResponse.fromJson(Map<String, dynamic> json) =>
-      _$CartSaveResponseFromJson(json);
+      _$CartSaveResponseFromJson(Apputils.convertFlaseToNullJson(json));
 
   Map<String, dynamic> toJson() => _$CartSaveResponseToJson(this);
 }

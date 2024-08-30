@@ -11,6 +11,7 @@ class ProductListWidget extends StatelessWidget {
   final ProductCategoryBloc productCategoryBloc;
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
   final Function(ProductMapper productMapper) onAddToCart;
+  final Function(ProductMapper productMapper)? onDeleteFromCart;
 
   final VoidCallback? loadMore;
 
@@ -21,7 +22,8 @@ class ProductListWidget extends StatelessWidget {
       required this.favouriteIcon,
       required this.onTapFavourite,
       required this.onAddToCart,
-      required this.loadMore});
+      required this.loadMore,
+      this.onDeleteFromCart});
 
   @override
   Widget build(BuildContext context) => LazyLoadScrollView(
@@ -42,6 +44,7 @@ class ProductListWidget extends StatelessWidget {
             onAddToCart: onAddToCart,
             favouriteIcon: favouriteIcon,
             onTapFavourite: onTapFavourite,
+            onDeleteClicked: onDeleteFromCart,
           ),
           itemCount: productList.length,
           shrinkWrap: true,

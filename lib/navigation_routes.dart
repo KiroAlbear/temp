@@ -29,7 +29,7 @@ final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
   _productCategoryWidget(),
   Container(),
-  Container(),
+  _cartScreen,
   _moreBlocProvider
 ], _loginWidgetWithoutSkip);
 
@@ -47,13 +47,13 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
       // _bottomNavigationBloc.setSelectedTab(0, null);
-      // return _buildPageRoute(const SplashWidget());
-      return _buildPageRoute(CartScreen(
-        productCategoryBloc: _productCategoryBloc,
-        icDelete: Assets.svgIcDelete,
-        cartBloc: _cartBloc,
-        backIcon: Assets.svgIcBack,
-      ));
+      return _buildPageRoute(const SplashWidget());
+    // return _buildPageRoute(CartScreen(
+    //   productCategoryBloc: _productCategoryBloc,
+    //   icDelete: Assets.svgIcDelete,
+    //   cartBloc: _cartBloc,
+    //   backIcon: Assets.svgIcBack,
+    // ));
     // return _buildPageRoute(CartOrderDetails(
     //   bloc: _cartBloc,
     //   backIcon: Assets.svgIcBack,
@@ -217,6 +217,7 @@ BlocProvider _productCategoryWidget() {
         supportIcon: Assets.svgIcContactUs,
         productNotFoundIcon: Assets.svgIcNotFound,
         productCategoryBloc: _productCategoryBloc,
+        cartBloc: _cartBloc,
       ));
 }
 

@@ -5,6 +5,9 @@ import 'package:core/dto/models/baseModules/header_response.dart';
 import 'package:core/dto/models/brand/all_brands_request.dart';
 import 'package:core/dto/models/brand/brand_request.dart';
 import 'package:core/dto/models/brand/brand_response.dart';
+import 'package:core/dto/models/cart/cart_edit_request.dart';
+import 'package:core/dto/models/cart/cart_save_request.dart';
+import 'package:core/dto/models/cart/cart_save_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
 import 'package:core/dto/models/checkPhone/check_phone_request.dart';
 import 'package:core/dto/models/checkPhone/check_phone_response.dart';
@@ -98,6 +101,14 @@ abstract class ApiClient {
   @POST(_ApiClientKey._getCart)
   Future<HeaderResponse<List<MyOrderItemResponse>>> getMyCart(
       @Body() CartRequest request);
+
+  @POST(_ApiClientKey._saveToCart)
+  Future<HeaderResponse<List<CartSaveResponse>>> saveToCart(
+      @Body() CartSaveRequest request);
+
+  @POST(_ApiClientKey._saveToCart)
+  Future<HeaderResponse<List<CartSaveResponse>>> editCart(
+      @Body() CartEditRequest request);
 
   @POST(_ApiClientKey._signUp)
   Future<HeaderResponse<List<LoginResponse>>> register(

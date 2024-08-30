@@ -8,10 +8,11 @@ part of 'cart_order_line_edit_request.dart';
 
 CartOrderLineEditRequest _$CartOrderLineEditRequestFromJson(
         Map<String, dynamic> json) =>
-    CartOrderLineEditRequest()
-      ..product_id = (json['product_id'] as num?)?.toInt()
-      ..product_uom_qty = (json['product_uom_qty'] as num?)?.toInt()
-      ..id = (json['id'] as num?)?.toInt();
+    CartOrderLineEditRequest(
+      product_id: (json['product_id'] as num?)?.toInt(),
+      product_uom_qty: (json['product_uom_qty'] as num?)?.toInt(),
+      id: (json['id'] as num?)?.toInt(),
+    );
 
 Map<String, dynamic> _$CartOrderLineEditRequestToJson(
         CartOrderLineEditRequest instance) =>

@@ -1,5 +1,7 @@
 import 'package:core/core.dart';
 
+import 'cart_order_line_save_request.dart';
+
 part 'cart_save_request.g.dart';
 
 @JsonSerializable()
@@ -13,13 +15,14 @@ class CartSaveRequest {
   @JsonKey(name: 'apply_auto_promo')
   String? apply_auto_promo;
 
-  @JsonKey(name: 'has_promo')
-  bool? has_promo;
+  @JsonKey(name: 'order_line')
+  List<CartOrderLineSaveRequest>? order_line;
 
-  @JsonKey(name: 'claimed_reward_count')
-  int? claimed_reward_count;
-
-  CartSaveRequest();
+  CartSaveRequest(
+      {required this.client_id,
+      required this.company_id,
+      required this.apply_auto_promo,
+      required this.order_line});
 
   factory CartSaveRequest.fromJson(Map<String, dynamic> json) =>
       _$CartSaveRequestFromJson(json);

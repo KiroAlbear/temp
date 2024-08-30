@@ -21,11 +21,11 @@ import 'package:flutter/foundation.dart';
 abstract class BaseRemoteModule<T, K> {
   /// The future representing the API call.
   late bool isFormLogin = false;
-  late final Future<HeaderResponse<K>> _apiFuture;
+  Future<HeaderResponse<K>> _apiFuture = Future.value(HeaderResponse<K>());
 
   /// The header response received from the API.
   @protected
-  late final HeaderResponse<K> headerResponse;
+  HeaderResponse<K> headerResponse = HeaderResponse<K>();
 
   /// Sets the API future to a provided value.
   ///

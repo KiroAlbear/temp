@@ -13,7 +13,11 @@ class CartOrderLineEditRequest {
   @JsonKey(name: 'id')
   int? id;
 
-  CartOrderLineEditRequest();
+  CartOrderLineEditRequest({
+    required this.product_id,
+    required this.product_uom_qty,
+    required this.id,
+  });
 
   factory CartOrderLineEditRequest.fromJson(Map<String, dynamic> json) =>
       _$CartOrderLineEditRequestFromJson(json);
