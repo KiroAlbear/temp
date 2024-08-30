@@ -1,37 +1,35 @@
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/cart/cart_request.dart';
-import 'package:core/dto/models/my_orders/my_orders_response.dart';
+import 'package:core/dto/models/my_orders/my_order_item_response.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 
 import '../modules/odoo_dio_module.dart';
 import '../network/api_client.dart';
 
 class CartRemote
-    extends BaseRemoteModule<List<ProductMapper>, List<MyOrdersResponse>> {
-  List<MyOrdersResponse>? myOrderResponse;
+    extends BaseRemoteModule<List<ProductMapper>, List<MyOrderItemResponse>> {
+  List<MyOrderItemResponse>? myOrderResponse;
 
   CartRemote();
 
-  Stream<ApiState<List<ProductMapper>>> getMyCart(
-      String cartOrderIdNumber, CartRequest request) {
-    apiFuture = ApiClient(OdooDioModule().build())
-        .getMyCart(cartOrderIdNumber, request);
+  Stream<ApiState<List<ProductMapper>>> getMyCart(CartRequest request) {
+    apiFuture = ApiClient(OdooDioModule().build()).getMyCart(request);
     return callApiAsStream();
   }
 
   @override
   ApiState<List<ProductMapper>> onSuccessHandle(
-      List<MyOrdersResponse>? response) {
+      List<MyOrderItemResponse>? response) {
     myOrderResponse = response;
     return SuccessState(getCartProductsFromOrderResponse(response),
         message: 'Success');
   }
 
   List<ProductMapper> getCartProductsFromOrderResponse(
-      List<MyOrdersResponse>? myOrderResponse) {
+      List<MyOrderItemResponse>? myOrderResponse) {
     List<ProductMapper> cartProducts = [];
-    myOrderResponse![0].items!.forEach((element) {
+    myOrderResponse!.forEach((element) {
       cartProducts.add(ProductMapper.fromOrderResponse(element));
     });
     return cartProducts;

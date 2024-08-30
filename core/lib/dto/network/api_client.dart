@@ -33,6 +33,7 @@ import 'package:core/dto/models/update_profile/update_profile_request.dart';
 
 import '../models/cart/cart_request.dart';
 import '../models/category/subcategory_request.dart';
+import '../models/my_orders/my_order_item_response.dart';
 import '../models/update_profile/delivery_address_response.dart';
 
 part 'api_client.g.dart';
@@ -94,9 +95,8 @@ abstract class ApiClient {
   Future<HeaderResponse<List<MyOrdersResponse>>> getMyOrders(
       @Body() MyOrdersRequest request);
 
-  @POST("${_ApiClientKey._getCart}/{cartOrderIdNumber}")
-  Future<HeaderResponse<List<MyOrdersResponse>>> getMyCart(
-      @Path("cartOrderIdNumber") String cartOrderIdNumber,
+  @POST(_ApiClientKey._getCart)
+  Future<HeaderResponse<List<MyOrderItemResponse>>> getMyCart(
       @Body() CartRequest request);
 
   @POST(_ApiClientKey._signUp)

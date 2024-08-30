@@ -2,6 +2,7 @@ import 'package:cart/models/cart_product_qty.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/cart/cart_request.dart';
+import 'package:core/dto/models/my_orders/my_order_item_response.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/cart_remote.dart';
@@ -37,18 +38,16 @@ class CartBloc extends BlocBase {
     timeBehaviour.sink.add("8 - 9 صباحاً");
   }
 
-  // void getOrderItems() {
-  //   itemsBehaviour.sink.add([
-  //     CartProductQty(title: "شاي أحمد1", qty: 1),
-  //     CartProductQty(title: "2شاي أحمد", qty: 4),
-  //     CartProductQty(title: "3شاي أحمد", qty: 6),
-  //     CartProductQty(title: "شاي أحمد4", qty: 5),
-  //     CartProductQty(title: "شاي أحمد", qty: 7),
-  //   ]);
-  // }
+  void getTotalCartSum(List<MyOrderItemResponse>? myOrderResponse) {
+    double totalSum = 0;
+    //getting the currency from the first element of items
 
-  void getTotalCartSum() {
-    cartTotalBehaviour.sink.add('1000 ر.ي');
+    String currency = myOrderResponse![0].currency![1] ?? '';
+
+    myOrderResponse.forEach((element) {
+      totalSum += element.price ?? 0;
+    });
+    cartTotalBehaviour.sink.add("$totalSum  $currency");
   }
 
   void getTotalCartDeliverySum() {
@@ -59,20 +58,22 @@ class CartBloc extends BlocBase {
 
   void getMyCart(String cartOrderIdNumber) {
     cartRemote
-        .getMyCart(cartOrderIdNumber,
-            CartRequest(int.parse(SharedPrefModule().userId ?? '0')))
+        .getMyCart(CartRequest(int.parse(SharedPrefModule().userId ?? '0')))
         .listen((event) {
       if (event is SuccessState) {
         cartProductsBehavior.sink.add((event.response!));
-        List<CartProductQty> cartProductQtyList = [];
-        event.response!.forEach((elem) => cartProductQtyList
-            .add(CartProductQty(title: elem.name, qty: elem.quantity.toInt())));
-        itemsBehaviour.sink.add(cartProductQtyList);
-        // itemsBehaviour.sink.add([
-        //   CartProductQty(title: )
-        // ]);
+
+        getcartProductQtyList(event.response!);
+        getTotalCartSum(cartRemote.myOrderResponse);
       }
     });
+  }
+
+  void getcartProductQtyList(List<ProductMapper> products) {
+    List<CartProductQty> cartProductQtyList = [];
+    products.forEach((elem) => cartProductQtyList
+        .add(CartProductQty(title: elem.name, qty: elem.quantity.toInt())));
+    itemsBehaviour.sink.add(cartProductQtyList);
   }
 
   CartBloc() {
@@ -81,7 +82,7 @@ class CartBloc extends BlocBase {
     getDate();
     getTime();
     // getOrderItems();
-    getTotalCartSum();
+
     getTotalCartDeliverySum();
     // List<ProductMapper> products = [];
     // products = ObjectBox.instance!.getAllProducts();
