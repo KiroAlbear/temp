@@ -9,6 +9,7 @@ class ProductMapper {
   int discountPercentage = 0;
 
   double price = 0;
+  double priceUnit = 0;
 
   double quantity = 0;
 
@@ -34,13 +35,14 @@ class ProductMapper {
     name = orderItem.name ?? '';
     description = orderItem.description ?? '';
     price = orderItem.price ?? 0;
+    priceUnit = orderItem.price_unit ?? 0;
     quantity = orderItem.count ?? 0;
     currency = orderItem.currency?[1] ?? '';
     isFavourite = false;
     image = '';
     discountPercentage = 0;
-    minQuantity = 0;
-    maxQuantity = 0;
+    minQuantity = 1; //TODO: get this number from server
+    maxQuantity = 100; //TODO: get this number from server
     isAvailable = false;
     isAddedToCart = false;
     productId = orderItem.product_id?[0] ?? 0;

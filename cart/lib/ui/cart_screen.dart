@@ -3,6 +3,7 @@ import 'package:cart/ui/widgets/cart_bottom_sheet.dart';
 import 'package:cart/ui/widgets/cart_empty_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -174,20 +175,35 @@ class _CartScreenState extends BaseState<CartScreen> {
                       icDelete: widget.icDelete,
                       productMapper: snapshot.data!.response![index],
                       productCategoryBloc: widget.productCategoryBloc,
+                      onDecrementClicked: (ProductMapper productMapper) {
+                        editCart(
+                          id: snapshot.data!.response![index].id,
+                          productId: snapshot.data!.response![index].productId,
+                          quantity:
+                              snapshot.data!.response![index].quantity - 1,
+                          price: snapshot.data!.response![index].priceUnit,
+                          state: CartState.decrement,
+                        );
+                      },
+                      onIncrementClicked: (productMapper) {
+                        editCart(
+                          id: snapshot.data!.response![index].id,
+                          productId: snapshot.data!.response![index].productId,
+                          quantity:
+                              snapshot.data!.response![index].quantity + 1,
+                          price: snapshot.data!.response![index].priceUnit,
+                          state: CartState.increment,
+                        );
+                      },
                       onDeleteClicked: (productMapper) {
-                        isLoading.value = true;
-                        widget.cartBloc
-                            .editCart(
-                          productMapper.id,
-                          productMapper.productId,
-                          0,
-                        )
-                            .listen((event) {
-                          if (event is SuccessState) {
-                            widget.cartBloc.getMyCart();
-                            isLoading.value = false;
-                          }
-                        });
+                        editCart(
+                          id: snapshot.data!.response![index].id,
+                          productId: snapshot.data!.response![index].productId,
+                          quantity: 0,
+                          price: snapshot.data!.response![index].priceUnit,
+                          state: CartState.decrement,
+                          isDelete: true,
+                        );
                       },
                     );
                   },
@@ -195,6 +211,32 @@ class _CartScreenState extends BaseState<CartScreen> {
               );
       },
     );
+  }
+
+  void editCart(
+      {required int id,
+      required int productId,
+      required double quantity,
+      required double price,
+      required CartState state,
+      bool isDelete = false}) {
+    isLoading.value = true;
+    widget.cartBloc
+        .editCart(
+      cartItemId: id,
+      productId: productId,
+      price: price,
+      cartState: state,
+      quantity: quantity.toInt(),
+    )
+        .listen((event) {
+      if (event is SuccessState && isDelete) {
+        widget.cartBloc.getMyCart();
+        isLoading.value = false;
+      } else if (event is SuccessState && !isDelete) {
+        isLoading.value = false;
+      }
+    });
   }
 
   Widget _cartHeader(BuildContext context) {

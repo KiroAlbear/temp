@@ -16,6 +16,8 @@ import 'package:core/ui/bases/bloc_base.dart';
 
 import '../models/latlong.dart';
 
+enum CartState { increment, decrement }
+
 class CartBloc extends BlocBase {
   BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
       BehaviorSubject();
@@ -31,7 +33,8 @@ class CartBloc extends BlocBase {
   CartSaveRemote cartSaveRemote = CartSaveRemote();
   CartEditRemote cartEditRemote = CartEditRemote();
   int clientId = int.parse(SharedPrefModule().userId ?? '0');
-
+  double totalSum = 0;
+  String currency = "";
   void getAddress() {
     addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
   }
@@ -49,15 +52,16 @@ class CartBloc extends BlocBase {
   }
 
   void getTotalCartSum(List<MyOrderItemResponse>? myOrderResponse) {
-    double totalSum = 0;
+    totalSum = 0;
     //getting the currency from the first element of items
 
-    String currency = myOrderResponse![0].currency![1] ?? '';
+    currency = myOrderResponse![0].currency![1] ?? '';
 
     myOrderResponse.forEach((element) {
-      totalSum += element.price ?? 0;
+      totalSum += element.price_unit ?? 0;
     });
-    cartTotalBehaviour.sink.add("$totalSum  $currency");
+    double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
+    cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
   }
 
   void getTotalCartDeliverySum() {
@@ -66,7 +70,12 @@ class CartBloc extends BlocBase {
 
   void onItemDeleted() {}
 
-  Stream<ApiState<int>> editCart(int cartItemId, int productId, int quantity) {
+  BehaviorSubject<ApiState<int>> editCart(
+      {required int cartItemId,
+      required int productId,
+      required double price,
+      required int quantity,
+      required CartState cartState}) {
     final CartEditRequest request = CartEditRequest(
       client_id: clientId,
       company_id: 1,
@@ -79,7 +88,22 @@ class CartBloc extends BlocBase {
         )
       ],
     );
-    return cartEditRemote.editCart(request);
+    BehaviorSubject<ApiState<int>> stream = BehaviorSubject();
+
+    cartEditRemote.editCart(request).listen((event) {
+      if (event is SuccessState) {
+        if (cartState == CartState.decrement) {
+          totalSum -= price;
+        } else {
+          totalSum += price;
+        }
+        double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
+        cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
+        stream.sink.add(event);
+      }
+    });
+
+    return stream;
   }
 
   Stream<ApiState<int>> saveToCart(int productId, int quantity) {
@@ -127,6 +151,6 @@ class CartBloc extends BlocBase {
 
   @override
   void dispose() {
-    cartProductsBehavior.close();
+    // cartProductsBehavior.close();
   }
 }

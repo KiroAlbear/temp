@@ -20,6 +20,8 @@ class ProductWidget extends StatefulWidget {
   final Function(ProductMapper productMapper)? onAddToCart;
   final bool isCartProduct;
   final Function(ProductMapper productMapper)? onDeleteClicked;
+  final Function(ProductMapper productMapper)? onIncrementClicked;
+  final Function(ProductMapper productMapper)? onDecrementClicked;
   ProductWidget({
     super.key,
     required this.productMapper,
@@ -30,6 +32,8 @@ class ProductWidget extends StatefulWidget {
     this.onTapFavourite,
     this.onDeleteClicked,
     this.isCartProduct = false,
+    this.onIncrementClicked,
+    this.onDecrementClicked,
   }) {
     if (!isCartProduct &&
         (favouriteIcon == null ||
@@ -54,7 +58,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void initState() {
-    // qtyValueNotifier.value = widget.productMapper.quantity.round();
+    qtyValueNotifier.value = widget.productMapper.quantity.round();
     super.initState();
   }
 
@@ -81,7 +85,15 @@ class _ProductWidgetState extends State<ProductWidget> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _productName,
+                  widget.isCartProduct
+                      ? Row(
+                          children: [
+                            ConstrainedBox(
+                                constraints: BoxConstraints(maxWidth: 280.w),
+                                child: _productName),
+                          ],
+                        )
+                      : _productName,
                   SizedBox(
                     height: 4.h,
                   ),
@@ -267,7 +279,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _productName => Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: CustomText(
-          text: widget.productMapper.name,
+          text: "widget.productMapper.name asda sd asdjas lkajsdl kajlsd kj",
           customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
           maxLines: 1,
         ),
@@ -281,7 +293,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           children: [
             CustomText(
                 text:
-                    '${widget.productMapper.getPrice().toString()} ${widget.productMapper.currency}',
+                    '${widget.isCartProduct ? widget.productMapper.priceUnit : widget.productMapper.getPrice().toString()} ${widget.productMapper.currency}',
                 customTextStyle:
                     MediumStyle(fontSize: 14.sp, color: secondaryColor)),
             SizedBox(
@@ -349,6 +361,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               onTap: () {
                 if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
                   qtyValueNotifier.value++;
+                  widget.onIncrementClicked!(widget.productMapper);
                 } else {
                   _showMaximumAlertDialog(
                       S.of(context).cartMaximumProductsReached,
@@ -386,6 +399,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
                   qtyValueNotifier.value > 1) {
                 qtyValueNotifier.value--;
+                widget.onDecrementClicked!(widget.productMapper);
               }
               // else if (qtyValueNotifier.value ==
               //         widget.productMapper.minQuantity &&

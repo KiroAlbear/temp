@@ -16,6 +16,9 @@ class MyOrderItemResponse {
   @JsonKey(name: 'price_total')
   double? price;
 
+  @JsonKey(name: 'price_unit')
+  double? price_unit;
+
   @JsonKey(name: 'currency_id')
   List<dynamic>? currency;
 
@@ -33,6 +36,7 @@ class MyOrderItemResponse {
     this.count,
     this.currency,
     this.product_id,
+    this.price_unit,
   });
 
   factory MyOrderItemResponse.fromJson(Map<String, dynamic> json) =>
