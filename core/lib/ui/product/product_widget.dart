@@ -106,7 +106,9 @@ class _ProductWidgetState extends State<ProductWidget> {
               SizedBox(
                 height: 8.h,
               ),
-              _notAvailableProduct()
+              widget.productMapper.isAvailable
+                  ? SizedBox()
+                  : _notAvailableProduct()
             ],
           ),
           Column(
@@ -442,7 +444,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _addCartButton => InkWell(
         onTap: () async {
-          // if (widget.productMapper.canAddToCart())
+          // if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
           {
             widget.onAddToCart!(widget.productMapper);
           }

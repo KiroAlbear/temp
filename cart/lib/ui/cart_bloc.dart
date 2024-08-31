@@ -1,6 +1,8 @@
 import 'package:cart/models/cart_product_qty.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/cart/cart_check_availability_request.dart';
+import 'package:core/dto/models/cart/cart_check_availability_response.dart';
 import 'package:core/dto/models/cart/cart_edit_request.dart';
 import 'package:core/dto/models/cart/cart_order_line_edit_request.dart';
 import 'package:core/dto/models/cart/cart_order_line_save_request.dart';
@@ -9,6 +11,7 @@ import 'package:core/dto/models/cart/cart_save_request.dart';
 import 'package:core/dto/models/my_orders/my_order_item_response.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
+import 'package:core/dto/remote/cart_check_availability_remote.dart';
 import 'package:core/dto/remote/cart_edit_remote.dart';
 import 'package:core/dto/remote/cart_remote.dart';
 import 'package:core/dto/remote/cart_save_remote.dart';
@@ -32,9 +35,13 @@ class CartBloc extends BlocBase {
   CartRemote cartRemote = CartRemote();
   CartSaveRemote cartSaveRemote = CartSaveRemote();
   CartEditRemote cartEditRemote = CartEditRemote();
+  CartCheckAvailabilityRemote cartCheckAvailabilityRemote =
+      CartCheckAvailabilityRemote();
+
   int clientId = int.parse(SharedPrefModule().userId ?? '0');
   double totalSum = 0;
   String currency = "";
+
   void getAddress() {
     addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
   }
@@ -124,17 +131,40 @@ class CartBloc extends BlocBase {
   BehaviorSubject<ApiState<List<ProductMapper>>> getMyCart() {
     BehaviorSubject<ApiState<List<ProductMapper>>> stream = BehaviorSubject();
 
-    cartRemote.getMyCart(CartRequest(clientId)).listen((event) {
-      cartProductsBehavior.sink.add((event));
-      if (event is SuccessState) {
-        // clear the previous data
-        // cartProductsBehavior.sink.add(null);
-        stream.sink.add(event);
-        getcartProductQtyList(event.response!);
-        getTotalCartSum(cartRemote.myOrderResponse);
+    cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
+      cartProductsBehavior.sink.add((getCartEvent));
+      if (getCartEvent is SuccessState) {
+        cartCheckAvailabilityRemote
+            .checkAvailability(CartCheckAvailabilityRequest(
+                client_id: clientId,
+                product_ids:
+                    getCartEvent.response!.map((e) => e.productId).toList()))
+            .listen((checkAvailabilityEvent) {
+          if (checkAvailabilityEvent is SuccessState) {
+            // stream.sink.add(getCartEvent);
+            getcartProductQtyList(getCartEvent.response!);
+            getTotalCartSum(cartRemote.myOrderResponse);
+
+            stream.sink.add(SuccessState(addAvailabilityToProduct(
+                getCartEvent.response!, checkAvailabilityEvent.response!)));
+          }
+        });
       }
     });
     return stream;
+  }
+
+  List<ProductMapper> addAvailabilityToProduct(List<ProductMapper> products,
+      List<CartCheckAvailabilityResponse> availability) {
+    for (int i = 0; i < products.length; i++) {
+      for (int j = 0; j < availability.length; j++) {
+        if (products[i].name == availability[j].product) {
+          products[i].isAvailable = availability[j].available_quantity! > 0;
+          break;
+        }
+      }
+    }
+    return products;
   }
 
   void getcartProductQtyList(List<ProductMapper> products) {
