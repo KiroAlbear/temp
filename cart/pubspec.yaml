@@ -16,6 +16,9 @@ dependencies:
   home:
     path: ../home
 
+  bottom_navigation:
+    path: ../bottom_navigation
+
   timelines: ^0.1.0
   intl: ^0.19.0
 dev_dependencies:

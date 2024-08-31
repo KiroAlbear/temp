@@ -1,6 +1,8 @@
+import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:cart/gen/assets.gen.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
+import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/base_state.dart';
@@ -9,7 +11,8 @@ import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CartSuccessWidget extends BaseStatefulWidget {
-  const CartSuccessWidget({super.key});
+  final BottomNavigationBloc bottomNavigationBloc;
+  const CartSuccessWidget({super.key, required this.bottomNavigationBloc});
 
   @override
   State<CartSuccessWidget> createState() => _CartSuccessWidgetState();
@@ -68,7 +71,18 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
             Padding(
               padding: const EdgeInsets.only(bottom: 50.0),
               child: CustomButtonWidget(
-                  idleText: S.of(context).cartSuccessTrackButton, onTap: () {}),
+                  idleText: S.of(context).cartSuccessTrackButton,
+                  onTap: () async {
+                    // await CustomNavigatorModule.navigatorKey.currentState!
+                    //     .pushReplacementNamed(AppScreenEnum.home.name);
+
+                    CustomNavigatorModule.navigatorKey.currentState!.pop();
+                    widget.bottomNavigationBloc.setSelectedTab(0, context);
+
+                    // CustomNavigatorModule.navigatorKey.currentState!
+                    //     .pushNamed();
+                    // CustomNavigatorModule.navigatorKey.currentState!.pop();
+                  }),
             )
           ],
         ),

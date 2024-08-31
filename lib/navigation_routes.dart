@@ -104,7 +104,9 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.cartScreen:
       return _buildPageRoute(_cartScreen);
     case AppScreenEnum.cartSuccessScreen:
-      return _buildPageRoute(CartSuccessWidget());
+      return _buildPageRoute(CartSuccessWidget(
+        bottomNavigationBloc: _bottomNavigationBloc,
+      ));
     case AppScreenEnum.cartOrderDetailsScreen:
       return _buildPageRoute(_cartOrderDetailsScreen);
     case AppScreenEnum.updateProfileScreen:
@@ -191,7 +193,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
 BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
       bloc: _bottomNavigationBloc,
       child: BottomNavigationWidget(
-        homeBloc: _bottomNavigationBloc,
+        bottomNavigationBloc: _bottomNavigationBloc,
         svgIconsPath: const [
           Assets.svgIcHome,
           Assets.svgIcFavourite,
