@@ -1,5 +1,6 @@
 import 'package:cart/ui/cart_bloc.dart';
 import 'package:cart/ui/widgets/cart_bottom_sheet.dart';
+import 'package:cart/ui/widgets/cart_empty_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -69,19 +70,19 @@ class _CartScreenState extends BaseState<CartScreen> {
                 child: checkResponseStateWithLoadingWidget(
                   snapshot.data!,
                   context,
-                  onSuccess: Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _cartHeader(context),
-                        16.verticalSpace,
-                        _productList(),
-                        snapshot.data!.response?.isEmpty ?? true
-                            ? SizedBox()
-                            : _bottomWidget(context)
-                      ],
-                    ),
-                  ),
+                  onSuccess: snapshot.data!.response?.isEmpty ?? true
+                      ? CartEmptyWidget()
+                      : Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _cartHeader(context),
+                              16.verticalSpace,
+                              _productList(),
+                              _bottomWidget(context)
+                            ],
+                          ),
+                        ),
                 ),
               );
           },
