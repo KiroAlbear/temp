@@ -10,6 +10,7 @@ import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
+import 'package:core/ui/overlay_loading.dart';
 import 'package:core/ui/product/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:home/ui/product/product_category_bloc.dart';
@@ -32,6 +33,8 @@ class CartScreen extends BaseStatefulWidget {
 }
 
 class _CartScreenState extends BaseState<CartScreen> {
+  ValueNotifier<bool> isLoading = ValueNotifier(false);
+
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -60,32 +63,39 @@ class _CartScreenState extends BaseState<CartScreen> {
           supportIcon: '',
           hideTop: true,
         ),
-        StreamBuilder(
-          stream: widget.cartBloc.cartProductsBehavior.stream,
-          builder: (context, snapshot) {
-            if (snapshot.data == null)
-              return Container();
-            else
-              return Expanded(
-                child: checkResponseStateWithLoadingWidget(
-                  snapshot.data!,
-                  context,
-                  onSuccess: snapshot.data!.response?.isEmpty ?? true
-                      ? CartEmptyWidget()
-                      : Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _cartHeader(context),
-                              16.verticalSpace,
-                              _productList(),
-                              _bottomWidget(context)
-                            ],
-                          ),
-                        ),
-                ),
-              );
-          },
+        Expanded(
+          child: Stack(
+            children: [
+              StreamBuilder(
+                stream: widget.cartBloc.cartProductsBehavior.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.data == null)
+                    return Container();
+                  else
+                    return Expanded(
+                      child: checkResponseStateWithLoadingWidget(
+                        snapshot.data!,
+                        context,
+                        onSuccess: snapshot.data!.response?.isEmpty ?? true
+                            ? CartEmptyWidget()
+                            : Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _cartHeader(context),
+                                    16.verticalSpace,
+                                    _productList(),
+                                    _bottomWidget(context)
+                                  ],
+                                ),
+                              ),
+                      ),
+                    );
+                },
+              ),
+              OverlayLoadingWidget(showOverlayLoading: isLoading),
+            ],
+          ),
         ),
       ],
     );
@@ -165,6 +175,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                       productMapper: snapshot.data!.response![index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDeleteClicked: (productMapper) {
+                        isLoading.value = true;
                         widget.cartBloc
                             .editCart(
                           productMapper.id,
@@ -174,6 +185,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                             .listen((event) {
                           if (event is SuccessState) {
                             widget.cartBloc.getMyCart();
+                            isLoading.value = false;
                           }
                         });
                       },

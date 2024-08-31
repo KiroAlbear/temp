@@ -9,7 +9,6 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/custom_progress_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/product/product_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +34,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   final CartBloc cartBloc;
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier(0);
   ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
-  ValueNotifier<bool> isLoading = ValueNotifier(false);
+  // ValueNotifier<bool> isLoading = ValueNotifier(false);
   ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
   // bool isLoadingWidgetBuilt = false;
 
@@ -80,7 +79,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   @override
   void initState() {
     widget.productCategoryBloc.categoryId = ProductCategoryWidget.cateogryId;
-    widget.productCategoryBloc.isLoading = widget.isLoading;
+    widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
     widget.productCategoryBloc.reset();
     widget.productCategoryBloc.loadMore();
 
@@ -90,7 +89,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   }
 
   void _loadProducts() {
-    widget.isLoading.value = true;
+    widget.showOverlayLoading.value = true;
     widget.productCategoryBloc.getProductWithSubcategoryBrand(
         widget.productCategoryBloc.subcategoryId,
         widget.productCategoryBloc.brandId);
@@ -398,24 +397,6 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                 ),
                 ValueListenableBuilder(
                   valueListenable: widget.showOverlayLoading,
-                  builder: (context, value, child) {
-                    // widget.isLoadingWidgetBuilt = true;
-                    return !value
-                        ? SizedBox()
-                        : Expanded(
-                            child: Container(
-                            color: Colors.black.withOpacity(0.3),
-                            child: Center(
-                              child: CustomProgress(
-                                color: Theme.of(context).colorScheme.primary,
-                                size: 30.r,
-                              ),
-                            ),
-                          ));
-                  },
-                ),
-                ValueListenableBuilder(
-                  valueListenable: widget.isLoading,
                   builder: (context, value, child) {
                     // widget.isLoadingWidgetBuilt = true;
                     return !value
