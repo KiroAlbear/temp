@@ -1,4 +1,3 @@
-import 'package:core/Utils/object_box.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
@@ -20,7 +19,7 @@ class ProductWidget extends StatefulWidget {
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
   final Function(ProductMapper productMapper)? onAddToCart;
   final bool isCartProduct;
-  final Function(int)? onDeleteClicked;
+  final Function(ProductMapper productMapper)? onDeleteClicked;
   ProductWidget({
     super.key,
     required this.productMapper,
@@ -327,7 +326,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       cancelMessage: S.of(context).cancel,
       onCancel: () {},
       onConfirm: () {
-        widget.onDeleteClicked!(widget.productMapper.id2);
+        widget.onDeleteClicked!(widget.productMapper);
       },
     );
   }
@@ -429,19 +428,9 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _addCartButton => InkWell(
         onTap: () async {
-          if (widget.productMapper.canAddToCart()) {
+          // if (widget.productMapper.canAddToCart())
+          {
             widget.onAddToCart!(widget.productMapper);
-            // widget.productMapper.id2 = 0;
-            // widget.productMapper.id = 0;
-            // ObjectBox.instance!.deleteAllProducts();
-            ObjectBox.instance!.insetProduct(widget.productMapper);
-            print(ObjectBox.instance!.displayAllData());
-            // ObjectBox.init();
-            // ObjectBox.init().then(
-            //   (value) {
-            //     value.insetProduct(widget.productMapper);
-            //   },
-            // );
           }
         },
         child: Container(

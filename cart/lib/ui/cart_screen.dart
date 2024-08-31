@@ -49,91 +49,100 @@ class _CartScreenState extends BaseState<CartScreen> {
   @override
   Widget getBody(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          children: [
-            AppTopWidget(
-              title: S.of(context).cartTitle,
-              notificationIcon: '',
-              homeLogo: '',
-              scanIcon: '',
-              searchIcon: '',
-              supportIcon: '',
-              hideTop: true,
-              backIcon: widget.backIcon,
-            ),
-            _cartHeader(context),
-            16.verticalSpace,
-          ],
+        AppTopWidget(
+          title: S.of(context).cartTitle,
+          notificationIcon: '',
+          homeLogo: '',
+          scanIcon: '',
+          searchIcon: '',
+          supportIcon: '',
+          hideTop: true,
         ),
-        Column(
-          children: [
-            _productList(),
-            Container(
-              color: whiteColor,
-              child: Padding(
-                padding: EdgeInsetsDirectional.only(
-                    start: 16.w, end: 16.w, top: 16.h, bottom: 26.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomButtonWidget(
-                        width: 150,
-                        height: 35,
-                        idleText: S.of(context).cartOrderNow,
-                        textStyle:
-                            MediumStyle(color: lightBlackColor, fontSize: 20.sp)
-                                .getStyle(),
-                        onTap: () async {
-                          showModalBottomSheet(
-                              backgroundColor: whiteColor,
-                              constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height * 0.3),
-                              context: context,
-                              builder: (context) {
-                                return CartBottomSheet();
-                              });
-                        }),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        StreamBuilder(
-                          stream: widget.cartBloc.cartTotalBehaviour.stream,
-                          builder: (context, snapshot) {
-                            return !snapshot.hasData
-                                ? SizedBox()
-                                : CustomText(
-                                    text: snapshot.data!,
-                                    textAlign: TextAlign.start,
-                                    customTextStyle: RegularStyle(
-                                        color: lightBlackColor,
-                                        fontSize: 14.sp));
-                          },
+        StreamBuilder(
+          stream: widget.cartBloc.cartProductsBehavior.stream,
+          builder: (context, snapshot) {
+            if (snapshot.data == null)
+              return Container();
+            else
+              return checkResponseStateWithLoadingWidget(
+                snapshot.data!,
+                context,
+                onSuccess: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _cartHeader(context),
+                      16.verticalSpace,
+                      _productList(),
+                      Container(
+                        color: whiteColor,
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.only(
+                              start: 16.w, end: 16.w, top: 16.h, bottom: 26.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomButtonWidget(
+                                  width: 150,
+                                  height: 35,
+                                  idleText: S.of(context).cartOrderNow,
+                                  textStyle: MediumStyle(
+                                          color: lightBlackColor,
+                                          fontSize: 20.sp)
+                                      .getStyle(),
+                                  onTap: () async {
+                                    showModalBottomSheet(
+                                        backgroundColor: whiteColor,
+                                        constraints: BoxConstraints(
+                                            maxHeight: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.3),
+                                        context: context,
+                                        builder: (context) {
+                                          return CartBottomSheet();
+                                        });
+                                  }),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  StreamBuilder(
+                                    stream: widget
+                                        .cartBloc.cartTotalBehaviour.stream,
+                                    builder: (context, snapshot) {
+                                      return CustomText(
+                                          text: snapshot.data ?? '',
+                                          textAlign: TextAlign.start,
+                                          customTextStyle: RegularStyle(
+                                              color: lightBlackColor,
+                                              fontSize: 14.sp));
+                                    },
+                                  ),
+                                  StreamBuilder(
+                                    stream: widget.cartBloc
+                                        .cartTotalDeliveryBehaviour.stream,
+                                    builder: (context, snapshot) {
+                                      return CustomText(
+                                          text: snapshot.data ?? '',
+                                          textAlign: TextAlign.start,
+                                          customTextStyle: RegularStyle(
+                                              color: greyColor,
+                                              fontSize: 14.sp));
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        StreamBuilder(
-                          stream:
-                              widget.cartBloc.cartTotalDeliveryBehaviour.stream,
-                          builder: (context, snapshot) {
-                            return !snapshot.hasData
-                                ? SizedBox()
-                                : CustomText(
-                                    text: snapshot.data!,
-                                    textAlign: TextAlign.start,
-                                    customTextStyle: RegularStyle(
-                                        color: greyColor, fontSize: 14.sp));
-                          },
-                        ),
-                      ],
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ],
-        )
+              );
+          },
+        ),
       ],
     );
   }
@@ -148,12 +157,12 @@ class _CartScreenState extends BaseState<CartScreen> {
                 child: ListView.separated(
                   separatorBuilder: (context, index) => 16.verticalSpace,
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data!.response!.length,
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
                       icDelete: widget.icDelete,
-                      productMapper: snapshot.data![index],
+                      productMapper: snapshot.data!.response![index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDeleteClicked: (productMapper) {
                         widget.cartBloc

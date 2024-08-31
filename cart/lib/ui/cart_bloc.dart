@@ -17,7 +17,8 @@ import 'package:core/ui/bases/bloc_base.dart';
 import '../models/latlong.dart';
 
 class CartBloc extends BlocBase {
-  BehaviorSubject<List<ProductMapper>> cartProductsBehavior = BehaviorSubject();
+  BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
+      BehaviorSubject();
 
   BehaviorSubject<String> addressBehaviour = BehaviorSubject();
   BehaviorSubject<Latlong> latLongBehaviour = BehaviorSubject();
@@ -98,10 +99,10 @@ class CartBloc extends BlocBase {
 
   void getMyCart() {
     cartRemote.getMyCart(CartRequest(clientId)).listen((event) {
+      cartProductsBehavior.sink.add((event));
       if (event is SuccessState) {
         // clear the previous data
-        cartProductsBehavior.sink.add([]);
-        cartProductsBehavior.sink.add((event.response!));
+        // cartProductsBehavior.sink.add(null);
 
         getcartProductQtyList(event.response!);
         getTotalCartSum(cartRemote.myOrderResponse);
