@@ -65,85 +65,84 @@ class _CartScreenState extends BaseState<CartScreen> {
             if (snapshot.data == null)
               return Container();
             else
-              return checkResponseStateWithLoadingWidget(
-                snapshot.data!,
-                context,
-                onSuccess: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _cartHeader(context),
-                      16.verticalSpace,
-                      _productList(),
-                      Container(
-                        color: whiteColor,
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.only(
-                              start: 16.w, end: 16.w, top: 16.h, bottom: 26.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CustomButtonWidget(
-                                  width: 150,
-                                  height: 35,
-                                  idleText: S.of(context).cartOrderNow,
-                                  textStyle: MediumStyle(
-                                          color: lightBlackColor,
-                                          fontSize: 20.sp)
-                                      .getStyle(),
-                                  onTap: () async {
-                                    showModalBottomSheet(
-                                        backgroundColor: whiteColor,
-                                        constraints: BoxConstraints(
-                                            maxHeight: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.3),
-                                        context: context,
-                                        builder: (context) {
-                                          return CartBottomSheet();
-                                        });
-                                  }),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  StreamBuilder(
-                                    stream: widget
-                                        .cartBloc.cartTotalBehaviour.stream,
-                                    builder: (context, snapshot) {
-                                      return CustomText(
-                                          text: snapshot.data ?? '',
-                                          textAlign: TextAlign.start,
-                                          customTextStyle: RegularStyle(
-                                              color: lightBlackColor,
-                                              fontSize: 14.sp));
-                                    },
-                                  ),
-                                  StreamBuilder(
-                                    stream: widget.cartBloc
-                                        .cartTotalDeliveryBehaviour.stream,
-                                    builder: (context, snapshot) {
-                                      return CustomText(
-                                          text: snapshot.data ?? '',
-                                          textAlign: TextAlign.start,
-                                          customTextStyle: RegularStyle(
-                                              color: greyColor,
-                                              fontSize: 14.sp));
-                                    },
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
+              return Expanded(
+                child: checkResponseStateWithLoadingWidget(
+                  snapshot.data!,
+                  context,
+                  onSuccess: Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _cartHeader(context),
+                        16.verticalSpace,
+                        _productList(),
+                        snapshot.data!.response?.isEmpty ?? true
+                            ? SizedBox()
+                            : _bottomWidget(context)
+                      ],
+                    ),
                   ),
                 ),
               );
           },
         ),
       ],
+    );
+  }
+
+  Container _bottomWidget(BuildContext context) {
+    return Container(
+      color: whiteColor,
+      child: Padding(
+        padding: EdgeInsetsDirectional.only(
+            start: 16.w, end: 16.w, top: 16.h, bottom: 26.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomButtonWidget(
+                width: 150,
+                height: 35,
+                idleText: S.of(context).cartOrderNow,
+                textStyle: MediumStyle(color: lightBlackColor, fontSize: 20.sp)
+                    .getStyle(),
+                onTap: () async {
+                  showModalBottomSheet(
+                      backgroundColor: whiteColor,
+                      constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height * 0.3),
+                      context: context,
+                      builder: (context) {
+                        return CartBottomSheet();
+                      });
+                }),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StreamBuilder(
+                  stream: widget.cartBloc.cartTotalBehaviour.stream,
+                  builder: (context, snapshot) {
+                    return CustomText(
+                        text: snapshot.data ?? '',
+                        textAlign: TextAlign.start,
+                        customTextStyle: RegularStyle(
+                            color: lightBlackColor, fontSize: 14.sp));
+                  },
+                ),
+                StreamBuilder(
+                  stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
+                  builder: (context, snapshot) {
+                    return CustomText(
+                        text: snapshot.data ?? '',
+                        textAlign: TextAlign.start,
+                        customTextStyle:
+                            RegularStyle(color: greyColor, fontSize: 14.sp));
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 
