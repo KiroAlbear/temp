@@ -107,18 +107,18 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                           },
                         ),
                         _getSeperator(),
-                        StreamBuilder(
-                          stream: widget.bloc.timeBehaviour.stream,
-                          builder: (context, snapshot) {
-                            return !snapshot.hasData
-                                ? SizedBox()
-                                : CartOrderDetailsItem(
-                                    icon: Assets.svg.icTime,
-                                    title: snapshot.data!,
-                                  );
-                          },
-                        ),
-                        _getSeperator(),
+                        // StreamBuilder(
+                        //   stream: widget.bloc.timeBehaviour.stream,
+                        //   builder: (context, snapshot) {
+                        //     return !snapshot.hasData
+                        //         ? SizedBox()
+                        //         : CartOrderDetailsItem(
+                        //             icon: Assets.svg.icTime,
+                        //             title: snapshot.data!,
+                        //           );
+                        //   },
+                        // ),
+                        // _getSeperator(),
                         StreamBuilder(
                           stream: widget.bloc.itemsBehaviour.stream,
                           builder: (context, snapshot) {
@@ -140,12 +140,13 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                                   );
                           },
                         ),
-                        deliveryFeesRow(),
+                        // deliveryFeesRow(),
                         _getSeperator(),
                         _totalRow(),
                         _getSeperator(),
                         Padding(
-                          padding: EdgeInsetsDirectional.only(start: 8.w),
+                          padding:
+                              EdgeInsetsDirectional.only(start: 8.w, top: 8.h),
                           child: CustomText(
                               text: "الدفع كاش عند الاستلام",
                               textAlign: TextAlign.start,

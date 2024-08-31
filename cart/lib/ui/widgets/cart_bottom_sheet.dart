@@ -63,7 +63,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               customTextStyle:
                   RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
           _paymentRow(0, S.of(context).cartCashOnDelivery, Assets.svg.icCash),
-          _paymentRow(1, S.of(context).cartDokkanWallet, Assets.svg.icWallet),
+          // _paymentRow(1, S.of(context).cartDokkanWallet, Assets.svg.icWallet),
           18.verticalSpace,
           IgnorePointer(
             ignoring: _groupeValue == -1,
@@ -71,11 +71,13 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 buttonColor: _groupeValue == -1 ? greyColor : primaryColor,
                 idleText: S.of(context).next,
                 onTap: () {
+                  // pop the bottom sheet
+                  Navigator.pop(context);
                   if (_groupeValue != -1) {
                     widget.cartBloc.getMyCart().listen((event) {
                       if (event is SuccessState) {
                         CustomNavigatorModule.navigatorKey.currentState!
-                            .pushReplacementNamed(
+                            .pushNamed(
                                 AppScreenEnum.cartOrderDetailsScreen.name);
                       }
                     });

@@ -120,8 +120,9 @@ class _CartScreenState extends BaseState<CartScreen> {
                 onTap: () async {
                   showModalBottomSheet(
                       backgroundColor: whiteColor,
+                      useRootNavigator: true,
                       constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height * 0.3),
+                          maxHeight: MediaQuery.of(context).size.height * 0.26),
                       context: context,
                       builder: (context) {
                         return CartBottomSheet(
