@@ -86,12 +86,15 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                           builder: (context, snapshot) {
                             return !snapshot.hasData
                                 ? SizedBox()
-                                : MapPreviewWidget(
-                                    clickOnChangeLocation: () {},
-                                    latitude: snapshot.data!.lat,
-                                    longitude: snapshot.data!.long,
-                                    height: 200.h,
-                                    showEditLocation: false,
+                                : Padding(
+                                    padding: EdgeInsets.only(top: 8.h),
+                                    child: MapPreviewWidget(
+                                      clickOnChangeLocation: () {},
+                                      latitude: snapshot.data!.lat,
+                                      longitude: snapshot.data!.long,
+                                      height: 200.h,
+                                      showEditLocation: false,
+                                    ),
                                   );
                           },
                         ),

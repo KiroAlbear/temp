@@ -26,6 +26,14 @@ class SharedPrefModule {
   set language(String value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.language), value: value);
 
+  String get shopName =>
+      _sharedPref.getValue<String>(
+          key: _sharedKey(SharedPRefEnum.userShopName)) ??
+      '';
+
+  set shopName(String value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.userShopName), value: value);
+
   /// dark or light mode
   bool? get isDarkMode =>
       _sharedPref.getValue<bool>(key: _sharedKey(SharedPRefEnum.isDarkMode));

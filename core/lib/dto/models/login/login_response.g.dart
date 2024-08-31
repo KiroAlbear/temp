@@ -14,6 +14,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       ..name = json['name'] as String?
       ..phone = json['phone'] as String?
       ..token = json['token'] as String?
+      ..shop_name = json['shop_name'] as String?
       ..latitude = (json['partner_latitude'] as num?)?.toDouble()
       ..longitude = (json['partner_longitude'] as num?)?.toDouble();
 
@@ -25,6 +26,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'name': instance.name,
       'phone': instance.phone,
       'token': instance.token,
+      'shop_name': instance.shop_name,
       'partner_latitude': instance.latitude,
       'partner_longitude': instance.longitude,
     };

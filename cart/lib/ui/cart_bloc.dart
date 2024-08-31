@@ -43,10 +43,12 @@ class CartBloc extends BlocBase {
   double clientLat = 0;
   double clientLong = 0;
   double totalSum = 0;
+  String userShopName = "";
   String currency = "";
 
   void _getAddress() {
-    addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
+    // addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
+    addressBehaviour.sink.add(userShopName);
   }
 
   void _getLocation() {
@@ -54,6 +56,7 @@ class CartBloc extends BlocBase {
   }
 
   void _getClientData() {
+    userShopName = SharedPrefModule().shopName;
     clientId = int.parse(SharedPrefModule().userId ?? '0');
     clientLat = SharedPrefModule().userLat;
     clientLong = SharedPrefModule().userLong;
