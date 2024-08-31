@@ -39,19 +39,27 @@ class CartBloc extends BlocBase {
   CartCheckAvailabilityRemote cartCheckAvailabilityRemote =
       CartCheckAvailabilityRemote();
 
-  int clientId = int.parse(SharedPrefModule().userId ?? '0');
+  int clientId = 0;
+  double clientLat = 0;
+  double clientLong = 0;
   double totalSum = 0;
   String currency = "";
 
-  void getAddress() {
+  void _getAddress() {
     addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
   }
 
-  void getLocation() {
-    latLongBehaviour.sink.add(Latlong(12.787, 45.787));
+  void _getLocation() {
+    latLongBehaviour.sink.add(Latlong(clientLat, clientLong));
   }
 
-  void getDate() {
+  void _getClientData() {
+    clientId = int.parse(SharedPrefModule().userId ?? '0');
+    clientLat = SharedPrefModule().userLat;
+    clientLong = SharedPrefModule().userLong;
+  }
+
+  void _getDate() {
     DateFormat dateEnglishFormat = DateFormat("dd/MM/yyyy", "en");
     DateFormat dateArabicFormat = DateFormat("EEEE", "ar");
 
@@ -62,7 +70,7 @@ class CartBloc extends BlocBase {
     // dateBehaviour.sink.add("الخميس 20/12/2023");
   }
 
-  void getTime() {
+  void _getTime() {
     timeBehaviour.sink.add("8 - 9 صباحاً");
   }
 
@@ -79,7 +87,7 @@ class CartBloc extends BlocBase {
     cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
   }
 
-  void getTotalCartDeliverySum() {
+  void _getTotalCartDeliverySum() {
     cartTotalDeliveryBehaviour.sink.add('+ 20 ر.ي. التوصيل');
   }
 
@@ -137,11 +145,18 @@ class CartBloc extends BlocBase {
   }
 
   BehaviorSubject<ApiState<List<ProductMapper>>> getMyCart() {
+    _getClientData();
+    _getAddress();
+    _getLocation();
+    _getDate();
+    _getTime();
+    _getTotalCartDeliverySum();
+
     BehaviorSubject<ApiState<List<ProductMapper>>> stream = BehaviorSubject();
 
     cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
       cartProductsBehavior.sink.add((getCartEvent));
-      if (getCartEvent is SuccessState) {
+      if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
         cartCheckAvailabilityRemote
             .checkAvailability(CartCheckAvailabilityRequest(
                 client_id: clientId,
@@ -182,13 +197,7 @@ class CartBloc extends BlocBase {
     itemsBehaviour.sink.add(cartProductQtyList);
   }
 
-  CartBloc() {
-    getAddress();
-    getLocation();
-    getDate();
-    getTime();
-    getTotalCartDeliverySum();
-  }
+  CartBloc() {}
 
   @override
   void dispose() {
