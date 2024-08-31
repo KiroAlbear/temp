@@ -82,6 +82,6 @@ class CurrentLocationBloc extends BlocBase {
   @override
   void dispose() {
     // Close the BehaviorSubject when the bloc is disposed.
-    _currentLocationBehaviour.close();
+    // _currentLocationBehaviour.close();
   }
 }

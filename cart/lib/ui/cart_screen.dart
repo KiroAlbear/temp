@@ -124,7 +124,9 @@ class _CartScreenState extends BaseState<CartScreen> {
                           maxHeight: MediaQuery.of(context).size.height * 0.3),
                       context: context,
                       builder: (context) {
-                        return CartBottomSheet();
+                        return CartBottomSheet(
+                          cartBloc: widget.cartBloc,
+                        );
                       });
                 }),
             Column(

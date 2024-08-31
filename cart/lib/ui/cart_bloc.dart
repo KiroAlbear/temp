@@ -121,17 +121,20 @@ class CartBloc extends BlocBase {
     return CartSaveRemote().saveToCart(request);
   }
 
-  void getMyCart() {
+  BehaviorSubject<ApiState<List<ProductMapper>>> getMyCart() {
+    BehaviorSubject<ApiState<List<ProductMapper>>> stream = BehaviorSubject();
+
     cartRemote.getMyCart(CartRequest(clientId)).listen((event) {
       cartProductsBehavior.sink.add((event));
       if (event is SuccessState) {
         // clear the previous data
         // cartProductsBehavior.sink.add(null);
-
+        stream.sink.add(event);
         getcartProductQtyList(event.response!);
         getTotalCartSum(cartRemote.myOrderResponse);
       }
     });
+    return stream;
   }
 
   void getcartProductQtyList(List<ProductMapper> products) {
