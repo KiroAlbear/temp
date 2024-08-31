@@ -22,6 +22,15 @@ class LoginResponse {
   @JsonKey(name: 'token')
   String? token;
 
+  @JsonKey(name: 'shop_name')
+  String? shop_name;
+
+  @JsonKey(name: 'partner_latitude')
+  double? latitude;
+
+  @JsonKey(name: 'partner_longitude')
+  double? longitude;
+
   LoginResponse();
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>

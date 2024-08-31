@@ -1,8 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/custom_text.dart';
@@ -12,10 +10,12 @@ import 'bottom_navigation_bloc.dart';
 
 class BottomNavigationWidget extends BaseStatefulWidget {
   final List<String> svgIconsPath;
-  final BottomNavigationBloc homeBloc;
+  final BottomNavigationBloc bottomNavigationBloc;
 
   const BottomNavigationWidget(
-      {super.key, required this.svgIconsPath, required this.homeBloc});
+      {super.key,
+      required this.svgIconsPath,
+      required this.bottomNavigationBloc});
 
   @override
   State<BottomNavigationWidget> createState() => _HomeWidgetState();
@@ -32,21 +32,21 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
 
   @override
   Widget getBody(BuildContext context) => StreamBuilder(
-        stream: widget.homeBloc.selectedTabStream,
+        stream: widget.bottomNavigationBloc.selectedTabStream,
         builder: (context, snapshot) {
           // if((snapshot.data == 1 || snapshot.data == 3) && (SharedPrefModule().userId??'').isEmpty){
           //   return widget.homeBloc.loginWidget;
           // }else{
           //  return widget.homeBloc.widgetList[snapshot.data ?? 0];
           // }
-          return widget.homeBloc.widgetList[snapshot.data ?? 0];
+          return widget.bottomNavigationBloc.widgetList[snapshot.data ?? 0];
         },
         initialData: 0,
       );
 
   @override
   Widget? customBottomNavBar() => StreamBuilder(
-        stream: widget.homeBloc.selectedTabStream,
+        stream: widget.bottomNavigationBloc.selectedTabStream,
         builder: (context, snapshot) {
           _initBottomNavItems(snapshot.data ?? 0);
           return Stack(
@@ -57,7 +57,7 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
                   currentIndex: snapshot.data ?? 0,
                   landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
                   onTap: (value) {
-                    widget.homeBloc.setSelectedTab(value, context);
+                    widget.bottomNavigationBloc.setSelectedTab(value, context);
                   },
                   iconSize: 20.r),
             ],

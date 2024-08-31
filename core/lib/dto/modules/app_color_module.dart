@@ -85,6 +85,9 @@ const Color productCardColorDarkMode = Color.fromRGBO(246, 247, 247, 1);
 const Color faqCardColorLightMode = Color.fromRGBO(238, 238, 239, 1);
 const Color faqCardColorDarkMode = Color.fromRGBO(238, 238, 239, 1);
 
+const Color cartSuccessBlueLightMode = Color.fromRGBO(0, 69, 122, 1);
+const Color cartSuccessBlueDarkMode = Color.fromRGBO(0, 69, 122, 1);
+
 bool get _isDark => SharedPrefModule().isDarkMode ?? false;
 
 Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
@@ -141,3 +144,6 @@ Color switchBorderColor = _isDark
 
 Color filterItemColor =
     _isDark ? filterItemColorDarkMode : filterItemColorLightMode;
+
+Color cartSuccessBlueColor =
+    _isDark ? cartSuccessBlueDarkMode : cartSuccessBlueLightMode;

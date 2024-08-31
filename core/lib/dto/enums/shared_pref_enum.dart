@@ -5,4 +5,9 @@ enum SharedPRefEnum {
   bearerToken,
   password,
   userName,
+  userLat,
+  userLong,
+  userAddress,
+  userShopName,
+  orderId
 }

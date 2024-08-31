@@ -26,4 +26,8 @@ class _ApiClientKey {
   static const String _deliveryAddress = 'get/delivery_address/';
   static const String _updateProfile = 'update/profile';
   static const String _myOrders = 'get/all_order';
+  static const String _getCart = 'view/card_items';
+  static const String _saveToCart = 'saleorder/create';
+  static const String _checkAvailability = 'get/available_quantity';
+  static const String _confirmOrder = 'saleorder/confirm';
 }

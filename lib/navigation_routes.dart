@@ -5,6 +5,7 @@ part of 'my_app.dart';
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
 final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
+final CartBloc _cartBloc = CartBloc();
 final HomeBloc _homeBloc = HomeBloc(
   onCategoryClick: (categoryMapper) {
     LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
@@ -28,7 +29,7 @@ final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
   _productCategoryWidget(),
   Container(),
-  Container(),
+  _cartScreen,
   _moreBlocProvider
 ], _loginWidgetWithoutSkip);
 
@@ -45,8 +46,18 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.none:
       return _buildPageRoute(const SplashWidget());
     case AppScreenEnum.splash:
-      _bottomNavigationBloc.setSelectedTab(0, null);
+      // _bottomNavigationBloc.setSelectedTab(0, null);
       return _buildPageRoute(const SplashWidget());
+    // return _buildPageRoute(CartScreen(
+    //   productCategoryBloc: _productCategoryBloc,
+    //   icDelete: Assets.svgIcDelete,
+    //   cartBloc: _cartBloc,
+    //   backIcon: Assets.svgIcBack,
+    // ));
+    // return _buildPageRoute(CartOrderDetails(
+    //   bloc: _cartBloc,
+    //   backIcon: Assets.svgIcBack,
+    // ));
     // return _buildPageRoute(MyOrdersScreen(
     //     backIcon: Assets.svgIcBack, myOrdersBloc: MyOrdersBloc()));
 
@@ -90,6 +101,14 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       ));
     case AppScreenEnum.scanBarcode:
       return _buildPageRoute(_scanBarcodeWidget);
+    case AppScreenEnum.cartScreen:
+      return _buildPageRoute(_cartScreen);
+    case AppScreenEnum.cartSuccessScreen:
+      return _buildPageRoute(CartSuccessWidget(
+        bottomNavigationBloc: _bottomNavigationBloc,
+      ));
+    case AppScreenEnum.cartOrderDetailsScreen:
+      return _buildPageRoute(_cartOrderDetailsScreen);
     case AppScreenEnum.updateProfileScreen:
       return _buildPageRoute(
           UpdateProfileScreen(backIcon: Assets.svgIcBack, moreBloc: _moreBloc));
@@ -174,7 +193,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
 BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
       bloc: _bottomNavigationBloc,
       child: BottomNavigationWidget(
-        homeBloc: _bottomNavigationBloc,
+        bottomNavigationBloc: _bottomNavigationBloc,
         svgIconsPath: const [
           Assets.svgIcHome,
           Assets.svgIcFavourite,
@@ -200,8 +219,25 @@ BlocProvider _productCategoryWidget() {
         supportIcon: Assets.svgIcContactUs,
         productNotFoundIcon: Assets.svgIcNotFound,
         productCategoryBloc: _productCategoryBloc,
+        cartBloc: _cartBloc,
       ));
 }
+
+BlocProvider get _cartScreen => BlocProvider(
+    bloc: _cartBloc,
+    child: CartScreen(
+      cartBloc: _cartBloc,
+      productCategoryBloc: _productCategoryBloc,
+      backIcon: Assets.svgIcBack,
+      icDelete: Assets.svgIcDelete,
+    ));
+
+BlocProvider get _cartOrderDetailsScreen => BlocProvider(
+    bloc: _cartBloc,
+    child: CartOrderDetails(
+      cartBloc: _cartBloc,
+      backIcon: Assets.svgIcBack,
+    ));
 
 ContactUsBloc get _contactUsBloc => ContactUsBloc(
     closeIcon: Assets.svgIcClose,

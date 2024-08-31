@@ -19,11 +19,15 @@ dependencies:
     path: home
   more:
     path: more
+  cart:
+    path: cart
   my_orders:
     path: my_orders
-
+  objectbox: ^4.0.2
+  objectbox_flutter_libs: ^4.0.2
 
   hl_image_picker: ^1.2.16
+  path_provider: ^2.1.4
 
 dev_dependencies:
   flutter_test:
@@ -34,7 +38,7 @@ dev_dependencies:
   flutter_flavorizr: ^2.2.3
   build_runner:
   mockito: ^5.4.4
-
+  objectbox_generator: ^4.0.2
 
 
 flutter:

@@ -1,3 +1,4 @@
+import 'package:cart/ui/cart_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/brand/brand_mapper.dart';
@@ -5,6 +6,7 @@ import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
@@ -30,10 +32,12 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   static const String filterAllText = "All";
 
   final ProductCategoryBloc productCategoryBloc;
+  final CartBloc cartBloc;
   ValueNotifier<int> selectedCategoryIndex = ValueNotifier(0);
   ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
-  ValueNotifier<bool> isLoading = ValueNotifier(false);
-  bool isLoadingWidgetBuilt = false;
+  // ValueNotifier<bool> isLoading = ValueNotifier(false);
+  ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
+  // bool isLoadingWidgetBuilt = false;
 
   ProductCategoryWidget(
       {super.key,
@@ -47,6 +51,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
       required this.searchIcon,
       required this.supportIcon,
       required this.productNotFoundIcon,
+      required this.cartBloc,
       required this.productCategoryBloc});
 
   @override
@@ -75,7 +80,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   @override
   void initState() {
     widget.productCategoryBloc.categoryId = ProductCategoryWidget.cateogryId;
-    widget.productCategoryBloc.isLoading = widget.isLoading;
+    widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
     widget.productCategoryBloc.reset();
     widget.productCategoryBloc.loadMore();
 
@@ -85,7 +90,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   }
 
   void _loadProducts() {
-    widget.isLoading.value = true;
+    widget.showOverlayLoading.value = true;
     widget.productCategoryBloc.getProductWithSubcategoryBrand(
         widget.productCategoryBloc.subcategoryId,
         widget.productCategoryBloc.brandId);
@@ -367,7 +372,20 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                       widget.productCategoryBloc,
                                   productList: snapshot.data?.response ?? [],
                                   favouriteIcon: widget.favouriteIcon,
-                                  addToCart: (productMapper) {},
+                                  onAddToCart: (productMapper) {
+                                    widget.showOverlayLoading.value = true;
+                                    widget.cartBloc
+                                        .saveToCart(productMapper.id, 1)
+                                        .listen((event) {
+                                      if (event is SuccessState) {
+                                        widget.cartBloc.orderId =
+                                            event.response!;
+                                        SharedPrefModule().orderId =
+                                            event.response!;
+                                        widget.showOverlayLoading.value = false;
+                                      }
+                                    });
+                                  },
                                   onTapFavourite: (favourite, productMapper) {
                                     // widget.productCategoryBloc.addProductToFavourite();
                                   },
@@ -383,9 +401,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                   ],
                 ),
                 ValueListenableBuilder(
-                  valueListenable: widget.isLoading,
+                  valueListenable: widget.showOverlayLoading,
                   builder: (context, value, child) {
-                    widget.isLoadingWidgetBuilt = true;
+                    // widget.isLoadingWidgetBuilt = true;
                     return !value
                         ? SizedBox()
                         : Expanded(

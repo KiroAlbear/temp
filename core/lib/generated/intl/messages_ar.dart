@@ -51,6 +51,32 @@ class MessageLookup extends MessageLookupByLibrary {
         "browseSections": MessageLookupByLibrary.simpleMessage("تصفح الأقسام"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "cartCashOnDelivery":
+            MessageLookupByLibrary.simpleMessage("كاش عند الاستلام"),
+        "cartConfirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
+        "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
+            "هل انت متاكد من ازاله المنتج من السله؟"),
+        "cartDokkanWallet": MessageLookupByLibrary.simpleMessage("محفظة دكان"),
+        "cartEmpty":
+            MessageLookupByLibrary.simpleMessage("لا يوجد طلبات حالياً"),
+        "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(
+            "أقصي كميه يمكنك اضافتها لهذ المنتج هي"),
+        "cartMinimumProductsReached": MessageLookupByLibrary.simpleMessage(
+            "أقل كميه يمكنك اضافتها لهذ المنتج هي"),
+        "cartOrderNow": MessageLookupByLibrary.simpleMessage("أطلب دلوقتي"),
+        "cartOrderOrderDetails":
+            MessageLookupByLibrary.simpleMessage("تفاصيل طلبك"),
+        "cartPaymentOptions":
+            MessageLookupByLibrary.simpleMessage("طريقة الدفع المناسبة ليك"),
+        "cartProductDetails":
+            MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
+        "cartSuccessConfirmation":
+            MessageLookupByLibrary.simpleMessage("تم تأكيد طلبك بنجاح"),
+        "cartSuccessIsDelivering": MessageLookupByLibrary.simpleMessage(
+            "طلبك هيوصلك خلال 24 ساعة \nتقدر دلوقتي تتابع مسار طلبكً"),
+        "cartSuccessTrackButton":
+            MessageLookupByLibrary.simpleMessage("تتبع مسار الطلب"),
+        "cartTitle": MessageLookupByLibrary.simpleMessage("السلة"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("تغيير كلمة السر"),
         "chooseCity": MessageLookupByLibrary.simpleMessage("اختر محافظتك"),

@@ -14,5 +14,8 @@ enum AppScreenEnum {
   accountChangePassword,
   myOrders,
   scanBarcode,
+  cartScreen,
+  cartSuccessScreen,
+  cartOrderDetailsScreen,
   updateProfileScreen
 }

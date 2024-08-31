@@ -53,6 +53,33 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Browse sections"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cartCashOnDelivery":
+            MessageLookupByLibrary.simpleMessage("Cash on delivery"),
+        "cartConfirmOrder":
+            MessageLookupByLibrary.simpleMessage("Confirm order"),
+        "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure to remove the product from the cart?"),
+        "cartDokkanWallet":
+            MessageLookupByLibrary.simpleMessage("Dokkan wallet"),
+        "cartEmpty": MessageLookupByLibrary.simpleMessage("There is no orders"),
+        "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(
+            "The maximum quantity you can add to this product is"),
+        "cartMinimumProductsReached": MessageLookupByLibrary.simpleMessage(
+            "The minimum amount you can add to this product is"),
+        "cartOrderNow": MessageLookupByLibrary.simpleMessage("Order now"),
+        "cartOrderOrderDetails":
+            MessageLookupByLibrary.simpleMessage("Order details"),
+        "cartPaymentOptions": MessageLookupByLibrary.simpleMessage(
+            "Payment method that suits you"),
+        "cartProductDetails":
+            MessageLookupByLibrary.simpleMessage("Products Details"),
+        "cartSuccessConfirmation": MessageLookupByLibrary.simpleMessage(
+            "Order is confirmed successfully"),
+        "cartSuccessIsDelivering": MessageLookupByLibrary.simpleMessage(
+            "Your order will be delivered to you within 24 hours \nYou can now track the progress of your orderً"),
+        "cartSuccessTrackButton":
+            MessageLookupByLibrary.simpleMessage("Track your order"),
+        "cartTitle": MessageLookupByLibrary.simpleMessage("Basket"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change password"),
         "chooseCity": MessageLookupByLibrary.simpleMessage("Choose your city"),

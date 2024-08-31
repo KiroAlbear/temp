@@ -4,6 +4,20 @@ import 'package:simple_shared_pref/simple_shared_pref.dart';
 class SharedPrefModule {
   final SimpleSharedPref _sharedPref = SimpleSharedPref();
 
+  double get userLat =>
+      _sharedPref.getValue<double>(key: _sharedKey(SharedPRefEnum.userLat)) ??
+      0;
+
+  set userLat(double value) => _sharedPref.setValue<double>(
+      key: _sharedKey(SharedPRefEnum.userLat), value: value);
+
+  double get userLong =>
+      _sharedPref.getValue<double>(key: _sharedKey(SharedPRefEnum.userLong)) ??
+      0;
+
+  set userLong(double value) => _sharedPref.setValue<double>(
+      key: _sharedKey(SharedPRefEnum.userLong), value: value);
+
   /// language
   String get language =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.language)) ??
@@ -12,6 +26,20 @@ class SharedPrefModule {
   set language(String value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.language), value: value);
 
+  String get shopName =>
+      _sharedPref.getValue<String>(
+          key: _sharedKey(SharedPRefEnum.userShopName)) ??
+      '';
+
+  set shopName(String value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.userShopName), value: value);
+
+  int get orderId =>
+      _sharedPref.getValue<int>(key: _sharedKey(SharedPRefEnum.orderId)) ?? 0;
+
+  set orderId(int value) => _sharedPref.setValue<int>(
+      key: _sharedKey(SharedPRefEnum.orderId), value: value);
+
   /// dark or light mode
   bool? get isDarkMode =>
       _sharedPref.getValue<bool>(key: _sharedKey(SharedPRefEnum.isDarkMode));
@@ -19,14 +47,12 @@ class SharedPrefModule {
   set isDarkMode(bool? value) => _sharedPref.setValue<bool>(
       key: _sharedKey(SharedPRefEnum.isDarkMode), value: value ?? false);
 
-
   /// user id
   String? get userId =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.userId));
 
   set userId(String? value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.userId), value: value ?? '');
-
 
   /// bearer token
   String? get bearerToken =>

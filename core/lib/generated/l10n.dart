@@ -1519,6 +1519,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Basket`
+  String get cartTitle {
+    return Intl.message(
+      'Basket',
+      name: 'cartTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Products Details`
+  String get cartProductDetails {
+    return Intl.message(
+      'Products Details',
+      name: 'cartProductDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is no orders`
+  String get cartEmpty {
+    return Intl.message(
+      'There is no orders',
+      name: 'cartEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order is confirmed successfully`
+  String get cartSuccessConfirmation {
+    return Intl.message(
+      'Order is confirmed successfully',
+      name: 'cartSuccessConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your order will be delivered to you within 24 hours \nYou can now track the progress of your orderً`
+  String get cartSuccessIsDelivering {
+    return Intl.message(
+      'Your order will be delivered to you within 24 hours \nYou can now track the progress of your orderً',
+      name: 'cartSuccessIsDelivering',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track your order`
+  String get cartSuccessTrackButton {
+    return Intl.message(
+      'Track your order',
+      name: 'cartSuccessTrackButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to remove the product from the cart?`
+  String get cartDeleteMessage {
+    return Intl.message(
+      'Are you sure to remove the product from the cart?',
+      name: 'cartDeleteMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The maximum quantity you can add to this product is`
+  String get cartMaximumProductsReached {
+    return Intl.message(
+      'The maximum quantity you can add to this product is',
+      name: 'cartMaximumProductsReached',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The minimum amount you can add to this product is`
+  String get cartMinimumProductsReached {
+    return Intl.message(
+      'The minimum amount you can add to this product is',
+      name: 'cartMinimumProductsReached',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order now`
+  String get cartOrderNow {
+    return Intl.message(
+      'Order now',
+      name: 'cartOrderNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order details`
+  String get cartOrderOrderDetails {
+    return Intl.message(
+      'Order details',
+      name: 'cartOrderOrderDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm order`
+  String get cartConfirmOrder {
+    return Intl.message(
+      'Confirm order',
+      name: 'cartConfirmOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash on delivery`
+  String get cartCashOnDelivery {
+    return Intl.message(
+      'Cash on delivery',
+      name: 'cartCashOnDelivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment method that suits you`
+  String get cartPaymentOptions {
+    return Intl.message(
+      'Payment method that suits you',
+      name: 'cartPaymentOptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dokkan wallet`
+  String get cartDokkanWallet {
+    return Intl.message(
+      'Dokkan wallet',
+      name: 'cartDokkanWallet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -146,7 +146,30 @@
   "orderCancelBackButton": "الرجوع",
   "orderItem": "قطعة",
   "ordersNotFound": "لم تقم بطلب اي منتج حتي الان",
-  "productsFilterAll": "الكل"
+
+
+
+  "productsFilterAll": "الكل",
+  "emptyFavourite": "لا يوجد منتجات مفضلة لديك",
+  "promoDetails": "تفاصيل العرض",
+  "cartTitle": "السلة",
+  "cartProductDetails": "تفاصيل المنتجات",
+  "cartEmpty": "لا يوجد طلبات حالياً",
+  "cartSuccessConfirmation": "تم تأكيد طلبك بنجاح",
+  "cartSuccessIsDelivering": "طلبك هيوصلك خلال 24 ساعة \nتقدر دلوقتي تتابع مسار طلبكً",
+  "cartSuccessTrackButton": "تتبع مسار الطلب",
+  "cartDeleteMessage": "هل انت متاكد من ازاله المنتج من السله؟",
+  "cartMaximumProductsReached": "أقصي كميه يمكنك اضافتها لهذ المنتج هي",
+  "cartMinimumProductsReached": "أقل كميه يمكنك اضافتها لهذ المنتج هي",
+  "cartOrderNow": "أطلب دلوقتي",
+  "cartOrderOrderDetails": "تفاصيل طلبك",
+  "cartConfirmOrder": "تأكيد الطلب",
+  "cartCashOnDelivery": "كاش عند الاستلام",
+  "cartPaymentOptions": "طريقة الدفع المناسبة ليك",
+  "cartDokkanWallet": "محفظة دكان"
+
+
+
 
 
 

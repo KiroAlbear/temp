@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'flavors.dart';
 import 'my_app.dart';
 
+// late ObjectBox objectBox;
 FutureOr<void> main() async {
   /// ensure widget init
   WidgetsFlutterBinding.ensureInitialized();

@@ -5,6 +5,11 @@ import 'package:core/dto/models/baseModules/header_response.dart';
 import 'package:core/dto/models/brand/all_brands_request.dart';
 import 'package:core/dto/models/brand/brand_request.dart';
 import 'package:core/dto/models/brand/brand_response.dart';
+import 'package:core/dto/models/cart/cart_check_availability_request.dart';
+import 'package:core/dto/models/cart/cart_check_availability_response.dart';
+import 'package:core/dto/models/cart/cart_edit_request.dart';
+import 'package:core/dto/models/cart/cart_save_request.dart';
+import 'package:core/dto/models/cart/cart_save_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
 import 'package:core/dto/models/checkPhone/check_phone_request.dart';
 import 'package:core/dto/models/checkPhone/check_phone_response.dart';
@@ -31,7 +36,11 @@ import 'package:core/dto/models/state/state_request.dart';
 import 'package:core/dto/models/state/state_response.dart';
 import 'package:core/dto/models/update_profile/update_profile_request.dart';
 
+import '../models/cart/cart_confirm_order_request.dart';
+import '../models/cart/cart_confirm_order_response.dart';
+import '../models/cart/cart_request.dart';
 import '../models/category/subcategory_request.dart';
+import '../models/my_orders/my_order_item_response.dart';
 import '../models/update_profile/delivery_address_response.dart';
 
 part 'api_client.g.dart';
@@ -92,6 +101,26 @@ abstract class ApiClient {
   @POST(_ApiClientKey._myOrders)
   Future<HeaderResponse<List<MyOrdersResponse>>> getMyOrders(
       @Body() MyOrdersRequest request);
+
+  @POST(_ApiClientKey._getCart)
+  Future<HeaderResponse<List<MyOrderItemResponse>>> getMyCart(
+      @Body() CartRequest request);
+
+  @POST(_ApiClientKey._saveToCart)
+  Future<HeaderResponse<List<CartSaveResponse>>> saveToCart(
+      @Body() CartSaveRequest request);
+
+  @POST(_ApiClientKey._saveToCart)
+  Future<HeaderResponse<List<CartSaveResponse>>> editCart(
+      @Body() CartEditRequest request);
+
+  @POST(_ApiClientKey._checkAvailability)
+  Future<HeaderResponse<List<CartCheckAvailabilityResponse>>> checkAvailability(
+      @Body() CartCheckAvailabilityRequest request);
+
+  @PATCH(_ApiClientKey._confirmOrder)
+  Future<HeaderResponse<List<CartConfirmOrderResponse>>> confirmOrder(
+      @Body() CartConfirmOrderRequest request);
 
   @POST(_ApiClientKey._signUp)
   Future<HeaderResponse<List<LoginResponse>>> register(
