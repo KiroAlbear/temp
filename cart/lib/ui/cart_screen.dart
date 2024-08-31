@@ -118,6 +118,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                 textStyle: MediumStyle(color: lightBlackColor, fontSize: 20.sp)
                     .getStyle(),
                 onTap: () async {
+                  // Todo: check if any product is unavailable
                   showModalBottomSheet(
                       backgroundColor: whiteColor,
                       useRootNavigator: true,

@@ -16,6 +16,7 @@ import 'package:core/dto/remote/cart_edit_remote.dart';
 import 'package:core/dto/remote/cart_remote.dart';
 import 'package:core/dto/remote/cart_save_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
+import 'package:intl/intl.dart';
 
 import '../models/latlong.dart';
 
@@ -51,7 +52,14 @@ class CartBloc extends BlocBase {
   }
 
   void getDate() {
-    dateBehaviour.sink.add("الخميس 20/12/2023");
+    DateFormat dateEnglishFormat = DateFormat("dd/MM/yyyy", "en");
+    DateFormat dateArabicFormat = DateFormat("EEEE", "ar");
+
+    DateTime tomorrow = DateTime.now().add(Duration(days: 1));
+
+    dateBehaviour.sink.add(
+        "${dateArabicFormat.format(tomorrow)} ${dateEnglishFormat.format(tomorrow)} ");
+    // dateBehaviour.sink.add("الخميس 20/12/2023");
   }
 
   void getTime() {
