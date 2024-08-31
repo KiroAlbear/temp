@@ -6,6 +6,7 @@ import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
@@ -377,6 +378,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         .saveToCart(productMapper.id, 1)
                                         .listen((event) {
                                       if (event is SuccessState) {
+                                        widget.cartBloc.orderId =
+                                            event.response!;
+                                        SharedPrefModule().orderId =
+                                            event.response!;
                                         widget.showOverlayLoading.value = false;
                                       }
                                     });

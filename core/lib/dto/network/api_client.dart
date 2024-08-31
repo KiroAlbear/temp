@@ -36,6 +36,8 @@ import 'package:core/dto/models/state/state_request.dart';
 import 'package:core/dto/models/state/state_response.dart';
 import 'package:core/dto/models/update_profile/update_profile_request.dart';
 
+import '../models/cart/cart_confirm_order_request.dart';
+import '../models/cart/cart_confirm_order_response.dart';
 import '../models/cart/cart_request.dart';
 import '../models/category/subcategory_request.dart';
 import '../models/my_orders/my_order_item_response.dart';
@@ -115,6 +117,10 @@ abstract class ApiClient {
   @POST(_ApiClientKey._checkAvailability)
   Future<HeaderResponse<List<CartCheckAvailabilityResponse>>> checkAvailability(
       @Body() CartCheckAvailabilityRequest request);
+
+  @PATCH(_ApiClientKey._confirmOrder)
+  Future<HeaderResponse<List<CartConfirmOrderResponse>>> confirmOrder(
+      @Body() CartConfirmOrderRequest request);
 
   @POST(_ApiClientKey._signUp)
   Future<HeaderResponse<List<LoginResponse>>> register(

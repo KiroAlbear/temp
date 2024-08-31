@@ -3,6 +3,7 @@ import 'package:cart/ui/cart_bloc.dart';
 import 'package:cart/ui/widgets/cart_order_details_item.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -15,10 +16,10 @@ import 'package:core/ui/mapPreview/map_preview_widget.dart';
 import 'package:flutter/material.dart';
 
 class CartOrderDetails extends BaseStatefulWidget {
-  final CartBloc bloc;
+  final CartBloc cartBloc;
   final String backIcon;
   const CartOrderDetails(
-      {required this.bloc, required this.backIcon, super.key});
+      {required this.cartBloc, required this.backIcon, super.key});
 
   @override
   State<CartOrderDetails> createState() => _CartOrderDetailsState();
@@ -71,7 +72,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         StreamBuilder(
-                          stream: widget.bloc.addressBehaviour.stream,
+                          stream: widget.cartBloc.addressBehaviour.stream,
                           builder: (context, snapshot) {
                             return !snapshot.hasData
                                 ? SizedBox()
@@ -82,7 +83,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                           },
                         ),
                         StreamBuilder(
-                          stream: widget.bloc.latLongBehaviour.stream,
+                          stream: widget.cartBloc.latLongBehaviour.stream,
                           builder: (context, snapshot) {
                             return !snapshot.hasData
                                 ? SizedBox()
@@ -99,7 +100,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                           },
                         ),
                         StreamBuilder(
-                          stream: widget.bloc.dateBehaviour.stream,
+                          stream: widget.cartBloc.dateBehaviour.stream,
                           builder: (context, snapshot) {
                             return !snapshot.hasData
                                 ? SizedBox()
@@ -123,7 +124,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                         // ),
                         // _getSeperator(),
                         StreamBuilder(
-                          stream: widget.bloc.itemsBehaviour.stream,
+                          stream: widget.cartBloc.itemsBehaviour.stream,
                           builder: (context, snapshot) {
                             return !snapshot.hasData
                                 ? SizedBox()
@@ -162,9 +163,16 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                           child: CustomButtonWidget(
                               idleText: S.of(context).cartConfirmOrder,
                               onTap: () {
-                                CustomNavigatorModule.navigatorKey.currentState!
-                                    .pushReplacementNamed(
-                                        AppScreenEnum.cartSuccessScreen.name);
+                                widget.cartBloc
+                                    .confirmOrderCart()
+                                    .listen((event) {
+                                  if (event is SuccessState) {
+                                    CustomNavigatorModule
+                                        .navigatorKey.currentState!
+                                        .pushReplacementNamed(AppScreenEnum
+                                            .cartSuccessScreen.name);
+                                  }
+                                });
                               }),
                         )
                       ],
@@ -181,7 +189,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
 
   Widget deliveryFeesRow() {
     return StreamBuilder(
-        stream: widget.bloc.cartTotalDeliveryBehaviour.stream,
+        stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
         builder: (context, snapshot) {
           return !snapshot.hasData
               ? SizedBox()
@@ -215,7 +223,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
             ),
           ),
           StreamBuilder(
-            stream: widget.bloc.cartTotalBehaviour.stream,
+            stream: widget.cartBloc.cartTotalBehaviour.stream,
             builder: (context, snapshot) {
               return !snapshot.hasData
                   ? SizedBox()

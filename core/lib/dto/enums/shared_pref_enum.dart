@@ -8,5 +8,6 @@ enum SharedPRefEnum {
   userLat,
   userLong,
   userAddress,
-  userShopName
+  userShopName,
+  orderId
 }

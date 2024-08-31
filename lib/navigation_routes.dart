@@ -235,7 +235,7 @@ BlocProvider get _cartScreen => BlocProvider(
 BlocProvider get _cartOrderDetailsScreen => BlocProvider(
     bloc: _cartBloc,
     child: CartOrderDetails(
-      bloc: _cartBloc,
+      cartBloc: _cartBloc,
       backIcon: Assets.svgIcBack,
     ));
 

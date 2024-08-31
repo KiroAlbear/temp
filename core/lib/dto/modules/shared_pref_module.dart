@@ -34,6 +34,12 @@ class SharedPrefModule {
   set shopName(String value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.userShopName), value: value);
 
+  int get orderId =>
+      _sharedPref.getValue<int>(key: _sharedKey(SharedPRefEnum.orderId)) ?? 0;
+
+  set orderId(int value) => _sharedPref.setValue<int>(
+      key: _sharedKey(SharedPRefEnum.orderId), value: value);
+
   /// dark or light mode
   bool? get isDarkMode =>
       _sharedPref.getValue<bool>(key: _sharedKey(SharedPRefEnum.isDarkMode));

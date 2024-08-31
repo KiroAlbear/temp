@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/cart/cart_check_availability_request.dart';
 import 'package:core/dto/models/cart/cart_check_availability_response.dart';
+import 'package:core/dto/models/cart/cart_confirm_order_request.dart';
 import 'package:core/dto/models/cart/cart_edit_request.dart';
 import 'package:core/dto/models/cart/cart_order_line_edit_request.dart';
 import 'package:core/dto/models/cart/cart_order_line_save_request.dart';
@@ -12,6 +13,7 @@ import 'package:core/dto/models/my_orders/my_order_item_response.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/cart_check_availability_remote.dart';
+import 'package:core/dto/remote/cart_confirm_order_remote.dart';
 import 'package:core/dto/remote/cart_edit_remote.dart';
 import 'package:core/dto/remote/cart_remote.dart';
 import 'package:core/dto/remote/cart_save_remote.dart';
@@ -36,6 +38,7 @@ class CartBloc extends BlocBase {
   CartRemote cartRemote = CartRemote();
   CartSaveRemote cartSaveRemote = CartSaveRemote();
   CartEditRemote cartEditRemote = CartEditRemote();
+  CartConfirmOrderRemote cartConfirmOrderRemote = CartConfirmOrderRemote();
   CartCheckAvailabilityRemote cartCheckAvailabilityRemote =
       CartCheckAvailabilityRemote();
 
@@ -43,6 +46,7 @@ class CartBloc extends BlocBase {
   double clientLat = 0;
   double clientLong = 0;
   double totalSum = 0;
+  int orderId = 0;
   String userShopName = "";
   String currency = "";
 
@@ -60,6 +64,7 @@ class CartBloc extends BlocBase {
     clientId = int.parse(SharedPrefModule().userId ?? '0');
     clientLat = SharedPrefModule().userLat;
     clientLong = SharedPrefModule().userLong;
+    orderId = SharedPrefModule().orderId;
   }
 
   void _getDate() {
@@ -133,6 +138,7 @@ class CartBloc extends BlocBase {
   }
 
   Stream<ApiState<int>> saveToCart(int productId, int quantity) {
+    _getClientData();
     final CartSaveRequest request = CartSaveRequest(
       client_id: clientId,
       company_id: 1,
@@ -144,7 +150,15 @@ class CartBloc extends BlocBase {
         )
       ],
     );
-    return CartSaveRemote().saveToCart(request);
+    return cartSaveRemote.saveToCart(request);
+  }
+
+  Stream<ApiState<int>> confirmOrderCart() {
+    final CartConfirmOrderRequest request = CartConfirmOrderRequest(
+      client_id: clientId,
+      order_id: orderId,
+    );
+    return cartConfirmOrderRemote.confirmOrderCart(request);
   }
 
   BehaviorSubject<ApiState<List<ProductMapper>>> getMyCart() {
