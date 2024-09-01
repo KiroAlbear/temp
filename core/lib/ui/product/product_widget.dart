@@ -281,7 +281,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _productName => Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: CustomText(
-          text: "widget.productMapper.name asda sd asdjas lkajsdl kajlsd kj",
+          text: widget.productMapper.name,
           customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
           maxLines: 1,
         ),
