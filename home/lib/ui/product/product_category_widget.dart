@@ -406,10 +406,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                     // widget.isLoadingWidgetBuilt = true;
                     return !value
                         ? SizedBox()
-                        : Expanded(
-                            child: Container(
+                        : Container(
                             color: Colors.black.withOpacity(0.3),
-                          ));
+                          );
                   },
                 ),
               ],

@@ -14,10 +14,14 @@ import 'package:home/ui/product/product_category_widget.dart';
 
 class CategoryWidget extends StatefulWidget {
   final HomeBloc homeBloc;
+
   final ScrollController scrollController;
 
-  const CategoryWidget(
-      {super.key, required this.homeBloc, required this.scrollController});
+  const CategoryWidget({
+    super.key,
+    required this.homeBloc,
+    required this.scrollController,
+  });
 
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();

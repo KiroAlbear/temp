@@ -84,7 +84,9 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             height: 12.h,
           ),
           CategoryWidget(
-              homeBloc: widget.homeBloc, scrollController: _scrollController),
+            homeBloc: widget.homeBloc,
+            scrollController: _scrollController,
+          ),
           SizedBox(
             height: 90.h,
           ),

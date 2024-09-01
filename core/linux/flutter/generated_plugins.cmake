@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   dio_builder
   file_selector_linux
+  objectbox_flutter_libs
   transition_easy
   url_launcher_linux
 )

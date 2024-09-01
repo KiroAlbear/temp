@@ -42,6 +42,12 @@
 @import geolocator_apple;
 #endif
 
+#if __has_include(<hl_image_picker_ios/HLImagePickerPlugin.h>)
+#import <hl_image_picker_ios/HLImagePickerPlugin.h>
+#else
+@import hl_image_picker_ios;
+#endif
+
 #if __has_include(<image_picker_ios/FLTImagePickerPlugin.h>)
 #import <image_picker_ios/FLTImagePickerPlugin.h>
 #else
@@ -60,10 +66,10 @@
 @import location;
 #endif
 
-#if __has_include(<package_info_plus/FPPPackageInfoPlusPlugin.h>)
-#import <package_info_plus/FPPPackageInfoPlusPlugin.h>
+#if __has_include(<objectbox_flutter_libs/ObjectboxFlutterLibsPlugin.h>)
+#import <objectbox_flutter_libs/ObjectboxFlutterLibsPlugin.h>
 #else
-@import package_info_plus;
+@import objectbox_flutter_libs;
 #endif
 
 #if __has_include(<path_provider_foundation/PathProviderPlugin.h>)
@@ -117,10 +123,11 @@
   [FPPDeviceInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPDeviceInfoPlusPlugin"]];
   [DioBuilderPlugin registerWithRegistrar:[registry registrarForPlugin:@"DioBuilderPlugin"]];
   [GeolocatorPlugin registerWithRegistrar:[registry registrarForPlugin:@"GeolocatorPlugin"]];
+  [HLImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"HLImagePickerPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [FLALocalAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLALocalAuthPlugin"]];
   [LocationPlugin registerWithRegistrar:[registry registrarForPlugin:@"LocationPlugin"]];
-  [FPPPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPPackageInfoPlusPlugin"]];
+  [ObjectboxFlutterLibsPlugin registerWithRegistrar:[registry registrarForPlugin:@"ObjectboxFlutterLibsPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
   [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [FPPSharePlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPSharePlusPlugin"]];

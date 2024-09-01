@@ -20,6 +20,7 @@ class CartScreen extends BaseStatefulWidget {
   final String backIcon;
   final String icDelete;
   final CartBloc cartBloc;
+
   final ProductCategoryBloc productCategoryBloc;
 
   CartScreen(

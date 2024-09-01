@@ -8,6 +8,7 @@ import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 class ProductListWidget extends StatelessWidget {
   final List<ProductMapper> productList;
   final String favouriteIcon;
+
   final ProductCategoryBloc productCategoryBloc;
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
   final Function(ProductMapper productMapper) onAddToCart;

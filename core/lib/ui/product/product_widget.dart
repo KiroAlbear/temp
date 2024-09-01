@@ -16,6 +16,7 @@ class ProductWidget extends StatefulWidget {
   final ProductCategoryBloc productCategoryBloc;
   final String? favouriteIcon;
   final String? icDelete;
+
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
   final Function(ProductMapper productMapper)? onAddToCart;
   final bool isCartProduct;
@@ -270,12 +271,14 @@ class _ProductWidgetState extends State<ProductWidget> {
       );
 
   Widget get _productImage => Center(
-        child: ImageHelper(
-          image: widget.productMapper.image,
-          imageType: ImageType.network,
-          height: 55.h,
-          width: 55.w,
-        ),
+        child: widget.productMapper.image.isEmpty
+            ? SizedBox()
+            : ImageHelper(
+                image: widget.productMapper.image,
+                imageType: ImageType.network,
+                height: 55.h,
+                width: 55.w,
+              ),
       );
 
   Widget get _productName => Padding(
