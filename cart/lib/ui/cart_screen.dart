@@ -182,7 +182,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                           productId: snapshot.data!.response![index].productId,
                           quantity:
                               snapshot.data!.response![index].quantity - 1,
-                          price: snapshot.data!.response![index].priceUnit,
+                          price: snapshot.data!.response![index].price,
                           state: CartState.decrement,
                         );
                       },
@@ -192,7 +192,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                           productId: snapshot.data!.response![index].productId,
                           quantity:
                               snapshot.data!.response![index].quantity + 1,
-                          price: snapshot.data!.response![index].priceUnit,
+                          price: snapshot.data!.response![index].price,
                           state: CartState.increment,
                         );
                       },
@@ -201,7 +201,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                           id: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
                           quantity: 0,
-                          price: snapshot.data!.response![index].priceUnit,
+                          price: snapshot.data!.response![index].price,
                           state: CartState.decrement,
                           isDelete: true,
                         );

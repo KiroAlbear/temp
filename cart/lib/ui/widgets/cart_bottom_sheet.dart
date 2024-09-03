@@ -74,7 +74,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   // pop the bottom sheet
                   Navigator.pop(context);
                   if (_groupeValue != -1) {
-                    widget.cartBloc.getMyCart().listen((event) {
+                    widget.cartBloc.cartProductsBehavior.listen((event) {
                       if (event is SuccessState) {
                         CustomNavigatorModule.navigatorKey.currentState!
                             .pushNamed(

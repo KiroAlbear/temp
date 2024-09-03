@@ -28,6 +28,9 @@ class CartBloc extends BlocBase {
   BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
       BehaviorSubject();
 
+  BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehaviour =
+      BehaviorSubject();
+
   BehaviorSubject<String> addressBehaviour = BehaviorSubject();
   BehaviorSubject<Latlong> latLongBehaviour = BehaviorSubject();
   BehaviorSubject<String> dateBehaviour = BehaviorSubject();
@@ -89,7 +92,7 @@ class CartBloc extends BlocBase {
     currency = myOrderResponse![0].currency![1] ?? '';
 
     myOrderResponse.forEach((element) {
-      totalSum += element.price_unit ?? 0;
+      totalSum += element.price ?? 0;
     });
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
     cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
@@ -123,13 +126,14 @@ class CartBloc extends BlocBase {
 
     cartEditRemote.editCart(request).listen((event) {
       if (event is SuccessState) {
-        if (cartState == CartState.decrement) {
-          totalSum -= price;
-        } else {
-          totalSum += price;
-        }
-        double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
-        cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
+        _getCart();
+        // if (cartState == CartState.decrement) {
+        //   totalSum -= price;
+        // } else {
+        //   totalSum += price;
+        // }
+        // double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
+        // cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
         stream.sink.add(event);
       }
     });
@@ -161,7 +165,7 @@ class CartBloc extends BlocBase {
     return cartConfirmOrderRemote.confirmOrderCart(request);
   }
 
-  BehaviorSubject<ApiState<List<ProductMapper>>> getMyCart() {
+  void getMyCart() {
     _getClientData();
     _getAddress();
     _getLocation();
@@ -169,10 +173,35 @@ class CartBloc extends BlocBase {
     _getTime();
     _getTotalCartDeliverySum();
 
-    BehaviorSubject<ApiState<List<ProductMapper>>> stream = BehaviorSubject();
+    // BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsStream = BehaviorSubject();
+    _getCart();
+    // cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
+    //   // cartProductsBehavior.sink.add((getCartEvent));
+    //   if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
+    //     cartCheckAvailabilityRemote
+    //         .checkAvailability(CartCheckAvailabilityRequest(
+    //             client_id: clientId,
+    //             product_ids:
+    //                 getCartEvent.response!.map((e) => e.productId).toList()))
+    //         .listen((checkAvailabilityEvent) {
+    //       if (checkAvailabilityEvent is SuccessState) {
+    //         // stream.sink.add(getCartEvent);
+    //         getcartProductQtyList(getCartEvent.response!);
+    //         getTotalCartSum(cartRemote.myOrderResponse);
+    //
+    //         cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
+    //             getCartEvent.response!, checkAvailabilityEvent.response!)));
+    //       }
+    //     });
+    //   }
+    // });
 
+    // return cartProductsBehavior;
+  }
+
+  void _getCart() {
+    // cartProductsBehavior.sink.add(LoadingState());
     cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
-      cartProductsBehavior.sink.add((getCartEvent));
       if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
         cartCheckAvailabilityRemote
             .checkAvailability(CartCheckAvailabilityRequest(
@@ -185,13 +214,14 @@ class CartBloc extends BlocBase {
             getcartProductQtyList(getCartEvent.response!);
             getTotalCartSum(cartRemote.myOrderResponse);
 
-            stream.sink.add(SuccessState(addAvailabilityToProduct(
+            cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
                 getCartEvent.response!, checkAvailabilityEvent.response!)));
           }
         });
+      } else if (getCartEvent.response!.isEmpty) {
+        cartProductsBehavior.sink.add((getCartEvent));
       }
     });
-    return stream;
   }
 
   List<ProductMapper> addAvailabilityToProduct(List<ProductMapper> products,
