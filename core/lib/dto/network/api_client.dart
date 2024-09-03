@@ -118,7 +118,7 @@ abstract class ApiClient {
   Future<HeaderResponse<List<CartCheckAvailabilityResponse>>> checkAvailability(
       @Body() CartCheckAvailabilityRequest request);
 
-  @PATCH(_ApiClientKey._confirmOrder)
+  @POST(_ApiClientKey._confirmOrder)
   Future<HeaderResponse<List<CartConfirmOrderResponse>>> confirmOrder(
       @Body() CartConfirmOrderRequest request);
 

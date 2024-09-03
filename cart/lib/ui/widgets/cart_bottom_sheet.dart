@@ -1,7 +1,6 @@
 import 'package:cart/ui/cart_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -74,13 +73,8 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   // pop the bottom sheet
                   Navigator.pop(context);
                   if (_groupeValue != -1) {
-                    widget.cartBloc.cartProductsBehavior.listen((event) {
-                      if (event is SuccessState) {
-                        CustomNavigatorModule.navigatorKey.currentState!
-                            .pushNamed(
-                                AppScreenEnum.cartOrderDetailsScreen.name);
-                      }
-                    });
+                    CustomNavigatorModule.navigatorKey.currentState!
+                        .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
                   }
                 }),
           ),

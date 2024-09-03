@@ -169,6 +169,8 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                                       .navigatorKey.currentState!
                                       .pushReplacementNamed(
                                           AppScreenEnum.cartSuccessScreen.name);
+                                  widget.cartBloc.cartProductsBehavior.sink
+                                      .add(IdleState());
                                 }
                               });
                             }),

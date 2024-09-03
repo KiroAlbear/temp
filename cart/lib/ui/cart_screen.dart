@@ -232,7 +232,7 @@ class _CartScreenState extends BaseState<CartScreen> {
     )
         .listen((event) {
       if (event is SuccessState && isDelete) {
-        widget.cartBloc.getMyCart();
+        // widget.cartBloc.getMyCart();
         isLoading.value = false;
       } else if (event is SuccessState && !isDelete) {
         isLoading.value = false;

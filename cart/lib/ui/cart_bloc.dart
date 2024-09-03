@@ -28,9 +28,6 @@ class CartBloc extends BlocBase {
   BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
       BehaviorSubject();
 
-  BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehaviour =
-      BehaviorSubject();
-
   BehaviorSubject<String> addressBehaviour = BehaviorSubject();
   BehaviorSubject<Latlong> latLongBehaviour = BehaviorSubject();
   BehaviorSubject<String> dateBehaviour = BehaviorSubject();
@@ -218,7 +215,7 @@ class CartBloc extends BlocBase {
                 getCartEvent.response!, checkAvailabilityEvent.response!)));
           }
         });
-      } else if (getCartEvent.response!.isEmpty) {
+      } else if (getCartEvent.response?.isEmpty ?? true) {
         cartProductsBehavior.sink.add((getCartEvent));
       }
     });
@@ -248,6 +245,7 @@ class CartBloc extends BlocBase {
 
   @override
   void dispose() {
+    cartProductsBehavior.sink.add(IdleState());
     // cartProductsBehavior.close();
   }
 }
