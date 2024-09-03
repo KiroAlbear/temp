@@ -16,7 +16,7 @@ MyOrderItemResponse _$MyOrderItemResponseFromJson(Map<String, dynamic> json) =>
       currency: json['currency_id'] as List<dynamic>?,
       product_id: json['product_id'] as List<dynamic>?,
       price_unit: (json['price_unit'] as num?)?.toDouble(),
-    );
+    )..image = json['product_image_1920'] as String?;
 
 Map<String, dynamic> _$MyOrderItemResponseToJson(
         MyOrderItemResponse instance) =>
@@ -24,6 +24,7 @@ Map<String, dynamic> _$MyOrderItemResponseToJson(
       'id': instance.id,
       'name': instance.name,
       'display_name': instance.description,
+      'product_image_1920': instance.image,
       'price_total': instance.price,
       'price_unit': instance.price_unit,
       'currency_id': instance.currency,

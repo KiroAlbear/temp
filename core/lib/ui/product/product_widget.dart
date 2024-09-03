@@ -137,7 +137,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
           child: CustomText(
-            text: "المنتج غير متوفر",// TODO: Add localization
+            text: "المنتج غير متوفر", // TODO: Add localization
             customTextStyle:
                 RegularStyle(color: lightBlackColor, fontSize: 8.sp),
           ),
@@ -447,7 +447,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _addCartButton => InkWell(
         onTap: () async {
-          if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
+          // if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
           {
             widget.onAddToCart!(widget.productMapper);
           }

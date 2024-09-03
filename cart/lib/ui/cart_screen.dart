@@ -74,24 +74,20 @@ class _CartScreenState extends BaseState<CartScreen> {
                   if (snapshot.data == null)
                     return Container();
                   else
-                    return Expanded(
-                      child: checkResponseStateWithLoadingWidget(
-                        snapshot.data!,
-                        context,
-                        onSuccess: snapshot.data!.response?.isEmpty ?? true
-                            ? CartEmptyWidget()
-                            : Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _cartHeader(context),
-                                    16.verticalSpace,
-                                    _productList(),
-                                    _bottomWidget(context)
-                                  ],
-                                ),
-                              ),
-                      ),
+                    return checkResponseStateWithLoadingWidget(
+                      snapshot.data!,
+                      context,
+                      onSuccess: snapshot.data!.response?.isEmpty ?? true
+                          ? CartEmptyWidget()
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _cartHeader(context),
+                                16.verticalSpace,
+                                _productList(),
+                                _bottomWidget(context)
+                              ],
+                            ),
                     );
                 },
               ),

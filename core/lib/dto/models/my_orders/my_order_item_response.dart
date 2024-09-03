@@ -38,6 +38,7 @@ class MyOrderItemResponse {
     this.price,
     this.count,
     this.currency,
+    this.image,
     this.product_id,
     this.price_unit,
   });

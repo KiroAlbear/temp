@@ -40,7 +40,6 @@ class ProductMapper {
     quantity = orderItem.count ?? 0;
     currency = orderItem.currency?[1] ?? '';
     isFavourite = false;
-    image = '';
     discountPercentage = 0;
     minQuantity = 1; //TODO: get this number from server
     maxQuantity = 100; //TODO: get this number from server
