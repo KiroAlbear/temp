@@ -11,27 +11,25 @@ class CartEmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ImageHelper(
-            image: Assets.svg.emptyCart,
-            imageType: ImageType.svg,
-            width: 150,
-            height: 150,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          CustomText(
-              text: S.of(context).cartEmpty,
-              textAlign: TextAlign.center,
-              customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 26.sp))
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ImageHelper(
+          image: Assets.svg.emptyCart,
+          imageType: ImageType.svg,
+          width: 150,
+          height: 150,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        CustomText(
+            text: S.of(context).cartEmpty,
+            textAlign: TextAlign.center,
+            customTextStyle:
+                RegularStyle(color: lightBlackColor, fontSize: 26.sp))
+      ],
     );
   }
 }

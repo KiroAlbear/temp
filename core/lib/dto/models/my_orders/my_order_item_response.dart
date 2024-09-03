@@ -13,6 +13,9 @@ class MyOrderItemResponse {
   @JsonKey(name: 'display_name')
   String? description;
 
+  @JsonKey(name: 'product_image_1920')
+  String? image;
+
   @JsonKey(name: 'price_total')
   double? price;
 

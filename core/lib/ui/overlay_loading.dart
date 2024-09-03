@@ -15,8 +15,7 @@ class OverlayLoadingWidget extends StatelessWidget {
         // widget.isLoadingWidgetBuilt = true;
         return !value
             ? SizedBox()
-            : Expanded(
-                child: Container(
+            : Container(
                 color: Colors.black.withOpacity(0.3),
                 child: Center(
                   child: CustomProgress(
@@ -24,7 +23,7 @@ class OverlayLoadingWidget extends StatelessWidget {
                     size: 30.r,
                   ),
                 ),
-              ));
+              );
       },
     );
   }

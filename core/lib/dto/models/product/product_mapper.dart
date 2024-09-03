@@ -34,6 +34,7 @@ class ProductMapper {
     id = orderItem.id ?? 0;
     name = orderItem.name ?? '';
     description = orderItem.description ?? '';
+    image = orderItem.image ?? '';
     price = orderItem.price ?? 0;
     priceUnit = orderItem.price_unit ?? 0;
     quantity = orderItem.count ?? 0;

@@ -137,7 +137,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
           child: CustomText(
-            text: "المنتج غير متوفر",
+            text: "المنتج غير متوفر",// TODO: Add localization
             customTextStyle:
                 RegularStyle(color: lightBlackColor, fontSize: 8.sp),
           ),
