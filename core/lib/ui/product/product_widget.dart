@@ -447,7 +447,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _addCartButton => InkWell(
         onTap: () async {
-          // if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
+          if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
           {
             widget.onAddToCart!(widget.productMapper);
           }
