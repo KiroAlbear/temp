@@ -245,7 +245,7 @@ class CartBloc extends BlocBase {
 
   @override
   void dispose() {
-    cartProductsBehavior.sink.add(IdleState());
+    // cartProductsBehavior.sink.add(IdleState());
     // cartProductsBehavior.close();
   }
 }
