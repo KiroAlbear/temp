@@ -123,7 +123,7 @@ class CartBloc extends BlocBase {
 
     cartEditRemote.editCart(request).listen((event) {
       if (event is SuccessState) {
-        _getCart();
+        _getCart(true);
         // if (cartState == CartState.decrement) {
         //   totalSum -= price;
         // } else {
@@ -171,7 +171,7 @@ class CartBloc extends BlocBase {
     _getTotalCartDeliverySum();
 
     // BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsStream = BehaviorSubject();
-    _getCart();
+    _getCart(false);
     // cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
     //   // cartProductsBehavior.sink.add((getCartEvent));
     //   if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
@@ -196,7 +196,7 @@ class CartBloc extends BlocBase {
     // return cartProductsBehavior;
   }
 
-  void _getCart() {
+  void _getCart(bool isEditing) {
     // cartProductsBehavior.sink.add(LoadingState());
     cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
       if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
@@ -216,7 +216,7 @@ class CartBloc extends BlocBase {
           }
         });
       } else if (getCartEvent.response?.isEmpty ?? true) {
-        // cartProductsBehavior.sink.add((getCartEvent));
+        if (isEditing == false) cartProductsBehavior.sink.add((getCartEvent));
       }
     });
   }
