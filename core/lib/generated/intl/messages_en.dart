@@ -268,6 +268,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateProfileTitle":
             MessageLookupByLibrary.simpleMessage("Update profile"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("Usage Policy"),
+        "usagePolicyTitle":
+            MessageLookupByLibrary.simpleMessage("Usage Policy"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
             MessageLookupByLibrary.simpleMessage("Welcome to Dokkan"),

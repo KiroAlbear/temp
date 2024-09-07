@@ -6,6 +6,7 @@ final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
 final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
 final CartBloc _cartBloc = CartBloc();
+final UsagePolicyBloc _usagePolicyBloc = UsagePolicyBloc();
 final HomeBloc _homeBloc = HomeBloc(
   onCategoryClick: (categoryMapper) {
     LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
@@ -95,6 +96,9 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_productCategoryWidget());
     case AppScreenEnum.faq:
       return _buildPageRoute(_faqWidget);
+    case AppScreenEnum.usagePolicy:
+      return _buildPageRoute(UsagePolicyScreen(
+          usagePolicyBloc: _usagePolicyBloc, backIcon: Assets.svgIcBack));
     case AppScreenEnum.accountChangePassword:
       return _buildPageRoute(const AccountChangePassword(
         backIcon: Assets.svgIcBack,

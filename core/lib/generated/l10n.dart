@@ -1530,6 +1530,16 @@ class S {
     );
   }
 
+  /// `Usage Policy`
+  String get usagePolicyTitle {
+    return Intl.message(
+      'Usage Policy',
+      name: 'usagePolicyTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Products Details`
   String get cartProductDetails {
     return Intl.message(

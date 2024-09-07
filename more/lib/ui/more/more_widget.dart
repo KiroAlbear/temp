@@ -254,7 +254,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
         SizedBox(
           height: 10.h,
         ),
-        _menuItem(S.of(context).usagePolicy, widget.usagePolicyIcon, () {}),
+        _menuItem(S.of(context).usagePolicy, widget.usagePolicyIcon, () {
+          CustomNavigatorModule.navigatorKey.currentState
+              ?.pushNamed(AppScreenEnum.usagePolicy.name);
+        }),
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
             height: 37.h,

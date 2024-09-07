@@ -133,6 +133,32 @@ class _AdminClient implements AdminClient {
     return value;
   }
 
+  @override
+  Future<AdminHeaderResponse<UsagePolicyResponse>> getUsagePolicy() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AdminHeaderResponse<UsagePolicyResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'UsagePolicy/Get',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AdminHeaderResponse<UsagePolicyResponse>.fromJson(
+      _result.data!,
+      (json) => UsagePolicyResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

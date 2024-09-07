@@ -34,6 +34,8 @@ import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/more_widget.dart';
 import 'package:more/ui/updateProfile/update_profile_bloc.dart';
 import 'package:more/ui/updateProfile/update_profile_screen.dart';
+import 'package:more/ui/usage_policy/usage_policy_bloc.dart';
+import 'package:more/ui/usage_policy/usage_policy_screen.dart';
 import 'package:my_orders/ui/my_orders_bloc.dart';
 import 'package:my_orders/ui/my_orders_screen.dart';
 
