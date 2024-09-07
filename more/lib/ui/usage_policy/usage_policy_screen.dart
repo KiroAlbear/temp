@@ -45,14 +45,17 @@ class _UsagePolicyScreenState extends State<UsagePolicyScreen> {
           stream: widget.usagePolicyBloc.usagePolicyBehaviour,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                      textAlign: TextAlign.start,
-                      snapshot.data!.response!.policy!),
-                ],
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                        textAlign: TextAlign.start,
+                        snapshot.data!.response!.policy!),
+                  ],
+                ),
               );
             } else {
               return Expanded(
