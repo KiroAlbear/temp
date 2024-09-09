@@ -10,21 +10,23 @@ class HeroBannerItem extends StatelessWidget {
   final HomeBloc homeBloc;
   final int index;
   final OfferMapper item;
-  final bool isNavigatingFromBanners;
+  final bool isClickable;
   const HeroBannerItem(
       {required this.index,
       required this.item,
       required this.homeBloc,
-      required this.isNavigatingFromBanners,
+      required this.isClickable,
       super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (isNavigatingFromBanners) {
+        if (isClickable) {
           homeBloc.selectedOffer = item;
           homeBloc.selectedOfferIndex = index;
+          homeBloc.isBanner = true;
+
           CustomNavigatorModule.navigatorKey.currentState!
               .pushNamed(AppScreenEnum.product.name);
         }

@@ -39,7 +39,7 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
                 index: index,
                 item: list[index],
                 homeBloc: widget.homeBloc,
-                isNavigatingFromBanners: true,
+                isClickable: true,
               ),
               shrinkWrap: true,
               // physics: const PageScrollPhysics(),

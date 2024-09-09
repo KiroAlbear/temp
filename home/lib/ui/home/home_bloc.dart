@@ -33,6 +33,11 @@ class HomeBloc extends BlocBase {
 
   OfferMapper? selectedOffer;
   int? selectedOfferIndex;
+  bool isBanner = false;
+
+  // int? selectedOfferCategoryId;
+  // int? selectedOfferProductId;
+  // int? selectedOfferBrandId;
 
   void loadData() {
     _loadOffers();

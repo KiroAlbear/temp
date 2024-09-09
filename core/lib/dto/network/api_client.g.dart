@@ -203,6 +203,36 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<HeaderResponse<List<ProductResponse>>> getProductById(
+      productId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HeaderResponse<List<ProductResponse>>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'get/product/${productId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = HeaderResponse<List<ProductResponse>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<ProductResponse>(
+              (i) => ProductResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
   Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
       request) async {
     const _extra = <String, dynamic>{};

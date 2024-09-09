@@ -27,6 +27,13 @@ class ProductRemote
     return callApiAsStream();
   }
 
+  Stream<ApiState<List<ProductMapper>>> loadProductById(int productId) {
+    apiFuture =
+        ApiClient(OdooDioModule().build()).getProductById(productId.toString());
+
+    return callApiAsStream();
+  }
+
   Stream<ApiState<List<ProductMapper>>> loadProductByBrand(
       ProductBrandRequest productBrandRequest) {
     apiFuture = ApiClient(OdooDioModule().build())

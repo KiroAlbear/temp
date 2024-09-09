@@ -143,6 +143,14 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     }
   }
 
+  void getProductById(int productId) {
+    ProductRemote().loadProductById(productId).listen((event) {
+      if (event is SuccessState) {
+        _handleProductResponse(event.response ?? []);
+      }
+    });
+  }
+
   void getProductWithSubcategoryBrand(int? subCategory, int? brand) {
     if ((subCategory == null && brand == null)) {
       ProductRemote()

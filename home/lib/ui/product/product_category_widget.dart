@@ -14,9 +14,11 @@ import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/product/product_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:home/ui/home/filter_item_widget.dart';
-import 'package:home/ui/home/hero_banner_item.dart';
 import 'package:home/ui/home/home_bloc.dart';
+import 'package:home/ui/home/offer_item.dart';
 import 'package:home/ui/product/product_category_bloc.dart';
+
+import '../home/hero_banner_item.dart';
 
 class ProductCategoryWidget extends BaseStatefulWidget {
   final String favouriteIcon;
@@ -74,6 +76,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
     widget.productCategoryBloc.categoryId = 1;
     widget.homeBloc.selectedOffer = null;
     widget.homeBloc.selectedOfferIndex = null;
+    // widget.homeBloc.selectedOfferCategoryId = null;
+    // widget.homeBloc.selectedOfferBrandId = null;
+    // widget.homeBloc.selectedOfferProductId = null;
     super.onPopInvoked(didPop);
   }
 
@@ -82,10 +87,22 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
 
   @override
   void initState() {
-    widget.productCategoryBloc.categoryId = ProductCategoryWidget.cateogryId;
-    widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
-    widget.productCategoryBloc.reset();
-    widget.productCategoryBloc.loadMore();
+    if (widget.homeBloc.selectedOffer != null) {
+      if (widget.homeBloc.selectedOffer!.link.toLowerCase() == "category") {
+        widget.productCategoryBloc.categoryId =
+            widget.homeBloc.selectedOffer!.relatedItemId;
+        widget.productCategoryBloc.getProductWithSubcategoryBrand(null, null);
+      } else if (widget.homeBloc.selectedOffer!.link.toLowerCase() ==
+          "product") {
+        widget.productCategoryBloc
+            .getProductById(widget.homeBloc.selectedOffer!.relatedItemId);
+      }
+    } else {
+      widget.productCategoryBloc.categoryId = ProductCategoryWidget.cateogryId;
+      widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
+      widget.productCategoryBloc.reset();
+      widget.productCategoryBloc.loadMore();
+    }
 
     // get arguments
 
@@ -449,18 +466,31 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
               )
             ],
           ),
-          (widget.homeBloc.selectedOffer == null ||
-                  widget.homeBloc.selectedOfferIndex == null)
-              ? SizedBox()
-              : Padding(
+          (widget.homeBloc.isBanner == true &&
+                  widget.homeBloc.selectedOffer != null)
+              ? Padding(
                   padding: EdgeInsets.only(top: 65.h),
                   child: HeroBannerItem(
                     index: widget.homeBloc.selectedOfferIndex!,
                     item: widget.homeBloc.selectedOffer!,
                     homeBloc: widget.homeBloc,
-                    isNavigatingFromBanners: false,
+                    isClickable: false,
                   ),
-                ),
+                )
+              : SizedBox(),
+          (widget.homeBloc.isBanner == false &&
+                  widget.homeBloc.selectedOffer != null)
+              ? Padding(
+                  padding: EdgeInsets.only(top: 65.h),
+                  child: OfferItem(
+                    index: widget.homeBloc.selectedOfferIndex!,
+                    item: widget.homeBloc.selectedOffer!,
+                    homeBloc: widget.homeBloc,
+                    isClickable: false,
+                    isForPromoTap: false,
+                  ),
+                )
+              : SizedBox()
         ],
       );
 }
