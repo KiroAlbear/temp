@@ -1,15 +1,23 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/my_orders/my_orders_request.dart';
+import 'package:core/dto/models/my_orders/order_cancel_request.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:my_orders/ui/my_orders_bloc.dart';
 
 import '../../../gen/assets.gen.dart';
 
 class CancelOrderBottomSheet extends StatelessWidget {
-  const CancelOrderBottomSheet({super.key});
+  final MyOrdersBloc myOrdersBloc;
+  final int orderId;
+  const CancelOrderBottomSheet(
+      {super.key, required this.myOrdersBloc, required this.orderId});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +64,19 @@ class CancelOrderBottomSheet extends StatelessWidget {
           ),
           CustomButtonWidget(
             idleText: S.of(context).orderCancelConfirmButton,
-            onTap: () {},
+            onTap: () {
+              final int clientId =
+                  int.tryParse(SharedPrefModule().userId ?? "0") ?? 0;
+              myOrdersBloc.cancelOrder(
+                  OrderCancelRequest(customer_id: clientId, order_id: orderId));
+              Navigator.of(context).pop();
+              myOrdersBloc.cancelOrderBehavior.listen((event) {
+                if (event is SuccessState) {
+                  myOrdersBloc.getMyOrders(
+                      MyOrdersRequest(clientId.toString(), '1', '100'));
+                }
+              });
+            },
             textColor: Colors.white,
             buttonColor: redColor,
           ),
@@ -65,7 +85,9 @@ class CancelOrderBottomSheet extends StatelessWidget {
           ),
           CustomButtonWidget(
             idleText: S.of(context).orderCancelBackButton,
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pop();
+            },
             textColor: Colors.white,
             buttonColor: lightGreyColorLightMode,
           )

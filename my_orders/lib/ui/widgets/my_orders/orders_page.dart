@@ -68,6 +68,10 @@ class _OrdersPageState extends State<OrdersPage> {
   }
 
   Widget _buildOrdersListDesign(List<OrdersMapper>? orders) {
-    return OrdersList(orders: orders, orderType: widget.orderType);
+    return OrdersList(
+      orders: orders,
+      orderType: widget.orderType,
+      myOrdersBloc: widget.myOrdersBloc,
+    );
   }
 }

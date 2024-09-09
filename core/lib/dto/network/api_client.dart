@@ -21,6 +21,7 @@ import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
 import 'package:core/dto/models/my_orders/my_orders_request.dart';
 import 'package:core/dto/models/my_orders/my_orders_response.dart';
+import 'package:core/dto/models/my_orders/order_cancel_request.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/password/change_password_request.dart';
 import 'package:core/dto/models/phone/phone_request.dart';
@@ -121,6 +122,10 @@ abstract class ApiClient {
   @POST(_ApiClientKey._confirmOrder)
   Future<HeaderResponse<List<CartConfirmOrderResponse>>> confirmOrder(
       @Body() CartConfirmOrderRequest request);
+
+  @POST(_ApiClientKey._cancelOrder)
+  Future<HeaderResponse<List<CartConfirmOrderResponse>>> cancelOrder(
+      @Body() OrderCancelRequest request);
 
   @POST(_ApiClientKey._signUp)
   Future<HeaderResponse<List<LoginResponse>>> register(

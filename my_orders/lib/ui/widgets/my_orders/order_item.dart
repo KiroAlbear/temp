@@ -8,6 +8,7 @@ import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:my_orders/gen/assets.gen.dart';
+import 'package:my_orders/ui/my_orders_bloc.dart';
 import 'package:my_orders/ui/widgets/current_orders/cancel_order_bottom_sheet.dart';
 import 'package:my_orders/ui/widgets/current_orders/current_orders_states.dart';
 import 'package:my_orders/ui/widgets/my_orders/order_item_grey_text.dart';
@@ -18,14 +19,16 @@ import 'orders_page.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderType orderItemType;
-  final OrdersMapper? currentOrder;
+  final OrdersMapper currentOrder;
   final List<OrderItemMapper> items;
   final List<String?> orderStatuses;
+  final MyOrdersBloc myOrdersBloc;
 
   OrderItem(
       {required this.orderItemType,
-      this.currentOrder,
+      required this.currentOrder,
       required this.items,
+      required this.myOrdersBloc,
       required this.orderStatuses});
 
   final CustomTextStyleModule titleTextStyle =
@@ -50,7 +53,11 @@ class OrderItem extends StatelessWidget {
           : DismissDirection.none,
       confirmDismiss: (direction) async {
         await UtilityModule().showBottomSheetDialog(
-            child: const CancelOrderBottomSheet(), context: context);
+            child: CancelOrderBottomSheet(
+              myOrdersBloc: myOrdersBloc,
+              orderId: currentOrder!.id,
+            ),
+            context: context);
         return false;
       },
       background: Container(
@@ -186,7 +193,11 @@ class OrderItem extends StatelessWidget {
             child: InkWell(
               onTap: () async {
                 await UtilityModule().showBottomSheetDialog(
-                    child: const CancelOrderBottomSheet(), context: context);
+                    child: CancelOrderBottomSheet(
+                      myOrdersBloc: myOrdersBloc,
+                      orderId: currentOrder!.id,
+                    ),
+                    context: context);
               },
               child: ImageHelper(
                 image: Assets.svg.icDeleteOrder,

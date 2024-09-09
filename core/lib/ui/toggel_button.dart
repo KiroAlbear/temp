@@ -110,6 +110,9 @@ class _ToggleButtonState extends State<ToggleButton> {
           ),
           GestureDetector(
             onTap: () {
+              if (widget.toggleXAlign.value == ToggleButton.leftToggleAlign) {
+                return;
+              }
               widget.toggleXAlign.value = ToggleButton.rightToggleAlign;
 
               widget.onRightToggleActive();
@@ -147,6 +150,9 @@ class _ToggleButtonState extends State<ToggleButton> {
           ),
           GestureDetector(
             onTap: () {
+              if (widget.toggleXAlign.value == ToggleButton.rightToggleAlign) {
+                return;
+              }
               widget.toggleXAlign.value = ToggleButton.leftToggleAlign;
 
               widget.onLeftToggleActive();
