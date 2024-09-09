@@ -73,6 +73,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
     ProductCategoryWidget.cateogryId = 1;
     widget.productCategoryBloc.categoryId = 1;
     widget.homeBloc.selectedOffer = null;
+    widget.homeBloc.selectedOfferIndex = null;
     super.onPopInvoked(didPop);
   }
 
@@ -448,12 +449,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
               )
             ],
           ),
-          widget.homeBloc.selectedOffer == null
+          (widget.homeBloc.selectedOffer == null ||
+                  widget.homeBloc.selectedOfferIndex == null)
               ? SizedBox()
               : Padding(
                   padding: EdgeInsets.only(top: 65.h),
                   child: HeroBannerItem(
-                    index: 1,
+                    index: widget.homeBloc.selectedOfferIndex!,
                     item: widget.homeBloc.selectedOffer!,
                     homeBloc: widget.homeBloc,
                     isNavigatingFromBanners: false,

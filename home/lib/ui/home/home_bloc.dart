@@ -32,6 +32,7 @@ class HomeBloc extends BlocBase {
       _categoryBehaviour.stream;
 
   OfferMapper? selectedOffer;
+  int? selectedOfferIndex;
 
   void loadData() {
     _loadOffers();

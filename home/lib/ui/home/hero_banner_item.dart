@@ -24,6 +24,7 @@ class HeroBannerItem extends StatelessWidget {
       onTap: () {
         if (isNavigatingFromBanners) {
           homeBloc.selectedOffer = item;
+          homeBloc.selectedOfferIndex = index;
           CustomNavigatorModule.navigatorKey.currentState!
               .pushNamed(AppScreenEnum.product.name);
         }
