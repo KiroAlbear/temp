@@ -31,6 +31,8 @@ class HomeBloc extends BlocBase {
   Stream<ApiState<List<CategoryMapper>>> get categoryStream =>
       _categoryBehaviour.stream;
 
+  OfferMapper? selectedOffer;
+
   void loadData() {
     _loadOffers();
     _loadHeroBanners();
