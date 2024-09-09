@@ -183,6 +183,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("سبب إلغاء الطلب"),
         "orderCancelReasonTitle":
             MessageLookupByLibrary.simpleMessage("سبب إلغاء طلبك"),
+        "orderCancelReasonValidation": MessageLookupByLibrary.simpleMessage(
+            "الرجاء إدخال سبب إلغاء الطلب"),
         "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "orderInProgress": MessageLookupByLibrary.simpleMessage("قيد التنفيذ"),

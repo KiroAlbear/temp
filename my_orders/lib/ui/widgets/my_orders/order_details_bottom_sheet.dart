@@ -16,6 +16,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
           padding: EdgeInsetsDirectional.only(
@@ -56,7 +57,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
               title: items[index].title,
               subtitle: items[index].description,
               price: items[index].price,
-              orderImage: null,
+              orderImage: items[index].image,
               quantity: items[index].count,
             );
           },

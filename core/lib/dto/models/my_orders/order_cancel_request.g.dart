@@ -10,10 +10,12 @@ OrderCancelRequest _$OrderCancelRequestFromJson(Map<String, dynamic> json) =>
     OrderCancelRequest(
       customer_id: (json['customer_id'] as num?)?.toInt(),
       order_id: (json['order_id'] as num?)?.toInt(),
+      cancellation_reason: json['cancellation_reason'] as String?,
     );
 
 Map<String, dynamic> _$OrderCancelRequestToJson(OrderCancelRequest instance) =>
     <String, dynamic>{
       'customer_id': instance.customer_id,
       'order_id': instance.order_id,
+      'cancellation_reason': instance.cancellation_reason,
     };

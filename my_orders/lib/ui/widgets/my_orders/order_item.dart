@@ -53,6 +53,7 @@ class OrderItem extends StatelessWidget {
           : DismissDirection.none,
       confirmDismiss: (direction) async {
         await UtilityModule().showBottomSheetDialog(
+            useFixedHeight: false,
             child: CancelOrderBottomSheet(
               myOrdersBloc: myOrdersBloc,
               orderId: currentOrder!.id,
@@ -142,6 +143,7 @@ class OrderItem extends StatelessWidget {
                       idleText: S.of(context).orderDetails,
                       onTap: () {
                         UtilityModule().showBottomSheetDialog(
+                            useFixedHeight: true,
                             child: OrderDetailsBottomSheet(
                               items: items,
                             ),
@@ -193,6 +195,7 @@ class OrderItem extends StatelessWidget {
             child: InkWell(
               onTap: () async {
                 await UtilityModule().showBottomSheetDialog(
+                    useFixedHeight: false,
                     child: CancelOrderBottomSheet(
                       myOrdersBloc: myOrdersBloc,
                       orderId: currentOrder!.id,

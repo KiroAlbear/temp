@@ -25,9 +25,11 @@ class _OrdersPageState extends State<OrdersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.orderType == OrderType.currentOrder
-        ? _getCurrentOrdersStream()
-        : _getPastOrdersStream();
+    return SafeArea(
+      child: widget.orderType == OrderType.currentOrder
+          ? _getCurrentOrdersStream()
+          : _getPastOrdersStream(),
+    );
   }
 
   StreamBuilder<ApiState<MyOrdersMapper>> _getCurrentOrdersStream() {

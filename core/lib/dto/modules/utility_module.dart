@@ -60,6 +60,7 @@ class UtilityModule {
   Future<void> showBottomSheetDialog({
     required Widget child,
     required BuildContext context,
+    required bool useFixedHeight,
   }) async {
     await showModalBottomSheet(
         context: context,
@@ -67,10 +68,12 @@ class UtilityModule {
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.w))),
         elevation: 200,
         isScrollControlled: true,
+        useRootNavigator: true,
+        useSafeArea: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         builder: (context) => FractionallySizedBox(
-              heightFactor: 0.7,
               child: child,
+              heightFactor: useFixedHeight ? 0.7 : null,
             ));
   }
 
