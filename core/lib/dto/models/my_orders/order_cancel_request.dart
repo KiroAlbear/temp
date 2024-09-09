@@ -10,10 +10,13 @@ class OrderCancelRequest {
   @JsonKey(name: 'order_id')
   int? order_id;
 
-  OrderCancelRequest({
-    required this.customer_id,
-    required this.order_id,
-  });
+  @JsonKey(name: 'cancellation_reason')
+  String? cancellation_reason;
+
+  OrderCancelRequest(
+      {required this.customer_id,
+      required this.order_id,
+      required this.cancellation_reason});
 
   factory OrderCancelRequest.fromJson(Map<String, dynamic> json) =>
       _$OrderCancelRequestFromJson(json);

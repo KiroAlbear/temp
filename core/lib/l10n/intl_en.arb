@@ -143,6 +143,7 @@
   "orderCancelReasonTitle": "Reason for canceling your order",
   "orderCancelReasonHint": "Reason for canceling the order",
   "orderCancelConfirmButton": "Confirm Cancellation",
+  "orderCancelReasonValidation": "Please enter a reason for canceling the order",
   "orderCancelBackButton": "Back",
   "orderItem": "Items",
   "ordersNotFound": "You don't have any order till now",

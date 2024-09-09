@@ -35,6 +35,7 @@ class MyOrdersMapper {
           id: orderResponse.items![i].id!,
           title: orderResponse.items![i].name!,
           description: orderResponse.items![i].description!,
+          image: orderResponse.items![i].image,
           price:
               "${orderResponse.items![i].price!.toString()} ${orderResponse.items![i].currency![1]}",
           count: orderResponse.items![i].count!.toInt()));
@@ -52,6 +53,7 @@ class OrdersMapper {
   String? shippingOrder;
   String? outOrder;
   String? deliverOrder;
+
   List<OrderItemMapper> items;
   OrdersMapper(
       {required this.id,
@@ -71,11 +73,12 @@ class OrderItemMapper {
   String description;
   String price;
   int count;
-
+  String? image;
   OrderItemMapper(
       {required this.id,
       required this.title,
       required this.description,
       required this.price,
+      required this.image,
       required this.count});
 }

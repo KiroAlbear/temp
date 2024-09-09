@@ -144,6 +144,7 @@
   "orderCancelReasonHint": "سبب إلغاء الطلب",
   "orderCancelConfirmButton": "تأكيد الإلغاء",
   "orderCancelBackButton": "الرجوع",
+  "orderCancelReasonValidation": "الرجاء إدخال سبب إلغاء الطلب",
   "orderItem": "قطعة",
   "ordersNotFound": "لم تقم بطلب اي منتج حتي الان",
 
@@ -168,6 +169,7 @@
   "cartCashOnDelivery": "كاش عند الاستلام",
   "cartPaymentOptions": "طريقة الدفع المناسبة ليك",
   "cartDokkanWallet": "محفظة دكان"
+
 
 
 

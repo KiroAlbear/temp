@@ -1480,6 +1480,16 @@ class S {
     );
   }
 
+  /// `Please enter a reason for canceling the order`
+  String get orderCancelReasonValidation {
+    return Intl.message(
+      'Please enter a reason for canceling the order',
+      name: 'orderCancelReasonValidation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Back`
   String get orderCancelBackButton {
     return Intl.message(
