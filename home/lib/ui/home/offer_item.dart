@@ -85,7 +85,7 @@ class OfferItem extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 10.h),
                 child: ImageHelper(
                   image: item.image,
-                  imageType: ImageType.networkSvg,
+                  imageType: ImageType.network,
                   boxFit: BoxFit.contain,
                 ),
               ),
