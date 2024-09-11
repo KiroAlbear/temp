@@ -26,6 +26,7 @@ class OtpWidget extends StatefulWidget {
   @override
   State<OtpWidget> createState() => _OtpWidgetState();
 }
+
 /////
 class _OtpWidgetState extends State<OtpWidget> {
   String? _signature;
@@ -162,7 +163,8 @@ class _OtpWidgetState extends State<OtpWidget> {
       text: S.of(context).enterVerificationCodeSentTo(
           _bloc.otpCodeLength,
           widget.authenticationSharedBloc.countryMapper.description +
-              widget.authenticationSharedBloc.mobile),
+              widget.authenticationSharedBloc.mobile +
+              '+'),
       customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor));
 
   Widget get _sendOtpAgain => StreamBuilder(
