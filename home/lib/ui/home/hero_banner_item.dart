@@ -34,7 +34,7 @@ class HeroBannerItem extends StatelessWidget {
       child: Container(
         height: 90.h,
         width: MediaQuery.of(context).size.width - 40.w,
-        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
+        padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 0.w),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
             border: Border.all(width: 1.w, color: _whichBorderColor(index)),
@@ -51,9 +51,10 @@ class HeroBannerItem extends StatelessWidget {
             // ),
             Expanded(
                 child: ImageHelper(
+              borderRadius: BorderRadius.circular(20.w),
               image: item.image,
               imageType: ImageType.network,
-              boxFit: BoxFit.contain,
+              boxFit: BoxFit.fill,
             ))
           ],
         ),
