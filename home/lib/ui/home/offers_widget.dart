@@ -31,23 +31,25 @@ class _OffersWidgetState extends State<OffersWidget>
             onSuccess: _buildWidget(snapshot.data?.response ?? [])),
       );
 
-  Widget _buildWidget(List<OfferMapper> list) => SizedBox(
-        height: 85.h,
-        child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            // physics: const PageScrollPhysics(),
-            // controller: _pageScrollController,
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            itemBuilder: (context, index) => OfferItem(
-                isForPromoTap: widget.isForPromoTap,
-                isClickable: true,
-                item: list[index],
-                homeBloc: widget.homeBloc,
-                index: index),
-            separatorBuilder: (context, index) => SizedBox(
-                  width: 20.w,
-                ),
-            itemCount: list.length),
-      );
+  Widget _buildWidget(List<OfferMapper> list) => list.isEmpty
+      ? SizedBox()
+      : SizedBox(
+          height: 85.h,
+          child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              // physics: const PageScrollPhysics(),
+              // controller: _pageScrollController,
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              itemBuilder: (context, index) => OfferItem(
+                  isForPromoTap: widget.isForPromoTap,
+                  isClickable: true,
+                  item: list[index],
+                  homeBloc: widget.homeBloc,
+                  index: index),
+              separatorBuilder: (context, index) => SizedBox(
+                    width: 20.w,
+                  ),
+              itemCount: list.length),
+        );
 }
