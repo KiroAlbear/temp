@@ -90,7 +90,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
             onTap: () => EasyLauncher.url(
                 url: contactUsMapper.facebook, mode: Mode.externalApp),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: _buildContactUsItem(contactUsMapper.facebook,
                   widget.contactUsBloc.facebookIcon, S.of(context).faceBook),
             ),

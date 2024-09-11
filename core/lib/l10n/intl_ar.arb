@@ -147,9 +147,6 @@
   "orderCancelReasonValidation": "الرجاء إدخال سبب إلغاء الطلب",
   "orderItem": "قطعة",
   "ordersNotFound": "لم تقم بطلب اي منتج حتي الان",
-
-
-
   "productsFilterAll": "الكل",
   "emptyFavourite": "لا يوجد منتجات مفضلة لديك",
   "promoDetails": "تفاصيل العرض",
@@ -169,12 +166,4 @@
   "cartCashOnDelivery": "كاش عند الاستلام",
   "cartPaymentOptions": "طريقة الدفع المناسبة ليك",
   "cartDokkanWallet": "محفظة دكان"
-
-
-
-
-
-
-
-
 }
