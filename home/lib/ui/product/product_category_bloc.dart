@@ -30,6 +30,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int? brandId;
 
   bool isForFavourite = false;
+  bool isNavigatingFromMore = false;
   ValueNotifier<bool>? isLoading = null;
 
   static String? searchValue;

@@ -64,13 +64,17 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
 
   @override
   bool canPop() {
-    return widget.productCategoryBloc.isForFavourite ? false : true;
+    return (widget.productCategoryBloc.isForFavourite &&
+            widget.productCategoryBloc.isNavigatingFromMore == false)
+        ? false
+        : true;
   }
 
   @override
   void onPopInvoked(didPop) {
     ProductCategoryWidget.cateogryId = 1;
     widget.productCategoryBloc.categoryId = 1;
+    widget.productCategoryBloc.isNavigatingFromMore = false;
     super.onPopInvoked(didPop);
   }
 
@@ -117,7 +121,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                 widget.homeBloc.searchBloc.textFormFiledStream,
             onChanged: (value) =>
                 widget.homeBloc.searchBloc.updateStringBehaviour(value),
-            backIcon: widget.productCategoryBloc.isForFavourite
+            backIcon: (widget.productCategoryBloc.isForFavourite &&
+                    widget.productCategoryBloc.isNavigatingFromMore == false)
                 ? ''
                 : widget.backIcon,
             title: widget.productCategoryBloc.isForFavourite

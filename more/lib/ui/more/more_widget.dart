@@ -15,6 +15,7 @@ import 'package:core/ui/contactUs/contact_us_bloc.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:home/ui/product/product_category_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:more/ui/more/more_bloc.dart';
 import 'package:more/ui/more/shop_logo_camera_widget.dart';
@@ -37,6 +38,7 @@ class MoreWidget extends BaseStatefulWidget {
   final String usagePolicyIcon;
   final String alertIcon;
   final ContactUsBloc contactUsBloc;
+  final ProductCategoryBloc productCategoryBloc;
 
   const MoreWidget(
       {super.key,
@@ -55,6 +57,7 @@ class MoreWidget extends BaseStatefulWidget {
       required this.usagePolicyIcon,
       required this.alertIcon,
       required this.contactUsBloc,
+      required this.productCategoryBloc,
       required this.favouriteIcon});
 
   @override
@@ -178,8 +181,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           height: 10.h,
         ),
         _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
+          // widget.productCategoryBloc.reset();
+          widget.productCategoryBloc.isForFavourite = true;
+          widget.productCategoryBloc.isNavigatingFromMore = true;
           CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.myOrders.name);
+              ?.pushNamed(AppScreenEnum.product.name);
         },
             disabled: (SharedPrefModule().userId ?? '').isEmpty,
             height: 20.h,

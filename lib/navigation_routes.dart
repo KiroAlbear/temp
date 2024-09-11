@@ -148,7 +148,7 @@ void _listenForBottomNavigationChange() {
   _bottomNavigationBloc.selectedTabStream.listen((event) {
     LoggerModule.log(
         message: '${event}', name: '_listenForBottomNavigationChange');
-    if (event == 1) {
+    if (event == 1 || _productCategoryBloc.isNavigatingFromMore) {
       _productCategoryBloc.isForFavourite = true;
       _productCategoryBloc.reset();
     } else {
@@ -190,6 +190,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
         shopIcon: Assets.svgIcEmptyShop,
         usagePolicyIcon: Assets.svgIcHealthCheck,
         alertIcon: Assets.svgIcAlert,
+        productCategoryBloc: _productCategoryBloc,
         contactUsBloc: _contactUsBloc,
       ),
     );
