@@ -24,6 +24,7 @@ class MoreWidget extends BaseStatefulWidget {
   final String appLogo;
   final String shopIcon;
   final String cameraIcon;
+  final String favouriteIcon;
   final String previewsOrderIcon;
   final String myOrdersIcon;
   final String accountSettingIcon;
@@ -37,24 +38,24 @@ class MoreWidget extends BaseStatefulWidget {
   final String alertIcon;
   final ContactUsBloc contactUsBloc;
 
-  const MoreWidget({
-    super.key,
-    required this.accountSettingIcon,
-    required this.appLogo,
-    required this.moreBloc,
-    required this.cameraIcon,
-    required this.changePasswordIcon,
-    required this.contactUsIcon,
-    required this.myOrdersIcon,
-    required this.deleteAccountIcon,
-    required this.faqIcon,
-    required this.logoutIcon,
-    required this.previewsOrderIcon,
-    required this.shopIcon,
-    required this.usagePolicyIcon,
-    required this.alertIcon,
-    required this.contactUsBloc,
-  });
+  const MoreWidget(
+      {super.key,
+      required this.accountSettingIcon,
+      required this.appLogo,
+      required this.moreBloc,
+      required this.cameraIcon,
+      required this.changePasswordIcon,
+      required this.contactUsIcon,
+      required this.myOrdersIcon,
+      required this.deleteAccountIcon,
+      required this.faqIcon,
+      required this.logoutIcon,
+      required this.previewsOrderIcon,
+      required this.shopIcon,
+      required this.usagePolicyIcon,
+      required this.alertIcon,
+      required this.contactUsBloc,
+      required this.favouriteIcon});
 
   @override
   State<MoreWidget> createState() => _MoreWidgetState();
@@ -173,6 +174,16 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.myOrders.name);
         }, disabled: (SharedPrefModule().userId ?? '').isEmpty),
+        SizedBox(
+          height: 10.h,
+        ),
+        _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
+          CustomNavigatorModule.navigatorKey.currentState
+              ?.pushNamed(AppScreenEnum.myOrders.name);
+        },
+            disabled: (SharedPrefModule().userId ?? '').isEmpty,
+            height: 20.h,
+            width: 20.w),
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
             height: 10.h,
@@ -408,7 +419,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       );
 */
   Widget _menuItem(String text, String imagePath, VoidCallback onTap,
-          {bool isBoldStyle = false, bool disabled = false}) =>
+          {bool isBoldStyle = false,
+          bool disabled = false,
+          double? height,
+          double? width}) =>
       IgnorePointer(
         ignoring: disabled,
         child: InkWell(
@@ -423,8 +437,8 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               ImageHelper(
                 image: imagePath,
                 imageType: ImageType.svg,
-                width: 24.w,
-                height: 24.h,
+                width: height ?? 24.w,
+                height: width ?? 24.h,
                 color: disabled ? greyColor : lightBlackColor,
                 boxFit: BoxFit.fill,
               ),

@@ -177,6 +177,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
       child: MoreWidget(
         accountSettingIcon: Assets.svgIcPerson,
         appLogo: Assets.svgIcHomeLogo,
+        favouriteIcon: Assets.svgIcFavourite,
         myOrdersIcon: Assets.svgIcMyOrders,
         moreBloc: _moreBloc,
         cameraIcon: Assets.svgIcCamera,
