@@ -17,6 +17,8 @@ class Assets {
   static const String svgIcBottomSplash = 'assets/svg/ic_bottom_splash.svg';
   static const String svgIcCamera = 'assets/svg/ic_camera.svg';
   static const String svgIcCart = 'assets/svg/ic_cart.svg';
+  static const String svgIcCloseEye = 'assets/svg/ic_close_eye.svg';
+  static const String svgIcOpenEye = 'assets/svg/ic_open_eye.svg';
   static const String svgIcClose = 'assets/svg/ic_close.svg';
   static const String svgIcContactUs = 'assets/svg/ic_contact_us.svg';
   static const String svgIcContactUsMore = 'assets/svg/ic_contact_us_more.svg';

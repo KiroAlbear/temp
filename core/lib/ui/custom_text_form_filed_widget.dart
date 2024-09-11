@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:dokkan/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -245,13 +246,16 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
       stream: _passwordToggleBehaviour.stream,
       initialData: false,
       builder: (context, snapshot) => InkWell(
-            child: ImageHelper(
-              image: 'assets/svg/ic_eye.svg',
-              imageType: ImageType.svg,
-              boxFit: BoxFit.scaleDown,
-              scale: 0.5,
-              color: greyColor,
-            ),
+            child: snapshot.hasData
+                ? ImageHelper(
+                    image: snapshot.data!
+                        ? Assets.svgIcCloseEye
+                        : Assets.svgIcOpenEye,
+                    imageType: ImageType.svg,
+                    boxFit: BoxFit.scaleDown,
+                    scale: 0.5,
+                  )
+                : SizedBox(),
             onTap: () => _passwordToggleBehaviour.sink
                 .add(!_passwordToggleBehaviour.value),
           ));
