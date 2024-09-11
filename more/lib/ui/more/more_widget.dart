@@ -173,10 +173,17 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
         SizedBox(
           height: 10.h,
         ),
-        _menuItem(S.of(context).currentOrders, widget.myOrdersIcon, () {
-          CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.myOrders.name);
-        }, disabled: (SharedPrefModule().userId ?? '').isEmpty),
+        _menuItem(
+          S.of(context).currentOrders,
+          widget.myOrdersIcon,
+          () {
+            CustomNavigatorModule.navigatorKey.currentState
+                ?.pushNamed(AppScreenEnum.myOrders.name);
+          },
+          disabled: (SharedPrefModule().userId ?? '').isEmpty,
+          width: 20.w,
+          height: 20.h,
+        ),
         SizedBox(
           height: 10.h,
         ),
