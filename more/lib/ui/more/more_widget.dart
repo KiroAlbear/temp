@@ -548,6 +548,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       headerSvg: widget.alertIcon,
       errorColorInConfirm: true,
       onConfirm: () {},
+      hasCancelButton: true,
     );
   }
 }

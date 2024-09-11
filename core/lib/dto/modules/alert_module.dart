@@ -4,7 +4,6 @@ import 'package:core/ui/contactUs/contact_us_bloc.dart';
 import 'package:core/ui/contactUs/contact_us_widget.dart';
 import 'package:core/ui/custom_material_banner.dart';
 import 'package:core/ui/dialog_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlertModule {
@@ -74,15 +73,15 @@ class AlertModule {
       } else {
         isBannerShowed = true;
       }
-      if(message.isNotEmpty){
+      if (message.isNotEmpty) {
         ScaffoldMessenger.maybeOf(context)!
             .showMaterialBanner(CustomMaterialBanner(
-          context: context,
-          message: message,
-          leadingCallBack: leadingCallBack,
-          materialBannerType: materialBannerType,
-          actions: actions,
-        ))
+              context: context,
+              message: message,
+              leadingCallBack: leadingCallBack,
+              materialBannerType: materialBannerType,
+              actions: actions,
+            ))
             .closed
             .then((value) {
           isBannerShowed = false;
@@ -91,7 +90,7 @@ class AlertModule {
       }
     });
     Future.delayed(const Duration(seconds: 4)).then((value) {
-      if(materialBannerType  != MaterialBannerType.info){
+      if (materialBannerType != MaterialBannerType.info) {
         isBannerShowed = false;
         ScaffoldMessenger.maybeOf(context)?.hideCurrentMaterialBanner();
       }
@@ -223,6 +222,7 @@ class AlertModule {
       String? cancelMessage,
       VoidCallback? onCancel,
       VoidCallback? onConfirm,
+      bool hasCancelButton = false,
       bool errorColorInConfirm = false}) async {
     return NavigationModule().pushBottomDialog(
       widget: DialogWidget(
@@ -233,7 +233,8 @@ class AlertModule {
         headerSvg: headerSvg,
         onCancel: onCancel,
         onConfirm: onConfirm,
-          errorColorInConfirm: errorColorInConfirm,
+        errorColorInConfirm: errorColorInConfirm,
+        hasCloseButton: hasCancelButton,
       ),
       context: context,
     );
@@ -242,7 +243,7 @@ class AlertModule {
 
   Future<dynamic> showContactUsDialog(
       {required ContactUsBloc contactUsBloc,
-        required BuildContext context}) async {
+      required BuildContext context}) async {
     return NavigationModule().pushBottomDialog(
       widget: ContactUsWidget(
         contactUsBloc: contactUsBloc,

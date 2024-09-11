@@ -3,6 +3,7 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/dialog_header_widget.dart';
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:dokkan/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -18,6 +19,7 @@ class DialogWidget extends StatefulWidget {
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
   final bool errorColorInConfirm;
+  final bool hasCloseButton;
 
   const DialogWidget(
       {super.key,
@@ -28,6 +30,7 @@ class DialogWidget extends StatefulWidget {
       this.cancelMessage,
       this.onCancel,
       this.onConfirm,
+      this.hasCloseButton = false,
       this.errorColorInConfirm = false});
 
   @override
@@ -41,52 +44,81 @@ class _DialogWidgetState extends State<DialogWidget> {
   Widget _getContainer({required Widget child}) =>
       DialogHeaderWidget(child: child);
 
-  Widget get _column => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 35.h,
-          ),
-          if (widget.headerMessage != null) _headerMessage,
-          if (widget.headerSvg != null) ...[
-            SizedBox(
-              height: 21.h,
+  Widget get _column => Padding(
+        padding: EdgeInsets.symmetric(horizontal: 17.w),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: 35.h,
+                ),
+                if (widget.headerMessage != null) _headerMessage,
+                if (widget.headerSvg != null) ...[
+                  SizedBox(
+                    height: 21.h,
+                  ),
+                  _headerSvg,
+                ],
+                if (widget.headerSvg != null && widget.headerMessage != null)
+                  SizedBox(
+                    height: 14.h,
+                  ),
+                _message,
+                SizedBox(
+                  height: 20.h,
+                ),
+                _confirmButton,
+                if (widget.cancelMessage != null) ...[
+                  SizedBox(
+                    height: 17.h,
+                  ),
+                  _cancelButton,
+                  SizedBox(
+                    height: 28.h,
+                  ),
+                ],
+                widget.cancelMessage == null
+                    ? SizedBox(
+                        height: 28.h,
+                      )
+                    : SizedBox(),
+              ],
             ),
-            _headerSvg,
+            widget.hasCloseButton
+                ? Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 22.h, 5.w, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: ImageHelper(
+                              image: Assets.svgIcClose,
+                              imageType: ImageType.svg),
+                        )
+                      ],
+                    ),
+                  )
+                : SizedBox(),
           ],
-          if (widget.headerSvg != null && widget.headerMessage != null)
-            SizedBox(
-              height: 14.h,
-            ),
-          _message,
-          SizedBox(
-            height: 20.h,
-          ),
-          _confirmButton,
-          if (widget.cancelMessage != null) ...[
-            SizedBox(
-              height: 17.h,
-            ),
-            _cancelButton,
-            SizedBox(
-              height: 28.h,
-            ),
-          ],
-          widget.cancelMessage == null
-              ? SizedBox(
-                  height: 28.h,
-                )
-              : SizedBox(),
-        ],
+        ),
       );
 
   Widget get _headerMessage => CustomText(
-      text: widget.headerMessage ?? '',
-      customTextStyle: BoldStyle(
-        color: widget.errorColorInConfirm ? redColor : secondaryColor,
-        fontSize: 26.sp,
-      ));
+        text: widget.headerMessage ?? '',
+        customTextStyle: BoldStyle(
+          color: widget.errorColorInConfirm ? redColor : secondaryColor,
+          fontSize: 26.sp,
+        ),
+        textAlign: TextAlign.center,
+      );
 
   Widget get _headerSvg => ImageHelper(
         image: widget.headerSvg ?? '',
