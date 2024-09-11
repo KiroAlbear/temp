@@ -146,7 +146,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                         widget.homeBloc.searchBloc.textFormFiledStream,
                     onChanged: (value) =>
                         widget.homeBloc.searchBloc.updateStringBehaviour(value),
-                    backIcon: widget.productCategoryBloc.isForFavourite
+                    backIcon: (widget.productCategoryBloc.isForFavourite &&
+                            widget.productCategoryBloc.isNavigatingFromMore ==
+                                false)
                         ? ''
                         : widget.backIcon,
                     title: widget.productCategoryBloc.isForFavourite
