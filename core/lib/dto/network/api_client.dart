@@ -75,6 +75,10 @@ abstract class ApiClient {
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(
       @Body() ProductRequest request);
 
+  @POST("${_ApiClientKey._allProduct}/{productId}")
+  Future<HeaderResponse<List<ProductResponse>>> getProductById(
+      @Path() String productId);
+
   @GET(_ApiClientKey._productBySubCategoryBrand)
   Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
       @Body() ProductSubcategoryBrandRequest request);
