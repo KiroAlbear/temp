@@ -458,7 +458,8 @@ class _ProductWidgetState extends State<ProductWidget> {
           height: 25.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.r),
-            color: widget.productMapper.isAvailable ? primaryColor : greyColor,
+            color:
+                widget.productMapper.canAddToCart() ? primaryColor : greyColor,
           ),
           child: Center(
             child: CustomText(
