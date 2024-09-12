@@ -1,4 +1,6 @@
 import 'package:core/core.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -70,9 +72,26 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             height: 23.h,
           ),
           HeroBannersWidget(homeBloc: widget.homeBloc),
+          StreamBuilder<ApiState<List<OfferMapper>>>(
+              stream: widget.homeBloc.offersStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData &&
+                    snapshot.data != null &&
+                    snapshot.data!.response != null) {
+                  if (snapshot.data!.response!.isNotEmpty) {
+                    return SizedBox(
+                      height: 50.h,
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                } else {
+                  return SizedBox();
+                }
+              }),
           OffersWidget(homeBloc: widget.homeBloc),
           SizedBox(
-            height: 12.h,
+            height: 22.h,
           ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),

@@ -52,11 +52,11 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
               ),
             ),
           ),
-          list.isNotEmpty
-              ? SizedBox(
-                  height: 50.h,
-                )
-              : Container()
+          // list.isNotEmpty
+          //     ? SizedBox(
+          //         height: 50.h,
+          //       )
+          //     : Container()
         ],
       );
 
