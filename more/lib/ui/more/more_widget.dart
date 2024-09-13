@@ -547,7 +547,14 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       headerMessage: S.of(context).deleteAccount,
       headerSvg: widget.alertIcon,
       errorColorInConfirm: true,
-      onConfirm: () {},
+      onConfirm: () {
+        widget.moreBloc.deactivateAccountStream.listen((event) {
+          if (event is SuccessState) {
+            AppProviderModule().logout(context);
+            widget.moreBloc.selectedFileBehaviour.sink.add("");
+          }
+        });
+      },
       hasCancelButton: true,
     );
   }

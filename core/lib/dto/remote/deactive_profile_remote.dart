@@ -18,6 +18,6 @@ class DeActiveProfileRemote extends BaseRemoteModule<void, void> {
 
   @override
   Future<bool> refreshToken() async {
-    return true;
+    return false;
   }
 }
