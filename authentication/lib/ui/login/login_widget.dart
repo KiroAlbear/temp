@@ -1,5 +1,6 @@
 import 'package:authentication/ui/login/login_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
+import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -18,11 +19,13 @@ class LoginWidget extends BaseStatefulWidget {
   final String logo;
   final String biometricImage;
   final bool enableSkip;
+  final BottomNavigationBloc? bottomNavigationBloc;
 
   const LoginWidget(
       {super.key,
       required this.logo,
       required this.biometricImage,
+      required this.bottomNavigationBloc,
       required this.enableSkip});
 
   @override
@@ -228,8 +231,11 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
   void _navigateHome() {
     SharedPrefModule().userName = _bloc.mobileBloc.value;
     SharedPrefModule().password = _bloc.passwordBloc.value;
+
     CustomNavigatorModule.navigatorKey.currentState
         ?.pushReplacementNamed(AppScreenEnum.home.name);
+    if (widget.bottomNavigationBloc != null)
+      widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }
 
   @override

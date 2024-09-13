@@ -125,16 +125,18 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
 Widget get _faqWidget => const FaqWidget(
     backIcon: Assets.svgIcBack, arrowDown: Assets.svgIcArrowDown);
 
-Widget get _loginWidget => const LoginWidget(
+Widget get _loginWidget => LoginWidget(
       logo: Assets.svgIcLogoH,
       biometricImage: Assets.svgIcBiometric,
       enableSkip: true,
+      bottomNavigationBloc: _bottomNavigationBloc,
     );
 
-Widget get _loginWidgetWithoutSkip => const LoginWidget(
+Widget get _loginWidgetWithoutSkip => LoginWidget(
       logo: Assets.svgIcLogoH,
       biometricImage: Assets.svgIcBiometric,
       enableSkip: false,
+      bottomNavigationBloc: null,
     );
 
 Widget get _scanBarcodeWidget =>
