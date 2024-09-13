@@ -30,6 +30,8 @@ class ShopLogoCameraWidget extends StatefulWidget {
 
 class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
     with LifecycleMixin {
+  final double imageWidth = 74.w;
+  final double imageHeight = 74.h;
   @override
   void onAppLifecycleChange(AppLifecycleState state) {
     super.onAppLifecycleChange(state);
@@ -82,34 +84,38 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
         child: InkWell(
           onTap: () => widget.openCameraOrGallery(),
           child: StreamBuilder<String>(
-            builder: (context, snapshot) => Container(
-              height: 74.h,
-              width: 74.w,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: greyColor.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(16.w)),
-              child: ImageHelper(
-                width: snapshot.data!.isEmpty ? 58.w : 150.w,
-                height: snapshot.data!.isEmpty ? 58.h : 80.h,
-                imageType:
-                    snapshot.data!.isEmpty ? ImageType.network : ImageType.file,
-                image:
-                    snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
-                // snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
-                boxFit: BoxFit.cover,
-                imageShape: ImageShape.rectangle,
-                borderRadius: BorderRadius.circular(16.w),
-                errorBuilder: ImageHelper(
-                  imageType: ImageType.svg,
-                  image: widget.placeHolder,
-                  width: 80.w,
-                  height: 80.h,
-                ),
-              ),
-            ),
             stream: widget.moreBloc.selectedFileStream,
             initialData: '',
+            builder: (context, snapshot) => !snapshot.hasData
+                ? CircularProgressIndicator()
+                : Container(
+                    height: imageHeight,
+                    width: imageWidth,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: greyColor.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(16.w)),
+                    child: ImageHelper(
+                      height: imageHeight,
+                      width: imageWidth,
+                      imageType: snapshot.data!.isEmpty
+                          ? ImageType.network
+                          : ImageType.file,
+                      image: snapshot.data!.isEmpty
+                          ? widget.shopLogo
+                          : snapshot.data!,
+                      // snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
+                      boxFit: BoxFit.fill,
+                      imageShape: ImageShape.rectangle,
+                      borderRadius: BorderRadius.circular(16.w),
+                      errorBuilder: ImageHelper(
+                        imageType: ImageType.svg,
+                        image: widget.placeHolder,
+                        width: 80.w,
+                        height: 80.h,
+                      ),
+                    ),
+                  ),
           ),
         ),
       );

@@ -9,7 +9,7 @@ import 'package:core/dto/remote/balance_remote.dart';
 import 'package:core/dto/remote/profile_remote.dart';
 import 'package:core/dto/remote/update_profile_image_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MoreBloc extends BlocBase with ResponseHandlerModule {
@@ -32,7 +32,8 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
         uploadProfileRemote.callApiAsStream.listen(
           (event) {
             if (event is SuccessState) {
-              selectedFileBehaviour.sink.add("");
+              // showErrorDialog("Success", context, headerColor: Colors.green);
+              // selectedFileBehaviour.sink.add(selectedFileBehaviour.value);
               // getProfileData();
             } else if (event is FailedState) {
               showErrorDialog("failed", context);
