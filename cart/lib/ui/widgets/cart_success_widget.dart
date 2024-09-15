@@ -38,34 +38,32 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
         children: [
-          Column(
-            children: [
-              50.verticalSpace,
-              ImageHelper(
-                  image: Assets.svg.cartSuccessLogo, imageType: ImageType.svg),
-              SizedBox(height: 100),
-              ImageHelper(
-                  image: Assets.svg.cartSuccess, imageType: ImageType.svg),
-              80.verticalSpace,
-              CustomText(
-                  text: S.of(context).cartSuccessConfirmation,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  customTextStyle:
-                      BoldStyle(color: lightBlackColor, fontSize: 26.sp)),
-              5.verticalSpace,
-              CustomText(
-                  text: S.of(context).cartSuccessIsDelivering,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  customTextStyle: RegularStyle(
-                      color: cartSuccessBlueColor, fontSize: 20.sp)),
-            ],
+          100.verticalSpace,
+          ImageHelper(
+              image: Assets.svg.cartSuccessLogo, imageType: ImageType.svg),
+          SizedBox(height: 60),
+          SizedBox(
+            width: 130,
+            height: 130,
+            child: ImageHelper(
+                image: Assets.svg.cartSuccess, imageType: ImageType.svg),
           ),
+          30.verticalSpace,
+          CustomText(
+              text: S.of(context).cartSuccessConfirmation,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              customTextStyle:
+                  BoldStyle(color: lightBlackColor, fontSize: 26.sp)),
+          5.verticalSpace,
+          CustomText(
+              text: S.of(context).cartSuccessIsDelivering,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              customTextStyle:
+                  RegularStyle(color: cartSuccessBlueColor, fontSize: 20.sp)),
+          40.verticalSpace,
           Padding(
             padding: const EdgeInsets.only(bottom: 50.0),
             child: CustomButtonWidget(
