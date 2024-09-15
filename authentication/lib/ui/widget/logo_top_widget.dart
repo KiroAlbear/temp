@@ -1,3 +1,4 @@
+import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -15,6 +16,7 @@ class LogoTopWidget extends BaseStatefulWidget {
   final String logo;
   final BlocBase blocBase;
   final bool canSkip;
+  final BottomNavigationBloc? bottomNavigationBloc;
 
   const LogoTopWidget(
       {super.key,
@@ -22,6 +24,7 @@ class LogoTopWidget extends BaseStatefulWidget {
       required this.child,
       required this.logo,
       required this.blocBase,
+      this.bottomNavigationBloc,
       this.canSkip = false});
 
   @override
@@ -71,8 +74,12 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           InkWell(
-            onTap: () => CustomNavigatorModule.navigatorKey.currentState
-                ?.pushReplacementNamed(AppScreenEnum.home.name),
+            onTap: () {
+              CustomNavigatorModule.navigatorKey.currentState
+                  ?.pushReplacementNamed(AppScreenEnum.home.name);
+              if (widget.bottomNavigationBloc != null)
+                widget.bottomNavigationBloc!.setSelectedTab(0, context);
+            },
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 26.w),
               child: CustomText(

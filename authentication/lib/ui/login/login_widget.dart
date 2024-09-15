@@ -41,6 +41,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
         logo: widget.logo,
         blocBase: _bloc,
         canSkip: widget.enableSkip,
+        bottomNavigationBloc: widget.bottomNavigationBloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
