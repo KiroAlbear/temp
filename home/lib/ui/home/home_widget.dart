@@ -68,8 +68,15 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
         shrinkWrap: true,
         children: [
           _topWidget,
-          SizedBox(
-            height: 23.h,
+          StreamBuilder<ApiState<List<OfferMapper>>>(
+            stream: widget.homeBloc.heroBannersStream,
+            builder: (context, snapshot) => (snapshot.hasData &&
+                    snapshot.data!.response != null &&
+                    snapshot.data!.response!.isEmpty)
+                ? SizedBox(height: 0)
+                : SizedBox(
+                    height: 23.h,
+                  ),
           ),
           HeroBannersWidget(homeBloc: widget.homeBloc),
           StreamBuilder<ApiState<List<OfferMapper>>>(
