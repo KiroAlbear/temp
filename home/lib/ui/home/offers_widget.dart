@@ -8,10 +8,8 @@ import 'package:home/ui/home/offer_item.dart';
 
 class OffersWidget extends StatefulWidget {
   final HomeBloc homeBloc;
-  final bool isForPromoTap;
 
-  const OffersWidget(
-      {super.key, required this.homeBloc, this.isForPromoTap = false});
+  const OffersWidget({super.key, required this.homeBloc});
 
   @override
   State<OffersWidget> createState() => _OffersWidgetState();
@@ -42,7 +40,6 @@ class _OffersWidgetState extends State<OffersWidget>
               // controller: _pageScrollController,
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               itemBuilder: (context, index) => OfferItem(
-                  isForPromoTap: widget.isForPromoTap,
                   isClickable: true,
                   item: list[index],
                   homeBloc: widget.homeBloc,

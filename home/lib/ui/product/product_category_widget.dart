@@ -497,7 +497,6 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                     item: widget.homeBloc.selectedOffer!,
                     homeBloc: widget.homeBloc,
                     isClickable: false,
-                    isForPromoTap: false,
                   ),
                 )
               : SizedBox()
