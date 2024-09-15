@@ -238,6 +238,9 @@ class CartBloc extends BlocBase {
         });
       } else if (getCartEvent.response?.isEmpty ?? true) {
         if (isEditing == false) {
+          if (apiState != null && stream != null) {
+            stream.sink.add(apiState);
+          }
           cartProductsBehavior.sink.add((getCartEvent));
         }
       }
