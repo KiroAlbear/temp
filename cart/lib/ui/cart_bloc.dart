@@ -230,7 +230,7 @@ class CartBloc extends BlocBase {
       List<CartCheckAvailabilityResponse> availability) {
     for (int i = 0; i < products.length; i++) {
       for (int j = 0; j < availability.length; j++) {
-        if (products[i].name == availability[j].product) {
+        if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
           break;
         }

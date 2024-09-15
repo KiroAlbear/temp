@@ -5,6 +5,9 @@ part 'cart_check_availability_response.g.dart';
 
 @JsonSerializable()
 class CartCheckAvailabilityResponse {
+  @JsonKey(name: 'id')
+  int? id;
+
   @JsonKey(name: 'product')
   String? product;
 
@@ -12,6 +15,7 @@ class CartCheckAvailabilityResponse {
   int? available_quantity;
 
   CartCheckAvailabilityResponse({
+    required this.id,
     required this.product,
     required this.available_quantity,
   });
