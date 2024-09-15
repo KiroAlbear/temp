@@ -121,12 +121,12 @@ class CartBloc extends BlocBase {
     );
     BehaviorSubject<ApiState<int>> stream = BehaviorSubject();
 
-    cartEditRemote.editCart(request).listen((event) {
+    cartEditRemote.editCart(request).listen((event) async {
       if (event is SuccessState) {
         if (quantity == 0)
-          _getCart(false);
+          _getCart(false, event, stream);
         else
-          _getCart(true);
+          _getCart(true, event, stream);
         // if (cartState == CartState.decrement) {
         //   totalSum -= price;
         // } else {
@@ -134,8 +134,18 @@ class CartBloc extends BlocBase {
         // }
         // double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
         // cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
-        stream.sink.add(event);
+
+        // stream.sink.add(event);
       }
+      // cartFinishCallingApi.listen(
+      //   (value) {
+      //     // if (value != counter)
+      //     {
+      //       counter = value;
+      //       stream.sink.add(event);
+      //     }
+      //   },
+      // );
     });
 
     return stream;
@@ -174,7 +184,7 @@ class CartBloc extends BlocBase {
     _getTotalCartDeliverySum();
 
     // BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsStream = BehaviorSubject();
-    _getCart(false);
+    _getCart(false, null, null);
     // cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
     //   // cartProductsBehavior.sink.add((getCartEvent));
     //   if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
@@ -199,23 +209,31 @@ class CartBloc extends BlocBase {
     // return cartProductsBehavior;
   }
 
-  void _getCart(bool isEditing) {
+  Future<void> _getCart(bool isEditing, ApiState<int>? apiState,
+      BehaviorSubject<ApiState<int>>? stream) async {
     // cartProductsBehavior.sink.add(LoadingState());
-    cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
+
+    cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) async {
       if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
         cartCheckAvailabilityRemote
             .checkAvailability(CartCheckAvailabilityRequest(
                 client_id: clientId,
                 product_ids:
                     getCartEvent.response!.map((e) => e.productId).toList()))
-            .listen((checkAvailabilityEvent) {
+            .listen((checkAvailabilityEvent) async {
           if (checkAvailabilityEvent is SuccessState) {
             // stream.sink.add(getCartEvent);
+
             getcartProductQtyList(getCartEvent.response!);
             getTotalCartSum(cartRemote.myOrderResponse);
 
             cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
                 getCartEvent.response!, checkAvailabilityEvent.response!)));
+            if (apiState != null && stream != null) {
+              stream.sink.add(apiState);
+            }
+
+            // cartFinishCallingApi.sink.add(cartFinishCallingApi.value! + 1);
           }
         });
       } else if (getCartEvent.response?.isEmpty ?? true) {
@@ -224,6 +242,7 @@ class CartBloc extends BlocBase {
         }
       }
     });
+    // await Future.delayed(Duration(milliseconds: 2000));
   }
 
   List<ProductMapper> addAvailabilityToProduct(List<ProductMapper> products,
