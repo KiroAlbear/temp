@@ -29,6 +29,8 @@ class Assets {
   static const String svgIcFaceBook = 'assets/svg/ic_face_book.svg';
   static const String svgIcFaq = 'assets/svg/ic_faq.svg';
   static const String svgIcFavourite = 'assets/svg/ic_favourite.svg';
+  static const String svgIcFavouriteFilled =
+      'assets/svg/ic_favourite_filled.svg';
   static const String svgIcHealthCheck = 'assets/svg/ic_health_check.svg';
   static const String svgIcHome = 'assets/svg/ic_home.svg';
   static const String svgIcHomeLogo = 'assets/svg/ic_home_logo.svg';

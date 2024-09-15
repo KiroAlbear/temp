@@ -216,6 +216,7 @@ BlocProvider _productCategoryWidget() {
   return BlocProvider(
       bloc: _productCategoryBloc,
       child: ProductCategoryWidget(
+        favouriteIconFilled: Assets.svgIcFavouriteFilled,
         emptyFavouriteScreen: Assets.svgEmptyFavourite,
         backIcon: Assets.svgIcBack,
         favouriteIcon: Assets.svgIcFavourite,

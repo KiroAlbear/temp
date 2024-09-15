@@ -15,6 +15,7 @@ class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
   final ProductCategoryBloc productCategoryBloc;
   final String? favouriteIcon;
+  final String? favouriteIconFilled;
   final String? icDelete;
 
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
@@ -29,6 +30,7 @@ class ProductWidget extends StatefulWidget {
     required this.productCategoryBloc,
     this.icDelete,
     this.onAddToCart,
+    this.favouriteIconFilled,
     this.favouriteIcon,
     this.onTapFavourite,
     this.onDeleteClicked,
@@ -263,11 +265,13 @@ class _ProductWidgetState extends State<ProductWidget> {
       );
 
   Widget get _favouriteIcon => ImageHelper(
-        image: widget.favouriteIcon!,
+        image: widget.productMapper.isFavourite
+            ? widget.favouriteIconFilled!
+            : widget.favouriteIcon!,
         imageType: ImageType.svg,
         width: 18.w,
         height: 18.h,
-        color: widget.productMapper.isFavourite ? redColor : secondaryColor,
+        color: widget.productMapper.isFavourite ? null : secondaryColor,
       );
 
   Widget get _productImage => Center(

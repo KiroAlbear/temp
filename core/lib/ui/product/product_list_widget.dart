@@ -8,6 +8,7 @@ import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 class ProductListWidget extends StatelessWidget {
   final List<ProductMapper> productList;
   final String favouriteIcon;
+  final String favouriteIconFilled;
 
   final ProductCategoryBloc productCategoryBloc;
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
@@ -21,6 +22,7 @@ class ProductListWidget extends StatelessWidget {
       required this.productCategoryBloc,
       required this.productList,
       required this.favouriteIcon,
+      required this.favouriteIconFilled,
       required this.onTapFavourite,
       required this.onAddToCart,
       required this.loadMore,
@@ -46,6 +48,7 @@ class ProductListWidget extends StatelessWidget {
             favouriteIcon: favouriteIcon,
             onTapFavourite: onTapFavourite,
             onDeleteClicked: onDeleteFromCart,
+            favouriteIconFilled: favouriteIconFilled,
           ),
           itemCount: productList.length,
           shrinkWrap: true,

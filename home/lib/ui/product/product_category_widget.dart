@@ -22,6 +22,7 @@ import '../home/hero_banner_item.dart';
 
 class ProductCategoryWidget extends BaseStatefulWidget {
   final String favouriteIcon;
+  final String favouriteIconFilled;
   final String homeLogo;
   final String supportIcon;
   final String notificationIcon;
@@ -46,6 +47,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
       {super.key,
       required this.emptyFavouriteScreen,
       required this.favouriteIcon,
+      required this.favouriteIconFilled,
       required this.backIcon,
       required this.homeBloc,
       required this.homeLogo,
@@ -426,6 +428,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                       productList:
                                           snapshot.data?.response ?? [],
                                       favouriteIcon: widget.favouriteIcon,
+                                      favouriteIconFilled:
+                                          widget.favouriteIconFilled,
                                       onAddToCart: (productMapper) {
                                         widget.showOverlayLoading.value = true;
                                         widget.cartBloc
