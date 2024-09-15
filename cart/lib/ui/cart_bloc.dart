@@ -123,7 +123,10 @@ class CartBloc extends BlocBase {
 
     cartEditRemote.editCart(request).listen((event) {
       if (event is SuccessState) {
-        _getCart(true);
+        if (quantity == 0)
+          _getCart(false);
+        else
+          _getCart(true);
         // if (cartState == CartState.decrement) {
         //   totalSum -= price;
         // } else {
@@ -216,7 +219,9 @@ class CartBloc extends BlocBase {
           }
         });
       } else if (getCartEvent.response?.isEmpty ?? true) {
-        if (isEditing == false) cartProductsBehavior.sink.add((getCartEvent));
+        if (isEditing == false) {
+          cartProductsBehavior.sink.add((getCartEvent));
+        }
       }
     });
   }
