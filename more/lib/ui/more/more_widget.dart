@@ -181,8 +181,8 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 ?.pushNamed(AppScreenEnum.myOrders.name);
           },
           disabled: (SharedPrefModule().userId ?? '').isEmpty,
-          width: 20.w,
-          height: 20.h,
+          width: 17.w,
+          height: 17.h,
         ),
         SizedBox(
           height: 10.h,
@@ -195,8 +195,8 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               ?.pushNamed(AppScreenEnum.product.name);
         },
             disabled: (SharedPrefModule().userId ?? '').isEmpty,
-            height: 20.h,
-            width: 20.w),
+            height: 17.h,
+            width: 17.w),
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
             height: 10.h,
