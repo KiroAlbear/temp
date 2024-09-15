@@ -152,7 +152,7 @@ abstract class ApiClient {
     @Part() File file,
   );
 
-  @PUT(_ApiClientKey._deActiveProfile)
+  @POST(_ApiClientKey._deActiveProfile)
   Future<HeaderResponse> deActiveProfile(@Body() PhoneRequest request);
 
   @PUT(_ApiClientKey._updateAddress)

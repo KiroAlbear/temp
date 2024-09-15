@@ -6,6 +6,7 @@ import 'package:core/dto/models/profile/profile_mapper.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/balance_remote.dart';
+import 'package:core/dto/remote/deactive_profile_remote.dart';
 import 'package:core/dto/remote/profile_remote.dart';
 import 'package:core/dto/remote/update_profile_image_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
@@ -70,6 +71,9 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
 
   Stream<ApiState<BalanceMapper>> get balanceStream =>
       BalanceRemote().callApiAsStream();
+
+  Stream<ApiState<void>> get deactivateAccountStream =>
+      DeActiveProfileRemote().callApiAsStream();
 
   Stream<ApiState<ProfileMapper>> get userStream => profileBehaviour.stream;
 
