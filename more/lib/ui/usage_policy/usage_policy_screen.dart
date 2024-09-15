@@ -56,6 +56,9 @@ class _UsagePolicyScreenState extends State<UsagePolicyScreen> {
                         Text(
                             textAlign: TextAlign.start,
                             snapshot.data!.response!.policy!),
+                        SizedBox(
+                          height: 30,
+                        ),
                       ],
                     ),
                   );
