@@ -32,14 +32,12 @@ class OfferItem extends StatelessWidget {
         }
       },
       child: Container(
-        height: 104.h,
-        width: 258.w,
+        height: 80,
+        width: 240,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
             color: !isClickable ? productCardColor : promotionCardColor),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
               child: ImageHelper(
