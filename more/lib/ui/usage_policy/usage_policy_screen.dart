@@ -41,36 +41,40 @@ class _UsagePolicyScreenState extends State<UsagePolicyScreen> {
         SizedBox(
           height: 15,
         ),
-        StreamBuilder<ApiState<UsagePolicyResponse>>(
-          stream: widget.usagePolicyBloc.usagePolicyBehaviour,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                        textAlign: TextAlign.start,
-                        snapshot.data!.response!.policy!),
-                  ],
-                ),
-              );
-            } else {
-              return Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomProgress(
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 30.r,
+        Expanded(
+          child: SingleChildScrollView(
+            child: StreamBuilder<ApiState<UsagePolicyResponse>>(
+              stream: widget.usagePolicyBloc.usagePolicyBehaviour,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                            textAlign: TextAlign.start,
+                            snapshot.data!.response!.policy!),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            }
-          },
+                  );
+                } else {
+                  return Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomProgress(
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 30.r,
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
         )
       ]),
     );
