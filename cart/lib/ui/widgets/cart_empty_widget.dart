@@ -15,13 +15,12 @@ class CartEmptyWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 130, height: 130, child: Assets.png.emptyCart.image()),
-        // ImageHelper(
-        //   image: ,
-        //   imageType: ImageType.asset,
-        //   width: 150,
-        //   height: 150,
-        // ),
+        ImageHelper(
+          image: Assets.svg.emptyCart,
+          imageType: ImageType.svg,
+          width: 150,
+          height: 150,
+        ),
         SizedBox(
           height: 20,
         ),
