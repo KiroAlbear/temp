@@ -32,10 +32,13 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
       },
       child: Row(
         children: [
-          Radio<int>(
-            value: value,
-            groupValue: _groupeValue,
-            onChanged: (value) {},
+          IgnorePointer(
+            ignoring: true,
+            child: Radio<int>(
+              value: value,
+              groupValue: _groupeValue,
+              onChanged: (value) {},
+            ),
           ),
           ImageHelper(image: icon, imageType: ImageType.svg),
           _spacing.horizontalSpace,
