@@ -164,6 +164,7 @@ void _listenForBottomNavigationChange() {
 BlocProvider get _homeBlocProvider => BlocProvider(
       bloc: _homeBloc,
       child: HomeWidget(
+        cartBloc: _cartBloc,
         homeBloc: _homeBloc,
         notificationIcon: Assets.svgIcNotification,
         homeLogo: Assets.svgIcHomeLogo,
@@ -201,6 +202,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
 BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
       bloc: _bottomNavigationBloc,
       child: BottomNavigationWidget(
+        cartBloc: _cartBloc,
         bottomNavigationBloc: _bottomNavigationBloc,
         svgIconsPath: const [
           Assets.svgIcHome,

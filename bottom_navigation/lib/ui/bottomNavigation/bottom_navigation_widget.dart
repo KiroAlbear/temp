@@ -1,3 +1,4 @@
+import 'package:cart/ui/cart_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -11,9 +12,11 @@ import 'bottom_navigation_bloc.dart';
 class BottomNavigationWidget extends BaseStatefulWidget {
   final List<String> svgIconsPath;
   final BottomNavigationBloc bottomNavigationBloc;
+  final CartBloc cartBloc;
 
   const BottomNavigationWidget(
       {super.key,
+      required this.cartBloc,
       required this.svgIconsPath,
       required this.bottomNavigationBloc});
 
@@ -23,7 +26,7 @@ class BottomNavigationWidget extends BaseStatefulWidget {
 
 class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
   late List<BottomNavigationBarItem> _items;
-
+  int cartCounter = 0;
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -90,35 +93,63 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
   BottomNavigationBarItem _getBottomNavBarItem(
           String svgPath, String name, int selectedIndex, int tabIndex) =>
       BottomNavigationBarItem(
-          activeIcon: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _imageIcon(svgPath, selectedIndex, tabIndex),
-              SizedBox(
-                height: 4.h,
-              ),
-              CustomText(
-                  text: name,
-                  customTextStyle:
-                      RegularStyle(color: primaryColor, fontSize: 9.sp))
-            ],
-          ),
-          icon: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _imageIcon(svgPath, selectedIndex, tabIndex),
-              SizedBox(
-                height: 4.h,
-              ),
-              CustomText(
-                  text: name,
-                  customTextStyle:
-                      RegularStyle(color: whiteColor, fontSize: 9.sp))
-            ],
-          ),
+          activeIcon:
+              _itemIcon(svgPath, selectedIndex, tabIndex, name, tabIndex == 3),
+          icon:
+              _itemIcon(svgPath, selectedIndex, tabIndex, name, tabIndex == 3),
           label: name);
+
+  Widget _itemIcon(String svgPath, int selectedIndex, int tabIndex, String name,
+      bool showBadge) {
+    return Stack(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _imageIcon(svgPath, selectedIndex, tabIndex),
+            SizedBox(
+              height: 4.h,
+            ),
+            CustomText(
+                text: name,
+                customTextStyle:
+                    RegularStyle(color: primaryColor, fontSize: 9.sp))
+          ],
+        ),
+        StreamBuilder(
+          stream: widget.cartBloc.cartProductsBehavior.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data!.response != null &&
+                snapshot.data!.response!.isNotEmpty) {
+              cartCounter = snapshot.data!.response!.length;
+            } else if (snapshot.data?.response != null &&
+                snapshot.data!.response!.isEmpty) {
+              cartCounter = 0;
+            }
+            return (!showBadge || cartCounter == 0)
+                ? SizedBox()
+                : Container(
+                    height: 12.h,
+                    width: 12.h,
+                    decoration: BoxDecoration(
+                      color: greenColor,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Center(
+                      child: CustomText(
+                          text: cartCounter.toString(),
+                          customTextStyle: RegularStyle(
+                              color: Colors.white, fontSize: 8.sp)),
+                    ),
+                  );
+          },
+        )
+      ],
+    );
+  }
 
   Widget _imageIcon(String svgPath, int selectedIndex, int tabIndex) =>
       ImageHelper(

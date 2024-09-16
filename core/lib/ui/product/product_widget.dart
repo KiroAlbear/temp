@@ -1,3 +1,4 @@
+import 'package:cart/ui/cart_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
@@ -17,6 +18,7 @@ class ProductWidget extends StatefulWidget {
   final String? favouriteIcon;
   final String? favouriteIconFilled;
   final String? icDelete;
+  final CartBloc? cartBloc;
 
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
   final Function(ProductMapper productMapper)? onAddToCart;
@@ -28,6 +30,7 @@ class ProductWidget extends StatefulWidget {
     super.key,
     required this.productMapper,
     required this.productCategoryBloc,
+    this.cartBloc,
     this.icDelete,
     this.onAddToCart,
     this.favouriteIconFilled,
@@ -454,6 +457,9 @@ class _ProductWidgetState extends State<ProductWidget> {
           if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
           {
             widget.onAddToCart!(widget.productMapper);
+            if (widget.cartBloc != null) {
+              widget.cartBloc!.getMyCart();
+            }
           }
         },
         child: Container(

@@ -1,3 +1,4 @@
+import 'package:cart/ui/cart_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/ui/product/product_widget.dart';
@@ -9,7 +10,7 @@ class ProductListWidget extends StatelessWidget {
   final List<ProductMapper> productList;
   final String favouriteIcon;
   final String favouriteIconFilled;
-
+  final CartBloc cartBloc;
   final ProductCategoryBloc productCategoryBloc;
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
   final Function(ProductMapper productMapper) onAddToCart;
@@ -19,6 +20,7 @@ class ProductListWidget extends StatelessWidget {
 
   const ProductListWidget(
       {super.key,
+      required this.cartBloc,
       required this.productCategoryBloc,
       required this.productList,
       required this.favouriteIcon,
@@ -42,6 +44,7 @@ class ProductListWidget extends StatelessWidget {
               mainAxisSpacing: 11.h,
               mainAxisExtent: 225.h),
           itemBuilder: (context, index) => ProductWidget(
+            cartBloc: cartBloc,
             productCategoryBloc: productCategoryBloc,
             productMapper: productList[index],
             onAddToCart: onAddToCart,

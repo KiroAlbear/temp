@@ -1,3 +1,4 @@
+import 'package:cart/ui/cart_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/home/offer_mapper.dart';
@@ -21,6 +22,7 @@ class HomeWidget extends BaseStatefulWidget {
   final String scanIcon;
   final String searchIcon;
   final HomeBloc homeBloc;
+  final CartBloc cartBloc;
   final ContactUsBloc contactUsBloc;
 
   const HomeWidget(
@@ -31,6 +33,7 @@ class HomeWidget extends BaseStatefulWidget {
       required this.searchIcon,
       required this.supportIcon,
       required this.homeBloc,
+      required this.cartBloc,
       required this.contactUsBloc});
 
   @override
@@ -59,6 +62,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   @override
   void initState() {
     super.initState();
+    widget.cartBloc.getMyCart();
     widget.homeBloc.loadData();
   }
 

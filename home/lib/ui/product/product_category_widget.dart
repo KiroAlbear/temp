@@ -423,6 +423,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         LoadingState<List<ProductMapper>>(),
                                     context,
                                     onSuccess: ProductListWidget(
+                                      cartBloc: widget.cartBloc,
                                       productCategoryBloc:
                                           widget.productCategoryBloc,
                                       productList:

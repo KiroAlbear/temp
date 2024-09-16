@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   core:
     path: ../core
+  cart:
+    path: ../cart
 
 dev_dependencies:
   flutter_test:

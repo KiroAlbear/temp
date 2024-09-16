@@ -50,6 +50,8 @@ dependencies:
   objectbox_flutter_libs: ^4.0.2
   home:
     path: ../home
+  cart:
+    path: ../cart
 
   dokkan:
     path: ../
