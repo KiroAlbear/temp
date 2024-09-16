@@ -1,6 +1,7 @@
 import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:cart/gen/assets.gen.dart';
 import 'package:core/core.dart';
+import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
@@ -73,7 +74,10 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
                   //     .pushReplacementNamed(AppScreenEnum.home.name);
 
                   CustomNavigatorModule.navigatorKey.currentState!.pop();
-                  widget.bottomNavigationBloc.setSelectedTab(0, context);
+                  widget.bottomNavigationBloc.setSelectedTab(4, context);
+
+                  CustomNavigatorModule.navigatorKey.currentState!
+                      .pushNamed(AppScreenEnum.myOrders.name);
 
                   // CustomNavigatorModule.navigatorKey.currentState!
                   //     .pushNamed();
