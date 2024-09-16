@@ -174,7 +174,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           height: 10.h,
         ),
         _menuItem(
-          S.of(context).currentOrders,
+          S.of(context).myOrders,
           widget.myOrdersIcon,
           () {
             CustomNavigatorModule.navigatorKey.currentState
