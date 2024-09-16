@@ -1,3 +1,4 @@
+import 'package:bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/enums/app_screen_enum.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -11,10 +12,14 @@ import 'package:flutter/cupertino.dart';
 
 class SuccessRegisterWidget extends BaseStatefulWidget {
   final String logo;
+  final BottomNavigationBloc bottomNavigationBloc;
   final String successRegister;
 
   const SuccessRegisterWidget(
-      {super.key, required this.logo, required this.successRegister});
+      {super.key,
+      required this.bottomNavigationBloc,
+      required this.logo,
+      required this.successRegister});
 
   @override
   State<SuccessRegisterWidget> createState() => _SuccessRegisterWidgetState();
@@ -78,8 +83,12 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
               textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 16.w)
                   .getStyle(),
               height: 60.h,
-              onTap: () => CustomNavigatorModule.navigatorKey.currentState
-                  ?.pushReplacementNamed(AppScreenEnum.home.name),
+              onTap: () {
+                CustomNavigatorModule.navigatorKey.currentState
+                    ?.pushReplacementNamed(AppScreenEnum.home.name);
+                if (widget.bottomNavigationBloc != null)
+                  widget.bottomNavigationBloc!.setSelectedTab(0, context);
+              },
             )
           ],
         ),

@@ -89,7 +89,8 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.home:
       return _buildPageRoute(_bottomNavigationBlocProvider);
     case AppScreenEnum.successRegister:
-      return _buildPageRoute(const SuccessRegisterWidget(
+      return _buildPageRoute(SuccessRegisterWidget(
+          bottomNavigationBloc: _bottomNavigationBloc,
           logo: Assets.svgIcLogoH,
           successRegister: Assets.svgIcSuccessRegister));
     case AppScreenEnum.product:
