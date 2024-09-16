@@ -165,6 +165,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                                   .confirmOrderCart()
                                   .listen((event) {
                                 if (event is SuccessState) {
+                                  widget.cartBloc.getMyCart();
                                   CustomNavigatorModule
                                       .navigatorKey.currentState!
                                       .pushReplacementNamed(

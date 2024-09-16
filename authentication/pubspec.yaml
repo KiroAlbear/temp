@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   core:
     path: ../core
+  cart:
+    path: ../cart
   bottom_navigation:
     path: ../bottom_navigation
 
