@@ -19,6 +19,7 @@ class ProductWidget extends StatefulWidget {
   final String? favouriteIconFilled;
   final String? icDelete;
   final CartBloc? cartBloc;
+  final Function(int)? onProductRemoved;
 
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
   final Function(ProductMapper productMapper)? onAddToCart;
@@ -36,6 +37,7 @@ class ProductWidget extends StatefulWidget {
     this.favouriteIconFilled,
     this.favouriteIcon,
     this.onTapFavourite,
+    this.onProductRemoved,
     this.onDeleteClicked,
     this.isCartProduct = false,
     this.onIncrementClicked,
@@ -212,6 +214,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                                 int.parse(SharedPrefModule().userId ?? '0'),
                           )
                               .listen((event) {
+                            if (widget.onProductRemoved != null &&
+                                event.response != null &&
+                                event.response!) {
+                              widget.onProductRemoved!(widget.productMapper.id);
+                            }
                             _handleFavouriteIcon(event, false);
                           });
                         } else {
