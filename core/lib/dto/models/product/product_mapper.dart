@@ -9,6 +9,9 @@ class ProductMapper {
   int discountPercentage = 0;
 
   double price = 0;
+
+  double? price_reduce_taxinc;
+
   double priceUnit = 0;
 
   double quantity = 0;
@@ -36,6 +39,7 @@ class ProductMapper {
     description = orderItem.description ?? '';
     image = orderItem.image ?? '';
     price = orderItem.price ?? 0;
+    price_reduce_taxinc = orderItem.price_reduce_taxinc ?? 0;
     priceUnit = orderItem.price_unit ?? 0;
     quantity = orderItem.count ?? 0;
     currency = orderItem.currency?[1] ?? '';

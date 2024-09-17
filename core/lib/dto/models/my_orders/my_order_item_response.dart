@@ -19,6 +19,9 @@ class MyOrderItemResponse {
   @JsonKey(name: 'price_total')
   double? price;
 
+  @JsonKey(name: 'price_reduce_taxinc')
+  double? price_reduce_taxinc;
+
   @JsonKey(name: 'price_unit')
   double? price_unit;
 
@@ -40,6 +43,7 @@ class MyOrderItemResponse {
     this.currency,
     this.image,
     this.product_id,
+    this.price_reduce_taxinc,
     this.price_unit,
   });
 
