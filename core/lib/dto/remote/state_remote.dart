@@ -27,7 +27,7 @@ class StateRemote
   }
 
   StateRemote(int countryId) {
-    apiFuture =
-        ApiClient(OdooDioModule().build()).getState(StateRequest(countryId));
+    apiFuture = ApiClient(OdooDioModule().build())
+        .getState(StateRequest(countryId, "Arabic"));
   }
 }
