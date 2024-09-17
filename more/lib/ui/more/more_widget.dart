@@ -125,7 +125,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
               height: 100.h,
               child: _imageWithCameraWidget(
-                  mobile: snapshot.data?.response?.mobile ?? '',
+                  mobile: snapshot.data?.response?.email ?? '',
                   name: snapshot.data?.response?.shopName ?? '',
                   image: snapshot.data?.response?.image ?? '')),
         ] else ...[
