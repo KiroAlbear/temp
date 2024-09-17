@@ -48,21 +48,21 @@ class NavigationModule {
   }) {
     return Navigator.of(context).push(PageRouteBuilder(
       opaque: false,
-      barrierColor: greyColor.withOpacity(0.5),
+      barrierColor: bottomSheetBarrierColor,
       allowSnapshotting: false,
       maintainState: false,
       barrierDismissible: false,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(0, 1), // Start from the bottom
-            end: Offset.zero,
-          ).chain(CurveTween(curve: Curves.linear)).animate(animation),
-          child: child,
-        ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0, 1), // Start from the bottom
+          end: Offset.zero,
+        ).chain(CurveTween(curve: Curves.linear)).animate(animation),
+        child: child,
+      ),
       pageBuilder: (context, animation, secondaryAnimation) {
         return widget;
       },
     ));
   }
-
 }

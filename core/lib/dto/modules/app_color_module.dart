@@ -38,6 +38,9 @@ const Color redColorDarkMode = Color.fromRGBO(253, 68, 37, 1);
 const Color black = Colors.black;
 const Color white = Colors.white;
 
+const Color bottomSheetBarrierLightMode = Color.fromRGBO(43, 43, 43, 0.4);
+const Color bottomSheetBarrierDarkMode = Color.fromRGBO(43, 43, 43, 0.4);
+
 /// light gray color color
 const Color lightGreyColorLightMode = Color.fromRGBO(168, 172, 177, 1);
 const Color lightGreyColorDarkMode = Color.fromRGBO(168, 172, 177, 1);
@@ -132,6 +135,8 @@ Color productCardColor =
 
 Color faqCardColor = _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
 Color yellowColor = _isDark ? yellowColorDarkMode : yellowColorLightMode;
+Color bottomSheetBarrierColor =
+    _isDark ? bottomSheetBarrierDarkMode : bottomSheetBarrierLightMode;
 Color myOrdersCardColor =
     _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
 

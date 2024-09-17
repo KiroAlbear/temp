@@ -117,6 +117,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                 onTap: () async {
                   // Todo: check if any product is unavailable
                   showModalBottomSheet(
+                      barrierColor: bottomSheetBarrierColor,
                       backgroundColor: whiteColor,
                       useRootNavigator: true,
                       constraints: BoxConstraints(

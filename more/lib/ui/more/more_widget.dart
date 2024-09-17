@@ -543,7 +543,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       context: context,
       message: S.of(context).deleteAccountMessage,
       cancelMessage: S.of(context).cancel,
-      confirmMessage: S.of(context).yes,
+      confirmMessage: S.of(context).deleteAccount,
       headerMessage: S.of(context).deleteAccount,
       headerSvg: widget.alertIcon,
       errorColorInConfirm: true,
