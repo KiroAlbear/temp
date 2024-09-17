@@ -26,6 +26,14 @@ class SharedPrefModule {
   set language(String value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.language), value: value);
 
+  String get userAddressText =>
+      _sharedPref.getValue<String>(
+          key: _sharedKey(SharedPRefEnum.userAddress)) ??
+      '';
+
+  set userAddressText(String value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.userAddress), value: value);
+
   String get shopName =>
       _sharedPref.getValue<String>(
           key: _sharedKey(SharedPRefEnum.userShopName)) ??

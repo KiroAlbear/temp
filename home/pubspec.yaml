@@ -12,6 +12,10 @@ dependencies:
     sdk: flutter
   core:
     path: ../core
+
+  more:
+    path: ../more
+
   cart:
     path: ../cart
 

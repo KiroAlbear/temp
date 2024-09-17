@@ -5,6 +5,7 @@ import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/update_profile/delivery_address_mapper.dart';
 import 'package:core/dto/models/update_profile/update_profile_request.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
 import 'package:core/dto/remote/deliver_address_remote.dart';
 import 'package:core/dto/remote/update_profile_remote.dart';
@@ -63,8 +64,25 @@ class UpdateProfileBloc extends BlocBase {
       ValidatorModule().isFiledNotEmpty(fullNameBloc.value);
 
   void loadDeliveryAddress(String userId) {
+    String userAddressText = "";
     DeliveryAddressRemote(userId).callApiAsStream().listen((event) {
       deliveryAddressBehaviour.sink.add(event);
+      if (event.response != null) {
+        if (event.response!.street.isNotEmpty) {
+          userAddressText = "${event.response!.street!}, ";
+        }
+        if (event.response!.street2.isNotEmpty) {
+          userAddressText += "${event.response!.street2}, ";
+        }
+        if (event.response!.city.isNotEmpty) {
+          userAddressText += "${event.response!.city}, ";
+        }
+        if (event.response!.country.isNotEmpty) {
+          userAddressText += "${event.response!.country}";
+        }
+      }
+
+      SharedPrefModule().userAddressText = userAddressText;
       initAddress(event.response!);
     });
   }

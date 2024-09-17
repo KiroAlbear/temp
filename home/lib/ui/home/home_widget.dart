@@ -4,6 +4,7 @@ import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/home/offer_mapper.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
@@ -14,6 +15,7 @@ import 'package:home/home.dart';
 import 'package:home/ui/home/category_widget.dart';
 import 'package:home/ui/home/hero_banners_widget.dart';
 import 'package:home/ui/home/offers_widget.dart';
+import 'package:more/ui/updateProfile/update_profile_bloc.dart';
 
 class HomeWidget extends BaseStatefulWidget {
   final String homeLogo;
@@ -23,6 +25,7 @@ class HomeWidget extends BaseStatefulWidget {
   final String searchIcon;
   final HomeBloc homeBloc;
   final CartBloc cartBloc;
+  final UpdateProfileBloc updateProfileBloc;
   final ContactUsBloc contactUsBloc;
 
   const HomeWidget(
@@ -34,6 +37,7 @@ class HomeWidget extends BaseStatefulWidget {
       required this.supportIcon,
       required this.homeBloc,
       required this.cartBloc,
+      required this.updateProfileBloc,
       required this.contactUsBloc});
 
   @override
@@ -64,6 +68,8 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
     super.initState();
     widget.cartBloc.getMyCart();
     widget.homeBloc.loadData();
+    widget.updateProfileBloc
+        .loadDeliveryAddress(SharedPrefModule().userId ?? '0');
   }
 
   @override

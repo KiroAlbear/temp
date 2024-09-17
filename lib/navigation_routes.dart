@@ -165,6 +165,7 @@ void _listenForBottomNavigationChange() {
 BlocProvider get _homeBlocProvider => BlocProvider(
       bloc: _homeBloc,
       child: HomeWidget(
+        updateProfileBloc: _updateProfileBloc,
         cartBloc: _cartBloc,
         homeBloc: _homeBloc,
         notificationIcon: Assets.svgIcNotification,
