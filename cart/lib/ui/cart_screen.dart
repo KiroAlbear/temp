@@ -4,6 +4,7 @@ import 'package:cart/ui/widgets/cart_empty_widget.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
+import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
@@ -115,19 +116,28 @@ class _CartScreenState extends BaseState<CartScreen> {
                 textStyle: MediumStyle(color: lightBlackColor, fontSize: 20.sp)
                     .getStyle(),
                 onTap: () async {
-                  // Todo: check if any product is unavailable
-                  showModalBottomSheet(
-                      barrierColor: bottomSheetBarrierColor,
-                      backgroundColor: whiteColor,
-                      useRootNavigator: true,
-                      constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height * 0.26),
+                  if (widget.cartBloc.totalSum <=
+                      widget.cartBloc.cartMinimumOrderBehaviour.value) {
+                    AlertModule().showMessage(
                       context: context,
-                      builder: (context) {
-                        return CartBottomSheet(
-                          cartBloc: widget.cartBloc,
-                        );
-                      });
+                      message:
+                          "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ر.ي.",
+                    );
+                  } else {
+                    showModalBottomSheet(
+                        barrierColor: bottomSheetBarrierColor,
+                        backgroundColor: whiteColor,
+                        useRootNavigator: true,
+                        constraints: BoxConstraints(
+                            maxHeight:
+                                MediaQuery.of(context).size.height * 0.26),
+                        context: context,
+                        builder: (context) {
+                          return CartBottomSheet(
+                            cartBloc: widget.cartBloc,
+                          );
+                        });
+                  }
                 }),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,21 +263,29 @@ class _CartScreenState extends BaseState<CartScreen> {
               customTextStyle:
                   MediumStyle(color: lightBlackColor, fontSize: 26.sp)),
           10.verticalSpace,
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: redColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 5.h),
-              child: CustomText(
-                text: "الحد الأدنى للطلب !  1500 ر.ي.",
-                textAlign: TextAlign.center,
-                customTextStyle:
-                    MediumStyle(color: whiteColor, fontSize: 14.sp),
-              ),
-            ),
+          StreamBuilder(
+            stream: widget.cartBloc.cartMinimumOrderBehaviour.stream,
+            builder: (context, snapshot) {
+              return (snapshot.hasData && snapshot.data != null)
+                  ? Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: redColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.h),
+                        child: CustomText(
+                          text:
+                              "${S.of(context).cartMinimumOrder} ${snapshot.data.toString()} ر.ي.",
+                          textAlign: TextAlign.center,
+                          customTextStyle:
+                              MediumStyle(color: whiteColor, fontSize: 14.sp),
+                        ),
+                      ),
+                    )
+                  : SizedBox();
+            },
           ),
 
           // CustomButtonWidget(

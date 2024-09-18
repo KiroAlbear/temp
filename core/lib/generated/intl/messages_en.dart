@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartEmpty": MessageLookupByLibrary.simpleMessage("There is no orders"),
         "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(
             "The maximum quantity you can add to this product is"),
+        "cartMinimumOrder":
+            MessageLookupByLibrary.simpleMessage("Minimum order !"),
         "cartMinimumProductsReached": MessageLookupByLibrary.simpleMessage(
             "The minimum amount you can add to this product is"),
         "cartOrderNow": MessageLookupByLibrary.simpleMessage("Order now"),

@@ -478,6 +478,37 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<HeaderResponse<List<CartMinimumOrderResponse>>> getCartMinimumOrder(
+      request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HeaderResponse<List<CartMinimumOrderResponse>>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'api/order/minimum_limit',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = HeaderResponse<List<CartMinimumOrderResponse>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<CartMinimumOrderResponse>((i) =>
+              CartMinimumOrderResponse.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
   Future<HeaderResponse<List<CartSaveResponse>>> saveToCart(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

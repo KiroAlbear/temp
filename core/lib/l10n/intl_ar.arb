@@ -160,6 +160,7 @@
   "cartDeleteMessage": "هل انت متاكد من ازاله المنتج من السله؟",
   "cartMaximumProductsReached": "أقصي كميه يمكنك اضافتها لهذ المنتج هي",
   "cartMinimumProductsReached": "أقل كميه يمكنك اضافتها لهذ المنتج هي",
+  "cartMinimumOrder": "الحد الأدنى للطلب !",
   "cartOrderNow": "أطلب دلوقتي",
   "cartOrderOrderDetails": "تفاصيل طلبك",
   "cartConfirmOrder": "تأكيد الطلب",

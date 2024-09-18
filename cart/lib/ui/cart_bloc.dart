@@ -5,6 +5,7 @@ import 'package:core/dto/models/cart/cart_check_availability_request.dart';
 import 'package:core/dto/models/cart/cart_check_availability_response.dart';
 import 'package:core/dto/models/cart/cart_confirm_order_request.dart';
 import 'package:core/dto/models/cart/cart_edit_request.dart';
+import 'package:core/dto/models/cart/cart_minimum_order_request.dart';
 import 'package:core/dto/models/cart/cart_order_line_edit_request.dart';
 import 'package:core/dto/models/cart/cart_order_line_save_request.dart';
 import 'package:core/dto/models/cart/cart_request.dart';
@@ -15,6 +16,7 @@ import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/remote/cart_check_availability_remote.dart';
 import 'package:core/dto/remote/cart_confirm_order_remote.dart';
 import 'package:core/dto/remote/cart_edit_remote.dart';
+import 'package:core/dto/remote/cart_minimum_order_remote.dart';
 import 'package:core/dto/remote/cart_remote.dart';
 import 'package:core/dto/remote/cart_save_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
@@ -35,9 +37,11 @@ class CartBloc extends BlocBase {
   BehaviorSubject<List<CartProductQty>> itemsBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
+  BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
   CartRemote cartRemote = CartRemote();
   CartSaveRemote cartSaveRemote = CartSaveRemote();
   CartEditRemote cartEditRemote = CartEditRemote();
+  CartMinimumOrderRemote cartMinimumOrderRemote = CartMinimumOrderRemote();
   CartConfirmOrderRemote cartConfirmOrderRemote = CartConfirmOrderRemote();
   CartCheckAvailabilityRemote cartCheckAvailabilityRemote =
       CartCheckAvailabilityRemote();
@@ -97,6 +101,17 @@ class CartBloc extends BlocBase {
 
   void _getTotalCartDeliverySum() {
     cartTotalDeliveryBehaviour.sink.add('+ 20 ر.ي. التوصيل');
+  }
+
+  void _getCartMinimumOrder() {
+    cartMinimumOrderRemote
+        .getCartMinimumOrder(
+            CartMinimumOrderRequest(customer_id: clientId, company_id: 1))
+        .listen((event) {
+      if (event is SuccessState) {
+        cartMinimumOrderBehaviour.sink.add(event.response!.min_order_limit!);
+      }
+    });
   }
 
   void onItemDeleted() {}
@@ -175,6 +190,10 @@ class CartBloc extends BlocBase {
     return cartConfirmOrderRemote.confirmOrderCart(request);
   }
 
+  double getCartTotal() {
+    return totalSum;
+  }
+
   void getMyCart() {
     _getClientData();
     _getAddress();
@@ -182,6 +201,7 @@ class CartBloc extends BlocBase {
     _getDate();
     _getTime();
     _getTotalCartDeliverySum();
+    _getCartMinimumOrder();
 
     // BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsStream = BehaviorSubject();
     _getCart(false, null, null);

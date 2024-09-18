@@ -8,6 +8,8 @@ import 'package:core/dto/models/brand/brand_response.dart';
 import 'package:core/dto/models/cart/cart_check_availability_request.dart';
 import 'package:core/dto/models/cart/cart_check_availability_response.dart';
 import 'package:core/dto/models/cart/cart_edit_request.dart';
+import 'package:core/dto/models/cart/cart_minimum_order_request.dart';
+import 'package:core/dto/models/cart/cart_minimum_order_response.dart';
 import 'package:core/dto/models/cart/cart_save_request.dart';
 import 'package:core/dto/models/cart/cart_save_response.dart';
 import 'package:core/dto/models/category/category_response.dart';
@@ -110,6 +112,10 @@ abstract class ApiClient {
   @POST(_ApiClientKey._getCart)
   Future<HeaderResponse<List<MyOrderItemResponse>>> getMyCart(
       @Body() CartRequest request);
+
+  @POST(_ApiClientKey._getCartMinimumOrder)
+  Future<HeaderResponse<List<CartMinimumOrderResponse>>> getCartMinimumOrder(
+      @Body() CartMinimumOrderRequest request);
 
   @POST(_ApiClientKey._saveToCart)
   Future<HeaderResponse<List<CartSaveResponse>>> saveToCart(

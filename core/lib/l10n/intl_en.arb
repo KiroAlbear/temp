@@ -160,6 +160,7 @@
   "cartDeleteMessage": "Are you sure to remove the product from the cart?",
   "cartMaximumProductsReached": "The maximum quantity you can add to this product is",
   "cartMinimumProductsReached": "The minimum amount you can add to this product is",
+  "cartMinimumOrder": "Minimum order !",
   "cartOrderNow": "Order now",
   "cartOrderOrderDetails": "Order details",
   "cartConfirmOrder": "Confirm order",

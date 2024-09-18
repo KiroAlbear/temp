@@ -1630,6 +1630,16 @@ class S {
     );
   }
 
+  /// `Minimum order !`
+  String get cartMinimumOrder {
+    return Intl.message(
+      'Minimum order !',
+      name: 'cartMinimumOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Order now`
   String get cartOrderNow {
     return Intl.message(

@@ -28,6 +28,7 @@ class _ApiClientKey {
   static const String _myOrders = 'get/all_order';
   static const String _getCart = 'view/card_items';
   static const String _saveToCart = 'saleorder/create';
+  static const String _getCartMinimumOrder = 'api/order/minimum_limit';
   static const String _cancelOrder = 'order/cancel';
   static const String _checkAvailability = 'get/available_quantity';
   static const String _confirmOrder = 'saleorder/confirm';
