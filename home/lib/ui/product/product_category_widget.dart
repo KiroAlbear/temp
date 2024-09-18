@@ -113,8 +113,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
     super.initState();
   }
 
-  void _loadProducts() {
-    widget.showOverlayLoading.value = true;
+  void _loadProducts(bool isFirstTime) {
+    widget.showOverlayLoading.value = isFirstTime;
     widget.productCategoryBloc.getProductWithSubcategoryBrand(
         widget.productCategoryBloc.subcategoryId,
         widget.productCategoryBloc.brandId);
@@ -339,7 +339,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                               widget
                                                                   .productCategoryBloc
                                                                   .reset();
-                                                              _loadProducts();
+                                                              _loadProducts(
+                                                                  true);
                                                             });
                                                       },
                                                     ),
@@ -431,8 +432,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         // widget.productCategoryBloc.addProductToFavourite();
                                       },
                                       loadMore: () {
-                                        // widget.productCategoryBloc.isForFavourite
-                                        // _loadProducts();
+                                        if (widget
+                                            .productCategoryBloc.isForFavourite)
+                                          widget.productCategoryBloc.loadMore();
+                                        else
+                                          _loadProducts(false);
                                       },
                                     ));
                               },

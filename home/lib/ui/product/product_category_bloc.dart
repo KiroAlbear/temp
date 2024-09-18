@@ -45,23 +45,31 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     // await loadedListStream.drain();
     Stream<ApiState<List<ProductMapper>>> stream = Stream.empty();
     if (isForFavourite) {
-      stream = loadWithFavourites;
+      _loadWithFavourites();
     } else if (searchValue != null) {
-      stream = _loadWithSearch(searchValue!);
+      _loadWithSearch(searchValue!);
     } else {
       _getSubcategoryBy(categoryId);
     }
 
-    stream.listen((event) {
-      if (event is SuccessState) {
-        setLoaded(event.response ?? []);
-      }
-    });
+    // stream.listen((event) {
+    //   if (event is SuccessState) {
+    //     setLoaded(event.response ?? []);
+    //   }
+    // });
   }
 
-  Stream<ApiState<List<ProductMapper>>> get loadWithFavourites {
-    return FavouriteProductRemote().loadProduct(PageRequest(
-        pageSize, pageNumber, 1, int.parse(SharedPrefModule().userId ?? '0')));
+  void _loadWithFavourites() {
+    FavouriteProductRemote()
+        .loadProduct(PageRequest(pageSize, pageNumber, 1,
+            int.parse(SharedPrefModule().userId ?? '0')))
+        .listen((event) {
+      if (event is SuccessState &&
+          event.response != null &&
+          event.response!.isNotEmpty) {
+        _handleProductResponse(event.response);
+      }
+    });
   }
 
   Stream<ApiState<bool>> addProductToFavourite(
@@ -76,11 +84,18 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         .deleteProduct(FavouriteRequest(clientId, productId));
   }
 
-  Stream<ApiState<List<ProductMapper>>> _loadWithSearch(String searchValue) =>
-      SearchProductRemote().loadProduct(
-          PageRequest(pageSize, pageNumber, categoryId,
-              int.parse(SharedPrefModule().userId ?? '0')),
-          searchValue);
+  void _loadWithSearch(String searchValue) => SearchProductRemote()
+          .loadProduct(
+              PageRequest(pageSize, pageNumber, categoryId,
+                  int.parse(SharedPrefModule().userId ?? '0')),
+              searchValue)
+          .listen((event) {
+        if (event is SuccessState &&
+            event.response != null &&
+            event.response!.isNotEmpty) {
+          _handleProductResponse(event.response);
+        }
+      });
 
   // Stream<ApiState<List<ProductMapper>>> get getAllProducts =>
   //     ProductRemote()
@@ -124,7 +139,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   void getBrandBy(int? subCategory) {
     isLoading?.value = true;
     if (subCategory == null) {
-      BrandRemote().loadAllBrands(AllBrandsRequest(1, 100)).listen(
+      BrandRemote().loadAllBrands(AllBrandsRequest(1, 1000)).listen(
         (event) {
           if (event is SuccessState) {
             _handleBrandResponse(event.response, subCategory);
@@ -157,23 +172,27 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
       ProductRemote()
           .loadAllProducts(ProductRequest(
         categoryId: categoryId,
-        page: 1,
-        limit: 100,
+        page: pageNumber,
+        limit: pageSize,
       ))
           .listen(
         (event) {
-          if (event is SuccessState) {
+          if (event is SuccessState &&
+              event.response != null &&
+              event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
           }
         },
       );
     } else if (subCategory == null && brand != null) {
       ProductRemote()
-          .loadProductByBrand(
-              ProductBrandRequest(brand_id: brand, page: 1, limit: 100))
+          .loadProductByBrand(ProductBrandRequest(
+              brand_id: brand, page: pageNumber, limit: pageSize))
           .listen(
         (event) {
-          if (event is SuccessState) {
+          if (event is SuccessState &&
+              event.response != null &&
+              event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
           }
         },
@@ -184,7 +203,9 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
               ProductSubcategoryBrandRequest(subCategory!, brand))
           .listen(
         (event) {
-          if (event is SuccessState) {
+          if (event is SuccessState &&
+              event.response != null &&
+              event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
           }
         },

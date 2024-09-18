@@ -59,6 +59,11 @@ class _ProductListWidgetState extends State<ProductListWidget> {
     }
   }
 
+  void addAllProductToFavourite() {
+    favouriteList.clear();
+    favouriteList.addAll(widget.productList);
+  }
+
   @override
   Widget build(BuildContext context) => LazyLoadScrollView(
         onEndOfPage: () {
@@ -79,6 +84,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                 emptyFavouriteScreen: widget.emptyFavouriteScreen,
               );
             } else {
+              if (widget.productCategoryBloc.isForFavourite)
+                addAllProductToFavourite();
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
