@@ -1,8 +1,9 @@
 import 'package:core/core.dart';
-part 'page_request.g.dart';
-@JsonSerializable()
-class PageRequest{
 
+part 'page_request.g.dart';
+
+@JsonSerializable()
+class PageRequest {
   @JsonKey(name: 'limit')
   int limit;
 
@@ -15,7 +16,11 @@ class PageRequest{
   @JsonKey(name: 'client_id')
   int? clientId;
 
-  PageRequest(this.limit, this.page, this.categoryId, this.clientId);
+  @JsonKey(name: 'main_category')
+  String? main_category;
+
+  PageRequest(this.limit, this.page, this.categoryId, this.clientId,
+      {this.main_category = 'True'});
 
   factory PageRequest.fromJson(Map<String, dynamic> json) =>
       _$PageRequestFromJson(json);

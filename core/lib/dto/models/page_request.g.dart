@@ -11,6 +11,7 @@ PageRequest _$PageRequestFromJson(Map<String, dynamic> json) => PageRequest(
       (json['page'] as num).toInt(),
       (json['category_id'] as num?)?.toInt(),
       (json['client_id'] as num?)?.toInt(),
+      main_category: json['main_category'] as String?,
     );
 
 Map<String, dynamic> _$PageRequestToJson(PageRequest instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$PageRequestToJson(PageRequest instance) =>
       'page': instance.page,
       'category_id': instance.categoryId,
       'client_id': instance.clientId,
+      'main_category': instance.main_category,
     };
