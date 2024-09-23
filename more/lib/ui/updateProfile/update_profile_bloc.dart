@@ -80,10 +80,10 @@ class UpdateProfileBloc extends BlocBase {
         if (event.response!.country.isNotEmpty) {
           userAddressText += "${event.response!.country}";
         }
+        initAddress(event.response!);
       }
 
       SharedPrefModule().userAddressText = userAddressText;
-      initAddress(event.response!);
     });
   }
 

@@ -3,9 +3,9 @@ part of 'api_client.dart';
 class _ApiClientKey {
   static const String _login = 'app/login';
   static const String _category = 'get/category';
-  static const String _brandBySubCategory = 'get/brand/by_subcategory';
+  static const String _brandBySubCategory = 'get/brand/by_category';
   static const String _getAllBrands = 'get/brand';
-  static const String _subCategoryByCategory = 'get/category';
+  static const String _subCategoryByCategory = '/get/category/subcategory';
   static const String _allProduct = 'get/product';
   static const String _productBySubCategoryBrand = 'get/product/by_subcategory';
   static const String _productByBrand = 'get/product/by_brand';
@@ -28,7 +28,7 @@ class _ApiClientKey {
   static const String _myOrders = 'get/all_order';
   static const String _getCart = 'view/card_items';
   static const String _saveToCart = 'saleorder/create';
-  static const String _getCartMinimumOrder = 'api/order/minimum_limit';
+  static const String _getCartMinimumOrder = 'api/v1/order/minimum_limit';
   static const String _cancelOrder = 'order/cancel';
   static const String _checkAvailability = 'get/available_quantity';
   static const String _confirmOrder = 'saleorder/confirm';

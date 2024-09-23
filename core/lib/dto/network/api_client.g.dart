@@ -96,7 +96,7 @@ class _ApiClient implements ApiClient {
     )
             .compose(
               _dio.options,
-              'get/category/${categoryId}',
+              '/get/category/subcategory/${categoryId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -127,7 +127,7 @@ class _ApiClient implements ApiClient {
     )
             .compose(
               _dio.options,
-              'get/brand/by_subcategory',
+              'get/brand/by_category',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -493,7 +493,7 @@ class _ApiClient implements ApiClient {
     )
             .compose(
               _dio.options,
-              'api/order/minimum_limit',
+              'api/v1/order/minimum_limit',
               queryParameters: queryParameters,
               data: _data,
             )
