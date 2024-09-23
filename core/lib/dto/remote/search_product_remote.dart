@@ -21,8 +21,8 @@ class SearchProductRemote
 
   Stream<ApiState<List<ProductMapper>>> loadProduct(
       PageRequest pageRequest, String value) {
-    apiFuture = ApiClient(OdooDioModule().build())
-        .searchProduct(SearchProductRequest(value));
+    apiFuture = ApiClient(OdooDioModule().build()).searchProduct(
+        SearchProductRequest(value, pageRequest.page, pageRequest.limit));
     return callApiAsStream();
   }
 

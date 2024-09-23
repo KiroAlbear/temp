@@ -242,13 +242,13 @@ class _ApiClient implements ApiClient {
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HeaderResponse<List<ProductResponse>>>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'get/product/by_subcategory',
+              'get/product/by_category',
               queryParameters: queryParameters,
               data: _data,
             )

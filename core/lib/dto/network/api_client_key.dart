@@ -7,7 +7,7 @@ class _ApiClientKey {
   static const String _getAllBrands = 'get/brand';
   static const String _subCategoryByCategory = '/get/category/subcategory';
   static const String _allProduct = 'get/product';
-  static const String _productBySubCategoryBrand = 'get/product/by_subcategory';
+  static const String _productBySubCategoryBrand = 'get/product/by_category';
   static const String _productByBrand = 'get/product/by_brand';
   static const String _favouriteProduct = 'get/fav';
   static const String _searchProduct = 'search/product';

@@ -199,8 +199,13 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
       );
     } else {
       ProductRemote()
-          .loadProductBySubCategoryBrand(
-              ProductSubcategoryBrandRequest(subCategory!, brand))
+          .loadProductBySubCategoryBrand(ProductSubcategoryBrandRequest(
+        subCategory!,
+        brand,
+        true,
+        pageSize,
+        pageNumber,
+      ))
           .listen(
         (event) {
           if (event is SuccessState &&

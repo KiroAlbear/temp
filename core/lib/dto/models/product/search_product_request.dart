@@ -1,14 +1,19 @@
 import 'package:core/core.dart';
+
 part 'search_product_request.g.dart';
 
 @JsonSerializable()
-class SearchProductRequest{
-
+class SearchProductRequest {
   @JsonKey(name: 'value')
   String value;
 
+  @JsonKey(name: 'page')
+  int page;
 
-  SearchProductRequest(this.value);
+  @JsonKey(name: 'limit')
+  int limit;
+
+  SearchProductRequest(this.value, this.page, this.limit);
 
   factory SearchProductRequest.fromJson(Map<String, dynamic> json) =>
       _$SearchProductRequestFromJson(json);
