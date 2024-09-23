@@ -31,6 +31,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   final HomeBloc homeBloc;
   final String backIcon;
   static int cateogryId = 1;
+  static int categoryProductsCount = 0;
   static const String filterAllText = "All";
 
   final ProductCategoryBloc productCategoryBloc;
@@ -101,6 +102,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         widget.productCategoryBloc
             .getProductById(widget.homeBloc.selectedOffer!.relatedItemId);
       }
+    } else if (ProductCategoryWidget.categoryProductsCount > 0) {
+      widget.productCategoryBloc.getProductWithSubcategoryBrand(
+          ProductCategoryWidget.cateogryId, null);
     } else {
       widget.productCategoryBloc.categoryId = ProductCategoryWidget.cateogryId;
       widget.productCategoryBloc.isLoading = widget.showOverlayLoading;

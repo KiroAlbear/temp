@@ -58,6 +58,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
           widget.homeBloc.onCategoryClick(item);
           ProductCategoryBloc.searchValue = null;
           ProductCategoryWidget.cateogryId = item.id!;
+          ProductCategoryWidget.categoryProductsCount = item.productExactCount;
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.product.name);
         },

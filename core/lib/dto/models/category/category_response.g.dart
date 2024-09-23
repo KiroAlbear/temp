@@ -15,6 +15,8 @@ CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
       parentId: (json['parent_id'] as List<dynamic>?)
           ?.map((e) => e as Object)
           .toList(),
+      product_count: (json['product_count'] as num?)?.toInt(),
+      product_count_exact: (json['product_count_exact'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
@@ -24,4 +26,6 @@ Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
       'parent_path': instance.parentPath,
       'image_1920': instance.image,
       'parent_id': instance.parentId,
+      'product_count': instance.product_count,
+      'product_count_exact': instance.product_count_exact,
     };

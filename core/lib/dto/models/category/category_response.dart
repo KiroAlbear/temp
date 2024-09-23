@@ -20,12 +20,20 @@ class CategoryResponse {
   @JsonKey(name: 'parent_id')
   List<Object>? parentId;
 
+  @JsonKey(name: 'product_count')
+  int? product_count;
+
+  @JsonKey(name: 'product_count_exact')
+  int? product_count_exact;
+
   CategoryResponse({
     this.id,
     this.name,
     this.parentPath,
     this.image,
     this.parentId,
+    this.product_count,
+    this.product_count_exact,
   });
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
