@@ -38,6 +38,7 @@ class CartBloc extends BlocBase {
   BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
   BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
+  BehaviorSubject<String> cartMinimumOrderCurrencyBehaviour = BehaviorSubject();
   CartRemote cartRemote = CartRemote();
   CartSaveRemote cartSaveRemote = CartSaveRemote();
   CartEditRemote cartEditRemote = CartEditRemote();
@@ -110,6 +111,8 @@ class CartBloc extends BlocBase {
         .listen((event) {
       if (event is SuccessState) {
         cartMinimumOrderBehaviour.sink.add(event.response!.min_order_limit!);
+        cartMinimumOrderCurrencyBehaviour.sink
+            .add(event.response!.currency_name!);
       }
     });
   }

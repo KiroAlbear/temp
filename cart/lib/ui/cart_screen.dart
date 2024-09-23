@@ -121,7 +121,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                     AlertModule().showMessage(
                       context: context,
                       message:
-                          "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ر.ي.",
+                          "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                     );
                   } else {
                     showModalBottomSheet(
@@ -277,7 +277,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                         padding: EdgeInsets.symmetric(vertical: 5.h),
                         child: CustomText(
                           text:
-                              "${S.of(context).cartMinimumOrder} ${snapshot.data.toString()} ر.ي.",
+                              "${S.of(context).cartMinimumOrder} ${snapshot.data.toString()} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                           textAlign: TextAlign.center,
                           customTextStyle:
                               MediumStyle(color: whiteColor, fontSize: 14.sp),
