@@ -31,6 +31,9 @@ class ProductResponse {
   @JsonKey(name: 'isFavorite')
   bool? isFavourite;
 
+  @JsonKey(name: 'currency')
+  String? currency;
+
   // @JsonKey(name: 'description')
   // String? description;
 
@@ -43,6 +46,7 @@ class ProductResponse {
       this.maxQty,
       this.quantity,
       this.image,
+      this.currency,
       this.isFavourite});
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);

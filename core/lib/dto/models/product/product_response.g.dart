@@ -16,6 +16,7 @@ ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) =>
       maxQty: (json['max_qty'] as num?)?.toDouble(),
       quantity: (json['available_quantity'] as num?)?.toDouble(),
       image: json['image'] as String?,
+      currency: json['currency'] as String?,
       isFavourite: json['isFavorite'] as bool?,
     );
 
@@ -30,4 +31,5 @@ Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
       'available_quantity': instance.quantity,
       'image': instance.image,
       'isFavorite': instance.isFavourite,
+      'currency': instance.currency,
     };

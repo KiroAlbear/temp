@@ -56,7 +56,7 @@ class ProductMapper {
       isFavourite = false;
       barCode = '';
       description = '';
-      currency = '';
+      currency = productResponse.currency ?? '';
       maxQuantity = productResponse.maxQty ?? 0;
       minQuantity = productResponse.minQty ?? 0;
       quantity = productResponse.quantity ?? 0;
