@@ -39,7 +39,7 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
                 index: index,
                 item: list[index],
                 homeBloc: widget.homeBloc,
-                isClickable: true,
+                isClickable: list[index].link.toLowerCase().trim() != "nolink",
               ),
               shrinkWrap: true,
               // physics: const PageScrollPhysics(),

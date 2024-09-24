@@ -93,14 +93,22 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   @override
   void initState() {
     if (widget.homeBloc.selectedOffer != null) {
-      if (widget.homeBloc.selectedOffer!.link.toLowerCase() == "category") {
+      if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
+          "category") {
         widget.productCategoryBloc.categoryId =
             widget.homeBloc.selectedOffer!.relatedItemId;
-        widget.productCategoryBloc.getProductWithSubcategoryBrand(null, null);
-      } else if (widget.homeBloc.selectedOffer!.link.toLowerCase() ==
+        widget.productCategoryBloc.getProductWithSubcategoryBrand(
+            widget.productCategoryBloc.categoryId, null);
+      } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
           "product") {
         widget.productCategoryBloc
             .getProductById(widget.homeBloc.selectedOffer!.relatedItemId);
+      } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
+          "brand") {
+        widget.productCategoryBloc.brandId =
+            widget.homeBloc.selectedOffer!.relatedItemId;
+        widget.productCategoryBloc.getProductWithSubcategoryBrand(
+            null, widget.productCategoryBloc.brandId);
       }
     } else if (ProductCategoryWidget.categoryProductsCount > 0) {
       widget.productCategoryBloc.getProductWithSubcategoryBrand(

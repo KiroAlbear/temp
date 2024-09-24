@@ -40,7 +40,8 @@ class _OffersWidgetState extends State<OffersWidget>
               // controller: _pageScrollController,
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               itemBuilder: (context, index) => OfferItem(
-                  isClickable: true,
+                  isClickable:
+                      list[index].link.toLowerCase().trim() != "nolink",
                   item: list[index],
                   homeBloc: widget.homeBloc,
                   index: index),
