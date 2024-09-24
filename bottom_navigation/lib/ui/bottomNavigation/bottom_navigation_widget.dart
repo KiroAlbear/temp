@@ -52,18 +52,22 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
         stream: widget.bottomNavigationBloc.selectedTabStream,
         builder: (context, snapshot) {
           _initBottomNavItems(snapshot.data ?? 0);
-          return Stack(
-            children: [
-              BottomNavigationBar(
-                  items: _items,
-                  backgroundColor: secondaryColor,
-                  currentIndex: snapshot.data ?? 0,
-                  landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-                  onTap: (value) {
-                    widget.bottomNavigationBloc.setSelectedTab(value, context);
-                  },
-                  iconSize: 20.r),
-            ],
+          return Container(
+            decoration: BoxDecoration(
+              color: secondaryColor,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.w),
+                  topRight: Radius.circular(20.w)),
+            ),
+            child: BottomNavigationBar(
+                items: _items,
+                backgroundColor: secondaryColor.withOpacity(0.01),
+                currentIndex: snapshot.data ?? 0,
+                landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+                onTap: (value) {
+                  widget.bottomNavigationBloc.setSelectedTab(value, context);
+                },
+                iconSize: 20.r),
           );
         },
         initialData: 0,
