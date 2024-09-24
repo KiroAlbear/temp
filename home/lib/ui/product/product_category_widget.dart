@@ -132,9 +132,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         widget.productCategoryBloc.brandId);
   }
 
-  bool isFavouriteOrSearch() {
+  bool isFavouriteOrSearchOrCategory() {
     return widget.productCategoryBloc.isForFavourite ||
-        ProductCategoryBloc.searchValue != null;
+        ProductCategoryBloc.searchValue != null ||
+        ProductCategoryWidget.categoryProductsCount > 0;
   }
 
   @override
@@ -183,7 +184,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                             : SizedBox(
                                 height: 50.h,
                               ),
-                        (isFavouriteOrSearch() ||
+                        (isFavouriteOrSearchOrCategory() ||
                                 widget.homeBloc.selectedOffer != null)
                             ? SizedBox()
                             : StreamBuilder<ApiState<List<CategoryMapper>>>(
@@ -280,13 +281,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         );
                                 },
                               ),
-                        (isFavouriteOrSearch() ||
+                        (isFavouriteOrSearchOrCategory() ||
                                 widget.homeBloc.selectedOffer != null)
                             ? SizedBox()
                             : SizedBox(
                                 height: 10.h,
                               ),
-                        (isFavouriteOrSearch() ||
+                        (isFavouriteOrSearchOrCategory() ||
                                 widget.homeBloc.selectedOffer != null)
                             ? SizedBox()
                             : StreamBuilder<ApiState<List<BrandMapper>>>(
@@ -364,7 +365,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         );
                                 },
                               ),
-                        (isFavouriteOrSearch() ||
+                        (isFavouriteOrSearchOrCategory() ||
                                 widget.homeBloc.selectedOffer != null)
                             ? SizedBox()
                             : SizedBox(
