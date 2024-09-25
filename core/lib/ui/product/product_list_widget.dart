@@ -53,6 +53,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   void initState() {
     favouriteList.addAll(widget.productList);
     widget.cartBloc.addCartInfoToProducts(widget.productList);
+
+    if (widget.productCategoryBloc.isForFavourite) addAllProductToFavourite();
     super.initState();
   }
 
@@ -91,8 +93,6 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                 emptyFavouriteScreen: widget.emptyFavouriteScreen,
               );
             } else {
-              if (widget.productCategoryBloc.isForFavourite)
-                addAllProductToFavourite();
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -100,6 +100,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                     mainAxisSpacing: 11.h,
                     mainAxisExtent: 225.h),
                 itemBuilder: (context, index) => ProductWidget(
+                  key: UniqueKey(),
                   icDelete: widget.deleteIcon,
                   onProductRemoved: (int productId) {
                     resetFavouriteList(productId);
