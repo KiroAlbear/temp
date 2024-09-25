@@ -118,7 +118,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             return value == 0
                 ? Center(child: _addCartButton)
                 : Center(
-                    child: _incrementDecrementButton(true),
+                    child: _incrementDecrementButton(),
                   );
           },
         ),
@@ -174,7 +174,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               SizedBox(
                 height: 8.h,
               ),
-              _incrementDecrementButton(false),
+              _incrementDecrementButton(),
             ],
           )
         ],
@@ -376,17 +376,18 @@ class _ProductWidgetState extends State<ProductWidget> {
     );
   }
 
-  Widget _incrementDecrementButton(bool isProductPage) {
+  Widget _incrementDecrementButton() {
     final SizedBox horizontalSpace = 10.horizontalSpace;
     final SizedBox spacing = 0.horizontalSpace;
     return Container(
-      width: isProductPage ? buttonWidth : null,
-      height: isProductPage ? buttonHeight : null,
+      // width: isProductPage ? buttonWidth : null,
+      // height: isProductPage ? buttonHeight : null,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
         color: primaryColor,
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           horizontalSpace,
           Container(
