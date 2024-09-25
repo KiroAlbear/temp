@@ -19,8 +19,9 @@ class MyOrdersMapper {
           shippingOrder: e.shippingOrder,
           outOrder: e.outOrder,
           deliverOrder: e.deliveredOrder,
+          state: e.state,
           items: getOrderItems(e));
-      if (e.deliveredOrder == null) {
+      if (e.deliveredOrder == null && e.state != "cancel") {
         currentOrders.add(order);
       } else {
         pastOrders.add(order);
@@ -53,6 +54,7 @@ class OrdersMapper {
   String? shippingOrder;
   String? outOrder;
   String? deliverOrder;
+  String? state;
 
   List<OrderItemMapper> items;
   OrdersMapper(
@@ -64,6 +66,7 @@ class OrdersMapper {
       required this.shippingOrder,
       required this.outOrder,
       required this.deliverOrder,
+      required this.state,
       required this.items});
 }
 

@@ -34,18 +34,21 @@ class MyOrderItemResponse {
   @JsonKey(name: 'product_qty')
   double? count;
 
-  MyOrderItemResponse({
-    this.id,
-    this.name,
-    this.description,
-    this.price,
-    this.count,
-    this.currency,
-    this.image,
-    this.product_id,
-    this.price_reduce_taxinc,
-    this.price_unit,
-  });
+  @JsonKey(name: 'state')
+  String? state;
+
+  MyOrderItemResponse(
+      {this.id,
+      this.name,
+      this.description,
+      this.price,
+      this.count,
+      this.currency,
+      this.image,
+      this.product_id,
+      this.price_reduce_taxinc,
+      this.price_unit,
+      this.state});
 
   factory MyOrderItemResponse.fromJson(Map<String, dynamic> json) =>
       _$MyOrderItemResponseFromJson(Apputils.convertFlaseToNullJson(json));

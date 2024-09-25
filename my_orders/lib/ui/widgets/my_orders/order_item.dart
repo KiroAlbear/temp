@@ -83,7 +83,8 @@ class OrderItem extends StatelessWidget {
           ),
           // trailing: _getCurrentOrdersTrailingWidget(),
           trailing: orderItemType == OrderType.pastOrder
-              ? _getPastOrdersTrailingWidget(context, true)
+              ? _getPastOrdersTrailingWidget(
+                  context, currentOrder.state != "cancel")
               : _getCurrentOrdersTrailingWidget(),
           onExpansionChanged: (value) {
             isExpanded.value = value;
@@ -164,9 +165,7 @@ class OrderItem extends StatelessWidget {
   Widget _getPastOrdersTrailingWidget(
       BuildContext context, bool isOrderReceived) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 5,
-      ),
+      padding: EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: isOrderReceived ? greenColor : Colors.red,
@@ -176,6 +175,7 @@ class OrderItem extends StatelessWidget {
         text: isOrderReceived
             ? S.of(context).orderRecieved
             : S.of(context).orderNotRecieved,
+
         customTextStyle: SemiBoldStyle(color: Colors.white, fontSize: 12.sp),
       ),
     );

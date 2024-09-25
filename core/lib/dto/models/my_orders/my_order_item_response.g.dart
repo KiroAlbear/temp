@@ -18,6 +18,7 @@ MyOrderItemResponse _$MyOrderItemResponseFromJson(Map<String, dynamic> json) =>
       product_id: json['product_id'] as List<dynamic>?,
       price_reduce_taxinc: (json['price_reduce_taxinc'] as num?)?.toDouble(),
       price_unit: (json['price_unit'] as num?)?.toDouble(),
+      state: json['state'] as String?,
     );
 
 Map<String, dynamic> _$MyOrderItemResponseToJson(
@@ -33,4 +34,5 @@ Map<String, dynamic> _$MyOrderItemResponseToJson(
       'currency_id': instance.currency,
       'product_id': instance.product_id,
       'product_qty': instance.count,
+      'state': instance.state,
     };

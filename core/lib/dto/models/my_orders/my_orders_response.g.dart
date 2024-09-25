@@ -23,6 +23,7 @@ MyOrdersResponse _$MyOrdersResponseFromJson(Map<String, dynamic> json) =>
       items: (json['order_line'] as List<dynamic>?)
           ?.map((e) => MyOrderItemResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      state: json['state'] as String?,
     );
 
 Map<String, dynamic> _$MyOrdersResponseToJson(MyOrdersResponse instance) =>
@@ -37,5 +38,6 @@ Map<String, dynamic> _$MyOrdersResponseToJson(MyOrdersResponse instance) =>
       'effective_date': instance.shippingOrder,
       'date_delivery_start': instance.outOrder,
       'date_delivery_done': instance.deliveredOrder,
+      'state': instance.state,
       'order_line': instance.items,
     };

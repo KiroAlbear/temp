@@ -38,6 +38,9 @@ class MyOrdersResponse {
   @JsonKey(name: 'date_delivery_done')
   String? deliveredOrder;
 
+  @JsonKey(name: 'state')
+  String? state;
+
   @JsonKey(name: 'order_line')
   List<MyOrderItemResponse>? items;
 
@@ -55,6 +58,7 @@ class MyOrdersResponse {
     this.currencyId,
     this.deliveredOrder,
     this.items,
+    this.state,
   });
 
   factory MyOrdersResponse.fromJson(Map<String, dynamic> json) =>
