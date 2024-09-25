@@ -181,6 +181,8 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
               event.response != null &&
               event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
+          } else if (event.response != null && event.response!.isEmpty) {
+            _handleProductResponse(null);
           }
         },
       );
@@ -194,6 +196,8 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
               event.response != null &&
               event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
+          } else if (event.response != null && event.response!.isEmpty) {
+            _handleProductResponse(null);
           }
         },
       );
@@ -212,6 +216,8 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
               event.response != null &&
               event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
+          } else if (event.response != null && event.response!.isEmpty) {
+            _handleProductResponse(null);
           }
         },
       );
@@ -244,7 +250,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   void _handleProductResponse(List<ProductMapper>? response) {
     isLoading?.value = false;
-    setLoaded(response ?? []);
+    setLoaded((response) ?? []);
   }
 
   void doSearch(String value) {
