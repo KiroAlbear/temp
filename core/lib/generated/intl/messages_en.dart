@@ -221,6 +221,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "previous": MessageLookupByLibrary.simpleMessage("previous"),
         "previousOrder":
             MessageLookupByLibrary.simpleMessage("Previous orders"),
+        "productIsNotAvailable":
+            MessageLookupByLibrary.simpleMessage("Product is not available"),
         "products": MessageLookupByLibrary.simpleMessage("Products"),
         "productsFilterAll": MessageLookupByLibrary.simpleMessage("All"),
         "promoDetails": MessageLookupByLibrary.simpleMessage("Promo details"),

@@ -169,6 +169,25 @@ class CartBloc extends BlocBase {
     return stream;
   }
 
+  void addCartInfoToProducts(List<ProductMapper> productsList) {
+    for (int i = 0; i < productsList.length; i++) {
+      for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
+        if (productsList[i].id ==
+            cartProductsBehavior.value.response![j].productId) {
+          productsList[i].quantity =
+              cartProductsBehavior.value.response![j].quantity;
+          productsList[i].maxQuantity =
+              cartProductsBehavior.value.response![j].maxQuantity;
+          productsList[i].minQuantity =
+              cartProductsBehavior.value.response![j].minQuantity;
+
+          productsList[i].productId =
+              cartProductsBehavior.value.response![j].id;
+        }
+      }
+    }
+  }
+
   Stream<ApiState<int>> saveToCart(int productId, int quantity) {
     _getClientData();
     final CartSaveRequest request = CartSaveRequest(

@@ -223,6 +223,7 @@ BlocProvider _productCategoryWidget() {
         favouriteIconFilled: Assets.svgIcFavouriteFilled,
         emptyFavouriteScreen: Assets.svgEmptyFavourite,
         backIcon: Assets.svgIcBack,
+        deleteIcon: Assets.svgIcDelete,
         favouriteIcon: Assets.svgIcFavourite,
         homeBloc: _homeBloc,
         homeLogo: Assets.svgIcHomeLogo,

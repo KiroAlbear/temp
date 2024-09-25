@@ -1,8 +1,8 @@
 import 'package:cart/ui/cart_bloc.dart';
 import 'package:cart/ui/widgets/cart_bottom_sheet.dart';
 import 'package:cart/ui/widgets/cart_empty_widget.dart';
+import 'package:cart/utilities/cart_common_functions.dart';
 import 'package:core/core.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -188,27 +188,31 @@ class _CartScreenState extends BaseState<CartScreen> {
                       productMapper: snapshot.data!.response![index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {
-                        editCart(
+                        CartCommonFunctions().editCart(
+                          cartBloc: widget.cartBloc,
+                          isLoading: isLoading,
                           id: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
-                          quantity:
-                              snapshot.data!.response![index].quantity - 1,
+                          quantity: snapshot.data!.response![index].quantity,
                           price: snapshot.data!.response![index].price,
                           state: CartState.decrement,
                         );
                       },
                       onIncrementClicked: (productMapper) {
-                        editCart(
+                        CartCommonFunctions().editCart(
+                          cartBloc: widget.cartBloc,
+                          isLoading: isLoading,
                           id: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
-                          quantity:
-                              snapshot.data!.response![index].quantity + 1,
+                          quantity: snapshot.data!.response![index].quantity,
                           price: snapshot.data!.response![index].price,
                           state: CartState.increment,
                         );
                       },
                       onDeleteClicked: (productMapper) {
-                        editCart(
+                        CartCommonFunctions().editCart(
+                          cartBloc: widget.cartBloc,
+                          isLoading: isLoading,
                           id: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
                           quantity: 0,
@@ -225,31 +229,31 @@ class _CartScreenState extends BaseState<CartScreen> {
     );
   }
 
-  void editCart(
-      {required int id,
-      required int productId,
-      required double quantity,
-      required double price,
-      required CartState state,
-      bool isDelete = false}) {
-    isLoading.value = true;
-    widget.cartBloc
-        .editCart(
-      cartItemId: id,
-      productId: productId,
-      price: price,
-      cartState: state,
-      quantity: quantity.toInt(),
-    )
-        .listen((event) {
-      if (event is SuccessState && isDelete) {
-        // widget.cartBloc.getMyCart();
-        isLoading.value = false;
-      } else if (event is SuccessState && !isDelete) {
-        isLoading.value = false;
-      }
-    });
-  }
+  // void editCart(
+  //     {required int id,
+  //     required int productId,
+  //     required double quantity,
+  //     required double price,
+  //     required CartState state,
+  //     bool isDelete = false}) {
+  //   isLoading.value = true;
+  //   widget.cartBloc
+  //       .editCart(
+  //     cartItemId: id,
+  //     productId: productId,
+  //     price: price,
+  //     cartState: state,
+  //     quantity: quantity.toInt(),
+  //   )
+  //       .listen((event) {
+  //     if (event is SuccessState && isDelete) {
+  //       // widget.cartBloc.getMyCart();
+  //       isLoading.value = false;
+  //     } else if (event is SuccessState && !isDelete) {
+  //       isLoading.value = false;
+  //     }
+  //   });
+  // }
 
   Widget _cartHeader(BuildContext context) {
     return Padding(

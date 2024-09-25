@@ -1,4 +1,5 @@
 import 'package:cart/ui/cart_bloc.dart';
+import 'package:cart/utilities/cart_common_functions.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/brand/brand_mapper.dart';
@@ -26,6 +27,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   final String notificationIcon;
   final String scanIcon;
   final String searchIcon;
+  final String deleteIcon;
   final String emptyFavouriteScreen;
   final String productNotFoundIcon;
   final HomeBloc homeBloc;
@@ -53,6 +55,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
       required this.notificationIcon,
       required this.scanIcon,
       required this.searchIcon,
+      required this.deleteIcon,
       required this.supportIcon,
       required this.productNotFoundIcon,
       required this.cartBloc,
@@ -415,6 +418,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         LoadingState<List<ProductMapper>>(),
                                     context,
                                     onSuccess: ProductListWidget(
+                                      deleteIcon: widget.deleteIcon,
                                       emptyFavouriteScreen:
                                           widget.emptyFavouriteScreen,
                                       cartBloc: widget.cartBloc,
@@ -437,8 +441,43 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                 event.response!;
                                             widget.showOverlayLoading.value =
                                                 false;
+                                            widget.cartBloc.getMyCart();
                                           }
                                         });
+                                      },
+                                      onDeleteClicked: (productMapper) {
+                                        CartCommonFunctions().editCart(
+                                          cartBloc: widget.cartBloc,
+                                          isLoading: widget.showOverlayLoading,
+                                          id: productMapper.productId,
+                                          productId: productMapper.id,
+                                          quantity: 0,
+                                          price: productMapper.price,
+                                          state: CartState.decrement,
+                                          isDelete: true,
+                                        );
+                                      },
+                                      onDecrementClicked: (productMapper) {
+                                        CartCommonFunctions().editCart(
+                                          cartBloc: widget.cartBloc,
+                                          isLoading: widget.showOverlayLoading,
+                                          id: productMapper.productId,
+                                          productId: productMapper.id,
+                                          quantity: productMapper.quantity,
+                                          price: productMapper.price,
+                                          state: CartState.decrement,
+                                        );
+                                      },
+                                      onIncrementClicked: (productMapper) {
+                                        CartCommonFunctions().editCart(
+                                          cartBloc: widget.cartBloc,
+                                          isLoading: widget.showOverlayLoading,
+                                          id: productMapper.productId,
+                                          productId: productMapper.id,
+                                          quantity: productMapper.quantity,
+                                          price: productMapper.price,
+                                          state: CartState.increment,
+                                        );
                                       },
                                       onTapFavourite:
                                           (favourite, productMapper) {

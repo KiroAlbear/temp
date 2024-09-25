@@ -11,12 +11,15 @@ class ProductListWidget extends StatefulWidget {
   final List<ProductMapper> productList;
   final String favouriteIcon;
   final String favouriteIconFilled;
+  final String deleteIcon;
   final CartBloc cartBloc;
   final ProductCategoryBloc productCategoryBloc;
   final String emptyFavouriteScreen;
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
   final Function(ProductMapper productMapper) onAddToCart;
-  final Function(ProductMapper productMapper)? onDeleteFromCart;
+  final Function(ProductMapper productMapper)? onDecrementClicked;
+  final Function(ProductMapper productMapper)? onIncrementClicked;
+  final Function(ProductMapper productMapper)? onDeleteClicked;
 
   final VoidCallback? loadMore;
 
@@ -26,12 +29,15 @@ class ProductListWidget extends StatefulWidget {
       required this.productCategoryBloc,
       required this.productList,
       required this.favouriteIcon,
+      required this.deleteIcon,
       required this.favouriteIconFilled,
       required this.onTapFavourite,
       required this.onAddToCart,
       required this.loadMore,
       required this.emptyFavouriteScreen,
-      this.onDeleteFromCart});
+      required this.onDeleteClicked,
+      this.onDecrementClicked,
+      this.onIncrementClicked});
 
   @override
   State<ProductListWidget> createState() => _ProductListWidgetState();
@@ -46,6 +52,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   @override
   void initState() {
     favouriteList.addAll(widget.productList);
+    widget.cartBloc.addCartInfoToProducts(widget.productList);
     super.initState();
   }
 
@@ -93,6 +100,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                     mainAxisSpacing: 11.h,
                     mainAxisExtent: 225.h),
                 itemBuilder: (context, index) => ProductWidget(
+                  icDelete: widget.deleteIcon,
                   onProductRemoved: (int productId) {
                     resetFavouriteList(productId);
                     refreshNotifier.value = !refreshNotifier.value;
@@ -105,7 +113,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   onAddToCart: widget.onAddToCart,
                   favouriteIcon: widget.favouriteIcon,
                   onTapFavourite: widget.onTapFavourite,
-                  onDeleteClicked: widget.onDeleteFromCart,
+                  onDeleteClicked: widget.onDeleteClicked,
+                  onIncrementClicked: widget.onIncrementClicked,
+                  onDecrementClicked: widget.onDecrementClicked,
                   favouriteIconFilled: widget.favouriteIconFilled,
                 ),
                 itemCount: widget.productCategoryBloc.isForFavourite

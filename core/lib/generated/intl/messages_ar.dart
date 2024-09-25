@@ -214,6 +214,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
+        "productIsNotAvailable":
+            MessageLookupByLibrary.simpleMessage("المنتج غير متوفر"),
         "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
         "productsFilterAll": MessageLookupByLibrary.simpleMessage("الكل"),
         "promoDetails": MessageLookupByLibrary.simpleMessage("تفاصيل العرض"),

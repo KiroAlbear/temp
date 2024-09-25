@@ -166,5 +166,6 @@
   "cartConfirmOrder": "Confirm order",
   "cartCashOnDelivery": "Cash on delivery",
   "cartPaymentOptions": "Payment method that suits you",
-  "cartDokkanWallet": "Dokkan wallet"
+  "cartDokkanWallet": "Dokkan wallet",
+  "productIsNotAvailable": "Product is not available"
 }

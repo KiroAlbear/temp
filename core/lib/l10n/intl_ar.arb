@@ -166,5 +166,6 @@
   "cartConfirmOrder": "تأكيد الطلب",
   "cartCashOnDelivery": "كاش عند الاستلام",
   "cartPaymentOptions": "طريقة الدفع المناسبة ليك",
-  "cartDokkanWallet": "محفظة دكان"
+  "cartDokkanWallet": "محفظة دكان",
+  "productIsNotAvailable": "المنتج غير متوفر"
 }

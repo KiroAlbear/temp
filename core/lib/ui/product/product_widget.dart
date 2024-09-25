@@ -61,8 +61,9 @@ class ProductWidget extends StatefulWidget {
 
 class _ProductWidgetState extends State<ProductWidget> {
   final ValueNotifier<bool> isAddingToFavSucess = ValueNotifier(true);
-
-  ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(1);
+  final double buttonWidth = 89.w;
+  final double buttonHeight = 25.h;
+  ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
 
   @override
   void initState() {
@@ -80,6 +81,54 @@ class _ProductWidgetState extends State<ProductWidget> {
             ? _getCartProductWidget()
             : _getProductWidget(),
       );
+
+  Widget _getProductWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 12.h,
+        ),
+        _favouriteAndDiscountRow,
+        SizedBox(
+          height: 4.h,
+        ),
+        _productImage,
+        SizedBox(
+          height: 5.h,
+        ),
+        _productName,
+        SizedBox(
+          height: 4.h,
+        ),
+        _priceRow,
+        SizedBox(
+          height: 4.h,
+        ),
+        _productDescription,
+        SizedBox(
+          height: 9.h,
+        ),
+        // Center(child: _addCartButton),
+
+        ValueListenableBuilder(
+          valueListenable: qtyValueNotifier,
+          builder: (context, value, child) {
+            return value == 0
+                ? Center(child: _addCartButton)
+                : Center(
+                    child: _incrementDecrementButton(true),
+                  );
+          },
+        ),
+
+        SizedBox(
+          height: 10.h,
+        )
+      ],
+    );
+  }
 
   _getCartProductWidget() {
     return Padding(
@@ -125,7 +174,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               SizedBox(
                 height: 8.h,
               ),
-              _incrementDecrementButton(),
+              _incrementDecrementButton(false),
             ],
           )
         ],
@@ -144,48 +193,12 @@ class _ProductWidgetState extends State<ProductWidget> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
           child: CustomText(
-            text: "المنتج غير متوفر", // TODO: Add localization
+            text: S.of(context).productIsNotAvailable,
             customTextStyle:
                 RegularStyle(color: lightBlackColor, fontSize: 8.sp),
           ),
         ),
       ),
-    );
-  }
-
-  Widget _getProductWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 12.h,
-        ),
-        _favouriteAndDiscountRow,
-        SizedBox(
-          height: 4.h,
-        ),
-        _productImage,
-        SizedBox(
-          height: 5.h,
-        ),
-        _productName,
-        SizedBox(
-          height: 4.h,
-        ),
-        _priceRow,
-        SizedBox(
-          height: 4.h,
-        ),
-        _productDescription,
-        SizedBox(
-          height: 9.h,
-        ),
-        Center(child: _addCartButton),
-        SizedBox(
-          height: 10.h,
-        )
-      ],
     );
   }
 
@@ -357,15 +370,18 @@ class _ProductWidgetState extends State<ProductWidget> {
       cancelMessage: S.of(context).cancel,
       onCancel: () {},
       onConfirm: () {
+        qtyValueNotifier.value--;
         widget.onDeleteClicked!(widget.productMapper);
       },
     );
   }
 
-  Widget _incrementDecrementButton() {
+  Widget _incrementDecrementButton(bool isProductPage) {
     final SizedBox horizontalSpace = 10.horizontalSpace;
     final SizedBox spacing = 0.horizontalSpace;
     return Container(
+      width: isProductPage ? buttonWidth : null,
+      height: isProductPage ? buttonHeight : null,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
         color: primaryColor,
@@ -380,6 +396,8 @@ class _ProductWidgetState extends State<ProductWidget> {
               onTap: () {
                 if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
                   qtyValueNotifier.value++;
+                  widget.productMapper.quantity =
+                      qtyValueNotifier.value.toDouble();
                   widget.onIncrementClicked!(widget.productMapper);
                 } else {
                   _showMaximumAlertDialog(
@@ -418,6 +436,9 @@ class _ProductWidgetState extends State<ProductWidget> {
               if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
                   qtyValueNotifier.value > 1) {
                 qtyValueNotifier.value--;
+                widget.productMapper.quantity =
+                    qtyValueNotifier.value.toDouble();
+
                 widget.onDecrementClicked!(widget.productMapper);
               }
               // else if (qtyValueNotifier.value ==
@@ -461,9 +482,10 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _addCartButton => InkWell(
         onTap: () async {
-          if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
+          // if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
           {
             widget.onAddToCart!(widget.productMapper);
+            qtyValueNotifier.value = 1;
             if (widget.cartBloc != null) {
               widget.cartBloc!.getMyCart();
             }
@@ -471,8 +493,8 @@ class _ProductWidgetState extends State<ProductWidget> {
         },
         child: Container(
           alignment: Alignment.center,
-          width: 89.w,
-          height: 25.h,
+          width: buttonWidth,
+          height: buttonHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.r),
             color:
