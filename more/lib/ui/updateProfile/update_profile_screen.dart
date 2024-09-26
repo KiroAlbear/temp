@@ -34,7 +34,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   PreferredSizeWidget? appBar() => null;
 
   @override
-  bool canPop() => false;
+  bool canPop() => true;
 
   @override
   bool isSafeArea() => true;
