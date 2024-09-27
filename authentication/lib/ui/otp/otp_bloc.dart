@@ -4,7 +4,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/button_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
 import 'package:core/ui/bases/bloc_base.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:otp_text_field/otp_field.dart';
 
 class OtpBloc extends BlocBase {
   final TextFormFiledBloc otpBloc = TextFormFiledBloc();
@@ -25,6 +25,8 @@ class OtpBloc extends BlocBase {
 
   Stream<int> get timeStream => _timeBehaviour.stream;
 
+  OtpFieldController otpFieldController = OtpFieldController();
+
   Stream<bool> get validateStream =>
       Rx.combineLatest([otpBloc.stringStream], (values) => isValid);
 
@@ -32,11 +34,11 @@ class OtpBloc extends BlocBase {
       otpBloc.value.isNotEmpty && otpBloc.value.length == otpCodeLength;
 
   void sendOtp() {
-   /// TODO missing call api
+    /// TODO missing call api
     _setTimerToStart();
   }
 
-  void _setTimerToStart(){
+  void _setTimerToStart() {
     _enableSendOtpBehaviour.sink.add(false);
     _startTime();
     _timeBehaviour.sink.add(_otpTimerInSeconds);

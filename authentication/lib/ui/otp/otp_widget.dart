@@ -10,9 +10,7 @@ import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
+import 'package:otp_pin_field/otp_pin_field.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 
 class OtpWidget extends StatefulWidget {
@@ -31,7 +29,7 @@ class OtpWidget extends StatefulWidget {
 class _OtpWidgetState extends State<OtpWidget> {
   String? _signature;
   final OtpBloc _bloc = OtpBloc();
-
+  final _otpPinFieldController = GlobalKey<OtpPinFieldState>();
   @override
   void initState() {
     super.initState();
@@ -58,37 +56,44 @@ class _OtpWidgetState extends State<OtpWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return LogoTopWidget(
-        canBack: true,
-        logo: widget.logo,
-        blocBase: _bloc,
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Center(
-                child: CustomText(
-                    text: S.of(context).enterVerificationCode,
-                    customTextStyle:
-                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
-              ),
-              SizedBox(
-                height: 33.h,
-              ),
-              _otpWidget,
-              SizedBox(
-                height: 16.h,
-              ),
-              Center(child: _otpWithMobile),
-              SizedBox(
-                height: 100.h,
-              ),
-              Center(child: _sendOtpAgain),
-              SizedBox(
-                height: 12.h,
-              ),
-              _button,
-            ])));
+    return StreamBuilder<Object>(
+        stream: null,
+        builder: (context, snapshot) {
+          return Scaffold(
+            body: LogoTopWidget(
+                canBack: true,
+                logo: widget.logo,
+                blocBase: _bloc,
+                child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: CustomText(
+                                text: S.of(context).enterVerificationCode,
+                                customTextStyle: BoldStyle(
+                                    color: lightBlackColor, fontSize: 24.sp)),
+                          ),
+                          SizedBox(
+                            height: 33.h,
+                          ),
+                          _otpWidget(),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          Center(child: _otpWithMobile),
+                          SizedBox(
+                            height: 100.h,
+                          ),
+                          Center(child: _sendOtpAgain),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          _button,
+                        ]))),
+          );
+        });
   }
 
   /* Widget get _otpWidget => StreamBuilder<TextEditingController>(
@@ -122,42 +127,69 @@ class _OtpWidgetState extends State<OtpWidget> {
             ),
           ));*/
   double _otpSize = 50.w;
-  Widget get _otpWidget => StreamBuilder<TextEditingController>(
-      stream: _bloc.otpBloc.textFormFiledStream,
-      initialData: TextEditingController(text: ''),
-      builder: (context, snapshot) => Directionality(
-            textDirection: AppProviderModule().locale == 'en'
-                ? TextDirection.ltr
-                : TextDirection.rtl,
-            child: SizedBox(
-              height: _otpSize,
-              child: OTPTextField(
-                width: MediaQuery.of(context).size.width,
-                controller: OtpFieldController(),
-                length: _bloc.otpCodeLength,
-                fieldStyle: FieldStyle.box,
-                keyboardType: TextInputType.number,
-                otpFieldStyle: OtpFieldStyle(
-                  backgroundColor: whiteColor,
-                  borderColor: greyColor,
-                  disabledBorderColor: greyColor,
-                  enabledBorderColor: greyColor,
-                  focusBorderColor: lightBlackColor,
-                  errorBorderColor: redColor,
-                ),
-                style: SemiBoldStyle(color: lightBlackColor, fontSize: 20.sp)
-                    .getStyle(),
-                outlineBorderRadius: 5.w,
-                spaceBetween: 12.w,
-                fieldWidth: _otpSize,
-                onChanged: (value) {
-                  _bloc.otpBloc.textFormFiledBehaviour.sink
-                      .add(TextEditingController(text: value));
-                  _bloc.otpBloc.updateStringBehaviour(value);
-                },
-              ),
-            ),
-          ));
+  Widget _otpWidget() {
+    return Directionality(
+      textDirection: AppProviderModule().locale == 'en'
+          ? TextDirection.ltr
+          : TextDirection.rtl,
+      child: SizedBox(
+        height: _otpSize,
+        child: OtpPinField(
+          key: _otpPinFieldController,
+          onSubmit: (pin) {},
+          keyboardType: TextInputType.number,
+          fieldHeight: _otpSize,
+          fieldWidth: _otpSize,
+          autoFillEnable: false,
+          phoneNumbersHint: true,
+          beforeTextPaste: (text) {
+            return false;
+          },
+          maxLength: _bloc.otpCodeLength,
+          otpPinFieldDecoration: OtpPinFieldDecoration.defaultPinBoxDecoration,
+          otpPinFieldStyle: OtpPinFieldStyle(
+            textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 20.sp)
+                .getStyle(),
+            defaultFieldBackgroundColor: whiteColor,
+            defaultFieldBorderColor: greyColor,
+            fieldBorderWidth: 1,
+            fieldBorderRadius: 5.w,
+          ),
+          onChange: (value) {
+            _bloc.otpBloc.textFormFiledBehaviour.sink
+                .add(TextEditingController(text: value));
+            _bloc.otpBloc.updateStringBehaviour(value);
+          },
+        ),
+        //
+        // OTPTextField(
+        //   width: double.infinity,
+        //   controller: _bloc.otpFieldController,
+        //   length: _bloc.otpCodeLength,
+        //   fieldStyle: FieldStyle.box,
+        //   keyboardType: TextInputType.number,
+        //   otpFieldStyle: OtpFieldStyle(
+        //     backgroundColor: whiteColor,
+        //     borderColor: greyColor,
+        //     disabledBorderColor: greyColor,
+        //     enabledBorderColor: greyColor,
+        //     focusBorderColor: lightBlackColor,
+        //     errorBorderColor: redColor,
+        //   ),
+        //   style:
+        //       SemiBoldStyle(color: lightBlackColor, fontSize: 20.sp).getStyle(),
+        //   outlineBorderRadius: 5.w,
+        //   spaceBetween: 12.w,
+        //   fieldWidth: _otpSize,
+        //   onChanged: (value) {
+        //     // _bloc.otpBloc.textFormFiledBehaviour.sink
+        //     //     .add(TextEditingController(text: value));
+        //     // _bloc.otpBloc.updateStringBehaviour(value);
+        //   },
+        // ),
+      ),
+    );
+  }
 
   Widget get _otpWithMobile => CustomText(
       text: S.of(context).enterVerificationCodeSentTo(
