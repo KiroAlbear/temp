@@ -1,4 +1,3 @@
-import 'package:core/dto/modules/logger_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -28,9 +27,15 @@ class ValidatorModule {
       emptyValidator(context).isValid(value);
 
   /// password filed validation
-  MultiValidator passwordValidator(BuildContext? context) => MultiValidator([
+  MultiValidator passwordValidator(BuildContext? context,
+          {bool showRequiredOption = true}) =>
+      MultiValidator([
         RequiredValidator(
-            errorText: context == null ? '' : S.of(context).required),
+            errorText: context == null
+                ? ''
+                : showRequiredOption
+                    ? S.of(context).required
+                    : ''),
         PatternValidator(ConstantModule.passwordRegex, errorText: '')
       ]);
 
@@ -52,9 +57,7 @@ class ValidatorModule {
       errorText: context == null ? "" : S.of(context).passwordNotMatched);
 
   isMatchValid(String? value1, String? value2, {BuildContext? context}) =>
-      value1 != null && value2 != null
-          ? value1 == value2
-          : false;
+      value1 != null && value2 != null ? value1 == value2 : false;
 
   /// mobile validator
   MultiValidator mobileValidator(BuildContext? context, String? mobileRegex) =>

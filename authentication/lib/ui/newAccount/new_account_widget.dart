@@ -30,11 +30,14 @@ class NewAccountWidget extends BaseStatefulWidget {
 
 class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   final NewAccountBloc _bloc = NewAccountBloc();
+  late final PasswordValidationBloc _passwordValidationBloc;
 
   @override
   void initState() {
     super.initState();
     _bloc.init(mobileNumber: widget.mobileNumber, countryId: widget.countryId);
+    _passwordValidationBloc =
+        PasswordValidationBloc(_bloc.passwordBloc.textFormFiledBehaviour.value);
   }
 
   void _handleBackPressing() async {
@@ -97,7 +100,10 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
       case NewAccountStepEnum.editLocation:
         return NewAccountLocationWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.password:
-        return NewAccountPasswordWidget(newAccountBloc: _bloc);
+        return NewAccountPasswordWidget(
+          newAccountBloc: _bloc,
+          passwordValidationBloc: _passwordValidationBloc,
+        );
     }
   }
 

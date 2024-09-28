@@ -16,8 +16,11 @@ import 'package:flutter/material.dart';
 
 class NewAccountPasswordWidget extends StatefulWidget {
   final NewAccountBloc newAccountBloc;
-
-  const NewAccountPasswordWidget({super.key, required this.newAccountBloc});
+  final PasswordValidationBloc passwordValidationBloc;
+  const NewAccountPasswordWidget(
+      {super.key,
+      required this.newAccountBloc,
+      required this.passwordValidationBloc});
 
   @override
   State<NewAccountPasswordWidget> createState() =>
@@ -26,6 +29,18 @@ class NewAccountPasswordWidget extends StatefulWidget {
 
 class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
     with ResponseHandlerModule {
+  // ValueNotifier<bool> isValidated = ValueNotifier(false);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _formKey.currentState!.validate();
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -38,22 +53,30 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
             SizedBox(
               height: 12.h,
             ),
-            _passwordFiled,
-            SizedBox(
-              height: 24.h,
-            ),
-            CustomText(
-                text: S.of(context).confirmPassword,
-                customTextStyle:
-                    RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
-            SizedBox(
-              height: 12.h,
-            ),
-            _confirmPasswordFiled,
+            Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _passwordFiled,
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    CustomText(
+                        text: S.of(context).confirmPassword,
+                        customTextStyle: RegularStyle(
+                            color: lightBlackColor, fontSize: 20.sp)),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    _confirmPasswordFiled,
+                  ],
+                )),
             SizedBox(
               height: 8.h,
             ),
             PasswordValidationWidget(
+              passwordValidationBloc: widget.passwordValidationBloc,
               passwordController: widget
                   .newAccountBloc.passwordBloc.textFormFiledBehaviour.value,
             ),
@@ -64,8 +87,14 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
           ]);
 
   Widget get _passwordFiled => CustomTextFormFiled(
-        onChanged: (value) =>
-            widget.newAccountBloc.passwordBloc.updateStringBehaviour(value),
+        onChanged: (value) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (timeStamp) {
+              _formKey.currentState?.validate();
+            },
+          );
+          widget.newAccountBloc.passwordBloc.updateStringBehaviour(value);
+        },
         textFiledControllerStream:
             widget.newAccountBloc.passwordBloc.textFormFiledStream,
         labelText: S.of(context).enterYourPassword,
@@ -76,14 +105,23 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
         ).getStyle(),
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
-        validator: (value) =>
-            ValidatorModule().passwordValidator(context).call(value),
+        validator: (value) {
+          return ValidatorModule().passwordValidator(context).call(widget
+              .newAccountBloc.passwordBloc.textFormFiledBehaviour.value.text);
+        },
         isPassword: true,
       );
 
   Widget get _confirmPasswordFiled => CustomTextFormFiled(
-        onChanged: (value) => widget.newAccountBloc.confirmPasswordBloc
-            .updateStringBehaviour(value),
+        onChanged: (value) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (timeStamp) {
+              _formKey.currentState?.validate();
+            },
+          );
+          widget.newAccountBloc.confirmPasswordBloc
+              .updateStringBehaviour(value);
+        },
         textFiledControllerStream:
             widget.newAccountBloc.confirmPasswordBloc.textFormFiledStream,
         labelText: S.of(context).enterConfirmPassword,
@@ -92,10 +130,11 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
         textCapitalization: TextCapitalization.none,
         defaultTextStyle:
             RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
-        validator: (value) => ValidatorModule()
-            .matchValidator(context)
-            .validateMatch(
-                value ?? '', widget.newAccountBloc.passwordBloc.value),
+        validator: (value) {
+          return ValidatorModule().matchValidator(context).validateMatch(
+              widget.newAccountBloc.confirmPasswordBloc.value ?? '',
+              widget.newAccountBloc.passwordBloc.value);
+        },
         isPassword: true,
       );
 

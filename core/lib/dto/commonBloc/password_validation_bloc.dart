@@ -5,39 +5,27 @@ import 'package:core/ui/bases/bloc_base.dart';
 import 'package:flutter/cupertino.dart';
 
 class PasswordValidationBloc extends BlocBase {
-  final BehaviorSubject<bool> _capitalCharBehaviour = BehaviorSubject()
+  final BehaviorSubject<bool> capitalCharBehaviour = BehaviorSubject()
     ..sink.add(false);
-  final BehaviorSubject<bool> _smallCharBehaviour = BehaviorSubject()
+  final BehaviorSubject<bool> smallCharBehaviour = BehaviorSubject()
     ..sink.add(false);
-  final BehaviorSubject<bool> _numberBehaviour = BehaviorSubject()
+  final BehaviorSubject<bool> numberBehaviour = BehaviorSubject()
     ..sink.add(false);
-  final BehaviorSubject<bool> _passwordLengthBehaviour = BehaviorSubject()
+  final BehaviorSubject<bool> passwordLengthBehaviour = BehaviorSubject()
     ..sink.add(false);
-  final BehaviorSubject<bool> _specialCharBehaviour = BehaviorSubject()
+  final BehaviorSubject<bool> specialCharBehaviour = BehaviorSubject()
     ..sink.add(false);
-  final BehaviorSubject<bool> _noSpaceBehaviour = BehaviorSubject()
+  final BehaviorSubject<bool> noSpaceBehaviour = BehaviorSubject()
     ..sink.add(false);
   final TextEditingController textEditingController;
 
-  Stream<bool> get capitalCharStream => _capitalCharBehaviour.stream;
-
-  Stream<bool> get smallCharStream => _smallCharBehaviour.stream;
-
-  Stream<bool> get numberStream => _numberBehaviour.stream;
-
-  Stream<bool> get passwordLengthStream => _passwordLengthBehaviour.stream;
-
-  Stream<bool> get specialCharStream => _specialCharBehaviour.stream;
-
-  Stream<bool> get noSpaceStream => _noSpaceBehaviour.stream;
-
   Stream<bool> get isAllValid => Rx.combineLatest6(
-      capitalCharStream,
-      smallCharStream,
-      numberStream,
-      passwordLengthStream,
-      specialCharStream,
-      noSpaceStream,
+      capitalCharBehaviour,
+      smallCharBehaviour,
+      numberBehaviour,
+      passwordLengthBehaviour,
+      specialCharBehaviour,
+      noSpaceBehaviour,
       (hasCapChar, hasSmallChar, hasNumber, matchPasswordLength, hasSpecialChar,
               noSpaceAllowed) =>
           // hasCapChar &&
@@ -63,63 +51,63 @@ class PasswordValidationBloc extends BlocBase {
   void _validateCapLetter(ValidatorModule validatorModule, String value) {
     if (validatorModule.isCustomValid(
         value, ConstantModule.atLeastUpperCaseRegex)) {
-      _capitalCharBehaviour.sink.add(true);
+      capitalCharBehaviour.sink.add(true);
     } else {
-      _capitalCharBehaviour.sink.add(false);
+      capitalCharBehaviour.sink.add(false);
     }
   }
 
   void _validateSmallLetter(ValidatorModule validatorModule, String value) {
     if (validatorModule.isCustomValid(
         value, ConstantModule.atLeastLowerCaseRegex)) {
-      _smallCharBehaviour.sink.add(true);
+      smallCharBehaviour.sink.add(true);
     } else {
-      _smallCharBehaviour.sink.add(false);
+      smallCharBehaviour.sink.add(false);
     }
   }
 
   void _validateNumberLetter(ValidatorModule validatorModule, String value) {
     if (validatorModule.isCustomValid(
         value, ConstantModule.atLeastNumberCaseRegex)) {
-      _numberBehaviour.sink.add(true);
+      numberBehaviour.sink.add(true);
     } else {
-      _numberBehaviour.sink.add(false);
+      numberBehaviour.sink.add(false);
     }
   }
 
   void _validateLength(ValidatorModule validatorModule, String value) {
     if (value.length == ConstantModule.passwordMinLength ||
         value.length > ConstantModule.passwordMinLength) {
-      _passwordLengthBehaviour.sink.add(true);
+      passwordLengthBehaviour.sink.add(true);
     } else {
-      _passwordLengthBehaviour.sink.add(false);
+      passwordLengthBehaviour.sink.add(false);
     }
   }
 
   void _validateSpecialChar(ValidatorModule validatorModule, String value) {
     if (validatorModule.isCustomValid(
         value, ConstantModule.atLeastSpecialCharacter)) {
-      _specialCharBehaviour.sink.add(true);
+      specialCharBehaviour.sink.add(true);
     } else {
-      _specialCharBehaviour.sink.add(false);
+      specialCharBehaviour.sink.add(false);
     }
   }
 
   void _validateNoSpace(ValidatorModule validatorModule, String value) {
     if (validatorModule.isCustomValid(value, ConstantModule.noSpaceRegex)) {
-      _noSpaceBehaviour.sink.add(true);
+      noSpaceBehaviour.sink.add(true);
     } else {
-      _noSpaceBehaviour.sink.add(false);
+      noSpaceBehaviour.sink.add(false);
     }
   }
 
   @override
   void dispose() {
-    _capitalCharBehaviour.close();
-    _smallCharBehaviour.close();
-    _numberBehaviour.close();
-    _passwordLengthBehaviour.close();
-    _specialCharBehaviour.close();
-    _noSpaceBehaviour.close();
+    capitalCharBehaviour.close();
+    smallCharBehaviour.close();
+    numberBehaviour.close();
+    passwordLengthBehaviour.close();
+    specialCharBehaviour.close();
+    noSpaceBehaviour.close();
   }
 }

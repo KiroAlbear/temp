@@ -95,6 +95,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                     height: 8.h,
                   ),
                   PasswordValidationWidget(
+                    passwordValidationBloc: PasswordValidationBloc(
+                        _bloc.passwordBloc.textFormFiledBehaviour.value),
                     passwordController:
                         _bloc.passwordBloc.textFormFiledBehaviour.value,
                   ),
