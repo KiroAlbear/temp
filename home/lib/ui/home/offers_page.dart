@@ -4,14 +4,17 @@ import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
-import 'package:home/ui/home/offers_widget.dart';
+
+import 'offers_widget.dart';
 
 class OffersPage extends BaseStatefulWidget {
   HomeBloc homeBloc;
+  String emptyOffers;
 
   OffersPage({
     super.key,
     required this.homeBloc,
+    required this.emptyOffers,
   });
 
   @override
@@ -35,11 +38,26 @@ class _OffersPageState extends BaseState<OffersPage> {
         SizedBox(
           height: 30.h,
         ),
-        Expanded(
-          child: OffersWidget(
-            homeBloc: widget.homeBloc,
-            isMainPage: true,
-          ),
+
+        // Expanded(
+        //     child: ImageHelper(
+        //         image: widget.emptyOffers, imageType: ImageType.svg)),
+        StreamBuilder(
+          stream: widget.homeBloc.offersStream,
+          builder: (context, snapshot) {
+            return ((snapshot.data != null) &&
+                    snapshot.data!.response != null &&
+                    snapshot.data!.response!.isNotEmpty)
+                ? Expanded(
+                    child: OffersWidget(
+                      homeBloc: widget.homeBloc,
+                      isMainPage: true,
+                    ),
+                  )
+                : Expanded(
+                    child: ImageHelper(
+                        image: widget.emptyOffers, imageType: ImageType.svg));
+          },
         ),
         SizedBox(
           height: 30.h,

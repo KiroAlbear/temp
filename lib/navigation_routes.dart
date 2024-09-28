@@ -30,6 +30,7 @@ final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
   _productCategoryWidget(),
   OffersPage(
+    emptyOffers: Assets.svgEmptyOffers,
     homeBloc: _homeBloc,
   ),
   _cartScreen,
