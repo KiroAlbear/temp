@@ -780,6 +780,16 @@ class S {
     );
   }
 
+  /// `Offers`
+  String get offersTitle {
+    return Intl.message(
+      'Offers',
+      name: 'offersTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Browse sections`
   String get browseSections {
     return Intl.message(

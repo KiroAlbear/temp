@@ -174,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "No internet Connection.\nPlease try again later"),
         "noSpaceAllowed":
             MessageLookupByLibrary.simpleMessage("No space allowed"),
+        "offersTitle": MessageLookupByLibrary.simpleMessage("Offers"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "openSetting": m2,
         "orderAccepting":

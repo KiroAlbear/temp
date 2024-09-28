@@ -11,73 +11,80 @@ class OfferItem extends StatelessWidget {
   final bool isClickable;
   final OfferMapper item;
   final HomeBloc homeBloc;
+  final bool isMainPage;
+  final bool isInProductPage;
   OfferItem(
       {required this.isClickable,
       required this.item,
       required this.homeBloc,
       required this.index,
+      required this.isMainPage,
+      required this.isInProductPage,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if (isClickable) {
-          homeBloc.selectedOffer = item;
-          homeBloc.selectedOfferIndex = index;
-          homeBloc.isBanner = false;
+    return IgnorePointer(
+      ignoring: !isClickable,
+      child: InkWell(
+        onTap: () {
+          if (isClickable) {
+            homeBloc.selectedOffer = item;
+            homeBloc.selectedOfferIndex = index;
+            homeBloc.isBanner = false;
 
-          CustomNavigatorModule.navigatorKey.currentState!
-              .pushNamed(AppScreenEnum.product.name);
-        }
-      },
-      child: Container(
-        height: 80,
-        width: 240,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.w),
-            color: !isClickable ? productCardColor : promotionCardColor),
-        child: Row(
-          children: [
-            Expanded(
-              child: ImageHelper(
-                image: item.image,
-                imageType: ImageType.network,
-                boxFit: BoxFit.contain,
+            CustomNavigatorModule.navigatorKey.currentState!
+                .pushNamed(AppScreenEnum.product.name);
+          }
+        },
+        child: Container(
+          height: isMainPage ? 100.h : 80.h,
+          width: isMainPage ? double.infinity : 240.w,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.w),
+              color: isInProductPage ? productCardColor : Colors.transparent),
+          child: Row(
+            children: [
+              Expanded(
+                child: ImageHelper(
+                  image: item.image,
+                  imageType: ImageType.network,
+                  boxFit: BoxFit.fill,
+                ),
               ),
-            ),
-            // Expanded(
-            //   flex: 2,
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       // CustomText(
-            //       //     text: item.name,
-            //       //     customTextStyle:
-            //       //         BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
-            //       if (isForPromoTap) ...[
-            //         Container(
-            //           decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(9.w),
-            //               border: Border.all(color: primaryColor, width: 1.w)),
-            //           padding:
-            //               EdgeInsets.symmetric(vertical: 4.h, horizontal: 16.w),
-            //           child: CustomText(
-            //             text: S.of(context).promoDetails,
-            //             customTextStyle: MediumStyle(
-            //                 color: lightBlackColor, fontSize: 12.sp),
-            //           ),
-            //         ),
-            //       ],
-            //     ],
-            //   ),
-            // ),
-            // CustomText(
-            //     text: item.description,
-            //     customTextStyle:
-            //         MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
-          ],
+              // Expanded(
+              //   flex: 2,
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       // CustomText(
+              //       //     text: item.name,
+              //       //     customTextStyle:
+              //       //         BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
+              //       if (isForPromoTap) ...[
+              //         Container(
+              //           decoration: BoxDecoration(
+              //               borderRadius: BorderRadius.circular(9.w),
+              //               border: Border.all(color: primaryColor, width: 1.w)),
+              //           padding:
+              //               EdgeInsets.symmetric(vertical: 4.h, horizontal: 16.w),
+              //           child: CustomText(
+              //             text: S.of(context).promoDetails,
+              //             customTextStyle: MediumStyle(
+              //                 color: lightBlackColor, fontSize: 12.sp),
+              //           ),
+              //         ),
+              //       ],
+              //     ],
+              //   ),
+              // ),
+              // CustomText(
+              //     text: item.description,
+              //     customTextStyle:
+              //         MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
+            ],
+          ),
         ),
       ),
     );

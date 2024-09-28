@@ -106,7 +106,10 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                   return SizedBox();
                 }
               }),
-          OffersWidget(homeBloc: widget.homeBloc),
+          OffersWidget(
+            homeBloc: widget.homeBloc,
+            isMainPage: false,
+          ),
           SizedBox(
             height: 22.h,
           ),

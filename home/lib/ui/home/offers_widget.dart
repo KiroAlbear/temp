@@ -8,8 +8,9 @@ import 'package:home/ui/home/offer_item.dart';
 
 class OffersWidget extends StatefulWidget {
   final HomeBloc homeBloc;
-
-  const OffersWidget({super.key, required this.homeBloc});
+  final bool isMainPage;
+  const OffersWidget(
+      {super.key, required this.homeBloc, required this.isMainPage});
 
   @override
   State<OffersWidget> createState() => _OffersWidgetState();
@@ -35,18 +36,22 @@ class _OffersWidgetState extends State<OffersWidget>
           height: 85.h,
           child: ListView.separated(
               shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
+              scrollDirection:
+                  widget.isMainPage ? Axis.vertical : Axis.horizontal,
               // physics: const PageScrollPhysics(),
               // controller: _pageScrollController,
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               itemBuilder: (context, index) => OfferItem(
+                  isInProductPage: false,
+                  isMainPage: widget.isMainPage,
                   isClickable:
                       list[index].link.toLowerCase().trim() != "nolink",
                   item: list[index],
                   homeBloc: widget.homeBloc,
                   index: index),
               separatorBuilder: (context, index) => SizedBox(
-                    width: 20.w,
+                    width: widget.isMainPage == false ? 20.w : null,
+                    height: widget.isMainPage == true ? 20.h : null,
                   ),
               itemCount: list.length),
         );

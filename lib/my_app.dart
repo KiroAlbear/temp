@@ -25,6 +25,7 @@ import 'package:dokkan/splash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:home/home.dart';
+import 'package:home/ui/home/offers_page.dart';
 import 'package:home/ui/product/product_category_bloc.dart';
 import 'package:home/ui/product/product_category_widget.dart';
 import 'package:home/ui/scanBarcode/scan_barcode_widget.dart';

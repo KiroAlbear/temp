@@ -29,7 +29,9 @@ final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
   _productCategoryWidget(),
-  Container(),
+  OffersPage(
+    homeBloc: _homeBloc,
+  ),
   _cartScreen,
   _moreBlocProvider
 ], _loginWidgetWithoutSkip);
