@@ -87,8 +87,11 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     widget.newAccountBloc.longitude = longitude;
     widget.newAccountBloc.latitude = latitude;
-    widget.newAccountBloc.neighborhoodBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: area));
+    if (area.isNotEmpty) {
+      widget.newAccountBloc.neighborhoodBloc.textFormFiledBehaviour.sink
+          .add(TextEditingController(text: area));
+    }
+
     widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(area);
     widget.newAccountBloc.streetNameBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: address));

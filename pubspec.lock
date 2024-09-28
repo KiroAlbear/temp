@@ -1185,8 +1185,8 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: cb38077
-      resolved-ref: cb3807702f3c0c4d265464f15897faa3b84ea281
+      ref: "1974ff9"
+      resolved-ref: "1974ff9add3f4b980f518308349dd6d38423a78b"
       url: "https://github.com/KiroAlbear/open_street_map_search_and_pick.git"
     source: git
     version: "0.1.1"
