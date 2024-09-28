@@ -90,9 +90,9 @@ class _NewAccountLocationWidgetState extends State<NewAccountLocationWidget> {
     if (area.isNotEmpty) {
       widget.newAccountBloc.neighborhoodBloc.textFormFiledBehaviour.sink
           .add(TextEditingController(text: area));
+      widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(area);
     }
 
-    widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(area);
     widget.newAccountBloc.streetNameBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: address));
     widget.newAccountBloc.streetNameBloc.updateStringBehaviour(address);
