@@ -1,6 +1,8 @@
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/usage_policy/usage_policy_response.dart';
+import 'package:core/dto/modules/app_color_module.dart';
+import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/custom_progress_widget.dart';
@@ -54,8 +56,12 @@ class _UsagePolicyScreenState extends State<UsagePolicyScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                            textAlign: TextAlign.start,
-                            snapshot.data!.response!.policy!),
+                          textAlign: TextAlign.start,
+                          snapshot.data!.response!.policy!,
+                          style: RegularStyle(
+                                  fontSize: 18.sp, color: lightBlackColor)
+                              .getStyle(),
+                        ),
                         SizedBox(
                           height: 30,
                         ),
