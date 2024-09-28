@@ -58,8 +58,8 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
             ImageHelper(
               image: widget.successRegister,
               imageType: ImageType.svg,
-              height: 310.h,
-              width: 310.w,
+              height: 217.h,
+              width: 217.w,
             ),
             SizedBox(
               height: 34.h,
@@ -74,7 +74,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
             CustomText(
                 text: S.of(context).youCanStartOrderNow,
                 customTextStyle:
-                    RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
+                    RegularStyle(fontSize: 20.sp, color: secondaryColor)),
             SizedBox(
               height: 60.h,
             ),
