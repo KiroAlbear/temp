@@ -101,6 +101,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
           else
             return checkResponseStateWithLoadingWidget(snapshot.data!, context,
                 onSuccess: MobileCountryWidget(
+                    enableValidator: false,
                     mobileBloc: _bloc.mobileBloc,
                     countryList: snapshot.data?.response ?? [],
                     countryBloc: _bloc.countryBloc));

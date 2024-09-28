@@ -14,12 +14,14 @@ class MobileCountryWidget extends StatelessWidget {
   final DropDownBloc countryBloc;
   final TextFormFiledBloc mobileBloc;
   final List<DropDownMapper> countryList;
+  final bool enableValidator;
 
   const MobileCountryWidget(
       {super.key,
       required this.mobileBloc,
       required this.countryBloc,
-      required this.countryList});
+      required this.countryList,
+      this.enableValidator = true});
 
   @override
   Widget build(BuildContext context) => Row(
@@ -50,8 +52,10 @@ class MobileCountryWidget extends StatelessWidget {
         textInputType: TextInputType.number,
         defaultTextStyle:
             RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
-        validator: (value) => ValidatorModule()
-            .mobileValidator(context, countryBloc.value?.customValidator)
-            .call(value),
+        validator: enableValidator
+            ? (value) => ValidatorModule()
+                .mobileValidator(context, countryBloc.value?.customValidator)
+                .call(value)
+            : null,
       );
 }
