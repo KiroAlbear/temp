@@ -7,8 +7,8 @@ import 'package:core/dto/network/admin_client.dart';
 
 import 'admin_base_remote_module.dart';
 
-class FaqRemote extends AdminBaseRemoteModule<List<FaqMapper>, List<FaqResponse>> {
-
+class FaqRemote
+    extends AdminBaseRemoteModule<List<FaqMapper>, List<FaqResponse>> {
   @override
   ApiState<List<FaqMapper>> onSuccessHandle(List<FaqResponse>? response) {
     List<FaqMapper> list = [];
@@ -27,6 +27,6 @@ class FaqRemote extends AdminBaseRemoteModule<List<FaqMapper>, List<FaqResponse>
 
   FaqRemote() {
     apiFuture = AdminClient(AdminDioModule().build())
-        .getFaq(AdminHeaderRequest(pageIndex: 0, pageSize: 0));
+        .getFaq(AdminHeaderRequest(pageIndex: 0, pageSize: 100));
   }
 }
