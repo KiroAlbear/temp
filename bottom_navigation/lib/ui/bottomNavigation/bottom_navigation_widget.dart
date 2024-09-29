@@ -116,10 +116,11 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
             SizedBox(
               height: 4.h,
             ),
-            CustomText(
-                text: name,
-                customTextStyle:
-                    RegularStyle(color: primaryColor, fontSize: 9.sp))
+            _label(name, selectedIndex, tabIndex),
+            // CustomText(
+            //     text: name,
+            //     customTextStyle:
+            //         RegularStyle(color: primaryColor, fontSize: 9.sp))
           ],
         ),
         StreamBuilder(
@@ -155,6 +156,11 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
     );
   }
 
+  Widget _label(String title, int selectedIndex, int tabIndex) => CustomText(
+      text: title,
+      customTextStyle: RegularStyle(
+          color: selectedIndex == tabIndex ? primaryColor : whiteColor,
+          fontSize: 9.sp));
   Widget _imageIcon(String svgPath, int selectedIndex, int tabIndex) =>
       ImageHelper(
         image: svgPath,
