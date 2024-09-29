@@ -4,6 +4,7 @@ import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/models/state/state_request.dart';
 import 'package:core/dto/models/state/state_response.dart';
 import 'package:core/dto/modules/odoo_dio_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
 class StateRemote
@@ -27,7 +28,10 @@ class StateRemote
   }
 
   StateRemote(int countryId) {
-    apiFuture = ApiClient(OdooDioModule().build())
-        .getState(StateRequest(countryId, "Arabic"));
+    apiFuture = ApiClient(OdooDioModule().build()).getState(
+        StateRequest(
+          countryId,
+        ),
+        SharedPrefModule().apiSelectedLanguageCode);
   }
 }

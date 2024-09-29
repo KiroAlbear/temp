@@ -1,5 +1,6 @@
 enum SharedPRefEnum {
   language,
+  locale,
   apiARLanguage,
   apiENLanguage,
   apiSelectedLanguage,

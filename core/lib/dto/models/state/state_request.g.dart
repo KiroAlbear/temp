@@ -8,11 +8,9 @@ part of 'state_request.dart';
 
 StateRequest _$StateRequestFromJson(Map<String, dynamic> json) => StateRequest(
       (json['country_id'] as num).toInt(),
-      json['lang_name'] as String,
     );
 
 Map<String, dynamic> _$StateRequestToJson(StateRequest instance) =>
     <String, dynamic>{
       'country_id': instance.countryId,
-      'lang_name': instance.lang_name,
     };

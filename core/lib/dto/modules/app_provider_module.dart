@@ -3,6 +3,8 @@ import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../models/baseModules/api_state.dart';
+import '../remote/language_remote.dart';
 import 'custom_navigator_module.dart';
 import 'odoo_dio_module.dart';
 
@@ -43,7 +45,7 @@ class AppProviderModule with ChangeNotifier {
   /// Toggle between English and Arabic locales.
   void changeLocale(String locale) {
     this.locale = locale;
-    SharedPrefModule().language = locale;
+    SharedPrefModule().locale = locale;
     OdooDioModule().setAppHeaders();
     notifyListeners();
   }
@@ -102,9 +104,35 @@ class AppProviderModule with ChangeNotifier {
   //       systemNavigationBarIconBrightness: Brightness.dark,
   //     );
 
+  void _loadAppLanguages() {
+    LanguageRemote().saveToCart().listen((event) {
+      if (event is SuccessState &&
+          event.response != null &&
+          event.response!.isNotEmpty)
+        SharedPrefModule().apiARLanguageCode = event.response!
+            .firstWhere(
+                (element) => element.lang.toLowerCase().contains("arabic"))
+            .code;
+
+      SharedPrefModule().apiENLanguageCode = event.response!
+          .firstWhere(
+              (element) => element.lang.toLowerCase().contains("english"))
+          .code;
+
+      if (SharedPrefModule().language == 'ar') {
+        SharedPrefModule().apiSelectedLanguageCode =
+            SharedPrefModule().apiARLanguageCode;
+      } else {
+        SharedPrefModule().apiSelectedLanguageCode =
+            SharedPrefModule().apiENLanguageCode;
+      }
+    });
+  }
+
   /// Initialize the app's state and check user authentication status.
   Future<void> init(BuildContext context) async {
     _isLoggedIn = SharedPrefModule().bearerToken != null;
+    _loadAppLanguages();
     if (_isLoggedIn) {
       /// TODO replace it with bearer token refresh
       final isRefreshed = true;
@@ -132,20 +160,19 @@ class AppProviderModule with ChangeNotifier {
         : (SharedPrefModule().isDarkMode ?? false)
             ? ThemeMode.dark
             : ThemeMode.light;
-    locale = SharedPrefModule().language.isEmpty
-        ? "ar"
-        : SharedPrefModule().language;
+    locale =
+        SharedPrefModule().locale.isEmpty ? "ar" : SharedPrefModule().locale;
   }
 
   /// Log the user out by clearing shared preferences and updating the state.
   void logout(BuildContext context) {
-    var language = SharedPrefModule().language;
+    var locale = SharedPrefModule().locale;
     var isDark = SharedPrefModule().isDarkMode;
     var userName = SharedPrefModule().userName;
     var password = SharedPrefModule().password;
     SharedPrefModule().clear;
     SharedPrefModule().isDarkMode = isDark;
-    SharedPrefModule().language = language;
+    SharedPrefModule().locale = locale;
     SharedPrefModule().password = password;
     SharedPrefModule().userName = userName;
     _isLoggedIn = true;

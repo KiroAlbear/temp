@@ -1014,7 +1014,10 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<List<StateResponse>>> getState(request) async {
+  Future<HeaderResponse<List<StateResponse>>> getState(
+    request,
+    lang_code,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -1028,7 +1031,7 @@ class _ApiClient implements ApiClient {
     )
             .compose(
               _dio.options,
-              'get/state',
+              'get/state?lang_code=${lang_code}',
               queryParameters: queryParameters,
               data: _data,
             )

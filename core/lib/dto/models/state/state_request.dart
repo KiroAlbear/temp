@@ -7,10 +7,7 @@ class StateRequest {
   @JsonKey(name: 'country_id')
   int countryId;
 
-  @JsonKey(name: 'lang_name')
-  String lang_name;
-
-  StateRequest(this.countryId, this.lang_name);
+  StateRequest(this.countryId);
 
   factory StateRequest.fromJson(Map<String, dynamic> json) =>
       _$StateRequestFromJson(json);

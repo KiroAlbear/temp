@@ -42,6 +42,14 @@ class SharedPrefModule {
   set apiENLanguageCode(String value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.apiENLanguage), value: value);
 
+  /// locale
+  String get locale =>
+      _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.locale)) ??
+      'en';
+
+  set locale(String value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.locale), value: value);
+
   /// language
   String get language =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.language)) ??

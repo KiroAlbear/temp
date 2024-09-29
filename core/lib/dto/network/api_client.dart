@@ -187,7 +187,9 @@ abstract class ApiClient {
   Future<HeaderResponse<List<CheckPhoneResponse>>> checkPhone(
       @Body() CheckPhoneRequest request);
 
-  @POST(_ApiClientKey._getState)
+  @POST('${_ApiClientKey._getState}?lang_code={langCode}')
   Future<HeaderResponse<List<StateResponse>>> getState(
-      @Body() StateRequest request);
+    @Body() StateRequest request,
+    @Path('langCode') String lang_code,
+  );
 }
