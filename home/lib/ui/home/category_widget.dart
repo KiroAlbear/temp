@@ -87,7 +87,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
             ),
             CustomText(
                 text: item.name,
-                maxLines: 2,
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 customTextStyle:
                     MediumStyle(fontSize: 13.sp, color: secondaryColor))
