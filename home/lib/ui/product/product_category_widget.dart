@@ -141,6 +141,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         ProductCategoryWidget.categoryProductsCount > 0;
   }
 
+  bool isNavigatedFromBannersOrOffers() {
+    return (widget.homeBloc.isBanner == true ||
+        widget.homeBloc.selectedOffer != null);
+  }
+
+  final double topPadding = 110.h;
   @override
   Widget getBody(BuildContext context) => Stack(
         alignment: Alignment.topCenter,
@@ -167,10 +173,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                 false)
                         ? ''
                         : widget.backIcon,
-                    title: widget.productCategoryBloc.isForFavourite
-                        ? S.of(context).favourites
-                        : S.of(context).products,
-                    hideTop: true,
+                    title: isNavigatedFromBannersOrOffers()
+                        ? " "
+                        : widget.productCategoryBloc.isForFavourite
+                            ? S.of(context).favourites
+                            : S.of(context).products,
+                    hideTop: false,
                   ),
                 ],
               ),
@@ -516,7 +524,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
           (widget.homeBloc.isBanner == true &&
                   widget.homeBloc.selectedOffer != null)
               ? Padding(
-                  padding: EdgeInsets.only(top: 65.h),
+                  padding: EdgeInsets.only(top: topPadding),
                   child: HeroBannerItem(
                     index: widget.homeBloc.selectedOfferIndex!,
                     item: widget.homeBloc.selectedOffer!,
@@ -528,7 +536,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
           (widget.homeBloc.isBanner == false &&
                   widget.homeBloc.selectedOffer != null)
               ? Padding(
-                  padding: EdgeInsets.only(top: 65.h),
+                  padding: EdgeInsets.only(top: topPadding),
                   child: OfferItem(
                     isInProductPage: true,
                     isMainPage: false,

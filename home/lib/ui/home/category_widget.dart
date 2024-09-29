@@ -56,6 +56,8 @@ class _CategoryWidgetState extends State<CategoryWidget>
   Widget _buildItem(CategoryMapper item) => InkWell(
         onTap: () {
           widget.homeBloc.onCategoryClick(item);
+          widget.homeBloc.isBanner = false;
+          widget.homeBloc.selectedOffer = null;
           ProductCategoryBloc.searchValue = null;
           ProductCategoryWidget.cateogryId = item.id!;
           ProductCategoryWidget.categoryProductsCount = item.productExactCount;
