@@ -4,7 +4,6 @@ import 'package:core/dto/models/faq/faq_mapper.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/bases/bloc_base.dart';
 import 'package:flutter/material.dart';
 import 'package:more/ui/faq/faq_bloc.dart';
 
@@ -31,10 +30,10 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
   bool isSafeArea() => true;
 
   @override
-  Widget getBody(BuildContext context) => _blocProvider;
+  Widget getBody(BuildContext context) => _screenDesign;
 
-  BlocProvider get _blocProvider =>
-      BlocProvider(bloc: _bloc, child: _screenDesign);
+  // BlocProvider get _blocProvider =>
+  //     BlocProvider(bloc: _bloc, child: _screenDesign);
 
   Widget get _screenDesign => Column(
         children: [
@@ -52,7 +51,9 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
             height: 20.h,
           ),
           _faqStreamBuilder,
-          SizedBox(height: 20.h,),
+          SizedBox(
+            height: 20.h,
+          ),
         ],
       );
 
@@ -64,17 +65,19 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
             onSuccess: Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: ExpandedWidget(
-                        answer: snapshot.data?.response?[index].answer ?? '',
-                        question: snapshot.data?.response?[index].question ?? '',
-                        arrow: widget.arrowDown),
-                  ),
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: ExpandedWidget(
+                            answer:
+                                snapshot.data?.response?[index].answer ?? '',
+                            question:
+                                snapshot.data?.response?[index].question ?? '',
+                            arrow: widget.arrowDown),
+                      ),
                   separatorBuilder: (context, index) => SizedBox(
                         height: 16.h,
                       ),
                   shrinkWrap: true,
-                  itemCount: snapshot.data?.response?.length??0),
+                  itemCount: snapshot.data?.response?.length ?? 0),
             )),
         initialData: LoadingState(),
       );
