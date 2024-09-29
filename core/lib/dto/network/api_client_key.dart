@@ -2,6 +2,7 @@ part of 'api_client.dart';
 
 class _ApiClientKey {
   static const String _login = 'app/login';
+  static const String _getLanguages = 'api/v1/res/lang';
   static const String _category = 'get/category';
   static const String _brandBySubCategory = 'get/brand/by_category';
   static const String _getAllBrands = 'get/brand';

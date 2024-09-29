@@ -1,5 +1,8 @@
 enum SharedPRefEnum {
   language,
+  apiARLanguage,
+  apiENLanguage,
+  apiSelectedLanguage,
   isDarkMode,
   userId,
   bearerToken,

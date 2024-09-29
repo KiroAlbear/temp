@@ -19,6 +19,7 @@ import 'package:core/dto/models/client/client_request.dart';
 import 'package:core/dto/models/country/country_response.dart';
 import 'package:core/dto/models/favourite/favourite_request.dart';
 import 'package:core/dto/models/favourite/favourite_response.dart';
+import 'package:core/dto/models/language_response_model.dart';
 import 'package:core/dto/models/login/login_request.dart';
 import 'package:core/dto/models/login/login_response.dart';
 import 'package:core/dto/models/my_orders/my_orders_request.dart';
@@ -52,6 +53,9 @@ part 'api_client_key.dart';
 @RestApi()
 abstract class ApiClient {
   factory ApiClient(Dio dio) = _ApiClient;
+
+  @GET(_ApiClientKey._getLanguages)
+  Future<HeaderResponse<List<LanguageResponseModel>>> getLanguages();
 
   @POST(_ApiClientKey._login)
   Future<HeaderResponse<List<LoginResponse>>> login(

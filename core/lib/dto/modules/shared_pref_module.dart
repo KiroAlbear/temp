@@ -18,10 +18,34 @@ class SharedPrefModule {
   set userLong(double value) => _sharedPref.setValue<double>(
       key: _sharedKey(SharedPRefEnum.userLong), value: value);
 
+  String get apiSelectedLanguageCode =>
+      _sharedPref.getValue<String>(
+          key: _sharedKey(SharedPRefEnum.apiSelectedLanguage)) ??
+      'ar';
+
+  set apiSelectedLanguageCode(String value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.apiSelectedLanguage), value: value);
+
+  String get apiARLanguageCode =>
+      _sharedPref.getValue<String>(
+          key: _sharedKey(SharedPRefEnum.apiARLanguage)) ??
+      'ar';
+
+  set apiARLanguageCode(String value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.apiARLanguage), value: value);
+
+  String get apiENLanguageCode =>
+      _sharedPref.getValue<String>(
+          key: _sharedKey(SharedPRefEnum.apiENLanguage)) ??
+      'en';
+
+  set apiENLanguageCode(String value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.apiENLanguage), value: value);
+
   /// language
   String get language =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.language)) ??
-      'en';
+      'ar';
 
   set language(String value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.language), value: value);

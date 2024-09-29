@@ -19,6 +19,35 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
+  Future<HeaderResponse<List<LanguageResponseModel>>> getLanguages() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HeaderResponse<List<LanguageResponseModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'api/v1/res/lang',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = HeaderResponse<List<LanguageResponseModel>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<LanguageResponseModel>(
+              (i) => LanguageResponseModel.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
   Future<HeaderResponse<List<LoginResponse>>> login(request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
