@@ -170,6 +170,7 @@ class CartBloc extends BlocBase {
   }
 
   void addCartInfoToProducts(List<ProductMapper> productsList) {
+    if (cartProductsBehavior.value.response == null) return;
     for (int i = 0; i < productsList.length; i++) {
       for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
         if (productsList[i].id ==
