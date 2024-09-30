@@ -170,20 +170,30 @@ class CartBloc extends BlocBase {
   }
 
   void addCartInfoToProducts(List<ProductMapper> productsList) {
-    if (cartProductsBehavior.value.response == null) return;
-    for (int i = 0; i < productsList.length; i++) {
-      for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
-        if (productsList[i].id ==
-            cartProductsBehavior.value.response![j].productId) {
-          productsList[i].quantity =
-              cartProductsBehavior.value.response![j].quantity;
-          productsList[i].maxQuantity =
-              cartProductsBehavior.value.response![j].maxQuantity;
-          productsList[i].minQuantity =
-              cartProductsBehavior.value.response![j].minQuantity;
+    if (cartProductsBehavior.value.response?.isEmpty ?? true) {
+      // return;
+      for (int i = 0; i < productsList.length; i++) {
+        productsList[i].cartUserQuantity = 0;
+        productsList[i].maxQuantity = 0;
+        productsList[i].minQuantity = 0;
+        productsList[i].productId = 0;
+      }
+    }
+    {
+      for (int i = 0; i < productsList.length; i++) {
+        for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
+          if (productsList[i].id ==
+              cartProductsBehavior.value.response![j].productId) {
+            productsList[i].cartUserQuantity =
+                cartProductsBehavior.value.response![j].quantity;
+            productsList[i].maxQuantity =
+                cartProductsBehavior.value.response![j].maxQuantity;
+            productsList[i].minQuantity =
+                cartProductsBehavior.value.response![j].minQuantity;
 
-          productsList[i].productId =
-              cartProductsBehavior.value.response![j].id;
+            productsList[i].productId =
+                cartProductsBehavior.value.response![j].id;
+          }
         }
       }
     }
@@ -217,7 +227,7 @@ class CartBloc extends BlocBase {
     return totalSum;
   }
 
-  void getMyCart() {
+  void getMyCart({Function()? onGettingCart}) {
     _getClientData();
     _getAddress();
     _getLocation();
@@ -227,7 +237,7 @@ class CartBloc extends BlocBase {
     _getCartMinimumOrder();
 
     // BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsStream = BehaviorSubject();
-    _getCart(false, null, null);
+    _getCart(false, null, null, onGettingCart: onGettingCart);
     // cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
     //   // cartProductsBehavior.sink.add((getCartEvent));
     //   if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
@@ -253,7 +263,8 @@ class CartBloc extends BlocBase {
   }
 
   Future<void> _getCart(bool isEditing, ApiState<int>? apiState,
-      BehaviorSubject<ApiState<int>>? stream) async {
+      BehaviorSubject<ApiState<int>>? stream,
+      {Function()? onGettingCart}) async {
     // cartProductsBehavior.sink.add(LoadingState());
 
     cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) async {
@@ -272,6 +283,11 @@ class CartBloc extends BlocBase {
 
             cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
                 getCartEvent.response!, checkAvailabilityEvent.response!)));
+
+            if (onGettingCart != null) {
+              onGettingCart();
+            }
+
             if (apiState != null && stream != null) {
               stream.sink.add(apiState);
             }
@@ -285,6 +301,9 @@ class CartBloc extends BlocBase {
             stream.sink.add(apiState);
           }
           cartProductsBehavior.sink.add((getCartEvent));
+          if (onGettingCart != null) {
+            onGettingCart();
+          }
         }
       }
     });

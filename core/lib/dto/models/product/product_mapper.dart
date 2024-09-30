@@ -15,6 +15,7 @@ class ProductMapper {
   double priceUnit = 0;
 
   double quantity = 0;
+  double cartUserQuantity = 0;
 
   double minQuantity = 0;
 

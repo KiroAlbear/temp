@@ -3,6 +3,7 @@ import 'package:cart/ui/widgets/cart_bottom_sheet.dart';
 import 'package:cart/ui/widgets/cart_empty_widget.dart';
 import 'package:cart/utilities/cart_common_functions.dart';
 import 'package:core/core.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/modules/alert_module.dart';
 import 'package:core/dto/modules/app_color_module.dart';
@@ -188,38 +189,61 @@ class _CartScreenState extends BaseState<CartScreen> {
                       productMapper: snapshot.data!.response![index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {
-                        CartCommonFunctions().editCart(
+                        isLoading.value = true;
+                        CartCommonFunctions()
+                            .editCart(
                           cartBloc: widget.cartBloc,
-                          isLoading: isLoading,
-                          id: snapshot.data!.response![index].id,
+                          cartItemId: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
-                          quantity: snapshot.data!.response![index].quantity,
+                          quantity:
+                              snapshot.data!.response![index].cartUserQuantity,
                           price: snapshot.data!.response![index].price,
                           state: CartState.decrement,
-                        );
+                        )
+                            .listen((event) {
+                          if (event is SuccessState) {
+                            // widget.cartBloc.getMyCart();
+                            isLoading.value = false;
+                          }
+                        });
                       },
                       onIncrementClicked: (productMapper) {
-                        CartCommonFunctions().editCart(
+                        isLoading.value = true;
+                        CartCommonFunctions()
+                            .editCart(
                           cartBloc: widget.cartBloc,
-                          isLoading: isLoading,
-                          id: snapshot.data!.response![index].id,
+                          cartItemId: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
-                          quantity: snapshot.data!.response![index].quantity,
+                          quantity:
+                              snapshot.data!.response![index].cartUserQuantity,
                           price: snapshot.data!.response![index].price,
                           state: CartState.increment,
-                        );
+                        )
+                            .listen((event) {
+                          if (event is SuccessState) {
+                            // widget.cartBloc.getMyCart();
+                            isLoading.value = false;
+                          }
+                        });
+                        ;
                       },
                       onDeleteClicked: (productMapper) {
-                        CartCommonFunctions().editCart(
+                        isLoading.value = true;
+                        CartCommonFunctions()
+                            .editCart(
                           cartBloc: widget.cartBloc,
-                          isLoading: isLoading,
-                          id: snapshot.data!.response![index].id,
+                          cartItemId: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
                           quantity: 0,
                           price: snapshot.data!.response![index].price,
                           state: CartState.decrement,
-                          isDelete: true,
-                        );
+                        )
+                            .listen((event) {
+                          if (event is SuccessState) {
+                            // widget.cartBloc.getMyCart();
+                            isLoading.value = false;
+                          }
+                        });
                       },
                     );
                   },

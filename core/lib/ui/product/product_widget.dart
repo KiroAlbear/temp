@@ -67,7 +67,11 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void initState() {
-    qtyValueNotifier.value = widget.productMapper.quantity.round();
+    if (widget.isCartProduct) {
+      qtyValueNotifier.value = widget.productMapper.quantity.round();
+    } else {
+      qtyValueNotifier.value = widget.productMapper.cartUserQuantity.round();
+    }
     super.initState();
   }
 
@@ -397,7 +401,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               onTap: () {
                 if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
                   qtyValueNotifier.value++;
-                  widget.productMapper.quantity =
+                  widget.productMapper.cartUserQuantity =
                       qtyValueNotifier.value.toDouble();
                   widget.onIncrementClicked!(widget.productMapper);
                 } else {
@@ -437,7 +441,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
                   qtyValueNotifier.value > 1) {
                 qtyValueNotifier.value--;
-                widget.productMapper.quantity =
+                widget.productMapper.cartUserQuantity =
                     qtyValueNotifier.value.toDouble();
 
                 widget.onDecrementClicked!(widget.productMapper);

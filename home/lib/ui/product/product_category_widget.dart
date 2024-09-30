@@ -447,44 +447,108 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                 event.response!;
                                             SharedPrefModule().orderId =
                                                 event.response!;
-                                            widget.showOverlayLoading.value =
-                                                false;
-                                            widget.cartBloc.getMyCart();
+
+                                            widget.cartBloc.getMyCart(
+                                              onGettingCart: () {
+                                                widget.showOverlayLoading
+                                                    .value = false;
+
+                                                widget.cartBloc
+                                                    .addCartInfoToProducts(
+                                                        snapshot.data
+                                                                ?.response ??
+                                                            []);
+                                              },
+                                            );
                                           }
                                         });
                                       },
                                       onDeleteClicked: (productMapper) {
-                                        CartCommonFunctions().editCart(
+                                        widget.showOverlayLoading.value = true;
+                                        CartCommonFunctions()
+                                            .editCart(
                                           cartBloc: widget.cartBloc,
-                                          isLoading: widget.showOverlayLoading,
-                                          id: productMapper.productId,
+                                          cartItemId: productMapper.productId,
                                           productId: productMapper.id,
                                           quantity: 0,
                                           price: productMapper.price,
                                           state: CartState.decrement,
-                                          isDelete: true,
-                                        );
+                                        )
+                                            .listen((event) {
+                                          if (event is SuccessState) {
+                                            widget.cartBloc.getMyCart(
+                                              onGettingCart: () {
+                                                widget.showOverlayLoading
+                                                    .value = false;
+
+                                                widget.cartBloc
+                                                    .addCartInfoToProducts(
+                                                        snapshot.data
+                                                                ?.response ??
+                                                            []);
+                                                setState(() {});
+                                              },
+                                            );
+                                          }
+                                        });
+                                        ;
                                       },
                                       onDecrementClicked: (productMapper) {
-                                        CartCommonFunctions().editCart(
+                                        widget.showOverlayLoading.value = true;
+
+                                        CartCommonFunctions()
+                                            .editCart(
                                           cartBloc: widget.cartBloc,
-                                          isLoading: widget.showOverlayLoading,
-                                          id: productMapper.productId,
+                                          cartItemId: productMapper.productId,
                                           productId: productMapper.id,
-                                          quantity: productMapper.quantity,
+                                          quantity:
+                                              productMapper.cartUserQuantity,
                                           price: productMapper.price,
                                           state: CartState.decrement,
-                                        );
+                                        )
+                                            .listen((event) {
+                                          if (event is SuccessState) {
+                                            // widget.cartBloc.getMyCart();
+                                            // widget.cartBloc
+                                            //     .addCartInfoToProducts(
+                                            //         snapshot.data?.response ??
+                                            //             []);
+                                            widget.showOverlayLoading.value =
+                                                false;
+                                          }
+                                        });
                                       },
                                       onIncrementClicked: (productMapper) {
-                                        CartCommonFunctions().editCart(
+                                        widget.showOverlayLoading.value = true;
+
+                                        CartCommonFunctions()
+                                            .editCart(
                                           cartBloc: widget.cartBloc,
-                                          isLoading: widget.showOverlayLoading,
-                                          id: productMapper.productId,
+                                          cartItemId: productMapper.productId,
                                           productId: productMapper.id,
-                                          quantity: productMapper.quantity,
+                                          quantity:
+                                              productMapper.cartUserQuantity,
                                           price: productMapper.price,
                                           state: CartState.increment,
+                                        )
+                                            .listen(
+                                          (event) {
+                                            if (event is SuccessState) {
+                                              // widget.cartBloc.getMyCart();
+                                              if (productMapper
+                                                      .cartUserQuantity ==
+                                                  1) {
+                                                widget.cartBloc
+                                                    .addCartInfoToProducts(
+                                                        snapshot.data
+                                                                ?.response ??
+                                                            []);
+                                              }
+
+                                              widget.showOverlayLoading.value =
+                                                  false;
+                                            }
+                                          },
                                         );
                                       },
                                       onTapFavourite:
