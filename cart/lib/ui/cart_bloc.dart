@@ -178,8 +178,7 @@ class CartBloc extends BlocBase {
         productsList[i].minQuantity = 0;
         productsList[i].productId = 0;
       }
-    }
-    {
+    } else {
       for (int i = 0; i < productsList.length; i++) {
         for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
           if (productsList[i].id ==
