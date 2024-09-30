@@ -1,4 +1,5 @@
 import 'package:cart/ui/cart_bloc.dart';
+import 'package:core/Utils/AppUtils.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
@@ -219,35 +220,41 @@ class _ProductWidgetState extends State<ProductWidget> {
                       height: 18, width: 18, child: CircularProgressIndicator())
                   : InkWell(
                       onTap: () {
-                        widget.onTapFavourite!(
-                            !widget.productMapper.isFavourite,
-                            widget.productMapper);
-
-                        if (widget.productMapper.isFavourite) {
-                          widget.productCategoryBloc
-                              .removeProductFromFavourite(
-                            productId: widget.productMapper.id,
-                            clientId:
-                                int.parse(SharedPrefModule().userId ?? '0'),
-                          )
-                              .listen((event) {
-                            if (widget.onProductRemoved != null &&
-                                event.response != null &&
-                                event.response!) {
-                              widget.onProductRemoved!(widget.productMapper.id);
-                            }
-                            _handleFavouriteIcon(event, false);
-                          });
+                        if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
+                          Apputils.showNeedToLoginDialog(context);
+                          return;
                         } else {
-                          widget.productCategoryBloc
-                              .addProductToFavourite(
-                            productId: widget.productMapper.id,
-                            clientId:
-                                int.parse(SharedPrefModule().userId ?? '0'),
-                          )
-                              .listen((event) {
-                            _handleFavouriteIcon(event, true);
-                          });
+                          widget.onTapFavourite!(
+                              !widget.productMapper.isFavourite,
+                              widget.productMapper);
+
+                          if (widget.productMapper.isFavourite) {
+                            widget.productCategoryBloc
+                                .removeProductFromFavourite(
+                              productId: widget.productMapper.id,
+                              clientId:
+                                  int.parse(SharedPrefModule().userId ?? '0'),
+                            )
+                                .listen((event) {
+                              if (widget.onProductRemoved != null &&
+                                  event.response != null &&
+                                  event.response!) {
+                                widget
+                                    .onProductRemoved!(widget.productMapper.id);
+                              }
+                              _handleFavouriteIcon(event, false);
+                            });
+                          } else {
+                            widget.productCategoryBloc
+                                .addProductToFavourite(
+                              productId: widget.productMapper.id,
+                              clientId:
+                                  int.parse(SharedPrefModule().userId ?? '0'),
+                            )
+                                .listen((event) {
+                              _handleFavouriteIcon(event, true);
+                            });
+                          }
                         }
                       },
                       child: _favouriteIcon,
