@@ -19,10 +19,15 @@ enum NewAccountStepEnum { info, locationInfo, editLocation, password }
 class NewAccountBloc extends BlocBase {
   late final String _mobileNumber;
   late final int _countryId;
+  late final String countryCode;
 
-  void init({int countryId = 245, required String mobileNumber}) {
+  void init(
+      {int countryId = 245,
+      required String mobileNumber,
+      required String countryCode}) {
     _mobileNumber = mobileNumber;
     _countryId = countryId;
+    this.countryCode = "+${countryCode}";
     StateRemote(countryId).callApiAsStream().listen(
       (event) {
         _stateBehaviour.sink.add(event);
@@ -41,6 +46,7 @@ class NewAccountBloc extends BlocBase {
     ..sink.add(NewAccountStepEnum.info);
   final ValidatorModule _validatorModule = ValidatorModule();
   final ButtonBloc buttonBloc = ButtonBloc();
+  final BehaviorSubject<String> countryCodeBehaviour = BehaviorSubject();
   final BehaviorSubject<double?> _latitudeBehaviour = BehaviorSubject();
   final BehaviorSubject<double?> _longitudeBehaviour = BehaviorSubject();
 
@@ -103,7 +109,7 @@ class NewAccountBloc extends BlocBase {
   Stream<ApiState<LoginMapper>> get register => RegisterRemote(
           shopName: facilityNameBloc.value,
           name: fullNameBloc.value,
-          phone: _mobileNumber,
+          phone: "${this.countryCode}${_mobileNumber}",
           password: passwordBloc.value,
           latitude: _longitudeBehaviour.valueOrNull.toString(),
           longitude: _latitudeBehaviour.valueOrNull.toString())

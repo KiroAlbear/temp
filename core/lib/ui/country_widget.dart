@@ -11,6 +11,7 @@ import '../dto/modules/app_color_module.dart';
 
 class CountryWidget extends StatefulWidget {
   final DropDownBloc countryBloc;
+
   final List<DropDownMapper> countryList;
 
   const CountryWidget(
@@ -49,7 +50,12 @@ class _CountryWidgetState extends State<CountryWidget> {
         context: context,
         builder: (context) => CustomDropDownWidget(
             dropDownList: widget.countryList,
-            onSelect: (value) => widget.countryBloc.updateValue(value),
+            onSelect: (value) {
+              // if(widget.newAccountBloc !=null){
+              //   widget.newAccountBloc!.countryCodeBehaviour.sink.add("+${value.description}");
+              // }
+              widget.countryBloc.updateValue(value);
+            },
             headerText: S.of(context).chooseYourCountry),
         backgroundColor: Colors.transparent,
         enableDrag: false,

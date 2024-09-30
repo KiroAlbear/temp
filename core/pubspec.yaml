@@ -53,6 +53,9 @@ dependencies:
   cart:
     path: ../cart
 
+  authentication:
+    path: ../authentication
+
   dokkan:
     path: ../
 

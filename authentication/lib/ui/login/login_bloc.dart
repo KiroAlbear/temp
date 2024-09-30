@@ -6,9 +6,9 @@ import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/models/login/login_mapper.dart';
 import 'package:core/dto/models/login/login_request.dart';
-import 'package:core/dto/remote/country_remote.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/modules/validator_module.dart';
+import 'package:core/dto/remote/country_remote.dart';
 import 'package:core/dto/remote/login_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 
@@ -21,14 +21,16 @@ class LoginBloc extends BlocBase {
   final BehaviorSubject<bool> _biometricSupportedBehaviour = BehaviorSubject()
     ..sink.add(false);
 
-  final BehaviorSubject<ApiState<List<DropDownMapper>>> _countryBehaviour = BehaviorSubject()..sink.add(LoadingState());
+  final BehaviorSubject<ApiState<List<DropDownMapper>>> _countryBehaviour =
+      BehaviorSubject()..sink.add(LoadingState());
 
-
-  LoginBloc(){
+  LoginBloc() {
     _checkBiometricSupported();
-    CountryRemote().callApiAsStream().listen((event) {
-      _countryBehaviour.sink.add(event);
-    },);
+    CountryRemote().callApiAsStream().listen(
+      (event) {
+        _countryBehaviour.sink.add(event);
+      },
+    );
   }
 
   Stream<bool> get biometricSupportedStream =>
@@ -59,11 +61,13 @@ class LoginBloc extends BlocBase {
     }
   }
 
-  Stream<ApiState<List<DropDownMapper>>> get countryStream => _countryBehaviour.stream;
+  Stream<ApiState<List<DropDownMapper>>> get countryStream =>
+      _countryBehaviour.stream;
 
   Stream<ApiState<LoginMapper>> get login => LoginRemote(
           loginRequest: LoginRequest(
-              password: passwordBloc.value, phone: mobileBloc.value))
+              password: passwordBloc.value,
+              phone: "+${countryBloc.value!.description}${mobileBloc.value}"))
       .callApiAsStream();
 
   Future<bool> authenticateWithBiometric(String message) =>

@@ -265,6 +265,7 @@ ContactUsBloc get _contactUsBloc => ContactUsBloc(
 Widget get _newAccountWidget => NewAccountWidget(
       logo: Assets.svgIcLogoH,
       mobileNumber: _authSharedBloc.mobile,
+      countryCode: _authSharedBloc.countryMapper.description,
       countryId: int.parse(_authSharedBloc.countryMapper.id),
     );
 

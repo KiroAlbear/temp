@@ -17,11 +17,13 @@ class NewAccountWidget extends BaseStatefulWidget {
   final String logo;
   final String mobileNumber;
   final int countryId;
+  final String countryCode;
 
   const NewAccountWidget(
       {super.key,
       required this.logo,
       required this.mobileNumber,
+      required this.countryCode,
       this.countryId = 245});
 
   @override
@@ -35,7 +37,10 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   @override
   void initState() {
     super.initState();
-    _bloc.init(mobileNumber: widget.mobileNumber, countryId: widget.countryId);
+    _bloc.init(
+        mobileNumber: widget.mobileNumber,
+        countryId: widget.countryId,
+        countryCode: widget.countryCode);
     _passwordValidationBloc =
         PasswordValidationBloc(_bloc.passwordBloc.textFormFiledBehaviour.value);
   }
