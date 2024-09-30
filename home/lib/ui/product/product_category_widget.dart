@@ -178,7 +178,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                         : widget.productCategoryBloc.isForFavourite
                             ? S.of(context).favourites
                             : S.of(context).products,
-                    hideTop: false,
+                    hideTop: widget.productCategoryBloc.isForFavourite
+                        ? true
+                        : false,
                   ),
                 ],
               ),
