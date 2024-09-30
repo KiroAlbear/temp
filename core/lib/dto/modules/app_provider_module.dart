@@ -175,7 +175,9 @@ class AppProviderModule with ChangeNotifier {
     SharedPrefModule().locale = locale;
     SharedPrefModule().password = password;
     SharedPrefModule().userName = userName;
+    SharedPrefModule().bearerToken = null;
     _isLoggedIn = true;
+    init(context);
     notifyListeners();
     CustomNavigatorModule.navigatorKey.currentState
         ?.pushReplacementNamed(AppScreenEnum.login.name);
