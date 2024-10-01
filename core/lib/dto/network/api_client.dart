@@ -27,6 +27,7 @@ import 'package:core/dto/models/my_orders/my_orders_response.dart';
 import 'package:core/dto/models/my_orders/order_cancel_request.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/password/change_password_request.dart';
+import 'package:core/dto/models/password/reset_password_request.dart';
 import 'package:core/dto/models/phone/phone_request.dart';
 import 'package:core/dto/models/product/favourite_product_response.dart';
 import 'package:core/dto/models/product/product_request.dart';
@@ -151,6 +152,9 @@ abstract class ApiClient {
 
   @POST(_ApiClientKey._changePassword)
   Future<HeaderResponse> changePassword(@Body() ChangePasswordRequest request);
+
+  @POST(_ApiClientKey._resetPassword)
+  Future<HeaderResponse> resetPassword(@Body() ResetPasswordRequest request);
 
   @PUT('${_ApiClientKey._updateProfileImage}/{mobileNumber}')
   @MultiPart()

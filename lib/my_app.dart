@@ -1,6 +1,6 @@
 import 'package:authentication/authentication.dart';
 import 'package:authentication/ui/changePassword/change_password_widget.dart';
-import 'package:authentication/ui/newAccount/new_account_bloc.dart';
+import 'package:authentication/ui/forgotPassword/forgot_password_bloc.dart';
 import 'package:authentication/ui/newAccount/new_account_widget.dart';
 import 'package:authentication/ui/otp/otp_widget.dart';
 import 'package:authentication/ui/register/register_widget.dart';

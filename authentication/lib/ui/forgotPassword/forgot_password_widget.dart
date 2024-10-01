@@ -6,20 +6,23 @@ import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/modules/response_handler_module.dart';
+import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 
 class ForgotPasswordWidget extends StatefulWidget {
   final String logo;
-
+  final ForgotPasswordBloc forgetPasswordBloc;
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const ForgotPasswordWidget(
-      {super.key, required this.logo, required this.authenticationSharedBloc});
+      {super.key,
+      required this.logo,
+      required this.authenticationSharedBloc,
+      required this.forgetPasswordBloc});
 
   @override
   State<ForgotPasswordWidget> createState() => _ForgotPasswordWidgetState();
@@ -27,13 +30,17 @@ class ForgotPasswordWidget extends StatefulWidget {
 
 class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
     with ResponseHandlerModule {
-  final ForgotPasswordBloc _bloc = ForgotPasswordBloc();
+  @override
+  void initState() {
+    widget.forgetPasswordBloc.resetBloc();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => LogoTopWidget(
         logo: widget.logo,
         canBack: true,
-        blocBase: _bloc,
+        blocBase: widget.forgetPasswordBloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
@@ -66,29 +73,30 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
       );
 
   Widget get _countryStream => StreamBuilder(
-        stream: _bloc.countryStream,
+        stream: widget.forgetPasswordBloc.countryStream,
         builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
             snapshot.data!, context,
             onSuccess: MobileCountryWidget(
-                mobileBloc: _bloc.mobileBloc,
+                mobileBloc: widget.forgetPasswordBloc.mobileBloc,
                 countryList: snapshot.data?.response ?? [],
-                countryBloc: _bloc.countryBloc)),
+                countryBloc: widget.forgetPasswordBloc.countryBloc)),
       );
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).loginEnter,
         onTap: () {
-          if (_bloc.isValid) {
+          if (widget.forgetPasswordBloc.isMobileValid) {
             widget.authenticationSharedBloc.setDataToAuth(
-                _bloc.countryBloc.value!,
-                _bloc.mobileBloc.value,
+                widget.forgetPasswordBloc.countryBloc.value!,
+                widget.forgetPasswordBloc.mobileBloc.value,
                 AppScreenEnum.changePassword.name);
+
             CustomNavigatorModule.navigatorKey.currentState
                 ?.pushReplacementNamed(AppScreenEnum.otp.name);
           }
         },
-        buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-        failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-        validateStream: _bloc.validate,
+        buttonBehaviour: widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
+        failedBehaviour: widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
+        validateStream: widget.forgetPasswordBloc.validate,
       );
 }

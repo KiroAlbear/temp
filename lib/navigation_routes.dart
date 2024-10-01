@@ -4,6 +4,7 @@ part of 'my_app.dart';
 // Create an instance of CustomTransitionModule for transitions.
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
+final ForgotPasswordBloc _forgetPasswordBloc = ForgotPasswordBloc();
 final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
 final CartBloc _cartBloc = CartBloc();
 final UsagePolicyBloc _usagePolicyBloc = UsagePolicyBloc();
@@ -74,6 +75,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       ));
     case AppScreenEnum.forgetPassword:
       return _buildPageRoute(ForgotPasswordWidget(
+        forgetPasswordBloc: _forgetPasswordBloc,
         logo: Assets.svgIcLogoH,
         authenticationSharedBloc: _authSharedBloc,
       ));
@@ -84,6 +86,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       ));
     case AppScreenEnum.changePassword:
       return _buildPageRoute(ChangePasswordWidget(
+        forgetPasswordBloc: _forgetPasswordBloc,
         logo: Assets.svgIcLogoH,
         authenticationSharedBloc: _authSharedBloc,
       ));
