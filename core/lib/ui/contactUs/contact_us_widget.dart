@@ -10,6 +10,7 @@ import 'package:core/ui/custom_text.dart';
 import 'package:core/ui/dialog_header_widget.dart';
 import 'package:easy_url_launcher/easy_url_launcher.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsWidget extends StatefulWidget {
   final ContactUsBloc contactUsBloc;
@@ -78,8 +79,11 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
             height: 20.h,
           ),
           InkWell(
-            onTap: () => EasyLauncher.sendToWhatsApp(
-                phone: contactUsMapper.whatsApp, message: 'Hi'),
+            onTap: () async {
+              await launchUrl(Uri.parse(contactUsMapper.whatsApp));
+              // EasyLauncher.sendToWhatsApp(
+              //     phone: contactUsMapper.whatsApp, message: 'Hi')
+            },
             child: _buildContactUsItem(contactUsMapper.whatsApp,
                 widget.contactUsBloc.whatsAppIcon, S.of(context).whatsApp),
           ),
