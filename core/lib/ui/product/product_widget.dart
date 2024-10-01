@@ -494,6 +494,10 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _addCartButton => InkWell(
         onTap: () async {
+          if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
+            Apputils.showNeedToLoginDialog(context);
+            return;
+          }
           if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
           {
             widget.onAddToCart!(widget.productMapper);
