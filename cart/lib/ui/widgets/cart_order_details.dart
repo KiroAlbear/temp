@@ -143,7 +143,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                                 );
                         },
                       ),
-                      // deliveryFeesRow(),
+                      deliveryFeesRow(),
                       _getSeperator(),
                       _totalRow(),
                       _getSeperator(),
