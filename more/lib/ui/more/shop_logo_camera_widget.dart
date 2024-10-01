@@ -70,10 +70,13 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                 text: widget.name,
                 customTextStyle:
                     MediumStyle(color: lightBlackColor, fontSize: 22.sp)),
-            CustomText(
-                text: widget.mobile,
-                customTextStyle:
-                    RegularStyle(color: lightBlackColor, fontSize: 22.sp))
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: CustomText(
+                  text: widget.mobile,
+                  customTextStyle:
+                      RegularStyle(color: lightBlackColor, fontSize: 22.sp)),
+            )
           ],
         ),
       );

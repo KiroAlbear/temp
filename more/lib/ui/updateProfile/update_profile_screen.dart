@@ -227,14 +227,18 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
         SizedBox(
           height: _textfieldsLabelSpacing,
         ),
-        CustomTextFormFiled(
-          fillColor: greyColor.withOpacity(0.5),
-          defaultTextStyle: _getTextStyle(),
-          readOnly: true,
-          labelText: S.of(context).enterMobileNumber,
-          textFiledControllerStream: _bloc.phoneBloc.textFormFiledBehaviour,
-          onChanged: (value) {},
-          textInputAction: TextInputAction.next,
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: CustomTextFormFiled(
+            fillColor: greyColor.withOpacity(0.5),
+            defaultTextStyle: _getTextStyle(),
+            readOnly: true,
+            textAlign: TextAlign.end,
+            labelText: S.of(context).enterMobileNumber,
+            textFiledControllerStream: _bloc.phoneBloc.textFormFiledBehaviour,
+            onChanged: (value) {},
+            textInputAction: TextInputAction.next,
+          ),
         ),
       ],
     );
