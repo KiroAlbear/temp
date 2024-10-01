@@ -167,7 +167,8 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     });
   }
 
-  void getProductWithSubcategoryBrand(int? subCategory, int? brand) {
+  void getProductWithSubcategoryBrand(
+      int? subCategory, int? brand, Function? onGettingMoreProducts) {
     if ((subCategory == null && brand == null)) {
       ProductRemote()
           .loadAllProducts(ProductRequest(
@@ -181,6 +182,10 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
               event.response != null &&
               event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
+
+            if (onGettingMoreProducts != null) {
+              onGettingMoreProducts();
+            }
           } else if (event.response != null && event.response!.isEmpty) {
             _handleProductResponse(null);
           }
@@ -196,6 +201,10 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
               event.response != null &&
               event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
+
+            if (onGettingMoreProducts != null) {
+              onGettingMoreProducts();
+            }
           } else if (event.response != null && event.response!.isEmpty) {
             _handleProductResponse(null);
           }
@@ -216,6 +225,10 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
               event.response != null &&
               event.response!.isNotEmpty) {
             _handleProductResponse(event.response);
+
+            if (onGettingMoreProducts != null) {
+              onGettingMoreProducts();
+            }
           } else if (event.response != null && event.response!.isEmpty) {
             _handleProductResponse(null);
           }
@@ -239,7 +252,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
       int? selectedBrandId = response.first.id;
 
       brandId = selectedBrandId;
-      getProductWithSubcategoryBrand(subCategory, selectedBrandId);
+      getProductWithSubcategoryBrand(subCategory, selectedBrandId, null);
     } else {
       isLoading?.value = false;
       brandId = null;

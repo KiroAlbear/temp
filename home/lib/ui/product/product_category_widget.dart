@@ -101,7 +101,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         widget.productCategoryBloc.categoryId =
             widget.homeBloc.selectedOffer!.relatedItemId;
         widget.productCategoryBloc.getProductWithSubcategoryBrand(
-            widget.productCategoryBloc.categoryId, null);
+            widget.productCategoryBloc.categoryId, null, null);
       } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
           "product") {
         widget.productCategoryBloc
@@ -111,11 +111,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         widget.productCategoryBloc.brandId =
             widget.homeBloc.selectedOffer!.relatedItemId;
         widget.productCategoryBloc.getProductWithSubcategoryBrand(
-            null, widget.productCategoryBloc.brandId);
+            null, widget.productCategoryBloc.brandId, null);
       }
     } else if (ProductCategoryWidget.categoryProductsCount > 0) {
       widget.productCategoryBloc.getProductWithSubcategoryBrand(
-          ProductCategoryWidget.cateogryId, null);
+          ProductCategoryWidget.cateogryId, null, null);
     } else {
       widget.productCategoryBloc.categoryId = ProductCategoryWidget.cateogryId;
       widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
@@ -128,11 +128,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
     super.initState();
   }
 
-  void _loadProducts(bool isFirstTime) {
+  void _loadProducts(bool isFirstTime, Function? onGettingProducts) {
     widget.showOverlayLoading.value = isFirstTime;
     widget.productCategoryBloc.getProductWithSubcategoryBrand(
         widget.productCategoryBloc.subcategoryId,
-        widget.productCategoryBloc.brandId);
+        widget.productCategoryBloc.brandId,
+        onGettingProducts);
   }
 
   bool isFavouriteOrSearchOrCategory() {
@@ -366,7 +367,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                                   .productCategoryBloc
                                                                   .reset();
                                                               _loadProducts(
-                                                                  true);
+                                                                  true, null);
                                                             });
                                                       },
                                                     ),
@@ -557,12 +558,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                           (favourite, productMapper) {
                                         // widget.productCategoryBloc.addProductToFavourite();
                                       },
-                                      loadMore: () {
+                                      loadMore: (Function func) {
                                         if (widget
                                             .productCategoryBloc.isForFavourite)
                                           widget.productCategoryBloc.loadMore();
                                         else
-                                          _loadProducts(false);
+                                          _loadProducts(false, func);
                                       },
                                     ));
                               },

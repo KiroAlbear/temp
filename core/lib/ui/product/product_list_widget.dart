@@ -21,7 +21,7 @@ class ProductListWidget extends StatefulWidget {
   final Function(ProductMapper productMapper)? onIncrementClicked;
   final Function(ProductMapper productMapper)? onDeleteClicked;
 
-  final VoidCallback? loadMore;
+  final Function(Function())? loadMore;
 
   ProductListWidget(
       {super.key,
@@ -59,7 +59,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   }
 
   void resetFavouriteList(int productId) {
-    favouriteList.clear();
+    favouriteList.clear(); // TODO: check favourite logic again
     removedProducts.add(productId);
     for (ProductMapper product in widget.productList) {
       if (removedProducts.contains(product.id) == false) {
@@ -77,7 +77,11 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   Widget build(BuildContext context) => LazyLoadScrollView(
         onEndOfPage: () {
           if (widget.loadMore != null) {
-            widget.loadMore!();
+            widget.loadMore!(
+              () {
+                widget.cartBloc.addCartInfoToProducts(widget.productList);
+              },
+            );
           }
         },
         child: ValueListenableBuilder(
