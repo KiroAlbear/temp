@@ -64,9 +64,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         .loadProduct(PageRequest(pageSize, pageNumber, 1,
             int.parse(SharedPrefModule().userId ?? '0')))
         .listen((event) {
-      if (event is SuccessState &&
-          event.response != null &&
-          event.response!.isNotEmpty) {
+      if (event is SuccessState && event.response != null) {
         _handleProductResponse(event.response);
       }
     });
