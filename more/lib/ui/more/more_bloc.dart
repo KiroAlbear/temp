@@ -99,6 +99,7 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
 
   @override
   void dispose() {
+    profileBehaviour.sink.add(IdleState());
     cameraPermissionBloc.dispose();
   }
 }
