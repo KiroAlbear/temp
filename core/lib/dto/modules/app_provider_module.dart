@@ -168,13 +168,13 @@ class AppProviderModule with ChangeNotifier {
   void logout(BuildContext context) {
     var locale = SharedPrefModule().locale;
     var isDark = SharedPrefModule().isDarkMode;
-    var userName = SharedPrefModule().userName;
+    var userPhone = SharedPrefModule().userPhone;
     var password = SharedPrefModule().password;
     SharedPrefModule().clear;
     SharedPrefModule().isDarkMode = isDark;
     SharedPrefModule().locale = locale;
     SharedPrefModule().password = password;
-    SharedPrefModule().userName = userName;
+    SharedPrefModule().userPhone = userPhone;
     SharedPrefModule().bearerToken = null;
     _isLoggedIn = true;
     init(context);

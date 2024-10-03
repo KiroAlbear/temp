@@ -91,11 +91,11 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
     }
   }
 
-  void updateProfile(String name, String shopName) {
-    ProfileMapper profileMapper = profileBehaviour.valueOrNull!.response!;
-    profileMapper.name = '$name-$shopName';
-    profileBehaviour.sink.add(SuccessState(profileMapper));
-  }
+  // void updateProfile(String name, String shopName) {
+  //   ProfileMapper profileMapper = profileBehaviour.valueOrNull!.response!;
+  //   profileMapper.name = '$name-$shopName';
+  //   profileBehaviour.sink.add(SuccessState(profileMapper));
+  // }
 
   @override
   void dispose() {

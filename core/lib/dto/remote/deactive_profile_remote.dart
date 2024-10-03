@@ -8,7 +8,7 @@ import 'package:core/dto/network/api_client.dart';
 class DeActiveProfileRemote extends BaseRemoteModule<void, void> {
   DeActiveProfileRemote() {
     apiFuture = ApiClient(OdooDioModule().build())
-        .deActiveProfile(PhoneRequest(SharedPrefModule().userName ?? ''));
+        .deActiveProfile(PhoneRequest(SharedPrefModule().userPhone ?? ''));
   }
 
   @override

@@ -102,11 +102,11 @@ class SharedPrefModule {
       key: _sharedKey(SharedPRefEnum.bearerToken), value: value ?? '');
 
   /// userName
-  String? get userName =>
-      _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.userName));
+  String? get userPhone =>
+      _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.userPhone));
 
-  set userName(String? value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.userName), value: value ?? '');
+  set userPhone(String? value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.userPhone), value: value ?? '');
 
   /// password
   String? get password =>

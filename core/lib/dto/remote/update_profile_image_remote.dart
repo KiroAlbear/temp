@@ -11,7 +11,7 @@ class UpdateProfileImageRemote {
 
   void uploadImage(File file) async {
     final url =
-        'https://dokkan.odoo.com/app/update_image/${SharedPrefModule().userName}';
+        'https://dokkan.odoo.com/app/update_image/${SharedPrefModule().userPhone}';
     final fileName = file.path.split('/').last;
     var formData = FormData.fromMap({
       'image': await MultipartFile.fromFile(file.path, filename: fileName),

@@ -156,11 +156,11 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
               .then((value) {
             if (value) {
               _bloc.mobileBloc.textFormFiledBehaviour.sink.add(
-                  TextEditingController(text: SharedPrefModule().userName));
+                  TextEditingController(text: SharedPrefModule().userPhone));
               _bloc.passwordBloc.textFormFiledBehaviour.sink.add(
                   TextEditingController(text: SharedPrefModule().password));
               _bloc.mobileBloc
-                  .updateStringBehaviour(SharedPrefModule().userName ?? '');
+                  .updateStringBehaviour(SharedPrefModule().userPhone ?? '');
               _bloc.passwordBloc
                   .updateStringBehaviour(SharedPrefModule().password ?? '');
               _bloc.login.listen((event) {
@@ -231,7 +231,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       );
 
   void _navigateHome() {
-    SharedPrefModule().userName =
+    SharedPrefModule().userPhone =
         "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
     SharedPrefModule().password = _bloc.passwordBloc.value;
 

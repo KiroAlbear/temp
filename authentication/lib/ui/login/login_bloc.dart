@@ -37,7 +37,7 @@ class LoginBloc extends BlocBase {
       _biometricSupportedBehaviour.stream;
 
   bool get _isLoggedBefore =>
-      (SharedPrefModule().userName ?? '').isNotEmpty &&
+      (SharedPrefModule().userPhone ?? '').isNotEmpty &&
       (SharedPrefModule().password ?? '').isNotEmpty;
 
   void _checkBiometricSupported() {
