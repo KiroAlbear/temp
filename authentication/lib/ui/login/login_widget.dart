@@ -231,7 +231,8 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       );
 
   void _navigateHome() {
-    SharedPrefModule().userName = _bloc.mobileBloc.value;
+    SharedPrefModule().userName =
+        "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
     SharedPrefModule().password = _bloc.passwordBloc.value;
 
     CustomNavigatorModule.navigatorKey.currentState
