@@ -223,6 +223,7 @@ class AlertModule {
       VoidCallback? onCancel,
       VoidCallback? onConfirm,
       bool hasCancelButton = false,
+      bool sameButtonsColor = false,
       bool errorColorInConfirm = false}) async {
     return NavigationModule().pushBottomDialog(
       widget: DialogWidget(
@@ -235,6 +236,7 @@ class AlertModule {
         onConfirm: onConfirm,
         errorColorInConfirm: errorColorInConfirm,
         hasCloseButton: hasCancelButton,
+        sameButtonsColor: sameButtonsColor,
       ),
       context: context,
     );

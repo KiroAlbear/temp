@@ -315,6 +315,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       message: S.of(context).selectPhotoFromCameraOrGallery,
       cancelMessage: S.of(context).gallery,
       confirmMessage: S.of(context).camera,
+      sameButtonsColor: true,
       onCancel: () {
         _requestGalleryPermission();
         _listenForGalleryPermission();

@@ -20,6 +20,7 @@ class DialogWidget extends StatefulWidget {
   final VoidCallback? onCancel;
   final bool errorColorInConfirm;
   final bool hasCloseButton;
+  final bool sameButtonsColor;
 
   const DialogWidget(
       {super.key,
@@ -31,6 +32,7 @@ class DialogWidget extends StatefulWidget {
       this.onCancel,
       this.onConfirm,
       this.hasCloseButton = false,
+      required this.sameButtonsColor,
       this.errorColorInConfirm = false});
 
   @override
@@ -173,8 +175,8 @@ class _DialogWidgetState extends State<DialogWidget> {
       idleText: widget.cancelMessage ?? '',
       textSize: 20.sp,
       height: 38.h,
-      buttonColor: greyColor,
-      textColor: whiteColor,
+      buttonColor: widget.sameButtonsColor ? primaryColor : greyColor,
+      textColor: widget.sameButtonsColor ? lightBlackColor : whiteColor,
       validateStream: Stream.value(true),
       buttonShapeEnum: ButtonShapeEnum.flat,
       onTap: () {
