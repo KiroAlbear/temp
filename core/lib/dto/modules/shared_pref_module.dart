@@ -108,6 +108,13 @@ class SharedPrefModule {
   set userPhone(String? value) => _sharedPref.setValue<String>(
       key: _sharedKey(SharedPRefEnum.userPhone), value: value ?? '');
 
+  String? get userPhoneWithoutCountry => _sharedPref.getValue<String>(
+      key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry));
+
+  set userPhoneWithoutCountry(String? value) => _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry),
+      value: value ?? '');
+
   /// password
   String? get password =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.password));

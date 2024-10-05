@@ -102,6 +102,21 @@ class PermissionModule {
     } else {
       status = await _permission.request();
     }
+    // if (Platform.isAndroid && _permission == Permission.photos) {
+    //   var androidInfo = await DeviceInfoPlugin().androidInfo;
+    //   var sdkInt = androidInfo.version.sdkInt;
+    //   // if (sdkInt >= 33) {
+    //   //   var status = await Permission.photos.request();
+    //   //   handlePermissionStatus(status);
+    //   // } else {
+    //   //   handlePermissionStatus(status);
+    //   // }
+    // } else {
+    // }
+    handlePermissionStatus(status);
+  }
+
+  void handlePermissionStatus(PermissionStatus status) {
     if (status == PermissionStatus.permanentlyDenied ||
         status == PermissionStatus.denied) {
       _handleOnDeniedForEver;
@@ -241,7 +256,7 @@ class PermissionModule {
   }
 
   void dispose() {
-    _isOpenSettingsBehaviour.close();
-    _isPermissionGrantedBehaviour.close();
+    // _isOpenSettingsBehaviour.close();
+    // _isPermissionGrantedBehaviour.close();
   }
 }

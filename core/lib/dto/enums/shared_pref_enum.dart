@@ -9,6 +9,7 @@ enum SharedPRefEnum {
   bearerToken,
   password,
   userPhone,
+  userPhoneWithoutCountry,
   userLat,
   userLong,
   userAddress,

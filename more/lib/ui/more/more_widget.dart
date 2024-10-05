@@ -349,10 +349,23 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   }
 
   void _requestGalleryPermission() async {
-    await widget.moreBloc.galleryPermissionBloc
-        .requestPermission(context, Permission.storage);
-    await widget.moreBloc.galleryPermissionBloc
-        .requestPermission(context, Permission.photos);
+    if (Platform.isAndroid) {
+      var androidInfo = await DeviceInfoPlugin().androidInfo;
+      var sdkInt = androidInfo.version.sdkInt;
+      if (sdkInt >= 33) {
+        await widget.moreBloc.galleryPermissionBloc
+            .requestPermission(context, Permission.photos);
+      } else {
+        await widget.moreBloc.galleryPermissionBloc
+            .requestPermission(context, Permission.storage);
+        // await widget.moreBloc.galleryPermissionBloc
+        //     .requestPermission(context, Permission.photos);
+      }
+    } else {
+      await widget.moreBloc.galleryPermissionBloc
+          .requestPermission(context, Permission.storage);
+    }
+
     widget.moreBloc.galleryPermissionBloc.listenFormOpenSettings();
   }
 

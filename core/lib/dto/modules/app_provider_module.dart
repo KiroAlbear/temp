@@ -169,12 +169,14 @@ class AppProviderModule with ChangeNotifier {
     var locale = SharedPrefModule().locale;
     var isDark = SharedPrefModule().isDarkMode;
     var userPhone = SharedPrefModule().userPhone;
+    var userPhoneWithoutCountry = SharedPrefModule().userPhoneWithoutCountry;
     var password = SharedPrefModule().password;
     SharedPrefModule().clear;
     SharedPrefModule().isDarkMode = isDark;
     SharedPrefModule().locale = locale;
     SharedPrefModule().password = password;
     SharedPrefModule().userPhone = userPhone;
+    SharedPrefModule().userPhoneWithoutCountry = userPhoneWithoutCountry;
     SharedPrefModule().bearerToken = null;
     _isLoggedIn = true;
     init(context);
