@@ -9,6 +9,7 @@ import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/generated/l10n.dart';
 import 'package:core/ui/app_top_widget.dart';
 import 'package:core/ui/bases/base_state.dart';
+import 'package:core/ui/contactUs/contact_us_bloc.dart';
 import 'package:core/ui/product/product_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:home/ui/home/filter_item_widget.dart';
@@ -31,6 +32,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   final String emptyFavouriteScreen;
   final String productNotFoundIcon;
   final HomeBloc homeBloc;
+  final ContactUsBloc contactUsBloc;
   final String backIcon;
   static int cateogryId = 1;
   static int categoryProductsCount = 0;
@@ -59,6 +61,7 @@ class ProductCategoryWidget extends BaseStatefulWidget {
       required this.supportIcon,
       required this.productNotFoundIcon,
       required this.cartBloc,
+      required this.contactUsBloc,
       required this.productCategoryBloc});
 
   @override
@@ -163,6 +166,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                     scanIcon: widget.scanIcon,
                     searchIcon: widget.searchIcon,
                     supportIcon: widget.supportIcon,
+                    contactUsBloc: widget.contactUsBloc,
                     doSearch: () => widget.homeBloc
                         .doSearch(widget.homeBloc.searchBloc.value),
                     textFiledControllerStream:

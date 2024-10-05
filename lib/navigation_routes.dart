@@ -232,6 +232,7 @@ BlocProvider _productCategoryWidget() {
         deleteIcon: Assets.svgIcDelete,
         favouriteIcon: Assets.svgIcFavourite,
         homeBloc: _homeBloc,
+        contactUsBloc: _contactUsBloc,
         homeLogo: Assets.svgIcHomeLogo,
         notificationIcon: Assets.svgIcNotification,
         scanIcon: Assets.svgIcScan,
