@@ -164,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mobile already registered before"),
         "mobileExistBefore":
             MessageLookupByLibrary.simpleMessage("You mobile exist before"),
+        "mobileIsNotExist":
+            MessageLookupByLibrary.simpleMessage("Phone number is not exist"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),

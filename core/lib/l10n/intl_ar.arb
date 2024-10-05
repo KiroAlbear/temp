@@ -168,5 +168,6 @@
   "cartCashOnDelivery": "كاش عند الاستلام",
   "cartPaymentOptions": "طريقة الدفع المناسبة ليك",
   "cartDokkanWallet": "محفظة دكان",
-  "productIsNotAvailable": "المنتج غير متوفر"
+  "productIsNotAvailable": "المنتج غير متوفر",
+  "mobileIsNotExist": "رقم الهاتف غير موجود"
 }

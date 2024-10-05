@@ -8,14 +8,26 @@ import 'package:core/generated/l10n.dart';
 
 class CheckPhoneRemote
     extends BaseRemoteModule<bool, List<CheckPhoneResponse>> {
+  final bool isForgetPassword;
+
   @override
   ApiState<bool> onSuccessHandle(List<CheckPhoneResponse>? response) {
     if (response?.first.isExist ?? false) {
-      return FailedState(
-          message: S.current.mobileExistBefore,
-          loggerName: runtimeType.toString());
+      if (isForgetPassword) {
+        return SuccessState(true);
+      } else {
+        return FailedState(
+            message: S.current.mobileExistBefore,
+            loggerName: runtimeType.toString());
+      }
     } else {
-      return SuccessState(true);
+      if (isForgetPassword) {
+        return FailedState(
+            message: S.current.mobileIsNotExist,
+            loggerName: runtimeType.toString());
+      } else {
+        return SuccessState(true);
+      }
     }
   }
 
@@ -24,7 +36,7 @@ class CheckPhoneRemote
     return true;
   }
 
-  CheckPhoneRemote(String phone) {
+  CheckPhoneRemote(String phone, {this.isForgetPassword = false}) {
     apiFuture =
         ApiClient(OdooDioModule().build()).checkPhone(CheckPhoneRequest(phone));
   }

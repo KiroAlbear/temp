@@ -161,6 +161,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "رقم الهاتف مسجل بالفعل من قبل"),
         "mobileExistBefore": MessageLookupByLibrary.simpleMessage(
             "رقم الهاتف مسجل لدينا بالفعل"),
+        "mobileIsNotExist":
+            MessageLookupByLibrary.simpleMessage("رقم الهاتف غير موجود"),
         "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),

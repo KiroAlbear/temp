@@ -1719,6 +1719,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Phone number is not exist`
+  String get mobileIsNotExist {
+    return Intl.message(
+      'Phone number is not exist',
+      name: 'mobileIsNotExist',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

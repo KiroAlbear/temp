@@ -5,6 +5,7 @@ import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
 import 'package:core/dto/modules/validator_module.dart';
+import 'package:core/dto/remote/check_phone_remote.dart';
 import 'package:core/dto/remote/country_remote.dart';
 import 'package:core/dto/remote/reset_password_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
@@ -62,6 +63,11 @@ class ForgotPasswordBloc extends BlocBase {
 
   Stream<ApiState<List<DropDownMapper>>> get countryStream =>
       _countryBehaviour.stream;
+
+  Stream<ApiState<bool>> get checkPhone =>
+      CheckPhoneRemote("+${countryBloc.value!.description}${mobileBloc.value}",
+              isForgetPassword: true)
+          .callApiAsStream();
 
   Stream<ApiState<void>> get resetPassword => ResetPasswordRemote(
           phone: "+${countryBloc.value!.description}${mobileBloc.value}",

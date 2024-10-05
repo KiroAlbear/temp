@@ -66,7 +66,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
               SizedBox(
                 height: 145.h,
               ),
-              _button,
+              Center(child: _button),
             ],
           ),
         ),
@@ -86,13 +86,27 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
         idleText: S.of(context).loginEnter,
         onTap: () {
           if (widget.forgetPasswordBloc.isMobileValid) {
-            widget.authenticationSharedBloc.setDataToAuth(
-                widget.forgetPasswordBloc.countryBloc.value!,
-                widget.forgetPasswordBloc.mobileBloc.value,
-                AppScreenEnum.changePassword.name);
+            widget.forgetPasswordBloc.checkPhone.listen(
+              (event) {
+                checkResponseStateWithButton(
+                  event,
+                  context,
+                  failedBehaviour:
+                      widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
+                  buttonBehaviour:
+                      widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
+                  onSuccess: () {
+                    widget.authenticationSharedBloc.setDataToAuth(
+                        widget.forgetPasswordBloc.countryBloc.value!,
+                        widget.forgetPasswordBloc.mobileBloc.value,
+                        AppScreenEnum.changePassword.name);
 
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushReplacementNamed(AppScreenEnum.otp.name);
+                    CustomNavigatorModule.navigatorKey.currentState
+                        ?.pushReplacementNamed(AppScreenEnum.otp.name);
+                  },
+                );
+              },
+            );
           }
         },
         buttonBehaviour: widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
