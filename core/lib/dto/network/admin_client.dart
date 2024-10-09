@@ -4,6 +4,8 @@ import 'package:core/dto/models/baseModules/admin_header_response.dart';
 import 'package:core/dto/models/contactUs/contact_us_response.dart';
 import 'package:core/dto/models/faq/faq_response.dart';
 import 'package:core/dto/models/heroBanner/banners_response.dart';
+import 'package:core/dto/models/otp/send_otp_request.dart';
+import 'package:core/dto/models/otp/verify_otp_request.dart';
 
 import '../models/usage_policy/usage_policy_response.dart';
 
@@ -32,4 +34,10 @@ abstract class AdminClient {
 
   @GET(_AdminApiKey._usagePolicy)
   Future<AdminHeaderResponse<UsagePolicyResponse>> getUsagePolicy();
+
+  @POST(_AdminApiKey._sendOtp)
+  Future<AdminHeaderResponse> sendOtp(@Body() SendOtpRequest request);
+
+  @POST(_AdminApiKey._verifyOtp)
+  Future<AdminHeaderResponse> verifyOtp(@Body() VerifyOtpRequest request);
 }

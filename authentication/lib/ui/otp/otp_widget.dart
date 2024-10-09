@@ -224,7 +224,9 @@ class _OtpWidgetState extends State<OtpWidget> {
               InkWell(
                   onTap: () {
                     if (enableSnapShot.data ?? false) {
-                      _bloc.sendOtp();
+                      _bloc.sendOtp(
+                          "+${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}",
+                          S.of(context).otpPhoneIsNotValid);
                     }
                   },
                   child: CustomText(

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/button_bloc.dart';
 import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
+import 'package:core/dto/models/baseModules/api_state.dart';
+import 'package:core/dto/remote/otp_remote.dart';
 import 'package:core/ui/bases/bloc_base.dart';
 import 'package:otp_text_field/otp_field.dart';
 
@@ -33,9 +35,11 @@ class OtpBloc extends BlocBase {
   bool get isValid =>
       otpBloc.value.isNotEmpty && otpBloc.value.length == otpCodeLength;
 
-  void sendOtp() {
-    /// TODO missing call api
+  Future<ApiState<void>> sendOtp(String phone, String errorMessage) {
+    // OtpRemote().sendOtp('+967777902510').then(
+    // return OtpRemote().sendOtp('+201272911658', errorMessage);
     _setTimerToStart();
+    return OtpRemote().sendOtp(phone, errorMessage);
   }
 
   void _setTimerToStart() {

@@ -1,3 +1,4 @@
+import 'package:authentication/ui/otp/otp_bloc.dart';
 import 'package:authentication/ui/register/register_bloc.dart';
 import 'package:authentication/ui/widget/logo_top_widget.dart';
 import 'package:core/core.dart';
@@ -26,6 +27,7 @@ class RegisterWidget extends StatefulWidget {
 class _RegisterWidgetState extends State<RegisterWidget>
     with ResponseHandlerModule {
   final RegisterBloc _bloc = RegisterBloc();
+  final OtpBloc _otpBloc = OtpBloc();
 
   @override
   Widget build(BuildContext context) => LogoTopWidget(
@@ -100,12 +102,27 @@ class _RegisterWidgetState extends State<RegisterWidget>
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
                     onSuccess: () {
-                      widget.authenticationSharedBloc.setDataToAuth(
-                          _bloc.countryBloc.value!,
-                          _bloc.mobileBloc.value,
-                          AppScreenEnum.newAccount.name);
-                      CustomNavigatorModule.navigatorKey.currentState
-                          ?.pushNamed(AppScreenEnum.otp.name);
+                      _otpBloc
+                          .sendOtp(
+                              "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
+                              S.of(context).otpPhoneIsNotValid)
+                          .then(
+                        (value) {
+                          checkResponseStateWithButton(value, context,
+                              failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                              buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                              headerErrorMessage: S
+                                  .of(context)
+                                  .otpPhoneIsNotValid, onSuccess: () {
+                            widget.authenticationSharedBloc.setDataToAuth(
+                                _bloc.countryBloc.value!,
+                                _bloc.mobileBloc.value,
+                                AppScreenEnum.newAccount.name);
+                            CustomNavigatorModule.navigatorKey.currentState
+                                ?.pushNamed(AppScreenEnum.otp.name);
+                          });
+                        },
+                      );
                     },
                   );
                 },

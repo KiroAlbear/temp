@@ -169,5 +169,6 @@
   "cartPaymentOptions": "طريقة الدفع المناسبة ليك",
   "cartDokkanWallet": "محفظة دكان",
   "productIsNotAvailable": "المنتج غير متوفر",
-  "mobileIsNotExist": "رقم الهاتف غير موجود"
+  "mobileIsNotExist": "رقم الهاتف غير موجود",
+  "phoneIsNotValid": "خطأ في رقم الهاتف"
 }

@@ -217,6 +217,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password didn\'t match"),
         "pastOrders": MessageLookupByLibrary.simpleMessage("Past orders"),
+        "phoneIsNotValid":
+            MessageLookupByLibrary.simpleMessage("Problem with Phone number "),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to select this location?"),
         "platformName":

@@ -1,0 +1,22 @@
+import 'package:core/core.dart';
+
+part 'verify_otp_request.g.dart';
+
+@JsonSerializable()
+class VerifyOtpRequest {
+  @JsonKey(name: 'mobileNo')
+  String phone;
+
+  @JsonKey(name: 'otp')
+  String otp;
+
+  VerifyOtpRequest({
+    required this.phone,
+    required this.otp,
+  });
+
+  factory VerifyOtpRequest.fromJson(Map<String, dynamic> json) =>
+      _$VerifyOtpRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VerifyOtpRequestToJson(this);
+}

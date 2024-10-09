@@ -212,6 +212,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور وتأكيد كلمة المرور غير متطابقين"),
         "pastOrders": MessageLookupByLibrary.simpleMessage("الطلبات السابقة"),
+        "phoneIsNotValid":
+            MessageLookupByLibrary.simpleMessage("خطأ في رقم الهاتف"),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),

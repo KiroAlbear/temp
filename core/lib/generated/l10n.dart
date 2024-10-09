@@ -1729,6 +1729,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Problem with Phone number `
+  String get otpPhoneIsNotValid {
+    return Intl.message(
+      'Problem with Phone number ',
+      name: 'phoneIsNotValid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

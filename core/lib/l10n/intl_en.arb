@@ -169,5 +169,6 @@
   "cartPaymentOptions": "Payment method that suits you",
   "cartDokkanWallet": "Dokkan wallet",
   "productIsNotAvailable": "Product is not available",
-  "mobileIsNotExist": "Phone number is not exist"
+  "mobileIsNotExist": "Phone number is not exist",
+  "phoneIsNotValid": "Problem with Phone number "
 }
