@@ -170,5 +170,6 @@
   "cartDokkanWallet": "Dokkan wallet",
   "productIsNotAvailable": "Product is not available",
   "mobileIsNotExist": "Phone number is not exist",
-  "phoneIsNotValid": "Problem with Phone number "
+  "otpPhoneIsNotValid": "Problem with Phone number ",
+  "otpIsNotValid":  "Problem with verification code"
 }

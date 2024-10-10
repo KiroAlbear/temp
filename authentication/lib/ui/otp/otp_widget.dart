@@ -7,13 +7,14 @@ import 'package:core/dto/modules/custom_navigator_module.dart';
 import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/dto/sharedBlocs/authentication_shared_bloc.dart';
 import 'package:core/generated/l10n.dart';
+import 'package:core/ui/bases/base_state.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 
-class OtpWidget extends StatefulWidget {
+class OtpWidget extends BaseStatefulWidget {
   final String logo;
 
   final AuthenticationSharedBloc authenticationSharedBloc;
@@ -26,15 +27,19 @@ class OtpWidget extends StatefulWidget {
 }
 
 /////
-class _OtpWidgetState extends State<OtpWidget> {
+class _OtpWidgetState extends BaseState<OtpWidget> {
   String? _signature;
   final OtpBloc _bloc = OtpBloc();
   final _otpPinFieldController = GlobalKey<OtpPinFieldState>();
+
   @override
-  void initState() {
-    super.initState();
-    // _initSignature();
-  }
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => false;
+
+  @override
+  bool isSafeArea() => true;
 
   void _initSignature() async {
     _signature = await SmsVerification.getAppSignature();
@@ -55,7 +60,7 @@ class _OtpWidgetState extends State<OtpWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget getBody(BuildContext context) {
     return StreamBuilder<Object>(
         stream: null,
         builder: (context, snapshot) {
@@ -90,42 +95,12 @@ class _OtpWidgetState extends State<OtpWidget> {
                           SizedBox(
                             height: 12.h,
                           ),
-                          _button,
+                          Center(child: _button),
                         ]))),
           );
         });
   }
 
-  /* Widget get _otpWidget => StreamBuilder<TextEditingController>(
-      stream: _bloc.otpBloc.textFormFiledStream,
-      initialData: TextEditingController(text: ''),
-      builder: (context, snapshot) => Directionality(
-            textDirection: AppProviderModule().locale == 'en'
-                ? TextDirection.ltr
-                : TextDirection.rtl,
-            child: TextFieldPin(
-              autoFocus: true,
-              codeLength: _bloc.otpCodeLength,
-              alignment: MainAxisAlignment.center,
-              defaultBoxSize: 45.h,
-              margin: 6.w,
-              selectedBoxSize: 45.h,
-              textStyle: SemiBoldStyle(color: secondaryColor, fontSize: 32.sp)
-                  .getStyle(),
-              defaultDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.w),
-                  border: Border.all(color: greyColor, width: 1)),
-              selectedDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.w),
-                  border: Border.all(color: secondaryColor, width: 1)),
-              onChange: (code) {
-                _bloc.otpBloc.textFormFiledBehaviour.sink
-                    .add(TextEditingController(text: code));
-                _bloc.otpBloc.updateStringBehaviour(code);
-              },
-              textController: snapshot.data ?? TextEditingController(text: ''),
-            ),
-          ));*/
   double _otpSize = 50.w;
   Widget _otpWidget() {
     return Directionality(
@@ -247,13 +222,28 @@ class _OtpWidgetState extends State<OtpWidget> {
         textStyle:
             SemiBoldStyle(fontSize: 16.w, color: lightBlackColor).getStyle(),
         onTap: () {
-          if (_bloc.isValid) {
-            widget.authenticationSharedBloc.userData = _bloc.userData;
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushReplacementNamed(
-              widget.authenticationSharedBloc.nextScreen,
-            );
-          }
+          _bloc.buttonBloc.buttonBehavior.sink.add(ButtonState.loading);
+          _bloc
+              .verifyOtp(
+                  "+${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}",
+                  S.of(context).otpIsNotValid)
+              .then(
+            (value) {
+              checkResponseStateWithButton(
+                value,
+                context,
+                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                onSuccess: () {
+                  widget.authenticationSharedBloc.userData = _bloc.userData;
+                  CustomNavigatorModule.navigatorKey.currentState
+                      ?.pushReplacementNamed(
+                    widget.authenticationSharedBloc.nextScreen,
+                  );
+                },
+              );
+            },
+          );
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
         failedBehaviour: _bloc.buttonBloc.failedBehaviour,

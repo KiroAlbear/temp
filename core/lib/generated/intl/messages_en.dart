@@ -211,14 +211,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderTotal": MessageLookupByLibrary.simpleMessage("Order total:"),
         "ordersNotFound": MessageLookupByLibrary.simpleMessage(
             "You don\'t have any order till now"),
+        "otpIsNotValid": MessageLookupByLibrary.simpleMessage(
+            "Problem with verification code"),
+        "otpPhoneIsNotValid":
+            MessageLookupByLibrary.simpleMessage("Problem with Phone number "),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("At lest 8 characters"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password didn\'t match"),
         "pastOrders": MessageLookupByLibrary.simpleMessage("Past orders"),
-        "phoneIsNotValid":
-            MessageLookupByLibrary.simpleMessage("Problem with Phone number "),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to select this location?"),
         "platformName":

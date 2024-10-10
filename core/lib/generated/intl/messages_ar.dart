@@ -206,14 +206,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderTotal": MessageLookupByLibrary.simpleMessage("الإجمالي:"),
         "ordersNotFound": MessageLookupByLibrary.simpleMessage(
             "لم تقم بطلب اي منتج حتي الان"),
+        "otpIsNotValid":
+            MessageLookupByLibrary.simpleMessage("خطأ في رمز التحقق"),
+        "otpPhoneIsNotValid":
+            MessageLookupByLibrary.simpleMessage("خطأ في رقم الهاتف"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordMinimumCharacters":
             MessageLookupByLibrary.simpleMessage("يجب ألا تقل عن 8 حروف"),
         "passwordNotMatched": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور وتأكيد كلمة المرور غير متطابقين"),
         "pastOrders": MessageLookupByLibrary.simpleMessage("الطلبات السابقة"),
-        "phoneIsNotValid":
-            MessageLookupByLibrary.simpleMessage("خطأ في رقم الهاتف"),
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),

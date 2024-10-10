@@ -22,9 +22,15 @@ class OtpRemote extends AdminBaseRemoteModule<void, void> {
     }
   }
 
-  void verifyOtp(String phone, String code) {
-    apiFuture = AdminClient(AdminDioModule().build())
-        .verifyOtp(VerifyOtpRequest(phone: phone, otp: code));
+  Future<ApiState<void>> verifyOtp(
+      String phone, String code, String errorMessage) async {
+    try {
+      await AdminClient(AdminDioModule().build())
+          .verifyOtp(VerifyOtpRequest(phone: phone, otp: code));
+      return SuccessState(true);
+    } catch (e) {
+      return ErrorState(message: errorMessage, loggerName: 'OtpRemote');
+    }
   }
 
   @override

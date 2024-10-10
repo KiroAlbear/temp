@@ -170,5 +170,6 @@
   "cartDokkanWallet": "محفظة دكان",
   "productIsNotAvailable": "المنتج غير متوفر",
   "mobileIsNotExist": "رقم الهاتف غير موجود",
-  "phoneIsNotValid": "خطأ في رقم الهاتف"
+  "otpPhoneIsNotValid": "خطأ في رقم الهاتف",
+  "otpIsNotValid": "خطأ في رمز التحقق"
 }

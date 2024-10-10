@@ -1734,7 +1734,17 @@ class S {
   String get otpPhoneIsNotValid {
     return Intl.message(
       'Problem with Phone number ',
-      name: 'phoneIsNotValid',
+      name: 'otpPhoneIsNotValid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problem with verification code`
+  String get otpIsNotValid {
+    return Intl.message(
+      'Problem with verification code',
+      name: 'otpIsNotValid',
       desc: '',
       args: [],
     );

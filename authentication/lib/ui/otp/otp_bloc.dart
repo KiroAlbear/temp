@@ -42,6 +42,11 @@ class OtpBloc extends BlocBase {
     return OtpRemote().sendOtp(phone, errorMessage);
   }
 
+  Future<ApiState<void>> verifyOtp(String phone, String errorMessage) {
+    return OtpRemote()
+        .verifyOtp(phone, otpBloc.stringBehaviour.value, errorMessage);
+  }
+
   void _setTimerToStart() {
     _enableSendOtpBehaviour.sink.add(false);
     _startTime();
