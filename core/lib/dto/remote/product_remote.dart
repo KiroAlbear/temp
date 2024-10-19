@@ -6,6 +6,7 @@ import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product_brand_request.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/modules/odoo_dio_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
 class ProductRemote
@@ -36,16 +37,17 @@ class ProductRemote
 
   Stream<ApiState<List<ProductMapper>>> loadProductByBrand(
       ProductBrandRequest productBrandRequest) {
-    apiFuture = ApiClient(OdooDioModule().build())
-        .getProductByBrand(productBrandRequest);
+    apiFuture = ApiClient(OdooDioModule().build()).getProductByBrand(
+        productBrandRequest, SharedPrefModule().apiSelectedLanguageCode);
 
     return callApiAsStream();
   }
 
   Stream<ApiState<List<ProductMapper>>> loadProductBySubCategoryBrand(
       ProductSubcategoryBrandRequest productSubcategoryBrandRequest) {
-    apiFuture = ApiClient(OdooDioModule().build())
-        .getProductBySubCategoryBrand(productSubcategoryBrandRequest);
+    apiFuture = ApiClient(OdooDioModule().build()).getProductBySubCategoryBrand(
+        productSubcategoryBrandRequest,
+        SharedPrefModule().apiSelectedLanguageCode);
 
     return callApiAsStream();
   }

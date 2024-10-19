@@ -1,6 +1,9 @@
 part of 'api_client.dart';
 
 class _ApiClientKey {
+  static const String languagePath = "langCode";
+  static const String urlLanguageCode = "?lang_code={langCode}";
+
   static const String _login = 'app/login';
   static const String _getLanguages = 'api/v1/res/lang';
   static const String _category = 'get/category';

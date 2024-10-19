@@ -5,6 +5,7 @@ import 'package:core/dto/models/product/product_mapper.dart';
 import 'package:core/dto/models/product/product_response.dart';
 import 'package:core/dto/models/product/search_product_request.dart';
 import 'package:core/dto/modules/odoo_dio_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
 class SearchProductRemote
@@ -22,7 +23,8 @@ class SearchProductRemote
   Stream<ApiState<List<ProductMapper>>> loadProduct(
       PageRequest pageRequest, String value) {
     apiFuture = ApiClient(OdooDioModule().build()).searchProduct(
-        SearchProductRequest(value, pageRequest.page, pageRequest.limit));
+        SearchProductRequest(value, pageRequest.page, pageRequest.limit),
+        SharedPrefModule().apiSelectedLanguageCode);
     return callApiAsStream();
   }
 

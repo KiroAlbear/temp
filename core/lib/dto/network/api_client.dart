@@ -62,21 +62,28 @@ abstract class ApiClient {
   Future<HeaderResponse<List<LoginResponse>>> login(
       @Body() LoginRequest request);
 
-  @POST(_ApiClientKey._category)
+  @POST("${_ApiClientKey._category}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<CategoryResponse>>> category(
-      @Body() PageRequest request);
+    @Body() PageRequest request,
+    @Path(_ApiClientKey.languagePath) String langCode,
+  );
 
-  @GET("${_ApiClientKey._subCategoryByCategory}/{categoryId}")
+  @GET(
+      "${_ApiClientKey._subCategoryByCategory}/{categoryId}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<CategoryResponse>>> getSubCategoryByCategoryId(
-      @Path() String categoryId, @Body() SubcategoryRequest request);
+      @Path() String categoryId,
+      @Body() SubcategoryRequest request,
+      @Path(_ApiClientKey.languagePath) String lang_code);
 
-  @POST(_ApiClientKey._brandBySubCategory)
+  @POST("${_ApiClientKey._brandBySubCategory}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<BrandResponse>>> getBrandBySubCategory(
-      @Body() BrandRequest request);
+      @Body() BrandRequest request,
+      @Path(_ApiClientKey.languagePath) String lang_code);
 
-  @POST(_ApiClientKey._getAllBrands)
+  @POST("${_ApiClientKey._getAllBrands}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<BrandResponse>>> getAllBrands(
-      @Body() AllBrandsRequest request);
+      @Body() AllBrandsRequest request,
+      @Path(_ApiClientKey.languagePath) String lang_code);
 
   @POST(_ApiClientKey._allProduct)
   Future<HeaderResponse<List<ProductResponse>>> getAllProduct(
@@ -86,13 +93,16 @@ abstract class ApiClient {
   Future<HeaderResponse<List<ProductResponse>>> getProductById(
       @Path() String productId);
 
-  @POST(_ApiClientKey._productBySubCategoryBrand)
+  @POST(
+      "${_ApiClientKey._productBySubCategoryBrand}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
-      @Body() ProductSubcategoryBrandRequest request);
+      @Body() ProductSubcategoryBrandRequest request,
+      @Path(_ApiClientKey.languagePath) String lang_code);
 
-  @POST(_ApiClientKey._productByBrand)
+  @POST("${_ApiClientKey._productByBrand}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<ProductResponse>>> getProductByBrand(
-      @Body() ProductBrandRequest request);
+      @Body() ProductBrandRequest request,
+      @Path(_ApiClientKey.languagePath) String lang_code);
 
   @POST(_ApiClientKey._favouriteProduct)
   Future<HeaderResponse<List<FavouriteProductResponse>>> getFavouriteProduct(
@@ -106,9 +116,10 @@ abstract class ApiClient {
   Future<HeaderResponse<List<FavouriteResponse>>> deleteProductFromFavourite(
       @Body() FavouriteRequest request);
 
-  @POST(_ApiClientKey._searchProduct)
+  @POST("${_ApiClientKey._searchProduct}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<ProductResponse>>> searchProduct(
-      @Body() SearchProductRequest request);
+      @Body() SearchProductRequest request,
+      @Path(_ApiClientKey.languagePath) String lang_code);
 
   @POST(_ApiClientKey._myOrders)
   Future<HeaderResponse<List<MyOrdersResponse>>> getMyOrders(
@@ -191,9 +202,9 @@ abstract class ApiClient {
   Future<HeaderResponse<List<CheckPhoneResponse>>> checkPhone(
       @Body() CheckPhoneRequest request);
 
-  @POST('${_ApiClientKey._getState}?lang_code={langCode}')
+  @POST('${_ApiClientKey._getState}${_ApiClientKey.urlLanguageCode}')
   Future<HeaderResponse<List<StateResponse>>> getState(
     @Body() StateRequest request,
-    @Path('langCode') String lang_code,
+    @Path(_ApiClientKey.languagePath) String lang_code,
   );
 }

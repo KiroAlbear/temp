@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
 import 'package:core/dto/modules/odoo_dio_module.dart';
+import 'package:core/dto/modules/shared_pref_module.dart';
 import 'package:core/dto/network/api_client.dart';
 
 import '../models/category/category_response.dart';
@@ -21,8 +22,10 @@ class SubcategoryRemote
 
   Stream<ApiState<List<CategoryMapper>>> loadSubCategoryByCategoryId(
       int categoryId, SubcategoryRequest pageRequest) {
-    apiFuture = ApiClient(OdooDioModule().build())
-        .getSubCategoryByCategoryId(categoryId.toString(), pageRequest);
+    apiFuture = ApiClient(OdooDioModule().build()).getSubCategoryByCategoryId(
+        categoryId.toString(),
+        pageRequest,
+        SharedPrefModule().apiSelectedLanguageCode);
 
     return callApiAsStream();
   }
