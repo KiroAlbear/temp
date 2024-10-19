@@ -185,10 +185,6 @@ class CartBloc extends BlocBase {
               cartProductsBehavior.value.response![j].productId) {
             productsList[i].cartUserQuantity =
                 cartProductsBehavior.value.response![j].quantity;
-            productsList[i].maxQuantity =
-                cartProductsBehavior.value.response![j].maxQuantity;
-            productsList[i].minQuantity =
-                cartProductsBehavior.value.response![j].minQuantity;
 
             productsList[i].productId =
                 cartProductsBehavior.value.response![j].id;

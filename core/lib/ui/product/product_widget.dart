@@ -73,6 +73,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     } else {
       qtyValueNotifier.value = widget.productMapper.cartUserQuantity.round();
     }
+
     super.initState();
   }
 
@@ -406,6 +407,13 @@ class _ProductWidgetState extends State<ProductWidget> {
             width: 20.w,
             child: InkWell(
               onTap: () {
+                if (widget.productMapper.maxQuantity ==
+                        widget.productMapper.minQuantity &&
+                    widget.productMapper.maxQuantity == 0) {
+                  widget.productMapper.maxQuantity =
+                      widget.productMapper.quantity;
+                }
+
                 if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
                   qtyValueNotifier.value++;
                   widget.productMapper.cartUserQuantity =
