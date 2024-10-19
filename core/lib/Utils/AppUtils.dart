@@ -14,7 +14,7 @@ class Apputils {
         Future.delayed(const Duration(milliseconds: 600)).then(
           (value) {
             CustomNavigatorModule.navigatorKey.currentState
-                ?.pushReplacementNamed(AppScreenEnum.splash.name);
+                ?.pushReplacementNamed(AppScreenEnum.login.name);
           },
         );
       },
