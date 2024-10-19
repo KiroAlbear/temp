@@ -86,9 +86,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
                   int.parse(SharedPrefModule().userId ?? '0')),
               searchValue)
           .listen((event) {
-        if (event is SuccessState &&
-            event.response != null &&
-            event.response!.isNotEmpty) {
+        if (event is SuccessState) {
           _handleProductResponse(event.response);
         }
       });
