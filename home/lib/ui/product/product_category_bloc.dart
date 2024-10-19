@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/dto/commonBloc/load_more_bloc.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/brand/all_brands_request.dart';
 import 'package:core/dto/models/brand/brand_mapper.dart';
 import 'package:core/dto/models/brand/brand_request.dart';
 import 'package:core/dto/models/brand/brand_response.dart';
@@ -11,7 +10,6 @@ import 'package:core/dto/models/favourite/favourite_request.dart';
 import 'package:core/dto/models/home/category_mapper.dart';
 import 'package:core/dto/models/page_request.dart';
 import 'package:core/dto/models/product/product_mapper.dart';
-import 'package:core/dto/models/product/product_request.dart';
 import 'package:core/dto/models/product_brand_request.dart';
 import 'package:core/dto/models/product_subcategory_brand_request.dart';
 import 'package:core/dto/modules/shared_pref_module.dart';
@@ -123,7 +121,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
             int? selectedSubCategoryId = event.response!.first.id;
             subcategoryId = selectedSubCategoryId;
             // _getBrandBySubcategoryId(event.response!.first.id);
-            getBrandBy(selectedSubCategoryId);
+            getBrandBy(selectedSubCategoryId ?? categoryId);
           } else {
             subCategoryByCategoryStream.sink.add(SuccessState([]));
             brandBySubcategoryStream.sink.add(SuccessState([]));
@@ -134,19 +132,20 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     );
   }
 
-  void getBrandBy(int? subCategory) {
+  void getBrandBy(int subCategory) {
     isLoading?.value = true;
-    if (subCategory == null) {
-      BrandRemote().loadAllBrands(AllBrandsRequest(1, 1000)).listen(
-        (event) {
-          if (event is SuccessState) {
-            _handleBrandResponse(event.response, subCategory);
-          }
-        },
-      );
-    } else {
+    // if (subCategory == null) {
+    //   BrandRemote().loadAllBrands(AllBrandsRequest(1, 1000)).listen(
+    //     (event) {
+    //       if (event is SuccessState) {
+    //         _handleBrandResponse(event.response, subCategory);
+    //       }
+    //     },
+    //   );
+    // } else
+    {
       BrandRemote()
-          .loadBrandBySubCategoryId(BrandRequest(subCategory!, 1, 100))
+          .loadBrandBySubCategoryId(BrandRequest(subCategory!, true, 1, 100))
           .listen(
         (event) {
           if (event is SuccessState) {
@@ -169,10 +168,12 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
       int? subCategory, int? brand, Function? onGettingMoreProducts) {
     if ((subCategory == null && brand == null)) {
       ProductRemote()
-          .loadAllProducts(ProductRequest(
-        categoryId: categoryId,
-        page: pageNumber,
-        limit: pageSize,
+          .loadProductBySubCategoryBrand(ProductSubcategoryBrandRequest(
+        categoryId,
+        brand,
+        true,
+        pageSize,
+        pageNumber,
       ))
           .listen(
         (event) {

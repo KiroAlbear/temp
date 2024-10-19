@@ -6,12 +6,19 @@ part 'brand_request.g.dart';
 class BrandRequest {
   @JsonKey(name: 'category_id')
   int? categoryId;
+
+  @JsonKey(name: 'include_subcategories')
+  bool? include_subcategories;
+
   @JsonKey(name: 'page')
   int page;
+
   @JsonKey(name: 'limit')
   int limit;
+
   BrandRequest(
     this.categoryId,
+    this.include_subcategories,
     this.page,
     this.limit,
   );

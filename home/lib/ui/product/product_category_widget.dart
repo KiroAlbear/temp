@@ -273,11 +273,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                                     widget
                                                                         .productCategoryBloc
                                                                         .reset();
-                                                                    widget
-                                                                        .productCategoryBloc
-                                                                        .getBrandBy(widget
+                                                                    widget.productCategoryBloc.getBrandBy(widget
                                                                             .productCategoryBloc
-                                                                            .subcategoryId);
+                                                                            .subcategoryId ??
+                                                                        widget
+                                                                            .productCategoryBloc
+                                                                            .categoryId);
                                                                     widget
                                                                         .selectedBrandIndex
                                                                         .value = 0;
