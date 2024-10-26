@@ -36,7 +36,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
   PreferredSizeWidget? appBar() => null;
 
   @override
-  bool canPop() => false;
+  bool canPop() => true;
 
   @override
   bool isSafeArea() => true;
