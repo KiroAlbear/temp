@@ -9,6 +9,7 @@ class ProductMapper {
   int discountPercentage = 0;
 
   double price = 0;
+  double discountPrice = 0;
 
   double? price_reduce_taxinc;
 
@@ -61,6 +62,8 @@ class ProductMapper {
       maxQuantity = productResponse.maxQty ?? 0;
       minQuantity = productResponse.minQty ?? 0;
       quantity = productResponse.quantity ?? 0;
+      discountPrice = productResponse.discountPrice ?? 0;
+
       if (quantity == 0) {
         isAvailable = false;
         isAddedToCart = false;

@@ -337,13 +337,14 @@ class _ProductWidgetState extends State<ProductWidget> {
           children: [
             CustomText(
                 text:
-                    '${widget.isCartProduct ? widget.productMapper.price_reduce_taxinc : widget.productMapper.getPrice().toString()} ${widget.productMapper.currency}',
+                    '${widget.isCartProduct ? widget.productMapper.price_reduce_taxinc : widget.productMapper.price.toString()} ${widget.productMapper.currency}',
                 customTextStyle:
                     MediumStyle(fontSize: 14.sp, color: secondaryColor)),
             SizedBox(
               width: 10.w,
             ),
-            if (widget.productMapper.discountPercentage > 0)
+            if (widget.productMapper.price !=
+                widget.productMapper.discountPrice)
               CustomText(
                 text:
                     '${widget.productMapper.price.toString()} ${widget.productMapper.currency}',

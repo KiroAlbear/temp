@@ -13,6 +13,9 @@ class ProductResponse {
   @JsonKey(name: 'price')
   double? price;
 
+  @JsonKey(name: 'list_price')
+  double? discountPrice;
+
   @JsonKey(name: 'tax_price')
   double? taxPrice;
 
@@ -47,7 +50,8 @@ class ProductResponse {
       this.quantity,
       this.image,
       this.currency,
-      this.isFavourite});
+      this.isFavourite,
+      this.discountPrice});
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);
 

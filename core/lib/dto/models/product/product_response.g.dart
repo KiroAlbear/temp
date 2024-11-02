@@ -18,6 +18,7 @@ ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String?,
       currency: json['currency'] as String?,
       isFavourite: json['isFavorite'] as bool?,
+      discountPrice: (json['list_price'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
@@ -25,6 +26,7 @@ Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
       'id': instance.id,
       'name': instance.name,
       'price': instance.price,
+      'list_price': instance.discountPrice,
       'tax_price': instance.taxPrice,
       'min_qty': instance.minQty,
       'max_qty': instance.maxQty,

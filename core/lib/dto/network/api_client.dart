@@ -198,7 +198,7 @@ abstract class ApiClient {
   @POST(_ApiClientKey._getCountry)
   Future<HeaderResponse<List<CountryResponse>>> getCountry();
 
-  @GET(_ApiClientKey._checkPhone)
+  @POST(_ApiClientKey._checkPhone)
   Future<HeaderResponse<List<CheckPhoneResponse>>> checkPhone(
       @Body() CheckPhoneRequest request);
 
