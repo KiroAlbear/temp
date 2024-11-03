@@ -10,6 +10,7 @@ enum SharedPRefEnum {
   password,
   userPhone,
   userPhoneWithoutCountry,
+  countryCode,
   userLat,
   userLong,
   userAddress,

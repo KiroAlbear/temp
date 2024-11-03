@@ -34,7 +34,7 @@ class LoginWidget extends BaseStatefulWidget {
 
 class _LoginWidgetState extends BaseState<LoginWidget> {
   final LoginBloc _bloc = LoginBloc();
-
+  bool isLoggingWithBiometric = true;
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
         canBack: false,
@@ -154,20 +154,29 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
           _bloc
               .authenticateWithBiometric(S.of(context).biometricLoginMessage)
               .then((value) {
+            isLoggingWithBiometric = true;
             if (value) {
               _bloc.mobileBloc.textFormFiledBehaviour.sink.add(
                   TextEditingController(text: SharedPrefModule().userPhone));
+
               _bloc.passwordBloc.textFormFiledBehaviour.sink.add(
                   TextEditingController(text: SharedPrefModule().password));
+
               _bloc.mobileBloc
                   .updateStringBehaviour(SharedPrefModule().userPhone ?? '');
+
               _bloc.passwordBloc
                   .updateStringBehaviour(SharedPrefModule().password ?? '');
-              _bloc.login.listen((event) {
+
+              _bloc.loginWithBiometrics.listen((event) {
                 checkResponseStateWithButton(event, context,
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
                     onSuccess: () {
+                  _bloc.passwordBloc.textFormFiledBehaviour.sink
+                      .add(TextEditingController(text: ""));
+                  _bloc.mobileBloc.textFormFiledBehaviour.sink
+                      .add(TextEditingController(text: ""));
                   _navigateHome();
                 });
               });
@@ -189,6 +198,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
             ? (MediaQuery.of(context).size.width - 156.w)
             : (MediaQuery.of(context).size.width - 32.w),
         onTap: () {
+          isLoggingWithBiometric = false;
           if (_bloc.isValid) {
             _bloc.login.listen((event) {
               checkResponseStateWithButton(
@@ -231,9 +241,15 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       );
 
   void _navigateHome() {
-    SharedPrefModule().userPhone =
-        "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
-    SharedPrefModule().password = _bloc.passwordBloc.value;
+    if (isLoggingWithBiometric == false) {
+      SharedPrefModule().userPhone =
+          "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
+      //
+      // SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
+      // SharedPrefModule().countryCode =
+      //     int.tryParse(_bloc.countryBloc.value!.description.replaceAll("+", ""));
+      SharedPrefModule().password = _bloc.passwordBloc.value;
+    }
 
     CustomNavigatorModule.navigatorKey.currentState
         ?.pushReplacementNamed(AppScreenEnum.home.name);

@@ -70,6 +70,11 @@ class LoginBloc extends BlocBase {
               phone: "+${countryBloc.value!.description}${mobileBloc.value}"))
       .callApiAsStream();
 
+  Stream<ApiState<LoginMapper>> get loginWithBiometrics => LoginRemote(
+          loginRequest: LoginRequest(
+              password: passwordBloc.value, phone: "${mobileBloc.value}"))
+      .callApiAsStream();
+
   Future<bool> authenticateWithBiometric(String message) =>
       LocalAuthModule().isAuthenticated(message);
 

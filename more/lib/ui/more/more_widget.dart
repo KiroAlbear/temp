@@ -517,13 +517,16 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                         borderRadius: BorderRadius.circular(8.w)),
                     padding:
                         EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
-                    child: CustomText(
-                        text: (snapshot.data?.response?.balance ?? 0.0)
-                            .toString(),
-                        customTextStyle: RegularStyle(
-                          color: whiteColor,
-                          fontSize: 18.sp,
-                        )),
+                    child: Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: CustomText(
+                          text: (snapshot.data?.response?.balance ?? 0.0)
+                              .toString(),
+                          customTextStyle: RegularStyle(
+                            color: whiteColor,
+                            fontSize: 18.sp,
+                          )),
+                    ),
                   )
                 ],
               ),

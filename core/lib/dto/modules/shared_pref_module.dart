@@ -115,6 +115,12 @@ class SharedPrefModule {
       key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry),
       value: value ?? '');
 
+  int? get countryCode =>
+      _sharedPref.getValue<int>(key: _sharedKey(SharedPRefEnum.countryCode));
+
+  set countryCode(int? value) => _sharedPref.setValue<int>(
+      key: _sharedKey(SharedPRefEnum.countryCode), value: value ?? 0);
+
   /// password
   String? get password =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.password));

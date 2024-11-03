@@ -31,6 +31,9 @@ class LoginResponse {
   @JsonKey(name: 'partner_longitude')
   double? longitude;
 
+  @JsonKey(name: 'country_phone_code')
+  int? country_phone_code;
+
   LoginResponse();
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
