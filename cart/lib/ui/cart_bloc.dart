@@ -37,6 +37,7 @@ class CartBloc extends BlocBase {
   BehaviorSubject<List<CartProductQty>> itemsBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
+  BehaviorSubject<String> cartOrderDetailsTotalBehaviour = BehaviorSubject();
   BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartMinimumOrderCurrencyBehaviour = BehaviorSubject();
   CartRemote cartRemote = CartRemote();
@@ -54,6 +55,7 @@ class CartBloc extends BlocBase {
   int orderId = 0;
   String userAddressText = "";
   String currency = "";
+  int deliveryFees = 20;
 
   void _getAddress() {
     // addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
@@ -96,12 +98,17 @@ class CartBloc extends BlocBase {
     myOrderResponse.forEach((element) {
       totalSum += element.price_total ?? 0;
     });
+
+    // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
+
     cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
+    cartOrderDetailsTotalBehaviour.sink
+        .add("${parsedTotalSum + deliveryFees}  $currency");
   }
 
   void _getTotalCartDeliverySum() {
-    cartTotalDeliveryBehaviour.sink.add('+ 20 ر.ي. التوصيل');
+    cartTotalDeliveryBehaviour.sink.add('+ $deliveryFees  ر.ي. التوصيل');
   }
 
   void _getCartMinimumOrder() {

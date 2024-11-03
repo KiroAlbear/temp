@@ -223,7 +223,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
             ),
           ),
           StreamBuilder(
-            stream: widget.cartBloc.cartTotalBehaviour.stream,
+            stream: widget.cartBloc.cartOrderDetailsTotalBehaviour.stream,
             builder: (context, snapshot) {
               return !snapshot.hasData
                   ? SizedBox()
