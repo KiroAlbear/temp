@@ -157,7 +157,8 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
             isLoggingWithBiometric = true;
             if (value) {
               _bloc.mobileBloc.textFormFiledBehaviour.sink.add(
-                  TextEditingController(text: SharedPrefModule().userPhone));
+                  TextEditingController(
+                      text: SharedPrefModule().userPhoneWithoutCountry));
 
               _bloc.passwordBloc.textFormFiledBehaviour.sink.add(
                   TextEditingController(text: SharedPrefModule().password));
@@ -245,7 +246,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       SharedPrefModule().userPhone =
           "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
       //
-      // SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
+      SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
       // SharedPrefModule().countryCode =
       //     int.tryParse(_bloc.countryBloc.value!.description.replaceAll("+", ""));
       SharedPrefModule().password = _bloc.passwordBloc.value;
