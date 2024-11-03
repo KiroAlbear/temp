@@ -16,14 +16,26 @@ class MyOrderItemResponse {
   @JsonKey(name: 'product_image_1920')
   String? image;
 
-  @JsonKey(name: 'price_total')
-  double? price;
+  @JsonKey(name: 'min_qty')
+  double? min_qty;
 
+  @JsonKey(name: 'max_qty')
+  double? max_qty;
+
+  // price multiplied by qty
+  @JsonKey(name: 'price_total')
+  double? price_total;
+
+  // price with taxes
   @JsonKey(name: 'price_reduce_taxinc')
   double? price_reduce_taxinc;
 
+  // price without taxes
   @JsonKey(name: 'price_unit')
   double? price_unit;
+
+  @JsonKey(name: 'discount')
+  double? discount;
 
   @JsonKey(name: 'currency_id')
   List<dynamic>? currency;
@@ -41,7 +53,7 @@ class MyOrderItemResponse {
       {this.id,
       this.name,
       this.description,
-      this.price,
+      this.price_total,
       this.count,
       this.currency,
       this.image,

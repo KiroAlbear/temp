@@ -479,7 +479,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                           cartItemId: productMapper.productId,
                                           productId: productMapper.id,
                                           quantity: 0,
-                                          price: productMapper.price,
+                                          price: productMapper.finalPrice,
                                           state: CartState.decrement,
                                         )
                                             .listen((event) {
@@ -511,7 +511,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                           productId: productMapper.id,
                                           quantity:
                                               productMapper.cartUserQuantity,
-                                          price: productMapper.price,
+                                          price: productMapper.finalPrice,
                                           state: CartState.decrement,
                                         )
                                             .listen((event) {
@@ -536,7 +536,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                           productId: productMapper.id,
                                           quantity:
                                               productMapper.cartUserQuantity,
-                                          price: productMapper.price,
+                                          price: productMapper.finalPrice,
                                           state: CartState.increment,
                                         )
                                             .listen(

@@ -38,7 +38,7 @@ class MyOrdersMapper {
           description: orderResponse.items![i].description!,
           image: orderResponse.items![i].image,
           price:
-              "${orderResponse.items![i].price!.toString()} ${orderResponse.items![i].currency![1]}",
+              "${orderResponse.items![i].price_total!.toString()} ${orderResponse.items![i].currency![1]}",
           count: orderResponse.items![i].count!.toInt()));
     }
     return items;

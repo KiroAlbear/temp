@@ -17,13 +17,15 @@ abstract class CustomTextStyleModule {
       color: color,
       fontWeight: fontWeight,
       fontSize: fontSize,
-      decoration: textDecoration);
+      decoration: textDecoration,
+      decorationColor: color);
 
   TextStyle arabicFont(FontWeight fontWeight) => GoogleFonts.rubik(
       color: color,
       fontWeight: fontWeight,
       fontSize: fontSize - 4,
-      decoration: textDecoration);
+      decoration: textDecoration,
+      decorationColor: color);
 
   bool get isEnglish => AppProviderModule().locale == "en";
 

@@ -94,7 +94,7 @@ class CartBloc extends BlocBase {
     currency = myOrderResponse![0].currency![1] ?? '';
 
     myOrderResponse.forEach((element) {
-      totalSum += element.price ?? 0;
+      totalSum += element.price_total ?? 0;
     });
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
     cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
@@ -311,6 +311,7 @@ class CartBloc extends BlocBase {
       for (int j = 0; j < availability.length; j++) {
         if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
+          products[i].availableQuantity = availability[j].available_quantity!;
           break;
         }
       }

@@ -197,7 +197,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                           productId: snapshot.data!.response![index].productId,
                           quantity:
                               snapshot.data!.response![index].cartUserQuantity,
-                          price: snapshot.data!.response![index].price,
+                          price: snapshot.data!.response![index].finalPrice,
                           state: CartState.decrement,
                         )
                             .listen((event) {
@@ -216,7 +216,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                           productId: snapshot.data!.response![index].productId,
                           quantity:
                               snapshot.data!.response![index].cartUserQuantity,
-                          price: snapshot.data!.response![index].price,
+                          price: snapshot.data!.response![index].finalPrice,
                           state: CartState.increment,
                         )
                             .listen((event) {
@@ -235,7 +235,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                           cartItemId: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
                           quantity: 0,
-                          price: snapshot.data!.response![index].price,
+                          price: snapshot.data!.response![index].finalPrice,
                           state: CartState.decrement,
                         )
                             .listen((event) {

@@ -11,13 +11,13 @@ class ProductResponse {
   String? name;
 
   @JsonKey(name: 'price')
-  double? price;
+  double? final_price;
 
   @JsonKey(name: 'list_price')
-  double? discountPrice;
+  double? original_price;
 
-  @JsonKey(name: 'tax_price')
-  double? taxPrice;
+  @JsonKey(name: 'has_discounted_price')
+  bool? has_discounted_price;
 
   @JsonKey(name: 'min_qty')
   double? minQty;
@@ -43,15 +43,14 @@ class ProductResponse {
   ProductResponse(
       {this.id,
       this.name,
-      this.price,
-      this.taxPrice,
+      this.final_price,
       this.minQty,
       this.maxQty,
       this.quantity,
       this.image,
       this.currency,
       this.isFavourite,
-      this.discountPrice});
+      this.original_price});
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);
 

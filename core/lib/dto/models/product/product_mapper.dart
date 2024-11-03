@@ -6,18 +6,20 @@ class ProductMapper {
   int productId = 0;
   String name = '';
   String image = '';
-  int discountPercentage = 0;
+  double discountPercentage = 0;
+  bool hasDiscount = false;
 
-  double price = 0;
-  double discountPrice = 0;
+  double finalPrice = 0;
+  double productOriginalPrice = 0;
 
-  double? price_reduce_taxinc;
+  double? cartFinalUnitPrice;
 
-  double priceUnit = 0;
+  double cartOriginalUnitPrice = 0;
 
   double quantity = 0;
   double cartUserQuantity = 0;
-
+  // this variable is set from outside
+  int availableQuantity = 0;
   double minQuantity = 0;
 
   double maxQuantity = 0;
@@ -40,17 +42,20 @@ class ProductMapper {
     name = orderItem.name ?? '';
     description = orderItem.description ?? '';
     image = orderItem.image ?? '';
-    price = orderItem.price ?? 0;
-    price_reduce_taxinc = orderItem.price_reduce_taxinc ?? 0;
-    priceUnit = orderItem.price_unit ?? 0;
+    finalPrice = orderItem.price_total ?? 0;
+    cartFinalUnitPrice = orderItem.price_reduce_taxinc ?? 0;
+    cartOriginalUnitPrice = orderItem.price_unit ?? 0;
     quantity = orderItem.count ?? 0;
     currency = orderItem.currency?[1] ?? '';
     isFavourite = false;
-    discountPercentage = 0;
+    discountPercentage = orderItem.discount ?? 0;
+    hasDiscount = discountPercentage > 0;
     minQuantity = 1; //TODO: get this number from server
     maxQuantity = 100; //TODO: get this number from server
     isAvailable = false;
     isAddedToCart = false;
+    minQuantity = orderItem.min_qty ?? 0;
+    maxQuantity = orderItem.max_qty ?? 0;
     productId = orderItem.product_id?[0] ?? 0;
   }
   ProductMapper.fromProduct(ProductResponse? productResponse) {
@@ -62,14 +67,15 @@ class ProductMapper {
       maxQuantity = productResponse.maxQty ?? 0;
       minQuantity = productResponse.minQty ?? 0;
       quantity = productResponse.quantity ?? 0;
-      discountPrice = productResponse.discountPrice ?? 0;
 
       if (quantity == 0) {
         isAvailable = false;
         isAddedToCart = false;
       }
-      price = (productResponse.price ?? 0) + (productResponse.taxPrice ?? 0);
+      finalPrice = (productResponse.final_price ?? 0);
+      productOriginalPrice = productResponse.original_price ?? 0;
       discountPercentage = 0;
+      hasDiscount = productResponse.has_discounted_price ?? false;
       image = productResponse.image ?? '';
       name = productResponse.name ?? '';
       id = productResponse.id ?? 0;
@@ -88,9 +94,9 @@ class ProductMapper {
 
   double getPrice() {
     if (discountPercentage > 0) {
-      return price - ((price * discountPercentage) / 100);
+      return finalPrice - ((finalPrice * discountPercentage) / 100);
     } else {
-      return price;
+      return finalPrice;
     }
   }
 }
