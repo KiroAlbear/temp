@@ -14,11 +14,11 @@ class MyOrdersMapper {
           id: e.id!,
           totalPrice: "${e.amountUnpaid!.toString()} $currency",
           itemsCount: e.itemsCount!,
-          sendingOrder: e.sendingOrder,
-          acceptingOrder: e.acceptingOrder,
-          shippingOrder: e.shippingOrder,
-          outOrder: e.outOrder,
-          deliverOrder: e.deliveredOrder,
+          sendingOrder: getFormatedDate(e.sendingOrder),
+          acceptingOrder: getFormatedDate(e.acceptingOrder),
+          shippingOrder: getFormatedDate(e.shippingOrder),
+          outOrder: getFormatedDate(e.outOrder),
+          deliverOrder: getFormatedDate(e.deliveredOrder),
           state: e.state,
           items: getOrderItems(e));
       if (e.deliveredOrder == null && e.state != "cancel") {
@@ -27,6 +27,16 @@ class MyOrdersMapper {
         pastOrders.add(order);
       }
     }
+  }
+
+  String? getFormatedDate(String? date) {
+    // we remove the second part of the date
+    String? removedTFromData =
+        date?.replaceAll("T", "   ").split(" ").reversed.join(" ").toString();
+    // List<String>? strList = removedTFromData?.split(":");
+    // strList?.removeRange(1, 2);
+
+    return removedTFromData;
   }
 
   List<OrderItemMapper> getOrderItems(MyOrdersResponse orderResponse) {

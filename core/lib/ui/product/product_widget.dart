@@ -333,7 +333,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CustomText(
                 text:

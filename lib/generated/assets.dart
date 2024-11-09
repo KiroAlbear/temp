@@ -2,10 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String imagesIcBottomSplash =
-      'assets/images/ic_bottom_splash.png';
-  static const String imagesIcHomeLogo = 'assets/images/ic_home_logo.png';
-  static const String imagesIcLogo = 'assets/images/ic_logo.png';
   static const String svgIcAlert = 'assets/svg/ic_alert.svg';
   static const String svgEmptyOffers = 'assets/svg/empty_offers.svg';
   static const String svgNoImageFound = 'assets/svg/no_image_found.svg';
