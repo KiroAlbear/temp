@@ -5,7 +5,7 @@ app:
 flavors:
   app_live:
     app:
-      name: "Dokkan"
+      name: "Deel"
     android:
       applicationId: "com.icons.dokkan"
     ios:
@@ -21,7 +21,7 @@ flavors:
 
   app_test:
     app:
-      name: "Dokkan test"
+      name: "Deel test"
     android:
       applicationId: "com.icons.test.dokkan"
     ios:

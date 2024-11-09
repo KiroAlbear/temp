@@ -31,17 +31,17 @@ android {
         app_live {
             dimension "flavor-type"
             applicationId "com.icons.dokkan"
-            resValue "string", "app_name", "Dokkan"
+            resValue "string", "app_name", "Deel"
         }
         app_stage {
             dimension "flavor-type"
             applicationId "com.icons.stage.dokkan"
-            resValue "string", "app_name", "Dokan stage"
+            resValue "string", "app_name", "Deel"
         }
         app_test {
             dimension "flavor-type"
             applicationId "com.icons.test.dokkan"
-            resValue "string", "app_name", "Dokkan test"
+            resValue "string", "app_name", "Deel"
         }
     }
 
