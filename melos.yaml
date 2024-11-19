@@ -5,7 +5,7 @@ environment:
 
 packages:
   - core
-  - dokkan
+  - deel
   - authentication
   - bottom_navigation
   - more

@@ -2,7 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/dto/modules/app_color_module.dart';
 import 'package:core/dto/modules/app_provider_module.dart';
 import 'package:core/ui/bases/base_state.dart';
-import 'package:dokkan/generated/assets.dart';
+import 'package:deel/generated/assets.dart';
 import 'package:flutter/material.dart';
 
 class SplashWidget extends BaseStatefulWidget {

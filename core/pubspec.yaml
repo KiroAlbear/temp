@@ -57,7 +57,7 @@ dependencies:
   authentication:
     path: ../authentication
 
-  dokkan:
+  deel:
     path: ../
 
 dev_dependencies:

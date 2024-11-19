@@ -3,7 +3,7 @@ import 'package:core/dto/modules/custom_text_style_module.dart';
 import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/dialog_header_widget.dart';
 import 'package:custom_progress_button/custom_progress_button.dart';
-import 'package:dokkan/generated/assets.dart';
+import 'package:deel/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';

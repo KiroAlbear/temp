@@ -7,24 +7,24 @@ flavors:
     app:
       name: "Deel"
     android:
-      applicationId: "com.icons.dokkan"
+      applicationId: "com.icons.deel"
     ios:
-      bundleId: "com.icons.dokkan"
+      bundleId: "com.icons.deel"
 
   app_stage:
     app:
       name: "Dokan stage"
     android:
-      applicationId: "com.icons.stage.dokkan"
+      applicationId: "com.icons.stage.deel"
     ios:
-      bundleId: "com.icons.stage.dokkan"
+      bundleId: "com.icons.stage.deel"
 
   app_test:
     app:
       name: "Deel test"
     android:
-      applicationId: "com.icons.test.dokkan"
+      applicationId: "com.icons.test.deel"
     ios:
-      bundleId: "com.icons.test.dokkan"
+      bundleId: "com.icons.test.deel"
 
 ide: idea
