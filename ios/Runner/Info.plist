@@ -57,8 +57,9 @@
     <string>Allow location permission. In order to get current location</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>App requires access to the photo library.</string>
+
 	<key>CFBundleIconFile</key>
-	<string>icon.png</string>
+	<string>Icon-App-76x76@2x.png</string>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundlePrimaryIcon</key>
