@@ -10,10 +10,14 @@ import 'package:flutter/material.dart';
 
 import 'flavors.dart';
 import 'my_app.dart';
-
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 // late ObjectBox objectBox;
 FutureOr<void> main() async {
   /// ensure widget init
+  // await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions.currentPlatform,
+  // );
   WidgetsFlutterBinding.ensureInitialized();
 
   /// initialize firebase application
