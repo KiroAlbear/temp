@@ -13,18 +13,18 @@ flavors:
 
   app_stage:
     app:
-      name: "Dokan stage"
+      name: "Deel stage"
     android:
-      applicationId: "com.icons.stage.deel"
+      applicationId: "com.icons.deel"
     ios:
-      bundleId: "com.icons.stage.deel"
+      bundleId: "com.icons.deel"
 
   app_test:
     app:
       name: "Deel test"
     android:
-      applicationId: "com.icons.test.deel"
+      applicationId: "com.icons.deel"
     ios:
-      bundleId: "com.icons.test.deel"
+      bundleId: "com.icons.deel"
 
 ide: idea

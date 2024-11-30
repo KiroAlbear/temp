@@ -2,6 +2,8 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+    id 'com.google.firebase.crashlytics'
 }
 
 def localProperties = new Properties()
@@ -35,12 +37,12 @@ android {
         }
         app_stage {
             dimension "flavor-type"
-            applicationId "com.icons.stage.deel"
+            applicationId "com.icons.deel"
             resValue "string", "app_name", "Deel"
         }
         app_test {
             dimension "flavor-type"
-            applicationId "com.icons.test.deel"
+            applicationId "com.icons.deel"
             resValue "string", "app_name", "Deel"
         }
     }
@@ -92,4 +94,5 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
 }
-apply plugin: 'com.google.firebase.crashlytics'
+//apply plugin: 'com.google.firebase.crashlytics'
+
