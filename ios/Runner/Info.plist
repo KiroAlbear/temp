@@ -2,8 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Privacy - Camera Usage Description</key>
-	<string>APPNAME requires access to your phone’s camera.</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to upload images.</string>
+
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to your camera to take photos or videos.</string>
+
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need your location to provide personalized content and services.</string>
+
 	<key>MinimumOSVersion</key>
 	<string>13.0</string>
 	<key>CFBundleDevelopmentRegion</key>
