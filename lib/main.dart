@@ -22,6 +22,18 @@ FutureOr<void> main() async {
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  F.appFlavor ??= Flavor.app_stage;
+
+  if( F.apiUrl.isEmpty){
+    F.apiUrl = 'https://dokkan.odoo.com/';
+  }
+
+  if(F.adminApiUrl.isEmpty){
+    F.adminApiUrl = 'https://adminapi.deel-app.com/api/';
+  }
+
+
   // if (kDebugMode) {
   //   // Force disable Crashlytics collection while doing every day development.
   //   // Temporarily toggle this to true if you want to test crash reporting in your app.
@@ -32,23 +44,9 @@ FutureOr<void> main() async {
     // Handle Crashlytics enabled status when not in Debug,
     // e.g. allow your users to opt-in to crash reporting.
   }
-  // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-
-
-  /// initialize firebase application
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
 
   /// init shared preferences as simple shared pref plugin
   await SimpleSharedPref().init(allowEncryptAndDecrypt: false);
-  // if (SharedPrefModule().userId != null) {
-  //   FirebaseCrashlytics.instance
-  //       .setUserIdentifier(SharedPrefModule().userId?? '');
-  // }
-  //
-  // /// enable crashlytics collection
-  // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
   /// add logger with all fatal errors to crashlytics
   // addFireBaseCrashReporting();
