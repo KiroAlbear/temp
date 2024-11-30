@@ -2,6 +2,9 @@ platform :ios, '13.0'
 
 target 'Runner' do
  use_frameworks!
+ pod 'FBSDKCoreKit'
+ pod 'FBSDKLoginKit'
+ pod 'AppCenter'
 end
 
 post_install do |installer|
