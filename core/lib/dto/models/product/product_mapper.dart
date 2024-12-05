@@ -44,7 +44,7 @@ class ProductMapper {
     image = orderItem.image ?? '';
     finalPrice = orderItem.price_total ?? 0;
     cartFinalUnitPrice = orderItem.price_reduce_taxinc ?? 0;
-    cartOriginalUnitPrice = orderItem.price_unit ?? 0;
+    cartOriginalUnitPrice = orderItem.list_price ?? 0;
     quantity = orderItem.count ?? 0;
     currency = orderItem.currency?[1] ?? '';
     isFavourite = false;

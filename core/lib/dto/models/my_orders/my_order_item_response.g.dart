@@ -17,6 +17,7 @@ MyOrderItemResponse _$MyOrderItemResponseFromJson(Map<String, dynamic> json) =>
       image: json['product_image_1920'] as String?,
       product_id: json['product_id'] as List<dynamic>?,
       price_reduce_taxinc: (json['price_reduce_taxinc'] as num?)?.toDouble(),
+      list_price: (json['list_price'] as num?)?.toDouble(),
       price_unit: (json['price_unit'] as num?)?.toDouble(),
       state: json['state'] as String?,
     )
@@ -35,6 +36,7 @@ Map<String, dynamic> _$MyOrderItemResponseToJson(
       'max_qty': instance.max_qty,
       'price_total': instance.price_total,
       'price_reduce_taxinc': instance.price_reduce_taxinc,
+      'list_price': instance.list_price,
       'price_unit': instance.price_unit,
       'discount': instance.discount,
       'currency_id': instance.currency,

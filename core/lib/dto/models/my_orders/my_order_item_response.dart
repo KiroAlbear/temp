@@ -30,6 +30,9 @@ class MyOrderItemResponse {
   @JsonKey(name: 'price_reduce_taxinc')
   double? price_reduce_taxinc;
 
+  @JsonKey(name: 'list_price')
+  double? list_price;
+
   // price without taxes
   @JsonKey(name: 'price_unit')
   double? price_unit;
@@ -59,6 +62,7 @@ class MyOrderItemResponse {
       this.image,
       this.product_id,
       this.price_reduce_taxinc,
+      this.list_price,
       this.price_unit,
       this.state});
 
