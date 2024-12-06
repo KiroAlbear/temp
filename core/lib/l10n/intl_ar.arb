@@ -35,14 +35,14 @@
   "atLeastOneCapChar": "يجب أن تحتوي على حرف كبير على الأقل",
   "atLeastOneSmallLetter": "يجب أن تحتوي على حروف",
   "atLeastOneNumber": "يجب أن تحتوي على أرقام",
-  "AtLeastOneSpecialCharacter": "يجب أن تحتوي على رمز (@#_,)",
+  "atLeastOneSpecialCharacter": "يجب أن تحتوي على رمز (@#_,)",
   "noSpaceAllowed": "يجب ألا تحتوي على مسافات",
   "passwordMinimumCharacters": "يجب ألا تقل عن 8 حروف",
   "next": "التالي",
   "registerNewAccount": "تسجيل حساب جديد",
   "registerMessageOtp": "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك",
   "haveAccount": "لديك حساب؟",
-  "Login": "تسجيل الدخول",
+  "login": "تسجيل الدخول",
   "fullName": "الاسم بالكامل",
   "enterFullName": "ادخل اسمك بالكامل",
   "platformName": "اسم المنشأه",
@@ -171,5 +171,7 @@
   "productIsNotAvailable": "المنتج غير متوفر",
   "mobileIsNotExist": "رقم الهاتف غير موجود",
   "otpPhoneIsNotValid": "خطأ في رقم الهاتف",
-  "otpIsNotValid": "خطأ في رمز التحقق"
+  "otpIsNotValid": "خطأ في رمز التحقق",
+  "cartProductsNotAvailable": "يوجد بعض المنتجات غير متوفرة"
+
 }

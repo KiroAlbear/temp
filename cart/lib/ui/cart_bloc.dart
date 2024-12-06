@@ -56,6 +56,7 @@ class CartBloc extends BlocBase {
   String userAddressText = "";
   String currency = "";
   int deliveryFees = 20;
+  bool isAnyProductOutOfStock = false;
 
   void _getAddress() {
     // addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
@@ -283,6 +284,7 @@ class CartBloc extends BlocBase {
             getcartProductQtyList(getCartEvent.response!);
             getTotalCartSum(cartRemote.myOrderResponse);
 
+
             cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
                 getCartEvent.response!, checkAvailabilityEvent.response!)));
 
@@ -314,11 +316,16 @@ class CartBloc extends BlocBase {
 
   List<ProductMapper> addAvailabilityToProduct(List<ProductMapper> products,
       List<CartCheckAvailabilityResponse> availability) {
+    isAnyProductOutOfStock = false;
+
     for (int i = 0; i < products.length; i++) {
       for (int j = 0; j < availability.length; j++) {
         if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
           products[i].availableQuantity = availability[j].available_quantity!;
+          if (products[i].availableQuantity == 0) {
+            isAnyProductOutOfStock = true;
+          }
           break;
         }
       }

@@ -124,7 +124,13 @@ class _CartScreenState extends BaseState<CartScreen> {
                       message:
                           "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                     );
-                  } else {
+                  }else if(widget.cartBloc.isAnyProductOutOfStock) {
+                    AlertModule().showMessage(
+                      context: context,
+                      message:S.of(context).cartProductsNotAvailable,
+                    );
+                  }
+                    else {
                     showModalBottomSheet(
                         barrierColor: bottomSheetBarrierColor,
                         backgroundColor: whiteColor,

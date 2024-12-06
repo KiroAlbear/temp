@@ -35,14 +35,14 @@
   "atLeastOneCapChar": "At least one capital letter",
   "atLeastOneSmallLetter": "Must contain letters",
   "atLeastOneNumber": "Must contain numbers",
-  "AtLeastOneSpecialCharacter": "At least one special Character",
+  "atLeastOneSpecialCharacter": "At least one special Character",
   "noSpaceAllowed": "No space allowed",
   "passwordMinimumCharacters": "At lest 8 characters",
   "next": "Next",
   "registerNewAccount": "Register new account",
   "registerMessageOtp": "Once you press on next you will receive message to activate your account",
   "haveAccount": "Already have an account?",
-  "Login": "Login",
+  "login": "Login",
   "fullName": "Full name",
   "enterFullName": "Enter full name",
   "platformName": "Establishment name",
@@ -171,5 +171,7 @@
   "productIsNotAvailable": "Product is not available",
   "mobileIsNotExist": "Phone number is not exist",
   "otpPhoneIsNotValid": "Problem with Phone number ",
-  "otpIsNotValid":  "Problem with verification code"
+  "otpIsNotValid":  "Problem with verification code",
+  "cartProductsNotAvailable": "Some products are not available"
+
 }

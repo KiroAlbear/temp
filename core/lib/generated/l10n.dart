@@ -1749,6 +1749,15 @@ class S {
       args: [],
     );
   }
+
+  String get cartProductsNotAvailable {
+    return Intl.message(
+      'Some products are not available',
+      name: 'cartProductsNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
