@@ -172,6 +172,7 @@
   "mobileIsNotExist": "رقم الهاتف غير موجود",
   "otpPhoneIsNotValid": "خطأ في رقم الهاتف",
   "otpIsNotValid": "خطأ في رمز التحقق",
-  "cartProductsNotAvailable": "يوجد بعض المنتجات غير متوفرة"
+  "cartProductsNotAvailable": "يوجد بعض المنتجات غير متوفرة",
+  "cartProductQuantityNotAvailable": "متوفر فقط بكمية"
 
 }

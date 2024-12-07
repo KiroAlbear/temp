@@ -124,13 +124,20 @@ class _CartScreenState extends BaseState<CartScreen> {
                       message:
                           "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                     );
-                  }else if(widget.cartBloc.isAnyProductOutOfStock) {
+                  }
+                  else if(widget.cartBloc.isAnyProductOutOfStock) {
                     AlertModule().showMessage(
                       context: context,
                       message:S.of(context).cartProductsNotAvailable,
                     );
                   }
-                    else {
+                  else if(widget.cartBloc.productsOfMoreThanAvailable.isNotEmpty) {
+                    AlertModule().showMessage(
+                      context: context,
+                      message: "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
+                    );
+                  }
+                  else {
                     showModalBottomSheet(
                         barrierColor: bottomSheetBarrierColor,
                         backgroundColor: whiteColor,

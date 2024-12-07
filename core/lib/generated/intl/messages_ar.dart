@@ -285,6 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
-    "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage("يوجد بعض المنتجات غير متوفرة")
+    "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage("يوجد بعض المنتجات غير متوفرة"),
+    "cartProductQuantityNotAvailable": MessageLookupByLibrary.simpleMessage("متوفر فقط بكمية")
       };
 }

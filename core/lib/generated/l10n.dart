@@ -1758,6 +1758,15 @@ class S {
       args: [],
     );
   }
+
+  String get cartProductQuantityNotAvailable {
+    return Intl.message(
+      "only available with quantity",
+      name: 'cartProductQuantityNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

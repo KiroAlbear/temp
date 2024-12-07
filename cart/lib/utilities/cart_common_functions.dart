@@ -17,7 +17,7 @@ class CartCommonFunctions {
       cartItemId: cartItemId,
       productId: productId,
       price: price,
-      cartState: state,
+
       quantity: quantity.toInt(),
     );
     //     .listen((event) {

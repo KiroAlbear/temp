@@ -172,6 +172,7 @@
   "mobileIsNotExist": "Phone number is not exist",
   "otpPhoneIsNotValid": "Problem with Phone number ",
   "otpIsNotValid":  "Problem with verification code",
-  "cartProductsNotAvailable": "Some products are not available"
+  "cartProductsNotAvailable": "Some products are not available",
+    "cartProductQuantityNotAvailable": "only available with quantity"
 
 }

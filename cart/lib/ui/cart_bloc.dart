@@ -1,3 +1,4 @@
+import 'package:cart/models/cart_available_model.dart';
 import 'package:cart/models/cart_product_qty.dart';
 import 'package:core/core.dart';
 import 'package:core/dto/models/baseModules/api_state.dart';
@@ -57,6 +58,8 @@ class CartBloc extends BlocBase {
   String currency = "";
   int deliveryFees = 20;
   bool isAnyProductOutOfStock = false;
+  List<CartAvailableModel> productsOfMoreThanAvailable = [];
+  // bool isAnyQuantityGreaterThanStockQuantity = false;
 
   void _getAddress() {
     // addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
@@ -131,8 +134,7 @@ class CartBloc extends BlocBase {
       {required int cartItemId,
       required int productId,
       required double price,
-      required int quantity,
-      required CartState cartState}) {
+      required int quantity}) {
     final CartEditRequest request = CartEditRequest(
       client_id: clientId,
       company_id: 1,
@@ -317,12 +319,22 @@ class CartBloc extends BlocBase {
   List<ProductMapper> addAvailabilityToProduct(List<ProductMapper> products,
       List<CartCheckAvailabilityResponse> availability) {
     isAnyProductOutOfStock = false;
+    productsOfMoreThanAvailable.clear();
 
     for (int i = 0; i < products.length; i++) {
       for (int j = 0; j < availability.length; j++) {
         if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
           products[i].availableQuantity = availability[j].available_quantity!;
+          // products[i].availableQuantity = 1;
+          if(products[i].availableQuantity < products[i].quantity && products[i].availableQuantity > 0){
+
+            productsOfMoreThanAvailable.add(CartAvailableModel(
+                name: products[i].name,
+                quantity: products[i].availableQuantity.toString()));
+            // editCart(cartItemId: products[i].id,
+            //      productId:  products[i].id, price:  products[i].finalPrice, quantity: products[i].availableQuantity);
+          }
           if (products[i].availableQuantity == 0) {
             isAnyProductOutOfStock = true;
           }
