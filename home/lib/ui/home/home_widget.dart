@@ -120,7 +120,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                   customTextStyle:
                       RegularStyle(color: lightBlackColor, fontSize: 26.sp))),
           SizedBox(
-            height: 12.h,
+            height: 16.h,
           ),
           CategoryWidget(
             homeBloc: widget.homeBloc,

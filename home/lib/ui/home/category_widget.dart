@@ -64,34 +64,37 @@ class _CategoryWidgetState extends State<CategoryWidget>
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.product.name);
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 75.h,
-              height: 75.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.w),
-                  color: greyColor.withOpacity(0.1)),
-              child: ImageHelper(
-                image: item.image,
-                imageType: ImageType.network,
-                height: 46.h,
-                width: 46.w,
-                boxFit: BoxFit.contain,
+        child: Container(
+          // color: Colors.red,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 75.h,
+                height: 75.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6.w),
+                    color: greyColor.withOpacity(0.1)),
+                child: ImageHelper(
+                  image: item.image,
+                  imageType: ImageType.network,
+                  height: 46.h,
+                  width: 46.w,
+                  boxFit: BoxFit.contain,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            CustomText(
-                text: item.name,
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                customTextStyle:
-                    MediumStyle(fontSize: 13.sp, color: secondaryColor))
-          ],
+              SizedBox(
+                height: 7.h,
+              ),
+              CustomText(
+                  text:item.name ,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  customTextStyle:
+                      MediumStyle(fontSize: 13.sp, color: secondaryColor))
+            ],
+          ),
         ),
       );
 }
