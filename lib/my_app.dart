@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: CustomNavigatorModule.navigatorKey,
 
         /// allow Chucker Flutter to show
-        navigatorObservers: [ChuckerFlutter.navigatorObserver],
+        // navigatorObservers: [ChuckerFlutter.navigatorObserver],
 
         /// handle generated routes for navigation
         onGenerateRoute: (settings) =>
