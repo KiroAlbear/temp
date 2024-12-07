@@ -56,6 +56,8 @@ class _ToggleButtonState extends State<ToggleButton> {
   final double borderRadious = 10;
   final Duration animatedContainerDuration = Duration(milliseconds: 400);
 
+  late final double buttonWidth;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +65,8 @@ class _ToggleButtonState extends State<ToggleButton> {
     _leftDescriptionColor.value = widget.activeTextColor;
     _rightDescriptionColor.value = widget.inactiveTextColor;
     // widget.toggleXAlign.value = ToggleButton.rightToggleAlign;
+
+    buttonWidth = widget.width * 0.49;
   }
 
   @override
@@ -95,7 +99,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                   }
                 },
                 child: Container(
-                  width: widget.width * 0.5,
+                  width: buttonWidth,
                   height: widget.height,
                   decoration: BoxDecoration(
                     border: Border.all(color: switchBorderColor),
@@ -127,12 +131,13 @@ class _ToggleButtonState extends State<ToggleButton> {
                   alignment: Alignment(-1, 0),
                   child: AnimatedContainer(
                       duration: animatedContainerDuration,
-                      width: widget.width * 0.5,
+                      width:buttonWidth,
                       decoration: BoxDecoration(
                           border: Border(
                             top: BorderSide(color: borderColor),
                             bottom: BorderSide(color: borderColor),
                             left: BorderSide(color: borderColor),
+                            right: BorderSide(color: borderColor),
                           ),
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(borderRadious - 1),
@@ -148,6 +153,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               },
             ),
           ),
+
           GestureDetector(
             onTap: () {
               if (widget.toggleXAlign.value == ToggleButton.rightToggleAlign) {
@@ -166,13 +172,14 @@ class _ToggleButtonState extends State<ToggleButton> {
 
                   return AnimatedContainer(
                     duration: Duration(milliseconds: 500),
-                    width: widget.width * 0.5,
+                    width:buttonWidth,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         border: Border(
                           top: BorderSide(color: borderColor),
                           bottom: BorderSide(color: borderColor),
                           right: BorderSide(color: borderColor),
+                          left: BorderSide(color: borderColor),
                         ),
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(borderRadious),
