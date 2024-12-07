@@ -448,7 +448,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                       onAddToCart: (productMapper) {
                                         widget.showOverlayLoading.value = true;
                                         widget.cartBloc
-                                            .saveToCart(productMapper.id, 1)
+                                            .saveToCart(productMapper.id, productMapper.minQuantity==0?1:productMapper.minQuantity.toInt())
                                             .listen((event) {
                                           if (event is SuccessState) {
                                             widget.cartBloc.orderId =

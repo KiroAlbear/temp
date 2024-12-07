@@ -29,7 +29,7 @@ class ProductWidget extends StatefulWidget {
   final Function(ProductMapper productMapper)? onIncrementClicked;
   final Function(ProductMapper productMapper)? onDecrementClicked;
   ProductWidget({
-    super.key,
+    Key? key,
     required this.productMapper,
     required this.productCategoryBloc,
     this.cartBloc,
@@ -43,7 +43,7 @@ class ProductWidget extends StatefulWidget {
     this.isCartProduct = false,
     this.onIncrementClicked,
     this.onDecrementClicked,
-  }) {
+  }): super(key: key) {
     if (!isCartProduct &&
         (favouriteIcon == null ||
             onTapFavourite == null && onAddToCart == null)) {
@@ -382,7 +382,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       cancelMessage: S.of(context).cancel,
       onCancel: () {},
       onConfirm: () {
-        qtyValueNotifier.value--;
+        qtyValueNotifier.value=0;
         widget.onDeleteClicked!(widget.productMapper);
       },
     );
@@ -516,7 +516,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
           {
             widget.onAddToCart!(widget.productMapper);
-            qtyValueNotifier.value = 1;
+            qtyValueNotifier.value =widget.productMapper.minQuantity==0?1: widget.productMapper.minQuantity.toInt();
             if (widget.cartBloc != null) {
               widget.cartBloc!.getMyCart();
             }

@@ -184,9 +184,9 @@ class CartBloc extends BlocBase {
       // return;
       for (int i = 0; i < productsList.length; i++) {
         productsList[i].cartUserQuantity = 0;
-        productsList[i].maxQuantity = 0;
-        productsList[i].minQuantity = 0;
-        productsList[i].productId = 0;
+        // productsList[i].maxQuantity = 0;
+        // productsList[i].minQuantity = 0;
+        // productsList[i].productId = 0;
       }
     } else {
       for (int i = 0; i < productsList.length; i++) {
@@ -326,7 +326,7 @@ class CartBloc extends BlocBase {
         if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
           products[i].availableQuantity = availability[j].available_quantity!;
-          // products[i].availableQuantity = 1;
+          products[i].availableQuantity = 1;
           if(products[i].availableQuantity < products[i].quantity && products[i].availableQuantity > 0){
 
             productsOfMoreThanAvailable.add(CartAvailableModel(
