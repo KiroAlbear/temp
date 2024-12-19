@@ -32,9 +32,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "AtLeastOneSpecialCharacter": MessageLookupByLibrary.simpleMessage(
-            "At least one special Character"),
-        "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "accountBalance":
             MessageLookupByLibrary.simpleMessage("Account balance"),
         "accountInfo": MessageLookupByLibrary.simpleMessage("Account info"),
@@ -45,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Must contain numbers"),
         "atLeastOneSmallLetter":
             MessageLookupByLibrary.simpleMessage("Must contain letters"),
+        "atLeastOneSpecialCharacter": MessageLookupByLibrary.simpleMessage(
+            "At least one special Character"),
         "basket": MessageLookupByLibrary.simpleMessage("Basket"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("Best offers"),
         "biometricLoginMessage": MessageLookupByLibrary.simpleMessage(
@@ -75,6 +74,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Payment method that suits you"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
+        "cartProductQuantityNotAvailable": MessageLookupByLibrary.simpleMessage(
+            "only available with quantity"),
+        "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage(
+            "Some products are not available"),
         "cartSuccessConfirmation": MessageLookupByLibrary.simpleMessage(
             "Order is confirmed successfully"),
         "cartSuccessIsDelivering": MessageLookupByLibrary.simpleMessage(
@@ -292,8 +295,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("You can start order now"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("You need to login"),
-        "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile"),
-        "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage("Some products are not available"),
-        "cartProductQuantityNotAvailable": MessageLookupByLibrary.simpleMessage("only available with quantity")
+        "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")
       };
 }

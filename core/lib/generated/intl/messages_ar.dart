@@ -32,9 +32,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "AtLeastOneSpecialCharacter":
-            MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على رمز (@#_,)"),
-        "Login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "accountBalance": MessageLookupByLibrary.simpleMessage("رصيد الحساب"),
         "accountInfo": MessageLookupByLibrary.simpleMessage("بيانات حسابي"),
         "addToCart": MessageLookupByLibrary.simpleMessage("أضف الي السلة"),
@@ -44,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على أرقام"),
         "atLeastOneSmallLetter":
             MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على حروف"),
+        "atLeastOneSpecialCharacter":
+            MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على رمز (@#_,)"),
         "basket": MessageLookupByLibrary.simpleMessage("السلة"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("أقوى العروض"),
         "biometricLoginMessage":
@@ -72,6 +71,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("طريقة الدفع المناسبة ليك"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
+        "cartProductQuantityNotAvailable":
+            MessageLookupByLibrary.simpleMessage("متوفر فقط بكمية"),
+        "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage(
+            "يوجد بعض المنتجات غير متوفرة"),
         "cartSuccessConfirmation":
             MessageLookupByLibrary.simpleMessage("تم تأكيد طلبك بنجاح"),
         "cartSuccessIsDelivering": MessageLookupByLibrary.simpleMessage(
@@ -284,8 +287,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تقدر تطلب دلوقتي"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
-        "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
-    "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage("يوجد بعض المنتجات غير متوفرة"),
-    "cartProductQuantityNotAvailable": MessageLookupByLibrary.simpleMessage("متوفر فقط بكمية")
+        "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
       };
 }
