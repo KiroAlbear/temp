@@ -59,8 +59,6 @@
 	<true/>
     <key>NSFaceIDUsageDescription</key>
     <string>This app needs to access face id</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Allow camera permission. In order to make face detection &amp; use our app</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Allow location permission. In order to get current location</string>
     <key>NSLocationAlwaysUsageDescription</key>
