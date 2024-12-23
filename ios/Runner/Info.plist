@@ -3,14 +3,9 @@
 <plist version="1.0">
 <dict>
 
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your photo library to upload images.</string>
 
-    <key>NSCameraUsageDescription</key>
-    <string>We need access to your camera to take photos or videos.</string>
 
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>We need your location to provide personalized content and services.</string>
+
 
 	<key>MinimumOSVersion</key>
 	<string>13.0</string>
@@ -57,16 +52,23 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-    <key>NSFaceIDUsageDescription</key>
-    <string>This app needs to access face id</string>
+
+    <key>NSCameraUsageDescription</key>
+    <string>Needed to take an image for a profile</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Needed to import profile image</string>
+
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Allow location permission. In order to get current location</string>
+    <string>Needed to provide personalized content and services.</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Needed to provide personalized content and services.</string>
+
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>Allow location permission. In order to get current location</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Allow location permission. In order to get current location</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>App requires access to the photo library.</string>
+    <string>Needed to provide personalized content and services.</string>
+
+    
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundlePrimaryIcon</key>

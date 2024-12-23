@@ -411,10 +411,10 @@ class S {
   }
 
   /// `At least one special Character`
-  String get AtLeastOneSpecialCharacter {
+  String get atLeastOneSpecialCharacter {
     return Intl.message(
       'At least one special Character',
-      name: 'AtLeastOneSpecialCharacter',
+      name: 'atLeastOneSpecialCharacter',
       desc: '',
       args: [],
     );
@@ -475,16 +475,6 @@ class S {
     return Intl.message(
       'Already have an account?',
       name: 'haveAccount',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Login`
-  String get Login {
-    return Intl.message(
-      'Login',
-      name: 'Login',
       desc: '',
       args: [],
     );
@@ -1750,6 +1740,7 @@ class S {
     );
   }
 
+  /// `Some products are not available`
   String get cartProductsNotAvailable {
     return Intl.message(
       'Some products are not available',
@@ -1759,9 +1750,10 @@ class S {
     );
   }
 
+  /// `only available with quantity`
   String get cartProductQuantityNotAvailable {
     return Intl.message(
-      "only available with quantity",
+      'only available with quantity',
       name: 'cartProductQuantityNotAvailable',
       desc: '',
       args: [],
