@@ -290,7 +290,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   camera_avfoundation: 04b44aeb14070126c6529e5ab82cc7c9fca107cf
-  connectivity_plus: 3f6c9057f4cd64198dc826edfb0542892f825343
+  connectivity_plus: 2256d3e20624a7749ed21653aafe291a46446fee
   country_codes: b534fe92b5dd4d4cfd31a720f2bfa223373d162c
   CropViewController: 3489bbf95a3e11c654382b0bae08ac645cdf1b93
   device_info_plus: 71ffc6ab7634ade6267c7a93088ed7e4f74e5896

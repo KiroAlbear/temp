@@ -38,7 +38,15 @@ abstract class BaseRemoteModule<T, K> {
   /// Checks if an internet connection is available.
   Future<bool> _isInternetConnectionAvailable() async {
     try {
-      final isConnect = await _checkIfConnectToAnySourceType();
+      // bool isIosSimulator = false;
+      // if(Platform.isIOS){
+      //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      //   var iosInfo = await deviceInfo.iosInfo;
+      //   if(iosInfo.isPhysicalDevice){
+      //     isIosSimulator = !iosInfo.isPhysicalDevice;
+      //   }
+      // }
+      final isConnect = Platform.isIOS?true:  await _checkIfConnectToAnySourceType();
       if (isConnect) {
         final result = await InternetAddress.lookup(ConstantModule.lookUpUrl);
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
