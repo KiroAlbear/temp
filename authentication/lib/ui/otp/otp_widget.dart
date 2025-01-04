@@ -12,7 +12,6 @@ import 'package:core/ui/custom_button_widget.dart';
 import 'package:core/ui/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
-import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 
 class OtpWidget extends BaseStatefulWidget {
   final String logo;
@@ -41,22 +40,22 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
   @override
   bool isSafeArea() => true;
 
-  void _initSignature() async {
-    _signature = await SmsVerification.getAppSignature();
-    SmsVerification.startListeningSms().then((value) {
-      if (value != null) {
-        /// TODO handle message and listen to it
-        // _bloc.otpBloc.textFormFiledBehaviour.sink
-        //     .add(TextEditingController(text: value));
-        SmsVerification.stopListening();
-      }
-    });
-  }
+  // void _initSignature() async {
+  //   _signature = await SmsVerification.getAppSignature();
+  //   SmsVerification.startListeningSms().then((value) {
+  //     if (value != null) {
+  //       /// TODO handle message and listen to it
+  //       // _bloc.otpBloc.textFormFiledBehaviour.sink
+  //       //     .add(TextEditingController(text: value));
+  //       SmsVerification.stopListening();
+  //     }
+  //   });
+  // }
 
   @override
   void dispose() {
     super.dispose();
-    SmsVerification.stopListening();
+    // SmsVerification.stopListening();
   }
 
   @override
