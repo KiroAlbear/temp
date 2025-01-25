@@ -1,4 +1,4 @@
-package com.icons.deel
+package com.icons.deelexpress
 
 import io.flutter.embedding.android.FlutterFragmentActivity;
 

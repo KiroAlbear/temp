@@ -7,24 +7,24 @@ flavors:
     app:
       name: "Deel"
     android:
-      applicationId: "com.icons.deel"
+      applicationId: "com.icons.deelexpress"
     ios:
-      bundleId: "com.icons.deel"
+      bundleId: "com.icons.deelexpress"
 
   app_stage:
     app:
       name: "Deel stage"
     android:
-      applicationId: "com.icons.deel"
+      applicationId: "com.icons.deelexpress"
     ios:
-      bundleId: "com.icons.deel"
+      bundleId: "com.icons.deelexpress"
 
   app_test:
     app:
       name: "Deel test"
     android:
-      applicationId: "com.icons.deel"
+      applicationId: "com.icons.deelexpress"
     ios:
-      bundleId: "com.icons.deel"
+      bundleId: "com.icons.deelexpress"
 
 ide: idea

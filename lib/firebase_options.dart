@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBbr9cq244nowwQYpiGcGr6n_MeS-9H7lg',
-    appId: '1:559379800620:android:b177a6b3487f85891e6789',
-    messagingSenderId: '559379800620',
-    projectId: 'deel-app-icons',
-    storageBucket: 'deel-app-icons.firebasestorage.app',
+    apiKey: 'AIzaSyDEu-f3AsuJSP1-Lafqm67VIwP4r4q0SaE',
+    appId: '1:450856944698:android:bb000d321cc4e7c5c6a103',
+    messagingSenderId: '450856944698',
+    projectId: 'deel-express',
+    storageBucket: 'deel-express.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDfQFqEvglkgDXXSK5Lb4fkgd4MVaH0Xp0',
-    appId: '1:559379800620:ios:75c3d64b16055d4f1e6789',
-    messagingSenderId: '559379800620',
-    projectId: 'deel-app-icons',
-    storageBucket: 'deel-app-icons.firebasestorage.app',
-    iosBundleId: 'com.icons.deel',
+    apiKey: 'AIzaSyB1wme_GqaRBe1AcF9eyjtCSF6GuApvaMM',
+    appId: '1:450856944698:ios:15ffe5ac7c8e0797c6a103',
+    messagingSenderId: '450856944698',
+    projectId: 'deel-express',
+    storageBucket: 'deel-express.firebasestorage.app',
+    iosBundleId: 'com.icons.deelexpress',
   );
+
 }
