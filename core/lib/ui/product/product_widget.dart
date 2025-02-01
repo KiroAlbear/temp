@@ -325,7 +325,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         child: CustomText(
           text: widget.productMapper.name,
           customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-          maxLines: 1,
+          maxLines: 2,
         ),
       );
 
