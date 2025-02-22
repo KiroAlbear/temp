@@ -121,11 +121,6 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin shared_preferences_android, io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin", e);
     }
     try {
-      flutterEngine.getPlugins().add(new com.oohyugi.sms_otp_auto_verify.SmsOtpAutoVerifyPlugin());
-    } catch (Exception e) {
-      Log.e(TAG, "Error registering plugin sms_otp_auto_verify, com.oohyugi.sms_otp_auto_verify.SmsOtpAutoVerifyPlugin", e);
-    }
-    try {
       flutterEngine.getPlugins().add(new com.tekartik.sqflite.SqflitePlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin sqflite, com.tekartik.sqflite.SqflitePlugin", e);
