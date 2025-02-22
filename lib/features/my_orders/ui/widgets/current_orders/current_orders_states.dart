@@ -1,8 +1,7 @@
-import 'package:core/generated/l10n.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
-import 'package:my_orders/gen/assets.gen.dart';
 
-import 'current_order_item_state.dart';
+import '../../../../../core/generated/l10n.dart';
 
 class CurrentOrdersStates extends StatelessWidget {
   final List<String?> statuses;

@@ -1,15 +1,10 @@
-import 'package:core/core.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/app_top_widget.dart';
-import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/bases/bloc_base.dart';
-import 'package:core/ui/custom_text.dart';
-import 'package:deel/features/home/ui/scanBarcode/scan_barcode_bloc.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_zxing/flutter_zxing.dart';
+import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../core/generated/l10n.dart';
 import '../home/home_bloc.dart';
 
 class ScanBarcodeWidget extends BaseStatefulWidget {

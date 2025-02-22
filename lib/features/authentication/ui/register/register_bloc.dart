@@ -1,13 +1,5 @@
-import 'package:core/core.dart';
-import 'package:core/dto/commonBloc/button_bloc.dart';
-import 'package:core/dto/commonBloc/drop_down_bloc.dart';
-import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
-import 'package:core/dto/modules/validator_module.dart';
-import 'package:core/dto/remote/check_phone_remote.dart';
-import 'package:core/dto/remote/country_remote.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+import 'package:deel/deel.dart';
+import 'package:rxdart/rxdart.dart';
 
 class RegisterBloc extends BlocBase {
   final TextFormFiledBloc mobileBloc = TextFormFiledBloc();

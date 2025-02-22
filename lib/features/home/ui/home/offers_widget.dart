@@ -1,8 +1,6 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/home/offer_mapper.dart';
-import 'package:core/dto/modules/response_handler_module.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'home_bloc.dart';
 import 'offer_item.dart';

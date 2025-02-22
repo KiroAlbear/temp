@@ -1,12 +1,10 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/my_orders/my_orders_mappers.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/custom_text.dart';
-import 'package:deel/generated/assets.dart';
-import 'package:flutter/material.dart';
 
+import 'package:deel/deel.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
+
+import '../../../../../core/generated/l10n.dart';
 import '../current_orders/current_order_details_item.dart';
 
 class OrderDetailsBottomSheet extends StatelessWidget {

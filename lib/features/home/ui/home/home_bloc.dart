@@ -1,12 +1,5 @@
-import 'package:core/core.dart';
-import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/home/category_mapper.dart';
-import 'package:core/dto/models/home/offer_mapper.dart';
-import 'package:core/dto/remote/category_remote.dart';
-import 'package:core/dto/remote/hero_banner_remote.dart';
-import 'package:core/dto/remote/offer_remote.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+import 'package:deel/deel.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HomeBloc extends BlocBase {
   final TextFormFiledBloc searchBloc = TextFormFiledBloc();

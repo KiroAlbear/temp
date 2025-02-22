@@ -1,7 +1,5 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-
-import '../ui/cart_bloc.dart';
+import 'package:deel/deel.dart';
+import 'package:rxdart/rxdart.dart';
 
 class CartCommonFunctions {
   BehaviorSubject<ApiState<int>> editCart({

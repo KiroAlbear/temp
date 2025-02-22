@@ -1,17 +1,8 @@
-import 'package:core/core.dart';
-import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_navigator_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/response_handler_module.dart';
-import 'package:core/dto/modules/validator_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/custom_button_widget.dart';
-import 'package:core/ui/custom_text.dart';
-import 'package:core/ui/custom_text_form_filed_widget.dart';
-import 'package:core/ui/password_validation_widget.dart';
+import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:deel/core/generated/l10n.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'new_account_bloc.dart';
 

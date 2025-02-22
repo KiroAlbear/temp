@@ -1,24 +1,10 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/brand/brand_mapper.dart';
-import 'package:core/dto/models/home/category_mapper.dart';
-import 'package:core/dto/models/product/product_mapper.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/app_top_widget.dart';
-import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/contactUs/contact_us_bloc.dart';
-import 'package:core/ui/product/product_list_widget.dart';
-import 'package:deel/features/cart/ui/cart_bloc.dart';
-import 'package:deel/features/cart/utilities/cart_common_functions.dart';
-import 'package:deel/features/home/ui/product/product_category_bloc.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
-import '../home/filter_item_widget.dart';
-import '../home/hero_banner_item.dart';
-import '../home/home_bloc.dart';
-import '../home/offer_item.dart';
-import 'empty_favourite_products.dart';
+import '../../../../core/generated/l10n.dart';
+
 
 class ProductCategoryWidget extends BaseStatefulWidget {
   final String favouriteIcon;

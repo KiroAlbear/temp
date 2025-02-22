@@ -1,25 +1,17 @@
-import 'package:core/core.dart';
-import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/models/balance/balance_mapper.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/profile/profile_mapper.dart';
-import 'package:core/dto/modules/alert_module.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/app_provider_module.dart';
-import 'package:core/dto/modules/custom_navigator_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/contactUs/contact_us_bloc.dart';
-import 'package:core/ui/custom_button_widget.dart';
-import 'package:core/ui/custom_text.dart';
+import 'dart:io';
+
+import 'package:deel/deel.dart';
 import 'package:deel/features/home/ui/product/product_category_bloc.dart';
 import 'package:deel/features/more/ui/more/shop_logo_camera_widget.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../core/generated/l10n.dart';
 import 'more_bloc.dart';
 
 class MoreWidget extends BaseStatefulWidget {

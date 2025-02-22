@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'core/dto/modules/app_color_module.dart';
-import 'core/dto/modules/app_provider_module.dart';
-import 'core/ui/bases/base_state.dart';
-import 'core/ui/logo_widget.dart';
+import 'deel.dart';
 
 class SplashWidget extends BaseStatefulWidget {
   const SplashWidget({super.key});
@@ -30,7 +26,7 @@ class _SplashWidgetState extends BaseState<SplashWidget> {
   @override
   Widget getBody(BuildContext context) {
     return LogoWidget(
-      logo: Assets.svgIcLogo,
+      logo: Assets.svg.icLogo,
     );
   }
 

@@ -1,18 +1,9 @@
-import 'package:core/core.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/bases/bloc_base.dart';
-import 'package:core/ui/custom_text.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widget/logo_top_widget.dart';
-import 'new_account_bloc.dart';
-import 'new_account_info_widget.dart';
-import 'new_account_location_info_widget.dart';
-import 'new_account_location_widget.dart';
-import 'new_account_password_widget.dart';
+import '../../../../core/generated/l10n.dart';
+
 
 class NewAccountWidget extends BaseStatefulWidget {
   final String logo;

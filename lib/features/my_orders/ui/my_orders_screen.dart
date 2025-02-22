@@ -1,14 +1,9 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/my_orders/my_orders_request.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/app_top_widget.dart';
-import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/toggel_button.dart';
+import 'package:deel/deel.dart';
 import 'package:deel/features/my_orders/ui/widgets/my_orders/orders_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/generated/l10n.dart';
 import 'my_orders_bloc.dart';
 
 class MyOrdersScreen extends BaseStatefulWidget {

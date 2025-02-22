@@ -1,8 +1,5 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/faq/faq_mapper.dart';
-import 'package:core/dto/remote/faq_remote.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+import 'package:deel/deel.dart';
+import 'package:rxdart/rxdart.dart';
 
 class FaqBloc extends BlocBase{
   final BehaviorSubject<ApiState<List<FaqMapper>>> _faqBehaviour = BehaviorSubject();

@@ -1,8 +1,6 @@
-import 'package:core/Utils/AppUtils.dart';
-import 'package:core/core.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class BottomNavigationBloc extends BlocBase {
   final BehaviorSubject<int> _selectedTabBehaviour = BehaviorSubject();

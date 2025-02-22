@@ -1,3 +1,4 @@
+import 'package:deel/deel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -249,8 +250,8 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
             child: snapshot.hasData
                 ? ImageHelper(
                     image: snapshot.data!
-                        ? Assets.svgIcCloseEye
-                        : Assets.svgIcOpenEye,
+                        ? Assets.svg.icCloseEye
+                        : Assets.svg.icOpenEye,
                     imageType: ImageType.svg,
                     boxFit: BoxFit.scaleDown,
                     scale: 0.5,

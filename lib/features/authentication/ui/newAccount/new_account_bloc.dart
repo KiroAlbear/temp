@@ -1,18 +1,10 @@
 import 'dart:convert';
 
-import 'package:core/core.dart';
-import 'package:core/dto/commonBloc/button_bloc.dart';
-import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/baseModules/drop_down_mapper.dart';
-import 'package:core/dto/models/login/login_mapper.dart';
-import 'package:core/dto/modules/validator_module.dart';
-import 'package:core/dto/remote/register_remote.dart';
-import 'package:core/dto/remote/state_remote.dart';
-import 'package:core/dto/remote/update_address_remote.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rxdart/rxdart.dart';
 
 enum NewAccountStepEnum { info, locationInfo, editLocation, password }
 

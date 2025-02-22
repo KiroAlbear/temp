@@ -1,17 +1,10 @@
-import 'package:core/core.dart';
-import 'package:core/dto/commonBloc/permission_bloc.dart';
-import 'package:core/dto/models/balance/balance_mapper.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/profile/profile_mapper.dart';
-import 'package:core/dto/modules/response_handler_module.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/dto/remote/balance_remote.dart';
-import 'package:core/dto/remote/deactive_profile_remote.dart';
-import 'package:core/dto/remote/profile_remote.dart';
-import 'package:core/dto/remote/update_profile_image_remote.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+
+import 'dart:io';
+
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MoreBloc extends BlocBase with ResponseHandlerModule {
   final PermissionBloc cameraPermissionBloc = PermissionBloc();

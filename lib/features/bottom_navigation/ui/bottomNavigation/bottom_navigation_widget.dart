@@ -1,12 +1,10 @@
-import 'package:core/core.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/custom_text.dart';
+import 'package:deel/deel.dart';
 import 'package:deel/features/cart/ui/cart_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
+import '../../../../core/generated/l10n.dart';
 import 'bottom_navigation_bloc.dart';
 
 class BottomNavigationWidget extends BaseStatefulWidget {

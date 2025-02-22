@@ -1,6 +1,6 @@
-import 'package:core/core.dart';
-import 'package:core/dto/commonBloc/permission_bloc.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+
+import 'package:deel/deel.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ScanBarcodeBloc extends BlocBase{
   final PermissionBloc cameraPermissionBloc = PermissionBloc();

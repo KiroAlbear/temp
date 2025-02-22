@@ -1,17 +1,7 @@
-import 'package:core/core.dart';
-import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_navigator_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/app_top_widget.dart';
-import 'package:core/ui/bases/base_state.dart';
-import 'package:core/ui/custom_button_widget.dart';
-import 'package:core/ui/custom_text.dart';
-import 'package:core/ui/mapPreview/map_preview_widget.dart';
-import 'package:deel/generated/assets.dart';
+import 'package:deel/core/generated/l10n.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cart_bloc.dart';
 import 'cart_order_details_item.dart';

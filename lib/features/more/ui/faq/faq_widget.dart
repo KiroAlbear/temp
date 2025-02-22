@@ -1,11 +1,8 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/faq/faq_mapper.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/app_top_widget.dart';
-import 'package:core/ui/bases/base_state.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/generated/l10n.dart';
 import 'faq_bloc.dart';
 class FaqWidget extends BaseStatefulWidget {
   final String backIcon;

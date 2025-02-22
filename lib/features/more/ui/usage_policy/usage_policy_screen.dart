@@ -1,13 +1,9 @@
-import 'package:core/core.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/usage_policy/usage_policy_response.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_text_style_module.dart';
-import 'package:core/generated/l10n.dart';
-import 'package:core/ui/app_top_widget.dart';
-import 'package:core/ui/custom_progress_widget.dart';
+import 'package:deel/deel.dart';
 import 'package:deel/features/more/ui/usage_policy/usage_policy_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/generated/l10n.dart';
 
 class UsagePolicyScreen extends StatefulWidget {
   final UsagePolicyBloc usagePolicyBloc;

@@ -1,10 +1,5 @@
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/my_orders/my_orders_mappers.dart';
-import 'package:core/dto/modules/response_handler_module.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
-
-import '../../my_orders_bloc.dart';
-import 'orders_list.dart';
 
 enum OrderType { pastOrder, currentOrder }
 

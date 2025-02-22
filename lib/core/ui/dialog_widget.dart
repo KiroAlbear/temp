@@ -1,4 +1,5 @@
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -98,7 +99,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                             Navigator.pop(context);
                           },
                           child: ImageHelper(
-                              image: Assets.svgIcClose,
+                              image: Assets.svg.icClose,
                               imageType: ImageType.svg),
                         )
                       ],

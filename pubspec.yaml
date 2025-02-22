@@ -10,7 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  flutter_localizations:
+    sdk: flutter
 
   camera_avfoundation: ^0.9.17
   hl_image_picker: ^1.2.16
@@ -28,10 +29,10 @@ dependencies:
   flutter_screenutil: ^5.9.1
   image_loader: ^1.10.0
   provider: ^6.1.2
-  google_fonts: ^6.2.1
+  google_fonts: 6.2.1
   rxdart: ^0.27.7
   form_field_validator: ^1.1.0
-  dio_builder: ^3.0.4
+  dio_builder: ^3.0.2
   retrofit: '>=4.0.0 <5.0.0'
   logger: any
   json_annotation: ^4.9.0
@@ -62,33 +63,45 @@ dependencies:
   mockito: ^5.4.4
   retrofit_generator: '>=5.0.0 <6.0.0'
   timelines: ^0.1.0
+  chucker_flutter: ^1.8.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  integration_test:
-    sdk: flutter
-  flutter_lints: ^4.0.0
+#  flutter_test:
+#    sdk: flutter
+#  integration_test:
+#    sdk: flutter
   flutter_flavorizr: ^2.2.3
-  build_runner: ^2.4.13
+  build_runner:
   json_serializable: ^6.8.0
   flutter_gen_runner:
-  image_loader: ^1.10.0
+
 dependency_overrides:
   http: ^0.13.5
   intl: 0.18.1
 
 
+index_generator:
+  exclude:
+    - 'main_app_live.dart'
+    - 'main_app_stage.dart'
+    - 'main_app_test.dart'
+    - 'navigation_routes.dart'
+    - 'core/dto/network/api_client_key.dart'
+    - 'core/dto/network/admin_client_key.dart'
+    - 'core/generated/*'
+    - '**.g.dart'
+  # Define the paths of the folders in which to generate the index files
+  libraries:
+    - directory_path: lib
 
 flutter_gen:
   output: lib/gen/
+  line_length: 80
 
 flutter:
   uses-material-design: true
-  generate: true
   assets:
     - assets/svg/
-    - shorebird.yaml
 
 
 flutter_flavorizr:

@@ -1,16 +1,6 @@
-import 'package:core/core.dart';
-import 'package:core/dto/commonBloc/button_bloc.dart';
-import 'package:core/dto/commonBloc/latlong_bloc.dart';
-import 'package:core/dto/commonBloc/text_form_filed_bloc.dart';
-import 'package:core/dto/models/baseModules/api_state.dart';
-import 'package:core/dto/models/update_profile/delivery_address_mapper.dart';
-import 'package:core/dto/models/update_profile/update_profile_request.dart';
-import 'package:core/dto/modules/shared_pref_module.dart';
-import 'package:core/dto/modules/validator_module.dart';
-import 'package:core/dto/remote/deliver_address_remote.dart';
-import 'package:core/dto/remote/update_profile_remote.dart';
-import 'package:core/ui/bases/bloc_base.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class UpdateProfileBloc extends BlocBase {
   final TextFormFiledBloc fullNameBloc = TextFormFiledBloc();

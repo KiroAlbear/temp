@@ -1,9 +1,8 @@
-import 'package:core/core.dart';
-import 'package:core/dto/enums/app_screen_enum.dart';
-import 'package:core/dto/models/home/offer_mapper.dart';
-import 'package:core/dto/modules/app_color_module.dart';
-import 'package:core/dto/modules/custom_navigator_module.dart';
+
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
 import 'home_bloc.dart';
 
