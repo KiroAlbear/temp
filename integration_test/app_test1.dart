@@ -1,10 +1,10 @@
-import 'package:core/core.dart';
-import 'package:core/dto/modules/app_provider_module.dart';
+import 'package:deel/core/dto/modules/app_provider_module.dart';
 import 'package:deel/main_app_live.dart' as app;
 import 'package:deel/my_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

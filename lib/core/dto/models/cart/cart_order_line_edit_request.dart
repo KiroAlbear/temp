@@ -1,0 +1,27 @@
+
+import 'package:json_annotation/json_annotation.dart';
+
+part 'cart_order_line_edit_request.g.dart';
+
+@JsonSerializable()
+class CartOrderLineEditRequest {
+  @JsonKey(name: 'product_id')
+  int? product_id;
+
+  @JsonKey(name: 'product_uom_qty')
+  int? product_uom_qty;
+
+  @JsonKey(name: 'id')
+  int? id;
+
+  CartOrderLineEditRequest({
+    required this.product_id,
+    required this.product_uom_qty,
+    required this.id,
+  });
+
+  factory CartOrderLineEditRequest.fromJson(Map<String, dynamic> json) =>
+      _$CartOrderLineEditRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CartOrderLineEditRequestToJson(this);
+}

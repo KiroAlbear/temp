@@ -1,12 +1,4 @@
-import 'package:core/core.dart';
-import 'package:core/dto/modules/dio_module.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:core/dto/models/baseModules/admin_header_request.dart';
-import 'package:core/dto/models/baseModules/header_response.dart';
-import 'package:core/dto/models/contactUs/contact_us_response.dart';
-import 'package:core/dto/models/faq/faq_response.dart';
-import 'package:core/dto/models/heroBanner/banners_response.dart';
 import 'package:mockito/mockito.dart';
 
 

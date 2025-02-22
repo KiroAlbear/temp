@@ -1,15 +1,16 @@
 import 'dart:async';
-
-import 'package:core/core.dart';
-import 'package:core/dto/modules/admin_dio_module.dart';
-import 'package:core/dto/modules/app_provider_module.dart';
-import 'package:core/dto/modules/logger_module.dart';
-import 'package:core/dto/modules/odoo_dio_module.dart';
-import 'package:core/dto/network/app_http_overrides.dart';
+import 'package:dio_builder/dio_builder.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_shared_pref/simple_shared_pref.dart';
 
+import 'core/dto/modules/admin_dio_module.dart';
+import 'core/dto/modules/app_provider_module.dart';
+import 'core/dto/modules/logger_module.dart';
+import 'core/dto/modules/odoo_dio_module.dart';
+import 'core/dto/network/app_http_overrides.dart';
 import 'flavors.dart';
 import 'my_app.dart';
 import 'package:firebase_core/firebase_core.dart';

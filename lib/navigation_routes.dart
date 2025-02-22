@@ -9,7 +9,7 @@ final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
 final CartBloc _cartBloc = CartBloc();
 final UsagePolicyBloc _usagePolicyBloc = UsagePolicyBloc();
 final HomeBloc _homeBloc = HomeBloc(
-  onCategoryClick: (categoryMapper) {
+  onCategoryClick: (CategoryMapper categoryMapper) {
     LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
     _productCategoryBloc.reset();
     _productCategoryBloc.categoryId == categoryMapper.id;
