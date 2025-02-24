@@ -21,10 +21,18 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
   PreferredSizeWidget? appBar() => null;
 
   @override
-  bool canPop() => false;
+  bool canPop() => true;
 
   @override
   bool isSafeArea() => true;
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  void onPopInvoked(didPop) {
+    changeSystemNavigationBarColor(secondaryColor);
+  }
 
   @override
   void initState() {

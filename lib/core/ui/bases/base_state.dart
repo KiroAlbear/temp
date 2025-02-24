@@ -26,6 +26,17 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    if(Platform.isAndroid){
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarColor:statusBarColor()?? secondaryColor,
+            systemNavigationBarColor:systemNavigationBarColor()?? secondaryColor,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark,
+          ));
+    }
+
   }
 
   bool canPop();
@@ -37,24 +48,22 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   PreferredSizeWidget? appBar();
 
   Color? statusBarColor() => null;
+  Color? systemNavigationBarColor() => null;
+
+  void changeSystemNavigationBarColor(Color color){
+    if(Platform.isAndroid){
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            systemNavigationBarColor:color,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark,
+          ));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    if (statusBarColor() != null) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: statusBarColor()!,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-      ));
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: secondaryColor,
-        systemNavigationBarColor: secondaryColor,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-      ));
-    }
     return Consumer<AppProviderModule>(
       builder: (context, value, child) => PopScope(
         canPop: canPop(),

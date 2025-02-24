@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/generated/l10n.dart';
 
-class ForgotPasswordWidget extends StatefulWidget {
+class ForgotPasswordWidget extends BaseStatefulWidget {
   final String logo;
   final ForgotPasswordBloc forgetPasswordBloc;
   final AuthenticationSharedBloc authenticationSharedBloc;
@@ -20,8 +20,23 @@ class ForgotPasswordWidget extends StatefulWidget {
   State<ForgotPasswordWidget> createState() => _ForgotPasswordWidgetState();
 }
 
-class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
-    with ResponseHandlerModule {
+class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
+
+  @override
+  PreferredSizeWidget? appBar() =>null;
+
+  @override
+  bool canPop() =>true;
+
+  @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  Color? systemNavigationBarColor()  => Colors.white;
+
+  @override
+  bool isSafeArea() =>true;
+
   @override
   void initState() {
     widget.forgetPasswordBloc.resetBloc();
@@ -29,7 +44,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
   }
 
   @override
-  Widget build(BuildContext context) => LogoTopWidget(
+  Widget getBody(BuildContext context) => LogoTopWidget(
         logo: widget.logo,
         canBack: true,
         blocBase: widget.forgetPasswordBloc,
@@ -105,4 +120,6 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
         failedBehaviour: widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
         validateStream: widget.forgetPasswordBloc.validate,
       );
+
+
 }

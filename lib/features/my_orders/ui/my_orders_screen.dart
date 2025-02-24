@@ -34,6 +34,14 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
   bool isBottomSafeArea() =>false;
 
   @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  void onPopInvoked(didPop) {
+    changeSystemNavigationBarColor(secondaryColor);
+  }
+
+  @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     // _tabController.animateTo(1, duration: Duration(milliseconds: 1));

@@ -77,6 +77,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   @override
   bool isSafeArea() => true;
 
+  // @override
+  // Color? systemNavigationBarColor() => secondaryColor;
+
   @override
   void onPopInvoked(didPop) {
     handleCloseApplication();
@@ -183,6 +186,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
         ),
         _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
           // widget.productCategoryBloc.reset();
+
           widget.productCategoryBloc.isForFavourite = true;
           widget.productCategoryBloc.isNavigatingFromMore = true;
           CustomNavigatorModule.navigatorKey.currentState

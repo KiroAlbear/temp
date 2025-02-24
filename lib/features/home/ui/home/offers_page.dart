@@ -1,3 +1,4 @@
+import 'package:deel/core/dto/modules/app_color_module.dart';
 import 'package:deel/core/ui/bases/base_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +24,10 @@ class OffersPage extends BaseStatefulWidget {
 }
 
 class _OffersPageState extends BaseState<OffersPage> {
+
+  @override
+  Color? systemNavigationBarColor() => secondaryColor;
+
   @override
   Widget getBody(BuildContext context) {
     return Column(

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/generated/l10n.dart';
 
-class UsagePolicyScreen extends StatefulWidget {
+class UsagePolicyScreen extends BaseStatefulWidget {
   final UsagePolicyBloc usagePolicyBloc;
   final String backIcon;
   const UsagePolicyScreen(
@@ -15,7 +15,29 @@ class UsagePolicyScreen extends StatefulWidget {
   State<UsagePolicyScreen> createState() => _UsagePolicyScreenState();
 }
 
-class _UsagePolicyScreenState extends State<UsagePolicyScreen> {
+class _UsagePolicyScreenState extends BaseState<UsagePolicyScreen> {
+
+
+  @override
+  PreferredSizeWidget? appBar() =>null;
+
+  @override
+  bool canPop() =>true;
+
+
+  @override
+  bool isSafeArea() =>false;
+
+  @override
+  void onPopInvoked(didPop)  {
+    changeSystemNavigationBarColor(secondaryColor);
+
+  }
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+
   @override
   void initState() {
     widget.usagePolicyBloc.getUsagePolicy();
@@ -23,7 +45,7 @@ class _UsagePolicyScreenState extends State<UsagePolicyScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget getBody(BuildContext context) {
     return Material(
       child: Column(children: [
         AppTopWidget(
@@ -84,4 +106,6 @@ class _UsagePolicyScreenState extends State<UsagePolicyScreen> {
       ]),
     );
   }
+
+
 }

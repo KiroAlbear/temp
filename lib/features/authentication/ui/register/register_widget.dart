@@ -7,7 +7,7 @@ import '../../../../core/generated/l10n.dart';
 import '../otp/otp_bloc.dart';
 import '../widget/logo_top_widget.dart';
 
-class RegisterWidget extends StatefulWidget {
+class RegisterWidget extends BaseStatefulWidget {
   final String logo;
   final AuthenticationSharedBloc authenticationSharedBloc;
 
@@ -18,13 +18,30 @@ class RegisterWidget extends StatefulWidget {
   State<RegisterWidget> createState() => _RegisterWidgetState();
 }
 
-class _RegisterWidgetState extends State<RegisterWidget>
-    with ResponseHandlerModule {
+class _RegisterWidgetState extends BaseState<RegisterWidget>
+{
   final RegisterBloc _bloc = RegisterBloc();
   final OtpBloc _otpBloc = OtpBloc();
 
   @override
-  Widget build(BuildContext context) => LogoTopWidget(
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => true;
+
+  @override
+  bool isSafeArea() => true;
+
+  @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+
+
+  @override
+  Widget getBody(BuildContext context) => LogoTopWidget(
       canBack: true,
       logo: widget.logo,
       blocBase: _bloc,

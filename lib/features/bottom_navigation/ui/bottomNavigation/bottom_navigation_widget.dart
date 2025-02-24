@@ -32,6 +32,9 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
   bool isSafeArea() => true;
 
   @override
+  Color? systemNavigationBarColor() => secondaryColor;
+
+  @override
   Widget getBody(BuildContext context) => StreamBuilder(
         stream: widget.bottomNavigationBloc.selectedTabStream,
         builder: (context, snapshot) {

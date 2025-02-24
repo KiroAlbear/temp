@@ -46,6 +46,9 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   @override
   bool isSafeArea() => true;
 
+  // @override
+  // Color? systemNavigationBarColor() => secondaryColor;
+
   @override
   void onPopInvoked(didPop) {
     handleCloseApplication();

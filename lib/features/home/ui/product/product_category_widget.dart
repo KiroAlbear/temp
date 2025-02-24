@@ -76,6 +76,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
     // widget.homeBloc.selectedOfferCategoryId = null;
     // widget.homeBloc.selectedOfferBrandId = null;
     // widget.homeBloc.selectedOfferProductId = null;
+    changeSystemNavigationBarColor(secondaryColor);
     super.onPopInvoked(didPop);
   }
 
@@ -84,6 +85,16 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
 
   @override
   bool isBottomSafeArea() =>false;
+
+  @override
+  Color? systemNavigationBarColor() {
+   if(widget.productCategoryBloc.isForFavourite){
+     return secondaryColor;
+   }else{
+     return Colors.white;
+   }
+  }
+
 
   @override
   void initState() {

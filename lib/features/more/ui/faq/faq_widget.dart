@@ -32,6 +32,15 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
   @override
   Widget getBody(BuildContext context) => _screenDesign;
 
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  void onPopInvoked(didPop)  {
+    changeSystemNavigationBarColor(secondaryColor);
+
+  }
+
   // BlocProvider get _blocProvider =>
   //     BlocProvider(bloc: _bloc, child: _screenDesign);
 

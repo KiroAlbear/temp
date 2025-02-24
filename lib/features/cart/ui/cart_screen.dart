@@ -37,6 +37,13 @@ class _CartScreenState extends BaseState<CartScreen> {
   bool isSafeArea() => true;
 
   @override
+  Color? statusBarColor() => secondaryColor;
+
+
+  @override
+  Color? systemNavigationBarColor() => secondaryColor;
+
+  @override
   void initState() {
     widget.cartBloc.getMyCart();
     super.initState();

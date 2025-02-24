@@ -42,6 +42,12 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
   @override
   bool isSafeArea() => false;
 
+  @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
   // void _initSignature() async {
   //   _signature = await SmsVerification.getAppSignature();
   //   SmsVerification.startListeningSms().then((value) {

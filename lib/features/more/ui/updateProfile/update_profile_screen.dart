@@ -36,6 +36,14 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   bool isBottomSafeArea() =>false;
 
   @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  void onPopInvoked(didPop) {
+    changeSystemNavigationBarColor(secondaryColor);
+  }
+
+  @override
   void initState() {
     super.initState();
 

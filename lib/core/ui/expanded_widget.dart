@@ -9,7 +9,7 @@ import 'bases/base_state.dart';
 import 'bases/bloc_base.dart';
 import 'custom_text.dart';
 
-class ExpandedWidget extends BaseStatefulWidget {
+class ExpandedWidget extends StatefulWidget {
   final String question;
   final String answer;
   final String arrow;
@@ -24,29 +24,29 @@ class ExpandedWidget extends BaseStatefulWidget {
   State<ExpandedWidget> createState() => _ExpandedWidgetState();
 }
 
-class _ExpandedWidgetState extends BaseState<ExpandedWidget>
+class _ExpandedWidgetState extends State<ExpandedWidget>
     with SingleTickerProviderStateMixin {
   final ExpandedBloc _bloc = ExpandedBloc();
   late final AnimationController _animationController = AnimationController(
       vsync: this, duration: const Duration(milliseconds: 400));
 
-  @override
-  bool canPop() => true;
+  // @override
+  // bool canPop() => true;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   useCustomScaffold = true;
+  // }
+
+  // @override
+  // PreferredSizeWidget? appBar() => null;
 
   @override
-  void initState() {
-    super.initState();
-    useCustomScaffold = true;
-  }
+  Widget build(BuildContext context) => _blocProvider;
 
-  @override
-  PreferredSizeWidget? appBar() => null;
-
-  @override
-  Widget getBody(BuildContext context) => _blocProvider;
-
-  @override
-  bool isSafeArea() => false;
+  // @override
+  // bool isSafeArea() => false;
 
   BlocProvider get _blocProvider =>
       BlocProvider(bloc: _bloc, child: _expandedWidget);

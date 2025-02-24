@@ -14,7 +14,7 @@ import '../../../../core/ui/bases/bloc_base.dart';
 import '../../../../core/ui/custom_text.dart';
 import '../../../../core/ui/logo_widget.dart';
 
-class LogoTopWidget extends BaseStatefulWidget {
+class LogoTopWidget extends StatefulWidget {
   final bool canBack;
   final Widget child;
   final String logo;
@@ -35,12 +35,19 @@ class LogoTopWidget extends BaseStatefulWidget {
   State<LogoTopWidget> createState() => _LogoTopWidgetState();
 }
 
-class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
-  @override
-  PreferredSizeWidget? appBar() => null;
+class _LogoTopWidgetState extends State<LogoTopWidget> {
+  // @override
+  // PreferredSizeWidget? appBar() => null;
+  //
+  //
+  // @override
+  // Color? statusBarColor() => Colors.white;
+  //
+  // @override
+  // Color? systemNavigationBarColor() => Colors.white;
 
   @override
-  Widget getBody(BuildContext context) => BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
         bloc: widget.blocBase,
         child: Container(
           padding: EdgeInsets.only(top: Platform.isIOS? 30:0),
@@ -96,15 +103,15 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
         ],
       );
 
-  @override
-  void onPopInvoked(didPop) {
-    super.onPopInvoked(didPop);
-    // handleCloseApplication();
-  }
-
-  @override
-  bool isSafeArea() => Platform.isIOS?false:true;
-
-  @override
-  bool canPop() => widget.canBack;
+  // @override
+  // void onPopInvoked(didPop) {
+  //   super.onPopInvoked(didPop);
+  //   // handleCloseApplication();
+  // }
+  //
+  // @override
+  // bool isSafeArea() => Platform.isIOS?false:true;
+  //
+  // @override
+  // bool canPop() => widget.canBack;
 }

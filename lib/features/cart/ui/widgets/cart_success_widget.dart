@@ -24,6 +24,13 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
   bool isSafeArea() => true;
 
   @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+
+  @override
   void initState() {
     super.initState();
   }

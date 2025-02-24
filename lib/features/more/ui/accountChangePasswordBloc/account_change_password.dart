@@ -30,6 +30,15 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
   bool isBottomSafeArea() =>false;
 
   @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  void onPopInvoked(didPop) async {
+    changeSystemNavigationBarColor(secondaryColor);
+    await Future.delayed(Duration(milliseconds: 100));
+  }
+
+  @override
   void initState() {
     // customBackgroundColor = Colors.white;
 

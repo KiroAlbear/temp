@@ -44,6 +44,11 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
   @override
   bool isSafeArea() => false;
 
+  @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
 
   @override
   void initState() {
@@ -274,6 +279,8 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
     if (widget.bottomNavigationBloc != null)
       widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }
+
+
 
 
 }

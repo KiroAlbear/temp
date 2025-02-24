@@ -22,6 +22,14 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
   final ScanBarcodeBloc _bloc = ScanBarcodeBloc();
 
   @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  void onPopInvoked(didPop) {
+    changeSystemNavigationBarColor(secondaryColor);
+  }
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
