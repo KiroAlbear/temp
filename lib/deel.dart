@@ -185,8 +185,6 @@ export 'core/ui/product/product_list_widget.dart';
 export 'core/ui/product/product_widget.dart';
 export 'core/ui/toggel_button.dart';
 export 'core/ui/ui/bases/bloc_base.dart';
-export 'features/authentication/ui/changePassword/change_password_bloc.dart';
-export 'features/authentication/ui/changePassword/change_password_widget.dart';
 export 'features/authentication/ui/forgotPassword/forgot_password_bloc.dart';
 export 'features/authentication/ui/forgotPassword/forgot_password_widget.dart';
 export 'features/authentication/ui/login/login_bloc.dart';

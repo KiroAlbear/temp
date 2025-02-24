@@ -28,6 +28,30 @@ class LoginWidget extends BaseStatefulWidget {
 class _LoginWidgetState extends BaseState<LoginWidget> {
   final LoginBloc _bloc = LoginBloc();
   bool isLoggingWithBiometric = true;
+
+
+  @override
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => true;
+
+  @override
+  void onPopInvoked(didPop) {
+    handleCloseApplication();
+  }
+
+  @override
+  bool isSafeArea() => false;
+
+
+  @override
+  void initState() {
+    customBackgroundColor = Colors.white;
+    super.initState();
+  }
+
+
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
         canBack: false,
@@ -251,17 +275,5 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }
 
-  @override
-  PreferredSizeWidget? appBar() => null;
 
-  @override
-  bool canPop() => true;
-
-  @override
-  void onPopInvoked(didPop) {
-    handleCloseApplication();
-  }
-
-  @override
-  bool isSafeArea() => false;
 }

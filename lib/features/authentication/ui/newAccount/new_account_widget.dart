@@ -26,6 +26,22 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   final NewAccountBloc _bloc = NewAccountBloc();
   late final PasswordValidationBloc _passwordValidationBloc;
 
+
+  @override
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => false;
+
+  @override
+  void onPopInvoked(didPop) {
+    _handleBackPressing();
+  }
+
+  @override
+  bool isSafeArea() => false;
+
+
   @override
   void initState() {
     super.initState();
@@ -204,17 +220,4 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
                   ),
           ));
 
-  @override
-  PreferredSizeWidget? appBar() => null;
-
-  @override
-  bool canPop() => false;
-
-  @override
-  void onPopInvoked(didPop) {
-    _handleBackPressing();
-  }
-
-  @override
-  bool isSafeArea() => false;
 }
