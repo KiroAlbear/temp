@@ -33,6 +33,9 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   bool isSafeArea() => true;
 
   @override
+  bool isBottomSafeArea() =>false;
+
+  @override
   void initState() {
     super.initState();
 

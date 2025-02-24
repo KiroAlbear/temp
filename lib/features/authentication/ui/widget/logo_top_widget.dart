@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,6 +43,7 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
   Widget getBody(BuildContext context) => BlocProvider(
         bloc: widget.blocBase,
         child: Container(
+          padding: EdgeInsets.only(top: Platform.isIOS? 30:0),
           color: Theme.of(context).scaffoldBackgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +103,7 @@ class _LogoTopWidgetState extends BaseState<LogoTopWidget> {
   }
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => Platform.isIOS?false:true;
 
   @override
   bool canPop() => widget.canBack;

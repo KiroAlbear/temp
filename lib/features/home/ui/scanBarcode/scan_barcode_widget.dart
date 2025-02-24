@@ -53,6 +53,9 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
   bool isSafeArea() => true;
 
   @override
+  bool isBottomSafeArea() =>false;
+
+  @override
   Widget getBody(BuildContext context) => BlocProvider(
       bloc: _bloc,
       child: Column(

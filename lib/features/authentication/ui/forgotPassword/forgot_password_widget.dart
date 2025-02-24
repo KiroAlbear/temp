@@ -91,7 +91,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
                     widget.authenticationSharedBloc.setDataToAuth(
                         widget.forgetPasswordBloc.countryBloc.value!,
                         widget.forgetPasswordBloc.mobileBloc.value,
-                        AppScreenEnum.changePassword.name);
+                        AppScreenEnum.accountChangePassword.name);
 
                     CustomNavigatorModule.navigatorKey.currentState
                         ?.pushReplacementNamed(AppScreenEnum.otp.name);

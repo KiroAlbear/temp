@@ -84,12 +84,6 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
         logo: Assets.svg.icLogoH,
         authenticationSharedBloc: _authSharedBloc,
       ));
-    case AppScreenEnum.changePassword:
-      return _buildPageRoute(ChangePasswordWidget(
-        forgetPasswordBloc: _forgetPasswordBloc,
-        logo: Assets.svg.icLogoH,
-        authenticationSharedBloc: _authSharedBloc,
-      ));
     case AppScreenEnum.newAccount:
       return _buildPageRoute(_newAccountWidget);
     case AppScreenEnum.home:

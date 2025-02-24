@@ -40,7 +40,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
   bool canPop() => true;
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   // void _initSignature() async {
   //   _signature = await SmsVerification.getAppSignature();

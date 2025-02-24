@@ -27,79 +27,89 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
   bool isSafeArea() => true;
 
   @override
+  bool isBottomSafeArea() =>false;
+
+  @override
+  void initState() {
+    // customBackgroundColor = Colors.white;
+
+    super.initState();
+  }
+
+  @override
   Widget getBody(BuildContext context) =>
       BlocProvider(bloc: _bloc, child: _screenDesign);
 
-  Widget get _screenDesign => SingleChildScrollView(
-        child: Column(
-          children: [
-            AppTopWidget(
-              notificationIcon: '',
-              homeLogo: '',
-              scanIcon: '',
-              searchIcon: '',
-              supportIcon: '',
-              backIcon: widget.backIcon,
-              title: S.of(context).changePassword,
-              hideTop: true,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 22.h,
-                  ),
-                  CustomText(
-                      text: S.of(context).currentPassword,
-                      customTextStyle: RegularStyle(
-                          color: lightBlackColor, fontSize: 20.sp)),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  _currentPasswordFiled,
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  CustomText(
-                      text: S.of(context).password,
-                      customTextStyle: RegularStyle(
-                          fontSize: 20.sp, color: lightBlackColor)),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  _passwordFiled,
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  CustomText(
-                      text: S.of(context).confirmPassword,
-                      customTextStyle: RegularStyle(
-                          color: lightBlackColor, fontSize: 20.sp)),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  _confirmPasswordFiled,
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  PasswordValidationWidget(
-                    passwordValidationBloc: PasswordValidationBloc(
-                        _bloc.passwordBloc.textFormFiledBehaviour.value),
-                    passwordController:
-                        _bloc.passwordBloc.textFormFiledBehaviour.value,
-                  ),
-                  SizedBox(
-                    height: 28.h,
-                  ),
-                  Center(child: _button),
-                ],
+  Widget get _screenDesign => Column(
+    children: [
+      AppTopWidget(
+        notificationIcon: '',
+        homeLogo: '',
+        scanIcon: '',
+        searchIcon: '',
+        supportIcon: '',
+        backIcon: widget.backIcon,
+        title: S.of(context).changePassword,
+        hideTop: true,
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 22.h,
               ),
-            )
-          ],
+              CustomText(
+                  text: S.of(context).currentPassword,
+                  customTextStyle: RegularStyle(
+                      color: lightBlackColor, fontSize: 20.sp)),
+              SizedBox(
+                height: 16.h,
+              ),
+              _currentPasswordFiled,
+              SizedBox(
+                height: 24.h,
+              ),
+              CustomText(
+                  text: S.of(context).password,
+                  customTextStyle: RegularStyle(
+                      fontSize: 20.sp, color: lightBlackColor)),
+              SizedBox(
+                height: 12.h,
+              ),
+              _passwordFiled,
+              SizedBox(
+                height: 24.h,
+              ),
+              CustomText(
+                  text: S.of(context).confirmPassword,
+                  customTextStyle: RegularStyle(
+                      color: lightBlackColor, fontSize: 20.sp)),
+              SizedBox(
+                height: 12.h,
+              ),
+              _confirmPasswordFiled,
+              SizedBox(
+                height: 8.h,
+              ),
+              PasswordValidationWidget(
+                passwordValidationBloc: PasswordValidationBloc(
+                    _bloc.passwordBloc.textFormFiledBehaviour.value),
+                passwordController:
+                    _bloc.passwordBloc.textFormFiledBehaviour.value,
+              ),
+              SizedBox(
+                height: 28.h,
+              ),
+              Center(child: _button),
+            ],
+          ),
         ),
-      );
+      )
+    ],
+  );
 
   Widget get _currentPasswordFiled => CustomTextFormFiled(
         onChanged: (value) =>

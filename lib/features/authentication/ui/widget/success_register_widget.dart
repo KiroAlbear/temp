@@ -1,6 +1,7 @@
 import 'package:deel/deel.dart';
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
@@ -22,6 +23,12 @@ class SuccessRegisterWidget extends BaseStatefulWidget {
 }
 
 class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
+
+  @override
+  void initState() {
+    customBackgroundColor = Colors.white;
+    super.initState();
+  }
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -30,6 +37,9 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
 
   @override
   bool isSafeArea() => true;
+
+  @override
+  bool isBottomSafeArea() =>false;
 
   @override
   Color? statusBarColor() => whiteColor.withOpacity(0.5);

@@ -32,6 +32,8 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
 
   bool isSafeArea();
 
+  bool isBottomSafeArea() => true;
+
   PreferredSizeWidget? appBar();
 
   Color? statusBarColor() => null;
@@ -73,10 +75,14 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
                 restorationId: ConstantModule.appTitle,
                 key: scaffoldKey,
                 backgroundColor: customBackgroundColor ??
-                    Theme.of(context).scaffoldBackgroundColor,
+                 ( Platform.isIOS?secondaryColor:  Theme.of(context).scaffoldBackgroundColor),
                 appBar: appBar(),
                 body:
-                    isSafeArea() ? SafeArea(child: _defaultBody) : _defaultBody,
+                    isSafeArea() ? SafeArea(
+                        bottom: isBottomSafeArea(),
+                        child: Container(
+                        color: Colors.white,
+                        child: _defaultBody)) : _defaultBody,
                 // )
               ),
       ),

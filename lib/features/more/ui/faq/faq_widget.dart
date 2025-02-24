@@ -27,6 +27,9 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
   bool isSafeArea() => true;
 
   @override
+  bool isBottomSafeArea() =>false;
+
+  @override
   Widget getBody(BuildContext context) => _screenDesign;
 
   // BlocProvider get _blocProvider =>

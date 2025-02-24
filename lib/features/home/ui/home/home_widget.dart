@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,6 +55,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   @override
   void initState() {
     super.initState();
+    customBackgroundColor = Colors.white;
     widget.cartBloc.getMyCart();
     widget.homeBloc.loadData();
     widget.updateProfileBloc
@@ -74,6 +77,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                 : SizedBox(
                     height: 23.h,
                   ),
+
           ),
           HeroBannersWidget(homeBloc: widget.homeBloc),
           StreamBuilder<ApiState<List<OfferMapper>>>(

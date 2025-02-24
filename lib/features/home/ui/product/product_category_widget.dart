@@ -83,6 +83,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   bool isSafeArea() => true;
 
   @override
+  bool isBottomSafeArea() =>false;
+
+  @override
   void initState() {
     if (widget.homeBloc.selectedOffer != null) {
       if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==

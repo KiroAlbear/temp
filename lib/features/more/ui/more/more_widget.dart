@@ -61,6 +61,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   @override
   void initState() {
     super.initState();
+    customBackgroundColor = Colors.white;
     widget.moreBloc.getProfileData();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       widget.moreBloc.listenForFileSelection(context);
@@ -282,7 +283,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           _menuItem(S.of(context).logout, widget.logoutIcon, () {
             _logout();
           }, isBoldStyle: true),
-        ]
+          SizedBox(
+            height: 20.h,
+          ),
+        ],
+
         // _moreDesign,
       ],
     );
