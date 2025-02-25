@@ -61,59 +61,62 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
         title: S.of(context).changePassword,
         hideTop: true,
       ),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+      
+      Expanded(
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 22.h,
-              ),
-              CustomText(
-                  text: S.of(context).currentPassword,
-                  customTextStyle: RegularStyle(
-                      color: lightBlackColor, fontSize: 20.sp)),
-              SizedBox(
-                height: 16.h,
-              ),
-              _currentPasswordFiled,
-              SizedBox(
-                height: 24.h,
-              ),
-              CustomText(
-                  text: S.of(context).password,
-                  customTextStyle: RegularStyle(
-                      fontSize: 20.sp, color: lightBlackColor)),
-              SizedBox(
-                height: 12.h,
-              ),
-              _passwordFiled,
-              SizedBox(
-                height: 24.h,
-              ),
-              CustomText(
-                  text: S.of(context).confirmPassword,
-                  customTextStyle: RegularStyle(
-                      color: lightBlackColor, fontSize: 20.sp)),
-              SizedBox(
-                height: 12.h,
-              ),
-              _confirmPasswordFiled,
-              SizedBox(
-                height: 8.h,
-              ),
-              PasswordValidationWidget(
-                passwordValidationBloc: PasswordValidationBloc(
-                    _bloc.passwordBloc.textFormFiledBehaviour.value),
-                passwordController:
-                    _bloc.passwordBloc.textFormFiledBehaviour.value,
-              ),
-              SizedBox(
-                height: 28.h,
-              ),
-              Center(child: _button),
-            ],
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 22.h,
+                ),
+                CustomText(
+                    text: S.of(context).currentPassword,
+                    customTextStyle: RegularStyle(
+                        color: lightBlackColor, fontSize: 20.sp)),
+                SizedBox(
+                  height: 16.h,
+                ),
+                _currentPasswordFiled,
+                SizedBox(
+                  height: 24.h,
+                ),
+                CustomText(
+                    text: S.of(context).password,
+                    customTextStyle: RegularStyle(
+                        fontSize: 20.sp, color: lightBlackColor)),
+                SizedBox(
+                  height: 12.h,
+                ),
+                _passwordFiled,
+                SizedBox(
+                  height: 24.h,
+                ),
+                CustomText(
+                    text: S.of(context).confirmPassword,
+                    customTextStyle: RegularStyle(
+                        color: lightBlackColor, fontSize: 20.sp)),
+                SizedBox(
+                  height: 12.h,
+                ),
+                _confirmPasswordFiled,
+                SizedBox(
+                  height: 8.h,
+                ),
+                PasswordValidationWidget(
+                  passwordValidationBloc: PasswordValidationBloc(
+                      _bloc.passwordBloc.textFormFiledBehaviour.value),
+                  passwordController:
+                      _bloc.passwordBloc.textFormFiledBehaviour.value,
+                ),
+                SizedBox(
+                  height: 28.h,
+                ),
+                Center(child: _button),
+              ],
+            ),
           ),
         ),
       )
@@ -178,6 +181,14 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
           if (_bloc.isValid) {
             _bloc.changePassword.listen(
               (event) {
+                // only for testing
+
+                // Future.delayed(const Duration(milliseconds: 600))
+                //     .then((value) {
+                //   AppProviderModule().logout(context);
+                // });
+
+
                 checkResponseStateWithButton(event, context,
                     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,

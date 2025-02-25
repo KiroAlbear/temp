@@ -55,15 +55,14 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
   Widget build(BuildContext context) => BlocProvider(
         bloc: widget.blocBase,
         child: Container(
-          padding: EdgeInsets.only(top: Platform.isIOS? 30:0),
+          padding: EdgeInsets.only(top: Platform.isIOS? 20:30),
           color: Theme.of(context).scaffoldBackgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               if (widget.canSkip) _skipText,
-              widget.isHavingBackArrow?SizedBox(height: 10.h,):SizedBox(),
+              widget.isHavingBackArrow?SizedBox(height: 50.h,):SizedBox(),
               !widget.isHavingBackArrow?SizedBox():
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 20.w),
@@ -79,10 +78,10 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                       CustomNavigatorModule.navigatorKey.currentState?.pop();
                       // Navigator.pop(context);
                     },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                      size: 30.sp,
+                    child: SizedBox(
+                      width: 30.w,
+                      height: 30.h,
+                      child: ImageHelper(image:Assets.svg.icForwardArrUnified, imageType: ImageType.svg,),
                     ),
                   ),
                 ),

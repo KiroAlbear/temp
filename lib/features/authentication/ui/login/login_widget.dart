@@ -44,7 +44,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
   }
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   Color? statusBarColor() => Colors.white;

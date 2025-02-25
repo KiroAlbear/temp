@@ -35,7 +35,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
   Color? systemNavigationBarColor()  => Colors.white;
 
   @override
-  bool isSafeArea() =>true;
+  bool isSafeArea() => false;
 
   @override
   void initState() {
@@ -96,6 +96,16 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
           if (widget.forgetPasswordBloc.isMobileValid) {
             widget.forgetPasswordBloc.checkPhone.listen(
               (event) {
+                // only for testing
+
+                // widget.authenticationSharedBloc.setDataToAuth(
+                //     widget.forgetPasswordBloc.countryBloc.value!,
+                //     widget.forgetPasswordBloc.mobileBloc.value,
+                //     AppScreenEnum.accountChangePassword.name);
+                // widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
+                // CustomNavigatorModule.navigatorKey.currentState
+                //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
+
                 checkResponseStateWithButton(
                   event,
                   context,

@@ -30,7 +30,7 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
   bool canPop() => true;
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   Color? statusBarColor() => Colors.white;
@@ -108,6 +108,16 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
             if (_bloc.isValid) {
               _bloc.checkPhone.listen(
                 (event) {
+                  // only for testing
+
+                  // widget.authenticationSharedBloc.setDataToAuth(
+                  //     _bloc.countryBloc.value!,
+                  //     _bloc.mobileBloc.value,
+                  //     AppScreenEnum.newAccount.name);
+                  // CustomNavigatorModule.navigatorKey.currentState
+                  //     ?.pushNamed(AppScreenEnum.otp.name);
+
+
                   checkResponseStateWithButton(
                     event,
                     context,

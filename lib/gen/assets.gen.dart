@@ -15,6 +15,12 @@ class $AssetsSvgGen {
   /// File path: assets/svg/cart_success.svg
   String get cartSuccess => 'assets/svg/cart_success.svg';
 
+  /// File path: assets/svg/ic_back_arr_unified.svg
+  String get icBackArrUnified => 'assets/svg/ic_back_arr_unified.svg';
+
+  /// File path: assets/svg/ic_forward_arr_unified.svg
+  String get icForwardArrUnified => 'assets/svg/ic_forward_arr_unified.svg';
+
   /// File path: assets/svg/cart_success_logo.svg
   String get cartSuccessLogo => 'assets/svg/cart_success_logo.svg';
 
@@ -228,6 +234,8 @@ class $AssetsSvgGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        icBackArrUnified,
+        icForwardArrUnified,
         cartSuccess,
         cartSuccessLogo,
         emptyCart,

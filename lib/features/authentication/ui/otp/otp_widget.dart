@@ -40,7 +40,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
   bool canPop() => true;
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   Color? statusBarColor() => Colors.white;
@@ -238,6 +238,14 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
                   S.of(context).otpIsNotValid)
               .then(
             (value) {
+              //only for testing
+
+              // widget.authenticationSharedBloc.userData = _bloc.userData;
+              // CustomNavigatorModule.navigatorKey.currentState
+              //     ?.pushReplacementNamed(
+              //   widget.authenticationSharedBloc.nextScreen,
+              // );
+
               checkResponseStateWithButton(
                 value,
                 context,

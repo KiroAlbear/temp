@@ -40,7 +40,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   }
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   Color? statusBarColor() => Colors.white;
