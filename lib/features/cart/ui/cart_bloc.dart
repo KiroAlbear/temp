@@ -185,6 +185,15 @@ class CartBloc extends BlocBase {
     }
   }
 
+  bool checkIfProductsNotAvailable(List<ProductMapper> productsList) {
+    for (int i = 0; i < productsList.length; i++) {
+      if (productsList[i].isAvailable == false) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   Stream<ApiState<int>> saveToCart(int productId, int quantity) {
     _getClientData();
     final CartSaveRequest request = CartSaveRequest(
@@ -307,7 +316,7 @@ class CartBloc extends BlocBase {
         if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
           products[i].availableQuantity = availability[j].available_quantity!;
-          products[i].availableQuantity = 1;
+          // products[i].availableQuantity = 1;
           if(products[i].availableQuantity < products[i].quantity && products[i].availableQuantity > 0){
 
             productsOfMoreThanAvailable.add(CartAvailableModel(
