@@ -45,6 +45,9 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
   Color? statusBarColor() => whiteColor.withOpacity(0.5);
 
   @override
+  Color? systemNavigationBarColor() => whiteColor;
+
+  @override
   Widget getBody(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(

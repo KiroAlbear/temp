@@ -1,15 +1,16 @@
 import 'dart:io';
 
+import 'package:deel/deel.dart';
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
 import '../../../../core/dto/enums/app_screen_enum.dart';
 import '../../../../core/dto/modules/app_color_module.dart';
 import '../../../../core/dto/modules/custom_navigator_module.dart';
 import '../../../../core/dto/modules/custom_text_style_module.dart';
 import '../../../../core/generated/l10n.dart';
-import '../../../../core/ui/bases/base_state.dart';
 import '../../../../core/ui/bases/bloc_base.dart';
 import '../../../../core/ui/custom_text.dart';
 import '../../../../core/ui/logo_widget.dart';
@@ -20,6 +21,8 @@ class LogoTopWidget extends StatefulWidget {
   final String logo;
   final BlocBase blocBase;
   final bool canSkip;
+  final bool isHavingBackArrow;
+  final bool pressingBackTwice;
   final BottomNavigationBloc? bottomNavigationBloc;
 
   const LogoTopWidget(
@@ -28,6 +31,8 @@ class LogoTopWidget extends StatefulWidget {
       required this.child,
       required this.logo,
       required this.blocBase,
+        this.isHavingBackArrow = false,
+        this.pressingBackTwice = false,
       this.bottomNavigationBloc,
       this.canSkip = false});
 
@@ -56,10 +61,36 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+
               if (widget.canSkip) _skipText,
-              SizedBox(
-                height: 82.h,
+              widget.isHavingBackArrow?SizedBox(height: 10.h,):SizedBox(),
+              !widget.isHavingBackArrow?SizedBox():
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                child: Material(
+                  child: InkWell(
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+
+                      if(widget.pressingBackTwice){
+                        CustomNavigatorModule.navigatorKey.currentState?.pop();
+                        // Navigator.pop(context);
+                      }
+                      CustomNavigatorModule.navigatorKey.currentState?.pop();
+                      // Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 30.sp,
+                    ),
+                  ),
+                ),
               ),
+              SizedBox(
+                height:  widget.isHavingBackArrow?20.h:82.h,
+              ),
+
               Center(
                 child:
                     LogoWidget(height: 94.h, width: 253.h, logo: widget.logo),

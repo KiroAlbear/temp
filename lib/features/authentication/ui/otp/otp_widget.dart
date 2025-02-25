@@ -40,7 +40,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
   bool canPop() => true;
 
   @override
-  bool isSafeArea() => false;
+  bool isSafeArea() => true;
 
   @override
   Color? statusBarColor() => Colors.white;
@@ -73,6 +73,8 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
         builder: (context, snapshot) {
           return Scaffold(
             body: LogoTopWidget(
+                isHavingBackArrow: true,
+                pressingBackTwice: true,
                 canBack: true,
                 logo: widget.logo,
                 blocBase: _bloc,
@@ -235,20 +237,27 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
                   "+${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}",
                   S.of(context).otpIsNotValid)
               .then(
-            (value) {
-              checkResponseStateWithButton(
-                value,
-                context,
-                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                onSuccess: () {
-                  widget.authenticationSharedBloc.userData = _bloc.userData;
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushReplacementNamed(
-                    widget.authenticationSharedBloc.nextScreen,
-                  );
-                },
+            (value) async {
+              widget.authenticationSharedBloc.userData = _bloc.userData;
+              Navigator.pop(context);
+             await CustomNavigatorModule.navigatorKey.currentState
+                  ?.pushReplacementNamed(
+                widget.authenticationSharedBloc.nextScreen,
               );
+
+              // checkResponseStateWithButton(
+              //   value,
+              //   context,
+              //   buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+              //   failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+              //   onSuccess: () {
+              //     widget.authenticationSharedBloc.userData = _bloc.userData;
+              //     CustomNavigatorModule.navigatorKey.currentState
+              //         ?.pushReplacementNamed(
+              //       widget.authenticationSharedBloc.nextScreen,
+              //     );
+              //   },
+              // );
             },
           );
         },

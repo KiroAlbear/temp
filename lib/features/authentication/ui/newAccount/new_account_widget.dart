@@ -1,6 +1,7 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
 import '../../../../core/generated/l10n.dart';
 
@@ -39,10 +40,13 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   }
 
   @override
-  bool isSafeArea() => false;
+  bool isSafeArea() => true;
 
   @override
   Color? statusBarColor() => Colors.white;
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
 
 
   @override
@@ -80,6 +84,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   Widget getBody(BuildContext context) => BlocProvider(
       bloc: _bloc,
       child: LogoTopWidget(
+          isHavingBackArrow: true,
           canBack: false,
           logo: widget.logo,
           blocBase: _bloc,
@@ -88,6 +93,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
               _stepRow,
               _registerInfoWidget,
             ]),
