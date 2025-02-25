@@ -1,4 +1,5 @@
 import 'package:deel/deel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -175,6 +176,13 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
         );
       });
 /////////////////////////////
+  void onlyForTestingCode(){
+    Future.delayed(const Duration(milliseconds: 600))
+        .then((value) {
+      AppProviderModule().logout(context);
+    });
+  }
+
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).save,
         onTap: () {
@@ -182,23 +190,20 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
             _bloc.changePassword.listen(
               (event) {
                 // only for testing
-
-                // Future.delayed(const Duration(milliseconds: 600))
-                //     .then((value) {
-                //   AppProviderModule().logout(context);
-                // });
-
-
-                checkResponseStateWithButton(event, context,
-                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                    onSuccess: () {
-                  Future.delayed(const Duration(milliseconds: 600))
-                      .then((value) {
-                    AppProviderModule().logout(context);
-                  });
-                  // Navigator.pop(context);
-                });
+                if(kDebugMode){
+                  onlyForTestingCode();
+                }else{
+                  checkResponseStateWithButton(event, context,
+                      failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                      buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                      onSuccess: () {
+                        Future.delayed(const Duration(milliseconds: 600))
+                            .then((value) {
+                          AppProviderModule().logout(context);
+                        });
+                        // Navigator.pop(context);
+                      });
+                }
               },
             );
           }

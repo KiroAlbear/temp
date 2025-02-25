@@ -1,4 +1,5 @@
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
@@ -145,32 +146,6 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
             _bloc.otpBloc.updateStringBehaviour(value);
           },
         ),
-        //
-        // OTPTextField(
-        //   width: double.infinity,
-        //   controller: _bloc.otpFieldController,
-        //   length: _bloc.otpCodeLength,
-        //   fieldStyle: FieldStyle.box,
-        //   keyboardType: TextInputType.number,
-        //   otpFieldStyle: OtpFieldStyle(
-        //     backgroundColor: whiteColor,
-        //     borderColor: greyColor,
-        //     disabledBorderColor: greyColor,
-        //     enabledBorderColor: greyColor,
-        //     focusBorderColor: lightBlackColor,
-        //     errorBorderColor: redColor,
-        //   ),
-        //   style:
-        //       SemiBoldStyle(color: lightBlackColor, fontSize: 20.sp).getStyle(),
-        //   outlineBorderRadius: 5.w,
-        //   spaceBetween: 12.w,
-        //   fieldWidth: _otpSize,
-        //   onChanged: (value) {
-        //     // _bloc.otpBloc.textFormFiledBehaviour.sink
-        //     //     .add(TextEditingController(text: value));
-        //     // _bloc.otpBloc.updateStringBehaviour(value);
-        //   },
-        // ),
       ),
     );
   }
@@ -225,6 +200,14 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
         ),
       );
 
+  void onlyForTestingCode() {
+    widget.authenticationSharedBloc.userData = _bloc.userData;
+    CustomNavigatorModule.navigatorKey.currentState
+        ?.pushReplacementNamed(
+      widget.authenticationSharedBloc.nextScreen,
+    );
+  }
+
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).next,
         height: 60.h,
@@ -239,26 +222,23 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
               .then(
             (value) {
               //only for testing
-
-              // widget.authenticationSharedBloc.userData = _bloc.userData;
-              // CustomNavigatorModule.navigatorKey.currentState
-              //     ?.pushReplacementNamed(
-              //   widget.authenticationSharedBloc.nextScreen,
-              // );
-
-              checkResponseStateWithButton(
-                value,
-                context,
-                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                onSuccess: () {
-                  widget.authenticationSharedBloc.userData = _bloc.userData;
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushReplacementNamed(
-                    widget.authenticationSharedBloc.nextScreen,
-                  );
-                },
-              );
+              if(kDebugMode){
+                 onlyForTestingCode();
+              }else{
+                checkResponseStateWithButton(
+                  value,
+                  context,
+                  buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                  failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                  onSuccess: () {
+                    widget.authenticationSharedBloc.userData = _bloc.userData;
+                    CustomNavigatorModule.navigatorKey.currentState
+                        ?.pushReplacementNamed(
+                      widget.authenticationSharedBloc.nextScreen,
+                    );
+                  },
+                );
+              }
             },
           );
         },

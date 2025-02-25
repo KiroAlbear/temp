@@ -1,6 +1,7 @@
 
 import 'package:deel/deel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/generated/l10n.dart';
@@ -89,7 +90,15 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
                 countryList: snapshot.data?.response ?? [],
                 countryBloc: widget.forgetPasswordBloc.countryBloc)),
       );
-
+  void onlyForTestingCode(){
+    widget.authenticationSharedBloc.setDataToAuth(
+        widget.forgetPasswordBloc.countryBloc.value!,
+        widget.forgetPasswordBloc.mobileBloc.value,
+        AppScreenEnum.accountChangePassword.name);
+    widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
+    CustomNavigatorModule.navigatorKey.currentState
+        ?.pushReplacementNamed(AppScreenEnum.otp.name);
+  }
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).loginEnter,
         onTap: () {
@@ -97,32 +106,30 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
             widget.forgetPasswordBloc.checkPhone.listen(
               (event) {
                 // only for testing
+                if(kDebugMode){
+                  onlyForTestingCode();
+                }else{
+                  checkResponseStateWithButton(
+                    event,
+                    context,
+                    failedBehaviour:
+                    widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
+                    buttonBehaviour:
+                    widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
+                    onSuccess: () {
+                      widget.authenticationSharedBloc.setDataToAuth(
+                          widget.forgetPasswordBloc.countryBloc.value!,
+                          widget.forgetPasswordBloc.mobileBloc.value,
+                          AppScreenEnum.accountChangePassword.name);
+                      widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
+                      CustomNavigatorModule.navigatorKey.currentState
+                          ?.pushReplacementNamed(AppScreenEnum.otp.name);
+                    },
+                  );
+                }
 
-                // widget.authenticationSharedBloc.setDataToAuth(
-                //     widget.forgetPasswordBloc.countryBloc.value!,
-                //     widget.forgetPasswordBloc.mobileBloc.value,
-                //     AppScreenEnum.accountChangePassword.name);
-                // widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
-                // CustomNavigatorModule.navigatorKey.currentState
-                //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
 
-                checkResponseStateWithButton(
-                  event,
-                  context,
-                  failedBehaviour:
-                      widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
-                  buttonBehaviour:
-                      widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
-                  onSuccess: () {
-                    widget.authenticationSharedBloc.setDataToAuth(
-                        widget.forgetPasswordBloc.countryBloc.value!,
-                        widget.forgetPasswordBloc.mobileBloc.value,
-                        AppScreenEnum.accountChangePassword.name);
-                    widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
-                    CustomNavigatorModule.navigatorKey.currentState
-                        ?.pushReplacementNamed(AppScreenEnum.otp.name);
-                  },
-                );
+
               },
             );
           }

@@ -1,5 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:deel/features/authentication/ui/register/register_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -98,6 +99,15 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
                 countryBloc: _bloc.countryBloc)),
       );
 
+  void onlyForTestingCode(){
+    widget.authenticationSharedBloc.setDataToAuth(
+        _bloc.countryBloc.value!,
+        _bloc.mobileBloc.value,
+        AppScreenEnum.newAccount.name);
+    CustomNavigatorModule.navigatorKey.currentState
+        ?.pushNamed(AppScreenEnum.otp.name);
+  }
+
   Widget get _button => Center(
         child: CustomButtonWidget(
           idleText: S.of(context).next,
@@ -109,44 +119,42 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
               _bloc.checkPhone.listen(
                 (event) {
                   // only for testing
+                  if(kDebugMode){
+                    onlyForTestingCode();
+                  }else{
+                    checkResponseStateWithButton(
+                      event,
+                      context,
+                      failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                      buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                      onSuccess: () {
+                        _otpBloc
+                            .sendOtp(
+                            "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
+                            S.of(context).otpPhoneIsNotValid)
+                            .then(
+                              (value) {
+                            checkResponseStateWithButton(value, context,
+                                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                                headerErrorMessage: S
+                                    .of(context)
+                                    .otpPhoneIsNotValid, onSuccess: () {
+                                  widget.authenticationSharedBloc.setDataToAuth(
+                                      _bloc.countryBloc.value!,
+                                      _bloc.mobileBloc.value,
+                                      AppScreenEnum.newAccount.name);
+                                  CustomNavigatorModule.navigatorKey.currentState
+                                      ?.pushNamed(AppScreenEnum.otp.name);
+                                });
+                          },
+                        );
+                      },
+                    );
+                  }
 
-                  // widget.authenticationSharedBloc.setDataToAuth(
-                  //     _bloc.countryBloc.value!,
-                  //     _bloc.mobileBloc.value,
-                  //     AppScreenEnum.newAccount.name);
-                  // CustomNavigatorModule.navigatorKey.currentState
-                  //     ?.pushNamed(AppScreenEnum.otp.name);
 
 
-                  checkResponseStateWithButton(
-                    event,
-                    context,
-                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                    onSuccess: () {
-                      _otpBloc
-                          .sendOtp(
-                              "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
-                              S.of(context).otpPhoneIsNotValid)
-                          .then(
-                        (value) {
-                          checkResponseStateWithButton(value, context,
-                              failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                              buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                              headerErrorMessage: S
-                                  .of(context)
-                                  .otpPhoneIsNotValid, onSuccess: () {
-                            widget.authenticationSharedBloc.setDataToAuth(
-                                _bloc.countryBloc.value!,
-                                _bloc.mobileBloc.value,
-                                AppScreenEnum.newAccount.name);
-                            CustomNavigatorModule.navigatorKey.currentState
-                                ?.pushNamed(AppScreenEnum.otp.name);
-                          });
-                        },
-                      );
-                    },
-                  );
                 },
               );
             }
