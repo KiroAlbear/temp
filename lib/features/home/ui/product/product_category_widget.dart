@@ -194,9 +194,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                   children: [
                     Column(
                       children: [
-                        // SizedBox(
-                        //   height: 10.h,
-                        // ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
                         widget.homeBloc.selectedOffer == null
                             ? SizedBox()
                             : SizedBox(
