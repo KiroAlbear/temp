@@ -228,8 +228,9 @@ class PermissionModule {
     await AlertModule().showMessage(
         context: _context,
         materialBannerType: MaterialBannerType.info,
-        message: '${_permission.toString().split('.').last}'
-            '\n${_messageOnPermissionDeniedForever ?? ''}',
+        message: S
+            .of(_context)
+            .openSetting('${_permission.toString().split('.').last}'),
         actions: [
           InkWell(
             onTap: () {
@@ -237,19 +238,10 @@ class PermissionModule {
               _isOpenSettingsBehaviour.sink.add(true);
               openAppSettings();
             },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 7.h),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.w),
-                  color: Theme.of(_context).colorScheme.primary),
-              child: CustomText(
-                  text: S
-                      .of(_context)
-                      .openSetting(_permission.toString().split('.').last),
-                  customTextStyle: MediumStyle(
-                    fontSize: 14.sp,
-                    color: Theme.of(_context).colorScheme.onPrimary,
-                  )),
+            child: Icon(
+              Icons.settings,
+              color: Colors.white,
+              size: 24.sp,
             ),
           )
         ]);
