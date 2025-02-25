@@ -55,7 +55,7 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
   Widget build(BuildContext context) => BlocProvider(
         bloc: widget.blocBase,
         child: Container(
-          padding: EdgeInsets.only(top: Platform.isIOS? 20:30),
+          padding: EdgeInsets.only(top: 30),
           color: Theme.of(context).scaffoldBackgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                 ),
               ),
               SizedBox(
-                height:  widget.isHavingBackArrow?20.h:82.h,
+                height:  widget.isHavingBackArrow?20.h:70.h,
               ),
 
               Center(

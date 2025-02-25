@@ -53,7 +53,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
         child: Column(
           children: [
             SizedBox(
-              height: 44.h,
+              height: 70.h,
             ),
             ImageHelper(
               image: widget.logo,
