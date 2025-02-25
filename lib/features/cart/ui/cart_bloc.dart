@@ -316,7 +316,6 @@ class CartBloc extends BlocBase {
         if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
           products[i].availableQuantity = availability[j].available_quantity!;
-          // products[i].availableQuantity = 1;
           if(products[i].availableQuantity < products[i].quantity && products[i].availableQuantity > 0){
 
             productsOfMoreThanAvailable.add(CartAvailableModel(
