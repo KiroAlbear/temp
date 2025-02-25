@@ -108,43 +108,35 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
             if (_bloc.isValid) {
               _bloc.checkPhone.listen(
                 (event) {
-
-                  widget.authenticationSharedBloc.setDataToAuth(
-                      _bloc.countryBloc.value!,
-                      _bloc.mobileBloc.value,
-                      AppScreenEnum.newAccount.name);
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.otp.name);
-
-                  // checkResponseStateWithButton(
-                  //   event,
-                  //   context,
-                  //   failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                  //   buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                  //   onSuccess: () {
-                  //     _otpBloc
-                  //         .sendOtp(
-                  //             "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
-                  //             S.of(context).otpPhoneIsNotValid)
-                  //         .then(
-                  //       (value) {
-                  //         checkResponseStateWithButton(value, context,
-                  //             failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                  //             buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                  //             headerErrorMessage: S
-                  //                 .of(context)
-                  //                 .otpPhoneIsNotValid, onSuccess: () {
-                  //           widget.authenticationSharedBloc.setDataToAuth(
-                  //               _bloc.countryBloc.value!,
-                  //               _bloc.mobileBloc.value,
-                  //               AppScreenEnum.newAccount.name);
-                  //           CustomNavigatorModule.navigatorKey.currentState
-                  //               ?.pushNamed(AppScreenEnum.otp.name);
-                  //         });
-                  //       },
-                  //     );
-                  //   },
-                  // );
+                  checkResponseStateWithButton(
+                    event,
+                    context,
+                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                    onSuccess: () {
+                      _otpBloc
+                          .sendOtp(
+                              "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
+                              S.of(context).otpPhoneIsNotValid)
+                          .then(
+                        (value) {
+                          checkResponseStateWithButton(value, context,
+                              failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                              buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                              headerErrorMessage: S
+                                  .of(context)
+                                  .otpPhoneIsNotValid, onSuccess: () {
+                            widget.authenticationSharedBloc.setDataToAuth(
+                                _bloc.countryBloc.value!,
+                                _bloc.mobileBloc.value,
+                                AppScreenEnum.newAccount.name);
+                            CustomNavigatorModule.navigatorKey.currentState
+                                ?.pushNamed(AppScreenEnum.otp.name);
+                          });
+                        },
+                      );
+                    },
+                  );
                 },
               );
             }

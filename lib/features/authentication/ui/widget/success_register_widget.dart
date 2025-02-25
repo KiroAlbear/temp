@@ -93,8 +93,11 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
                   .getStyle(),
               height: 60.h,
               onTap: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
                 CustomNavigatorModule.navigatorKey.currentState
-                    ?.pushReplacementNamed(AppScreenEnum.home.name);
+                    ?.pushNamed(AppScreenEnum.home.name);
+
+
                 if (widget.bottomNavigationBloc != null)
                   widget.bottomNavigationBloc!.setSelectedTab(0, context);
               },

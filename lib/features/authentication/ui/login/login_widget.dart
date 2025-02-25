@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:deel/deel.dart';
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
   }
 
   @override
-  bool isSafeArea() => false;
+  bool isSafeArea() => true;
 
   @override
   Color? statusBarColor() => Colors.white;
@@ -53,6 +55,12 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
   @override
   void initState() {
     customBackgroundColor = Colors.white;
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(whiteColor));
+
+    Timer(Duration(milliseconds: 200), () {
+      changeSystemNavigationBarAndStatusColor(whiteColor);
+    });
     super.initState();
   }
 

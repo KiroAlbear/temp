@@ -45,6 +45,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
+        isHavingBackArrow: true,
         logo: widget.logo,
         canBack: true,
         blocBase: widget.forgetPasswordBloc,
@@ -107,7 +108,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
                         widget.forgetPasswordBloc.countryBloc.value!,
                         widget.forgetPasswordBloc.mobileBloc.value,
                         AppScreenEnum.accountChangePassword.name);
-
+                    widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
                     CustomNavigatorModule.navigatorKey.currentState
                         ?.pushReplacementNamed(AppScreenEnum.otp.name);
                   },

@@ -50,10 +50,24 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   Color? statusBarColor() => null;
   Color? systemNavigationBarColor() => null;
 
+  
+
   void changeSystemNavigationBarColor(Color color){
     if(Platform.isAndroid){
       SystemChrome.setSystemUIOverlayStyle(
           SystemUiOverlayStyle(
+            systemNavigationBarColor:color,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark,
+          ));
+    }
+  }
+
+  void changeSystemNavigationBarAndStatusColor(Color color){
+    if(Platform.isAndroid){
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarColor:color,
             systemNavigationBarColor:color,
             statusBarBrightness: Brightness.dark,
             statusBarIconBrightness: Brightness.dark,
