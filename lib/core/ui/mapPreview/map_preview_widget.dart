@@ -47,6 +47,10 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _bloc.initPermissionAndLocation(context,
+          onLocationDetection: widget.onLocationDetection);
+    });
     super.initState();
   }
 
@@ -56,8 +60,7 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
       _bloc.isLocationChanged = true;
       _bloc.latLng(widget.latitude ?? 0.0, widget.longitude ?? 0.0);
     }
-    _bloc.initPermissionAndLocation(context,
-        onLocationDetection: widget.onLocationDetection);
+
     return _blocProvider;
   }
 

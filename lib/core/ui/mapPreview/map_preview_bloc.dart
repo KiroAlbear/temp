@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
@@ -27,27 +28,32 @@ class MapPreviewBloc extends BlocBase {
   Stream<bool> get mapReadyStream => _mapReadyBehaviour.stream;
 
   void initPermissionAndLocation(BuildContext context,
-      {Function(double latitude, double longitude)? onLocationDetection}) {
-    _permissionBloc.requestPermission(context, Permission.location);
+      {Function(double latitude, double longitude)? onLocationDetection}) async {
+    await _permissionBloc.requestPermission(context, Permission.location);
+    _currentLocationBloc.currentLocationBehaviour.listen((Position event) async {
+      if (!isLocationChanged) {
+        latLng(event.latitude ?? 0.0, event.longitude ?? 0.0);
+        if (onLocationDetection != null) {
+          await Future.delayed(Duration(seconds: 1));
+          onLocationDetection(
+              event.latitude ?? 0.0, event.longitude ?? 0.0);
+        }
+      }
+    });
+
     _mapReadyBehaviour.listen((mapReady) {
       if (mapReady) {
         _updateMapCamera();
-        _permissionBloc.easyPermissionHandler.isPermissionGrantedStream
-            .listen((locationPermissionGranted) async {
-          if (locationPermissionGranted) {
-            await _currentLocationBloc.requestLocation();
-            _currentLocationBloc.currentLocationStream.listen((event) async {
-              if (!isLocationChanged) {
-                latLng(event.latitude ?? 0.0, event.longitude ?? 0.0);
-                if (onLocationDetection != null) {
-                  await Future.delayed(Duration(seconds: 1));
-                  onLocationDetection(
-                      event.latitude ?? 0.0, event.longitude ?? 0.0);
-                }
-              }
-            });
-          }
-        });
+
+      }
+    });
+
+    _permissionBloc.easyPermissionHandler.isPermissionGrantedStream
+        .listen((locationPermissionGranted) async {
+      if (locationPermissionGranted) {
+
+
+        await _currentLocationBloc.requestLocation();
       }
     });
   }
