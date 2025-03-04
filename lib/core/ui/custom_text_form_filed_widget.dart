@@ -57,9 +57,10 @@ class CustomTextFormFiled extends StatefulWidget {
   final Stream<TextEditingController> textFiledControllerStream;
   final ValueChanged<bool>? onFocusChange;
   final FloatingLabelBehavior? floatingLabelBehavior;
+  final Key? key;
 
   const CustomTextFormFiled(
-      {super.key,
+      {this.key,
       required this.labelText,
       required this.textFiledControllerStream,
       required this.onChanged,
@@ -167,6 +168,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
           {required TextEditingController controller,
           bool showPassword = false}) =>
       TextFormField(
+        key: widget.key,
         focusNode: widget.focusNode,
         onTap: widget.onTap,
         style: widget.defaultTextStyle ?? _defaultTextStyle,

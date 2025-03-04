@@ -131,6 +131,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
           else
             return checkResponseStateWithLoadingWidget(snapshot.data!, context,
                 onSuccess: MobileCountryWidget(
+                    key: const Key('MobileCountryWidget'),
                     enableValidator: false,
                     mobileBloc: _bloc.mobileBloc,
                     countryList: snapshot.data?.response ?? [],
@@ -139,6 +140,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       );
 
   Widget get _passwordTextFormFiled => CustomTextFormFiled(
+    key:  Key("PasswordWidget"),
         labelText: S.of(context).enterYourPassword,
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
         onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),

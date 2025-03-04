@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'package:dio_builder/dio_builder.dart';
+import 'package:deel/deel.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_shared_pref/simple_shared_pref.dart';
@@ -69,7 +68,7 @@ FutureOr<void> main() async {
       appProviderModule.initAppThemeAndLanguage();
       return appProviderModule;
     }),
-  ], child: const MyApp()));
+  ], child: const   MyApp()));
   // _runAppWithSentry();
 }
 

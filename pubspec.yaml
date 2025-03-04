@@ -32,10 +32,10 @@ dependencies:
   google_fonts: 6.2.1
   rxdart: ^0.27.7
   form_field_validator: ^1.1.0
-  dio_builder:
-    git:
-      url: https://github.com/Dokkan-Dev/dio_builder.git
-      ref: c50fdf3
+#  dio_builder:
+#    git:
+#      url: https://github.com/Dokkan-Dev/dio_builder.git
+#      ref: c50fdf3
   retrofit: '>=4.0.0 <5.0.0'
   logger: any
   json_annotation: ^4.9.0
@@ -67,13 +67,19 @@ dependencies:
   retrofit_generator: '>=5.0.0 <6.0.0'
   timelines: ^0.1.0
   geolocator: ^13.0.2
+  http_mock_adapter: ^0.6.1
+  dio: ^5.8.0+1
+  pretty_dio_logger: ^1.4.0
+  dio_smart_retry: ^6.0.0
+  chucker_flutter: ^1.8.2
+  dio_http2_adapter: ^2.6.0
 
 
 dev_dependencies:
-#  flutter_test:
-#    sdk: flutter
-#  integration_test:
-#    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
   flutter_flavorizr: ^2.2.3
   build_runner:
   json_serializable: ^6.8.0

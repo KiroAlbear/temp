@@ -1,12 +1,6 @@
-
-import 'package:dio_builder/dio_builder.dart';
+import 'package:deel/deel.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../../../core/dto/models/baseModules/api_state.dart';
-
-import '../../../../../core/dto/models/login/login_mapper.dart';
-import '../../../../../core/dto/models/login/login_response.dart';
-import '../../../../../core/dto/modules/shared_pref_module.dart';
 
 class UpdateProfileImageRemote {
   BehaviorSubject<ApiState<LoginMapper>> callApiAsStream = BehaviorSubject();

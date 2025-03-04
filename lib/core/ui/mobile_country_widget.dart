@@ -16,9 +16,10 @@ class MobileCountryWidget extends StatelessWidget {
   final TextFormFiledBloc mobileBloc;
   final List<DropDownMapper> countryList;
   final bool enableValidator;
+  final Key? key;
 
   const MobileCountryWidget(
-      {super.key,
+      {this.key,
       required this.mobileBloc,
       required this.countryBloc,
       required this.countryList,
@@ -46,6 +47,7 @@ class MobileCountryWidget extends StatelessWidget {
       );
 
   Widget _mobileTextFormFiled(BuildContext context) => CustomTextFormFiled(
+        key: key,
         labelText: S.of(context).yourMobile,
         textFiledControllerStream: mobileBloc.textFormFiledStream,
         onChanged: (value) => mobileBloc.updateStringBehaviour(value),

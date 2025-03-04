@@ -1,11 +1,8 @@
 import 'package:deel/core/dto/modules/shared_pref_module.dart';
-import 'package:dio_builder/dio_builder.dart';
+import 'package:deel/deel.dart';
 
 import '../../generated/l10n.dart';
-import '../models/baseModules/admin_header_response.dart';
-import '../models/baseModules/header_response.dart';
-import 'constants_module.dart'; // Import constants for base URLs
-import 'logger_module.dart'; // Import logger module for logging
+
 
 abstract class DioModule extends DioBuilder {
 

@@ -1,4 +1,4 @@
-import 'package:dio_builder/dio_builder.dart';
+import 'package:deel/deel.dart';
 
 import '../models/address/address_request.dart';
 import '../models/balance/balance_response.dart';

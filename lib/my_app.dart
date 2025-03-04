@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             _onGenerateRoute(settings.name ?? '', context),
 
         /// set default screen route for app
-        initialRoute: AppScreenEnum.splash.name,
+        initialRoute: AppScreenEnum.login.name,
       );
 
   List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {

@@ -121,6 +121,7 @@ export 'core/dto/modules/validator_module.dart';
 export 'core/dto/network/admin_client.dart';
 export 'core/dto/network/api_client.dart';
 export 'core/dto/network/app_http_overrides.dart';
+export 'core/dto/network/dio_builder/dio_builder.dart';
 export 'core/dto/remote/admin_base_remote_module.dart';
 export 'core/dto/remote/base_remote_module.dart';
 export 'core/dto/remote/language_remote.dart';
