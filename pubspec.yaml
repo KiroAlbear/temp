@@ -32,7 +32,10 @@ dependencies:
   google_fonts: 6.2.1
   rxdart: ^0.27.7
   form_field_validator: ^1.1.0
-  dio_builder: ^3.0.2
+  dio_builder:
+    git:
+      url: https://github.com/Dokkan-Dev/dio_builder.git
+      ref: c50fdf3
   retrofit: '>=4.0.0 <5.0.0'
   logger: any
   json_annotation: ^4.9.0
