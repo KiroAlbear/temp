@@ -1,9 +1,6 @@
 import 'package:deel/deel.dart';
-import 'package:deel/features/cart/ui/cart_bloc.dart';
-import 'package:deel/features/home/ui/product/product_category_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/generated/l10n.dart';
 
 class CartScreen extends BaseStatefulWidget {

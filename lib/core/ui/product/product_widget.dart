@@ -1,19 +1,8 @@
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
-
-import '../../../features/cart/ui/cart_bloc.dart';
-import '../../../features/home/ui/product/product_category_bloc.dart';
-import '../../Utils/AppUtils.dart';
-import '../../dto/models/baseModules/api_state.dart';
-import '../../dto/models/product/product_mapper.dart';
-import '../../dto/modules/alert_module.dart';
-import '../../dto/modules/app_color_module.dart';
-import '../../dto/modules/app_provider_module.dart';
-import '../../dto/modules/custom_text_style_module.dart';
-import '../../dto/modules/shared_pref_module.dart';
 import '../../generated/l10n.dart';
-import '../custom_text.dart';
 
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;

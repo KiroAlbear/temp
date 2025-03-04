@@ -1,15 +1,12 @@
+import 'package:deel/core/generated/l10n.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 import '../dto/enums/app_screen_enum.dart';
 import 'package:flutter/material.dart';
 
-import '../dto/modules/alert_module.dart';
-import '../dto/modules/app_color_module.dart';
-import '../dto/modules/custom_navigator_module.dart';
-import '../dto/modules/custom_text_style_module.dart';
-import '../generated/l10n.dart';
-import 'contactUs/contact_us_bloc.dart';
+
 import 'custom_text.dart';
 import 'custom_text_form_filed_widget.dart';
 

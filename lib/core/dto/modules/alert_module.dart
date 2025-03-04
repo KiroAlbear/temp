@@ -1,11 +1,6 @@
-import 'package:deel/core/ui/custom_material_banner.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
-
 import '../../generated/l10n.dart';
-import '../../ui/contactUs/contact_us_bloc.dart';
-import '../../ui/contactUs/contact_us_widget.dart';
-import '../../ui/dialog_widget.dart';
-import 'navigation_module.dart';
 
 class AlertModule {
   // void showMessage(

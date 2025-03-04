@@ -1,12 +1,8 @@
 import 'package:deel/core/ui/product/product_widget.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
-
-import '../../../features/cart/ui/cart_bloc.dart';
-import '../../../features/home/ui/product/empty_favourite_products.dart';
-import '../../../features/home/ui/product/product_category_bloc.dart';
-import '../../dto/models/product/product_mapper.dart';
 
 class ProductListWidget extends StatefulWidget {
   final List<ProductMapper> productList;
