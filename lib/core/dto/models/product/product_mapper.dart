@@ -1,5 +1,6 @@
 
 import 'package:deel/core/dto/models/product/product_response.dart';
+import 'package:flutter/foundation.dart';
 
 import '../my_orders/my_order_item_response.dart';
 
@@ -82,6 +83,11 @@ class ProductMapper {
       name = productResponse.name ?? '';
       id = productResponse.id ?? 0;
       isFavourite = productResponse.isFavourite ?? false;
+
+      if(kDebugMode){
+        hasDiscount = true;
+        productOriginalPrice = 125;
+      }
     }
   }
 

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -64,6 +66,8 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
     super.initState();
   }
 
+  // testing Username -> +96771597531
+  // testing password -> Zainab94@
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(

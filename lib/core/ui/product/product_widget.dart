@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
+import 'package:intl/intl.dart';
 import '../../generated/l10n.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -55,6 +58,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   final ValueNotifier<bool> isAddingToFavSucess = ValueNotifier(true);
   final double buttonWidth = 89.w;
   final double buttonHeight = 25.h;
+  String priceTextToShow = "";
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
 
   @override
@@ -64,6 +68,11 @@ class _ProductWidgetState extends State<ProductWidget> {
     } else {
       qtyValueNotifier.value = widget.productMapper.cartUserQuantity.round();
     }
+
+    double price = widget.isCartProduct ? widget.productMapper.cartFinalUnitPrice??0: widget.productMapper.finalPrice;
+    String FormatedPrice = NumberFormat("#,##0.00").format(price);
+    priceTextToShow =  '$FormatedPrice ${widget.productMapper.currency}';
+
 
     super.initState();
   }
@@ -82,7 +91,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget _getProductWidget() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
           height: 12.h,
@@ -99,11 +108,13 @@ class _ProductWidgetState extends State<ProductWidget> {
         SizedBox(
           height: 4.h,
         ),
-        _priceRow,
-        SizedBox(
+        ImageFiltered(
+            imageFilter:SharedPrefModule().userId==null? ImageFilter.blur(sigmaX: 4, sigmaY: 4):ImageFilter.blur(sigmaX: 0, sigmaY:0),
+            child: _priceRow),
+        widget.productMapper.description.isEmpty?SizedBox(): SizedBox(
           height: 4.h,
         ),
-        _productDescription,
+        widget.productMapper.description.isEmpty?SizedBox():_productDescription,
         SizedBox(
           height: 9.h,
         ),
@@ -120,9 +131,9 @@ class _ProductWidgetState extends State<ProductWidget> {
           },
         ),
 
-        SizedBox(
-          height: 10.h,
-        )
+        // SizedBox(
+        //   height: 10.h,
+        // )
       ],
     );
   }
@@ -306,8 +317,8 @@ class _ProductWidgetState extends State<ProductWidget> {
             : ImageHelper(
                 image: widget.productMapper.image,
                 imageType: ImageType.network,
-                height: 55.h,
-                width: 55.w,
+                height: 70.h,
+                width: 70.w,
               ),
       );
 
@@ -315,6 +326,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: CustomText(
           text: widget.productMapper.name,
+          textAlign: TextAlign.center,
           customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
           maxLines: 2,
         ),
@@ -323,14 +335,16 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _priceRow => Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomText(
-                text:
-                    '${widget.isCartProduct ? widget.productMapper.cartFinalUnitPrice : widget.productMapper.finalPrice.toString()} ${widget.productMapper.currency}',
-                customTextStyle:
-                    MediumStyle(fontSize: 14.sp, color: secondaryColor)),
+            Expanded(
+              flex:widget.isCartProduct? 0:1,
+              child: CustomText(
+                  text: priceTextToShow,
+                  customTextStyle:
+                      MediumStyle(fontSize: 14.sp, color: secondaryColor)),
+            ),
             SizedBox(
               width: 10.w,
             ),
