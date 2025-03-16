@@ -342,11 +342,12 @@ class _ProductWidgetState extends State<ProductWidget> {
               flex:widget.isCartProduct? 0:1,
               child: CustomText(
                   text: priceTextToShow,
+                  textAlign: TextAlign.center,
                   customTextStyle:
                       MediumStyle(fontSize: 14.sp, color: secondaryColor)),
             ),
             SizedBox(
-              width: 10.w,
+              width:widget.productMapper.hasDiscount? 10.w:0,
             ),
             if (widget.productMapper.hasDiscount)
               CustomText(
