@@ -88,7 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseYourCountry": MessageLookupByLibrary.simpleMessage("اختر بلدك"),
         "city": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
-            "هل أنت متأكد أنك تريد الخروج من دُكان؟"),
+            "هل أنت متأكد أنك تريد الخروج من دييل؟"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "ادخل تاكيد كلمة السر الجديدة"),
@@ -280,7 +280,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("سياسة الاستخدام"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "welcomeToDokkan":
-            MessageLookupByLibrary.simpleMessage("مرحباً بك في دُكان"),
+            MessageLookupByLibrary.simpleMessage("مرحباً بك في دييل"),
         "whatsApp": MessageLookupByLibrary.simpleMessage("واتساب"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youCanStartOrderNow":

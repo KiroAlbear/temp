@@ -693,7 +693,7 @@ class S {
   /// `Are you sure you want to exit Dokkan?`
   String get closeApplicationMessage {
     return Intl.message(
-      'Are you sure you want to exit Dokkan?',
+      'Are you sure you want to exit Deel?',
       name: 'closeApplicationMessage',
       desc: '',
       args: [],

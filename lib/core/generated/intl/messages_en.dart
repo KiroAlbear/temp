@@ -92,7 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose your country"),
         "city": MessageLookupByLibrary.simpleMessage("Governorate"),
         "closeApplicationMessage": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to exit Dokkan?"),
+            "Are you sure you want to exit Deel?"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmNewPassword": MessageLookupByLibrary.simpleMessage(
             "Enter to confirm the new password"),
