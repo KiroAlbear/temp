@@ -601,6 +601,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                     index: widget.homeBloc.selectedOfferIndex!,
                     item: widget.homeBloc.selectedOffer!,
                     homeBloc: widget.homeBloc,
+                    isMainPage: false,
                     isClickable: false,
                   ),
                 )

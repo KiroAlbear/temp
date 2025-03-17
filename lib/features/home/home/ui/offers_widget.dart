@@ -32,7 +32,7 @@ class _OffersWidgetState extends State<OffersWidget>
   Widget _buildWidget(List<OfferMapper> list) => list.isEmpty
       ? SizedBox()
       : SizedBox(
-          height: 85.h,
+          height: widget.isMainPage ? 100.h : 95.h,
           child: ListView.separated(
               shrinkWrap: true,
               scrollDirection:

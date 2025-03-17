@@ -37,52 +37,15 @@ class OfferItem extends StatelessWidget {
           }
         },
         child: Container(
-          height: isMainPage ? 100.h : 80.h,
+          height: isMainPage ? null : 85.h,
           width: isMainPage ? double.infinity : 240.w,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.w),
               color: isInProductPage ? productCardColor : Colors.transparent),
-          child: Row(
-            children: [
-              Expanded(
-                child: ImageHelper(
-                  image: item.image,
-                  imageType: ImageType.network,
-                  boxFit: BoxFit.fill,
-                ),
-              ),
-              // Expanded(
-              //   flex: 2,
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       // CustomText(
-              //       //     text: item.name,
-              //       //     customTextStyle:
-              //       //         BoldStyle(fontSize: 16.sp, color: lightBlackColor)),
-              //       if (isForPromoTap) ...[
-              //         Container(
-              //           decoration: BoxDecoration(
-              //               borderRadius: BorderRadius.circular(9.w),
-              //               border: Border.all(color: primaryColor, width: 1.w)),
-              //           padding:
-              //               EdgeInsets.symmetric(vertical: 4.h, horizontal: 16.w),
-              //           child: CustomText(
-              //             text: S.of(context).promoDetails,
-              //             customTextStyle: MediumStyle(
-              //                 color: lightBlackColor, fontSize: 12.sp),
-              //           ),
-              //         ),
-              //       ],
-              //     ],
-              //   ),
-              // ),
-              // CustomText(
-              //     text: item.description,
-              //     customTextStyle:
-              //         MediumStyle(fontSize: 14.sp, color: greyColor), maxLines: 3, softWrap: true,),
-            ],
+          child: ImageHelper(
+            image: item.image,
+            imageType: ImageType.network,
+            boxFit: BoxFit.fill,
           ),
         ),
       ),

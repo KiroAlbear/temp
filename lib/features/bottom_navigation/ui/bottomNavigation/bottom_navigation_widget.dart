@@ -166,8 +166,7 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
       ImageHelper(
         image: svgPath,
         imageType: ImageType.svg,
-        width: 16.w,
-        height: 16.h,
+        scale: 4,
         boxFit: BoxFit.scaleDown,
         color: selectedIndex == tabIndex
             ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor

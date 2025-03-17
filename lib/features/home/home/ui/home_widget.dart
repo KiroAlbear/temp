@@ -91,7 +91,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                     snapshot.data!.response != null) {
                   if (snapshot.data!.response!.isNotEmpty) {
                     return SizedBox(
-                      height: 50.h,
+                      height: 11.h,
                     );
                   } else {
                     return SizedBox();
@@ -105,14 +105,14 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             isMainPage: false,
           ),
           SizedBox(
-            height: 22.h,
+            height: 15.h,
           ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: CustomText(
                   text: S.of(context).browseSections,
                   customTextStyle:
-                      RegularStyle(color: lightBlackColor, fontSize: 26.sp))),
+                      BoldStyle(color: lightBlackColor, fontSize: 23.sp))),
           SizedBox(
             height: 16.h,
           ),

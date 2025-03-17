@@ -31,7 +31,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
 
   Widget _buildWidget(List<CategoryMapper> list) => GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
+          crossAxisCount: 3,
           crossAxisSpacing: 15.w,
           mainAxisExtent: 120.w,
           mainAxisSpacing: 15.h,

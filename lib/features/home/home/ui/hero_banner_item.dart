@@ -11,11 +11,13 @@ class HeroBannerItem extends StatelessWidget {
   final int index;
   final OfferMapper item;
   final bool isClickable;
+  final bool isMainPage;
   const HeroBannerItem(
       {required this.index,
       required this.item,
       required this.homeBloc,
       required this.isClickable,
+      required this.isMainPage,
       super.key});
 
   @override
@@ -32,32 +34,18 @@ class HeroBannerItem extends StatelessWidget {
         }
       },
       child: Container(
-        height: 90.h,
+        height: isMainPage ? null : 95.h,
         width: MediaQuery.of(context).size.width - 40.w,
-        padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 0.w),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
             border: Border.all(width: 1.w, color: _whichBorderColor(index)),
             color: _whichCardColor(index)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Expanded(
-            //   child: CustomText(
-            //       text: item.name,
-            //       customTextStyle:
-            //           BoldStyle(color: lightBlackColor, fontSize: 14.sp)),
-            // ),
-            Expanded(
-                child: ImageHelper(
-              borderRadius: BorderRadius.circular(20.w),
-              image: item.image,
-              imageType: ImageType.network,
-              boxFit: BoxFit.fill,
-            ))
-          ],
-        ),
+        child: ImageHelper(
+                  borderRadius: BorderRadius.circular(20.w),
+                  image: item.image,
+                  imageType: ImageType.network,
+                  boxFit: BoxFit.fill,
+                ),
       ),
     );
   }
