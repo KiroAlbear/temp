@@ -49,8 +49,8 @@ class _OffersWidgetState extends State<OffersWidget>
                   homeBloc: widget.homeBloc,
                   index: index),
               separatorBuilder: (context, index) => SizedBox(
-                    width: widget.isMainPage == false ? 20.w : null,
-                    height: widget.isMainPage == true ? 20.h : null,
+                    width: widget.isMainPage == false ? 12.w : null,
+
                   ),
               itemCount: list.length),
         );

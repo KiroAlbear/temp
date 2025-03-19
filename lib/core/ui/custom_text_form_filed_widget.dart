@@ -52,6 +52,7 @@ class CustomTextFormFiled extends StatefulWidget {
   final Widget? customLabelText;
   final TextAlign textAlign;
   final TextStyle? defaultTextStyle;
+  final TextStyle? hintTextStyle;
   final Color? suffixTextColor;
   final String? suffixText;
   final Stream<TextEditingController> textFiledControllerStream;
@@ -107,6 +108,7 @@ class CustomTextFormFiled extends StatefulWidget {
       this.customLabelText,
       this.textAlign = TextAlign.start,
       this.defaultTextStyle,
+      this.hintTextStyle,
       this.suffixTextColor,
       this.suffixText,
       this.floatingLabelBehavior});
@@ -222,7 +224,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         errorText: widget.errorText,
         enabled: widget.enable,
         counterStyle: _counterTextStyle,
-        hintStyle: _hintTextStyle,
+        hintStyle:widget.hintTextStyle?? _hintTextStyle,
         floatingLabelStyle: _defaultFloatingLabelStyle,
         helperStyle: _counterTextStyle,
         suffixStyle: widget.suffixText != null ? _suffixTextStyle : null,
@@ -236,7 +238,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         label: widget.customLabelText ?? _labelText,
         suffixIcon: widget.isPassword ? _passwordIcon : widget.suffixIcon,
         prefixIcon: widget.prefixIcon,
-        hintText: widget.isLabel ? widget.labelText : null,
+
         border: _getBorder(greyColor),
         disabledBorder: _getBorder(greyColor),
         enabledBorder: _getBorder(greyColor),

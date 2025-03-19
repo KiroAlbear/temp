@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب أن تحتوي على رمز (@#_,)"),
         "basket": MessageLookupByLibrary.simpleMessage("السلة"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("أقوى العروض"),
+        "lastOffers": MessageLookupByLibrary.simpleMessage("آخر العروض"),
         "biometricLoginMessage":
             MessageLookupByLibrary.simpleMessage("يرجى المصادقة لتسجيل الدخول"),
         "browseSections": MessageLookupByLibrary.simpleMessage("تصفح الأقسام"),

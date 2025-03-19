@@ -83,6 +83,16 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
 
           ),
           HeroBannersWidget(homeBloc: widget.homeBloc),
+          SizedBox(
+            height: 15.h,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CustomText(
+                text: S.of(context).lastOffers,
+                customTextStyle:
+                    BoldStyle(color: lightBlackColor, fontSize: 23.sp)),
+          ),
           StreamBuilder<ApiState<List<OfferMapper>>>(
               stream: widget.homeBloc.offersStream,
               builder: (context, snapshot) {

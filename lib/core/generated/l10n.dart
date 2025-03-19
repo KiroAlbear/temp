@@ -770,6 +770,16 @@ class S {
     );
   }
 
+  /// `Best offers`
+  String get lastOffers {
+    return Intl.message(
+      'Last offers',
+      name: 'lastOffers',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Offers`
   String get offersTitle {
     return Intl.message(

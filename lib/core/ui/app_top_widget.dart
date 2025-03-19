@@ -127,19 +127,24 @@ class _AppTopWidgetState extends State<AppTopWidget> {
         top: 72.h,
         left: 17.w,
         right: 17.w,
-        child: CustomTextFormFiled(
-          labelText: S.of(context).searchProduct,
-          textFiledControllerStream:
-              widget.textFiledControllerStream!,
-          onChanged: (value) =>
-              widget.onChanged!(value),
-          textInputType: TextInputType.text,
-          textInputAction: TextInputAction.search,
-          prefixIcon: _searchProductWidget,
-          focusNode: widget.focusNode,
-          suffixIcon: _scanIconWidget,
-          useOnFieldSubmitted: true,
-          onFieldSubmitted: (value) =>widget.doSearch!(),
+        child: SizedBox(
+          height: 50.h,
+          child: CustomTextFormFiled(
+            defaultTextStyle: TextStyle(fontSize: 12.sp, color: blackColor),
+            labelText: S.of(context).searchProduct,
+            textFiledControllerStream:
+                widget.textFiledControllerStream!,
+            onChanged: (value) =>
+                widget.onChanged!(value),
+            customContentPadding: EdgeInsets.only(left: 0.w),
+            textInputType: TextInputType.text,
+            textInputAction: TextInputAction.search,
+            prefixIcon: _searchProductWidget,
+            focusNode: widget.focusNode,
+            suffixIcon: _scanIconWidget,
+            useOnFieldSubmitted: true,
+            onFieldSubmitted: (value) =>widget.doSearch!(),
+          ),
         ),
       );
 

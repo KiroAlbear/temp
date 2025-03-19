@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "At least one special Character"),
         "basket": MessageLookupByLibrary.simpleMessage("Basket"),
         "bestOffers": MessageLookupByLibrary.simpleMessage("Best offers"),
+        "lastOffers": MessageLookupByLibrary.simpleMessage("Last offers"),
         "biometricLoginMessage": MessageLookupByLibrary.simpleMessage(
             "Please authenticate to login"),
         "browseSections":

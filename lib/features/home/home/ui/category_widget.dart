@@ -32,9 +32,9 @@ class _CategoryWidgetState extends State<CategoryWidget>
   Widget _buildWidget(List<CategoryMapper> list) => GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 15.w,
-          mainAxisExtent: 120.w,
-          mainAxisSpacing: 15.h,
+          crossAxisSpacing: 12.w,
+          mainAxisExtent: 150.h,
+          mainAxisSpacing: 10.h,
         ),
         itemBuilder: (context, index) => _buildItem(list[index]),
         itemCount: list.length,
@@ -62,8 +62,8 @@ class _CategoryWidgetState extends State<CategoryWidget>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: 75.h,
-                height: 75.h,
+                width: 112.h,
+                height: 98.h,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6.w),
                     color: greyColor.withOpacity(0.1)),
