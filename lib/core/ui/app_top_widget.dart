@@ -124,7 +124,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   }
 
   Widget get _searchWidget => Positioned(
-        top: 72.h,
+        top: 78.h,
         left: 17.w,
         right: 17.w,
         child: SizedBox(
