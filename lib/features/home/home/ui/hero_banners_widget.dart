@@ -50,62 +50,8 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
               ),
             ),
           ),
-          // list.isNotEmpty
-          //     ? SizedBox(
-          //         height: 50.h,
-          //       )
-          //     : Container()
         ],
       );
-
-  // Widget _buildItem(BuildContext context, int index, OfferMapper item) =>
-  //     Container(
-  //       height: 90.h,
-  //       width: MediaQuery.of(context).size.width - 40.w,
-  //       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
-  //       decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(20.w),
-  //           border: Border.all(width: 1.w, color: _whichBorderColor(index)),
-  //           color: _whichCardColor(index)),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         crossAxisAlignment: CrossAxisAlignment.center,
-  //         children: [
-  //           // Expanded(
-  //           //   child: CustomText(
-  //           //       text: item.name,
-  //           //       customTextStyle:
-  //           //           BoldStyle(color: lightBlackColor, fontSize: 14.sp)),
-  //           // ),
-  //           Expanded(
-  //               child: ImageHelper(
-  //             image: item.image,
-  //             imageType: ImageType.network,
-  //             boxFit: BoxFit.contain,
-  //           ))
-  //         ],
-  //       ),
-  //     );
-  //
-  // Color _whichBorderColor(int index) {
-  //   if (index % 3 == 0) {
-  //     return primaryColor;
-  //   } else if (index % 3 == 1) {
-  //     return greenColor;
-  //   } else {
-  //     return redColor;
-  //   }
-  // }
-  //
-  // Color _whichCardColor(int index) {
-  //   if (index % 3 == 0) {
-  //     return yellowCardColor;
-  //   } else if (index % 3 == 1) {
-  //     return greenCardColor;
-  //   } else {
-  //     return redCardColor;
-  //   }
-  // }
 
   @override
   void dispose() {

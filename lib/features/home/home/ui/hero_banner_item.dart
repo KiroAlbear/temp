@@ -38,8 +38,9 @@ class HeroBannerItem extends StatelessWidget {
         width: MediaQuery.of(context).size.width - 40.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
-            border: Border.all(width: 1.w, color: _whichBorderColor(index)),
-            color: _whichCardColor(index)),
+            // border: Border.all(width: 1.w, color: _whichBorderColor(index)),
+            // color: _whichCardColor(index)),
+            color: Colors.transparent),
         child: ImageHelper(
                   borderRadius: BorderRadius.circular(20.w),
                   image: item.image,

@@ -84,14 +84,14 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
           ),
           HeroBannersWidget(homeBloc: widget.homeBloc),
           SizedBox(
-            height: 15.h,
+            height: 20.h,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: CustomText(
                 text: S.of(context).lastOffers,
                 customTextStyle:
-                    BoldStyle(color: lightBlackColor, fontSize: 23.sp)),
+                    BoldStyle(color: secondaryColor, fontSize: 20.sp)),
           ),
           StreamBuilder<ApiState<List<OfferMapper>>>(
               stream: widget.homeBloc.offersStream,
@@ -115,14 +115,14 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             isMainPage: false,
           ),
           SizedBox(
-            height: 15.h,
+            height: 20.h,
           ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: CustomText(
                   text: S.of(context).browseSections,
                   customTextStyle:
-                      BoldStyle(color: lightBlackColor, fontSize: 23.sp))),
+                      BoldStyle(color: secondaryColor, fontSize: 20.sp))),
           SizedBox(
             height: 16.h,
           ),
