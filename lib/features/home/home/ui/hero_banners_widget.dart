@@ -30,7 +30,7 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
   Widget _loadList(List<OfferMapper> list) => Column(
         children: [
           SizedBox(
-            height: list.isEmpty ? 0 : 185.h,
+            height: list.isEmpty ? 0 : 220.h,
             child: ListView.separated(
               itemBuilder: (context, index) => HeroBannerItem(
                 isMainPage: true,

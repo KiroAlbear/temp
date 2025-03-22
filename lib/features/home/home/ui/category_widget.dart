@@ -83,7 +83,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
                   maxLines: 2,
                   textAlign: TextAlign.center,
                   customTextStyle:
-                      MediumStyle(fontSize: 13.sp, color: secondaryColor))
+                      MediumStyle(fontSize: 13.sp, color: lightBlackColor))
             ],
           ),
         ),

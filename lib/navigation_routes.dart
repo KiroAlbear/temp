@@ -169,7 +169,7 @@ BlocProvider get _homeBlocProvider => BlocProvider(
         cartBloc: _cartBloc,
         homeBloc: _homeBloc,
         notificationIcon: Assets.svg.icNotification,
-        homeLogo: Assets.svg.icHomeLogo,
+        homeLogo: Assets.svg.icHomeLogoText,
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
         supportIcon: Assets.svg.icContactUs,

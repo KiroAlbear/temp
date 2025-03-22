@@ -126,6 +126,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_home_logo.svg
   String get icHomeLogo => 'assets/svg/ic_home_logo.svg';
 
+  /// File path: assets/svg/ic_home_logo_text.svg
+  String get icHomeLogoText => 'assets/svg/ic_home_logo_text.svg';
+
   /// File path: assets/svg/ic_items.svg
   String get icItems => 'assets/svg/ic_items.svg';
 
@@ -272,6 +275,7 @@ class $AssetsSvgGen {
         icHealthCheck,
         icHome,
         icHomeLogo,
+        icHomeLogoText,
         icItems,
         icLauncher,
         icLocation,
