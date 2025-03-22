@@ -37,7 +37,7 @@ class OfferItem extends StatelessWidget {
           }
         },
         child: Container(
-          height: isMainPage ? null : 85.h,
+          height: isMainPage ? 160.h : 100.h,
           width: isMainPage ? double.infinity : 240.w,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.w),
