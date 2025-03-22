@@ -181,7 +181,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
       bloc: _moreBloc,
       child: MoreWidget(
         accountSettingIcon: Assets.svg.icPerson,
-        appLogo: Assets.svg.icHomeLogo,
+        appLogo: Assets.svg.icHomeLogoText,
         favouriteIcon: Assets.svg.icFavourite,
         myOrdersIcon: Assets.svg.icMyOrders,
         moreBloc: _moreBloc,
@@ -227,7 +227,7 @@ BlocProvider _productCategoryWidget() {
         favouriteIcon: Assets.svg.icFavourite,
         homeBloc: _homeBloc,
         contactUsBloc: _contactUsBloc,
-        homeLogo: Assets.svg.icHomeLogo,
+        homeLogo: Assets.svg.icHomeLogoText,
         notificationIcon: Assets.svg.icNotification,
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,

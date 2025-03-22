@@ -150,7 +150,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         widget.homeBloc.selectedOffer != null);
   }
 
-  final double topPadding = 110.h;
+  final double topPadding = 90.h;
   @override
   Widget getBody(BuildContext context) => Stack(
         alignment: Alignment.topCenter,

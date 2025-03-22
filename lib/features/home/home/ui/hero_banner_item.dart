@@ -33,23 +33,32 @@ class HeroBannerItem extends StatelessWidget {
               .pushNamed(AppScreenEnum.product.name);
         }
       },
-      child: Container(
-        height: isMainPage ? null : 95.h,
-        width: MediaQuery.of(context).size.width - 40.w,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.w),
-            // border: Border.all(width: 1.w, color: _whichBorderColor(index)),
-            // color: _whichCardColor(index)),
-            color: Colors.transparent),
-        child: ImageHelper(
-                  borderRadius: BorderRadius.circular(20.w),
-                  image: item.image,
-                  imageType: ImageType.network,
-                  boxFit: BoxFit.fill,
-                ),
+      child:  isMainPage ? _buildItem(context) : SizedBox(
+        height: 120,
+        child: AspectRatio(
+            aspectRatio:  16/9,
+            child: _buildItem(context)),
       ),
     );
   }
+
+  Container _buildItem(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width - 40.w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.w),
+          // border: Border.all(width: 1.w, color: _whichBorderColor(index)),
+          // color: _whichCardColor(index)),
+          color: Colors.transparent),
+      child: ImageHelper(
+                borderRadius: BorderRadius.circular(20.w),
+                image: item.image,
+                imageType: ImageType.network,
+                boxFit: BoxFit.fill,
+              ),
+    );
+  }
+
 
   Color _whichBorderColor(int index) {
     if (index % 3 == 0) {

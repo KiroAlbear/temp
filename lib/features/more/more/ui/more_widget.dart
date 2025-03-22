@@ -382,9 +382,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   }
 
   Widget get _logoWidget => Container(
-        alignment: Alignment.center,
+        alignment: Alignment.centerRight,
         width: 150.w,
         height: 65.h,
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: ImageHelper(
           image: widget.appLogo,
           imageType: ImageType.svg,

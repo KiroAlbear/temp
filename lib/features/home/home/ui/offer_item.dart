@@ -36,19 +36,28 @@ class OfferItem extends StatelessWidget {
                 .pushNamed(AppScreenEnum.product.name);
           }
         },
-        child: Container(
-          height: isMainPage ? 160.h : 100.h,
-          width: isMainPage ? double.infinity : 240.w,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.w),
-              color: isInProductPage ? productCardColor : Colors.transparent),
-          child: ImageHelper(
-            image: item.image,
-            imageType: ImageType.network,
-            boxFit: BoxFit.fill,
-          ),
+        child:isMainPage ? _buildItem() : SizedBox(
+            height: 110,
+            child: AspectRatio(
+              aspectRatio: 16/8,
+              child: _buildItem()),
         ),
       ),
     );
+  }
+
+  Container _buildItem() {
+    return Container(
+        height:  160.h,
+        width:  double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.w),
+            color: isInProductPage ? productCardColor : Colors.transparent),
+        child: ImageHelper(
+          image: item.image,
+          imageType: ImageType.network,
+          boxFit: BoxFit.fill,
+        ),
+      );
   }
 }
