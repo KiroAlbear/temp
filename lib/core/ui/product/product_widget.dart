@@ -332,7 +332,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           text: widget.productMapper.name,
           textAlign: TextAlign.center,
           customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-          maxLines: 2,
+          maxLines: 1,
         ),
       );
 
