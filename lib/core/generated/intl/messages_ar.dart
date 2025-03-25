@@ -116,7 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterConfirmPassword":
             MessageLookupByLibrary.simpleMessage("ادخل تاكيد كلمة السر"),
         "enterFullName":
-            MessageLookupByLibrary.simpleMessage("ادخل اسمك بالكامل"),
+            MessageLookupByLibrary.simpleMessage("ادخل الأسم ثلاثي"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك"),
         "enterNeighborhood":
@@ -139,7 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "favourites": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة السر؟"),
-        "fullName": MessageLookupByLibrary.simpleMessage("الاسم بالكامل"),
+        "fullName": MessageLookupByLibrary.simpleMessage("اسم صاحب المنشأة ثلاثي"),
         "gallery": MessageLookupByLibrary.simpleMessage("معرض الصور"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "خطأ عام.\nيرجى المحاولة مرة أخرى في وقت لاحق!"),
@@ -232,7 +232,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "promoDetails": MessageLookupByLibrary.simpleMessage("تفاصيل العرض"),
         "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
-            "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
+            "اضغط التالي لرمز التفعيل"),
         "registerNewAccount":
             MessageLookupByLibrary.simpleMessage("تسجيل حساب جديد"),
         "registerNow": MessageLookupByLibrary.simpleMessage("انشئ حساب جديد"),
