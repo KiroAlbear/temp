@@ -87,9 +87,9 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
         child: useCustomScaffold
             ? _defaultBody
             : Scaffold(
-                floatingActionButton: customFloatActionButton(),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.startFloat,
+                // floatingActionButton: customFloatActionButton(),
+                // floatingActionButtonLocation:
+                //     FloatingActionButtonLocation.startFloat,
                 bottomNavigationBar: customBottomNavBar(),
                 resizeToAvoidBottomInset: true,
                 extendBodyBehindAppBar: true,

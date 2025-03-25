@@ -96,11 +96,15 @@ class _ProductWidgetState extends State<ProductWidget> {
         SizedBox(
           height: 12.h,
         ),
-        _favouriteAndDiscountRow,
-        SizedBox(
-          height: 4.h,
+        Stack(
+          children: [
+            _favouriteAndDiscountRow,
+            SizedBox(
+              height: 4.h,
+            ),
+            _productImage,
+          ],
         ),
-        _productImage,
         SizedBox(
           height: 5.h,
         ),
@@ -317,8 +321,8 @@ class _ProductWidgetState extends State<ProductWidget> {
             : ImageHelper(
                 image: widget.productMapper.image,
                 imageType: ImageType.network,
-                height: 70.h,
-                width: 70.w,
+                height: 90.h,
+                width: 90.w,
               ),
       );
 
