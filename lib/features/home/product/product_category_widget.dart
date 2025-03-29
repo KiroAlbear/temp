@@ -408,7 +408,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                             padding: const EdgeInsets.all(15.0),
                             child: OfferItem(
                                                     isInProductPage: true,
-                                                    isMainPage: false,
+                                                    isMainPage: true,
                                                     index: widget.homeBloc.selectedOfferIndex!,
                                                     item: widget.homeBloc.selectedOffer!,
                                                     homeBloc: widget.homeBloc,
