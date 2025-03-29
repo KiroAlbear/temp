@@ -1150,6 +1150,16 @@ class S {
     );
   }
 
+  /// `Promo items`
+  String get promoItems {
+    return Intl.message(
+      'Offer Items',
+      name: 'promoItems',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter the new password`
   String get newPassword {
     return Intl.message(

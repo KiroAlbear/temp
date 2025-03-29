@@ -237,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "products": MessageLookupByLibrary.simpleMessage("Products"),
         "productsFilterAll": MessageLookupByLibrary.simpleMessage("All"),
         "promoDetails": MessageLookupByLibrary.simpleMessage("Promo details"),
+        "promoItems": MessageLookupByLibrary.simpleMessage("Offer Items"),
         "promotion": MessageLookupByLibrary.simpleMessage("Promotion"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "Once you press on next you will receive message to activate your account"),

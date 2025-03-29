@@ -230,6 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
         "productsFilterAll": MessageLookupByLibrary.simpleMessage("الكل"),
         "promoDetails": MessageLookupByLibrary.simpleMessage("تفاصيل العرض"),
+        "promoItems": MessageLookupByLibrary.simpleMessage("منتجات العرض"),
         "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
             "اضغط التالي لرمز التفعيل"),

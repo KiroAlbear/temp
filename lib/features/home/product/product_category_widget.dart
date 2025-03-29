@@ -151,37 +151,15 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   }
 
   final double topPadding = 90.h;
+
+  bool isBannersOrOffersExist(){
+    return  (widget.homeBloc.isBanner == true &&
+        widget.homeBloc.selectedOffer != null) || (widget.homeBloc.isBanner == false &&
+        widget.homeBloc.selectedOffer != null);
+  }
   @override
   Widget getBody(BuildContext context) => Column(
         children: [
-          (widget.homeBloc.isBanner == true &&
-                  widget.homeBloc.selectedOffer != null)
-              ? Padding(
-                  padding: EdgeInsets.only(top: topPadding),
-                  child: HeroBannerItem(
-                    index: widget.homeBloc.selectedOfferIndex!,
-                    item: widget.homeBloc.selectedOffer!,
-                    homeBloc: widget.homeBloc,
-                    isMainPage: false,
-                    isClickable: false,
-                  ),
-                )
-              : SizedBox(),
-          (widget.homeBloc.isBanner == false &&
-                  widget.homeBloc.selectedOffer != null)
-              ? Padding(
-                  padding: EdgeInsets.only(top: topPadding),
-                  child: OfferItem(
-                    isInProductPage: true,
-                    isMainPage: false,
-                    index: widget.homeBloc.selectedOfferIndex!,
-                    item: widget.homeBloc.selectedOffer!,
-                    homeBloc: widget.homeBloc,
-                    isClickable: false,
-                  ),
-                )
-              : SizedBox(),
-
           AppTopWidget(
             notificationIcon: widget.notificationIcon,
             homeLogo: widget.homeLogo,
@@ -209,213 +187,248 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                 ? true
                 : false,
           ),
-          Expanded(
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    widget.homeBloc.selectedOffer == null
-                        ? SizedBox()
-                        : SizedBox(
-                      height: 50.h,
-                    ),
-                    (isFavouriteOrSearchOrCategory() ||
-                        widget.homeBloc.selectedOffer != null)
-                        ? SizedBox()
-                        : StreamBuilder<ApiState<List<CategoryMapper>>>(
-                      stream: widget.productCategoryBloc
-                          .subCategoryByCategoryStream,
-                      builder: (context, snapshot) {
-                        return !snapshot.hasData
-                            ? Container()
-                            : SizedBox(
-                          height: 40.h,
-                          child: ValueListenableBuilder<int>(
-                            valueListenable:
-                            widget.selectedCategoryIndex,
-                            builder: (context, value, child) {
-                              return !snapshot.hasData
-                                  ? Container()
-                                  : Row(
-                                children: [
-                                  Expanded(
-                                    child: ListView
-                                        .separated(
-                                      separatorBuilder:
-                                          (context,
-                                          index) =>
-                                          SizedBox(
-                                              width: 8
-                                                  .w),
-                                      scrollDirection:
-                                      Axis.horizontal,
-                                      shrinkWrap: true,
-                                      itemCount: snapshot
-                                          .data!
-                                          .response!
-                                          .length,
-                                      itemBuilder:
-                                          (context,
-                                          index) {
-                                        return FilterItemWidget(
-                                            title: snapshot
-                                                .data!
-                                                .response![
-                                            index]
-                                                .name ==
-                                                ProductCategoryWidget
-                                                    .filterAllText
-                                                ? S
-                                                .of(
-                                                context)
-                                                .productsFilterAll
-                                                : snapshot
-                                                .data!
-                                                .response![
-                                            index]
-                                                .name,
-                                            textColor: darkSecondaryColor,
-                                            withBorders: false,
-                                            isSelected:
-                                            index ==
-                                                value,
-                                            onTap: () {
-                                              widget.selectedCategoryIndex
-                                                  .value =
-                                                  index;
-                                              widget.productCategoryBloc
-                                                  .subcategoryId =
-                                                  snapshot
-                                                      .data!
-                                                      .response![index]
-                                                      .id;
-                                              widget
-                                                  .productCategoryBloc
-                                                  .reset();
-                                              widget.productCategoryBloc.getBrandBy(widget
-                                                  .productCategoryBloc
-                                                  .subcategoryId ??
-                                                  widget
-                                                      .productCategoryBloc
-                                                      .categoryId);
-                                              widget
-                                                  .selectedBrandIndex
-                                                  .value = 0;
-                                            },
-                                            // imageUrl:
-                                            imageUrl:index==0?null: snapshot
-                                                .data!
-                                                .response![
-                                            index]
-                                                .image);
-                                        // "https://lh3.googleusercontent.com/86arOE_jc_FYR6_mPbeXrzWB4LwvgCRWPGXbbftgG4_zAjY05ajbmq3xiG0Xc_uYCoTccikGvLdo5WIlofH5pmySn1VRejqngh2pwDLquiLJYayCOJKUrZKFnOwmSxKzQqqOM1y5o42TPk6LYR1vbPjrEPx3dQIUEwS4IPRjzt3JdPZT32TkqCECm-PoQtsBAPnyN6g46PbiyD9fblgzuBcT2xuO1AaZgOkR53bom8ATCBkDgcYT_mnsxWuxLGp6cNFUR4lWBFKyYkYJWJY--KmIVCWDDoJ3SxwjimGjwRG-X2Qu3AP4wa6tRazHuBo3a8IOofm6f5arSRdpVy4AaXoacTPz8TSkcofA0YaIttHpek1Gi5v1yMSbi5mHV6Mfv4lyczXPp8c5iNR7IFPvgMz1BiCETTxNwSvDjb2JCN94_256Fzejrs-Dk-kMYeCCYQh2Zd_lt9xiEQDgZ5gufdpxxM9xDiP447vrOqKbBMcAS_6hu43EwRi97ILAhBpS3QLP-4WhKf4GHauWqML_EcBvhszB-6T1iGeCWvpAT9jZVDVgekalBvLZiZNoy5Ow9QlnHA=w1827-h711-no-tmp.jpg");
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              );
+          isBannersOrOffersExist()?SizedBox():SizedBox(height:10.h),
+          (isFavouriteOrSearchOrCategory() ||
+              widget.homeBloc.selectedOffer != null)
+              ? SizedBox()
+              : StreamBuilder<ApiState<List<CategoryMapper>>>(
+            stream: widget.productCategoryBloc
+                .subCategoryByCategoryStream,
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? Container()
+                  : SizedBox(
+                height: 40.h,
+                child: ValueListenableBuilder<int>(
+                  valueListenable:
+                  widget.selectedCategoryIndex,
+                  builder: (context, value, child) {
+                    return !snapshot.hasData
+                        ? Container()
+                        : Row(
+                      children: [
+                        Expanded(
+                          child: ListView
+                              .separated(
+                            separatorBuilder:
+                                (context,
+                                index) =>
+                                SizedBox(
+                                    width: 8
+                                        .w),
+                            scrollDirection:
+                            Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: snapshot
+                                .data!
+                                .response!
+                                .length,
+                            itemBuilder:
+                                (context,
+                                index) {
+                              return FilterItemWidget(
+                                  title: snapshot
+                                      .data!
+                                      .response![
+                                  index]
+                                      .name ==
+                                      ProductCategoryWidget
+                                          .filterAllText
+                                      ? S
+                                      .of(
+                                      context)
+                                      .productsFilterAll
+                                      : snapshot
+                                      .data!
+                                      .response![
+                                  index]
+                                      .name,
+                                  textColor: darkSecondaryColor,
+                                  withBorders: false,
+                                  isSelected:
+                                  index ==
+                                      value,
+                                  onTap: () {
+                                    widget.selectedCategoryIndex
+                                        .value =
+                                        index;
+                                    widget.productCategoryBloc
+                                        .subcategoryId =
+                                        snapshot
+                                            .data!
+                                            .response![index]
+                                            .id;
+                                    widget
+                                        .productCategoryBloc
+                                        .reset();
+                                    widget.productCategoryBloc.getBrandBy(widget
+                                        .productCategoryBloc
+                                        .subcategoryId ??
+                                        widget
+                                            .productCategoryBloc
+                                            .categoryId);
+                                    widget
+                                        .selectedBrandIndex
+                                        .value = 0;
+                                  },
+                                  // imageUrl:
+                                  imageUrl:index==0?null: snapshot
+                                      .data!
+                                      .response![
+                                  index]
+                                      .image);
+                              // "https://lh3.googleusercontent.com/86arOE_jc_FYR6_mPbeXrzWB4LwvgCRWPGXbbftgG4_zAjY05ajbmq3xiG0Xc_uYCoTccikGvLdo5WIlofH5pmySn1VRejqngh2pwDLquiLJYayCOJKUrZKFnOwmSxKzQqqOM1y5o42TPk6LYR1vbPjrEPx3dQIUEwS4IPRjzt3JdPZT32TkqCECm-PoQtsBAPnyN6g46PbiyD9fblgzuBcT2xuO1AaZgOkR53bom8ATCBkDgcYT_mnsxWuxLGp6cNFUR4lWBFKyYkYJWJY--KmIVCWDDoJ3SxwjimGjwRG-X2Qu3AP4wa6tRazHuBo3a8IOofm6f5arSRdpVy4AaXoacTPz8TSkcofA0YaIttHpek1Gi5v1yMSbi5mHV6Mfv4lyczXPp8c5iNR7IFPvgMz1BiCETTxNwSvDjb2JCN94_256Fzejrs-Dk-kMYeCCYQh2Zd_lt9xiEQDgZ5gufdpxxM9xDiP447vrOqKbBMcAS_6hu43EwRi97ILAhBpS3QLP-4WhKf4GHauWqML_EcBvhszB-6T1iGeCWvpAT9jZVDVgekalBvLZiZNoy5Ow9QlnHA=w1827-h711-no-tmp.jpg");
                             },
                           ),
-                        );
-                      },
-                    ),
-                    (isFavouriteOrSearchOrCategory() ||
-                        widget.homeBloc.selectedOffer != null)
-                        ? SizedBox()
-                        : SizedBox(
-                      height: 14.h,
-                    ),
-                    (isFavouriteOrSearchOrCategory() ||
-                        widget.homeBloc.selectedOffer != null)
-                        ? SizedBox()
-                        : StreamBuilder<ApiState<List<BrandMapper>>>(
-                      stream: widget.productCategoryBloc
-                          .brandBySubcategoryStream,
-                      builder: (context, snapshot) {
-                        return !snapshot.hasData
-                            ? Container()
-                            : SizedBox(
-                          height: 30.h,
-                          child: ValueListenableBuilder<int>(
-                            valueListenable:
-                            widget.selectedBrandIndex,
-                            builder: (context, value, child) {
-                              return Row(
-                                children: [
-                                  Expanded(
-                                    child: ListView.separated(
-                                      separatorBuilder:
-                                          (context, index) =>
-                                          SizedBox(
-                                              width: 8.w),
-                                      scrollDirection:
-                                      Axis.horizontal,
-                                      shrinkWrap: true,
-                                      itemCount: snapshot
-                                          .data
-                                          ?.response
-                                          ?.length ??
-                                          0,
-                                      itemBuilder:
-                                          (context, index) {
-                                        return FilterItemWidget(
-                                            title: snapshot
-                                                .data!
-                                                .response![
-                                            index]
-                                                .name ==
-                                                ProductCategoryWidget
-                                                    .filterAllText
-                                                ? S
-                                                .of(context)
-                                                .productsFilterAll
-                                                : snapshot
-                                                .data!
-                                                .response![
-                                            index]
-                                                .name,
-                                            withBorders: true,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+          (isFavouriteOrSearchOrCategory() ||
+              widget.homeBloc.selectedOffer != null)
+              ? SizedBox()
+              : SizedBox(
+            height: 14.h,
+          ),
+          (isFavouriteOrSearchOrCategory() ||
+              widget.homeBloc.selectedOffer != null)
+              ? SizedBox()
+              : StreamBuilder<ApiState<List<BrandMapper>>>(
+            stream: widget.productCategoryBloc
+                .brandBySubcategoryStream,
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? Container()
+                  : SizedBox(
+                height: 30.h,
+                child: ValueListenableBuilder<int>(
+                  valueListenable:
+                  widget.selectedBrandIndex,
+                  builder: (context, value, child) {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: ListView.separated(
+                            separatorBuilder:
+                                (context, index) =>
+                                SizedBox(
+                                    width: 8.w),
+                            scrollDirection:
+                            Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: snapshot
+                                .data
+                                ?.response
+                                ?.length ??
+                                0,
+                            itemBuilder:
+                                (context, index) {
+                              return FilterItemWidget(
+                                  title: snapshot
+                                      .data!
+                                      .response![
+                                  index]
+                                      .name ==
+                                      ProductCategoryWidget
+                                          .filterAllText
+                                      ? S
+                                      .of(context)
+                                      .productsFilterAll
+                                      : snapshot
+                                      .data!
+                                      .response![
+                                  index]
+                                      .name,
+                                  withBorders: true,
 
-                                            isSelected:
-                                            index == value,
-                                            onTap: () {
-                                              widget
-                                                  .selectedBrandIndex
-                                                  .value = index;
-                                              widget.productCategoryBloc
-                                                  .brandId =
-                                                  snapshot
-                                                      .data!
-                                                      .response![
-                                                  index]
-                                                      .id;
-                                              widget
-                                                  .productCategoryBloc
-                                                  .reset();
-                                              _loadProducts(
-                                                  true, null);
-                                            });
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              );
+                                  isSelected:
+                                  index == value,
+                                  onTap: () {
+                                    widget
+                                        .selectedBrandIndex
+                                        .value = index;
+                                    widget.productCategoryBloc
+                                        .brandId =
+                                        snapshot
+                                            .data!
+                                            .response![
+                                        index]
+                                            .id;
+                                    widget
+                                        .productCategoryBloc
+                                        .reset();
+                                    _loadProducts(
+                                        true, null);
+                                  });
                             },
                           ),
-                        );
-                      },
-                    ),
-                    (isFavouriteOrSearchOrCategory() ||
-                        widget.homeBloc.selectedOffer != null)
-                        ? SizedBox()
-                        : SizedBox(
-                      height: 10.h,
-                    ),
-                    Expanded(
-                      child: Padding(
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+          (isFavouriteOrSearchOrCategory() ||
+              widget.homeBloc.selectedOffer != null)
+              ? SizedBox()
+              : SizedBox(
+            height: 10.h,
+          ),
+          isBannersOrOffersExist()?SizedBox():SizedBox(height:10.h),
+
+          Expanded(
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      (widget.homeBloc.isBanner == true &&
+                          widget.homeBloc.selectedOffer != null)
+                          ? Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: HeroBannerItem(
+                                                    index: widget.homeBloc.selectedOfferIndex!,
+                                                    item: widget.homeBloc.selectedOffer!,
+                                                    homeBloc: widget.homeBloc,
+                                                    isMainPage: true,
+                                                    isClickable: false,
+                                                  ),
+                          ) : SizedBox(),
+
+                      (widget.homeBloc.isBanner == false &&
+                          widget.homeBloc.selectedOffer != null)
+                          ? Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: OfferItem(
+                                                    isInProductPage: true,
+                                                    isMainPage: false,
+                                                    index: widget.homeBloc.selectedOfferIndex!,
+                                                    item: widget.homeBloc.selectedOffer!,
+                                                    homeBloc: widget.homeBloc,
+                                                    isClickable: false,
+                                                  ),
+                          ) : SizedBox(),
+                      // SizedBox(
+                      //   height: 10.h,
+                      // ),
+                      isBannersOrOffersExist() ?Padding(
+                        padding: EdgeInsetsDirectional.only(start: 15,top: 5),
+                        child: CustomText(
+                          text:  S.of(context).promoItems,
+                          textAlign: TextAlign.start,
+                          customTextStyle: BoldStyle(
+                              color: darkSecondaryColor, fontSize: 18.sp),
+                        ),
+                      ):SizedBox(),
+
+                      Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.w, vertical: 18.h),
                         child: StreamBuilder<ApiState<List<ProductMapper>>>(
@@ -598,21 +611,21 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                           },
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                ValueListenableBuilder(
-                  valueListenable: widget.showOverlayLoading,
-                  builder: (context, value, child) {
-                    // widget.isLoadingWidgetBuilt = true;
-                    return !value
-                        ? SizedBox()
-                        : Container(
-                      color: Colors.black.withOpacity(0.3),
-                    );
-                  },
-                ),
-              ],
+                    ],
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: widget.showOverlayLoading,
+                    builder: (context, value, child) {
+                      // widget.isLoadingWidgetBuilt = true;
+                      return !value
+                          ? SizedBox()
+                          : Container(
+                        color: Colors.black.withOpacity(0.3),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           )
 

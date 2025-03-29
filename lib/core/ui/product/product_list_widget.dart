@@ -95,6 +95,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
               );
             } else {
               return GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 11.w,
