@@ -70,18 +70,18 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
       return _buildPageRoute(RegisterWidget(
-        logo: Assets.svg.icLogoH,
+        logo: Assets.svg.logoYellow,
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.forgetPassword:
       return _buildPageRoute(ForgotPasswordWidget(
         forgetPasswordBloc: _forgetPasswordBloc,
-        logo: Assets.svg.icLogoH,
+        logo: Assets.svg.logoYellow,
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.otp:
       return _buildPageRoute(OtpWidget(
-        logo: Assets.svg.icLogoH,
+        logo: Assets.svg.logoYellow,
         authenticationSharedBloc: _authSharedBloc,
       ));
     case AppScreenEnum.newAccount:
@@ -91,7 +91,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.successRegister:
       return _buildPageRoute(SuccessRegisterWidget(
           bottomNavigationBloc: _bottomNavigationBloc,
-          logo: Assets.svg.icLogoH,
+          logo: Assets.svg.logoYellow,
           successRegister: Assets.svg.icSuccessRegister));
     case AppScreenEnum.product:
       return _buildPageRoute(_productCategoryWidget());
@@ -127,14 +127,14 @@ Widget get _faqWidget => FaqWidget(
     backIcon: Assets.svg.icBack, arrowDown: Assets.svg.icArrowDown);
 
 Widget get _loginWidget => LoginWidget(
-      logo: Assets.svg.icLogoH,
+      logo: Assets.svg.logoYellow,
       biometricImage: Assets.svg.icBiometric,
       enableSkip: true,
       bottomNavigationBloc: _bottomNavigationBloc,
     );
 
 Widget get _loginWidgetWithoutSkip => LoginWidget(
-      logo: Assets.svg.icLogoH,
+      logo: Assets.svg.logoYellow,
       biometricImage: Assets.svg.icBiometric,
       enableSkip: false,
       bottomNavigationBloc: null,
@@ -169,7 +169,7 @@ BlocProvider get _homeBlocProvider => BlocProvider(
         cartBloc: _cartBloc,
         homeBloc: _homeBloc,
         notificationIcon: Assets.svg.icNotification,
-        homeLogo: Assets.svg.icHomeLogoText,
+        homeLogo: Assets.svg.logoText,
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
         supportIcon: Assets.svg.icContactUs,
@@ -181,7 +181,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
       bloc: _moreBloc,
       child: MoreWidget(
         accountSettingIcon: Assets.svg.icPerson,
-        appLogo: Assets.svg.icHomeLogoText,
+        appLogo: Assets.svg.logoText,
         favouriteIcon: Assets.svg.icFavourite,
         myOrdersIcon: Assets.svg.icMyOrders,
         moreBloc: _moreBloc,
@@ -227,7 +227,7 @@ BlocProvider _productCategoryWidget() {
         favouriteIcon: Assets.svg.icFavourite,
         homeBloc: _homeBloc,
         contactUsBloc: _contactUsBloc,
-        homeLogo: Assets.svg.icHomeLogoText,
+        homeLogo: Assets.svg.logoText,
         notificationIcon: Assets.svg.icNotification,
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
@@ -261,7 +261,7 @@ ContactUsBloc get _contactUsBloc => ContactUsBloc(
     whatsAppIcon: Assets.svg.icWhatsApp);
 
 Widget get _newAccountWidget => NewAccountWidget(
-      logo: Assets.svg.icLogoH,
+      logo: Assets.svg.logoYellow,
       mobileNumber: _authSharedBloc.mobile,
       countryCode: _authSharedBloc.countryMapper.description,
       countryId: int.parse(_authSharedBloc.countryMapper.id),

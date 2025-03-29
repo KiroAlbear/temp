@@ -258,6 +258,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                                               index]
                                                                           .name,
                                                                   textColor: darkSecondaryColor,
+                                                                  withBorders: false,
                                                                   isSelected:
                                                                       index ==
                                                                           value,
@@ -305,7 +306,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                 widget.homeBloc.selectedOffer != null)
                             ? SizedBox()
                             : SizedBox(
-                                height: 10.h,
+                                height: 14.h,
                               ),
                         (isFavouriteOrSearchOrCategory() ||
                                 widget.homeBloc.selectedOffer != null)
@@ -317,7 +318,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                   return !snapshot.hasData
                                       ? Container()
                                       : SizedBox(
-                                          height: 40.h,
+                                          height: 30.h,
                                           child: ValueListenableBuilder<int>(
                                             valueListenable:
                                                 widget.selectedBrandIndex,
@@ -356,6 +357,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                                     .response![
                                                                         index]
                                                                     .name,
+                                                            withBorders: true,
 
                                                             isSelected:
                                                                 index == value,

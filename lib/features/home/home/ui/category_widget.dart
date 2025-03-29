@@ -56,7 +56,6 @@ class _CategoryWidgetState extends State<CategoryWidget>
               ?.pushNamed(AppScreenEnum.product.name);
         },
         child: Container(
-          // color: Colors.red,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,7 +66,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6.w),
-                    color: greyColor.withOpacity(0.1)),
+                    color: productCardColor),
                 child: ImageHelper(
                   image: item.image,
                   imageType: ImageType.network,

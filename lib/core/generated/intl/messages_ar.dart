@@ -65,7 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الحد الأدنى للطلب !"),
         "cartMinimumProductsReached": MessageLookupByLibrary.simpleMessage(
             "أقل كميه يمكنك اضافتها لهذ المنتج هي"),
-        "cartOrderNow": MessageLookupByLibrary.simpleMessage("أطلب دلوقتي"),
+        "cartOrderNow": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
         "cartOrderOrderDetails":
             MessageLookupByLibrary.simpleMessage("تفاصيل طلبك"),
         "cartPaymentOptions":

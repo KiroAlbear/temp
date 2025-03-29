@@ -102,11 +102,37 @@ class _CartScreenState extends BaseState<CartScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StreamBuilder(
+                  stream: widget.cartBloc.cartTotalBehaviour.stream,
+                  builder: (context, snapshot) {
+                    return CustomText(
+                        text: snapshot.data ?? '',
+                        textAlign: TextAlign.start,
+                        customTextStyle: BoldStyle(
+                            color: darkSecondaryColor, fontSize: 14.sp));
+                  },
+                ),
+                StreamBuilder(
+                  stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
+                  builder: (context, snapshot) {
+                    return CustomText(
+                        text: snapshot.data ?? '',
+                        textAlign: TextAlign.start,
+                        customTextStyle:
+                        RegularStyle(color: lightBlackColor, fontSize: 14.sp));
+                  },
+                ),
+              ],
+            ),
             CustomButtonWidget(
-                width: 150,
-                height: 35,
+                width: 200.w,
+                height: 48.h,
+                borderRadius: 8,
                 idleText: S.of(context).cartOrderNow,
-                textStyle: MediumStyle(color: lightBlackColor, fontSize: 20.sp)
+                textStyle: MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)
                     .getStyle(),
                 onTap: () async {
                   if (widget.cartBloc.totalSum <=
@@ -145,31 +171,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                         });
                   }
                 }),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                StreamBuilder(
-                  stream: widget.cartBloc.cartTotalBehaviour.stream,
-                  builder: (context, snapshot) {
-                    return CustomText(
-                        text: snapshot.data ?? '',
-                        textAlign: TextAlign.start,
-                        customTextStyle: RegularStyle(
-                            color: lightBlackColor, fontSize: 14.sp));
-                  },
-                ),
-                StreamBuilder(
-                  stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
-                  builder: (context, snapshot) {
-                    return CustomText(
-                        text: snapshot.data ?? '',
-                        textAlign: TextAlign.start,
-                        customTextStyle:
-                            RegularStyle(color: greyColor, fontSize: 14.sp));
-                  },
-                ),
-              ],
-            )
+
           ],
         ),
       ),
@@ -294,7 +296,7 @@ class _CartScreenState extends BaseState<CartScreen> {
           CustomText(
               text: S.of(context).cartProductDetails,
               customTextStyle:
-                  MediumStyle(color: darkSecondaryColor, fontSize: 26.sp)),
+                  BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
           10.verticalSpace,
           StreamBuilder(
             stream: widget.cartBloc.cartMinimumOrderBehaviour.stream,
@@ -308,12 +310,24 @@ class _CartScreenState extends BaseState<CartScreen> {
                       ),
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 5.h),
-                        child: CustomText(
-                          text:
-                              "${S.of(context).cartMinimumOrder} ${snapshot.data.toString()} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
-                          textAlign: TextAlign.center,
-                          customTextStyle:
-                              MediumStyle(color: whiteColor, fontSize: 14.sp),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomText(
+                              text:
+                              "${S.of(context).cartMinimumOrder} ",
+                              textAlign: TextAlign.center,
+                              customTextStyle:
+                              RegularStyle(color: whiteColor, fontSize: 12.sp),
+                            ),
+                            CustomText(
+                              text:
+                                  "${snapshot.data.toString()} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
+                              textAlign: TextAlign.center,
+                              customTextStyle:
+                                  BoldStyle(color: whiteColor, fontSize: 12.sp),
+                            ),
+                          ],
                         ),
                       ),
                     )

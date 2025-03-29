@@ -123,11 +123,11 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_home.svg
   String get icHome => 'assets/svg/ic_home.svg';
 
-  /// File path: assets/svg/ic_home_logo.svg
-  String get icHomeLogo => 'assets/svg/ic_home_logo.svg';
+  /// File path: assets/svg/logo_yellow.svg
+  String get logoYellow => 'assets/svg/logo_yellow.svg';
 
-  /// File path: assets/svg/ic_home_logo_text.svg
-  String get icHomeLogoText => 'assets/svg/ic_home_logo_text.svg';
+  /// File path: assets/svg/logo_text.svg
+  String get logoText => 'assets/svg/logo_text.svg';
 
   /// File path: assets/svg/ic_items.svg
   String get icItems => 'assets/svg/ic_items.svg';
@@ -144,9 +144,6 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/ic_logo.svg
   String get icLogo => 'assets/svg/ic_logo.svg';
-
-  /// File path: assets/svg/ic_logo_h.svg
-  String get icLogoH => 'assets/svg/ic_logo_h.svg';
 
   /// File path: assets/svg/ic_logout.svg
   String get icLogout => 'assets/svg/ic_logout.svg';
@@ -274,14 +271,13 @@ class $AssetsSvgGen {
         icFavouriteFilled,
         icHealthCheck,
         icHome,
-        icHomeLogo,
-        icHomeLogoText,
+        logoYellow,
+        logoText,
         icItems,
         icLauncher,
         icLocation,
         icLock,
         icLogo,
-        icLogoH,
         icLogout,
         icMore,
         icMyOrders,

@@ -56,8 +56,8 @@ class ProductWidget extends StatefulWidget {
 
 class _ProductWidgetState extends State<ProductWidget> {
   final ValueNotifier<bool> isAddingToFavSucess = ValueNotifier(true);
-  final double buttonWidth = 89.w;
-  final double buttonHeight = 25.h;
+  final double buttonWidth = 145.w;
+  final double buttonHeight = 30.h;
   String priceTextToShow = "";
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
 
@@ -108,13 +108,14 @@ class _ProductWidgetState extends State<ProductWidget> {
         SizedBox(
           height: 5.h,
         ),
-        _productName,
-        SizedBox(
-          height: 4.h,
-        ),
         ImageFiltered(
             imageFilter:SharedPrefModule().userId==null? ImageFilter.blur(sigmaX: 4, sigmaY: 4):ImageFilter.blur(sigmaX: 0, sigmaY:0),
             child: _priceRow),
+        SizedBox(
+          height: 2.h,
+        ),
+        _productName,
+
         widget.productMapper.description.isEmpty?SizedBox(): SizedBox(
           height: 4.h,
         ),
@@ -124,15 +125,18 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
         // Center(child: _addCartButton),
 
-        ValueListenableBuilder(
-          valueListenable: qtyValueNotifier,
-          builder: (context, value, child) {
-            return value == 0
-                ? Center(child: _addCartButton)
-                : Center(
-                    child: _incrementDecrementButton(),
-                  );
-          },
+        Padding(
+          padding: const EdgeInsets.only(top:5.0),
+          child: ValueListenableBuilder(
+            valueListenable: qtyValueNotifier,
+            builder: (context, value, child) {
+              return value == 0
+                  ? Center(child: _addCartButton)
+                  : Center(
+                      child: _incrementDecrementButton(),
+                    );
+            },
+          ),
         ),
 
         // SizedBox(
@@ -143,53 +147,46 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   _getCartProductWidget() {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(top: 8.h, bottom: 8.h, end: 16.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.isCartProduct
-                      ? Row(
-                          children: [
-                            ConstrainedBox(
-                                constraints: BoxConstraints(maxWidth: 280.w),
-                                child: _productName),
-                          ],
-                        )
-                      : _productName,
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  _priceRow,
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              widget.productMapper.isAvailable
-                  ? SizedBox()
-                  : _notAvailableProduct()
-            ],
-          ),
-          Column(
-            children: [
-              _productImage,
-              SizedBox(
-                height: 8.h,
-              ),
-              _incrementDecrementButton(),
-            ],
-          )
-        ],
+    return SizedBox(
+      height: 110.h,
+      child: Padding(
+        padding: EdgeInsetsDirectional.only(top: 8.h, bottom: 8.h, end: 16.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     ConstrainedBox(
+                            constraints: BoxConstraints(maxWidth: 280.w),
+                            child: _productName),
+                    SizedBox(height: 8.h,),
+
+                    widget.productMapper.isAvailable
+                        ? SizedBox()
+                        : _notAvailableProduct(),
+                  ],
+                ),
+                _priceRow,
+              ],
+            ),
+            Column(
+              children: [
+                _productImage,
+                SizedBox(
+                  height: 8.h,
+                ),
+                _incrementDecrementButton(),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -321,8 +318,8 @@ class _ProductWidgetState extends State<ProductWidget> {
             : ImageHelper(
                 image: widget.productMapper.image,
                 imageType: ImageType.network,
-                height: 90.h,
-                width: 90.w,
+                height:widget.isCartProduct? 50.h:90.h,
+                width:widget.isCartProduct? 50.w:90.w,
               ),
       );
 
@@ -331,7 +328,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         child: CustomText(
           text: widget.productMapper.name,
           textAlign: TextAlign.center,
-          customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+          customTextStyle:widget.isCartProduct?BoldStyle(color: lightBlackColor, fontSize: 14.sp): MediumStyle(color: lightBlackColor, fontSize: 12.sp),
           maxLines: 1,
         ),
       );
@@ -348,7 +345,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   text: priceTextToShow,
                   textAlign: TextAlign.center,
                   customTextStyle:
-                      MediumStyle(fontSize: 14.sp, color: secondaryColor)),
+                      BoldStyle(fontSize:widget.isCartProduct? 16.sp:14.sp, color: darkSecondaryColor)),
             ),
             SizedBox(
               width:widget.productMapper.hasDiscount? 10.w:0,
@@ -357,7 +354,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               CustomText(
                 text:
                     '${widget.isCartProduct ? widget.productMapper.cartOriginalUnitPrice.toString() : widget.productMapper.productOriginalPrice.toString()} ${widget.productMapper.currency}',
-                customTextStyle: MediumStyle(
+                customTextStyle: BoldStyle(
                     color: redColor,
                     fontSize: 10.sp,
                     textDecoration: TextDecoration.lineThrough),
@@ -402,14 +399,13 @@ class _ProductWidgetState extends State<ProductWidget> {
     final SizedBox horizontalSpace = 10.horizontalSpace;
     final SizedBox spacing = 0.horizontalSpace;
     return Container(
-      // width: isProductPage ? buttonWidth : null,
-      // height: isProductPage ? buttonHeight : null,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
         color: primaryColor,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           horizontalSpace,
           Container(
@@ -444,8 +440,9 @@ class _ProductWidgetState extends State<ProductWidget> {
               },
               child: CustomText(
                 text: '+',
+                textAlign: TextAlign.center,
                 customTextStyle:
-                    MediumStyle(color: cartSuccessBlueColor, fontSize: 14.sp),
+                    MediumStyle(color: cartSuccessBlueColor, fontSize: 14.sp,lineHeight: 1.2),
               ),
             ),
           ),
@@ -545,7 +542,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             child: CustomText(
                 text: S.of(context).addToCart,
                 customTextStyle:
-                    MediumStyle(color: lightBlackColor, fontSize: 10.sp)),
+                    RegularStyle(color: darkSecondaryColor, fontSize: 12.sp)),
           ),
         ),
       );

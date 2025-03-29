@@ -30,6 +30,9 @@ const Color paleBlueDarkMode = Color.fromRGBO(39, 170, 165, 1);
 const Color greyColorLightMode = Color.fromRGBO(168, 172, 177, 1);
 const Color greyColorDarkMode = Color.fromRGBO(168, 172, 177, 1);
 
+const Color greyBorderColorLightMode = Color.fromRGBO(238, 238, 238, 1);
+const Color greyBorderColorDarkMode = Color.fromRGBO(238, 238, 238, 1);
+
 /// green color
 const Color greenColorLightMode = Color.fromRGBO(47, 102, 78, 1);
 const Color greenColorDarkMode = Color.fromRGBO(47, 102, 78, 1);
@@ -84,9 +87,9 @@ const Color categoryCardColorDarkMode = Color.fromRGBO(251, 251, 251, 1);
 const Color menuOrderCardColorLightMode = Color.fromRGBO(249, 249, 249, 1);
 const Color menuOrderCardColorDarkMode = Color.fromRGBO(249, 249, 249, 1);
 
-/// product card color
-const Color productCardColorLightMode = Color.fromRGBO(246, 247, 247, 1);
-const Color productCardColorDarkMode = Color.fromRGBO(246, 247, 247, 1);
+/// product card colorrgba
+const Color productCardColorLightMode = Color.fromRGBO(250, 250, 250, 1);
+const Color productCardColorDarkMode = Color.fromRGBO(250, 250, 250, 1);
 
 const Color faqCardColorLightMode = Color.fromRGBO(238, 238, 239, 1);
 const Color faqCardColorDarkMode = Color.fromRGBO(238, 238, 239, 1);
@@ -105,6 +108,8 @@ Color darkSecondaryColor = _isDark ? darkSecondaryDarkMode : darkSecondaryLightM
 Color paleBlueColor = _isDark ? paleBlueDarkMode : paleBlueLightMode;
 
 Color greyColor = _isDark ? greyColorDarkMode : greyColorLightMode;
+
+Color borderGreyColor = _isDark ? greyBorderColorDarkMode : greyBorderColorLightMode;
 
 Color greenColor = _isDark ? greenColorDarkMode : greenColorLightMode;
 

@@ -10,21 +10,24 @@ class FilterItemWidget extends StatelessWidget {
   final String title;
   final bool isSelected;
   final Function() onTap;
-  final double _borderRadious = 10;
+  final double _borderRadious = 5;
   final Color textColor;
+  final withBorders;
 
   const FilterItemWidget(
       {this.imageUrl,
       this.isSelected = false,
       this.textColor = lightBlackLightMode,
+        this.withBorders = false,
       required this.onTap,
       required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: isSelected ? filterItemColor : productCardColor,
+      color: isSelected ? darkSecondaryColor.withOpacity(0.1) : withBorders?Colors.transparent:productCardColor,
       shape: RoundedRectangleBorder(
+        side: withBorders ? BorderSide(color: greyBorderColorLightMode, width: 1) : BorderSide.none,
         borderRadius: BorderRadius.circular(_borderRadious),
       ),
       child: InkWell(
@@ -33,6 +36,7 @@ class FilterItemWidget extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               imageUrl == null
                   ? SizedBox()
@@ -41,7 +45,8 @@ class FilterItemWidget extends StatelessWidget {
                       height: 25,
                       image: imageUrl!,
                       imageType: ImageType.network),
-              SizedBox(width: 10),
+              imageUrl == null
+                  ? SizedBox(): SizedBox(width: 10),
               CustomText(
                   text: title,
                   customTextStyle:
