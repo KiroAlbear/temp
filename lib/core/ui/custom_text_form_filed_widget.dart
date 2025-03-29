@@ -52,7 +52,6 @@ class CustomTextFormFiled extends StatefulWidget {
   final Widget? customLabelText;
   final TextAlign textAlign;
   final TextStyle? defaultTextStyle;
-  final TextStyle? hintTextStyle;
   final Color? suffixTextColor;
   final String? suffixText;
   final Stream<TextEditingController> textFiledControllerStream;
@@ -108,7 +107,6 @@ class CustomTextFormFiled extends StatefulWidget {
       this.customLabelText,
       this.textAlign = TextAlign.start,
       this.defaultTextStyle,
-      this.hintTextStyle,
       this.suffixTextColor,
       this.suffixText,
       this.floatingLabelBehavior});
@@ -224,7 +222,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         errorText: widget.errorText,
         enabled: widget.enable,
         counterStyle: _counterTextStyle,
-        hintStyle:widget.hintTextStyle?? _hintTextStyle,
+        // hintStyle:widget.hintTextStyle?? _hintTextStyle,
         floatingLabelStyle: _defaultFloatingLabelStyle,
         helperStyle: _counterTextStyle,
         suffixStyle: widget.suffixText != null ? _suffixTextStyle : null,
@@ -319,9 +317,9 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
       MediumStyle(color: widget.errorTextColor ?? redColor, fontSize: 16.sp)
           .getStyle();
 
-  TextStyle get _hintTextStyle => RegularStyle(
-          color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
-      .getStyle();
+  // TextStyle get _hintTextStyle => RegularStyle(
+  //         color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
+  //     .getStyle();
 
   TextStyle get _defaultFloatingLabelStyle => RegularStyle(
           color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)

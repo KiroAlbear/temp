@@ -1,3 +1,4 @@
+import 'package:deel/core/Utils/AppConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,19 +14,40 @@ abstract class CustomTextStyleModule {
       this.color = Colors.white,
       this.textDecoration = TextDecoration.none});
 
-  TextStyle englishFont(FontWeight fontWeight) => GoogleFonts.rubik(
-      color: color,
-      fontWeight: fontWeight,
-      fontSize: fontSize,
-      decoration: textDecoration,
-      decorationColor: color);
 
-  TextStyle arabicFont(FontWeight fontWeight) => GoogleFonts.rubik(
-      color: color,
-      fontWeight: fontWeight,
-      fontSize: fontSize - 4,
-      decoration: textDecoration,
-      decorationColor: color);
+  TextStyle englishFont(FontWeight fontWeight) =>
+      TextStyle(
+          color: color,
+          fontWeight: fontWeight,
+          fontSize: fontSize,
+          decoration: textDecoration,
+          decorationColor: color,
+          fontFamily: AppConstants.DINNextFont
+      );
+
+      // GoogleFonts.rubik(
+      // color: color,
+      // fontWeight: fontWeight,
+      // fontSize: fontSize,
+      // decoration: textDecoration,
+      // decorationColor: color);
+
+  TextStyle arabicFont(FontWeight fontWeight) =>
+      TextStyle(color: color,
+          fontWeight: fontWeight,
+          fontSize: fontSize - 4,
+          decoration: textDecoration,
+          decorationColor: color,
+          fontFamily: AppConstants.DINNextFont
+      );
+
+
+      // GoogleFonts.rubik(
+      // color: color,
+      // fontWeight: fontWeight,
+      // fontSize: fontSize - 4,
+      // decoration: textDecoration,
+      // decorationColor: color);
 
   bool get isEnglish => AppProviderModule().locale == "en";
 

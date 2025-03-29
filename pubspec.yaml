@@ -112,6 +112,12 @@ flutter:
   assets:
     - shorebird.yaml
     - assets/svg/
+  fonts:
+    - family: DINNext
+      fonts:
+        - asset: assets/fonts/DINNext-Regular.ttf
+        - asset: assets/fonts/DINNext-Medium.ttf
+        - asset: assets/fonts/DINNext-Bold.ttf
 
 
 flutter_flavorizr:

@@ -11,10 +11,12 @@ class FilterItemWidget extends StatelessWidget {
   final bool isSelected;
   final Function() onTap;
   final double _borderRadious = 10;
+  final Color textColor;
 
   const FilterItemWidget(
       {this.imageUrl,
       this.isSelected = false,
+      this.textColor = lightBlackLightMode,
       required this.onTap,
       required this.title});
 
@@ -36,14 +38,14 @@ class FilterItemWidget extends StatelessWidget {
                   ? SizedBox()
                   : ImageHelper(
                       width: 30,
-                      height: 30,
+                      height: 25,
                       image: imageUrl!,
                       imageType: ImageType.network),
               SizedBox(width: 10),
               CustomText(
                   text: title,
                   customTextStyle:
-                      RegularStyle(color: lightBlackColor, fontSize: 16.sp)),
+                      RegularStyle(color: textColor, fontSize: 16.sp)),
             ],
           ),
         ),

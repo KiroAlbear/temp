@@ -1,3 +1,4 @@
+import 'package:deel/core/Utils/AppConstants.dart';
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -130,7 +131,8 @@ class _AppTopWidgetState extends State<AppTopWidget> {
         child: SizedBox(
           height: 50.h,
           child: CustomTextFormFiled(
-            defaultTextStyle: TextStyle(fontSize: 12.sp, color: blackColor),
+            defaultTextStyle: TextStyle(fontSize: 14.sp, color: blackColor),
+            textLabelColor: darkSecondaryColor,
             labelText: S.of(context).searchProduct,
             textFiledControllerStream:
                 widget.textFiledControllerStream!,
@@ -143,6 +145,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
             focusNode: widget.focusNode,
             suffixIcon: _scanIconWidget,
             useOnFieldSubmitted: true,
+            // hintTextStyle: TextStyle(fontSize: 16.sp, color: darkSecondaryColor,fontFamily: AppConstants.DINNextFont),
             onFieldSubmitted: (value) =>widget.doSearch!(),
           ),
         ),
@@ -177,29 +180,37 @@ class _AppTopWidgetState extends State<AppTopWidget> {
         left: 17.w,
         right: 17.w,
         bottom: !widget.hideTop ? null: 30.h,
-        child: Row(
-          children: [
-            if (widget.backIcon.isNotEmpty)
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: ImageHelper(
-                  image: widget.backIcon,
-                  imageType: ImageType.svg,
-                  height: 20.h,
-                  width: 20.w,
-                  color: whiteColor,
+        child: Container(
+          // color: Colors.red,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (widget.backIcon.isNotEmpty)
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: ImageHelper(
+                      image: widget.backIcon,
+                      imageType: ImageType.svg,
+                      height: 25.h,
+                      width: 25.w,
+                      color: whiteColor,
+                    ),
+                  ),
                 ),
+              SizedBox(
+                width: 11.w,
               ),
-            SizedBox(
-              width: 11.w,
-            ),
-            CustomText(
-                text: widget.title,
-                customTextStyle:
-                    MediumStyle(fontSize: 26.sp, color: whiteColor)),
-          ],
+              CustomText(
+                  text: widget.title,
+                  textAlign: TextAlign.center,
+                  customTextStyle:
+                      MediumStyle(fontSize: 26.sp, color: whiteColor)),
+            ],
+          ),
         ),
       );
 }

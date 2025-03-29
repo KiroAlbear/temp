@@ -62,16 +62,16 @@ class _CategoryWidgetState extends State<CategoryWidget>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: 112.h,
+                width: 112.w,
                 height: 98.h,
+                padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6.w),
                     color: greyColor.withOpacity(0.1)),
                 child: ImageHelper(
                   image: item.image,
                   imageType: ImageType.network,
-                  height: 46.h,
-                  width: 46.w,
+
                   boxFit: BoxFit.contain,
                 ),
               ),
@@ -83,7 +83,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
                   maxLines: 2,
                   textAlign: TextAlign.center,
                   customTextStyle:
-                      MediumStyle(fontSize: 13.sp, color: lightBlackColor))
+                      MediumStyle(fontSize: 13.sp, color: darkSecondaryColor))
             ],
           ),
         ),

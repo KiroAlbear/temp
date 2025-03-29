@@ -91,7 +91,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
             child: CustomText(
                 text: S.of(context).lastOffers,
                 customTextStyle:
-                    BoldStyle(color: secondaryColor, fontSize: 20.sp)),
+                    BoldStyle(color: darkSecondaryColor, fontSize: 20.sp)),
           ),
           StreamBuilder<ApiState<List<OfferMapper>>>(
               stream: widget.homeBloc.offersStream,
@@ -122,7 +122,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
               child: CustomText(
                   text: S.of(context).browseSections,
                   customTextStyle:
-                      BoldStyle(color: secondaryColor, fontSize: 20.sp))),
+                      BoldStyle(color: darkSecondaryColor, fontSize: 20.sp))),
           SizedBox(
             height: 16.h,
           ),

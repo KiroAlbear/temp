@@ -15,6 +15,9 @@ const Color filterItemColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
 const Color secondaryLightMode = Color.fromRGBO(0, 76, 118, 1);
 const Color secondaryDarkMode = Color.fromRGBO(0, 76, 118, 1);
 
+const Color darkSecondaryLightMode = Color.fromRGBO(0, 69, 122, 1);
+const Color darkSecondaryDarkMode = Color.fromRGBO(0, 69, 122, 1);
+
 /// light black color
 const Color lightBlackLightMode = Color.fromRGBO(58, 58, 58, 1);
 const Color lightBlackDarkMode = Color.fromRGBO(58, 58, 58, 1);
@@ -96,6 +99,8 @@ bool get _isDark => SharedPrefModule().isDarkMode ?? false;
 Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
 
 Color secondaryColor = _isDark ? secondaryDarkMode : secondaryLightMode;
+
+Color darkSecondaryColor = _isDark ? darkSecondaryDarkMode : darkSecondaryLightMode;
 
 Color paleBlueColor = _isDark ? paleBlueDarkMode : paleBlueLightMode;
 

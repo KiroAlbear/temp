@@ -257,6 +257,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                                           .response![
                                                                               index]
                                                                           .name,
+                                                                  textColor: darkSecondaryColor,
                                                                   isSelected:
                                                                       index ==
                                                                           value,
@@ -284,7 +285,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                                         .value = 0;
                                                                   },
                                                                   // imageUrl:
-                                                                  imageUrl: snapshot
+                                                                  imageUrl:index==0?null: snapshot
                                                                       .data!
                                                                       .response![
                                                                           index]
@@ -355,6 +356,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                                                     .response![
                                                                         index]
                                                                     .name,
+
                                                             isSelected:
                                                                 index == value,
                                                             onTap: () {
