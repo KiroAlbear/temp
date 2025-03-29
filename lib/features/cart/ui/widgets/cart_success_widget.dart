@@ -70,6 +70,8 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
             padding: const EdgeInsets.only(bottom: 50.0),
             child: CustomButtonWidget(
                 idleText: S.of(context).cartSuccessTrackButton,
+                borderRadius: 8,
+                textColor: darkSecondaryColor,
                 onTap: () async {
                   // await CustomNavigatorModule.navigatorKey.currentState!
                   //     .pushReplacementNamed(AppScreenEnum.home.name);

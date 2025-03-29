@@ -63,7 +63,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                   text: S.of(context).cartOrderOrderDetails,
                   textAlign: TextAlign.start,
                   customTextStyle:
-                      RegularStyle(color: lightBlackColor, fontSize: 26.sp)),
+                      BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -159,6 +159,8 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                         padding: const EdgeInsets.only(bottom: 50.0, top: 80.0),
                         child: CustomButtonWidget(
                             idleText: S.of(context).cartConfirmOrder,
+                            textColor: darkSecondaryColor,
+                            borderRadius: 8,
                             onTap: () {
                               widget.cartBloc
                                   .confirmOrderCart()
