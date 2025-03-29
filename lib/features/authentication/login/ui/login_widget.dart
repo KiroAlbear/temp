@@ -223,8 +223,8 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
         child: ImageHelper(
           image: widget.biometricImage,
           imageType: ImageType.svg,
-          width: 71.w,
-          height: 71.h,
+          width: 60.w,
+          height: 60.h,
         ),
       );
 
