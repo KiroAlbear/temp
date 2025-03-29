@@ -145,7 +145,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           child: CustomText(
               text: S.of(context).settings,
               customTextStyle:
-                  BoldStyle(fontSize: 20.sp, color: secondaryColor)),
+                  BoldStyle(fontSize: 18.sp, color: secondaryColor)),
         ),
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
@@ -233,7 +233,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             child: CustomText(
                 text: S.of(context).accountBalance,
                 customTextStyle:
-                    BoldStyle(fontSize: 20.sp, color: secondaryColor)),
+                    BoldStyle(fontSize: 18.sp, color: secondaryColor)),
           )
         ],
         SizedBox(
@@ -254,7 +254,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           child: CustomText(
               text: S.of(context).supportAndAssistance,
               customTextStyle:
-                  BoldStyle(fontSize: 20.sp, color: secondaryColor)),
+                  BoldStyle(fontSize: 18.sp, color: secondaryColor)),
         ),
         SizedBox(
           height: 10.h,
@@ -479,7 +479,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   customTextStyle: isBoldStyle
                       ? BoldStyle(
                           color: disabled ? greyColor : color?? lightBlackColor,
-                          fontSize: 20.sp)
+                          fontSize: 18.sp)
                       : RegularStyle(
                           color: disabled ? greyColor : color?? lightBlackColor,
                           fontSize: 16.w)),
@@ -512,7 +512,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   CustomText(
                       text: S.of(context).accountBalance,
                       customTextStyle:
-                          BoldStyle(fontSize: 20.sp, color: secondaryColor)),
+                          BoldStyle(fontSize: 18.sp, color: secondaryColor)),
                   Container(
                     decoration: BoxDecoration(
                         color: redColor,

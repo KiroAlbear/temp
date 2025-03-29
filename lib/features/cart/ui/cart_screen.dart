@@ -294,7 +294,7 @@ class _CartScreenState extends BaseState<CartScreen> {
           CustomText(
               text: S.of(context).cartProductDetails,
               customTextStyle:
-                  MediumStyle(color: lightBlackColor, fontSize: 26.sp)),
+                  MediumStyle(color: darkSecondaryColor, fontSize: 26.sp)),
           10.verticalSpace,
           StreamBuilder(
             stream: widget.cartBloc.cartMinimumOrderBehaviour.stream,
