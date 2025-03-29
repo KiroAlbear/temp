@@ -78,15 +78,18 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          color: productCardColor,
-          borderRadius: BorderRadius.circular(16.w),
+  Widget build(BuildContext context) => Padding(
+     padding:widget.isCartProduct? EdgeInsets.symmetric(horizontal: 16.w):EdgeInsets.zero,
+    child: Container(
+          decoration: BoxDecoration(
+            color: productCardColor,
+            borderRadius: BorderRadius.circular(16.w),
+          ),
+          child: widget.isCartProduct
+              ? _getCartProductWidget()
+              : _getProductWidget(),
         ),
-        child: widget.isCartProduct
-            ? _getCartProductWidget()
-            : _getProductWidget(),
-      );
+  );
 
   Widget _getProductWidget() {
     return Column(
@@ -155,26 +158,29 @@ class _ProductWidgetState extends State<ProductWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                     ConstrainedBox(
-                            constraints: BoxConstraints(maxWidth: 280.w),
-                            child: _productName),
-                    SizedBox(height: 8.h,),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                       ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: 280.w),
+                              child: _productName),
+                      SizedBox(height: 8.h,),
 
-                    widget.productMapper.isAvailable
-                        ? SizedBox()
-                        : _notAvailableProduct(),
-                  ],
-                ),
-                _priceRow,
-              ],
+                      widget.productMapper.isAvailable
+                          ? SizedBox()
+                          : _notAvailableProduct(),
+                    ],
+                  ),
+                  _priceRow,
+                ],
+              ),
             ),
             Column(
               children: [
