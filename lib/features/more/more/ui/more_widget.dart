@@ -281,7 +281,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
             height: 37.h,
           ),
-          _menuItem(S.of(context).logout, widget.logoutIcon, () {
+          _menuItem(S.of(context).logout, widget.logoutIcon,color: Colors.red, () {
             _logout();
           }, isBoldStyle: true),
           SizedBox(
@@ -449,6 +449,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           {bool isBoldStyle = false,
           bool disabled = false,
           double? height,
+            Color? color,
           double? width}) =>
       IgnorePointer(
         ignoring: disabled,
@@ -466,7 +467,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 imageType: ImageType.svg,
                 width: height ?? 24.w,
                 height: width ?? 24.h,
-                color: disabled ? greyColor : lightBlackColor,
+                color: disabled ? greyColor : color ?? darkSecondaryColor,
                 boxFit: BoxFit.fill,
               ),
               SizedBox(
@@ -474,12 +475,13 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               ),
               CustomText(
                   text: text,
+                  textAlign: TextAlign.center,
                   customTextStyle: isBoldStyle
                       ? BoldStyle(
-                          color: disabled ? greyColor : lightBlackColor,
+                          color: disabled ? greyColor : color?? lightBlackColor,
                           fontSize: 20.sp)
                       : RegularStyle(
-                          color: disabled ? greyColor : lightBlackColor,
+                          color: disabled ? greyColor : color?? lightBlackColor,
                           fontSize: 16.w)),
               SizedBox(
                 width: 16.w,

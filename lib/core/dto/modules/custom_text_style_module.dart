@@ -8,10 +8,11 @@ abstract class CustomTextStyleModule {
   final double fontSize;
   final Color color;
   final TextDecoration textDecoration;
-
+  final double? lineHeight;
   CustomTextStyleModule(
       {this.fontSize = 15.0,
       this.color = Colors.white,
+      this.lineHeight,
       this.textDecoration = TextDecoration.none});
 
 
@@ -22,6 +23,7 @@ abstract class CustomTextStyleModule {
           fontSize: fontSize,
           decoration: textDecoration,
           decorationColor: color,
+          height: lineHeight,
           fontFamily: AppConstants.DINNextFont
       );
 
@@ -59,7 +61,7 @@ class LightStyle extends CustomTextStyleModule {
   TextStyle getStyle() =>
       isEnglish ? englishFont(FontWeight.w300) : arabicFont(FontWeight.w300);
 
-  LightStyle({super.fontSize, super.color, super.textDecoration});
+  LightStyle({super.fontSize, super.color, super.textDecoration,super.lineHeight});
 }
 
 class RegularStyle extends CustomTextStyleModule {
@@ -67,7 +69,7 @@ class RegularStyle extends CustomTextStyleModule {
   TextStyle getStyle() =>
       isEnglish ? englishFont(FontWeight.w400) : arabicFont(FontWeight.w400);
 
-  RegularStyle({super.fontSize, super.color, super.textDecoration});
+  RegularStyle({super.fontSize, super.color, super.textDecoration,super.lineHeight});
 }
 
 class MediumStyle extends CustomTextStyleModule {
@@ -75,7 +77,7 @@ class MediumStyle extends CustomTextStyleModule {
   TextStyle getStyle() =>
       isEnglish ? englishFont(FontWeight.w500) : arabicFont(FontWeight.w500);
 
-  MediumStyle({super.fontSize, super.color, super.textDecoration});
+  MediumStyle({super.fontSize, super.color, super.textDecoration,super.lineHeight});
 }
 
 class SemiBoldStyle extends CustomTextStyleModule {
@@ -83,7 +85,7 @@ class SemiBoldStyle extends CustomTextStyleModule {
   TextStyle getStyle() =>
       isEnglish ? englishFont(FontWeight.w600) : arabicFont(FontWeight.w600);
 
-  SemiBoldStyle({super.fontSize, super.color, super.textDecoration});
+  SemiBoldStyle({super.fontSize, super.color, super.textDecoration,super.lineHeight});
 }
 
 class BoldStyle extends CustomTextStyleModule {
@@ -91,7 +93,7 @@ class BoldStyle extends CustomTextStyleModule {
   TextStyle getStyle() =>
       isEnglish ? englishFont(FontWeight.w700) : arabicFont(FontWeight.w700);
 
-  BoldStyle({super.fontSize, super.color, super.textDecoration});
+  BoldStyle({super.fontSize, super.color, super.textDecoration,super.lineHeight});
 }
 
 class SemiUltraBoldStyle extends CustomTextStyleModule {
@@ -99,7 +101,7 @@ class SemiUltraBoldStyle extends CustomTextStyleModule {
   TextStyle getStyle() =>
       isEnglish ? englishFont(FontWeight.w800) : arabicFont(FontWeight.w800);
 
-  SemiUltraBoldStyle({super.fontSize, super.color, super.textDecoration});
+  SemiUltraBoldStyle({super.fontSize, super.color, super.textDecoration,super.lineHeight});
 }
 
 class UltraBoldStyle extends CustomTextStyleModule {
@@ -107,5 +109,5 @@ class UltraBoldStyle extends CustomTextStyleModule {
   TextStyle getStyle() =>
       isEnglish ? englishFont(FontWeight.w900) : arabicFont(FontWeight.w900);
 
-  UltraBoldStyle({super.fontSize, super.color, super.textDecoration});
+  UltraBoldStyle({super.fontSize, super.color, super.textDecoration,super.lineHeight});
 }
