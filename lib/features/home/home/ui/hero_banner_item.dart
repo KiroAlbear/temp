@@ -52,7 +52,7 @@ class HeroBannerItem extends StatelessWidget {
           color: Colors.transparent),
       child: ImageHelper(
                 borderRadius: BorderRadius.circular(20.w),
-                image: "https://i.postimg.cc/cLSRTJyJ/Whats-App-Image-2025-02-20-at-4-43-08-PM.jpg",
+                image: item.image,
                 imageType: ImageType.network,
                 boxFit: BoxFit.fill,
               ),
