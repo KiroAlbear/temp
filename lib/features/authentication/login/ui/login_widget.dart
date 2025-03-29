@@ -86,7 +86,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
                     key: const Key('login'),
                     text: S.of(context).login,
                     customTextStyle:
-                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
+                        BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
               ),
               SizedBox(
                 height: 30.h,
@@ -94,7 +94,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
               CustomText(
                   text: S.of(context).enterMobileNumber,
                   customTextStyle:
-                      MediumStyle(fontSize: 20.sp, color: lightBlackColor)),
+                      MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -105,7 +105,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
               CustomText(
                   text: S.of(context).password,
                   customTextStyle:
-                      MediumStyle(fontSize: 20.sp, color: lightBlackColor)),
+                      MediumStyle(fontSize: 20.sp, color: darkSecondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -223,14 +223,15 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
         child: ImageHelper(
           image: widget.biometricImage,
           imageType: ImageType.svg,
-          width: 60.w,
-          height: 60.h,
+          width: 50.w,
+          height: 50.h,
         ),
       );
 
   Widget _button(bool hasBiometric) => CustomButtonWidget(
         idleText: S.of(context).loginEnter,
-        height: 62.h,
+        height: 50.h,
+        borderRadius: 8,
         width: hasBiometric
             ? (MediaQuery.of(context).size.width - 156.w)
             : (MediaQuery.of(context).size.width - 32.w),
