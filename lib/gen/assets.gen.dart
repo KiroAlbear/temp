@@ -15,9 +15,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/cart_success.svg
   String get cartSuccess => 'assets/svg/cart_success.svg';
 
-  /// File path: assets/svg/ic_back_arr_unified.svg
-  String get icBackArrUnified => 'assets/svg/ic_back_arr_unified.svg';
-
   /// File path: assets/svg/ic_forward_arr_unified.svg
   String get icForwardArrUnified => 'assets/svg/ic_forward_arr_unified.svg';
 
@@ -48,20 +45,12 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_back.svg
   String get icBack => 'assets/svg/ic_back.svg';
 
-  /// File path: assets/svg/ic_basket.svg
-  String get icBasket => 'assets/svg/ic_basket.svg';
 
   /// File path: assets/svg/ic_biometric.svg
   String get icBiometric => 'assets/svg/ic_biometric.svg';
 
-  /// File path: assets/svg/ic_bottom_splash.svg
-  String get icBottomSplash => 'assets/svg/ic_bottom_splash.svg';
-
   /// File path: assets/svg/ic_camera.svg
   String get icCamera => 'assets/svg/ic_camera.svg';
-
-  /// File path: assets/svg/ic_canceled_order.svg
-  String get icCanceledOrder => 'assets/svg/ic_canceled_order.svg';
 
   /// File path: assets/svg/ic_cart.svg
   String get icCart => 'assets/svg/ic_cart.svg';
@@ -81,9 +70,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_contact_us_more.svg
   String get icContactUsMore => 'assets/svg/ic_contact_us_more.svg';
 
-  /// File path: assets/svg/ic_current_order.svg
-  String get icCurrentOrder => 'assets/svg/ic_current_order.svg';
-
   /// File path: assets/svg/ic_date.svg
   String get icDate => 'assets/svg/ic_date.svg';
 
@@ -101,9 +87,6 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/ic_empty_shop.svg
   String get icEmptyShop => 'assets/svg/ic_empty_shop.svg';
-
-  /// File path: assets/svg/ic_empty_shop_icon.svg
-  String get icEmptyShopIcon => 'assets/svg/ic_empty_shop_icon.svg';
 
   /// File path: assets/svg/ic_face_book.svg
   String get icFaceBook => 'assets/svg/ic_face_book.svg';
@@ -175,9 +158,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_person.svg
   String get icPerson => 'assets/svg/ic_person.svg';
 
-  /// File path: assets/svg/ic_person_rounded.svg
-  String get icPersonRounded => 'assets/svg/ic_person_rounded.svg';
-
   /// File path: assets/svg/ic_phone.svg
   String get icPhone => 'assets/svg/ic_phone.svg';
 
@@ -187,8 +167,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_promo.svg
   String get icPromo => 'assets/svg/ic_promo.svg';
 
-  /// File path: assets/svg/ic_promotion.svg
-  String get icPromotion => 'assets/svg/ic_promotion.svg';
 
   /// File path: assets/svg/ic_scan.svg
   String get icScan => 'assets/svg/ic_scan.svg';
@@ -208,29 +186,20 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_success_register.svg
   String get icSuccessRegister => 'assets/svg/ic_success_register.svg';
 
-  /// File path: assets/svg/ic_support.svg
-  String get icSupport => 'assets/svg/ic_support.svg';
-
-  /// File path: assets/svg/ic_time.svg
-  String get icTime => 'assets/svg/ic_time.svg';
 
   /// File path: assets/svg/ic_total.svg
   String get icTotal => 'assets/svg/ic_total.svg';
 
-  /// File path: assets/svg/ic_wallet.svg
-  String get icWallet => 'assets/svg/ic_wallet.svg';
+
 
   /// File path: assets/svg/ic_whats_app.svg
   String get icWhatsApp => 'assets/svg/ic_whats_app.svg';
 
-  /// File path: assets/svg/if_faq.svg
-  String get ifFaq => 'assets/svg/if_faq.svg';
 
   /// File path: assets/svg/img_cancel_order.svg
   String get imgCancelOrder => 'assets/svg/img_cancel_order.svg';
 
-  /// File path: assets/svg/no_image_found.svg
-  String get noImageFound => 'assets/svg/no_image_found.svg';
+
 
   String get icForwardGrey => 'assets/svg/ic_forward_grey.svg';
 
@@ -238,7 +207,6 @@ class $AssetsSvgGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        icBackArrUnified,
         icForwardArrUnified,
         cartSuccess,
         cartSuccessLogo,
@@ -250,25 +218,20 @@ class $AssetsSvgGen {
         icAlert,
         icArrowDown,
         icBack,
-        icBasket,
         icBiometric,
-        icBottomSplash,
         icCamera,
-        icCanceledOrder,
         icCart,
         icCash,
         icClose,
         icCloseEye,
         icContactUs,
         icContactUsMore,
-        icCurrentOrder,
         icDate,
         icDelete,
         icDeleteOrder,
         icDeliveredOrderGray,
         icDeliveredOrderGreen,
         icEmptyShop,
-        icEmptyShopIcon,
         icFaceBook,
         icFaq,
         icFavourite,
@@ -292,25 +255,18 @@ class $AssetsSvgGen {
         icOutsideOrderGray,
         icOutsideOrderGreen,
         icPerson,
-        icPersonRounded,
         icPhone,
         icPreviousOrder,
         icPromo,
-        icPromotion,
         icScan,
         icSearch,
         icSendingOrderGreen,
         icShippingOrderGray,
         icShippingOrderGreen,
         icSuccessRegister,
-        icSupport,
-        icTime,
         icTotal,
-        icWallet,
         icWhatsApp,
-        ifFaq,
         imgCancelOrder,
-        noImageFound,
         icForwardGrey,
         icPreviousBlue
       ];
