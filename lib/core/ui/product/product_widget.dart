@@ -222,6 +222,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           SizedBox(
             width: 12.w,
           ),
+          if (SharedPrefModule().bearerToken?.isNotEmpty ?? false)
           ValueListenableBuilder(
             valueListenable: isAddingToFavSucess,
             builder: (context, value, child) {

@@ -86,12 +86,12 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                 ),
               ),
               SizedBox(
-                height:  widget.isHavingBackArrow?20.h:70.h,
+                height:  widget.isHavingBackArrow?20.h:30.h,
               ),
 
               Center(
                 child:
-                    LogoWidget(height: 94.h, width: 253.h, logo: widget.logo),
+                    LogoWidget(height: 78.h, width: 234.w, logo: widget.logo),
               ),
               SizedBox(
                 height: 30.h,
@@ -103,11 +103,9 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
       );
 
   Widget get _bottomWidget => Expanded(
-        child: Container(
-          // decoration: leftRadiusWhiteBorder,
-          child: SingleChildScrollView(
-            child: widget.child,
-          ),
+        child: SingleChildScrollView(
+
+          child: widget.child,
         ),
       );
 
@@ -122,7 +120,7 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                 widget.bottomNavigationBloc!.setSelectedTab(0, context);
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 26.w),
+              padding: EdgeInsetsDirectional.only(top: 50.h,start: 26.w,end: 26.w, ),
               child: CustomText(
                   text: S.of(context).skip,
                   customTextStyle:

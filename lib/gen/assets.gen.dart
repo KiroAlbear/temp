@@ -232,6 +232,10 @@ class $AssetsSvgGen {
   /// File path: assets/svg/no_image_found.svg
   String get noImageFound => 'assets/svg/no_image_found.svg';
 
+  String get icForwardGrey => 'assets/svg/ic_forward_grey.svg';
+
+  String get icPreviousBlue => 'assets/svg/ic_previous_blue.svg';
+
   /// List of all assets
   List<dynamic> get values => [
         icBackArrUnified,
@@ -306,7 +310,9 @@ class $AssetsSvgGen {
         icWhatsApp,
         ifFaq,
         imgCancelOrder,
-        noImageFound
+        noImageFound,
+        icForwardGrey,
+        icPreviousBlue
       ];
 }
 

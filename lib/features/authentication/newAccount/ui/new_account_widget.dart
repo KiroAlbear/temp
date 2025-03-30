@@ -1,5 +1,7 @@
+import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/authentication/widget/logo_top_widget.dart';
+import 'package:deel/features/authentication/widget/previous_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -90,14 +92,15 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
           logo: widget.logo,
           blocBase: _bloc,
           canSkip: false,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
-              _stepRow,
-              _registerInfoWidget,
-            ]),
+          child: Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            
+                _stepRow,
+                _registerInfoWidget,
+              ]),
+            ),
           )));
 
   Widget get _stepRow => StreamBuilder(
@@ -119,16 +122,94 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
       case NewAccountStepEnum.info:
         return NewAccountInfoWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.locationInfo:
-        return NewAccountLocationInfoWidget(newAccountBloc: _bloc);
+        return Column(
+          children: [
+            NewAccountLocationInfoWidget(newAccountBloc: _bloc),
+            _nextPreviousButtonLocationInfo,
+            SizedBox(
+              height: 21.h,
+            ),
+          ],
+        );
       case NewAccountStepEnum.editLocation:
         return NewAccountLocationWidget(newAccountBloc: _bloc);
       case NewAccountStepEnum.password:
-        return NewAccountPasswordWidget(
-          newAccountBloc: _bloc,
-          passwordValidationBloc: _passwordValidationBloc,
+        return Column(
+          children: [
+            NewAccountPasswordWidget(
+              newAccountBloc: _bloc,
+              passwordValidationBloc: _passwordValidationBloc,
+            ),
+            SizedBox(
+              height: 160.h,
+            ),
+            _nextPreviousButtonAccountPasswor
+          ],
         );
     }
   }
+
+  Widget get _nextPreviousButtonAccountPasswor => Row(
+    children: [
+      Expanded(child: PreviousNextButton(isPrevious: true, isButtonEnabledStream: _bloc.validatePasswordStream,onTap: () {
+        _bloc.nextStep(NewAccountStepEnum.locationInfo);
+      },)),
+      SizedBox(
+        width: 9.w,
+      ),
+      Expanded(child: PreviousNextButton(isPrevious: false, isButtonEnabledStream: _bloc.validatePasswordStream,onTap: () {
+        _nextFunctionality();
+      },buttonStateStream: _bloc.buttonBloc.buttonBehavior,)),
+    ],
+  );
+
+  void _nextFunctionality(){
+    if (_bloc.isPasswordValid) {
+      _bloc.register.listen(
+            (event) {
+          if (event is LoadingState) {
+            _bloc.buttonBloc.buttonBehavior.sink
+                .add(ButtonState.loading);
+          } else if (event is SuccessState) {
+            _bloc
+                .updateAddress(event.response?.userId ?? 0)
+                .listen(
+                  (event) {
+                checkResponseStateWithButton(
+                  event,
+                  context,
+                  failedBehaviour:
+                  _bloc.buttonBloc.failedBehaviour,
+                  buttonBehaviour:
+                  _bloc.buttonBloc.buttonBehavior,
+                  onSuccess: () {
+                    CustomNavigatorModule.navigatorKey.currentState
+                        ?.pushNamed(AppScreenEnum.successRegister.name);
+                  },
+                );
+              },
+            );
+          }
+        },
+      );
+    }
+  }
+
+  Widget get _nextPreviousButtonLocationInfo => Row(
+    children: [
+      Expanded(child: PreviousNextButton(isPrevious: true, isButtonEnabledStream: _bloc.validateLocationStream,onTap: () {
+        _bloc.nextStep(NewAccountStepEnum.info);
+      },)),
+      SizedBox(
+        width: 9.w,
+      ),
+      Expanded(child: PreviousNextButton(isPrevious: false, isButtonEnabledStream: _bloc.validateLocationStream,onTap: () {
+        if (_bloc.isLocationValid) {
+          _bloc.nextStep(NewAccountStepEnum.password);
+        }
+      },)),
+    ],
+  );
 
   Widget _whichStep(NewAccountStepEnum step) {
     switch (step) {

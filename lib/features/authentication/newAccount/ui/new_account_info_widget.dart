@@ -88,7 +88,6 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).next,
-
         onTap: () {
           if (widget.newAccountBloc.isInfoValid) {
             widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);

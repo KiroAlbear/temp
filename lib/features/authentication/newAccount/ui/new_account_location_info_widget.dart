@@ -1,8 +1,10 @@
 import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/authentication/widget/previous_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
 import '../../../../../core/generated/l10n.dart';
 import 'new_account_bloc.dart';
@@ -55,10 +57,7 @@ class _NewAccountLocationInfoWidgetState
             SizedBox(
               height: 21.h,
             ),
-            _nextPreviousButton,
-            SizedBox(
-              height: 21.h,
-            ),
+
           ]);
   // ValueNotifier<bool> _isLocationDetected = ValueNotifier(true);
 
@@ -219,44 +218,5 @@ class _NewAccountLocationInfoWidgetState
         defaultTextStyle:
             MediumStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
         textInputAction: TextInputAction.next,
-      );
-
-  Widget get _nextPreviousButton => Row(
-        children: [
-          Expanded(child: _previous),
-          SizedBox(
-            width: 9.w,
-          ),
-          Expanded(child: _nextButton),
-        ],
-      );
-
-  Widget get _nextButton => CustomButtonWidget(
-        idleText: S.of(context).next,
-        onTap: () {
-          if (widget.newAccountBloc.isLocationValid) {
-            widget.newAccountBloc.nextStep(NewAccountStepEnum.password);
-          }
-        },
-        height: 60.h,
-        textStyle:
-            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
-        buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
-        failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
-        validateStream: widget.newAccountBloc.validateLocationStream,
-      );
-
-  Widget get _previous => CustomButtonWidget(
-        idleText: S.of(context).previous,
-        buttonColor: lightBlackColor,
-        inLineBackgroundColor: whiteColor,
-        textColor: lightBlackColor,
-        height: 60.h,
-        textStyle:
-            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
-        buttonShapeEnum: ButtonShapeEnum.outline,
-        onTap: () {
-          widget.newAccountBloc.nextStep(NewAccountStepEnum.info);
-        },
       );
 }

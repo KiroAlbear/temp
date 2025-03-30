@@ -114,11 +114,11 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
               ),
               _forgetPassword,
               SizedBox(
-                height: 40.h,
+                height: 80.h,
               ),
               _buttonRow,
               SizedBox(
-                height: 20.h,
+                height: 25.h,
               ),
               _registerWidget,
             ],
@@ -176,7 +176,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
             Expanded(child: _button(snapshot.data ?? false)),
             if (snapshot.data ?? false)
               SizedBox(
-                width: 21.w,
+                width: 12.w,
               ),
             if (snapshot.data ?? false) _biometricButton,
           ],

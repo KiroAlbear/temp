@@ -66,7 +66,7 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
               ),
               _countryStream,
               SizedBox(
-                height: 112.h,
+                height: 200.h,
               ),
               Center(
                 child: CustomText(
