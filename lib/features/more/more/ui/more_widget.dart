@@ -117,11 +117,14 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
         ),
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
-              height: 100.h,
+              height: 160.h,
               child: _imageWithCameraWidget(
                   mobile: snapshot.data?.response?.email ?? '',
                   name: snapshot.data?.response?.name ?? '',
                   image: snapshot.data?.response?.image ?? '')),
+          SizedBox(
+            height: 34.h,
+          ),
         ] else ...[
           SizedBox(
             height: 43.h,
@@ -204,7 +207,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Divider(
               height: 1.h,
-              color: secondaryColor,
+              color: textFieldBorderGreyColor,
             ),
           ),
           SizedBox(
@@ -220,7 +223,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Divider(
               height: 1.h,
-              color: secondaryColor,
+              color: textFieldBorderGreyColor,
             ),
           ),
           SizedBox(
@@ -231,7 +234,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             child: CustomText(
                 text: S.of(context).accountBalance,
                 customTextStyle:
-                    BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+                    BoldStyle(fontSize: 18.sp, color: textFieldBorderGreyColor)),
           )
         ],
         SizedBox(
@@ -241,7 +244,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Divider(
             height: 1.h,
-            color: secondaryColor,
+            color: textFieldBorderGreyColor,
           ),
         ),
         SizedBox(
@@ -514,7 +517,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   Container(
                     decoration: BoxDecoration(
                         color: redColor,
-                        borderRadius: BorderRadius.circular(8.w)),
+                        borderRadius: BorderRadius.circular(4)),
                     padding:
                         EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
                     child: Directionality(

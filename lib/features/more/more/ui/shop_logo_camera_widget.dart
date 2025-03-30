@@ -29,8 +29,8 @@ class ShopLogoCameraWidget extends StatefulWidget {
 
 class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
     with LifecycleMixin {
-  final double imageWidth = 74.w;
-  final double imageHeight = 74.h;
+  final double imageWidth = 50.w;
+  final double imageHeight = 50.h;
   @override
   void onAppLifecycleChange(AppLifecycleState state) {
     super.onAppLifecycleChange(state);
@@ -48,100 +48,107 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
   }
 
   @override
-  Widget build(BuildContext context) => Stack(
-        clipBehavior: Clip.none,
-        children: [
-          _shopLogoWidget,
-          _cameraWidget,
-          _nameAndMobileWidget,
-        ],
-      );
-
-  Widget get _nameAndMobileWidget => Positioned(
-        right: 192,
-        top: 30,
-        left: 20,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CustomText(
-                text: widget.name,
-                customTextStyle:
-                    MediumStyle(color: lightBlackColor, fontSize: 22.sp)),
-            Directionality(
-              textDirection: TextDirection.ltr,
-              child: CustomText(
-                  text: widget.mobile,
-                  customTextStyle:
-                      RegularStyle(color: lightBlackColor, fontSize: 22.sp)),
-            )
-          ],
+  Widget build(BuildContext context) => InkWell(
+    onTap: () => widget.openCameraOrGallery(),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Container(
+            // color: Colors.blue,
+            child: Stack(
+                  // clipBehavior: Clip.none,
+                  children: [
+                    _shopLogoWidget,
+                    _cameraWidget,
+                  ],
+                ),
+          ),
         ),
-      );
+
+        _nameAndMobileWidget,
+      ],
+    ),
+  );
+
+  Widget get _nameAndMobileWidget => Container(
+    // color: Colors.red,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomText(
+            text: widget.name,
+            customTextStyle:
+                BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: CustomText(
+              text: widget.mobile,
+              customTextStyle:
+                  MediumStyle(color: greyOrderGreyTextColorLightMode, fontSize: 16.sp)),
+        )
+      ],
+    ),
+  );
 
   Widget get _shopLogoWidget => Positioned(
-        right: 91,
+        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) + 10.h ,
         top: 20,
-        child: InkWell(
-          onTap: () => widget.openCameraOrGallery(),
-          child: StreamBuilder<String>(
-            stream: widget.moreBloc.selectedFileStream,
-            initialData: '',
-            builder: (context, snapshot) => !snapshot.hasData
-                ? CircularProgressIndicator()
-                : Container(
+        child: StreamBuilder<String>(
+          stream: widget.moreBloc.selectedFileStream,
+          initialData: '',
+          builder: (context, snapshot) => !snapshot.hasData
+              ? CircularProgressIndicator()
+              : Container(
+                  height: 70.h,
+                  width: 70.w,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: productCardColor,
+                      // color: Colors.red,
+                      borderRadius: BorderRadius.circular(8.w)),
+                  child: ImageHelper(
                     height: imageHeight,
                     width: imageWidth,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: greyColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(16.w)),
-                    child: ImageHelper(
-                      height: imageHeight,
-                      width: imageWidth,
-                      imageType: snapshot.data!.isEmpty
-                          ? ImageType.network
-                          : ImageType.file,
-                      image: snapshot.data!.isEmpty
-                          ? widget.shopLogo
-                          : snapshot.data!,
-                      // snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
-                      boxFit: BoxFit.fill,
-                      imageShape: ImageShape.rectangle,
-                      borderRadius: BorderRadius.circular(16.w),
-                      errorBuilder: ImageHelper(
-                        imageType: ImageType.svg,
-                        image: widget.placeHolder,
-                        width: 80.w,
-                        height: 80.h,
-                      ),
+                    imageType: snapshot.data!.isEmpty
+                        ? ImageType.network
+                        : ImageType.file,
+                    image: snapshot.data!.isEmpty
+                        ? widget.shopLogo
+                        : snapshot.data!,
+                    // snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
+                    boxFit: BoxFit.fill,
+                    imageShape: ImageShape.rectangle,
+                    borderRadius: BorderRadius.circular(16.w),
+                    errorBuilder: ImageHelper(
+                      imageType: ImageType.svg,
+                      image: widget.placeHolder,
+                      width: 80.w,
+                      height: 80.h,
                     ),
                   ),
-          ),
+                ),
         ),
       );
 
   Widget get _cameraWidget => Positioned(
-        top: 70,
-        right: 140,
-        child: InkWell(
-          onTap: () => widget.openCameraOrGallery(),
-          child: Container(
-            width: 32.w,
-            height: 32.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.circular(10.w),
-            ),
-            child: ImageHelper(
-              image: widget.cameraIcon,
-              imageType: ImageType.svg,
-              color: whiteColor,
-              width: 20.w,
-              height: 16.h,
-            ),
+        top: 75.h,
+        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) + 70.h ,
+        child: Container(
+          width: 32.w,
+          height: 32.h,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            borderRadius: BorderRadius.circular(10.w),
+          ),
+          child: ImageHelper(
+            image: widget.cameraIcon,
+            imageType: ImageType.svg,
+            color: whiteColor,
+            width: 20.w,
+            height: 16.h,
           ),
         ),
       );
