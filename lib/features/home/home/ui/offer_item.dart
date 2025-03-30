@@ -6,7 +6,7 @@ import 'package:image_loader/image_helper.dart';
 import 'home_bloc.dart';
 
 class OfferItem extends StatelessWidget {
-  final int index;
+  // final int index;
   final bool isClickable;
   final OfferMapper item;
   final HomeBloc homeBloc;
@@ -16,7 +16,7 @@ class OfferItem extends StatelessWidget {
       {required this.isClickable,
       required this.item,
       required this.homeBloc,
-      required this.index,
+      // required this.index,
       required this.isMainPage,
       required this.isInProductPage,
       super.key});
@@ -29,7 +29,7 @@ class OfferItem extends StatelessWidget {
         onTap: () {
           if (isClickable) {
             homeBloc.selectedOffer = item;
-            homeBloc.selectedOfferIndex = index;
+            // homeBloc.selectedOfferIndex = index;
             homeBloc.isBanner = false;
 
             CustomNavigatorModule.navigatorKey.currentState!

@@ -47,7 +47,9 @@ class _OffersWidgetState extends State<OffersWidget>
                       list[index].link.toLowerCase().trim() != "nolink",
                   item: list[index],
                   homeBloc: widget.homeBloc,
-                  index: index),
+                  // index: index
+
+              ),
               separatorBuilder: (context, index) => SizedBox(
                     width: widget.isMainPage == false ? 12.w : null,
                     height: widget.isMainPage == true ? 20.h : null,

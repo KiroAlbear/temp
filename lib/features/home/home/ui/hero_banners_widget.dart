@@ -1,4 +1,5 @@
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,25 +32,51 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
         children: [
           SizedBox(
             height: list.isEmpty ? 0 : 220.h,
-            child: ListView.separated(
-              itemBuilder: (context, index) => HeroBannerItem(
-                isMainPage: true,
-                index: index,
-                item: list[index],
-                homeBloc: widget.homeBloc,
-                isClickable: list[index].link.toLowerCase().trim() != "nolink",
-              ),
-              shrinkWrap: true,
-              // physics: const PageScrollPhysics(),
-              // controller: _pageScrollController,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              scrollDirection: Axis.horizontal,
-              itemCount: list.length,
-              separatorBuilder: (BuildContext context, int index) => SizedBox(
-                width: 12.w,
-              ),
+            child: CarouselSlider(
+                items: list
+                    .map((item) => HeroBannerItem(
+                  isMainPage: true,
+                  item: item,
+                  homeBloc: widget.homeBloc,
+                  isClickable: item.link.toLowerCase().trim() != "nolink",
+                        ))
+                    .toList(),
+                options: CarouselOptions(
+                  viewportFraction: 1,
+                  initialPage: 0,
+                  enableInfiniteScroll: false,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 7),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
+                )
             ),
           ),
+          // SizedBox(
+          //   height: list.isEmpty ? 0 : 220.h,
+          //   child: ListView.separated(
+          //     itemBuilder: (context, index) => HeroBannerItem(
+          //       isMainPage: true,
+          //       // index: index,
+          //       item: list[index],
+          //       homeBloc: widget.homeBloc,
+          //       isClickable: list[index].link.toLowerCase().trim() != "nolink",
+          //     ),
+          //     shrinkWrap: true,
+          //     // physics: const PageScrollPhysics(),
+          //     // controller: _pageScrollController,
+          //     padding: EdgeInsets.symmetric(horizontal: 10.w),
+          //     scrollDirection: Axis.horizontal,
+          //     itemCount: list.length,
+          //     separatorBuilder: (BuildContext context, int index) => SizedBox(
+          //       width: 12.w,
+          //     ),
+          //   ),
+          // ),
         ],
       );
 

@@ -75,7 +75,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
     widget.productCategoryBloc.categoryId = 1;
     widget.productCategoryBloc.isNavigatingFromMore = false;
     widget.homeBloc.selectedOffer = null;
-    widget.homeBloc.selectedOfferIndex = null;
+    // widget.homeBloc.selectedOfferIndex = null;
     // widget.homeBloc.selectedOfferCategoryId = null;
     // widget.homeBloc.selectedOfferBrandId = null;
     // widget.homeBloc.selectedOfferProductId = null;
@@ -403,7 +403,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                           ? Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: HeroBannerItem(
-                                                    index: widget.homeBloc.selectedOfferIndex!,
+                                                    // index: widget.homeBloc.selectedOfferIndex!,
                                                     item: widget.homeBloc.selectedOffer!,
                                                     homeBloc: widget.homeBloc,
                                                     isMainPage: true,
@@ -418,7 +418,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                             child: OfferItem(
                                                     isInProductPage: true,
                                                     isMainPage: true,
-                                                    index: widget.homeBloc.selectedOfferIndex!,
+                                                    // index: widget.homeBloc.selectedOfferIndex!,
                                                     item: widget.homeBloc.selectedOffer!,
                                                     homeBloc: widget.homeBloc,
                                                     isClickable: false,

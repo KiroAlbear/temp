@@ -25,7 +25,7 @@ class HomeBloc extends BlocBase {
       _categoryBehaviour.stream;
 
   OfferMapper? selectedOffer;
-  int? selectedOfferIndex;
+  // int? selectedOfferIndex;
   bool isBanner = false;
 
   // int? selectedOfferCategoryId;

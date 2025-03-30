@@ -53,8 +53,6 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.splash:
       // _bottomNavigationBloc.setSelectedTab(0, null);
       return _buildPageRoute(const SplashWidget());
-
-
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:

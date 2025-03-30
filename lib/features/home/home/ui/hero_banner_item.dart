@@ -8,12 +8,13 @@ import 'home_bloc.dart';
 
 class HeroBannerItem extends StatelessWidget {
   final HomeBloc homeBloc;
-  final int index;
+  // final int index;
   final OfferMapper item;
   final bool isClickable;
   final bool isMainPage;
   const HeroBannerItem(
-      {required this.index,
+      {
+        // required this.index,
       required this.item,
       required this.homeBloc,
       required this.isClickable,
@@ -26,7 +27,7 @@ class HeroBannerItem extends StatelessWidget {
       onTap: () {
         if (isClickable) {
           homeBloc.selectedOffer = item;
-          homeBloc.selectedOfferIndex = index;
+          // homeBloc.selectedOfferIndex = index;
           homeBloc.isBanner = true;
 
           CustomNavigatorModule.navigatorKey.currentState!
@@ -60,23 +61,23 @@ class HeroBannerItem extends StatelessWidget {
   }
 
 
-  Color _whichBorderColor(int index) {
-    if (index % 3 == 0) {
-      return primaryColor;
-    } else if (index % 3 == 1) {
-      return greenColor;
-    } else {
-      return redColor;
-    }
-  }
+  // Color _whichBorderColor(int index) {
+  //   if (index % 3 == 0) {
+  //     return primaryColor;
+  //   } else if (index % 3 == 1) {
+  //     return greenColor;
+  //   } else {
+  //     return redColor;
+  //   }
+  // }
 
-  Color _whichCardColor(int index) {
-    if (index % 3 == 0) {
-      return yellowCardColor;
-    } else if (index % 3 == 1) {
-      return greenCardColor;
-    } else {
-      return redCardColor;
-    }
-  }
+  // Color _whichCardColor(int index) {
+  //   if (index % 3 == 0) {
+  //     return yellowCardColor;
+  //   } else if (index % 3 == 1) {
+  //     return greenCardColor;
+  //   } else {
+  //     return redCardColor;
+  //   }
+  // }
 }
