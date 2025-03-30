@@ -16,8 +16,8 @@ class UpdateProfileScreen extends BaseStatefulWidget {
 
 class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   final UpdateProfileBloc _bloc = UpdateProfileBloc();
-  final double _headerSpacing = 12.h;
-  final double _textfieldsSpacing = 15.h;
+  final double _headerSpacing = 15.h;
+  final double _textfieldsSpacing = 20.h;
   final double _textfieldsLabelSpacing = 8.h;
 
   @override
@@ -122,7 +122,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                           CustomText(
                               text: S.of(context).updateProfilePersonalData,
                               customTextStyle: BoldStyle(
-                                  fontSize: 24.sp, color: secondaryColor)),
+                                  fontSize: 20.sp, color: darkSecondaryColor)),
                           SizedBox(
                             height: _headerSpacing,
                           ),
@@ -137,7 +137,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                           CustomText(
                               text: S.of(context).updateProfileBuildingData,
                               customTextStyle: BoldStyle(
-                                  fontSize: 24.sp, color: secondaryColor)),
+                                  fontSize: 20.sp, color: darkSecondaryColor)),
                           SizedBox(
                             height: _headerSpacing,
                           ),
@@ -166,7 +166,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                             padding:
                                 const EdgeInsets.only(bottom: 50.0, top: 33.0),
                             child: CustomButtonWidget(
-                                idleText: S.of(context).save,
+                                idleText: S.of(context).editData,
                                 onTap: () {
                                   _bloc.updateProfile().listen(
                                     (event) {
@@ -203,12 +203,12 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).fullName),
+        _label(S.of(context).threeFullName),
         SizedBox(
           height: _textfieldsLabelSpacing,
         ),
         CustomTextFormFiled(
-          labelText: S.of(context).fullName,
+          labelText: S.of(context).threeFullName,
           defaultTextStyle: _getTextStyle(),
           textFiledControllerStream: _bloc.fullNameBloc.textFormFiledBehaviour,
           onChanged: (value) => _bloc.fullNameBloc.updateStringBehaviour(value),
@@ -224,18 +224,18 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).enterMobileNumber),
+        _label(S.of(context).yourMobile),
         SizedBox(
           height: _textfieldsLabelSpacing,
         ),
         Directionality(
           textDirection: TextDirection.ltr,
           child: CustomTextFormFiled(
-            fillColor: greyColor.withOpacity(0.5),
-            defaultTextStyle: _getTextStyle(),
+            fillColor: Colors.transparent,
             readOnly: true,
+            defaultTextStyle: _getTextStyle(),
             textAlign: TextAlign.end,
-            labelText: S.of(context).enterMobileNumber,
+            labelText: S.of(context).yourMobile,
             textFiledControllerStream: _bloc.phoneBloc.textFormFiledBehaviour,
             onChanged: (value) {},
             textInputAction: TextInputAction.next,
@@ -357,6 +357,6 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   }
 
   TextStyle _getTextStyle() {
-    return RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle();
+    return RegularStyle(fontSize: 14.sp, color: lightGreyColorDarkMode).getStyle();
   }
 }

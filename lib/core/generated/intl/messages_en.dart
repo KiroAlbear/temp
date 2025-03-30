@@ -120,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter confirm password"),
         "enterFullName":
             MessageLookupByLibrary.simpleMessage("Enter full name"),
+        "threeFullName": MessageLookupByLibrary.simpleMessage("Enter full name"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("Enter mobile number"),
         "enterNeighborhood":
@@ -249,6 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resendOtpAfter": m3,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "editData": MessageLookupByLibrary.simpleMessage("Edit data"),
         "scanBarcode":
             MessageLookupByLibrary.simpleMessage("Search by Barcode"),
         "scanText": MessageLookupByLibrary.simpleMessage(

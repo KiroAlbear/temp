@@ -490,6 +490,15 @@ class S {
     );
   }
 
+  String get threeFullName {
+    return Intl.message(
+      'Full name',
+      name: 'threeFullName',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter full name`
   String get enterFullName {
     return Intl.message(
@@ -1065,6 +1074,15 @@ class S {
     return Intl.message(
       'Save',
       name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get editData {
+    return Intl.message(
+      'Edit Data',
+      name: 'editData',
       desc: '',
       args: [],
     );

@@ -140,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة السر؟"),
         "fullName": MessageLookupByLibrary.simpleMessage("اسم صاحب المنشأة ثلاثي"),
+        "threeFullName": MessageLookupByLibrary.simpleMessage("الاسم الثلاثي"),
         "gallery": MessageLookupByLibrary.simpleMessage("معرض الصور"),
         "generalError": MessageLookupByLibrary.simpleMessage(
             "خطأ عام.\nيرجى المحاولة مرة أخرى في وقت لاحق!"),
@@ -243,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "editData": MessageLookupByLibrary.simpleMessage("تعديل البيانات"),
         "scanBarcode":
             MessageLookupByLibrary.simpleMessage("البحث عن طريق الباركود"),
         "scanText": MessageLookupByLibrary.simpleMessage(
@@ -273,9 +275,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateProfileDistrict": MessageLookupByLibrary.simpleMessage("الحي"),
         "updateProfileGovernorate":
             MessageLookupByLibrary.simpleMessage("المحافظة"),
-        "updateProfileLocation": MessageLookupByLibrary.simpleMessage("الموقع"),
+        "updateProfileLocation": MessageLookupByLibrary.simpleMessage("موقع المنشأة"),
         "updateProfilePersonalData":
-            MessageLookupByLibrary.simpleMessage("بياناتي الشخصية"),
+            MessageLookupByLibrary.simpleMessage("البيانات الشخصية"),
         "updateProfileTitle":
             MessageLookupByLibrary.simpleMessage("بيانات حسابي"),
         "usagePolicy": MessageLookupByLibrary.simpleMessage("سياسة الاستخدام"),
