@@ -33,6 +33,7 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
           SizedBox(
             height: list.isEmpty ? 0 : 220.h,
             child: CarouselSlider(
+                carouselController: CarouselSliderController(),
                 items: list
                     .map((item) => HeroBannerItem(
                   isMainPage: true,
@@ -42,7 +43,7 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
                         ))
                     .toList(),
                 options: CarouselOptions(
-                  viewportFraction: 1,
+                  viewportFraction: 0.85,
                   initialPage: 0,
                   enableInfiniteScroll: false,
                   reverse: false,
@@ -51,11 +52,12 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
                   autoPlayAnimationDuration: Duration(milliseconds: 800),
                   autoPlayCurve: Curves.fastOutSlowIn,
                   enlargeCenterPage: true,
-                  enlargeFactor: 0.3,
+                  enlargeFactor: 0.2,
                   scrollDirection: Axis.horizontal,
                 )
             ),
           ),
+
           // SizedBox(
           //   height: list.isEmpty ? 0 : 220.h,
           //   child: ListView.separated(

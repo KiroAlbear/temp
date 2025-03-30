@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,28 +33,57 @@ class _OffersWidgetState extends State<OffersWidget>
   Widget _buildWidget(List<OfferMapper> list) => list.isEmpty
       ? SizedBox()
       : SizedBox(
-          height: widget.isMainPage ? 100.h : 120.h,
-          child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection:
-                  widget.isMainPage ? Axis.vertical : Axis.horizontal,
-              // physics: const PageScrollPhysics(),
-              // controller: _pageScrollController,
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              itemBuilder: (context, index) => OfferItem(
-                  isInProductPage: false,
-                  isMainPage: widget.isMainPage,
-                  isClickable:
-                      list[index].link.toLowerCase().trim() != "nolink",
-                  item: list[index],
-                  homeBloc: widget.homeBloc,
-                  // index: index
+        height: widget.isMainPage ? 100.h : 120.h,
+        child: CarouselSlider(
 
-              ),
-              separatorBuilder: (context, index) => SizedBox(
-                    width: widget.isMainPage == false ? 12.w : null,
-                    height: widget.isMainPage == true ? 20.h : null,
-                  ),
-              itemCount: list.length),
-        );
+            items: list
+                .map((item) => OfferItem(
+                      isInProductPage: false,
+                      isMainPage: widget.isMainPage,
+                      isClickable: item.link.toLowerCase().trim() != "nolink",
+                      item: item,
+                      homeBloc: widget.homeBloc,
+                    ))
+                .toList(),
+            options: CarouselOptions(
+              viewportFraction: 0.65,
+              initialPage: 0,
+              enableInfiniteScroll: false,
+              reverse: false,
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 7),
+              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              enlargeFactor: 0,
+              scrollDirection: Axis.horizontal,
+            ),
+          ),
+      );
+
+  // SizedBox(
+  //         height: widget.isMainPage ? 100.h : 120.h,
+  //         child: ListView.separated(
+  //             shrinkWrap: true,
+  //             scrollDirection:
+  //                 widget.isMainPage ? Axis.vertical : Axis.horizontal,
+  //             // physics: const PageScrollPhysics(),
+  //             // controller: _pageScrollController,
+  //             padding: EdgeInsets.symmetric(horizontal: 16.w),
+  //             itemBuilder: (context, index) => OfferItem(
+  //                 isInProductPage: false,
+  //                 isMainPage: widget.isMainPage,
+  //                 isClickable:
+  //                     list[index].link.toLowerCase().trim() != "nolink",
+  //                 item: list[index],
+  //                 homeBloc: widget.homeBloc,
+  //                 // index: index
+  //
+  //             ),
+  //             separatorBuilder: (context, index) => SizedBox(
+  //                   width: widget.isMainPage == false ? 12.w : null,
+  //                   height: widget.isMainPage == true ? 20.h : null,
+  //                 ),
+  //             itemCount: list.length),
+  //       );
 }
