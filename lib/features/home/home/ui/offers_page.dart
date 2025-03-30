@@ -57,7 +57,7 @@ class _OffersPageState extends BaseState<OffersPage> {
                 ? Expanded(
                     child: OffersWidget(
                       homeBloc: widget.homeBloc,
-                      isMainPage: false,
+                      isMainPage: true,
                     ),
                   )
                 : Expanded(

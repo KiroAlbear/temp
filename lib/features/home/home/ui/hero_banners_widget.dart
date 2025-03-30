@@ -45,7 +45,7 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
                 options: CarouselOptions(
                   viewportFraction: 0.85,
                   initialPage: 0,
-                  enableInfiniteScroll: false,
+                  enableInfiniteScroll: true,
                   reverse: false,
                   autoPlay: true,
                   autoPlayInterval: Duration(seconds: 7),
