@@ -1079,6 +1079,15 @@ class S {
     );
   }
 
+  String get saveChange {
+    return Intl.message(
+      'save Change',
+      name: 'saveChange',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get editData {
     return Intl.message(
       'Edit Data',
@@ -1179,9 +1188,18 @@ class S {
   }
 
   /// `Enter the new password`
-  String get newPassword {
+  String get enterNewPassword {
     return Intl.message(
       'Enter the new password',
+      name: 'enterNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get newPassword {
+    return Intl.message(
+      'New password',
       name: 'newPassword',
       desc: '',
       args: [],

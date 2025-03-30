@@ -35,14 +35,16 @@ class PreviousNextButton extends StatelessWidget {
                       height: 22.h,
                     ),
                     SizedBox(width: 4), // Add spacing between the text and the icon
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: CustomText(
+                        text:isPrevious? S.of(context).previous:S.of(context).next,
+                        customTextStyle: RegularStyle(
+                          fontSize: 16.sp,
+                          color: isPrevious? darkSecondaryColor: snapshot.data == true ? darkSecondaryColor: greyColor, // Use your desired color
+                        ),
 
-                    CustomText(
-                      text:isPrevious? S.of(context).previous:S.of(context).next,
-                      customTextStyle: RegularStyle(
-                        fontSize: 16.sp,
-                        color: isPrevious? darkSecondaryColor: snapshot.data == true ? darkSecondaryColor: greyColor, // Use your desired color
                       ),
-
                     ),
                   ],
                 ),

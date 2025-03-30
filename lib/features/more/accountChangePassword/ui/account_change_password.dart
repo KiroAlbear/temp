@@ -85,7 +85,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                   height: 24.h,
                 ),
                 CustomText(
-                    text: S.of(context).password,
+                    text: S.of(context).newPassword,
                     customTextStyle: MediumStyle(
                         fontSize: 16.sp, color: darkSecondaryColor)),
                 SizedBox(
@@ -113,7 +113,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                       _bloc.passwordBloc.textFormFiledBehaviour.value,
                 ),
                 SizedBox(
-                  height: 28.h,
+                  height: 160.h,
                 ),
                 Center(child: _button),
               ],
@@ -143,7 +143,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
   Widget get _passwordFiled => CustomTextFormFiled(
         onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
-        labelText: S.of(context).newPassword,
+        labelText: S.of(context).enterNewPassword,
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.text,
         textCapitalization: TextCapitalization.none,
@@ -184,7 +184,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
   }
 
   Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).save,
+        idleText: S.of(context).saveChange,
         onTap: () {
           if (_bloc.isValid) {
             _bloc.changePassword.listen(

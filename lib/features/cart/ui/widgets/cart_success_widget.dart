@@ -43,7 +43,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
         children: [
           100.verticalSpace,
           ImageHelper(
-              image: Assets.svg.cartSuccessLogo, imageType: ImageType.svg),
+              image: Assets.svg.logoYellow, imageType: ImageType.svg),
           SizedBox(height: 60),
           SizedBox(
             width: 130,
@@ -57,14 +57,14 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
               textAlign: TextAlign.center,
               maxLines: 2,
               customTextStyle:
-                  BoldStyle(color: lightBlackColor, fontSize: 26.sp)),
+                  BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
           5.verticalSpace,
           CustomText(
               text: S.of(context).cartSuccessIsDelivering,
               textAlign: TextAlign.center,
               maxLines: 2,
               customTextStyle:
-                  RegularStyle(color: cartSuccessBlueColor, fontSize: 20.sp)),
+                  RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
           40.verticalSpace,
           Padding(
             padding: const EdgeInsets.only(bottom: 50.0),

@@ -171,8 +171,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("الحي"),
-        "newPassword":
+        "enterNewPassword":
             MessageLookupByLibrary.simpleMessage("ادخل كلمة السر الجديدة"),
+
+        "newPassword": MessageLookupByLibrary.simpleMessage("كلمة السر الجديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "لا يوجد اتصال بالإنترنت.\nيرجى المحاولة مرة أخرى لاحقًا"),
@@ -244,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "saveChange": MessageLookupByLibrary.simpleMessage("حفظ التغيير"),
         "editData": MessageLookupByLibrary.simpleMessage("تعديل البيانات"),
         "scanBarcode":
             MessageLookupByLibrary.simpleMessage("البحث عن طريق الباركود"),

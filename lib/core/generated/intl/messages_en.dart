@@ -174,8 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "neighborhood": MessageLookupByLibrary.simpleMessage("District"),
-        "newPassword":
+        "enterNewPassword":
             MessageLookupByLibrary.simpleMessage("Enter the new password"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No internet Connection.\nPlease try again later"),
@@ -250,6 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resendOtpAfter": m3,
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveChange": MessageLookupByLibrary.simpleMessage("Save changes"),
         "editData": MessageLookupByLibrary.simpleMessage("Edit data"),
         "scanBarcode":
             MessageLookupByLibrary.simpleMessage("Search by Barcode"),
