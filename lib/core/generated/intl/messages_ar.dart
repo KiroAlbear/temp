@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "browseSections": MessageLookupByLibrary.simpleMessage("تصفح الأقسام"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "cancelOrder": MessageLookupByLibrary.simpleMessage("إلغاء الطلب"),
         "cartCashOnDelivery":
             MessageLookupByLibrary.simpleMessage("كاش عند الاستلام"),
         "cartConfirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),

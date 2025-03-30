@@ -27,7 +27,7 @@ class OrderItem extends StatelessWidget {
       required this.orderStatuses});
 
   final CustomTextStyleModule titleTextStyle =
-      MediumStyle(color: lightBlackColor, fontSize: 18.sp);
+      MediumStyle(color: darkSecondaryColor, fontSize: 14.sp);
 
   final double borderRadious = 10;
 
@@ -58,7 +58,7 @@ class OrderItem extends StatelessWidget {
       },
       background: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[100],
+          color: productCardColor,
           borderRadius: BorderRadius.circular(borderRadious),
         ),
         child: Padding(
@@ -69,7 +69,7 @@ class OrderItem extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: myOrdersCardColor,
+          color: productCardColor,
           borderRadius: BorderRadius.circular(borderRadious),
         ),
         child: ExpansionTile(
@@ -91,6 +91,7 @@ class OrderItem extends StatelessWidget {
                 image: Assets.svg.icNormalOrder,
                 width: 32,
                 height: 32,
+                color: darkSecondaryColor,
                 imageType: ImageType.svg,
               ),
               SizedBox(width: 10),
@@ -119,7 +120,7 @@ class OrderItem extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    color: Colors.black,
+                    color: greyTextFieldBorderColorLightMode,
                     width: double.infinity,
                     height: 1,
                   ),
@@ -197,12 +198,20 @@ class OrderItem extends StatelessWidget {
                     ),
                     context: context);
               },
-              child: ImageHelper(
-                image: Assets.svg.icDeleteOrder,
-                width: 40,
-                height: 40,
-                imageType: ImageType.svg,
-              ),
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.red,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8,),
+                  child: CustomText(text: S.of(context).cancelOrder, customTextStyle: RegularStyle(color: Colors.white, fontSize: 14.sp)))
+
+              // ImageHelper(
+              //   image: Assets.svg.icDeleteOrder,
+              //   width: 40,
+              //   height: 40,
+              //   imageType: ImageType.svg,
+              // ),
             ),
           ),
         );

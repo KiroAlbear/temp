@@ -8,7 +8,9 @@ class CurrentOrderItemState extends StatelessWidget {
   final String date;
   final String title;
   final String icon;
+  final bool isEnabled;
   const CurrentOrderItemState({
+    required this.isEnabled,
     required this.date,
     required this.title,
     required this.icon,
@@ -30,7 +32,7 @@ class CurrentOrderItemState extends StatelessWidget {
               CustomText(
                 text: title,
                 customTextStyle:
-                    MediumStyle(color: lightBlackColor, fontSize: 18.sp),
+                    MediumStyle(color:isEnabled?greenColorLightMode: lightBlackColor, fontSize: 14.sp),
               ),
               CustomText(
                 text: date,

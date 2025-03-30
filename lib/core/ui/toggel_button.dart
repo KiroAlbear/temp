@@ -102,7 +102,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                   width: buttonWidth,
                   height: widget.height,
                   decoration: BoxDecoration(
-                    border: Border.all(color: switchBorderColor),
+                    border: Border.all(color: Colors.transparent),
                     color: widget.toggleColor,
                     borderRadius: BorderRadius.all(
                       Radius.circular(borderRadious),
@@ -125,7 +125,7 @@ class _ToggleButtonState extends State<ToggleButton> {
               valueListenable: _leftDescriptionColor,
               builder: (_, Color value, __) {
                 final borderColor = value == widget.activeTextColor
-                    ? Colors.grey
+                    ? Colors.transparent
                     : Colors.transparent;
                 return Align(
                   alignment: Alignment(-1, 0),
@@ -167,7 +167,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                 valueListenable: _rightDescriptionColor,
                 builder: (_, Color value, __) {
                   final borderColor = value == widget.activeTextColor
-                      ? Colors.grey
+                      ? Colors.transparent
                       : Colors.transparent;
 
                   return AnimatedContainer(

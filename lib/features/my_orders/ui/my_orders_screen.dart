@@ -86,11 +86,11 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
         ToggleButton(
           height: 40,
           width: ScreenUtil.defaultSize.width,
-          toggleBackgroundColor: Colors.transparent,
+          toggleBackgroundColor: productCardColorLightMode,
           toggleBorderColor: Colors.transparent,
-          toggleColor: switchColor,
-          activeTextColor: greyColor,
-          inactiveTextColor: Colors.black,
+          toggleColor: darkSecondaryColor,
+          activeTextColor: lightBlackColor,
+          inactiveTextColor: Colors.white,
           leftDescription: S.of(context).pastOrders,
           rightDescription: S.of(context).currentOrders,
           onLeftToggleActive: () {

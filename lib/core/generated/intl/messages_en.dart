@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Browse sections"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cancelOrder": MessageLookupByLibrary.simpleMessage("Cancel Order"),
         "cartCashOnDelivery":
             MessageLookupByLibrary.simpleMessage("Cash on delivery"),
         "cartConfirmOrder":

@@ -669,6 +669,15 @@ class S {
     );
   }
 
+  String get cancelOrder {
+    return Intl.message(
+      'Cancel Order',
+      name: 'cancelOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Welcome to Dokkan`
   String get welcomeToDokkan {
     return Intl.message(

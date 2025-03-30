@@ -33,6 +33,9 @@ const Color greyColorDarkMode = Color.fromRGBO(168, 172, 177, 1);
 const Color greyBorderColorLightMode = Color.fromRGBO(238, 238, 238, 1);
 const Color greyBorderColorDarkMode = Color.fromRGBO(238, 238, 238, 1);
 
+const Color greyOrderGreyTextColorLightMode = Color.fromRGBO(132, 132, 132, 1);
+const Color greyOrderGreyTextColorDarkMode = Color.fromRGBO(132, 132, 132, 1);
+
 const Color greyTextFieldBorderColorLightMode = Color.fromRGBO(225, 225, 225, 1);
 const Color greyTextFieldBorderColorDarkMode = Color.fromRGBO(225, 225, 225, 1);
 
