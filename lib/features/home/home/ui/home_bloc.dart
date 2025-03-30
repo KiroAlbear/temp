@@ -28,6 +28,8 @@ class HomeBloc extends BlocBase {
   // int? selectedOfferIndex;
   bool isBanner = false;
 
+  String selectedCategoryText = "";
+
   // int? selectedOfferCategoryId;
   // int? selectedOfferProductId;
   // int? selectedOfferBrandId;

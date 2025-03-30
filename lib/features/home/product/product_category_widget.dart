@@ -75,6 +75,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
     widget.productCategoryBloc.categoryId = 1;
     widget.productCategoryBloc.isNavigatingFromMore = false;
     widget.homeBloc.selectedOffer = null;
+
     // widget.homeBloc.selectedOfferIndex = null;
     // widget.homeBloc.selectedOfferCategoryId = null;
     // widget.homeBloc.selectedOfferBrandId = null;
@@ -185,7 +186,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                 ? " "
                 : widget.productCategoryBloc.isForFavourite
                 ? S.of(context).favourites
-                : S.of(context).products,
+                : widget.homeBloc.selectedCategoryText,
             hideTop: widget.productCategoryBloc.isForFavourite
                 ? true
                 : false,

@@ -8,6 +8,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int? subcategoryId;
   int? brandId;
 
+
   bool isForFavourite = false;
   bool isNavigatingFromMore = false;
   ValueNotifier<bool>? isLoading = null;
