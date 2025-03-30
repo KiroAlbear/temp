@@ -66,8 +66,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
           return Scaffold(
             body: LogoTopWidget(
                 isHavingBackArrow: true,
-                pressingBackTwice: true,
-                canBack: true,
+                pressingBackTwice: false,
                 logo: widget.logo,
                 blocBase: _bloc,
                 child: Padding(
@@ -79,24 +78,32 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
                             child: CustomText(
                                 text: S.of(context).enterVerificationCode,
                                 customTextStyle: BoldStyle(
-                                    color: lightBlackColor, fontSize: 24.sp)),
+                                    color: darkSecondaryColor, fontSize: 28.sp)),
                           ),
                           SizedBox(
                             height: 33.h,
+                          ),
+                          Center(child: _otpWithMobile),
+                          SizedBox(
+                            height: 20.h,
                           ),
                           _otpWidget(),
                           SizedBox(
                             height: 16.h,
                           ),
-                          Center(child: _otpWithMobile),
+
                           SizedBox(
-                            height: 100.h,
+                            height: 180.h,
                           ),
-                          Center(child: _sendOtpAgain),
+                          Center(child: _sendOtpCounter),
                           SizedBox(
-                            height: 12.h,
+                            height: 15.h,
                           ),
                           Center(child: _button),
+                          SizedBox(
+                            height: 22.h,
+                          ),
+                          Center(child: _sendOtpAgain),
                         ]))),
           );
         });
@@ -159,18 +166,6 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Visibility(
-                visible: !(enableSnapShot.data ?? false),
-                child: CustomText(
-                    text: S
-                        .of(context)
-                        .resendOtpAfter('0:${timeSnapShot.data ?? 59}'),
-                    customTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
               InkWell(
                   onTap: () {
                     if (enableSnapShot.data ?? false) {
@@ -191,6 +186,30 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
         ),
       );
 
+  Widget get _sendOtpCounter => StreamBuilder(
+    stream: _bloc.enableSendOtpStream,
+    initialData: false,
+    builder: (context, enableSnapShot) => StreamBuilder(
+      stream: _bloc.timeStream,
+      initialData: 59,
+      builder: (context, timeSnapShot) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Visibility(
+            visible: !(enableSnapShot.data ?? false),
+            child: CustomText(
+                text: S
+                    .of(context)
+                    .resendOtpAfter('0:${timeSnapShot.data ?? 59}'),
+                customTextStyle:
+                RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
+          ),
+        ],
+      ),
+    ),
+  );
+
   void onlyForTestingCode() {
     widget.authenticationSharedBloc.userData = _bloc.userData;
     CustomNavigatorModule.navigatorKey.currentState
@@ -200,10 +219,8 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
   }
 
   Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).next,
-        height: 60.h,
-        textStyle:
-            SemiBoldStyle(fontSize: 16.w, color: lightBlackColor).getStyle(),
+        idleText: S.of(context).otpAuthenticate,
+
         onTap: () {
           _bloc.buttonBloc.buttonBehavior.sink.add(ButtonState.loading);
           _bloc

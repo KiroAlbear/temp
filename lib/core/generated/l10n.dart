@@ -1760,6 +1760,15 @@ class S {
     );
   }
 
+  String get otpAuthenticate {
+    return Intl.message(
+      'Verify',
+      name: 'otpAuthenticate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Some products are not available`
   String get cartProductsNotAvailable {
     return Intl.message(

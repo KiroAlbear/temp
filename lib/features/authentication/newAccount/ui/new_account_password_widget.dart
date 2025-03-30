@@ -41,7 +41,7 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
             CustomText(
                 text: S.of(context).password,
                 customTextStyle:
-                    RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
+                MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
             SizedBox(
               height: 12.h,
             ),
@@ -56,8 +56,8 @@ class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
                     ),
                     CustomText(
                         text: S.of(context).confirmPassword,
-                        customTextStyle: RegularStyle(
-                            color: lightBlackColor, fontSize: 20.sp)),
+                        customTextStyle: MediumStyle(
+                            color: darkSecondaryColor, fontSize: 16.sp)),
                     SizedBox(
                       height: 12.h,
                     ),

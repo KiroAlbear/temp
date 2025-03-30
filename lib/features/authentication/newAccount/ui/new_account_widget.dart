@@ -87,7 +87,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
       bloc: _bloc,
       child: LogoTopWidget(
           isHavingBackArrow: true,
-          canBack: false,
           logo: widget.logo,
           blocBase: _bloc,
           canSkip: false,
@@ -154,7 +153,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
           CustomText(
               text: S.of(context).createAccount,
               customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
+                  BoldStyle(fontSize: 30.sp, color: darkSecondaryColor)),
           const Spacer(),
           _stepContainer(2, false, false),
           SizedBox(
@@ -178,7 +177,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
           CustomText(
               text: S.of(context).locationYourLocation,
               customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
+                  MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
           const Spacer(),
           _stepContainer(3, false, false),
         ],
@@ -202,7 +201,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
           CustomText(
               text: S.of(context).password,
               customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: lightBlackColor)),
+                  MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
         ],
       );
 
@@ -210,9 +209,9 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
       AnimatedContainer(
           duration: const Duration(milliseconds: 500),
           decoration: BoxDecoration(
-              color: current ? lightBlackColor : whiteColor,
+              color: current ? darkSecondaryColor : whiteColor,
               borderRadius: BorderRadius.circular(7.w),
-              border: Border.all(color: lightBlackColor, width: 1.w)),
+              border: Border.all(color: darkSecondaryColor, width: 1.w)),
           child: Center(
             child: finished
                 ? Icon(
@@ -226,7 +225,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
                     child: CustomText(
                         text: step.toString(),
                         customTextStyle: SemiBoldStyle(
-                            color: current ? whiteColor : lightBlackColor,
+                            color: current ? whiteColor : darkSecondaryColor,
                             fontSize: 20.sp)),
                   ),
           ));

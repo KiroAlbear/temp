@@ -159,8 +159,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                         padding: const EdgeInsets.only(bottom: 50.0, top: 80.0),
                         child: CustomButtonWidget(
                             idleText: S.of(context).cartConfirmOrder,
-                            textColor: darkSecondaryColor,
-                            borderRadius: 8,
                             onTap: () {
                               widget.cartBloc
                                   .confirmOrderCart()

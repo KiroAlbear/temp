@@ -129,7 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ادخل رمز التفعيل"),
         "enterVerificationCodeSentTo": m1,
         "enterYouRegisteredMobile":
-            MessageLookupByLibrary.simpleMessage("ادخل رقم هاتفك المسجل"),
+            MessageLookupByLibrary.simpleMessage("أدخل رقم الهاتف المسجل لدينا"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("ادخل كلمة السر"),
         "faceBook": MessageLookupByLibrary.simpleMessage("فيس بوك"),
@@ -156,7 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "locationYourLocation":
             MessageLookupByLibrary.simpleMessage("حدد مكان محلك"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
-        "loginEnter": MessageLookupByLibrary.simpleMessage("الدخول"),
+        "loginEnter": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginNow": MessageLookupByLibrary.simpleMessage("تسجيل الدخول الآن"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
@@ -212,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لم تقم بطلب اي منتج حتي الان"),
         "otpIsNotValid":
             MessageLookupByLibrary.simpleMessage("خطأ في رمز التحقق"),
+        "otpAuthenticate": MessageLookupByLibrary.simpleMessage("تحقق"),
         "otpPhoneIsNotValid":
             MessageLookupByLibrary.simpleMessage("خطأ في رقم الهاتف"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
@@ -233,7 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "promoItems": MessageLookupByLibrary.simpleMessage("منتجات العرض"),
         "promotion": MessageLookupByLibrary.simpleMessage("العروض"),
         "registerMessageOtp": MessageLookupByLibrary.simpleMessage(
-            "اضغط التالي لرمز التفعيل"),
+            "أول ما تدوس عالتالي هنبعتلك رسالة تفعيل لحسابك"),
         "registerNewAccount":
             MessageLookupByLibrary.simpleMessage("تسجيل حساب جديد"),
         "registerNow": MessageLookupByLibrary.simpleMessage("انشئ حساب جديد"),
@@ -252,9 +253,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectLocation": MessageLookupByLibrary.simpleMessage("حدد موقعك"),
         "selectPhotoFromCameraOrGallery":
             MessageLookupByLibrary.simpleMessage("ماذا تفضل؟"),
-        "sendOTP": MessageLookupByLibrary.simpleMessage("ارسال كود التحقيق"),
+        "sendOTP": MessageLookupByLibrary.simpleMessage("إرسال رمز التحقق"),
         "sendOtpAgain":
-            MessageLookupByLibrary.simpleMessage("ارسال الكود مرة أخري"),
+            MessageLookupByLibrary.simpleMessage("إعادة إرسال رمز التحقق"),
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "start": MessageLookupByLibrary.simpleMessage("ابدأ"),

@@ -131,8 +131,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               child: CustomButtonWidget(
                 idleText: S.of(context).loginNow,
                 onTap: () => AppProviderModule().logout(context),
-                textStyle: MediumStyle(fontSize: 16.sp, color: lightBlackColor)
-                    .getStyle(),
                 height: 60.h,
               )),
           SizedBox(

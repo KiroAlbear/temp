@@ -27,7 +27,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
           CustomText(
               text: S.of(context).fullName,
               customTextStyle:
-                  RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
+                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
           SizedBox(
             height: 12.h,
           ),
@@ -38,7 +38,10 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
           CustomText(
               text: S.of(context).platformName,
               customTextStyle:
-                  RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
+              MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+          SizedBox(
+            height: 12.h,
+          ),
           _platformNameTextFiled,
           SizedBox(
             height: 160.h,
@@ -85,9 +88,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).next,
-        textStyle:
-            SemiBoldStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
-        height: 60.h,
+
         onTap: () {
           if (widget.newAccountBloc.isInfoValid) {
             widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);

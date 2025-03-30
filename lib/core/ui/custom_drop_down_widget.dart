@@ -38,7 +38,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 26.h,
@@ -59,7 +59,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
 
   Widget get _headerText => CustomText(
       text: widget.headerText,
-      customTextStyle: MediumStyle(fontSize: 26.sp, color: secondaryColor));
+      customTextStyle: BoldStyle(fontSize: 18.sp, color: secondaryColor));
 
   Widget get _buildList => Expanded(
         child: ListView.separated(
@@ -79,7 +79,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
           Navigator.pop(context);
         },
         child: Container(
-          decoration: grayRectangleBorder,
+          // decoration: grayRectangleBorder,
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 9.5.w),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

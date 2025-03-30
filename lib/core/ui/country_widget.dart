@@ -83,14 +83,14 @@ class _CountryWidgetState extends State<CountryWidget> {
                           )
                         : Container(),
                     SizedBox(
-                      width: 8.w,
+                      width: 12.w,
                     ),
                     ImageHelper(
                       image: 'assets/svg/ic_arrow_down.svg',
                       imageType: ImageType.svg,
                       width: 17.w,
                       height: 9.h,
-                      color: secondaryColor,
+                      color: greyTextFieldBorderColorLightMode,
                     ),
                   ],
                 )),

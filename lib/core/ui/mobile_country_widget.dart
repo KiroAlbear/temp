@@ -30,14 +30,16 @@ class MobileCountryWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+          Flexible(flex: 3, child: _countryPicker),
+          SizedBox(
+            width: 7.w,
+          ),
           Flexible(
             flex: 7,
             child: _mobileTextFormFiled(context),
           ),
-          SizedBox(
-            width: 7.w,
-          ),
-          Flexible(flex: 3, child: _countryPicker),
+
         ],
       );
 
@@ -53,6 +55,7 @@ class MobileCountryWidget extends StatelessWidget {
         onChanged: (value) => mobileBloc.updateStringBehaviour(value),
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.number,
+
         defaultTextStyle:
             RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         validator: enableValidator

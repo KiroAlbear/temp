@@ -75,8 +75,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                 ),
                 CustomText(
                     text: S.of(context).currentPassword,
-                    customTextStyle: RegularStyle(
-                        color: lightBlackColor, fontSize: 20.sp)),
+                    customTextStyle: MediumStyle(
+                        color: darkSecondaryColor, fontSize: 16.sp)),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -86,8 +86,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                 ),
                 CustomText(
                     text: S.of(context).password,
-                    customTextStyle: RegularStyle(
-                        fontSize: 20.sp, color: lightBlackColor)),
+                    customTextStyle: MediumStyle(
+                        fontSize: 16.sp, color: darkSecondaryColor)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -97,8 +97,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
                 ),
                 CustomText(
                     text: S.of(context).confirmPassword,
-                    customTextStyle: RegularStyle(
-                        color: lightBlackColor, fontSize: 20.sp)),
+                    customTextStyle: MediumStyle(
+                        color: darkSecondaryColor, fontSize: 16.sp)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -208,9 +208,6 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
             );
           }
         },
-        height: 60.h,
-        textStyle:
-            SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
         failedBehaviour: _bloc.buttonBloc.failedBehaviour,
         validateStream: _bloc.validateStream,

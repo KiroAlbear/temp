@@ -159,7 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "locationYourLocation":
             MessageLookupByLibrary.simpleMessage("Locate your location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
-        "loginEnter": MessageLookupByLibrary.simpleMessage("Enter"),
+        "loginEnter": MessageLookupByLibrary.simpleMessage("Sign in"),
         "loginNow": MessageLookupByLibrary.simpleMessage("Login now"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "logoutMessage": MessageLookupByLibrary.simpleMessage(
@@ -217,6 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "You don\'t have any order till now"),
         "otpIsNotValid": MessageLookupByLibrary.simpleMessage(
             "Problem with verification code"),
+        "otpAuthenticate": MessageLookupByLibrary.simpleMessage("Verify"),
         "otpPhoneIsNotValid":
             MessageLookupByLibrary.simpleMessage("Problem with Phone number "),
         "password": MessageLookupByLibrary.simpleMessage("Password"),

@@ -71,7 +71,6 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
-        canBack: false,
         logo: widget.logo,
         blocBase: _bloc,
         canSkip: widget.enableSkip,
@@ -92,7 +91,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
                 height: 30.h,
               ),
               CustomText(
-                  text: S.of(context).enterMobileNumber,
+                  text: S.of(context).yourMobile,
                   customTextStyle:
                       MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
               SizedBox(
@@ -105,7 +104,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
               CustomText(
                   text: S.of(context).password,
                   customTextStyle:
-                      MediumStyle(fontSize: 20.sp, color: darkSecondaryColor)),
+                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -164,7 +163,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
           child: CustomText(
               text: S.of(context).forgotPassword,
               customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
+                  RegularStyle(color: darkSecondaryColor, fontSize: 16.sp)),
         ),
       );
 
@@ -230,7 +229,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
 
   Widget _button(bool hasBiometric) => CustomButtonWidget(
         idleText: S.of(context).loginEnter,
-        height: 50.h,
+
         borderRadius: 8,
         width: hasBiometric
             ? (MediaQuery.of(context).size.width - 156.w)
@@ -266,14 +265,14 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
             CustomText(
                 text: S.of(context).doNotHaveAccount,
                 customTextStyle:
-                    RegularStyle(fontSize: 14.sp, color: lightBlackColor)),
+                    RegularStyle(fontSize: 16.sp, color: darkSecondaryColor)),
             SizedBox(
               width: 5.w,
             ),
             CustomText(
                 text: S.of(context).registerNow,
                 customTextStyle:
-                    SemiBoldStyle(color: lightBlackColor, fontSize: 14.sp))
+                    BoldStyle(color: darkSecondaryColor, fontSize: 16.sp))
           ],
         ),
       );

@@ -30,7 +30,7 @@ class _NewAccountLocationInfoWidgetState
             CustomText(
                 text: S.of(context).selectLocation,
                 customTextStyle:
-                    RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+                    MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)),
             SizedBox(
               height: 12.h,
             ),
@@ -40,9 +40,9 @@ class _NewAccountLocationInfoWidgetState
             ),
             CustomText(
                 text: S.of(context).streetName,
-                customTextStyle: RegularStyle(
-                  color: lightBlackColor,
-                  fontSize: 20.sp,
+                customTextStyle: MediumStyle(
+                  color: darkSecondaryColor,
+                  fontSize: 16.sp,
                 )),
             SizedBox(
               height: 12.h,
@@ -114,7 +114,7 @@ class _NewAccountLocationInfoWidgetState
           FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
         defaultTextStyle:
-            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
+            RegularStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
         textInputAction: TextInputAction.next,
       );
 
@@ -127,9 +127,9 @@ class _NewAccountLocationInfoWidgetState
               children: [
                 CustomText(
                     text: S.of(context).neighborhood,
-                    customTextStyle: RegularStyle(
-                      color: lightBlackColor,
-                      fontSize: 20.sp,
+                    customTextStyle: MediumStyle(
+                      color: darkSecondaryColor,
+                      fontSize: 16.sp,
                     )),
                 SizedBox(
                   height: 12.h,
@@ -148,9 +148,9 @@ class _NewAccountLocationInfoWidgetState
               children: [
                 CustomText(
                     text: S.of(context).city,
-                    customTextStyle: RegularStyle(
-                      color: lightBlackColor,
-                      fontSize: 20.sp,
+                    customTextStyle: MediumStyle(
+                      color: darkSecondaryColor,
+                      fontSize: 16.sp,
                     )),
                 SizedBox(
                   height: 12.h,
@@ -217,7 +217,7 @@ class _NewAccountLocationInfoWidgetState
           FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
         ],
         defaultTextStyle:
-            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
+            MediumStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
         textInputAction: TextInputAction.next,
       );
 

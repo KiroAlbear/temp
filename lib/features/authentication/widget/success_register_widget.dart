@@ -76,7 +76,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
             CustomText(
                 text: S.of(context).welcomeToDokkan,
                 customTextStyle:
-                    SemiBoldStyle(fontSize: 26.sp, color: lightBlackColor)),
+                    SemiBoldStyle(fontSize: 26.sp, color: darkSecondaryColor)),
             SizedBox(
               height: 5.h,
             ),
@@ -89,9 +89,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
             ),
             CustomButtonWidget(
               idleText: S.of(context).start,
-              textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 16.w)
-                  .getStyle(),
-              height: 60.h,
+
               onTap: () {
                 Navigator.popUntil(context, (route) => route.isFirst);
                 CustomNavigatorModule.navigatorKey.currentState

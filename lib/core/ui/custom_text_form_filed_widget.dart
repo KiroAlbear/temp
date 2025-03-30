@@ -237,9 +237,9 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         suffixIcon: widget.isPassword ? _passwordIcon : widget.suffixIcon,
         prefixIcon: widget.prefixIcon,
 
-        border: _getBorder(greyColor),
+        border: _getBorder(greyTextFieldBorderColorLightMode),
         disabledBorder: _getBorder(greyColor),
-        enabledBorder: _getBorder(greyColor),
+        enabledBorder: _getBorder(greyTextFieldBorderColorLightMode),
         errorBorder: _getBorder(Theme.of(context).colorScheme.error),
         focusedBorder: _getBorder(secondaryColor),
         focusedErrorBorder: _getBorder(widget.errorTextColor ?? redColor),
@@ -286,7 +286,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
                     child: CustomText(
                       text: widget.labelText,
                       customTextStyle: MediumStyle(
-                          color: widget.textLabelColor ?? greyColor,
+                          color: widget.textLabelColor ??  greyBorderColorLightMode,
                           fontSize: 16.sp),
                     ),
                   ),

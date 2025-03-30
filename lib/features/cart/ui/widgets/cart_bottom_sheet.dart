@@ -66,8 +66,9 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           IgnorePointer(
             ignoring: _groupeValue == -1,
             child: CustomButtonWidget(
-                buttonColor: _groupeValue == -1 ? greyColor : primaryColor,
+                buttonColor: _groupeValue == -1 ? disabledButtonColorLightMode : primaryColor,
                 idleText: S.of(context).next,
+                textColor:  _groupeValue == -1 ?disabledButtonTextColorLightMode: darkSecondaryColor,
                 onTap: () {
                   // pop the bottom sheet
                   Navigator.pop(context);

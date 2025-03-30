@@ -48,7 +48,6 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
   Widget getBody(BuildContext context) => LogoTopWidget(
         isHavingBackArrow: true,
         logo: widget.logo,
-        canBack: true,
         blocBase: widget.forgetPasswordBloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -59,7 +58,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
                 child: CustomText(
                     text: S.of(context).forgotPassword,
                     customTextStyle:
-                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
+                        BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
               ),
               SizedBox(
                 height: 30.h,
@@ -67,7 +66,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
               CustomText(
                   text: S.of(context).enterYouRegisteredMobile,
                   customTextStyle:
-                      MediumStyle(color: blackColor, fontSize: 20.sp)),
+                      MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)),
               SizedBox(
                 height: 12.h,
               ),
@@ -100,7 +99,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
         ?.pushReplacementNamed(AppScreenEnum.otp.name);
   }
   Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).loginEnter,
+        idleText: S.of(context).sendOTP,
         onTap: () {
           if (widget.forgetPasswordBloc.isMobileValid) {
             widget.forgetPasswordBloc.checkPhone.listen(

@@ -542,13 +542,13 @@ class _ProductWidgetState extends State<ProductWidget> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.r),
             color:
-                widget.productMapper.canAddToCart() ? primaryColor : greyColor,
+                widget.productMapper.canAddToCart() ? primaryColor : disabledButtonColorLightMode,
           ),
           child: Center(
             child: CustomText(
                 text: S.of(context).addToCart,
                 customTextStyle:
-                    RegularStyle(color: darkSecondaryColor, fontSize: 12.sp)),
+                    RegularStyle(color:widget.productMapper.canAddToCart()? darkSecondaryColor :disabledButtonTextColorLightMode, fontSize: 12.sp)),
           ),
         ),
       );

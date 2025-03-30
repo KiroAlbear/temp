@@ -33,6 +33,9 @@ const Color greyColorDarkMode = Color.fromRGBO(168, 172, 177, 1);
 const Color greyBorderColorLightMode = Color.fromRGBO(238, 238, 238, 1);
 const Color greyBorderColorDarkMode = Color.fromRGBO(238, 238, 238, 1);
 
+const Color greyTextFieldBorderColorLightMode = Color.fromRGBO(225, 225, 225, 1);
+const Color greyTextFieldBorderColorDarkMode = Color.fromRGBO(225, 225, 225, 1);
+
 /// green color
 const Color greenColorLightMode = Color.fromRGBO(47, 102, 78, 1);
 const Color greenColorDarkMode = Color.fromRGBO(47, 102, 78, 1);
@@ -83,6 +86,12 @@ const Color promotionCardColorDarkMode = Color.fromRGBO(168, 172, 177, 0.1);
 const Color categoryCardColorLightMode = Color.fromRGBO(251, 251, 251, 1);
 const Color categoryCardColorDarkMode = Color.fromRGBO(251, 251, 251, 1);
 
+const Color disabledButtonTextColorLightMode = Color.fromRGBO(135, 135, 135, 1);
+const Color disabledButtonTextColorDarkMode = Color.fromRGBO(135, 135, 135, 1);
+
+const Color disabledButtonColorLightMode = Color.fromRGBO(228, 228, 228, 1);
+const Color disabledButtonColorDarkMode = Color.fromRGBO(228, 228, 228, 1);
+
 /// menu order card color
 const Color menuOrderCardColorLightMode = Color.fromRGBO(249, 249, 249, 1);
 const Color menuOrderCardColorDarkMode = Color.fromRGBO(249, 249, 249, 1);
@@ -110,6 +119,8 @@ Color paleBlueColor = _isDark ? paleBlueDarkMode : paleBlueLightMode;
 Color greyColor = _isDark ? greyColorDarkMode : greyColorLightMode;
 
 Color borderGreyColor = _isDark ? greyBorderColorDarkMode : greyBorderColorLightMode;
+
+Color textFieldBorderGreyColor = _isDark ? greyTextFieldBorderColorDarkMode : greyTextFieldBorderColorLightMode;
 
 Color greenColor = _isDark ? greenColorDarkMode : greenColorLightMode;
 

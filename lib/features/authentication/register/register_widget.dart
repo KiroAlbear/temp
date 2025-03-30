@@ -41,7 +41,6 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
       isHavingBackArrow: true,
-      canBack: true,
       logo: widget.logo,
       blocBase: _bloc,
       child: Padding(
@@ -53,15 +52,15 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
                 child: CustomText(
                     text: S.of(context).registerNewAccount,
                     customTextStyle:
-                        BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
+                        BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
               ),
               SizedBox(
                 height: 30.h,
               ),
               CustomText(
-                  text: S.of(context).enterMobileNumber,
+                  text: S.of(context).yourMobile,
                   customTextStyle:
-                      MediumStyle(fontSize: 20.sp, color: lightBlackColor)),
+                      MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -76,11 +75,11 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
                         RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
               ),
               SizedBox(
-                height: 10.h,
+                height: 20.h,
               ),
               _button,
               SizedBox(
-                height: 10.h,
+                height: 20.h,
               ),
               _loginWidget,
             ],
@@ -108,9 +107,6 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
   Widget get _button => Center(
         child: CustomButtonWidget(
           idleText: S.of(context).next,
-          textStyle:
-              SemiBoldStyle(color: lightBlackColor, fontSize: 16.sp).getStyle(),
-          height: 60.h,
           onTap: () {
             if (_bloc.isValid) {
               _bloc.checkPhone.listen(
@@ -174,14 +170,14 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
               CustomText(
                   text: S.of(context).haveAccount,
                   customTextStyle:
-                      RegularStyle(fontSize: 14.sp, color: lightBlackColor)),
+                      RegularStyle(fontSize: 16.sp, color: darkSecondaryColor)),
               SizedBox(
                 width: 5.w,
               ),
               CustomText(
                   text: S.of(context).login,
                   customTextStyle:
-                      SemiBoldStyle(color: lightBlackColor, fontSize: 14.sp)),
+                      BoldStyle(color: darkSecondaryColor, fontSize: 16.sp)),
             ],
           ),
         ),

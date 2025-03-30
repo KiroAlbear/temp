@@ -135,7 +135,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         },
         stateColors: {
           ButtonState.idle:
-              enable ?? true ? (widget.buttonColor ?? primaryColor) : greyColor,
+              enable ?? true ? (widget.buttonColor ?? primaryColor) : disabledButtonColorLightMode,
           ButtonState.fail: redColor,
           ButtonState.loading: widget.buttonColor ?? primaryColor,
           ButtonState.success:
@@ -202,7 +202,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         height: widget.height == null ? 45.h : widget.height!,
         enable: widget.enableClick,
         buttonShapeEnum: widget.buttonShapeEnum,
-        radius: widget.borderRadius ?? 33.0.r,
+        radius: widget.borderRadius ?? 8,
         state: buttonState,
         inLineBackgroundColor: widget.inLineBackgroundColor ?? whiteColor,
         textStyle: widget.textStyle ?? _textStyle,
@@ -215,7 +215,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         widget.isAllCaps
             ? (widget.idleText ?? '').toUpperCase()
             : (widget.idleText ?? ''),
-        style: widget.textStyle ?? _textStyle,
+        style:enable? widget.textStyle ??_successTextStyle: widget.textStyle ?? _textStyle,
       );
 
   Widget _failText(String text) => Text(
@@ -240,10 +240,15 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
           (widget.isAllCaps
               ? S.of(context).success.toUpperCase()
               : S.of(context).success),
-      style: widget.textStyle ?? _textStyle);
+      style: widget.textStyle ?? _successTextStyle);
+
+  TextStyle get _successTextStyle => MediumStyle(
+      color: widget.textColor ?? darkSecondaryColor,
+      fontSize: widget.textSize == null ? 16.sp : widget.textSize!)
+      .getStyle();
 
   TextStyle get _textStyle => MediumStyle(
-          color: widget.textColor ?? lightBlackColor,
-          fontSize: widget.textSize == null ? 20.sp : widget.textSize!)
+          color: widget.textColor ?? disabledButtonTextColorLightMode,
+          fontSize: widget.textSize == null ? 16.sp : widget.textSize!)
       .getStyle();
 }

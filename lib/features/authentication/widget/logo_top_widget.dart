@@ -16,7 +16,7 @@ import '../../../../core/ui/custom_text.dart';
 import '../../../../core/ui/logo_widget.dart';
 
 class LogoTopWidget extends StatefulWidget {
-  final bool canBack;
+
   final Widget child;
   final String logo;
   final BlocBase blocBase;
@@ -27,7 +27,6 @@ class LogoTopWidget extends StatefulWidget {
 
   const LogoTopWidget(
       {super.key,
-      required this.canBack,
       required this.child,
       required this.logo,
       required this.blocBase,
@@ -127,7 +126,7 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
               child: CustomText(
                   text: S.of(context).skip,
                   customTextStyle:
-                      MediumStyle(fontSize: 14.sp, color: blackColor)),
+                      MediumStyle(fontSize: 14.sp, color: darkSecondaryColor)),
             ),
           ),
         ],
