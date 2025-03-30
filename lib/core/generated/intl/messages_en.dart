@@ -291,7 +291,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Usage Policy"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcomeToDokkan":
-            MessageLookupByLibrary.simpleMessage("Welcome to Dokkan"),
+            MessageLookupByLibrary.simpleMessage("Welcome to"),
         "whatsApp": MessageLookupByLibrary.simpleMessage("WhatsApp"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanStartOrderNow":

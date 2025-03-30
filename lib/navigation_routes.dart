@@ -53,18 +53,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.splash:
       // _bottomNavigationBloc.setSelectedTab(0, null);
       return _buildPageRoute(const SplashWidget());
-    // return _buildPageRoute(CartScreen(
-    //   productCategoryBloc: _productCategoryBloc,
-    //   icDelete: Assets.svg.icDelete,
-    //   cartBloc: _cartBloc,
-    //   backIcon: Assets.svg.icBack,
-    // ));
-    // return _buildPageRoute(CartOrderDetails(
-    //   bloc: _cartBloc,
-    //   backIcon: Assets.svg.icBack,
-    // ));
-    // return _buildPageRoute(MyOrdersScreen(
-    //     backIcon: Assets.svg.icBack, myOrdersBloc: MyOrdersBloc()));
+
 
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);

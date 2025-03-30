@@ -51,9 +51,15 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
   Widget getBody(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+            CustomText(
+                text: S.of(context).welcomeToDokkan,
+                customTextStyle:
+                MediumStyle(fontSize: 28.sp, color: darkSecondaryColor)),
             SizedBox(
-              height: 70.h,
+              height: 15.h,
             ),
             ImageHelper(
               image: widget.logo,
@@ -62,34 +68,18 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
               width: 241.w,
             ),
             SizedBox(
-              height: 44.h,
+              height: 20.h,
             ),
-            ImageHelper(
-              image: widget.successRegister,
-              imageType: ImageType.svg,
-              height: 217.h,
-              width: 217.w,
-            ),
-            SizedBox(
-              height: 34.h,
-            ),
-            CustomText(
-                text: S.of(context).welcomeToDokkan,
-                customTextStyle:
-                    SemiBoldStyle(fontSize: 26.sp, color: darkSecondaryColor)),
-            SizedBox(
-              height: 5.h,
-            ),
+
             CustomText(
                 text: S.of(context).youCanStartOrderNow,
                 customTextStyle:
-                    RegularStyle(fontSize: 20.sp, color: secondaryColor)),
+                    RegularStyle(fontSize: 14.sp, color: lightBlackColor)),
             SizedBox(
-              height: 60.h,
+              height: 100.h,
             ),
             CustomButtonWidget(
               idleText: S.of(context).start,
-
               onTap: () {
                 Navigator.popUntil(context, (route) => route.isFirst);
                 CustomNavigatorModule.navigatorKey.currentState

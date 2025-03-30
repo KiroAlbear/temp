@@ -283,11 +283,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("سياسة الاستخدام"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("تحقيق"),
         "welcomeToDokkan":
-            MessageLookupByLibrary.simpleMessage("مرحباً بك في ديل"),
+            MessageLookupByLibrary.simpleMessage("أهلاً بيك في تطبيق"),
         "whatsApp": MessageLookupByLibrary.simpleMessage("واتساب"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youCanStartOrderNow":
-            MessageLookupByLibrary.simpleMessage("تقدر تطلب دلوقتي"),
+            MessageLookupByLibrary.simpleMessage("تقدر تطلب كل احتياجاتك من نفس المكان دلوقتي"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
