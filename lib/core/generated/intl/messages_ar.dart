@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كاش عند الاستلام"),
         "cartConfirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
-            "هل انت متاكد من ازاله المنتج من السله؟"),
+            "هل انت متاكد من ازاله المنتج من السلة؟"),
         "cartDokkanWallet": MessageLookupByLibrary.simpleMessage("محفظة دكان"),
         "cartEmpty":
             MessageLookupByLibrary.simpleMessage("لا يوجد طلبات حالياً"),
