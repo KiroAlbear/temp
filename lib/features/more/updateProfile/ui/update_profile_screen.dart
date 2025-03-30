@@ -122,7 +122,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                           CustomText(
                               text: S.of(context).updateProfilePersonalData,
                               customTextStyle: BoldStyle(
-                                  fontSize: 24.sp, color: lightBlackColor)),
+                                  fontSize: 24.sp, color: secondaryColor)),
                           SizedBox(
                             height: _headerSpacing,
                           ),
@@ -137,7 +137,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                           CustomText(
                               text: S.of(context).updateProfileBuildingData,
                               customTextStyle: BoldStyle(
-                                  fontSize: 24.sp, color: lightBlackColor)),
+                                  fontSize: 24.sp, color: secondaryColor)),
                           SizedBox(
                             height: _headerSpacing,
                           ),
@@ -196,7 +196,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   CustomText _label(String text) {
     return CustomText(
         text: text,
-        customTextStyle: RegularStyle(fontSize: 20.sp, color: lightBlackColor));
+        customTextStyle: MediumStyle(fontSize: 16.sp, color: darkSecondaryColor));
   }
 
   Column _nameTextField(BuildContext context) {
