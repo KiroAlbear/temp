@@ -102,7 +102,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                     mainAxisSpacing: 11.h,
                     mainAxisExtent: 225.h),
                 itemBuilder: (context, index) => ProductWidget(
-                  key: UniqueKey(),
+                  key: ValueKey(index),
                   icDelete: widget.deleteIcon,
                   onProductRemoved: (int productId) {
                     resetFavouriteList(productId);
