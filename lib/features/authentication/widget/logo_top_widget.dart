@@ -80,7 +80,7 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                     child: SizedBox(
                       width: 30.w,
                       height: 30.h,
-                      child: ImageHelper(image:Assets.svg.icForwardArrUnified, imageType: ImageType.svg,),
+                      child: ImageHelper(image:Assets.svg.icPreviousBlue, imageType: ImageType.svg,),
                     ),
                   ),
                 ),
