@@ -42,6 +42,8 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_arrow_down.svg
   String get icArrowDown => 'assets/svg/ic_arrow_down.svg';
 
+  String get icArrowDownBlue => 'assets/svg/ic_arrow_down_blue.svg';
+
   /// File path: assets/svg/ic_back.svg
   String get icBack => 'assets/svg/ic_back.svg';
 

@@ -76,11 +76,11 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
 
   BoxDecoration get _boxDecoration => BoxDecoration(
         borderRadius: BorderRadius.circular(10.w),
-        color: faqCardColor,
+        color: productCardColor,
       );
 
   Widget _expandedItem(bool expanded) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _row(expanded),
@@ -121,11 +121,11 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
         child: AnimatedDefaultTextStyle(
           style: expanded
               ? MediumStyle(
-                  color: lightBlackColor,
+                  color: darkSecondaryColor,
                   fontSize: 18.sp,
                 ).getStyle()
               : RegularStyle(
-                  color: lightBlackColor,
+                  color: darkSecondaryColor,
                   fontSize: 18.sp,
                 ).getStyle(),
           duration: _animationController.duration!,
@@ -160,7 +160,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
           width: 17.w,
           height: 8.h,
           boxFit: BoxFit.contain,
-          color: lightBlackColor,
+
           imageShape: ImageShape.rectangle,
         ),
       );

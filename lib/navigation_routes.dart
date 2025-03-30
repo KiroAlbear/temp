@@ -111,7 +111,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
 }
 
 Widget get _faqWidget => FaqWidget(
-    backIcon: Assets.svg.icBack, arrowDown: Assets.svg.icArrowDown);
+    backIcon: Assets.svg.icBack, arrowDown: Assets.svg.icArrowDownBlue);
 
 Widget get _loginWidget => LoginWidget(
       logo: Assets.svg.logoYellow,
