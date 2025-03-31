@@ -5,10 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 import 'faq_bloc.dart';
 class FaqWidget extends BaseStatefulWidget {
-  final String backIcon;
   final String arrowDown;
 
-  const FaqWidget({super.key, required this.backIcon, required this.arrowDown});
+  const FaqWidget({super.key, required this.arrowDown});
 
   @override
   State<FaqWidget> createState() => _FaqWidgetState();
@@ -47,13 +46,8 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
   Widget get _screenDesign => Column(
         children: [
           AppTopWidget(
-            notificationIcon: '',
-            homeLogo: '',
-            scanIcon: '',
-            searchIcon: '',
-            supportIcon: '',
             hideTop: true,
-            backIcon: widget.backIcon,
+            isHavingBack: true,
             title: S.of(context).faq,
           ),
           SizedBox(

@@ -86,10 +86,9 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_faqWidget);
     case AppScreenEnum.usagePolicy:
       return _buildPageRoute(UsagePolicyScreen(
-          usagePolicyBloc: _usagePolicyBloc, backIcon: Assets.svg.icBack));
+          usagePolicyBloc: _usagePolicyBloc, ));
     case AppScreenEnum.accountChangePassword:
       return _buildPageRoute(AccountChangePassword(
-        backIcon: Assets.svg.icBack,
       ));
     case AppScreenEnum.scanBarcode:
       return _buildPageRoute(_scanBarcodeWidget);
@@ -103,15 +102,15 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_cartOrderDetailsScreen);
     case AppScreenEnum.updateProfileScreen:
       return _buildPageRoute(
-          UpdateProfileScreen(backIcon: Assets.svg.icBack, moreBloc: _moreBloc));
+          UpdateProfileScreen( moreBloc: _moreBloc));
     case AppScreenEnum.myOrders:
       return _buildPageRoute(MyOrdersScreen(
-          backIcon: Assets.svg.icBack, myOrdersBloc: MyOrdersBloc()));
+          myOrdersBloc: MyOrdersBloc()));
   }
 }
 
 Widget get _faqWidget => FaqWidget(
-    backIcon: Assets.svg.icBack, arrowDown: Assets.svg.icArrowDownBlue);
+     arrowDown: Assets.svg.icArrowDownBlue);
 
 Widget get _loginWidget => LoginWidget(
       logo: Assets.svg.logoYellow,
@@ -128,7 +127,7 @@ Widget get _loginWidgetWithoutSkip => LoginWidget(
     );
 
 Widget get _scanBarcodeWidget =>
-    ScanBarcodeWidget(backIcon: Assets.svg.icBack, homeBloc: _homeBloc);
+    ScanBarcodeWidget( homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
@@ -156,10 +155,8 @@ BlocProvider get _homeBlocProvider => BlocProvider(
         cartBloc: _cartBloc,
         homeBloc: _homeBloc,
         notificationIcon: Assets.svg.icNotification,
-        homeLogo: Assets.svg.logoText,
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
-        supportIcon: Assets.svg.icContactUs,
         contactUsBloc: _contactUsBloc,
       ),
     );
@@ -209,16 +206,13 @@ BlocProvider _productCategoryWidget() {
       child: ProductCategoryWidget(
         favouriteIconFilled: Assets.svg.icFavouriteFilled,
         emptyFavouriteScreen: Assets.svg.emptyFavourite,
-        backIcon: Assets.svg.icBack,
         deleteIcon: Assets.svg.icDelete,
         favouriteIcon: Assets.svg.icFavourite,
         homeBloc: _homeBloc,
         contactUsBloc: _contactUsBloc,
-        homeLogo: Assets.svg.logoText,
         notificationIcon: Assets.svg.icNotification,
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
-        supportIcon: Assets.svg.icContactUs,
         productNotFoundIcon: Assets.svg.icNotFound,
         productCategoryBloc: _productCategoryBloc,
         cartBloc: _cartBloc,
@@ -230,7 +224,7 @@ BlocProvider get _cartScreen => BlocProvider(
     child: CartScreen(
       cartBloc: _cartBloc,
       productCategoryBloc: _productCategoryBloc,
-      backIcon: Assets.svg.icBack,
+
       icDelete: Assets.svg.icDelete,
     ));
 
@@ -238,7 +232,7 @@ BlocProvider get _cartOrderDetailsScreen => BlocProvider(
     bloc: _cartBloc,
     child: CartOrderDetails(
       cartBloc: _cartBloc,
-      backIcon: Assets.svg.icBack,
+
     ));
 
 ContactUsBloc get _contactUsBloc => ContactUsBloc(

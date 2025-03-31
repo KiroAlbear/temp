@@ -9,8 +9,6 @@ import '../../../../core/generated/l10n.dart';
 class ProductCategoryWidget extends BaseStatefulWidget {
   final String favouriteIcon;
   final String favouriteIconFilled;
-  final String homeLogo;
-  final String supportIcon;
   final String notificationIcon;
   final String scanIcon;
   final String searchIcon;
@@ -19,7 +17,6 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   final String productNotFoundIcon;
   final HomeBloc homeBloc;
   final ContactUsBloc contactUsBloc;
-  final String backIcon;
   static int cateogryId = 1;
   static int categoryProductsCount = 0;
   static const String filterAllText = "All";
@@ -37,14 +34,11 @@ class ProductCategoryWidget extends BaseStatefulWidget {
       required this.emptyFavouriteScreen,
       required this.favouriteIcon,
       required this.favouriteIconFilled,
-      required this.backIcon,
       required this.homeBloc,
-      required this.homeLogo,
       required this.notificationIcon,
       required this.scanIcon,
       required this.searchIcon,
       required this.deleteIcon,
-      required this.supportIcon,
       required this.productNotFoundIcon,
       required this.cartBloc,
       required this.contactUsBloc,
@@ -166,10 +160,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         children: [
           AppTopWidget(
             notificationIcon: widget.notificationIcon,
-            homeLogo: widget.homeLogo,
             scanIcon: widget.scanIcon,
             searchIcon: widget.searchIcon,
-            supportIcon: widget.supportIcon,
+            isHavingSupportIcon: true,
             contactUsBloc: widget.contactUsBloc,
             doSearch: () => widget.homeBloc
                 .doSearch(widget.homeBloc.searchBloc.value),
@@ -177,11 +170,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
             widget.homeBloc.searchBloc.textFormFiledStream,
             onChanged: (value) =>
                 widget.homeBloc.searchBloc.updateStringBehaviour(value),
-            backIcon: (widget.productCategoryBloc.isForFavourite &&
-                widget.productCategoryBloc.isNavigatingFromMore ==
-                    false)
-                ? ''
-                : widget.backIcon,
+            isHavingBack: (widget.productCategoryBloc.isForFavourite &&
+                widget.productCategoryBloc.isNavigatingFromMore == false)
+                ? false :true,
+            isHavingHomeLogo: false,
+            isHavingSupport: true,
             title: isNavigatedFromBannersOrOffers()
                 ? " "
                 : widget.productCategoryBloc.isForFavourite

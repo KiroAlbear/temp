@@ -7,10 +7,9 @@ import '../../../core/generated/l10n.dart';
 import 'my_orders_bloc.dart';
 
 class MyOrdersScreen extends BaseStatefulWidget {
-  final String backIcon;
   final MyOrdersBloc myOrdersBloc;
   MyOrdersScreen(
-      {required this.backIcon, required this.myOrdersBloc, super.key});
+      { required this.myOrdersBloc, super.key});
 
   @override
   State<MyOrdersScreen> createState() => _MyOrdersScreenState();
@@ -72,13 +71,8 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
       children: [
         AppTopWidget(
           title: S.of(context).myOrders,
-          notificationIcon: '',
-          homeLogo: '',
-          scanIcon: '',
-          searchIcon: '',
-          supportIcon: '',
           hideTop: true,
-          backIcon: widget.backIcon,
+          isHavingBack: true,
         ),
         SizedBox(
           height: 20,

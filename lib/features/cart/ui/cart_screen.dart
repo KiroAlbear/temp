@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/generated/l10n.dart';
 
 class CartScreen extends BaseStatefulWidget {
-  final String backIcon;
+
   final String icDelete;
   final CartBloc cartBloc;
 
@@ -12,7 +12,6 @@ class CartScreen extends BaseStatefulWidget {
 
   CartScreen(
       {required this.cartBloc,
-      required this.backIcon,
       required this.icDelete,
       required this.productCategoryBloc,
       super.key});
@@ -52,11 +51,7 @@ class _CartScreenState extends BaseState<CartScreen> {
       children: [
         AppTopWidget(
           title: S.of(context).cartTitle,
-          notificationIcon: '',
-          homeLogo: '',
-          scanIcon: '',
-          searchIcon: '',
-          supportIcon: '',
+          isHavingSupport: true,
           hideTop: true,
         ),
         Expanded(

@@ -10,9 +10,8 @@ import 'cart_order_details_Icon_item.dart';
 
 class CartOrderDetails extends BaseStatefulWidget {
   final CartBloc cartBloc;
-  final String backIcon;
   const CartOrderDetails(
-      {required this.cartBloc, required this.backIcon, super.key});
+      {required this.cartBloc, super.key});
 
   @override
   State<CartOrderDetails> createState() => _CartOrderDetailsState();
@@ -46,13 +45,8 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       AppTopWidget(
         title: S.of(context).cartOrderOrderDetails,
-        notificationIcon: '',
-        homeLogo: '',
-        scanIcon: '',
-        searchIcon: '',
-        supportIcon: '',
         hideTop: true,
-        backIcon: widget.backIcon,
+        isHavingBack: true,
       ),
       Expanded(
         child: SingleChildScrollView(

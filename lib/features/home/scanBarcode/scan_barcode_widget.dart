@@ -8,11 +8,11 @@ import '../../../../core/generated/l10n.dart';
 import '../home/ui/home_bloc.dart';
 
 class ScanBarcodeWidget extends BaseStatefulWidget {
-  final String backIcon;
+
   final HomeBloc homeBloc;
 
   const ScanBarcodeWidget(
-      {super.key, required this.backIcon, required this.homeBloc});
+      {super.key, required this.homeBloc});
 
   @override
   State<ScanBarcodeWidget> createState() => _ScanBarcodeWidgetState();
@@ -69,14 +69,9 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
       child: Column(
         children: [
           AppTopWidget(
-            notificationIcon: '',
-            homeLogo: '',
-            scanIcon: '',
-            searchIcon: '',
-            supportIcon: '',
             hideTop: true,
             title: S.of(context).scanBarcode,
-            backIcon: widget.backIcon,
+            isHavingBack: true,
           ),
           SizedBox(
             height: 40.h,

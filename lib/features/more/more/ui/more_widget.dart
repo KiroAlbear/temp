@@ -101,195 +101,201 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             onSuccess: _screenDesign(context, snapshot)),
       );
 
-  ListView _screenDesign(
+  Widget _screenDesign(
       BuildContext context, AsyncSnapshot<ApiState<ProfileMapper>> snapshot) {
-    return ListView(
-      shrinkWrap: true,
+    return Column(
+
       children: [
         _logoWidget,
-
-        if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
-          SizedBox(
-              height: 160.h,
-              child: _imageWithCameraWidget(
-                  mobile: snapshot.data?.response?.email ?? '',
-                  name: snapshot.data?.response?.name ?? '',
-                  image: snapshot.data?.response?.image ?? '')),
-          SizedBox(
-            height: 34.h,
-          ),
-        ],
-
-        if ((SharedPrefModule().userId ?? '').isEmpty) ...[
-          SizedBox(
-            height: 60.h,
-          ),
-          ImageHelper(image: Assets.svg.logoYellow, imageType: ImageType.svg),
-          SizedBox(
-            height: 17.h,
-          ),
-          Center(child: CustomText(text: S.of(context).startOrderNow, customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor))),
-
-          SizedBox(
-            height: 36.h,
-          ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14.w),
-              child: CustomButtonWidget(
-                idleText: S.of(context).createAccount,
-                onTap: () {
+        Expanded(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
+                SizedBox(
+                    height: 160.h,
+                    child: _imageWithCameraWidget(
+                        mobile: snapshot.data?.response?.email ?? '',
+                        name: snapshot.data?.response?.name ?? '',
+                        image: snapshot.data?.response?.image ?? '')),
+                SizedBox(
+                  height: 34.h,
+                ),
+              ],
+          
+              if ((SharedPrefModule().userId ?? '').isEmpty) ...[
+                SizedBox(
+                  height: 60.h,
+                ),
+                ImageHelper(image: Assets.svg.logoYellow, imageType: ImageType.svg),
+                SizedBox(
+                  height: 17.h,
+                ),
+                Center(child: CustomText(text: S.of(context).startOrderNow, customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor))),
+          
+                SizedBox(
+                  height: 36.h,
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14.w),
+                    child: CustomButtonWidget(
+                      idleText: S.of(context).createAccount,
+                      onTap: () {
+                        CustomNavigatorModule.navigatorKey.currentState
+                            ?.pushNamed(AppScreenEnum.register.name).then((value) {
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
+                            },);
+                      },
+                    )),
+                SizedBox(
+                  height: 17.h,
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14.w),
+                    child: CustomButtonWidget(
+                      buttonShapeEnum: ButtonShapeEnum.outline,
+                      buttonColor: secondaryColor,
+                      idleText: S.of(context).login,
+                      onTap: () => AppProviderModule().logout(context),
+                    )),
+                SizedBox(
+                  height: 27.h,
+                )
+              ],
+              // _ordersWidget,
+          
+              if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: CustomText(
+                      text: S.of(context).settings,
+                      customTextStyle:
+                      BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                _menuItem(S.of(context).accountInfo, widget.accountSettingIcon, () {
                   CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.register.name).then((value) {
-                    WidgetsBinding.instance
-                        .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
-                      },);
+                      ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
+                }),
+                SizedBox(
+                  height: 10.h,
+                ),
+                _menuItem(S.of(context).changePassword, widget.changePasswordIcon,
+                    () {
+                  CustomNavigatorModule.navigatorKey.currentState
+                      ?.pushNamed(AppScreenEnum.accountChangePassword.name);
+                }),
+                SizedBox(
+                  height: 10.h,
+                ),
+                _menuItem(
+                  S.of(context).myOrders,
+                  widget.myOrdersIcon,
+                      () {
+                    CustomNavigatorModule.navigatorKey.currentState
+                        ?.pushNamed(AppScreenEnum.myOrders.name);
+                  },
+                  disabled: (SharedPrefModule().userId ?? '').isEmpty,
+                  width: 17.w,
+                  height: 17.h,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
+                  // widget.productCategoryBloc.reset();
+          
+                  widget.productCategoryBloc.isForFavourite = true;
+                  widget.productCategoryBloc.isNavigatingFromMore = true;
+                  CustomNavigatorModule.navigatorKey.currentState
+                      ?.pushNamed(AppScreenEnum.product.name);
                 },
-              )),
-          SizedBox(
-            height: 17.h,
+                    disabled: (SharedPrefModule().userId ?? '').isEmpty,
+                    height: 17.h,
+                    width: 17.w),
+                SizedBox(
+                  height: 10.h,
+                ),
+                _menuItem(S.of(context).deleteAccount, widget.deleteAccountIcon, () {
+                  _deleteAccount();
+                }),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Divider(
+                    height: 1.h,
+                    color: textFieldBorderGreyColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 18.h,
+                ),
+                _accountBalance(),
+                SizedBox(
+                  height: 18.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Divider(
+                    height: 1.h,
+                    color: textFieldBorderGreyColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+              ],
+          
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomText(
+                    text: S.of(context).supportAndAssistance,
+                    customTextStyle:
+                        BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              _menuItem(S.of(context).contactUs, widget.contactUsIcon, () {
+                AlertModule().showContactUsDialog(
+                    contactUsBloc: widget.contactUsBloc, context: context);
+              }),
+              SizedBox(
+                height: 10.h,
+              ),
+              _menuItem(S.of(context).faq, widget.faqIcon, () {
+                CustomNavigatorModule.navigatorKey.currentState
+                    ?.pushNamed(AppScreenEnum.faq.name);
+              }),
+              SizedBox(
+                height: 10.h,
+              ),
+              _menuItem(S.of(context).usagePolicy, widget.usagePolicyIcon, () {
+                CustomNavigatorModule.navigatorKey.currentState
+                    ?.pushNamed(AppScreenEnum.usagePolicy.name);
+              }),
+          
+              if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
+                SizedBox(
+                  height: 37.h,
+                ),
+                _menuItem(S.of(context).logout, widget.logoutIcon,color: Colors.red, () {
+                  _logout();
+                }, isBoldStyle: true),
+                SizedBox(
+                  height: 20.h,
+                ),
+              ],
+          
+              // _moreDesign,
+            ],
           ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14.w),
-              child: CustomButtonWidget(
-                buttonShapeEnum: ButtonShapeEnum.outline,
-                buttonColor: secondaryColor,
-                idleText: S.of(context).login,
-                onTap: () => AppProviderModule().logout(context),
-              )),
-          SizedBox(
-            height: 27.h,
-          )
-        ],
-        // _ordersWidget,
-
-        if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: CustomText(
-                text: S.of(context).settings,
-                customTextStyle:
-                BoldStyle(fontSize: 18.sp, color: secondaryColor)),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          _menuItem(S.of(context).accountInfo, widget.accountSettingIcon, () {
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
-          }),
-          SizedBox(
-            height: 10.h,
-          ),
-          _menuItem(S.of(context).changePassword, widget.changePasswordIcon,
-              () {
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushNamed(AppScreenEnum.accountChangePassword.name);
-          }),
-          SizedBox(
-            height: 10.h,
-          ),
-          _menuItem(
-            S.of(context).myOrders,
-            widget.myOrdersIcon,
-                () {
-              CustomNavigatorModule.navigatorKey.currentState
-                  ?.pushNamed(AppScreenEnum.myOrders.name);
-            },
-            disabled: (SharedPrefModule().userId ?? '').isEmpty,
-            width: 17.w,
-            height: 17.h,
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
-            // widget.productCategoryBloc.reset();
-
-            widget.productCategoryBloc.isForFavourite = true;
-            widget.productCategoryBloc.isNavigatingFromMore = true;
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushNamed(AppScreenEnum.product.name);
-          },
-              disabled: (SharedPrefModule().userId ?? '').isEmpty,
-              height: 17.h,
-              width: 17.w),
-          SizedBox(
-            height: 10.h,
-          ),
-          _menuItem(S.of(context).deleteAccount, widget.deleteAccountIcon, () {
-            _deleteAccount();
-          }),
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Divider(
-              height: 1.h,
-              color: textFieldBorderGreyColor,
-            ),
-          ),
-          SizedBox(
-            height: 18.h,
-          ),
-          _accountBalance(),
-          SizedBox(
-            height: 18.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Divider(
-              height: 1.h,
-              color: textFieldBorderGreyColor,
-            ),
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-        ],
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: CustomText(
-              text: S.of(context).supportAndAssistance,
-              customTextStyle:
-                  BoldStyle(fontSize: 18.sp, color: secondaryColor)),
         ),
-        SizedBox(
-          height: 8.h,
-        ),
-        _menuItem(S.of(context).contactUs, widget.contactUsIcon, () {
-          AlertModule().showContactUsDialog(
-              contactUsBloc: widget.contactUsBloc, context: context);
-        }),
-        SizedBox(
-          height: 10.h,
-        ),
-        _menuItem(S.of(context).faq, widget.faqIcon, () {
-          CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.faq.name);
-        }),
-        SizedBox(
-          height: 10.h,
-        ),
-        _menuItem(S.of(context).usagePolicy, widget.usagePolicyIcon, () {
-          CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.usagePolicy.name);
-        }),
-
-        if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
-          SizedBox(
-            height: 37.h,
-          ),
-          _menuItem(S.of(context).logout, widget.logoutIcon,color: Colors.red, () {
-            _logout();
-          }, isBoldStyle: true),
-          SizedBox(
-            height: 20.h,
-          ),
-        ],
-
-        // _moreDesign,
       ],
     );
   }

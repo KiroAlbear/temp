@@ -7,8 +7,6 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../../core/generated/l10n.dart';
 
 class HomeWidget extends BaseStatefulWidget {
-  final String homeLogo;
-  final String supportIcon;
   final String notificationIcon;
   final String scanIcon;
   final String searchIcon;
@@ -20,10 +18,8 @@ class HomeWidget extends BaseStatefulWidget {
   const HomeWidget(
       {super.key,
       required this.notificationIcon,
-      required this.homeLogo,
       required this.scanIcon,
       required this.searchIcon,
-      required this.supportIcon,
       required this.homeBloc,
       required this.cartBloc,
       required this.updateProfileBloc,
@@ -78,7 +74,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                     snapshot.data!.response!.isEmpty)
                 ? SizedBox(height: 0)
                 : SizedBox(
-                    height: 23.h,
+                    height: 32.h,
                   ),
 
           ),
@@ -138,11 +134,13 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
 
   Widget get _topWidget => AppTopWidget(
       notificationIcon: widget.notificationIcon,
-      homeLogo: widget.homeLogo,
+      isHavingHomeLogo: true,
+      isHavingSearch: true,
+      isHavingSupport: true,
       scanIcon: widget.scanIcon,
       focusNode: _focusNode,
       searchIcon: widget.searchIcon,
-      supportIcon: widget.supportIcon,
+      isHavingSupportIcon: true,
       onChanged: (value) {
         widget.homeBloc.searchBloc.updateStringBehaviour(value);
       },

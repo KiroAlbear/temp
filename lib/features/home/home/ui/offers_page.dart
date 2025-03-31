@@ -33,11 +33,7 @@ class _OffersPageState extends BaseState<OffersPage> {
     return Column(
       children: [
         AppTopWidget(
-          notificationIcon: '',
-          homeLogo: '',
-          scanIcon: '',
-          searchIcon: '',
-          supportIcon: '',
+          isHavingSupport: true,
           hideTop: true,
           title: S.of(context).offersTitle,
         ),

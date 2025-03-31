@@ -6,9 +6,9 @@ import '../../../../../core/generated/l10n.dart';
 
 class UsagePolicyScreen extends BaseStatefulWidget {
   final UsagePolicyBloc usagePolicyBloc;
-  final String backIcon;
+
   const UsagePolicyScreen(
-      {super.key, required this.usagePolicyBloc, required this.backIcon});
+      {super.key, required this.usagePolicyBloc, });
 
   @override
   State<UsagePolicyScreen> createState() => _UsagePolicyScreenState();
@@ -25,7 +25,7 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyScreen> {
 
 
   @override
-  bool isSafeArea() =>false;
+  bool isSafeArea() =>true;
 
   @override
   void onPopInvoked(didPop)  {
@@ -49,13 +49,8 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyScreen> {
       child: Column(children: [
         AppTopWidget(
           title: S.of(context).usagePolicyTitle,
-          notificationIcon: '',
-          homeLogo: '',
-          scanIcon: '',
-          searchIcon: '',
-          supportIcon: '',
           hideTop: false,
-          backIcon: widget.backIcon,
+          isHavingBack: true,
         ),
         SizedBox(
           height: 15,

@@ -7,9 +7,9 @@ import '../../../../../core/generated/l10n.dart';
 import 'account_change_password_bloc.dart';
 
 class AccountChangePassword extends BaseStatefulWidget {
-  final String backIcon;
 
-  const AccountChangePassword({super.key, required this.backIcon});
+
+  const AccountChangePassword({super.key});
 
   @override
   State<AccountChangePassword> createState() => _AccountChangePasswordState();
@@ -53,12 +53,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
   Widget get _screenDesign => Column(
     children: [
       AppTopWidget(
-        notificationIcon: '',
-        homeLogo: '',
-        scanIcon: '',
-        searchIcon: '',
-        supportIcon: '',
-        backIcon: widget.backIcon,
+        isHavingBack: true,
         title: S.of(context).changePassword,
         hideTop: true,
       ),

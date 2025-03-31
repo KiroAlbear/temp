@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
 class UpdateProfileScreen extends BaseStatefulWidget {
-  final String backIcon;
+
   final MoreBloc moreBloc;
 
   const UpdateProfileScreen(
-      {required this.backIcon, required this.moreBloc, super.key});
+      { required this.moreBloc, super.key});
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
@@ -94,13 +94,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
     return Column(children: [
       AppTopWidget(
         title: S.of(context).updateProfileTitle,
-        notificationIcon: '',
-        homeLogo: '',
-        scanIcon: '',
-        searchIcon: '',
-        supportIcon: '',
         hideTop: true,
-        backIcon: widget.backIcon,
+        isHavingBack: true,
       ),
       SizedBox(
         height: 15,
@@ -122,7 +117,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                           CustomText(
                               text: S.of(context).updateProfilePersonalData,
                               customTextStyle: BoldStyle(
-                                  fontSize: 20.sp, color: darkSecondaryColor)),
+                                  fontSize: 18.sp, color: darkSecondaryColor)),
                           SizedBox(
                             height: _headerSpacing,
                           ),
@@ -137,7 +132,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
                           CustomText(
                               text: S.of(context).updateProfileBuildingData,
                               customTextStyle: BoldStyle(
-                                  fontSize: 20.sp, color: darkSecondaryColor)),
+                                  fontSize: 18.sp, color: darkSecondaryColor)),
                           SizedBox(
                             height: _headerSpacing,
                           ),
