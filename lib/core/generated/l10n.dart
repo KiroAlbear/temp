@@ -846,6 +846,14 @@ class S {
       args: [],
     );
   }
+  String get address {
+    return Intl.message(
+      'Address',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Previous orders`
   String get previousOrder {
@@ -1629,6 +1637,15 @@ class S {
     return Intl.message(
       'Products Details',
       name: 'cartProductDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get cartProductsSummary {
+    return Intl.message(
+      'Products Summary',
+      name: 'cartProductsSummary',
       desc: '',
       args: [],
     );

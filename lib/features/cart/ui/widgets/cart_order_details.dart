@@ -1,10 +1,12 @@
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/cart/ui/widgets/cart_product_summary_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
 import '../cart_bloc.dart';
-import 'cart_order_details_item.dart';
+import 'cart_order_details_Icon_item.dart';
 
 class CartOrderDetails extends BaseStatefulWidget {
   final CartBloc cartBloc;
@@ -53,190 +55,199 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
         backIcon: widget.backIcon,
       ),
       Expanded(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              16.verticalSpace,
-              CustomText(
-                  text: S.of(context).cartOrderOrderDetails,
-                  textAlign: TextAlign.start,
-                  customTextStyle:
-                      BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      StreamBuilder(
-                        stream: widget.cartBloc.addressBehaviour.stream,
-                        builder: (context, snapshot) {
-                          return !snapshot.hasData
-                              ? SizedBox()
-                              : CartOrderDetailsItem(
-                                  icon: Assets.svg.icLocation,
-                                  title: snapshot.data!,
-                                );
-                        },
-                      ),
-                      StreamBuilder(
-                        stream: widget.cartBloc.latLongBehaviour.stream,
-                        builder: (context, snapshot) {
-                          return !snapshot.hasData
-                              ? SizedBox()
-                              : Padding(
-                                  padding: EdgeInsets.only(top: 8.h),
-                                  child: MapPreviewWidget(
-                                    clickOnChangeLocation: () {},
-                                    latitude: snapshot.data!.lat,
-                                    longitude: snapshot.data!.long,
-                                    height: 200.h,
-                                    showEditLocation: false,
-                                  ),
-                                );
-                        },
-                      ),
-                      StreamBuilder(
-                        stream: widget.cartBloc.dateBehaviour.stream,
-                        builder: (context, snapshot) {
-                          return !snapshot.hasData
-                              ? SizedBox()
-                              : CartOrderDetailsItem(
-                                  icon: Assets.svg.icDate,
-                                  title: snapshot.data!,
-                                );
-                        },
-                      ),
-                      _getSeperator(),
-                      // StreamBuilder(
-                      //   stream: widget.bloc.timeBehaviour.stream,
-                      //   builder: (context, snapshot) {
-                      //     return !snapshot.hasData
-                      //         ? SizedBox()
-                      //         : CartOrderDetailsItem(
-                      //             icon: Assets.svg.icTime,
-                      //             title: snapshot.data!,
-                      //           );
-                      //   },
-                      // ),
-                      // _getSeperator(),
-                      StreamBuilder(
-                        stream: widget.cartBloc.itemsBehaviour.stream,
-                        builder: (context, snapshot) {
-                          return !snapshot.hasData
-                              ? SizedBox()
-                              : ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    return CartOrderDetailsItem(
-                                      icon: index != 0
-                                          ? null
-                                          : Assets.svg.icItems,
-                                      title: snapshot.data![index].title,
-                                      count: snapshot.data![index].qty,
-                                    );
-                                  },
-                                );
-                        },
-                      ),
-                      deliveryFeesRow(),
-                      _getSeperator(),
-                      _totalRow(),
-                      _getSeperator(),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.only(start: 8.w, top: 8.h),
-                        child: CustomText(
-                            text: "الدفع كاش عند الاستلام",
-                            textAlign: TextAlign.start,
-                            customTextStyle: RegularStyle(
-                                color: lightBlackColor, fontSize: 16.sp)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 50.0, top: 80.0),
-                        child: CustomButtonWidget(
-                            idleText: S.of(context).cartConfirmOrder,
-                            onTap: () {
-                              widget.cartBloc
-                                  .confirmOrderCart()
-                                  .listen((event) {
-                                if (event is SuccessState) {
-                                  widget.cartBloc.getMyCart();
-                                  CustomNavigatorModule
-                                      .navigatorKey.currentState!
-                                      .pushReplacementNamed(
-                                          AppScreenEnum.cartSuccessScreen.name);
-                                  widget.cartBloc.cartProductsBehavior.sink
-                                      .add(IdleState());
-                                }
-                              });
-                            }),
-                      )
-                    ],
-                  ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                16.verticalSpace,
+                _buildOrderSummary(context),
+                20.verticalSpace,
+                _getSeperator(),
+                20.verticalSpace,
+                _buildIconItem(S.of(context).address, Assets.svg.icLocation),
+                5.verticalSpace,
+                _buildAddress(),
+                25.verticalSpace,
+                _getSeperator(),
+                12.verticalSpace,
+                StreamBuilder(
+                  stream: widget.cartBloc.dateBehaviour.stream,
+                  builder: (context, snapshot) {
+                    return !snapshot.hasData
+                        ? SizedBox()
+                        : CartOrderDetailsIconItem(
+                      icon: Assets.svg.icDate,
+                      title: snapshot.data!,
+                    );
+                  },
                 ),
-              ),
-            ],
+                12.verticalSpace,
+
+                _getSeperator(),
+
+                15.verticalSpace,
+
+                CartOrderDetailsIconItem(
+                  icon: Assets.svg.icTotal,
+                  title: "الدفع كاش عند الاستلام", //ToDo: change to dynamic
+                  iconSize: 18,
+                  space: 8,
+                ),
+                10.verticalSpace,
+                _buildTotalPayment(),
+                62.verticalSpace,
+                CustomButtonWidget(
+                    idleText: S.of(context).cartConfirmOrder,
+                    onTap: () {
+                      widget.cartBloc
+                          .confirmOrderCart()
+                          .listen((event) {
+                        if (event is SuccessState) {
+                          widget.cartBloc.getMyCart();
+                          CustomNavigatorModule
+                              .navigatorKey.currentState!
+                              .pushReplacementNamed(
+                              AppScreenEnum.cartSuccessScreen.name);
+                          widget.cartBloc.cartProductsBehavior.sink
+                              .add(IdleState());
+                        }
+                      });
+                    }),
+                49.verticalSpace,
+
+              ],
+            ),
           ),
         ),
       )
     ]);
   }
 
-  Widget deliveryFeesRow() {
+  Column _buildAddress() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        StreamBuilder(
+                          stream: widget.cartBloc.latLongBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                : Padding(
+                                    padding: EdgeInsets.only(top: 8.h),
+                                    child: MapPreviewWidget(
+                                      clickOnChangeLocation: () {},
+                                      latitude: snapshot.data!.lat,
+                                      longitude: snapshot.data!.long,
+                                      height: 200.h,
+                                      showEditLocation: false,
+                                    ),
+                                  );
+                          },
+                        ),
+                        12.verticalSpace,
+                        StreamBuilder(
+                          stream: widget.cartBloc.addressBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                :Padding(
+                                  padding: EdgeInsetsDirectional.only(start: 5.0),
+                                  child: CustomText(
+                                  text: snapshot.data!,
+                                  textAlign: TextAlign.start,
+                                  customTextStyle: RegularStyle(
+                                      color: lightBlackColor, fontSize: 14.sp)),
+                                );
+
+                          },
+                        ),
+                      ],
+                    );
+  }
+
+  StreamBuilder<String> _buildTotalPayment() {
+    return StreamBuilder(
+                      stream: widget.cartBloc.cartOrderDetailsTotalBehaviour.stream,
+                      builder: (context, snapshot) {
+                        return !snapshot.hasData
+                            ? SizedBox()
+                            : Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                    text: "الاجمالي", //ToDo: change to dynamic
+                                    textAlign: TextAlign.start,
+                                    customTextStyle: RegularStyle(
+                                        color: lightBlackColor, fontSize: 14.sp)),
+                                11.horizontalSpace,
+                                Column(
+                                  children: [
+                                    CustomText(
+                                    text: snapshot.data!,
+                                    textAlign: TextAlign.start,
+                                    customTextStyle: BoldStyle(
+                                        color: darkSecondaryColor, fontSize: 14.sp)),
+                                    deliveryFees(),
+                                  ],
+                                ),
+                              ],
+                            );
+                      },
+                    );
+  }
+
+  Column _buildOrderSummary(BuildContext context) {
+    return Column(
+      children: [
+                        _buildIconItem( S.of(context).cartProductsSummary,Assets.svg.icItems),
+                        StreamBuilder(
+                          stream: widget.cartBloc.itemsBehaviour.stream,
+                          builder: (context, snapshot) {
+                            return !snapshot.hasData
+                                ? SizedBox()
+                                : ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return CartProductSummaryItem(
+                                        priceText: snapshot.data![index].price,
+                                        title: snapshot.data![index].title,
+                                        count: snapshot.data![index].qty,
+                                      );
+                                    },
+                                  );
+                          },
+                        ),
+                      ],
+                    );
+  }
+
+  Row _buildIconItem(String title, String icon) {
+    return Row(
+                        children: [
+                            ImageHelper(image: icon, imageType: ImageType.svg,color: darkSecondaryColor,),
+                            CustomText(text: title, customTextStyle: BoldStyle(color: darkSecondaryColor, fontSize: 14.sp)),
+                        ],
+                      );
+  }
+
+  Widget deliveryFees() {
     return StreamBuilder(
         stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
         builder: (context, snapshot) {
           return !snapshot.hasData
               ? SizedBox()
-              : Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomText(
-                          text: snapshot.data!,
-                          textAlign: TextAlign.start,
-                          customTextStyle: RegularStyle(
-                              color: lightBlackColor, fontSize: 14.sp)),
-                    ],
-                  ),
-                );
+              : CustomText(
+                  text: snapshot.data!,
+                  textAlign: TextAlign.start,
+                  customTextStyle: RegularStyle(
+                      color: lightBlackColor, fontSize: 14.sp));
         });
   }
 
-  Widget _totalRow() {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 5.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: CartOrderDetailsItem(
-              icon: Assets.svg.icTotal,
-              title: "الإجمالي",
-              iconSize: 18,
-              space: 8,
-            ),
-          ),
-          StreamBuilder(
-            stream: widget.cartBloc.cartOrderDetailsTotalBehaviour.stream,
-            builder: (context, snapshot) {
-              return !snapshot.hasData
-                  ? SizedBox()
-                  : CustomText(
-                      text: snapshot.data!,
-                      textAlign: TextAlign.start,
-                      customTextStyle: RegularStyle(
-                          color: lightBlackColor, fontSize: 16.sp));
-            },
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _getSeperator() {
     return Container(

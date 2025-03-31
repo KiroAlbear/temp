@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-class CartOrderDetailsItem extends StatelessWidget {
+class CartOrderDetailsIconItem extends StatelessWidget {
   final String? icon;
   final String title;
-  final int? count;
   final double iconSize;
   final double space;
 
-  const CartOrderDetailsItem(
+  const CartOrderDetailsIconItem(
       {this.icon,
       required this.title,
-      this.count,
       this.iconSize = 30,
       this.space = 3,
       Key? key})
@@ -43,6 +41,7 @@ class CartOrderDetailsItem extends StatelessWidget {
                             height: iconSize,
                             child: ImageHelper(
                               image: icon!,
+                              color: darkSecondaryColor,
                               imageType: ImageType.svg,
                             )),
                     space.horizontalSpace,
@@ -51,18 +50,11 @@ class CartOrderDetailsItem extends StatelessWidget {
                           text: title,
                           textAlign: TextAlign.center,
                           customTextStyle: RegularStyle(
-                              color: lightBlackColor, fontSize: 16.sp)),
+                              color: lightBlackColor, fontSize: 14.sp)),
                     ),
                   ],
                 ),
               ),
-              count == null
-                  ? Container()
-                  : CustomText(
-                      text: "(X ${count.toString()})",
-                      textAlign: TextAlign.center,
-                      customTextStyle: RegularStyle(
-                          color: lightBlackColor, fontSize: 16.sp)),
             ],
           ),
         ],

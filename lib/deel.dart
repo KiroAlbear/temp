@@ -193,7 +193,7 @@ export 'features/cart/ui/cart_screen.dart';
 export 'features/cart/ui/widgets/cart_bottom_sheet.dart';
 export 'features/cart/ui/widgets/cart_empty_widget.dart';
 export 'features/cart/ui/widgets/cart_order_details.dart';
-export 'features/cart/ui/widgets/cart_order_details_item.dart';
+export 'features/cart/ui/widgets/cart_order_details_Icon_item.dart';
 export 'features/cart/ui/widgets/cart_success_widget.dart';
 export 'features/cart/utilities/cart_common_functions.dart';
 export 'features/home/home/remote/category_remote.dart';

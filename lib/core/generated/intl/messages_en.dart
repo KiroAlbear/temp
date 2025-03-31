@@ -76,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Choose payment method"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
+        "cartProductsSummary": MessageLookupByLibrary.simpleMessage("Products Summary"),
         "cartProductQuantityNotAvailable": MessageLookupByLibrary.simpleMessage(
             "only available with quantity"),
         "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage(
@@ -103,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactUs": MessageLookupByLibrary.simpleMessage("Contact us"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
         "currentOrders": MessageLookupByLibrary.simpleMessage("Current orders"),
+        "address": MessageLookupByLibrary.simpleMessage("Address"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),

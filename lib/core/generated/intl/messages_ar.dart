@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اختر وسيلة الدفع"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
+        "cartProductsSummary": MessageLookupByLibrary.simpleMessage("ملخص المنتجات"),
         "cartProductQuantityNotAvailable":
             MessageLookupByLibrary.simpleMessage("متوفر فقط بكمية"),
         "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage(
@@ -100,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
         "currentOrders":
             MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
+        "address": MessageLookupByLibrary.simpleMessage("العنوان"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("كلمة السر الحالية"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),

@@ -87,9 +87,9 @@ class CartBloc extends BlocBase {
     // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
 
-    cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
+    cartTotalBehaviour.sink.add("$parsedTotalSum $currency");
     cartOrderDetailsTotalBehaviour.sink
-        .add("${parsedTotalSum + deliveryFees}  $currency");
+        .add("${parsedTotalSum + deliveryFees} $currency");
   }
 
   void _getTotalCartDeliverySum() {
@@ -337,7 +337,7 @@ class CartBloc extends BlocBase {
   void getcartProductQtyList(List<ProductMapper> products) {
     List<CartProductQty> cartProductQtyList = [];
     products.forEach((elem) => cartProductQtyList
-        .add(CartProductQty(title: elem.name, qty: elem.quantity.toInt())));
+        .add(CartProductQty(title: elem.name, qty: elem.quantity.toInt(),price: "${elem.finalPrice} ${elem.currency}")));
     itemsBehaviour.sink.add(cartProductQtyList);
   }
 
