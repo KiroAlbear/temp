@@ -33,7 +33,7 @@ class _CartScreenState extends BaseState<CartScreen> {
   bool isSafeArea() => true;
 
   @override
-  Color? statusBarColor() => secondaryColor;
+  Color? statusBarColor() => Colors.white;
 
 
   @override

@@ -125,7 +125,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           
               if ((SharedPrefModule().userId ?? '').isEmpty) ...[
                 SizedBox(
-                  height: 60.h,
+                  height: 40.h,
                 ),
                 ImageHelper(image: Assets.svg.logoYellow, imageType: ImageType.svg),
                 SizedBox(
