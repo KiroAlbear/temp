@@ -91,7 +91,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
 
                 CartOrderDetailsIconItem(
                   icon: Assets.svg.icTotal,
-                  title: "الدفع كاش عند الاستلام", //ToDo: change to dynamic
+                  title: S.of(context).payCashOnDelivery,
                   iconSize: 18,
                   space: 8,
                 ),
@@ -177,7 +177,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomText(
-                                    text: "الاجمالي", //ToDo: change to dynamic
+                                    text: S.of(context).cartDetailsTotal,
                                     textAlign: TextAlign.start,
                                     customTextStyle: RegularStyle(
                                         color: lightBlackColor, fontSize: 14.sp)),

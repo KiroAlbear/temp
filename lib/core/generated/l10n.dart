@@ -1402,6 +1402,15 @@ class S {
     );
   }
 
+  String get cartDetailsTotal {
+    return Intl.message(
+      'Total:',
+      name: 'cartDetailsTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Items count:`
   String get orderItemCount {
     return Intl.message(
@@ -1766,6 +1775,15 @@ class S {
     return Intl.message(
       'Cash on delivery',
       name: 'cartCashOnDelivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get payCashOnDelivery {
+    return Intl.message(
+      'Pay cash on delivery',
+      name: 'payCashOnDelivery',
       desc: '',
       args: [],
     );

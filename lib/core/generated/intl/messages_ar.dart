@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelOrder": MessageLookupByLibrary.simpleMessage("إلغاء الطلب"),
         "cartCashOnDelivery":
             MessageLookupByLibrary.simpleMessage("كاش عند الاستلام"),
+        "payCashOnDelivery": MessageLookupByLibrary.simpleMessage("الدفع كاش عند الاستلام"),
         "cartConfirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد من ازاله المنتج من السلة؟"),
@@ -214,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderSending": MessageLookupByLibrary.simpleMessage("ارسال الطلب"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("شحن الطلب"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("الإجمالي:"),
+        "cartDetailsTotal": MessageLookupByLibrary.simpleMessage("الإجمالي"),
         "ordersNotFound": MessageLookupByLibrary.simpleMessage(
             "لم تقم بطلب اي منتج حتي الان"),
         "otpIsNotValid":

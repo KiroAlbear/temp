@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelOrder": MessageLookupByLibrary.simpleMessage("Cancel Order"),
         "cartCashOnDelivery":
             MessageLookupByLibrary.simpleMessage("Cash on delivery"),
+
+        "payCashOnDelivery": MessageLookupByLibrary.simpleMessage("Pay Cash on delivery"),
         "cartConfirmOrder":
             MessageLookupByLibrary.simpleMessage("Confirm order"),
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
@@ -218,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderSending": MessageLookupByLibrary.simpleMessage("Sending order"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("Shipping order"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("Order total:"),
+        "cartDetailsTotal": MessageLookupByLibrary.simpleMessage("Total"),
         "ordersNotFound": MessageLookupByLibrary.simpleMessage(
             "You don\'t have any order till now"),
         "otpIsNotValid": MessageLookupByLibrary.simpleMessage(
