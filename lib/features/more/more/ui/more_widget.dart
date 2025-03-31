@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
-class MoreWidget extends BaseStatefulWidget {
+class MoreWidget extends BaseStatefulWidget{
   final String appLogo;
   final String shopIcon;
   final String cameraIcon;
@@ -74,20 +75,20 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   @override
   bool isSafeArea() => true;
 
-  // @override
-  // Color? systemNavigationBarColor() => secondaryColor;
-
   @override
   void onPopInvoked(didPop) {
     handleCloseApplication();
     super.onPopInvoked(didPop);
   }
 
+
+
   @override
   void dispose() {
     widget.moreBloc.selectedFileBehaviour.drain();
     super.dispose();
   }
+
 
   @override
   Widget getBody(BuildContext context) =>
@@ -105,16 +106,8 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
     return ListView(
       shrinkWrap: true,
       children: [
-        Container(
-          height: 135.h,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(20.w),
-                  bottomLeft: Radius.circular(20.w))),
-          child: _logoWidget,
-        ),
+        _logoWidget,
+
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
               height: 160.h,
@@ -125,30 +118,58 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
             height: 34.h,
           ),
-        ] else ...[
+        ],
+
+        if ((SharedPrefModule().userId ?? '').isEmpty) ...[
           SizedBox(
-            height: 43.h,
+            height: 60.h,
+          ),
+          ImageHelper(image: Assets.svg.logoYellow, imageType: ImageType.svg),
+          SizedBox(
+            height: 17.h,
+          ),
+          Center(child: CustomText(text: S.of(context).startOrderNow, customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor))),
+
+          SizedBox(
+            height: 36.h,
           ),
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 14.w),
               child: CustomButtonWidget(
-                idleText: S.of(context).loginNow,
+                idleText: S.of(context).createAccount,
+                onTap: () {
+                  CustomNavigatorModule.navigatorKey.currentState
+                      ?.pushNamed(AppScreenEnum.register.name).then((value) {
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
+                      },);
+                },
+              )),
+          SizedBox(
+            height: 17.h,
+          ),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14.w),
+              child: CustomButtonWidget(
+                buttonShapeEnum: ButtonShapeEnum.outline,
+                buttonColor: secondaryColor,
+                idleText: S.of(context).login,
                 onTap: () => AppProviderModule().logout(context),
-                height: 60.h,
               )),
           SizedBox(
             height: 27.h,
           )
         ],
         // _ordersWidget,
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: CustomText(
-              text: S.of(context).settings,
-              customTextStyle:
-                  BoldStyle(fontSize: 18.sp, color: secondaryColor)),
-        ),
+
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CustomText(
+                text: S.of(context).settings,
+                customTextStyle:
+                BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+          ),
           SizedBox(
             height: 10.h,
           ),
@@ -164,36 +185,34 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             CustomNavigatorModule.navigatorKey.currentState
                 ?.pushNamed(AppScreenEnum.accountChangePassword.name);
           }),
-        ],
-        SizedBox(
-          height: 10.h,
-        ),
-        _menuItem(
-          S.of(context).myOrders,
-          widget.myOrdersIcon,
-          () {
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushNamed(AppScreenEnum.myOrders.name);
-          },
-          disabled: (SharedPrefModule().userId ?? '').isEmpty,
-          width: 17.w,
-          height: 17.h,
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
-        _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
-          // widget.productCategoryBloc.reset();
-
-          widget.productCategoryBloc.isForFavourite = true;
-          widget.productCategoryBloc.isNavigatingFromMore = true;
-          CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.product.name);
-        },
+          SizedBox(
+            height: 10.h,
+          ),
+          _menuItem(
+            S.of(context).myOrders,
+            widget.myOrdersIcon,
+                () {
+              CustomNavigatorModule.navigatorKey.currentState
+                  ?.pushNamed(AppScreenEnum.myOrders.name);
+            },
             disabled: (SharedPrefModule().userId ?? '').isEmpty,
+            width: 17.w,
             height: 17.h,
-            width: 17.w),
-        if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
+            // widget.productCategoryBloc.reset();
+
+            widget.productCategoryBloc.isForFavourite = true;
+            widget.productCategoryBloc.isNavigatingFromMore = true;
+            CustomNavigatorModule.navigatorKey.currentState
+                ?.pushNamed(AppScreenEnum.product.name);
+          },
+              disabled: (SharedPrefModule().userId ?? '').isEmpty,
+              height: 17.h,
+              width: 17.w),
           SizedBox(
             height: 10.h,
           ),
@@ -213,9 +232,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           SizedBox(
             height: 18.h,
           ),
-          _accountBalance()
-        ],
-        if ((SharedPrefModule().userId ?? '').isEmpty) ...[
+          _accountBalance(),
           SizedBox(
             height: 18.h,
           ),
@@ -227,29 +244,10 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             ),
           ),
           SizedBox(
-            height: 18.h,
+            height: 8.h,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: CustomText(
-                text: S.of(context).accountBalance,
-                customTextStyle:
-                    BoldStyle(fontSize: 18.sp, color: textFieldBorderGreyColor)),
-          )
         ],
-        SizedBox(
-          height: 18.h,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Divider(
-            height: 1.h,
-            color: textFieldBorderGreyColor,
-          ),
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
+
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: CustomText(
@@ -258,7 +256,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   BoldStyle(fontSize: 18.sp, color: secondaryColor)),
         ),
         SizedBox(
-          height: 10.h,
+          height: 8.h,
         ),
         _menuItem(S.of(context).contactUs, widget.contactUsIcon, () {
           AlertModule().showContactUsDialog(
@@ -278,6 +276,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.usagePolicy.name);
         }),
+
         if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
           SizedBox(
             height: 37.h,
@@ -382,70 +381,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
     });
   }
 
-  Widget get _logoWidget => Container(
-        alignment: Alignment.centerRight,
-        width: 150.w,
-        height: 65.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: ImageHelper(
-          image: widget.appLogo,
-          imageType: ImageType.svg,
-          width: 70.w,
-          height: 65.h,
-        ),
-      );
-
-  /* Widget get _ordersWidget => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(width: 1.w, color: primaryColor),
-          color: menuOrderCardColor,
-        ),
-        padding: EdgeInsets.symmetric(vertical: 10.h),
-        margin: EdgeInsets.symmetric(horizontal: 50.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _orderColumn(
-                widget.currentOrderIcon, S.of(context).currentOrder, () {}),
-            IntrinsicHeight(
-              child: Container(
-                width: 1.w,
-                height: 40.h,
-                color: primaryColor,
-              ),
-            ),
-            _orderColumn(
-                widget.previewsOrderIcon, S.of(context).previousOrder, () {})
-          ],
-        ),
-      );
-
-  Widget _orderColumn(String imagePath, String text, VoidCallback onTap) =>
-      InkWell(
-        onTap: () => onTap(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ImageHelper(
-              image: imagePath,
-              imageType: ImageType.svg,
-              height: 22.h,
-              width: 22.w,
-            ),
-            SizedBox(
-              height: 6.h,
-            ),
-            CustomText(
-                text: text,
-                customTextStyle:
-                    RegularStyle(color: secondaryColor, fontSize: 16.sp)),
-          ],
-        ),
-      );
-*/
+  Widget get _logoWidget => AppTopWidget(
+    title: S.of(context).more,
+  );
   Widget _menuItem(String text, String imagePath, VoidCallback onTap,
           {bool isBoldStyle = false,
           bool disabled = false,

@@ -301,6 +301,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("You can start order now"),
+        "startOrderNow": MessageLookupByLibrary.simpleMessage("Order all your needs from the same place"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("You need to login"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")

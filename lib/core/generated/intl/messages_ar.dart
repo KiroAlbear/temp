@@ -294,6 +294,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("تقدر تطلب كل احتياجاتك من نفس المكان دلوقتي"),
+        "startOrderNow": MessageLookupByLibrary.simpleMessage("اطلب كل احتياجاتك من نفس المكان دلوقتي"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")

@@ -12,11 +12,11 @@ import 'custom_text.dart';
 import 'custom_text_form_filed_widget.dart';
 
 class AppTopWidget extends StatefulWidget {
-  final String homeLogo;
-  final String supportIcon;
-  final String notificationIcon;
-  final String scanIcon;
-  final String searchIcon;
+  final String? homeLogo;
+  final String? supportIcon;
+  final String? notificationIcon;
+  final String? scanIcon;
+  final String? searchIcon;
 
   final String title;
 
@@ -36,11 +36,11 @@ class AppTopWidget extends StatefulWidget {
 
   const AppTopWidget(
       {super.key,
-      required this.notificationIcon,
-      required this.homeLogo,
-      required this.scanIcon,
-      required this.searchIcon,
-      required this.supportIcon,
+      this.notificationIcon,
+      this.homeLogo,
+      this.scanIcon,
+      this.searchIcon,
+      this.supportIcon,
       this.title = '',
       this.backIcon = '',
       this.hideTop = false,
@@ -82,10 +82,10 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   Widget get _favouriteWidget => Positioned(
       top: 18.w,
       left: 16.w,
-      child: InkWell(
+      child:widget.notificationIcon == null?SizedBox(): InkWell(
         onTap: () => _clickOnFavourite(),
         child: ImageHelper(
-          image: widget.notificationIcon,
+          image: widget.notificationIcon!,
           imageType: ImageType.svg,
           width: 40.w,
           height: 40.h,
@@ -96,10 +96,10 @@ class _AppTopWidgetState extends State<AppTopWidget> {
       top: 18.w,
       // left: 64.w,
       left: 16.w,
-      child: InkWell(
+      child: widget.supportIcon == null?SizedBox():InkWell(
         onTap: () => _clickOnSupport(),
         child: ImageHelper(
-          image: widget.supportIcon,
+          image: widget.supportIcon!,
           imageType: ImageType.svg,
           width: 40.w,
           height: 40.h,
@@ -109,8 +109,8 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   Widget get _logoWidget => Positioned(
       top: 18.h,
       right: 16.w,
-      child: ImageHelper(
-        image: widget.homeLogo,
+      child: widget.homeLogo == null?SizedBox():ImageHelper(
+        image: widget.homeLogo!,
         imageType: ImageType.svg,
         width: 40.w,
         height: 40.h,
@@ -151,10 +151,10 @@ class _AppTopWidgetState extends State<AppTopWidget> {
         ),
       );
 
-  Widget get _scanIconWidget => InkWell(
+  Widget get _scanIconWidget => widget.scanIcon == null?SizedBox():InkWell(
     onTap: () => CustomNavigatorModule.navigatorKey.currentState?.pushNamed(AppScreenEnum.scanBarcode.name),
     child: ImageHelper(
-          image: widget.scanIcon,
+          image: widget.scanIcon!,
           imageType: ImageType.svg,
           color: secondaryColor,
           width: 19.w,
@@ -163,10 +163,10 @@ class _AppTopWidgetState extends State<AppTopWidget> {
         ),
   );
 
-  Widget get _searchProductWidget => InkWell(
+  Widget get _searchProductWidget => widget.searchIcon == null?SizedBox():InkWell(
         onTap: () => widget.doSearch!(),
         child: ImageHelper(
-          image: widget.searchIcon,
+          image: widget.searchIcon!,
           imageType: ImageType.svg,
           color: secondaryColor,
           width: 19.w,

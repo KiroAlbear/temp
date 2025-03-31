@@ -698,6 +698,15 @@ class S {
     );
   }
 
+  String get startOrderNow {
+    return Intl.message(
+      'Order all your needs from the same place',
+      name: 'startOrderNow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Start`
   String get start {
     return Intl.message(

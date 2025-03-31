@@ -159,7 +159,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         progressAlignment: MainAxisAlignment.center,
         minWidth: 60.w,
         maxWidth: widget.width ?? MediaQuery.of(context).size.width - 34.w,
-        radius: widget.borderRadius ?? 12.0.r,
+        radius: widget.borderRadius ?? 8.0.r,
         state: buttonState,
         inLineBackgroundColor: widget.inLineBackgroundColor ?? whiteColor,
       ),
