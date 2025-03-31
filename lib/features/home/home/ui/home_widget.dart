@@ -74,7 +74,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                     snapshot.data!.response!.isEmpty)
                 ? SizedBox(height: 0)
                 : SizedBox(
-                    height: 32.h,
+                    height: 10.h,
                   ),
 
           ),

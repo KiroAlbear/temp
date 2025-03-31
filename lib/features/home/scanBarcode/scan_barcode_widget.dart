@@ -69,7 +69,6 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
       child: Column(
         children: [
           AppTopWidget(
-            hideTop: true,
             title: S.of(context).scanBarcode,
             isHavingBack: true,
           ),

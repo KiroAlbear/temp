@@ -173,23 +173,19 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
             isHavingBack: (widget.productCategoryBloc.isForFavourite &&
                 widget.productCategoryBloc.isNavigatingFromMore == false)
                 ? false :true,
-            isHavingHomeLogo: false,
             isHavingSupport: true,
             title: isNavigatedFromBannersOrOffers()
                 ? " "
                 : widget.productCategoryBloc.isForFavourite
                 ? S.of(context).favourites
                 : widget.homeBloc.selectedCategoryText,
-            hideTop: widget.productCategoryBloc.isForFavourite
-                ? true
-                : false,
           ),
           Expanded(
             child: Stack(
               children: [
                 Column(
                   children: [
-                    isBannersOrOffersExist()?SizedBox():SizedBox(height:10.h),
+
                     (isFavouriteOrSearchOrCategory() ||
                         widget.homeBloc.selectedOffer != null)
                         ? SizedBox()
@@ -388,7 +384,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                         : SizedBox(
                       height: 10.h,
                     ),
-                    isBannersOrOffersExist()?SizedBox():SizedBox(height:10.h),
+                    isBannersOrOffersExist()?SizedBox():SizedBox(height:widget
+                        .productCategoryBloc.isForFavourite?0:10.h),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
@@ -435,7 +432,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                       
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 16.w, vertical: 18.h),
+                                  horizontal: 16.w, vertical:widget
+                                  .productCategoryBloc.isForFavourite? 0:18.h),
                               child: StreamBuilder<ApiState<List<ProductMapper>>>(
                                 stream:
                                 widget.productCategoryBloc.loadedListStream,

@@ -46,7 +46,6 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
   Widget get _screenDesign => Column(
         children: [
           AppTopWidget(
-            hideTop: true,
             isHavingBack: true,
             title: S.of(context).faq,
           ),

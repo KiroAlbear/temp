@@ -94,7 +94,6 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
     return Column(children: [
       AppTopWidget(
         title: S.of(context).updateProfileTitle,
-        hideTop: true,
         isHavingBack: true,
       ),
       SizedBox(

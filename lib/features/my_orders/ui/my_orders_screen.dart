@@ -71,7 +71,6 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
       children: [
         AppTopWidget(
           title: S.of(context).myOrders,
-          hideTop: true,
           isHavingBack: true,
         ),
         SizedBox(

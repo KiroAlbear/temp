@@ -21,12 +21,7 @@ class AppTopWidget extends StatefulWidget {
   final String? searchIcon;
 
   final String title;
-
-
   final bool isHavingBack;
-
-  final bool hideTop;
-
   final Stream<TextEditingController>? textFiledControllerStream;
 
   final ValueChanged<String>? onChanged;
@@ -47,7 +42,6 @@ class AppTopWidget extends StatefulWidget {
       this.isHavingSearch = false,
       this.isHavingSupport = false,
         this.isHavingSupportIcon = false,
-      this.hideTop = false,
       this.doSearch,
       this.onChanged,
       this.textFiledControllerStream,
@@ -64,7 +58,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
 
   Widget get _topStack => Container(
         color: whiteColor,
-        padding: EdgeInsetsDirectional.only(start: 16.w,end: 16.w,bottom: 0.h),
+        padding: EdgeInsetsDirectional.only(start: 16.w,end: 16.w,bottom:(widget.isHavingHomeLogo == false&&widget.title.trim().isEmpty)?0: 20.h),
         child: Column(
           children: [
             if (widget.isHavingHomeLogo) 23.verticalSpace,

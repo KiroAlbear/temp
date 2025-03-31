@@ -34,12 +34,11 @@ class _OffersPageState extends BaseState<OffersPage> {
       children: [
         AppTopWidget(
           isHavingSupport: true,
-          hideTop: true,
           title: S.of(context).offersTitle,
         ),
-        SizedBox(
-          height: 30.h,
-        ),
+        // SizedBox(
+        //   height: 30.h,
+        // ),
 
         // Expanded(
         //     child: ImageHelper(

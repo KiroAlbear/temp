@@ -55,7 +55,6 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
       AppTopWidget(
         isHavingBack: true,
         title: S.of(context).changePassword,
-        hideTop: true,
       ),
       
       Expanded(

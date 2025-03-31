@@ -52,7 +52,6 @@ class _CartScreenState extends BaseState<CartScreen> {
         AppTopWidget(
           title: S.of(context).cartTitle,
           isHavingSupport: true,
-          hideTop: true,
         ),
         Expanded(
           child: Stack(
@@ -287,7 +286,7 @@ class _CartScreenState extends BaseState<CartScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          14.verticalSpace,
+          // 14.verticalSpace,
           CustomText(
               text: S.of(context).cartProductDetails,
               customTextStyle:

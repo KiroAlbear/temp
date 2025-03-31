@@ -45,7 +45,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       AppTopWidget(
         title: S.of(context).cartOrderOrderDetails,
-        hideTop: true,
         isHavingBack: true,
       ),
       Expanded(
@@ -55,7 +54,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                16.verticalSpace,
+
                 _buildOrderSummary(context),
                 20.verticalSpace,
                 _getSeperator(),

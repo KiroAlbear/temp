@@ -49,7 +49,6 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyScreen> {
       child: Column(children: [
         AppTopWidget(
           title: S.of(context).usagePolicyTitle,
-          hideTop: false,
           isHavingBack: true,
         ),
         SizedBox(
