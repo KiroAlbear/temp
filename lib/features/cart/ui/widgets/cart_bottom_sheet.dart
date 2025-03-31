@@ -32,17 +32,26 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
             ignoring: true,
             child: Radio<int>(
               value: value,
+              activeColor: darkSecondaryColor,
+            fillColor: WidgetStateProperty.resolveWith<Color>(
+                    (Set<WidgetState> states) {
+                  if (states.contains(WidgetState.selected)) {
+                    return darkSecondaryColor;
+                  }
+                  return disabledButtonColorLightMode;
+                },
+              ),
               groupValue: _groupeValue,
               onChanged: (value) {},
             ),
           ),
-          ImageHelper(image: icon, imageType: ImageType.svg),
+          ImageHelper(image: icon, imageType: ImageType.svg,color: darkSecondaryColor,),
           _spacing.horizontalSpace,
           CustomText(
               text: title,
               textAlign: TextAlign.start,
               customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+                  RegularStyle(color: lightBlackColor, fontSize: 16.sp)),
         ],
       ),
     );
@@ -55,11 +64,13 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(
-              text: S.of(context).cartPaymentOptions,
-              textAlign: TextAlign.start,
-              customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+          Center(
+            child: CustomText(
+                text: S.of(context).cartPaymentOptions,
+                textAlign: TextAlign.start,
+                customTextStyle:
+                    BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
+          ),
           _paymentRow(0, S.of(context).cartCashOnDelivery, Assets.svg.icCash),
           // _paymentRow(1, S.of(context).cartDokkanWallet, Assets.svg.icWallet),
           18.verticalSpace,

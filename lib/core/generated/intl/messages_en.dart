@@ -73,7 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartOrderOrderDetails":
             MessageLookupByLibrary.simpleMessage("Order details"),
         "cartPaymentOptions": MessageLookupByLibrary.simpleMessage(
-            "Payment method that suits you"),
+            "Choose payment method"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
         "cartProductQuantityNotAvailable": MessageLookupByLibrary.simpleMessage(

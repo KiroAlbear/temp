@@ -1757,7 +1757,7 @@ class S {
   /// `Payment method that suits you`
   String get cartPaymentOptions {
     return Intl.message(
-      'Payment method that suits you',
+      'Choose payment method',
       name: 'cartPaymentOptions',
       desc: '',
       args: [],
