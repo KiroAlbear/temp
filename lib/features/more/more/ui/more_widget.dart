@@ -243,7 +243,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               }),
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
                 SizedBox(
-                  height: 37.h,
+                  height: 20.h,
                 ),
                 _menuItem(S.of(context).logout, Assets.svg.icLogout, color: Colors.red, () {
                   _logout();
@@ -447,9 +447,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             )),
       );
 
-  void _updateImage(File file) {
-    /// TODO click on update profile image
-  }
 
   void _logout() {
     AlertModule().showDialog(
