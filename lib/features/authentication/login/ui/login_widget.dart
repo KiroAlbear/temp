@@ -13,15 +13,11 @@ import '../../widget/logo_top_widget.dart';
 import 'login_bloc.dart';
 
 class LoginWidget extends BaseStatefulWidget {
-
-  final String biometricImage;
   final bool enableSkip;
   final BottomNavigationBloc? bottomNavigationBloc;
 
   const LoginWidget(
       {super.key,
-
-      required this.biometricImage,
       required this.bottomNavigationBloc,
       required this.enableSkip});
 
@@ -220,7 +216,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
           });
         },
         child: ImageHelper(
-          image: widget.biometricImage,
+          image: Assets.svg.icBiometric,
           imageType: ImageType.svg,
           width: 50.w,
           height: 50.h,

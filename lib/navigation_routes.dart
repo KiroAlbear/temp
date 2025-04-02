@@ -31,12 +31,12 @@ final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
   _productCategoryWidget(),
   OffersPage(
-    emptyOffers: Assets.svg.emptyOffers,
     homeBloc: _homeBloc,
   ),
   _cartScreen,
   _moreBlocProvider
 ], _loginWidgetWithoutSkip);
+
 
 // Function to generate routes based on screen names.
 Route? _onGenerateRoute(String screenName, BuildContext context) {
@@ -76,7 +76,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
     case AppScreenEnum.successRegister:
       return _buildPageRoute(SuccessRegisterWidget(
           bottomNavigationBloc: _bottomNavigationBloc,
-          successRegister: Assets.svg.icSuccessRegister));
+          ));
     case AppScreenEnum.product:
       return _buildPageRoute(_productCategoryWidget());
     case AppScreenEnum.faq:
@@ -106,17 +106,15 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
   }
 }
 
-Widget get _faqWidget => FaqWidget(
-     arrowDown: Assets.svg.icArrowDownBlue);
+Widget get _faqWidget => FaqWidget();
 
 Widget get _loginWidget => LoginWidget(
-      biometricImage: Assets.svg.icBiometric,
+
       enableSkip: true,
       bottomNavigationBloc: _bottomNavigationBloc,
     );
 
 Widget get _loginWidgetWithoutSkip => LoginWidget(
-      biometricImage: Assets.svg.icBiometric,
       enableSkip: false,
       bottomNavigationBloc: null,
     );
@@ -149,9 +147,6 @@ BlocProvider get _homeBlocProvider => BlocProvider(
         updateProfileBloc: _updateProfileBloc,
         cartBloc: _cartBloc,
         homeBloc: _homeBloc,
-        notificationIcon: Assets.svg.icNotification,
-        scanIcon: Assets.svg.icScan,
-        searchIcon: Assets.svg.icSearch,
         contactUsBloc: _contactUsBloc,
       ),
     );
@@ -185,14 +180,8 @@ BlocProvider _productCategoryWidget() {
   return BlocProvider(
       bloc: _productCategoryBloc,
       child: ProductCategoryWidget(
-        emptyFavouriteScreen: Assets.svg.emptyFavourite,
-        deleteIcon: Assets.svg.icDelete,
         homeBloc: _homeBloc,
         contactUsBloc: _contactUsBloc,
-        notificationIcon: Assets.svg.icNotification,
-        scanIcon: Assets.svg.icScan,
-        searchIcon: Assets.svg.icSearch,
-        productNotFoundIcon: Assets.svg.icNotFound,
         productCategoryBloc: _productCategoryBloc,
         cartBloc: _cartBloc,
       ));
@@ -203,21 +192,17 @@ BlocProvider get _cartScreen => BlocProvider(
     child: CartScreen(
       cartBloc: _cartBloc,
       productCategoryBloc: _productCategoryBloc,
-
-      icDelete: Assets.svg.icDelete,
     ));
 
 BlocProvider get _cartOrderDetailsScreen => BlocProvider(
     bloc: _cartBloc,
     child: CartOrderDetails(
       cartBloc: _cartBloc,
-
     ));
 
 ContactUsBloc get _contactUsBloc => ContactUsBloc();
 
 Widget get _newAccountWidget => NewAccountWidget(
-
       mobileNumber: _authSharedBloc.mobile,
       countryCode: _authSharedBloc.countryMapper.description,
       countryId: int.parse(_authSharedBloc.countryMapper.id),

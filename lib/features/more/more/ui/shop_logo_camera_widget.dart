@@ -118,7 +118,6 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                       image: snapshot.data!.isEmpty
                           ? widget.shopLogo
                           : snapshot.data!,
-                      // snapshot.data!.isEmpty ? widget.shopLogo : snapshot.data!,
                       boxFit: BoxFit.fill,
                       imageShape: ImageShape.rectangle,
                       borderRadius: BorderRadius.circular(16.w),
@@ -127,7 +126,6 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                         child: ImageHelper(
                           imageType: ImageType.svg,
                           image: widget.placeHolder,
-
                         ),
                       ),
                     ),

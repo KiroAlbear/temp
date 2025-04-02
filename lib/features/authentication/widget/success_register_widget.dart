@@ -9,12 +9,9 @@ import '../../../../core/generated/l10n.dart';
 
 class SuccessRegisterWidget extends BaseStatefulWidget {
   final BottomNavigationBloc bottomNavigationBloc;
-  final String successRegister;
-
   const SuccessRegisterWidget(
-      {super.key,
-      required this.bottomNavigationBloc,
-      required this.successRegister});
+      {super.key, required this.bottomNavigationBloc,
+      });
 
   @override
   State<SuccessRegisterWidget> createState() => _SuccessRegisterWidgetState();

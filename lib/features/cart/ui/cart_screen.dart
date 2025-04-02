@@ -5,14 +5,13 @@ import '../../../core/generated/l10n.dart';
 
 class CartScreen extends BaseStatefulWidget {
 
-  final String icDelete;
   final CartBloc cartBloc;
 
   final ProductCategoryBloc productCategoryBloc;
 
   CartScreen(
       {required this.cartBloc,
-      required this.icDelete,
+
       required this.productCategoryBloc,
       super.key});
 
@@ -186,7 +185,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
-                      icDelete: widget.icDelete,
+                      icDelete: Assets.svg.icDelete,
                       productMapper: snapshot.data!.response![index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {

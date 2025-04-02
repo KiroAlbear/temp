@@ -5,9 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 import 'faq_bloc.dart';
 class FaqWidget extends BaseStatefulWidget {
-  final String arrowDown;
-
-  const FaqWidget({super.key, required this.arrowDown});
+  const FaqWidget({super.key});
 
   @override
   State<FaqWidget> createState() => _FaqWidgetState();
@@ -73,7 +71,7 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
                                 snapshot.data?.response?[index].answer ?? '',
                             question:
                                 snapshot.data?.response?[index].question ?? '',
-                            arrow: widget.arrowDown),
+                            arrow:Assets.svg.icArrowDownBlue),
                       ),
                   separatorBuilder: (context, index) => SizedBox(
                         height: 16.h,
