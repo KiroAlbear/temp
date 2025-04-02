@@ -15,9 +15,10 @@ class _SplashWidgetState extends BaseState<SplashWidget> {
   @override
   void initState() {
     customBackgroundColor = primaryColor;
-    super.initState();
     Future.delayed(const Duration(seconds: 2))
         .then((value) => AppProviderModule().init(context));
+    super.initState();
+
   }
 
   @override

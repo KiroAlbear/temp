@@ -4,10 +4,11 @@ part of 'my_app.dart';
 // Create an instance of CustomTransitionModule for transitions.
 final CustomTransitionModule _customTransitionModule = EasyFadeInTransition();
 final AuthenticationSharedBloc _authSharedBloc = AuthenticationSharedBloc();
-final ForgotPasswordBloc _forgetPasswordBloc = ForgotPasswordBloc();
+// final ForgotPasswordBloc _forgetPasswordBloc = ForgotPasswordBloc();
 final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
-final CartBloc _cartBloc = CartBloc();
-final UsagePolicyBloc _usagePolicyBloc = UsagePolicyBloc();
+// ContactUsBloc get _contactUsBloc => ContactUsBloc();
+// final CartBloc _cartBloc = CartBloc();
+// final UsagePolicyBloc _usagePolicyBloc = UsagePolicyBloc();
 final HomeBloc _homeBloc = HomeBloc(
   onCategoryClick: (CategoryMapper categoryMapper) {
     LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
@@ -24,8 +25,8 @@ final HomeBloc _homeBloc = HomeBloc(
     }
   },
 );
-final MoreBloc _moreBloc = MoreBloc();
-final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
+// final MoreBloc _moreBloc = MoreBloc();
+// final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
 
 final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
   _homeBlocProvider,
@@ -57,17 +58,16 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
       return _buildPageRoute(RegisterWidget(
-
-        authenticationSharedBloc: _authSharedBloc,
+        authenticationSharedBloc: getIt(),
       ));
     case AppScreenEnum.forgetPassword:
       return _buildPageRoute(ForgotPasswordWidget(
-        forgetPasswordBloc: _forgetPasswordBloc,
-        authenticationSharedBloc: _authSharedBloc,
+        forgetPasswordBloc: getIt(),
+        authenticationSharedBloc: getIt(),
       ));
     case AppScreenEnum.otp:
       return _buildPageRoute(OtpWidget(
-        authenticationSharedBloc: _authSharedBloc,
+        authenticationSharedBloc: getIt(),
       ));
     case AppScreenEnum.newAccount:
       return _buildPageRoute(_newAccountWidget);
@@ -83,7 +83,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_faqWidget);
     case AppScreenEnum.usagePolicy:
       return _buildPageRoute(UsagePolicyScreen(
-          usagePolicyBloc: _usagePolicyBloc, ));
+          usagePolicyBloc: getIt(), ));
     case AppScreenEnum.accountChangePassword:
       return _buildPageRoute(AccountChangePassword(
       ));
@@ -99,10 +99,10 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(_cartOrderDetailsScreen);
     case AppScreenEnum.updateProfileScreen:
       return _buildPageRoute(
-          UpdateProfileScreen( moreBloc: _moreBloc));
+          UpdateProfileScreen( moreBloc: getIt()));
     case AppScreenEnum.myOrders:
       return _buildPageRoute(MyOrdersScreen(
-          myOrdersBloc: MyOrdersBloc()));
+          myOrdersBloc: getIt()));
   }
 }
 
@@ -142,21 +142,21 @@ void _listenForBottomNavigationChange() {
 
 // Get a BlocProvider for HomeBloc.
 BlocProvider get _homeBlocProvider => BlocProvider(
-      bloc: _homeBloc,
+      bloc: getIt(),
       child: HomeWidget(
-        updateProfileBloc: _updateProfileBloc,
-        cartBloc: _cartBloc,
-        homeBloc: _homeBloc,
-        contactUsBloc: _contactUsBloc,
+        updateProfileBloc: getIt(),
+        cartBloc: getIt(),
+        homeBloc: getIt(),
+        contactUsBloc: getIt(),
       ),
     );
 
 BlocProvider get _moreBlocProvider => BlocProvider(
-      bloc: _moreBloc,
+      bloc: getIt(),
       child: MoreWidget(
-        moreBloc: _moreBloc,
-        productCategoryBloc: _productCategoryBloc,
-        contactUsBloc: _contactUsBloc,
+        moreBloc: getIt(),
+        productCategoryBloc: getIt(),
+        contactUsBloc: getIt(),
       ),
     );
 
@@ -164,7 +164,7 @@ BlocProvider get _moreBlocProvider => BlocProvider(
 BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
       bloc: _bottomNavigationBloc,
       child: BottomNavigationWidget(
-        cartBloc: _cartBloc,
+        cartBloc: getIt(),
         bottomNavigationBloc: _bottomNavigationBloc,
         svgIconsPath:  [
           Assets.svg.icHome,
@@ -178,29 +178,28 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
 
 BlocProvider _productCategoryWidget() {
   return BlocProvider(
-      bloc: _productCategoryBloc,
+      bloc: getIt(),
       child: ProductCategoryWidget(
-        homeBloc: _homeBloc,
-        contactUsBloc: _contactUsBloc,
-        productCategoryBloc: _productCategoryBloc,
-        cartBloc: _cartBloc,
+        homeBloc: getIt(),
+        contactUsBloc: getIt(),
+        productCategoryBloc: getIt(),
+        cartBloc: getIt(),
       ));
 }
 
 BlocProvider get _cartScreen => BlocProvider(
-    bloc: _cartBloc,
+    bloc: getIt(),
     child: CartScreen(
-      cartBloc: _cartBloc,
-      productCategoryBloc: _productCategoryBloc,
+      cartBloc: getIt(),
+      productCategoryBloc: getIt(),
     ));
 
 BlocProvider get _cartOrderDetailsScreen => BlocProvider(
-    bloc: _cartBloc,
+    bloc: getIt(),
     child: CartOrderDetails(
-      cartBloc: _cartBloc,
+      cartBloc: getIt(),
     ));
 
-ContactUsBloc get _contactUsBloc => ContactUsBloc();
 
 Widget get _newAccountWidget => NewAccountWidget(
       mobileNumber: _authSharedBloc.mobile,
