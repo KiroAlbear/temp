@@ -92,60 +92,63 @@ class _ProductWidgetState extends State<ProductWidget> {
   );
 
   Widget _getProductWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 12.h,
-        ),
-        Stack(
-          children: [
-            _favouriteAndDiscountRow,
-            SizedBox(
-              height: 4.h,
-            ),
-            _productImage,
-          ],
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        ImageFiltered(
-            imageFilter:SharedPrefModule().userId==null? ImageFilter.blur(sigmaX: 4, sigmaY: 4):ImageFilter.blur(sigmaX: 0, sigmaY:0),
-            child: _priceRow),
-        SizedBox(
-          height: 2.h,
-        ),
-        _productName,
-
-        widget.productMapper.description.isEmpty?SizedBox(): SizedBox(
-          height: 4.h,
-        ),
-        widget.productMapper.description.isEmpty?SizedBox():_productDescription,
-        SizedBox(
-          height: 9.h,
-        ),
-        // Center(child: _addCartButton),
-
-        Padding(
-          padding: const EdgeInsets.only(top:5.0),
-          child: ValueListenableBuilder(
-            valueListenable: qtyValueNotifier,
-            builder: (context, value, child) {
-              return value == 0
-                  ? Center(child: _addCartButton)
-                  : Center(
-                      child: _incrementDecrementButton(),
-                    );
-            },
+    return Padding(
+      padding: EdgeInsetsDirectional.only(start: 14.w,end:14.w, top: 14.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // SizedBox(
+          //   height: 12.h,
+          // ),
+          Stack(
+            children: [
+              _favouriteRow,
+              SizedBox(
+                height: 4.h,
+              ),
+              _productImage,
+            ],
           ),
-        ),
+          SizedBox(
+            height: 5.h,
+          ),
+          ImageFiltered(
+              imageFilter:SharedPrefModule().userId==null? ImageFilter.blur(sigmaX: 4, sigmaY: 4):ImageFilter.blur(sigmaX: 0, sigmaY:0),
+              child: _priceRow),
+          SizedBox(
+            height: 2.h,
+          ),
+          _productName,
 
-        // SizedBox(
-        //   height: 10.h,
-        // )
-      ],
+          widget.productMapper.description.isEmpty?SizedBox(): SizedBox(
+            height: 4.h,
+          ),
+          widget.productMapper.description.isEmpty?SizedBox():_productDescription,
+          SizedBox(
+            height: 9.h,
+          ),
+          // Center(child: _addCartButton),
+
+          Padding(
+            padding: const EdgeInsets.only(top:5.0),
+            child: ValueListenableBuilder(
+              valueListenable: qtyValueNotifier,
+              builder: (context, value, child) {
+                return value == 0
+                    ? Center(child: _addCartButton)
+                    : Center(
+                        child: _incrementDecrementButton(),
+                      );
+              },
+            ),
+          ),
+
+          // SizedBox(
+          //   height: 10.h,
+          // )
+        ],
+      ),
     );
   }
 
@@ -153,7 +156,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     return SizedBox(
       height: 110.h,
       child: Padding(
-        padding: EdgeInsetsDirectional.only(top: 8.h, bottom: 8.h, end: 16.w),
+        padding: EdgeInsetsDirectional.only(top: 8.h, bottom: 8.h, end: 16.w, start: 16.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,11 +220,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     );
   }
 
-  Widget get _favouriteAndDiscountRow => Row(
+  Widget get _favouriteRow => Row(
         children: [
-          SizedBox(
-            width: 12.w,
-          ),
           if (SharedPrefModule().bearerToken?.isNotEmpty ?? false)
           ValueListenableBuilder(
             valueListenable: isAddingToFavSucess,
@@ -330,54 +330,45 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
       );
 
-  Widget get _productName => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.w),
-        child: CustomText(
-          text: widget.productMapper.name,
-          textAlign: TextAlign.center,
-          customTextStyle:widget.isCartProduct?BoldStyle(color: lightBlackColor, fontSize: 14.sp): MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-          maxLines: 1,
-        ),
-      );
+  Widget get _productName => CustomText(
+    text: widget.productMapper.name,
+    textAlign: TextAlign.center,
+    customTextStyle:widget.isCartProduct?BoldStyle(color: lightBlackColor, fontSize: 14.sp): MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+    maxLines: 1,
+  );
 
-  Widget get _priceRow => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex:widget.isCartProduct? 0:1,
-              child: CustomText(
-                  text: priceTextToShow,
-                  textAlign: TextAlign.center,
-                  customTextStyle:
-                      BoldStyle(fontSize:widget.isCartProduct? 16.sp:14.sp, color: darkSecondaryColor)),
-            ),
-            SizedBox(
-              width:widget.productMapper.hasDiscount? 10.w:0,
-            ),
-            if (widget.productMapper.hasDiscount)
-              CustomText(
-                text:
-                    '${widget.isCartProduct ? widget.productMapper.cartOriginalUnitPrice.toString() : widget.productMapper.productOriginalPrice.toString()} ${widget.productMapper.currency}',
-                customTextStyle: BoldStyle(
-                    color: redColor,
-                    fontSize: 10.sp,
-                    textDecoration: TextDecoration.lineThrough),
-              )
-          ],
-        ),
-      );
-
-  Widget get _productDescription => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.w),
+  Widget get _priceRow => Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Expanded(
+        flex:widget.isCartProduct? 0:1,
         child: CustomText(
-          text: widget.productMapper.description,
-          customTextStyle: RegularStyle(fontSize: 12.sp, color: greyColor),
-          maxLines: 2,
-        ),
-      );
+            text: priceTextToShow,
+            textAlign: TextAlign.start,
+            customTextStyle:
+                BoldStyle(fontSize:widget.isCartProduct? 16.sp:14.sp, color: darkSecondaryColor)),
+      ),
+      SizedBox(
+        width:widget.productMapper.hasDiscount? 10.w:0,
+      ),
+      if (widget.productMapper.hasDiscount)
+        CustomText(
+          text:
+              '${widget.isCartProduct ? widget.productMapper.cartOriginalUnitPrice.toString() : widget.productMapper.productOriginalPrice.toString()} ${widget.productMapper.currency}',
+          customTextStyle: BoldStyle(
+              color: redColor,
+              fontSize: 10.sp,
+              textDecoration: TextDecoration.lineThrough),
+        )
+    ],
+  );
+
+  Widget get _productDescription => CustomText(
+    text: widget.productMapper.description,
+    customTextStyle: RegularStyle(fontSize: 12.sp, color: greyColor),
+    maxLines: 2,
+  );
 
   void _showMaximumAlertDialog(String message, String qty) {
     AlertModule().showDialog(
