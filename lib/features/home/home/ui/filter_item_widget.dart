@@ -37,6 +37,7 @@ class FilterItemWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               imageUrl == null
                   ? SizedBox()
@@ -47,10 +48,17 @@ class FilterItemWidget extends StatelessWidget {
                       imageType: ImageType.network),
               imageUrl == null
                   ? SizedBox(): SizedBox(width: 10),
-              CustomText(
-                  text: title,
-                  customTextStyle:
-                      RegularStyle(color: textColor, fontSize: 16.sp)),
+              Container(
+                // color: Colors.red,
+                child: Padding(
+                  padding:EdgeInsets.only(bottom: 5.0),
+                  child: CustomText(
+                      text: title,
+                      textAlign: TextAlign.center,
+                      customTextStyle:
+                          RegularStyle(color: textColor, fontSize: 16.sp,)),
+                ),
+              ),
             ],
           ),
         ),
