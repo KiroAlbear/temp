@@ -50,7 +50,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
               InkWell(
                 onTap: () => Navigator.pop(context),
                 child: ImageHelper(
-                  image: widget.contactUsBloc.closeIcon,
+                  image:  Assets.svg.icClose,
                   imageType: ImageType.svg,
                   width: 24.w,
                   height: 24.h,
@@ -66,8 +66,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
           ),
           InkWell(
             onTap: () => EasyLauncher.call(number: contactUsMapper.hotLine),
-            child: _buildContactUsItem(contactUsMapper.hotLine,
-                widget.contactUsBloc.hotLine, S.of(context).hotline),
+            child: _buildContactUsItem(contactUsMapper.hotLine, Assets.svg.icPhone, S.of(context).hotline),
           ),
           SizedBox(
             height: 20.h,
@@ -79,7 +78,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
               //     phone: contactUsMapper.whatsApp, message: 'Hi')
             },
             child: _buildContactUsItem(contactUsMapper.whatsApp,
-                widget.contactUsBloc.whatsAppIcon, S.of(context).whatsApp),
+                Assets.svg.icWhatsApp, S.of(context).whatsApp),
           ),
           SizedBox(
             height: 20.h,
@@ -90,7 +89,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: _buildContactUsItem(contactUsMapper.facebook,
-                  widget.contactUsBloc.facebookIcon, S.of(context).faceBook),
+                  Assets.svg.icFaceBook, S.of(context).faceBook),
             ),
           ),
           SizedBox(

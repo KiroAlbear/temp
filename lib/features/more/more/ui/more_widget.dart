@@ -12,44 +12,17 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
-class MoreWidget extends BaseStatefulWidget{
-  final String appLogo;
-  final String shopIcon;
-  final String cameraIcon;
-  final String favouriteIcon;
-  final String previewsOrderIcon;
-  final String myOrdersIcon;
-  final String accountSettingIcon;
-  final String changePasswordIcon;
-  final String deleteAccountIcon;
-  final String contactUsIcon;
-  final String faqIcon;
-  final String logoutIcon;
+class MoreWidget extends BaseStatefulWidget {
   final MoreBloc moreBloc;
-  final String usagePolicyIcon;
-  final String alertIcon;
   final ContactUsBloc contactUsBloc;
   final ProductCategoryBloc productCategoryBloc;
 
-  const MoreWidget(
-      {super.key,
-      required this.accountSettingIcon,
-      required this.appLogo,
-      required this.moreBloc,
-      required this.cameraIcon,
-      required this.changePasswordIcon,
-      required this.contactUsIcon,
-      required this.myOrdersIcon,
-      required this.deleteAccountIcon,
-      required this.faqIcon,
-      required this.logoutIcon,
-      required this.previewsOrderIcon,
-      required this.shopIcon,
-      required this.usagePolicyIcon,
-      required this.alertIcon,
-      required this.contactUsBloc,
-      required this.productCategoryBloc,
-      required this.favouriteIcon});
+  const MoreWidget({
+    super.key,
+    required this.moreBloc,
+    required this.contactUsBloc,
+    required this.productCategoryBloc,
+  });
 
   @override
   State<MoreWidget> createState() => _MoreWidgetState();
@@ -81,14 +54,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
     super.onPopInvoked(didPop);
   }
 
-
-
   @override
   void dispose() {
     widget.moreBloc.selectedFileBehaviour.drain();
     super.dispose();
   }
-
 
   @override
   Widget getBody(BuildContext context) =>
@@ -104,7 +74,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   Widget _screenDesign(
       BuildContext context, AsyncSnapshot<ApiState<ProfileMapper>> snapshot) {
     return Column(
-
       children: [
         _logoWidget,
         Expanded(
@@ -122,7 +91,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   height: 34.h,
                 ),
               ],
-          
               if ((SharedPrefModule().userId ?? '').isEmpty) ...[
                 SizedBox(
                   height: 40.h,
@@ -132,7 +100,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   height: 17.h,
                 ),
                 Center(child: CustomText(text: S.of(context).startOrderNow, customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor))),
-          
                 SizedBox(
                   height: 36.h,
                 ),
@@ -145,7 +112,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                             ?.pushNamed(AppScreenEnum.register.name).then((value) {
                           WidgetsBinding.instance
                               .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
-                            },);
+                        },);
                       },
                     )),
                 SizedBox(
@@ -163,8 +130,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   height: 27.h,
                 )
               ],
-              // _ordersWidget,
-          
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -176,15 +141,14 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 SizedBox(
                   height: 10.h,
                 ),
-                _menuItem(S.of(context).accountInfo, widget.accountSettingIcon, () {
+                _menuItem(S.of(context).accountInfo, Assets.svg.icPerson, () {
                   CustomNavigatorModule.navigatorKey.currentState
                       ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
                 }),
                 SizedBox(
                   height: 10.h,
                 ),
-                _menuItem(S.of(context).changePassword, widget.changePasswordIcon,
-                    () {
+                _menuItem(S.of(context).changePassword, Assets.svg.icLock, () {
                   CustomNavigatorModule.navigatorKey.currentState
                       ?.pushNamed(AppScreenEnum.accountChangePassword.name);
                 }),
@@ -193,7 +157,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 ),
                 _menuItem(
                   S.of(context).myOrders,
-                  widget.myOrdersIcon,
+                  Assets.svg.icMyOrders,
                       () {
                     CustomNavigatorModule.navigatorKey.currentState
                         ?.pushNamed(AppScreenEnum.myOrders.name);
@@ -205,9 +169,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 SizedBox(
                   height: 10.h,
                 ),
-                _menuItem(S.of(context).favourite, widget.favouriteIcon, () {
-                  // widget.productCategoryBloc.reset();
-          
+                _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
                   widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
                   CustomNavigatorModule.navigatorKey.currentState
@@ -219,7 +181,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 SizedBox(
                   height: 10.h,
                 ),
-                _menuItem(S.of(context).deleteAccount, widget.deleteAccountIcon, () {
+                _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
                   _deleteAccount();
                 }),
                 SizedBox(
@@ -250,49 +212,45 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   height: 8.h,
                 ),
               ],
-          
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: CustomText(
                     text: S.of(context).supportAndAssistance,
                     customTextStyle:
-                        BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+                    BoldStyle(fontSize: 18.sp, color: secondaryColor)),
               ),
               SizedBox(
                 height: 8.h,
               ),
-              _menuItem(S.of(context).contactUs, widget.contactUsIcon, () {
+              _menuItem(S.of(context).contactUs, Assets.svg.icContactUsMore, () {
                 AlertModule().showContactUsDialog(
                     contactUsBloc: widget.contactUsBloc, context: context);
               }),
               SizedBox(
                 height: 10.h,
               ),
-              _menuItem(S.of(context).faq, widget.faqIcon, () {
+              _menuItem(S.of(context).faq, Assets.svg.icFaq, () {
                 CustomNavigatorModule.navigatorKey.currentState
                     ?.pushNamed(AppScreenEnum.faq.name);
               }),
               SizedBox(
                 height: 10.h,
               ),
-              _menuItem(S.of(context).usagePolicy, widget.usagePolicyIcon, () {
+              _menuItem(S.of(context).usagePolicy, Assets.svg.icHealthCheck, () {
                 CustomNavigatorModule.navigatorKey.currentState
                     ?.pushNamed(AppScreenEnum.usagePolicy.name);
               }),
-          
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
                 SizedBox(
                   height: 37.h,
                 ),
-                _menuItem(S.of(context).logout, widget.logoutIcon,color: Colors.red, () {
+                _menuItem(S.of(context).logout, Assets.svg.icLogout, color: Colors.red, () {
                   _logout();
                 }, isBoldStyle: true),
                 SizedBox(
                   height: 20.h,
                 ),
               ],
-          
-              // _moreDesign,
             ],
           ),
         ),
@@ -301,13 +259,13 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   }
 
   Widget _imageWithCameraWidget(
-          {required String mobile,
-          required String name,
-          required String image}) =>
+      {required String mobile,
+        required String name,
+        required String image}) =>
       ShopLogoCameraWidget(
-        placeHolder: widget.shopIcon,
+        placeHolder: Assets.svg.icEmptyShop,
         shopLogo: image,
-        cameraIcon: widget.cameraIcon,
+        cameraIcon: Assets.svg.icCamera,
         moreBloc: widget.moreBloc,
         openCameraOrGallery: () => handleCameraOrGallery(),
         mobile: mobile,
@@ -363,8 +321,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       } else {
         await widget.moreBloc.galleryPermissionBloc
             .requestPermission(context, Permission.storage);
-        // await widget.moreBloc.galleryPermissionBloc
-        //     .requestPermission(context, Permission.photos);
       }
     } else {
       await widget.moreBloc.galleryPermissionBloc
@@ -390,12 +346,13 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
   Widget get _logoWidget => AppTopWidget(
     title: S.of(context).more,
   );
+
   Widget _menuItem(String text, String imagePath, VoidCallback onTap,
-          {bool isBoldStyle = false,
-          bool disabled = false,
-          double? height,
-            Color? color,
-          double? width}) =>
+      {bool isBoldStyle = false,
+        bool disabled = false,
+        double? height,
+        Color? color,
+        double? width}) =>
       IgnorePointer(
         ignoring: disabled,
         child: InkWell(
@@ -423,11 +380,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   textAlign: TextAlign.center,
                   customTextStyle: isBoldStyle
                       ? BoldStyle(
-                          color: disabled ? greyColor : color?? lightBlackColor,
-                          fontSize: 18.sp)
+                      color: disabled ? greyColor : color?? lightBlackColor,
+                      fontSize: 18.sp)
                       : RegularStyle(
-                          color: disabled ? greyColor : color?? lightBlackColor,
-                          fontSize: 16.w)),
+                      color: disabled ? greyColor : color?? lightBlackColor,
+                      fontSize: 16.w)),
               SizedBox(
                 width: 16.w,
               ),
@@ -457,13 +414,13 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   CustomText(
                       text: S.of(context).accountBalance,
                       customTextStyle:
-                          BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+                      BoldStyle(fontSize: 18.sp, color: secondaryColor)),
                   Container(
                     decoration: BoxDecoration(
                         color: redColor,
                         borderRadius: BorderRadius.circular(4)),
                     padding:
-                        EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
+                    EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
                     child: Directionality(
                       textDirection: TextDirection.ltr,
                       child: CustomText(
@@ -491,7 +448,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       cancelMessage: S.of(context).cancel,
       confirmMessage: S.of(context).yes,
       headerMessage: S.of(context).logout,
-      headerSvg: widget.alertIcon,
+      headerSvg: Assets.svg.icAlert,
       errorColorInConfirm: true,
       onConfirm: () {
         Future.delayed(const Duration(milliseconds: 600)).then((value) {
@@ -509,7 +466,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       cancelMessage: S.of(context).cancel,
       confirmMessage: S.of(context).deleteAccount,
       headerMessage: S.of(context).deleteAccount,
-      headerSvg: widget.alertIcon,
+      headerSvg: Assets.svg.icAlert,
       errorColorInConfirm: true,
       onConfirm: () {
         widget.moreBloc.deactivateAccountStream.listen((event) {

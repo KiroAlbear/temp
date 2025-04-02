@@ -11,14 +11,13 @@ import 'new_account_bloc.dart';
 
 
 class NewAccountWidget extends BaseStatefulWidget {
-  final String logo;
   final String mobileNumber;
   final int countryId;
   final String countryCode;
 
   const NewAccountWidget(
       {super.key,
-      required this.logo,
+
       required this.mobileNumber,
       required this.countryCode,
       this.countryId = 245});
@@ -89,7 +88,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
       bloc: _bloc,
       child: LogoTopWidget(
           isHavingBackArrow: true,
-          logo: widget.logo,
+          logo: Assets.svg.logoYellow,
           blocBase: _bloc,
           canSkip: false,
           child: Expanded(

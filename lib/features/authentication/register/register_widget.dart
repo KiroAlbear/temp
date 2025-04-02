@@ -6,11 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
 class RegisterWidget extends BaseStatefulWidget {
-  final String logo;
+
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const RegisterWidget(
-      {super.key, required this.logo, required this.authenticationSharedBloc});
+      {super.key,  required this.authenticationSharedBloc});
 
   @override
   State<RegisterWidget> createState() => _RegisterWidgetState();
@@ -41,7 +41,7 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
       isHavingBackArrow: true,
-      logo: widget.logo,
+      logo: Assets.svg.logoYellow,
       blocBase: _bloc,
       child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),

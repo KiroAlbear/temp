@@ -7,13 +7,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
 class ForgotPasswordWidget extends BaseStatefulWidget {
-  final String logo;
+
   final ForgotPasswordBloc forgetPasswordBloc;
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const ForgotPasswordWidget(
       {super.key,
-      required this.logo,
+
       required this.authenticationSharedBloc,
       required this.forgetPasswordBloc});
 
@@ -47,7 +47,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
         isHavingBackArrow: true,
-        logo: widget.logo,
+        logo: Assets.svg.logoYellow,
         blocBase: widget.forgetPasswordBloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),

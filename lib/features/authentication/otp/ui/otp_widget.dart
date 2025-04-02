@@ -8,12 +8,12 @@ import 'package:otp_pin_field/otp_pin_field.dart';
 
 
 class OtpWidget extends BaseStatefulWidget {
-  final String logo;
+
 
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const OtpWidget(
-      {super.key, required this.logo, required this.authenticationSharedBloc});
+      {super.key,  required this.authenticationSharedBloc});
 
   @override
   State<OtpWidget> createState() => _OtpWidgetState();
@@ -67,7 +67,7 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
             body: LogoTopWidget(
                 isHavingBackArrow: true,
                 pressingBackTwice: false,
-                logo: widget.logo,
+                logo: Assets.svg.logoYellow,
                 blocBase: _bloc,
                 child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),

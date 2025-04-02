@@ -8,14 +8,12 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../core/generated/l10n.dart';
 
 class SuccessRegisterWidget extends BaseStatefulWidget {
-  final String logo;
   final BottomNavigationBloc bottomNavigationBloc;
   final String successRegister;
 
   const SuccessRegisterWidget(
       {super.key,
       required this.bottomNavigationBloc,
-      required this.logo,
       required this.successRegister});
 
   @override
@@ -62,7 +60,7 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
               height: 15.h,
             ),
             ImageHelper(
-              image: widget.logo,
+              image: Assets.svg.logoYellow,
               imageType: ImageType.svg,
               height: 88.h,
               width: 241.w,

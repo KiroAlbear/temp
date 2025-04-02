@@ -7,8 +7,8 @@ import '../../../../core/generated/l10n.dart';
 
 
 class ProductCategoryWidget extends BaseStatefulWidget {
-  final String favouriteIcon;
-  final String favouriteIconFilled;
+
+
   final String notificationIcon;
   final String scanIcon;
   final String searchIcon;
@@ -32,8 +32,6 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   ProductCategoryWidget(
       {super.key,
       required this.emptyFavouriteScreen,
-      required this.favouriteIcon,
-      required this.favouriteIconFilled,
       required this.homeBloc,
       required this.notificationIcon,
       required this.scanIcon,
@@ -481,9 +479,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                         widget.productCategoryBloc,
                                         productList:
                                         snapshot.data?.response ?? [],
-                                        favouriteIcon: widget.favouriteIcon,
-                                        favouriteIconFilled:
-                                        widget.favouriteIconFilled,
+                                        favouriteIcon: Assets.svg.icFavourite,
+                                        favouriteIconFilled: Assets.svg.icFavouriteFilled,
                                         onAddToCart: (productMapper) {
                                           widget.showOverlayLoading.value = true;
                                           widget.cartBloc

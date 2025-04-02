@@ -13,14 +13,14 @@ import '../../widget/logo_top_widget.dart';
 import 'login_bloc.dart';
 
 class LoginWidget extends BaseStatefulWidget {
-  final String logo;
+
   final String biometricImage;
   final bool enableSkip;
   final BottomNavigationBloc? bottomNavigationBloc;
 
   const LoginWidget(
       {super.key,
-      required this.logo,
+
       required this.biometricImage,
       required this.bottomNavigationBloc,
       required this.enableSkip});
@@ -71,7 +71,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
-        logo: widget.logo,
+        logo: Assets.svg.logoYellow,
         blocBase: _bloc,
         canSkip: widget.enableSkip,
         bottomNavigationBloc: widget.bottomNavigationBloc,
