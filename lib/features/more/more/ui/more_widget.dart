@@ -178,14 +178,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                     disabled: (SharedPrefModule().userId ?? '').isEmpty,
                     height: 17.h,
                     width: 17.w),
+
                 SizedBox(
-                  height: 10.h,
-                ),
-                _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
-                  _deleteAccount();
-                }),
-                SizedBox(
-                  height: 10.h,
+                  height: 18.h,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -195,11 +190,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 18.h,
+                  height: 10.h,
                 ),
                 _accountBalance(),
                 SizedBox(
-                  height: 18.h,
+                  height: 10.h,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -239,6 +234,12 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
               _menuItem(S.of(context).usagePolicy, Assets.svg.icHealthCheck, () {
                 CustomNavigatorModule.navigatorKey.currentState
                     ?.pushNamed(AppScreenEnum.usagePolicy.name);
+              }),
+              SizedBox(
+                height: 10.h,
+              ),
+              _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
+                _deleteAccount();
               }),
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
                 SizedBox(
@@ -407,32 +408,41 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             snapshot.data!, context,
             onSuccess: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomText(
-                      text: S.of(context).accountBalance,
-                      customTextStyle:
-                      BoldStyle(fontSize: 18.sp, color: secondaryColor)),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: redColor,
-                        borderRadius: BorderRadius.circular(4)),
-                    padding:
-                    EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
-                    child: Directionality(
-                      textDirection: TextDirection.ltr,
+              child: Container(
+                // color: Colors.red,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
                       child: CustomText(
-                          text: (snapshot.data?.response?.balance ?? 0.0)
-                              .toString(),
-                          customTextStyle: RegularStyle(
-                            color: whiteColor,
-                            fontSize: 18.sp,
-                          )),
+                          text: S.of(context).accountBalance,
+                          textAlign: TextAlign.center,
+                          customTextStyle:
+                          BoldStyle(fontSize: 18.sp, color: secondaryColor,)),
                     ),
-                  )
-                ],
+                    Container(
+                      decoration: BoxDecoration(
+                          color: redColor,
+                          borderRadius: BorderRadius.circular(4)),
+                      padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: CustomText(
+                              text: (snapshot.data?.response?.balance ?? 0.0)
+                                  .toString(),
+                              customTextStyle: RegularStyle(
+                                color: whiteColor,
+                                fontSize: 18.sp,
+                              )),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             )),
       );
