@@ -281,21 +281,42 @@ class _MoreWidgetState extends BaseState<MorePage> {
       );
 
   void handleCameraOrGallery() {
-    AlertModule().showDialog(
+    showModalBottomSheet(
       context: context,
-      message: S.of(context).selectPhotoFromCameraOrGallery,
-      cancelMessage: S.of(context).gallery,
-      confirmMessage: S.of(context).camera,
-      sameButtonsColor: true,
-      onCancel: () {
-        _requestGalleryPermission();
-        _listenForGalleryPermission();
-      },
-      onConfirm: () {
-        requestCameraPermission();
-        _listenForCameraPermissionResult();
-      },
-    );
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.24),
+      builder: (context) {
+      return DialogWidget(
+        message: S.of(context).selectPhotoFromCameraOrGallery,
+        cancelMessage: S.of(context).gallery,
+        confirmMessage: S.of(context).camera,
+        sameButtonsColor: true,
+        onCancel: () {
+          _requestGalleryPermission();
+          _listenForGalleryPermission();
+        },
+        onConfirm: () {
+          requestCameraPermission();
+          _listenForCameraPermissionResult();
+        },);
+    },);
+
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).selectPhotoFromCameraOrGallery,
+    //   cancelMessage: S.of(context).gallery,
+    //   confirmMessage: S.of(context).camera,
+    //   sameButtonsColor: true,
+    //   onCancel: () {
+    //     _requestGalleryPermission();
+    //     _listenForGalleryPermission();
+    //   },
+    //   onConfirm: () {
+    //     requestCameraPermission();
+    //     _listenForCameraPermissionResult();
+    //   },
+    // );
   }
 
   void requestCameraPermission() {

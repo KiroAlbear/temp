@@ -75,9 +75,6 @@ class Routes {
         ),
       ),
 
-
-
-
       GoRoute(
         path: loginScreen,
         name: loginScreen,

@@ -185,7 +185,7 @@ class AppProviderModule with ChangeNotifier {
     _isLoggedIn = true;
     init(context);
     notifyListeners();
-    Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushReplacementNamed, context);
+    Routes.navigateToScreen(Routes.loginScreen, NavigationType.goNamed, context);
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.login.name);
   }
