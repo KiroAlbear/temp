@@ -14,21 +14,45 @@ class CustomNavigationBar extends StatelessWidget {
 
   BottomNavigationBarItem _buildCurvedNavigationBarItem(
       {
-      required String icon,
+        required String icon,
         required String label,
         required int selectedIndex,
         required int tabIndex,
+        bool showBadge = false,
         required BuildContext context}) {
     return BottomNavigationBarItem(
       label: label,
-      icon: ImageHelper(
-        image: icon,
-        imageType: ImageType.svg,
-        scale: 4,
-        boxFit: BoxFit.scaleDown,
-        color: selectedIndex == tabIndex
-            ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
-            : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+      icon: Stack(
+        children: [
+          ImageHelper(
+            image: icon,
+            imageType: ImageType.svg,
+            scale: 4,
+            boxFit: BoxFit.scaleDown,
+            color: selectedIndex == tabIndex
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+          ),
+          showBadge == false? SizedBox(): StreamBuilder(
+            stream: getIt<CartBloc>().cartProductsBehavior.stream,
+            builder: (context, snapshot) {
+              return (snapshot.data == null || snapshot.data?.response == null || snapshot.data?.response?.length == 0) ?SizedBox() :Container(
+                height: 12.h,
+                width: 12.h,
+                decoration: BoxDecoration(
+                  color: greenColor,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Center(
+                  child: CustomText(
+                      text: snapshot.data!.response!.length.toString(),
+                      customTextStyle: RegularStyle(
+                          color: Colors.white, fontSize: 8.sp)),
+                ),
+              );
+            }
+          )
+        ],
       )
       // label: label,
       // labelStyle: TextStyle(color: Colors.white, fontSize: 10.sp),
@@ -59,7 +83,7 @@ class CustomNavigationBar extends StatelessWidget {
               _buildCurvedNavigationBarItem(
                  icon: Assets.svg.icFavourite,label: S.of(context).favourite,selectedIndex:snapshot.data??0,tabIndex: 1,context: context),
               _buildCurvedNavigationBarItem(icon: Assets.svg.icPromo,label: S.of(context).offersTitle,selectedIndex:snapshot.data??0,tabIndex: 2,context: context),
-              _buildCurvedNavigationBarItem(icon: Assets.svg.icCart,label: S.of(context).basket,selectedIndex:snapshot.data??0,tabIndex: 3,context: context),
+              _buildCurvedNavigationBarItem(icon: Assets.svg.icCart,label: S.of(context).basket,selectedIndex:snapshot.data??0,tabIndex: 3,context: context,showBadge: true),
               _buildCurvedNavigationBarItem(icon: Assets.svg.icMore,label: S.of(context).more,selectedIndex:snapshot.data??0,tabIndex: 4,context: context),
             ],
             onTap: (index) {
