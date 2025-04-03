@@ -270,6 +270,17 @@ class Routes {
     Map<String, String>? queryParameters,
     Object? extra,
   }) async {
+    if(screenName == homeScreen)
+      setBottomNavigationSelectedTab(0, context);
+    else if(screenName == favouriteScreen)
+      setBottomNavigationSelectedTab(1, context);
+    else if(screenName == offersScreen)
+      setBottomNavigationSelectedTab(2, context);
+    else if(screenName == cartScreen)
+      setBottomNavigationSelectedTab(3, context);
+    else if(screenName == moreScreen)
+      setBottomNavigationSelectedTab(4, context);
+
     switch (navigationType) {
       case NavigationType.pushNamed:
         await GoRouter.of(context).pushNamed(screenName,
@@ -291,6 +302,11 @@ class Routes {
             .goNamed(screenName, queryParameters: queryParameters ?? {});
         break;
     }
+  }
+
+
+  static void setBottomNavigationSelectedTab(int index,BuildContext context){
+    getIt<BottomNavigationBloc>().setSelectedTab(index, context);
   }
 
   static void navigateToFirstScreen(context) {

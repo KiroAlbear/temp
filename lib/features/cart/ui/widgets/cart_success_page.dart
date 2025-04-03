@@ -78,7 +78,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
 
                   // CustomNavigatorModule.navigatorKey.currentState!.pop();
                   // Navigator.pop(context);
-                  getIt<BottomNavigationBloc>().setSelectedTab(4, context);
+                  // getIt<BottomNavigationBloc>().setSelectedTab(4, context);
                   // widget.bottomNavigationBloc.setSelectedTab(4, context);
                   Routes.navigateToScreen(Routes.moreScreen, NavigationType.goNamed, context);
                   Routes.navigateToScreen(Routes.myOrdersScreen, NavigationType.pushNamed, context);
