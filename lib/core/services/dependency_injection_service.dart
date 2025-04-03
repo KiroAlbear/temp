@@ -16,6 +16,7 @@ class DependencyInjectionService {
     getIt.registerSingleton<ContactUsBloc>(ContactUsBloc());
     getIt.registerSingleton<MoreBloc>(MoreBloc());
     getIt.registerSingleton<UpdateProfileBloc>(UpdateProfileBloc());
+    getIt.registerSingleton<BottomNavigationBloc>(BottomNavigationBloc());
 
 
     getIt.registerSingleton<HomeBloc>(HomeBloc(

@@ -28,15 +28,7 @@ final HomeBloc _homeBloc = HomeBloc(
 // final MoreBloc _moreBloc = MoreBloc();
 // final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
 
-final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc([
-  _homeBlocProvider,
-  _productCategoryWidget(),
-  OffersPage(
-    homeBloc: _homeBloc,
-  ),
-  _cartScreen,
-  _moreBlocProvider
-], _loginWidgetWithoutSkip);
+final BottomNavigationBloc _bottomNavigationBloc = BottomNavigationBloc();
 
 
 // Function to generate routes based on screen names.

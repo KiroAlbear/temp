@@ -43,7 +43,8 @@ class _HomeWidgetState extends BaseState<BottomNavigationWidget> {
           // }else{
           //  return widget.homeBloc.widgetList[snapshot.data ?? 0];
           // }
-          return widget.bottomNavigationBloc.widgetList[snapshot.data ?? 0];
+          // return widget.bottomNavigationBloc.widgetList[snapshot.data ?? 0];
+          return SizedBox();
         },
         initialData: 0,
       );

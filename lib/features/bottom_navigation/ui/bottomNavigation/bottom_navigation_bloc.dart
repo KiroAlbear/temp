@@ -4,11 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 class BottomNavigationBloc extends BlocBase {
   final BehaviorSubject<int> _selectedTabBehaviour = BehaviorSubject();
-  final Widget loginWidget;
-  List<Widget> widgetList = [];
-
   Stream<int> get selectedTabStream => _selectedTabBehaviour.stream;
-
   int get selectedTab => _selectedTabBehaviour.value;
 
   void setSelectedTab(int value, BuildContext? context) {
@@ -22,7 +18,7 @@ class BottomNavigationBloc extends BlocBase {
     }
   }
 
-  BottomNavigationBloc(this.widgetList, this.loginWidget) {
+  BottomNavigationBloc() {
     _selectedTabBehaviour.sink.add(0);
   }
 
