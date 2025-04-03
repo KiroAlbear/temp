@@ -135,7 +135,6 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
         isHavingSupportIcon: true,
-        contactUsBloc: widget.contactUsBloc,
         doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value,context),
         textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
         onChanged: (value) => widget.homeBloc.searchBloc.updateStringBehaviour(value),

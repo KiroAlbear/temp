@@ -141,8 +141,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
             .add(TextEditingController(text: ''));
         widget.homeBloc.searchBloc.updateStringBehaviour('');
         FocusScope.of(context).requestFocus(new FocusNode()); //remove focus
-      },
-      contactUsBloc: widget.contactUsBloc);
+      },);
 
   @override
   Widget? customFloatActionButton() => FloatingActionButton(

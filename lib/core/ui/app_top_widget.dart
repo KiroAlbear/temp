@@ -27,7 +27,6 @@ class AppTopWidget extends StatefulWidget {
   final ValueChanged<String>? onChanged;
 
   final VoidCallback? doSearch;
-  final ContactUsBloc? contactUsBloc;
 
   final FocusNode? focusNode;
 
@@ -45,7 +44,7 @@ class AppTopWidget extends StatefulWidget {
       this.doSearch,
       this.onChanged,
       this.textFiledControllerStream,
-      this.contactUsBloc,
+
       this.focusNode});
 
   @override
@@ -127,7 +126,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   }
 
   _clickOnSupport() {
-    AlertModule().showContactUsDialog(contactUsBloc: widget.contactUsBloc!, context: context);
+    AlertModule().showContactUsBottomSheet(contactUsBloc: getIt(), context: context);
   }
 
   Widget get _searchWidget => SizedBox(

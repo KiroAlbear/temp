@@ -152,7 +152,7 @@ class _CartScreenState extends BaseState<CartPage> {
                     showModalBottomSheet(
                         barrierColor: bottomSheetBarrierColor,
                         backgroundColor: whiteColor,
-                        useRootNavigator: false,
+                        useRootNavigator: true,
                         elevation: 0,
                         constraints: BoxConstraints(
                             maxHeight:

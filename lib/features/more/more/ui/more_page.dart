@@ -223,7 +223,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 height: 8.h,
               ),
               _menuItem(S.of(context).contactUs, Assets.svg.icContactUsMore, () {
-                AlertModule().showContactUsDialog(
+                AlertModule().showContactUsBottomSheet(
                     contactUsBloc: widget.contactUsBloc, context: context);
               }),
               SizedBox(
@@ -456,41 +456,92 @@ class _MoreWidgetState extends BaseState<MorePage> {
 
 
   void _logout() {
-    AlertModule().showDialog(
+
+    showModalBottomSheet(
       context: context,
-      message: S.of(context).logoutMessage,
-      cancelMessage: S.of(context).cancel,
-      confirmMessage: S.of(context).yes,
-      headerMessage: S.of(context).logout,
-      headerSvg: Assets.svg.icAlert,
-      errorColorInConfirm: true,
-      onConfirm: () {
-        Future.delayed(const Duration(milliseconds: 600)).then((value) {
-          AppProviderModule().logout(context);
-          widget.moreBloc.selectedFileBehaviour.sink.add("");
-        });
-      },
-    );
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.48),
+      builder: (context) {
+        return DialogWidget(
+
+          message: S.of(context).logoutMessage,
+          cancelMessage: S.of(context).cancel,
+          confirmMessage: S.of(context).yes,
+          headerMessage: S.of(context).logout,
+          headerSvg: Assets.svg.icAlert,
+          errorColorInConfirm: true,
+          onConfirm: () {
+            Future.delayed(const Duration(milliseconds: 600)).then((value) {
+              AppProviderModule().logout(context);
+              widget.moreBloc.selectedFileBehaviour.sink.add("");
+            });
+          },
+
+          hasCloseButton: true,
+          sameButtonsColor: false,);
+      },);
+
+
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).logoutMessage,
+    //   cancelMessage: S.of(context).cancel,
+    //   confirmMessage: S.of(context).yes,
+    //   headerMessage: S.of(context).logout,
+    //   headerSvg: Assets.svg.icAlert,
+    //   errorColorInConfirm: true,
+    //   onConfirm: () {
+    //     Future.delayed(const Duration(milliseconds: 600)).then((value) {
+    //       AppProviderModule().logout(context);
+    //       widget.moreBloc.selectedFileBehaviour.sink.add("");
+    //     });
+    //   },
+    // );
   }
 
   void _deleteAccount() {
-    AlertModule().showDialog(
+    showModalBottomSheet(
       context: context,
-      message: S.of(context).deleteAccountMessage,
-      cancelMessage: S.of(context).cancel,
-      confirmMessage: S.of(context).deleteAccount,
-      headerMessage: S.of(context).deleteAccount,
-      headerSvg: Assets.svg.icAlert,
-      errorColorInConfirm: true,
-      onConfirm: () {
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.48),
+      builder: (context) {
+      return DialogWidget(
+        message: S.of(context).deleteAccountMessage,
+        cancelMessage: S.of(context).cancel,
+        confirmMessage: S.of(context).deleteAccount,
+        headerMessage: S.of(context).deleteAccount,
+        headerSvg: Assets.svg.icAlert,
+        errorColorInConfirm: true,
+        hasCloseButton: true,
+        sameButtonsColor: false,
+        onConfirm: () {
         widget.moreBloc.deactivateAccountStream.listen((event) {
           if (event is SuccessState) {
             AppProviderModule().logout(context);
             widget.moreBloc.selectedFileBehaviour.sink.add("");
           }
         });
-      },
-      hasCancelButton: true,
-    );
+      },);
+    },);
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).deleteAccountMessage,
+    //   cancelMessage: S.of(context).cancel,
+    //   confirmMessage: S.of(context).deleteAccount,
+    //   headerMessage: S.of(context).deleteAccount,
+    //   headerSvg: Assets.svg.icAlert,
+    //   errorColorInConfirm: true,
+    //   onConfirm: () {
+    //     widget.moreBloc.deactivateAccountStream.listen((event) {
+    //       if (event is SuccessState) {
+    //         AppProviderModule().logout(context);
+    //         widget.moreBloc.selectedFileBehaviour.sink.add("");
+    //       }
+    //     });
+    //   },
+    //   hasCancelButton: true,
+    // );
   }
 }
