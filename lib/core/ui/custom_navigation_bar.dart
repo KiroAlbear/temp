@@ -10,6 +10,7 @@ import 'package:image_loader/image_helper.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   Function(int) onTap;
+  int _cartCounter = 0;
   CustomNavigationBar({required this.onTap});
 
   BottomNavigationBarItem _buildCurvedNavigationBarItem(
@@ -36,7 +37,15 @@ class CustomNavigationBar extends StatelessWidget {
           showBadge == false? SizedBox(): StreamBuilder(
             stream: getIt<CartBloc>().cartProductsBehavior.stream,
             builder: (context, snapshot) {
-              return (snapshot.data == null || snapshot.data?.response == null || snapshot.data?.response?.length == 0) ?SizedBox() :Container(
+              if (snapshot.hasData &&
+                  snapshot.data!.response != null &&
+                  snapshot.data!.response!.isNotEmpty) {
+                _cartCounter = snapshot.data!.response!.length;
+              } else if (snapshot.data?.response != null &&
+                  snapshot.data!.response!.isEmpty) {
+                _cartCounter = 0;
+              }
+              return  _cartCounter == 0?SizedBox(): Container(
                 height: 12.h,
                 width: 12.h,
                 decoration: BoxDecoration(
@@ -45,7 +54,7 @@ class CustomNavigationBar extends StatelessWidget {
                 ),
                 child: Center(
                   child: CustomText(
-                      text: snapshot.data!.response!.length.toString(),
+                      text: _cartCounter.toString(),
                       customTextStyle: RegularStyle(
                           color: Colors.white, fontSize: 8.sp)),
                 ),
