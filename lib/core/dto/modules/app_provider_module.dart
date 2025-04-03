@@ -150,8 +150,9 @@ class AppProviderModule with ChangeNotifier {
       //     ?.pushReplacementNamed(AppScreenEnum.home.name);
 
     } else {
-      CustomNavigatorModule.navigatorKey.currentState
-          ?.pushReplacementNamed(AppScreenEnum.login.name);
+      Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushReplacementNamed, context);
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushReplacementNamed(AppScreenEnum.login.name);
     }
     notifyListeners();
     // return Future.value();
@@ -184,8 +185,9 @@ class AppProviderModule with ChangeNotifier {
     _isLoggedIn = true;
     init(context);
     notifyListeners();
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushReplacementNamed(AppScreenEnum.login.name);
+    Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushReplacementNamed, context);
+    // CustomNavigatorModule.navigatorKey.currentState
+    //     ?.pushReplacementNamed(AppScreenEnum.login.name);
   }
 
   /// Check if the user's token is expired or about to expire.

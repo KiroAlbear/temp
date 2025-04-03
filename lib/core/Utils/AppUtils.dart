@@ -1,3 +1,4 @@
+import 'package:deel/deel.dart';
 import 'package:flutter/cupertino.dart';
 import '../dto/enums/app_screen_enum.dart';
 import '../dto/modules/alert_module.dart';
@@ -12,8 +13,9 @@ class Apputils {
       onConfirm: () {
         Future.delayed(const Duration(milliseconds: 600)).then(
           (value) {
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushReplacementNamed(AppScreenEnum.login.name);
+            Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushReplacementNamed, context);
+            // CustomNavigatorModule.navigatorKey.currentState
+            //     ?.pushReplacementNamed(AppScreenEnum.login.name);
           },
         );
       },

@@ -31,9 +31,10 @@ class OfferItem extends StatelessWidget {
             homeBloc.selectedOffer = item;
             // homeBloc.selectedOfferIndex = index;
             homeBloc.isBanner = false;
+            Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
 
-            CustomNavigatorModule.navigatorKey.currentState!
-                .pushNamed(AppScreenEnum.product.name);
+            // CustomNavigatorModule.navigatorKey.currentState!
+            //     .pushNamed(AppScreenEnum.product.name);
           }
         },
         child:isMainPage ? _buildItem() : SizedBox(

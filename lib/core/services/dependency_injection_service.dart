@@ -28,6 +28,7 @@ class DependencyInjectionService {
         if (value.isNotEmpty) {
           _productCategoryBloc!.isForFavourite = false;
           _productCategoryBloc!.reset();
+          // Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
           CustomNavigatorModule.navigatorKey.currentState
               ?.pushNamed(AppScreenEnum.product.name);
           _productCategoryBloc!.doSearch(value);

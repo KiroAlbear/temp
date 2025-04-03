@@ -90,7 +90,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
                 0,
                 CategoryMapper(CategoryResponse(
                   id: null,
-                  name: ProductCategoryWidget.filterAllText,
+                  name: ProductCategoryPage.filterAllText,
                   image: null,
                   parentId: null,
                   parentPath: null,
@@ -223,7 +223,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
           BrandMapper(BrandResponse(
             id: null,
             active: true,
-            name: ProductCategoryWidget.filterAllText,
+            name: ProductCategoryPage.filterAllText,
             display_name: 'All',
           )));
 

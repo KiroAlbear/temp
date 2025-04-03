@@ -112,7 +112,14 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
     );
   }
 
-  void onPopInvoked(didPop) {}
+  void onPopInvoked(didPop) {
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      } else {
+        handleCloseApplication();
+      }
+
+  }
 
   void handleCloseApplication() {
     AlertModule().showDialog(

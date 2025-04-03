@@ -7,18 +7,18 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../../core/generated/l10n.dart';
 import '../home/ui/home_bloc.dart';
 
-class ScanBarcodeWidget extends BaseStatefulWidget {
+class ScanBarcodePage extends BaseStatefulWidget {
 
   final HomeBloc homeBloc;
 
-  const ScanBarcodeWidget(
+  const ScanBarcodePage(
       {super.key, required this.homeBloc});
 
   @override
-  State<ScanBarcodeWidget> createState() => _ScanBarcodeWidgetState();
+  State<ScanBarcodePage> createState() => _ScanBarcodeWidgetState();
 }
 
-class _ScanBarcodeWidgetState extends BaseState<ScanBarcodeWidget> {
+class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
   final ScanBarcodeBloc _bloc = ScanBarcodeBloc();
 
   @override

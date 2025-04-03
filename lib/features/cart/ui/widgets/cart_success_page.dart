@@ -5,15 +5,15 @@ import 'package:image_loader/image_helper.dart';
 
 import '../../../../core/generated/l10n.dart';
 
-class CartSuccessWidget extends BaseStatefulWidget {
-  final BottomNavigationBloc bottomNavigationBloc;
-  const CartSuccessWidget({super.key, required this.bottomNavigationBloc});
+class CartSuccessPage extends BaseStatefulWidget {
+
+  const CartSuccessPage({super.key});
 
   @override
-  State<CartSuccessWidget> createState() => _CartSuccessWidgetState();
+  State<CartSuccessPage> createState() => _CartSuccessWidgetState();
 }
 
-class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
+class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -76,11 +76,13 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessWidget> {
                   // await CustomNavigatorModule.navigatorKey.currentState!
                   //     .pushReplacementNamed(AppScreenEnum.home.name);
 
-                  CustomNavigatorModule.navigatorKey.currentState!.pop();
-                  widget.bottomNavigationBloc.setSelectedTab(4, context);
+                  // CustomNavigatorModule.navigatorKey.currentState!.pop();
+                  Navigator.pop(context);
+                  // widget.bottomNavigationBloc.setSelectedTab(4, context);
 
-                  CustomNavigatorModule.navigatorKey.currentState!
-                      .pushNamed(AppScreenEnum.myOrders.name);
+                  Routes.navigateToScreen(Routes.myOrdersScreen, NavigationType.pushNamed, context);
+                  // CustomNavigatorModule.navigatorKey.currentState!
+                  //     .pushNamed(AppScreenEnum.myOrders.name);
 
                   // CustomNavigatorModule.navigatorKey.currentState!
                   //     .pushNamed();

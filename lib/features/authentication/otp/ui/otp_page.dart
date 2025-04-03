@@ -7,20 +7,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 
 
-class OtpWidget extends BaseStatefulWidget {
+class OtpPage extends BaseStatefulWidget {
 
 
   final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const OtpWidget(
+  const OtpPage(
       {super.key,  required this.authenticationSharedBloc});
 
   @override
-  State<OtpWidget> createState() => _OtpWidgetState();
+  State<OtpPage> createState() => _OtpWidgetState();
 }
 
 /////
-class _OtpWidgetState extends BaseState<OtpWidget> {
+class _OtpWidgetState extends BaseState<OtpPage> {
   String? _signature;
   final OtpBloc _bloc = OtpBloc();
   final _otpPinFieldController = GlobalKey<OtpPinFieldState>();
@@ -212,6 +212,8 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
 
   void onlyForTestingCode() {
     widget.authenticationSharedBloc.userData = _bloc.userData;
+    Routes.navigateToScreen(Routes.newAccountScreen, NavigationType.pushNamed, context);
+
     CustomNavigatorModule.navigatorKey.currentState
         ?.pushReplacementNamed(
       widget.authenticationSharedBloc.nextScreen,
@@ -240,10 +242,11 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
                   failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                   onSuccess: () {
                     widget.authenticationSharedBloc.userData = _bloc.userData;
-                    CustomNavigatorModule.navigatorKey.currentState
-                        ?.pushReplacementNamed(
-                      widget.authenticationSharedBloc.nextScreen,
-                    );
+                    Routes.navigateToScreen(Routes.newAccountScreen, NavigationType.pushNamed, context);
+                    // CustomNavigatorModule.navigatorKey.currentState
+                    //     ?.pushReplacementNamed(
+                    //   widget.authenticationSharedBloc.nextScreen,
+                    // );
                   },
                 );
               }

@@ -1,4 +1,5 @@
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:deel/core/services/dependency_injection_service.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/authentication/widget/logo_top_widget.dart';
 import 'package:deel/features/authentication/widget/previous_next_button.dart';
@@ -10,23 +11,16 @@ import '../../../../../core/generated/l10n.dart';
 import 'new_account_bloc.dart';
 
 
-class NewAccountWidget extends BaseStatefulWidget {
-  final String mobileNumber;
-  final int countryId;
-  final String countryCode;
+class NewAccountPage extends BaseStatefulWidget {
 
-  const NewAccountWidget(
-      {super.key,
-
-      required this.mobileNumber,
-      required this.countryCode,
-      this.countryId = 245});
+  const NewAccountPage(
+      {super.key,});
 
   @override
-  State<NewAccountWidget> createState() => _NewAccountWidgetState();
+  State<NewAccountPage> createState() => _NewAccountWidgetState();
 }
 
-class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
+class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   final NewAccountBloc _bloc = NewAccountBloc();
   late final PasswordValidationBloc _passwordValidationBloc;
 
@@ -56,9 +50,9 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
   void initState() {
     super.initState();
     _bloc.init(
-        mobileNumber: widget.mobileNumber,
-        countryId: widget.countryId,
-        countryCode: widget.countryCode);
+        mobileNumber: getIt<AuthenticationSharedBloc>().mobile ,
+        countryId: int.parse( getIt<AuthenticationSharedBloc>().countryMapper.id ),
+        countryCode: getIt<AuthenticationSharedBloc>().countryMapper.description);
     _passwordValidationBloc =
         PasswordValidationBloc(_bloc.passwordBloc.textFormFiledBehaviour.value);
   }
@@ -182,8 +176,9 @@ class _NewAccountWidgetState extends BaseState<NewAccountWidget> {
                   buttonBehaviour:
                   _bloc.buttonBloc.buttonBehavior,
                   onSuccess: () {
-                    CustomNavigatorModule.navigatorKey.currentState
-                        ?.pushNamed(AppScreenEnum.successRegister.name);
+                    Routes.navigateToScreen(Routes.registerSuccessScreen, NavigationType.pushNamed, context);
+                    // CustomNavigatorModule.navigatorKey.currentState
+                    //     ?.pushNamed(AppScreenEnum.successRegister.name);
                   },
                 );
               },

@@ -71,11 +71,12 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                     onTap: () {
 
                       if(widget.pressingBackTwice){
-                        CustomNavigatorModule.navigatorKey.currentState?.pop();
-                        // Navigator.pop(context);
+
+                        // CustomNavigatorModule.navigatorKey.currentState?.pop();
+                        Navigator.pop(context);
                       }
-                      CustomNavigatorModule.navigatorKey.currentState?.pop();
-                      // Navigator.pop(context);
+                      // CustomNavigatorModule.navigatorKey.currentState?.pop();
+                      Navigator.pop(context);
                     },
                     child: SizedBox(
                       width: 30.w,
@@ -114,8 +115,9 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
         children: [
           InkWell(
             onTap: () {
-              CustomNavigatorModule.navigatorKey.currentState
-                  ?.pushReplacementNamed(AppScreenEnum.home.name);
+              Routes.navigateToScreen(Routes.homeScreen, NavigationType.pushNamed, context);
+              // CustomNavigatorModule.navigatorKey.currentState
+              //     ?.pushReplacementNamed(AppScreenEnum.home.name);
               if (widget.bottomNavigationBloc != null)
                 widget.bottomNavigationBloc!.setSelectedTab(0, context);
             },

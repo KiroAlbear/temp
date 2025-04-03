@@ -1,6 +1,6 @@
 import 'package:deel/core/services/dependency_injection_service.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/more/accountChangePassword/ui/account_change_password.dart';
+import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

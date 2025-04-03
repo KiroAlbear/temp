@@ -7,17 +7,17 @@ import 'package:image_loader/image_helper.dart';
 
 import '../../../../core/generated/l10n.dart';
 
-class SuccessRegisterWidget extends BaseStatefulWidget {
-  final BottomNavigationBloc bottomNavigationBloc;
-  const SuccessRegisterWidget(
-      {super.key, required this.bottomNavigationBloc,
+class RegisterSuccessPage extends BaseStatefulWidget {
+
+  const RegisterSuccessPage(
+      {super.key,
       });
 
   @override
-  State<SuccessRegisterWidget> createState() => _SuccessRegisterWidgetState();
+  State<RegisterSuccessPage> createState() => _SuccessRegisterWidgetState();
 }
 
-class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
+class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
 
   @override
   void initState() {
@@ -77,12 +77,13 @@ class _SuccessRegisterWidgetState extends BaseState<SuccessRegisterWidget> {
               idleText: S.of(context).start,
               onTap: () {
                 Navigator.popUntil(context, (route) => route.isFirst);
-                CustomNavigatorModule.navigatorKey.currentState
-                    ?.pushNamed(AppScreenEnum.home.name);
+                Routes.navigateToScreen(Routes.homeScreen, NavigationType.pushNamed, context);
+                // CustomNavigatorModule.navigatorKey.currentState
+                //     ?.pushNamed(AppScreenEnum.home.name);
 
 
-                if (widget.bottomNavigationBloc != null)
-                  widget.bottomNavigationBloc!.setSelectedTab(0, context);
+                // if (widget.bottomNavigationBloc != null)
+                //   widget.bottomNavigationBloc!.setSelectedTab(0, context);
               },
             )
           ],

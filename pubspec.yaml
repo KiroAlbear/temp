@@ -96,9 +96,10 @@ index_generator:
     - 'navigation_routes.dart'
     - 'core/dto/network/api_client_key.dart'
     - 'core/dto/network/admin_client_key.dart'
+    - 'core/dto/network/dio_builder/dio_client.dart'
     - 'core/generated/*'
     - '**.g.dart'
-  # Define the paths of the folders in which to generate the index files
+
   libraries:
     - directory_path: lib
 

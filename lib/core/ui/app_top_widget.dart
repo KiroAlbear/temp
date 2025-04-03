@@ -153,7 +153,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   );
 
   Widget get _scanIconWidget => widget.scanIcon == null?SizedBox():InkWell(
-    onTap: () => CustomNavigatorModule.navigatorKey.currentState?.pushNamed(AppScreenEnum.scanBarcode.name),
+    onTap: () =>  Routes.navigateToScreen(Routes.barcodeScreen, NavigationType.pushNamed, context),
     child: ImageHelper(
           image: widget.scanIcon!,
           imageType: ImageType.svg,

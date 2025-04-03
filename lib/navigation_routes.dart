@@ -50,77 +50,75 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
   _listenForDataChange();
   switch (appScreenEnum) {
     case AppScreenEnum.none:
-      return _buildPageRoute(const SplashWidget());
+      return _buildPageRoute(const SplashScreen());
     case AppScreenEnum.splash:
       // _bottomNavigationBloc.setSelectedTab(0, null);
-      return _buildPageRoute(const SplashWidget());
+      return _buildPageRoute(const SplashScreen());
     case AppScreenEnum.login:
       return _buildPageRoute(_loginWidget);
     case AppScreenEnum.register:
-      return _buildPageRoute(RegisterWidget(
+      return _buildPageRoute(RegisterPage(
         authenticationSharedBloc: getIt(),
       ));
     case AppScreenEnum.forgetPassword:
-      return _buildPageRoute(ForgotPasswordWidget(
+      return _buildPageRoute(ForgotPasswordPage(
         forgetPasswordBloc: getIt(),
         authenticationSharedBloc: getIt(),
       ));
     case AppScreenEnum.otp:
-      return _buildPageRoute(OtpWidget(
+      return _buildPageRoute(OtpPage(
         authenticationSharedBloc: getIt(),
       ));
     case AppScreenEnum.newAccount:
-      return _buildPageRoute(_newAccountWidget);
+      // return _buildPageRoute(_newAccountWidget);
     case AppScreenEnum.home:
       return _buildPageRoute(_bottomNavigationBlocProvider);
     case AppScreenEnum.successRegister:
-      return _buildPageRoute(SuccessRegisterWidget(
-          bottomNavigationBloc: _bottomNavigationBloc,
+      return _buildPageRoute(RegisterSuccessPage(
+
           ));
     case AppScreenEnum.product:
       return _buildPageRoute(_productCategoryWidget());
     case AppScreenEnum.faq:
       return _buildPageRoute(_faqWidget);
     case AppScreenEnum.usagePolicy:
-      return _buildPageRoute(UsagePolicyScreen(
+      return _buildPageRoute(UsagePolicyPage(
           usagePolicyBloc: getIt(), ));
     case AppScreenEnum.accountChangePassword:
-      return _buildPageRoute(AccountChangePassword(
+      return _buildPageRoute(AccountChangePasswordPage(
       ));
     case AppScreenEnum.scanBarcode:
       return _buildPageRoute(_scanBarcodeWidget);
     case AppScreenEnum.cartScreen:
       return _buildPageRoute(_cartScreen);
     case AppScreenEnum.cartSuccessScreen:
-      return _buildPageRoute(CartSuccessWidget(
-        bottomNavigationBloc: _bottomNavigationBloc,
-      ));
+      return _buildPageRoute(CartSuccessPage());
     case AppScreenEnum.cartOrderDetailsScreen:
       return _buildPageRoute(_cartOrderDetailsScreen);
     case AppScreenEnum.updateProfileScreen:
       return _buildPageRoute(
-          UpdateProfileScreen( moreBloc: getIt()));
+          UpdateProfilePage( moreBloc: getIt()));
     case AppScreenEnum.myOrders:
-      return _buildPageRoute(MyOrdersScreen(
+      return _buildPageRoute(MyOrdersPage(
           myOrdersBloc: getIt()));
   }
 }
 
-Widget get _faqWidget => FaqWidget();
+Widget get _faqWidget => FaqPage();
 
-Widget get _loginWidget => LoginWidget(
+Widget get _loginWidget => LoginPage(
 
       enableSkip: true,
       bottomNavigationBloc: _bottomNavigationBloc,
     );
 
-Widget get _loginWidgetWithoutSkip => LoginWidget(
+Widget get _loginWidgetWithoutSkip => LoginPage(
       enableSkip: false,
       bottomNavigationBloc: null,
     );
 
 Widget get _scanBarcodeWidget =>
-    ScanBarcodeWidget( homeBloc: _homeBloc);
+    ScanBarcodePage( homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
@@ -143,7 +141,7 @@ void _listenForBottomNavigationChange() {
 // Get a BlocProvider for HomeBloc.
 BlocProvider get _homeBlocProvider => BlocProvider(
       bloc: getIt(),
-      child: HomeWidget(
+      child: HomePage(
         updateProfileBloc: getIt(),
         cartBloc: getIt(),
         homeBloc: getIt(),
@@ -153,7 +151,7 @@ BlocProvider get _homeBlocProvider => BlocProvider(
 
 BlocProvider get _moreBlocProvider => BlocProvider(
       bloc: getIt(),
-      child: MoreWidget(
+      child: MorePage(
         moreBloc: getIt(),
         productCategoryBloc: getIt(),
         contactUsBloc: getIt(),
@@ -179,7 +177,7 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
 BlocProvider _productCategoryWidget() {
   return BlocProvider(
       bloc: getIt(),
-      child: ProductCategoryWidget(
+      child: ProductCategoryPage(
         homeBloc: getIt(),
         contactUsBloc: getIt(),
         productCategoryBloc: getIt(),
@@ -189,23 +187,23 @@ BlocProvider _productCategoryWidget() {
 
 BlocProvider get _cartScreen => BlocProvider(
     bloc: getIt(),
-    child: CartScreen(
+    child: CartPage(
       cartBloc: getIt(),
       productCategoryBloc: getIt(),
     ));
 
 BlocProvider get _cartOrderDetailsScreen => BlocProvider(
     bloc: getIt(),
-    child: CartOrderDetails(
+    child: CartOrderDetailsPage(
       cartBloc: getIt(),
     ));
 
 
-Widget get _newAccountWidget => NewAccountWidget(
-      mobileNumber: _authSharedBloc.mobile,
-      countryCode: _authSharedBloc.countryMapper.description,
-      countryId: int.parse(_authSharedBloc.countryMapper.id),
-    );
+// Widget get _newAccountWidget => NewAccountPage(
+//       mobileNumber: _authSharedBloc.mobile,
+//       countryCode: _authSharedBloc.countryMapper.description,
+//       countryId: int.parse(_authSharedBloc.countryMapper.id),
+//     );
 
 // Build a MaterialPageRoute with a custom transition.
 Route _buildPageRoute(Widget widget) => TransitionEasy(

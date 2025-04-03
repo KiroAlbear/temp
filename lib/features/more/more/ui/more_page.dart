@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:deel/core/routes/navigation_type.dart';
+import 'package:deel/core/routes/routes.dart';
 import 'package:deel/deel.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +14,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
-class MoreWidget extends BaseStatefulWidget {
+class MorePage extends BaseStatefulWidget {
   final MoreBloc moreBloc;
   final ContactUsBloc contactUsBloc;
   final ProductCategoryBloc productCategoryBloc;
 
-  const MoreWidget({
+  const MorePage({
     super.key,
     required this.moreBloc,
     required this.contactUsBloc,
@@ -25,10 +27,10 @@ class MoreWidget extends BaseStatefulWidget {
   });
 
   @override
-  State<MoreWidget> createState() => _MoreWidgetState();
+  State<MorePage> createState() => _MoreWidgetState();
 }
 
-class _MoreWidgetState extends BaseState<MoreWidget> {
+class _MoreWidgetState extends BaseState<MorePage> {
   @override
   void initState() {
     super.initState();
@@ -108,8 +110,7 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                     child: CustomButtonWidget(
                       idleText: S.of(context).createAccount,
                       onTap: () {
-                        CustomNavigatorModule.navigatorKey.currentState
-                            ?.pushNamed(AppScreenEnum.register.name).then((value) {
+                        Routes.navigateToScreen(Routes.registerScreen, NavigationType.goNamed, context).then((value) {
                           WidgetsBinding.instance
                               .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
                         },);
@@ -142,15 +143,17 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).accountInfo, Assets.svg.icPerson, () {
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
+                  Routes.navigateToScreen(Routes.updateProfileScreen, NavigationType.pushNamed, context);
+                  // CustomNavigatorModule.navigatorKey.currentState
+                  //     ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
                 }),
                 SizedBox(
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).changePassword, Assets.svg.icLock, () {
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.accountChangePassword.name);
+                  Routes.navigateToScreen(Routes.accountChangePasswordScreen, NavigationType.pushNamed, context);
+                  // CustomNavigatorModule.navigatorKey.currentState
+                  //     ?.pushNamed(AppScreenEnum.accountChangePassword.name);
                 }),
                 SizedBox(
                   height: 10.h,
@@ -159,8 +162,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   S.of(context).myOrders,
                   Assets.svg.icMyOrders,
                       () {
-                    CustomNavigatorModule.navigatorKey.currentState
-                        ?.pushNamed(AppScreenEnum.myOrders.name);
+                        Routes.navigateToScreen(Routes.myOrdersScreen, NavigationType.pushNamed, context);
+                    // CustomNavigatorModule.navigatorKey.currentState
+                    //     ?.pushNamed(AppScreenEnum.myOrders.name);
                   },
                   disabled: (SharedPrefModule().userId ?? '').isEmpty,
                   width: 17.w,
@@ -172,8 +176,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
                   widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.product.name);
+                  Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
+                  // CustomNavigatorModule.navigatorKey.currentState
+                  //     ?.pushNamed(AppScreenEnum.product.name);
                 },
                     disabled: (SharedPrefModule().userId ?? '').isEmpty,
                     height: 17.h,
@@ -225,15 +230,17 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 height: 10.h,
               ),
               _menuItem(S.of(context).faq, Assets.svg.icFaq, () {
-                CustomNavigatorModule.navigatorKey.currentState
-                    ?.pushNamed(AppScreenEnum.faq.name);
+                Routes.navigateToScreen(Routes.faqScreen, NavigationType.pushNamed, context);
+                // CustomNavigatorModule.navigatorKey.currentState
+                //     ?.pushNamed(AppScreenEnum.faq.name);
               }),
               SizedBox(
                 height: 10.h,
               ),
               _menuItem(S.of(context).usagePolicy, Assets.svg.icHealthCheck, () {
-                CustomNavigatorModule.navigatorKey.currentState
-                    ?.pushNamed(AppScreenEnum.usagePolicy.name);
+                Routes.navigateToScreen(Routes.usagePolicyScreen, NavigationType.pushNamed, context);
+                // CustomNavigatorModule.navigatorKey.currentState
+                //     ?.pushNamed(AppScreenEnum.usagePolicy.name);
               }),
               SizedBox(
                 height: 10.h,

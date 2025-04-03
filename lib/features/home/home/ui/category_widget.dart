@@ -1,3 +1,5 @@
+import 'package:deel/core/routes/navigation_type.dart';
+import 'package:deel/core/routes/routes.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +7,6 @@ import 'package:image_loader/image_helper.dart';
 
 class CategoryWidget extends StatefulWidget {
   final HomeBloc homeBloc;
-
   final ScrollController scrollController;
 
   const CategoryWidget({
@@ -51,11 +52,12 @@ class _CategoryWidgetState extends State<CategoryWidget>
           widget.homeBloc.selectedOffer = null;
 
               ProductCategoryBloc.searchValue = null;
-          ProductCategoryWidget.cateogryId = item.id!;
+          ProductCategoryPage.cateogryId = item.id!;
           widget.homeBloc.selectedCategoryText = item.name;
-          ProductCategoryWidget.categoryProductsCount = item.productExactCount;
-          CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.product.name);
+          ProductCategoryPage.categoryProductsCount = item.productExactCount;
+          Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
+          // CustomNavigatorModule.navigatorKey.currentState
+          //     ?.pushNamed(AppScreenEnum.product.name);
         },
         child: Container(
           child: Column(

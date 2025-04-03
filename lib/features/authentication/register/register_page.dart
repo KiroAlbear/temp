@@ -5,18 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
-class RegisterWidget extends BaseStatefulWidget {
+class RegisterPage extends BaseStatefulWidget {
 
   final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const RegisterWidget(
+  const RegisterPage(
       {super.key,  required this.authenticationSharedBloc});
 
   @override
-  State<RegisterWidget> createState() => _RegisterWidgetState();
+  State<RegisterPage> createState() => _RegisterWidgetState();
 }
 
-class _RegisterWidgetState extends BaseState<RegisterWidget>
+class _RegisterWidgetState extends BaseState<RegisterPage>
 {
   final RegisterBloc _bloc = RegisterBloc();
   final OtpBloc _otpBloc = OtpBloc();
@@ -100,8 +100,9 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
         _bloc.countryBloc.value!,
         _bloc.mobileBloc.value,
         AppScreenEnum.newAccount.name);
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushNamed(AppScreenEnum.otp.name);
+    Routes.navigateToScreen(Routes.otpScreen, NavigationType.pushNamed, context);
+    // CustomNavigatorModule.navigatorKey.currentState
+    //     ?.pushNamed(AppScreenEnum.otp.name);
   }
 
   Widget get _button => Center(
@@ -137,8 +138,9 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
                                       _bloc.countryBloc.value!,
                                       _bloc.mobileBloc.value,
                                       AppScreenEnum.newAccount.name);
-                                  CustomNavigatorModule.navigatorKey.currentState
-                                      ?.pushNamed(AppScreenEnum.otp.name);
+                                  Routes.navigateToScreen(Routes.otpScreen, NavigationType.pushNamed, context);
+                                  // CustomNavigatorModule.navigatorKey.currentState
+                                  //     ?.pushNamed(AppScreenEnum.otp.name);
                                 });
                           },
                         );
@@ -159,8 +161,7 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
       );
 
   Widget get _loginWidget => InkWell(
-        onTap: () => CustomNavigatorModule.navigatorKey.currentState
-            ?.pushNamed(AppScreenEnum.login.name),
+        onTap: () =>  Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushNamed, context),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
           child: Row(
