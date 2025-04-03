@@ -273,7 +273,6 @@ class Routes {
     switch (navigationType) {
       case NavigationType.pushNamed:
         await GoRouter.of(context).pushNamed(screenName,
-
             queryParameters: queryParameters ?? {}, extra: extra);
         break;
 
