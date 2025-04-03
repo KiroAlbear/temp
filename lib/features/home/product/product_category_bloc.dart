@@ -9,7 +9,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int? brandId;
 
 
-  bool isForFavourite = false;
+  // bool isForFavourite = false;
   bool isNavigatingFromMore = false;
   ValueNotifier<bool>? isLoading = null;
 
@@ -21,7 +21,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   // BehaviorSubject<ApiState<List<ProductMapper>>>
   //     productBySubCategoryBrandStream = BehaviorSubject();
 
-  void loadMore() {
+  void loadMore(bool isForFavourite) {
     // await loadedListStream.drain();
     Stream<ApiState<List<ProductMapper>>> stream = Stream.empty();
     if (isForFavourite) {

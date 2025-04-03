@@ -19,12 +19,18 @@ class ProductCategoryPage extends BaseStatefulWidget {
   ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
   ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
 
+  static final String isForFavouriteKey = 'isForFavouriteKey';
+  static final String isFavouriteValue = 'isFavouriteValue';
+  static final String isNotFavouriteValue = 'isNotFavouriteValue';
+  final bool isForFavourite;
+
   ProductCategoryPage({
     super.key,
     required this.homeBloc,
     required this.contactUsBloc,
     required this.productCategoryBloc,
     required this.cartBloc,
+    required this.isForFavourite
   });
 
   @override
@@ -39,7 +45,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
 
   @override
   bool canPop() {
-    return (widget.productCategoryBloc.isForFavourite &&
+    return (widget.isForFavourite &&
         widget.productCategoryBloc.isNavigatingFromMore == false)
         ? false
         : true;
@@ -63,7 +69,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
 
   @override
   Color? systemNavigationBarColor() {
-    if (widget.productCategoryBloc.isForFavourite) {
+    if (widget.isForFavourite) {
       return secondaryColor;
     } else {
       return Colors.white;
@@ -91,7 +97,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
       widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
       widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
       widget.productCategoryBloc.reset();
-      widget.productCategoryBloc.loadMore();
+      widget.productCategoryBloc.loadMore(widget.isForFavourite);
     }
     super.initState();
   }
@@ -105,7 +111,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   }
 
   bool isFavouriteOrSearchOrCategory() {
-    return widget.productCategoryBloc.isForFavourite ||
+    return widget.isForFavourite ||
         ProductCategoryBloc.searchValue != null ||
         ProductCategoryPage.categoryProductsCount > 0;
   }
@@ -130,17 +136,17 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
         searchIcon: Assets.svg.icSearch,
         isHavingSupportIcon: true,
         contactUsBloc: widget.contactUsBloc,
-        doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value),
+        doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value,context),
         textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
         onChanged: (value) => widget.homeBloc.searchBloc.updateStringBehaviour(value),
-        isHavingBack: (widget.productCategoryBloc.isForFavourite &&
+        isHavingBack: (widget.isForFavourite &&
             widget.productCategoryBloc.isNavigatingFromMore == false)
             ? false
             : true,
         isHavingSupport: true,
         title: isNavigatedFromBannersOrOffers()
             ? " "
-            : widget.productCategoryBloc.isForFavourite
+            : widget.isForFavourite
             ? S.of(context).favourites
             : widget.homeBloc.selectedCategoryText,
       ),
@@ -270,7 +276,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                 ),
                 isBannersOrOffersExist()
                     ? SizedBox()
-                    : SizedBox(height: widget.productCategoryBloc.isForFavourite ? 0 : 10.h),
+                    : SizedBox(height: widget.isForFavourite ? 0 : 10.h),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -312,14 +318,14 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                             : SizedBox(),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 16.w, vertical: widget.productCategoryBloc.isForFavourite ? 0 : 18.h),
+                              horizontal: 16.w, vertical: widget.isForFavourite ? 0 : 18.h),
                           child: StreamBuilder<ApiState<List<ProductMapper>>>(
                             stream: widget.productCategoryBloc.loadedListStream,
                             initialData: LoadingState(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 if (snapshot.data!.response != null && snapshot.data!.response!.isEmpty) {
-                                  if (widget.productCategoryBloc.isForFavourite) {
+                                  if (widget.isForFavourite) {
                                     return EmptyFavouriteProducts(
                                         emptyFavouriteScreen: Assets.svg.emptyFavourite);
                                   } else {
@@ -341,6 +347,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                   snapshot.data ?? LoadingState<List<ProductMapper>>(),
                                   context,
                                   onSuccess: ProductListWidget(
+                                    isForFavourite: widget.isForFavourite,
                                     deleteIcon: Assets.svg.icDelete,
                                     emptyFavouriteScreen: Assets.svg.emptyFavourite,
                                     cartBloc: widget.cartBloc,
@@ -431,8 +438,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                     },
                                     onTapFavourite: (favourite, productMapper) {},
                                     loadMore: (Function func) {
-                                      if (widget.productCategoryBloc.isForFavourite)
-                                        widget.productCategoryBloc.loadMore();
+                                      if (widget.isForFavourite)
+                                        widget.productCategoryBloc.loadMore(true);
                                       else
                                         _loadProducts(false, func);
                                     },

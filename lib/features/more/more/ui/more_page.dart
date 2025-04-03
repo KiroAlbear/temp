@@ -174,9 +174,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
-                  widget.productCategoryBloc.isForFavourite = true;
+                  // widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
-                  Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
+                  Routes.navigateToScreen(Routes.favouriteScreen, NavigationType.pushNamed, context,setBottomNavigationTab: false);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.product.name);
                 },

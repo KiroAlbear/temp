@@ -9,22 +9,22 @@ final ProductCategoryBloc _productCategoryBloc = ProductCategoryBloc();
 // ContactUsBloc get _contactUsBloc => ContactUsBloc();
 // final CartBloc _cartBloc = CartBloc();
 // final UsagePolicyBloc _usagePolicyBloc = UsagePolicyBloc();
-final HomeBloc _homeBloc = HomeBloc(
-  onCategoryClick: (CategoryMapper categoryMapper) {
-    LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
-    _productCategoryBloc.reset();
-    _productCategoryBloc.categoryId == categoryMapper.id;
-  },
-  doSearch: (value) {
-    if (value.isNotEmpty) {
-      _productCategoryBloc.isForFavourite = false;
-      _productCategoryBloc.reset();
-      CustomNavigatorModule.navigatorKey.currentState
-          ?.pushNamed(AppScreenEnum.product.name);
-      _productCategoryBloc.doSearch(value);
-    }
-  },
-);
+// final HomeBloc _homeBloc = HomeBloc(
+//   onCategoryClick: (CategoryMapper categoryMapper) {
+//     LoggerModule.log(message: '${categoryMapper.id}', name: 'category id');
+//     _productCategoryBloc.reset();
+//     _productCategoryBloc.categoryId == categoryMapper.id;
+//   },
+//   doSearch: (value) {
+//     if (value.isNotEmpty) {
+//       _productCategoryBloc.isForFavourite = false;
+//       _productCategoryBloc.reset();
+//       CustomNavigatorModule.navigatorKey.currentState
+//           ?.pushNamed(AppScreenEnum.product.name);
+//       _productCategoryBloc.doSearch(value);
+//     }
+//   },
+// );
 // final MoreBloc _moreBloc = MoreBloc();
 // final UpdateProfileBloc _updateProfileBloc = UpdateProfileBloc();
 
@@ -70,7 +70,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
 
           ));
     case AppScreenEnum.product:
-      return _buildPageRoute(_productCategoryWidget());
+      // return _buildPageRoute(_productCategoryWidget());
     case AppScreenEnum.faq:
       return _buildPageRoute(_faqWidget);
     case AppScreenEnum.usagePolicy:
@@ -80,7 +80,7 @@ Route? _onGenerateRoute(String screenName, BuildContext context) {
       return _buildPageRoute(AccountChangePasswordPage(
       ));
     case AppScreenEnum.scanBarcode:
-      return _buildPageRoute(_scanBarcodeWidget);
+      // return _buildPageRoute(_scanBarcodeWidget);
     case AppScreenEnum.cartScreen:
       return _buildPageRoute(_cartScreen);
     case AppScreenEnum.cartSuccessScreen:
@@ -109,8 +109,8 @@ Widget get _loginWidgetWithoutSkip => LoginPage(
       bottomNavigationBloc: null,
     );
 
-Widget get _scanBarcodeWidget =>
-    ScanBarcodePage( homeBloc: _homeBloc);
+// Widget get _scanBarcodeWidget =>
+//     ScanBarcodePage( homeBloc: _homeBloc);
 
 void _listenForDataChange() {
   _listenForBottomNavigationChange();
@@ -121,10 +121,10 @@ void _listenForBottomNavigationChange() {
     LoggerModule.log(
         message: '${event}', name: '_listenForBottomNavigationChange');
     if (event == 1 || _productCategoryBloc.isNavigatingFromMore) {
-      _productCategoryBloc.isForFavourite = true;
+      // _productCategoryBloc.isForFavourite = true;
       _productCategoryBloc.reset();
     } else {
-      _productCategoryBloc.isForFavourite = false;
+      // _productCategoryBloc.isForFavourite = false;
       _productCategoryBloc.reset();
     }
   });
@@ -166,16 +166,16 @@ BlocProvider get _bottomNavigationBlocProvider => BlocProvider(
       ),
     );
 
-BlocProvider _productCategoryWidget() {
-  return BlocProvider(
-      bloc: getIt(),
-      child: ProductCategoryPage(
-        homeBloc: getIt(),
-        contactUsBloc: getIt(),
-        productCategoryBloc: getIt(),
-        cartBloc: getIt(),
-      ));
-}
+// BlocProvider _productCategoryWidget() {
+//   return BlocProvider(
+//       bloc: getIt(),
+//       child: ProductCategoryPage(
+//         homeBloc: getIt(),
+//         contactUsBloc: getIt(),
+//         productCategoryBloc: getIt(),
+//         cartBloc: getIt(),
+//       ));
+// }
 
 BlocProvider get _cartScreen => BlocProvider(
     bloc: getIt(),

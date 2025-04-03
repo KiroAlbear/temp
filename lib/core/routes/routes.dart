@@ -158,9 +158,11 @@ class Routes {
               path: favouriteScreen,
               name: favouriteScreen,
               parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context, state, ProductCategoryPage(homeBloc: getIt(), contactUsBloc: getIt(), productCategoryBloc: getIt(), cartBloc: getIt()),
-              ),
+              pageBuilder: (context, state) {
+                return _fadeTransitionScreenWrapper(
+                  context, state, ProductCategoryPage(homeBloc: getIt(), contactUsBloc: getIt(), productCategoryBloc: getIt(), cartBloc: getIt(),isForFavourite: true,),
+                );
+              }
             ),
 
             GoRoute(
@@ -191,10 +193,13 @@ class Routes {
               path: productCategoryScreen,
               name: productCategoryScreen,
               parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context, state, ProductCategoryPage(homeBloc: getIt(), contactUsBloc: getIt(), productCategoryBloc: getIt(), cartBloc: getIt()),
+              pageBuilder: (context, state) {
+                Map<String,String > queryParameters = state.pathParameters;
+                bool isFavourite = queryParameters[ProductCategoryPage.isForFavouriteKey] == ProductCategoryPage.isFavouriteValue;
+                return _fadeTransitionScreenWrapper(context, state, ProductCategoryPage(homeBloc: getIt(), contactUsBloc: getIt(), productCategoryBloc: getIt(), cartBloc: getIt(),isForFavourite: false,));
+                } ,
               ),
-            ),
+
             GoRoute(
               path: accountChangePasswordScreen,
               name: accountChangePasswordScreen,
@@ -268,17 +273,18 @@ class Routes {
     NavigationType navigationType,
     BuildContext context, {
     Map<String, String>? queryParameters,
+    bool setBottomNavigationTab = true,
     Object? extra,
   }) async {
-    if(screenName == homeScreen)
+    if(screenName == homeScreen && setBottomNavigationTab)
       setBottomNavigationSelectedTab(0, context);
-    else if(screenName == favouriteScreen)
+    else if(screenName == favouriteScreen && setBottomNavigationTab)
       setBottomNavigationSelectedTab(1, context);
-    else if(screenName == offersScreen)
+    else if(screenName == offersScreen && setBottomNavigationTab)
       setBottomNavigationSelectedTab(2, context);
-    else if(screenName == cartScreen)
+    else if(screenName == cartScreen && setBottomNavigationTab)
       setBottomNavigationSelectedTab(3, context);
-    else if(screenName == moreScreen)
+    else if(screenName == moreScreen && setBottomNavigationTab)
       setBottomNavigationSelectedTab(4, context);
 
     switch (navigationType) {

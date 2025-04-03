@@ -136,7 +136,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
       },
       textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
       doSearch: () {
-        widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value);
+        widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value,context);
         widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
             .add(TextEditingController(text: ''));
         widget.homeBloc.searchBloc.updateStringBehaviour('');

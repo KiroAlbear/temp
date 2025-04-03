@@ -25,13 +25,13 @@ class DependencyInjectionService {
         _productCategoryBloc!.reset();
         _productCategoryBloc!.categoryId == categoryMapper.id;
       },
-      doSearch: (value) {
+      doSearch: (value,context) {
         if (value.isNotEmpty) {
-          _productCategoryBloc!.isForFavourite = false;
+          // _productCategoryBloc!.isForFavourite = false;
           _productCategoryBloc!.reset();
-          // Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
-          CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.product.name);
+          Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
+          // CustomNavigatorModule.navigatorKey.currentState
+          //     ?.pushNamed(AppScreenEnum.product.name, arguments: {ProductListWidget.isForFavouriteKey: false});
           _productCategoryBloc!.doSearch(value);
         }
       },

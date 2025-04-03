@@ -115,7 +115,7 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
           codeFormat: Format.any,
           onScan: (code) {
             if (code.text != null && code.text!.isNotEmpty) {
-              widget.homeBloc.doSearch(code.text ?? '');
+              widget.homeBloc.doSearch(code.text ?? '',context);
             }
           },
         ),
