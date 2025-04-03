@@ -78,7 +78,7 @@ class CustomNavigationBar extends StatelessWidget {
             topRight: Radius.circular(20.w)),
       ),
       child: StreamBuilder(
-        stream:getIt<BottomNavigationBloc>().selectedTabStream,
+        stream: getIt<BottomNavigationBloc>().selectedTabStream,
         builder:(context, snapshot) {
           return  BottomNavigationBar(
             backgroundColor: Colors.transparent,

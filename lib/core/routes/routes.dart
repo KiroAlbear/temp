@@ -75,14 +75,6 @@ class Routes {
         ),
       ),
 
-      GoRoute(
-        path: cartSuccessScreen,
-        name: cartSuccessScreen,
-        parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context, state, CartSuccessPage(),
-        ),
-      ),
 
 
 
@@ -225,6 +217,15 @@ class Routes {
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, CartOrderDetailsPage(cartBloc: getIt()),
+              ),
+            ),
+
+            GoRoute(
+              path: cartSuccessScreen,
+              name: cartSuccessScreen,
+              parentNavigatorKey: navigationBarKey,
+              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+                context, state, CartSuccessPage(),
               ),
             ),
           ],

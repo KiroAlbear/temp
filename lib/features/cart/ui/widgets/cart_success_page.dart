@@ -77,10 +77,11 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
                   //     .pushReplacementNamed(AppScreenEnum.home.name);
 
                   // CustomNavigatorModule.navigatorKey.currentState!.pop();
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  getIt<BottomNavigationBloc>().setSelectedTab(4, context);
                   // widget.bottomNavigationBloc.setSelectedTab(4, context);
 
-                  Routes.navigateToScreen(Routes.myOrdersScreen, NavigationType.pushNamed, context);
+                  Routes.navigateToScreen(Routes.myOrdersScreen, NavigationType.goNamed, context);
                   // CustomNavigatorModule.navigatorKey.currentState!
                   //     .pushNamed(AppScreenEnum.myOrders.name);
 

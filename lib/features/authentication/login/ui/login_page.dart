@@ -284,8 +284,9 @@ class _LoginWidgetState extends BaseState<LoginPage> {
     Routes.navigateToScreen(Routes.homeScreen, NavigationType.goNamed, context);
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.home.name);
-    if (widget.bottomNavigationBloc != null)
-      widget.bottomNavigationBloc!.setSelectedTab(0, context);
+    getIt<BottomNavigationBloc>().setSelectedTab(0, context);
+    // if (widget.bottomNavigationBloc != null)
+    //   widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }
 
 
