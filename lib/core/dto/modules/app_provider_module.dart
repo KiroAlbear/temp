@@ -7,7 +7,6 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import '../enums/app_screen_enum.dart';
 import '../models/baseModules/api_state.dart';
 import '../remote/language_remote.dart';
-import 'custom_navigator_module.dart';
 import 'odoo_dio_module.dart';
 
 /// This module manages various application-level states and configurations.
@@ -145,12 +144,12 @@ class AppProviderModule with ChangeNotifier {
 
       OdooDioModule().setAppHeaders();
 
-      await Routes.navigateToScreen(Routes.homeScreen, NavigationType.goNamed, context);
+      await Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
       // CustomNavigatorModule.navigatorKey.currentState
       //     ?.pushReplacementNamed(AppScreenEnum.home.name);
 
     } else {
-      Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushReplacementNamed, context);
+      Routes.navigateToScreen(Routes.loginPage, NavigationType.pushReplacementNamed, context);
       // CustomNavigatorModule.navigatorKey.currentState
       //     ?.pushReplacementNamed(AppScreenEnum.login.name);
     }
@@ -185,7 +184,7 @@ class AppProviderModule with ChangeNotifier {
     _isLoggedIn = true;
     init(context);
     notifyListeners();
-    Routes.navigateToScreen(Routes.loginScreen, NavigationType.goNamed, context);
+    Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.login.name);
   }

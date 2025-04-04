@@ -105,7 +105,6 @@ export 'core/dto/modules/app_color_module.dart';
 export 'core/dto/modules/app_default_style.dart';
 export 'core/dto/modules/app_provider_module.dart';
 export 'core/dto/modules/constants_module.dart';
-export 'core/dto/modules/custom_navigator_module.dart';
 export 'core/dto/modules/custom_text_style_module.dart';
 export 'core/dto/modules/custom_theme_module.dart';
 export 'core/dto/modules/dio_module.dart';

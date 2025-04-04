@@ -99,7 +99,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           .listen((event) {
                         if (event is SuccessState) {
                           widget.cartBloc.getMyCart();
-                          Routes.navigateToScreen(Routes.cartSuccessScreen, NavigationType.pushReplacementNamed, context);
+                          Routes.navigateToScreen(Routes.cartSuccessPage, NavigationType.pushReplacementNamed, context);
                           // CustomNavigatorModule
                           //     .navigatorKey.currentState!
                           //     .pushReplacementNamed(

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../dto/enums/app_screen_enum.dart';
 import '../dto/modules/alert_module.dart';
-import '../dto/modules/custom_navigator_module.dart';
 import '../generated/l10n.dart';
 
 class Apputils {
@@ -20,7 +19,7 @@ class Apputils {
         confirmMessage: S.of(context).ok,
         sameButtonsColor: false,
         onConfirm: () {
-          Routes.navigateToScreen(Routes.loginScreen, NavigationType.goNamed, context);
+          Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
         },
         cancelMessage: S.of(context).cancel,
       );

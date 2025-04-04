@@ -154,7 +154,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   Widget get _forgetPassword => Container(
         alignment: Alignment.centerLeft,
         child: InkWell(
-          onTap: () =>  Routes.navigateToScreen(Routes.forgotPasswordScreen, NavigationType.pushNamed, context),
+          onTap: () =>  Routes.navigateToScreen(Routes.forgotPasswordPage, NavigationType.pushNamed, context),
           child: CustomText(
               text: S.of(context).forgotPassword,
               customTextStyle:
@@ -251,7 +251,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       );
 
   Widget get _registerWidget => InkWell(
-        onTap: () =>  Routes.navigateToScreen(Routes.registerScreen, NavigationType.pushNamed, context),
+        onTap: () =>  Routes.navigateToScreen(Routes.registerPage, NavigationType.pushNamed, context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -281,7 +281,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       //     int.tryParse(_bloc.countryBloc.value!.description.replaceAll("+", ""));
       SharedPrefModule().password = _bloc.passwordBloc.value;
     }
-    Routes.navigateToScreen(Routes.homeScreen, NavigationType.goNamed, context);
+    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.home.name);
     getIt<BottomNavigationBloc>().setSelectedTab(0, context);

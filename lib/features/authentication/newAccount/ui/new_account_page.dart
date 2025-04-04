@@ -129,7 +129,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
       case NewAccountStepEnum.password:
         return Column(
           children: [
-            NewAccountPasswordWidget(
+            NewAccountPasswordPage(
               newAccountBloc: _bloc,
               passwordValidationBloc: _passwordValidationBloc,
             ),
@@ -176,7 +176,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                   buttonBehaviour:
                   _bloc.buttonBloc.buttonBehavior,
                   onSuccess: () {
-                    Routes.navigateToScreen(Routes.registerSuccessScreen, NavigationType.pushNamed, context);
+                    Routes.navigateToScreen(Routes.registerSuccessPage, NavigationType.pushNamed, context);
                     // CustomNavigatorModule.navigatorKey.currentState
                     //     ?.pushNamed(AppScreenEnum.successRegister.name);
                   },

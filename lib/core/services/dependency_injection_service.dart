@@ -29,7 +29,7 @@ class DependencyInjectionService {
         if (value.isNotEmpty) {
           // _productCategoryBloc!.isForFavourite = false;
           _productCategoryBloc!.reset();
-          Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
+          Routes.navigateToScreen(Routes.productCategoryPage, NavigationType.pushNamed, context);
           // CustomNavigatorModule.navigatorKey.currentState
           //     ?.pushNamed(AppScreenEnum.product.name, arguments: {ProductListWidget.isForFavouriteKey: false});
           _productCategoryBloc!.doSearch(value);

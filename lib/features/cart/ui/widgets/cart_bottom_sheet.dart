@@ -84,7 +84,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   // pop the bottom sheet
                   Navigator.pop(context);
                   if (_groupeValue != -1) {
-                    Routes.navigateToScreen(Routes.cartOrderDetailsScreen, NavigationType.pushNamed, context);
+                    Routes.navigateToScreen(Routes.cartOrderDetailsPage, NavigationType.pushNamed, context);
                     // CustomNavigatorModule.navigatorKey.currentState!
                     //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
                   }

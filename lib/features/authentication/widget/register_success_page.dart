@@ -76,8 +76,8 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
             CustomButtonWidget(
               idleText: S.of(context).start,
               onTap: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-                Routes.navigateToScreen(Routes.homeScreen, NavigationType.pushNamed, context);
+                // Navigator.popUntil(context, (route) => route.isFirst);
+                Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
                 getIt<BottomNavigationBloc>().setSelectedTab(0, context);
                 // CustomNavigatorModule.navigatorKey.currentState
                 //     ?.pushNamed(AppScreenEnum.home.name);

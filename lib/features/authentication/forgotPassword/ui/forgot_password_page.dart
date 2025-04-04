@@ -94,8 +94,8 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
         widget.forgetPasswordBloc.countryBloc.value!,
         widget.forgetPasswordBloc.mobileBloc.value,
         AppScreenEnum.accountChangePassword.name);
-    widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
-    Routes.navigateToScreen(Routes.otpScreen, NavigationType.pushReplacementNamed, context);
+    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushReplacementNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.resetPasswordPage});
+
 
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
@@ -122,8 +122,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
                           widget.forgetPasswordBloc.countryBloc.value!,
                           widget.forgetPasswordBloc.mobileBloc.value,
                           AppScreenEnum.accountChangePassword.name);
-                      widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
-                      Routes.navigateToScreen(Routes.otpScreen, NavigationType.pushReplacementNamed, context);
+                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushReplacementNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.resetPasswordPage});
 
                       // CustomNavigatorModule.navigatorKey.currentState
                       //     ?.pushReplacementNamed(AppScreenEnum.otp.name);

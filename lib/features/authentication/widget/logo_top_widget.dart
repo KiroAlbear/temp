@@ -8,7 +8,6 @@ import 'package:image_loader/image_helper.dart';
 
 import '../../../../core/dto/enums/app_screen_enum.dart';
 import '../../../../core/dto/modules/app_color_module.dart';
-import '../../../../core/dto/modules/custom_navigator_module.dart';
 import '../../../../core/dto/modules/custom_text_style_module.dart';
 import '../../../../core/generated/l10n.dart';
 import '../../../../core/ui/bases/bloc_base.dart';
@@ -115,7 +114,7 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
         children: [
           InkWell(
             onTap: () {
-              Routes.navigateToScreen(Routes.homeScreen, NavigationType.pushNamed, context);
+              Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
               // CustomNavigatorModule.navigatorKey.currentState
               //     ?.pushReplacementNamed(AppScreenEnum.home.name);
               getIt<BottomNavigationBloc>().setSelectedTab(0, context);

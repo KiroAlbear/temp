@@ -9,11 +9,12 @@ import 'package:otp_pin_field/otp_pin_field.dart';
 
 class OtpPage extends BaseStatefulWidget {
 
-
+  final String nextPage;
+  static final String nextPageKey = 'nextPage';
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const OtpPage(
-      {super.key,  required this.authenticationSharedBloc});
+      {super.key,  required this.authenticationSharedBloc,required this.nextPage});
 
   @override
   State<OtpPage> createState() => _OtpWidgetState();
@@ -212,12 +213,8 @@ class _OtpWidgetState extends BaseState<OtpPage> {
 
   void onlyForTestingCode() {
     widget.authenticationSharedBloc.userData = _bloc.userData;
-    Routes.navigateToScreen(Routes.newAccountScreen, NavigationType.pushNamed, context);
+    Routes.navigateToScreen(widget.nextPage, NavigationType.pushReplacementNamed, context);
 
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushReplacementNamed(
-      widget.authenticationSharedBloc.nextScreen,
-    );
   }
 
   Widget get _button => CustomButtonWidget(
@@ -242,7 +239,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                   onSuccess: () {
                     widget.authenticationSharedBloc.userData = _bloc.userData;
-                    Routes.navigateToScreen(Routes.newAccountScreen, NavigationType.pushNamed, context);
+                    Routes.navigateToScreen(widget.nextPage, NavigationType.pushReplacementNamed, context);
                     // CustomNavigatorModule.navigatorKey.currentState
                     //     ?.pushReplacementNamed(
                     //   widget.authenticationSharedBloc.nextScreen,

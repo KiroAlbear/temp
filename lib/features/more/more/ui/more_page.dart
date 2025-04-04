@@ -110,7 +110,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                     child: CustomButtonWidget(
                       idleText: S.of(context).createAccount,
                       onTap: () {
-                        Routes.navigateToScreen(Routes.registerScreen, NavigationType.goNamed, context).then((value) {
+                        Routes.navigateToScreen(Routes.registerPage, NavigationType.goNamed, context).then((value) {
                           WidgetsBinding.instance
                               .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
                         },);
@@ -143,7 +143,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).accountInfo, Assets.svg.icPerson, () {
-                  Routes.navigateToScreen(Routes.updateProfileScreen, NavigationType.pushNamed, context);
+                  Routes.navigateToScreen(Routes.updateProfilePage, NavigationType.pushNamed, context);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
                 }),
@@ -151,7 +151,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).changePassword, Assets.svg.icLock, () {
-                  Routes.navigateToScreen(Routes.accountChangePasswordScreen, NavigationType.pushNamed, context);
+                  Routes.navigateToScreen(Routes.accountChangePasswordPage, NavigationType.pushNamed, context);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.accountChangePassword.name);
                 }),
@@ -162,7 +162,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   S.of(context).myOrders,
                   Assets.svg.icMyOrders,
                       () {
-                        Routes.navigateToScreen(Routes.myOrdersScreen, NavigationType.pushNamed, context);
+                        Routes.navigateToScreen(Routes.myOrdersPage, NavigationType.pushNamed, context);
                     // CustomNavigatorModule.navigatorKey.currentState
                     //     ?.pushNamed(AppScreenEnum.myOrders.name);
                   },
@@ -176,7 +176,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
                   // widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
-                  Routes.navigateToScreen(Routes.favouriteScreen, NavigationType.pushNamed, context,setBottomNavigationTab: false);
+                  Routes.navigateToScreen(Routes.favouritePage, NavigationType.pushNamed, context,setBottomNavigationTab: false);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.product.name);
                 },
@@ -230,7 +230,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 height: 10.h,
               ),
               _menuItem(S.of(context).faq, Assets.svg.icFaq, () {
-                Routes.navigateToScreen(Routes.faqScreen, NavigationType.pushNamed, context);
+                Routes.navigateToScreen(Routes.faqPage, NavigationType.pushNamed, context);
                 // CustomNavigatorModule.navigatorKey.currentState
                 //     ?.pushNamed(AppScreenEnum.faq.name);
               }),
@@ -238,7 +238,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 height: 10.h,
               ),
               _menuItem(S.of(context).usagePolicy, Assets.svg.icHealthCheck, () {
-                Routes.navigateToScreen(Routes.usagePolicyScreen, NavigationType.pushNamed, context);
+                Routes.navigateToScreen(Routes.usagePolicyPage, NavigationType.pushNamed, context);
                 // CustomNavigatorModule.navigatorKey.currentState
                 //     ?.pushNamed(AppScreenEnum.usagePolicy.name);
               }),

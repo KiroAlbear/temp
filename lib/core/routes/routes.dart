@@ -18,26 +18,27 @@ class Routes {
       GlobalKey<NavigatorState>();
 
   static const String splashScreen = '/splash';
-  static const String homeScreen = '/home';
-  static const String favouriteScreen = '/favorite';
-  static const String offersScreen = '/offers';
-  static const String cartScreen = '/cart';
-  static const String moreScreen = '/more';
-  static const String loginScreen = '/login';
-  static const String updateProfileScreen = '/updateProfile';
-  static const String usagePolicyScreen = '/usagePolicy';
-  static const String faqScreen = '/faq';
-  static const String forgotPasswordScreen = '/forgotPassword';
-  static const String newAccountScreen = '/newAccount';
-  static const String otpScreen = '/otp';
-  static const String registerScreen = '/register';
-  static const String productCategoryScreen = '/productCategory';
-  static const String accountChangePasswordScreen = '/accountChangePassword';
-  static const String myOrdersScreen = '/myOrders';
-  static const String barcodeScreen = '/barcode';
-  static const String registerSuccessScreen = '/successRegister';
-  static const String cartSuccessScreen = '/cartSuccess';
-  static const String cartOrderDetailsScreen = '/cartOrderDetails';
+  static const String homePage = '/home';
+  static const String favouritePage = '/favorite';
+  static const String offersPage = '/offers';
+  static const String cartPage = '/cart';
+  static const String morePage = '/more';
+  static const String loginPage = '/login';
+  static const String updateProfilePage = '/updateProfile';
+  static const String usagePolicyPage = '/usagePolicy';
+  static const String faqPage = '/faq';
+  static const String forgotPasswordPage = '/forgotPassword';
+  static const String newAccountPage = '/newAccount';
+  static const String otpPage = '/otp';
+  static const String registerPage = '/register';
+  static const String productCategoryPage = '/productCategory';
+  static const String accountChangePasswordPage = '/accountChangePassword';
+  static const String resetPasswordPage = '/resetPasswordPage';
+  static const String myOrdersPage = '/myOrders';
+  static const String barcodePage = '/barcode';
+  static const String registerSuccessPage = '/successRegister';
+  static const String cartSuccessPage = '/cartSuccess';
+  static const String cartOrderDetailsPage = '/cartOrderDetails';
 
 
 
@@ -58,8 +59,8 @@ class Routes {
       ),
 
       GoRoute(
-        path: barcodeScreen,
-        name: barcodeScreen,
+        path: barcodePage,
+        name: barcodePage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context, state, ScanBarcodePage(homeBloc: getIt()),
@@ -67,8 +68,8 @@ class Routes {
       ),
 
       GoRoute(
-        path: registerSuccessScreen,
-        name: registerSuccessScreen,
+        path: registerSuccessPage,
+        name: registerSuccessPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context, state, RegisterSuccessPage(),
@@ -76,8 +77,8 @@ class Routes {
       ),
 
       GoRoute(
-        path: loginScreen,
-        name: loginScreen,
+        path: loginPage,
+        name: loginPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context, state, LoginPage(bottomNavigationBloc: getIt(),enableSkip: true,),
@@ -85,32 +86,49 @@ class Routes {
       ),
 
       GoRoute(
-        path: forgotPasswordScreen,
-        name: forgotPasswordScreen,
+        path: forgotPasswordPage,
+        name: forgotPasswordPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context, state, ForgotPasswordPage(authenticationSharedBloc: getIt(), forgetPasswordBloc: getIt(),),
         ),
       ),
       GoRoute(
-        path: newAccountScreen,
-        name: newAccountScreen,
+        path: newAccountPage,
+        name: newAccountPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context, state, NewAccountPage(),
         ),
       ),
       GoRoute(
-        path: otpScreen,
-        name: otpScreen,
+        path: resetPasswordPage,
+        name: resetPasswordPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context, state, OtpPage(authenticationSharedBloc: getIt(),),
+          context, state, NewAccountPasswordPage(),
         ),
       ),
       GoRoute(
-        path: registerScreen,
-        name: registerScreen,
+        path: otpPage,
+        name: otpPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state)
+        {
+          final String nextPage = state.uri.queryParameters[OtpPage.nextPageKey] ?? '';
+          return _fadeTransitionScreenWrapper(
+            context,
+            state,
+            OtpPage(
+              authenticationSharedBloc: getIt(),
+              nextPage: nextPage,
+            ),
+          );
+        },
+      ),
+      GoRoute(
+        path: registerPage,
+        name: registerPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context, state, RegisterPage(authenticationSharedBloc: getIt(),),
@@ -123,37 +141,37 @@ class Routes {
           routes: [
             GoRoute(
               parentNavigatorKey: navigationBarKey,
-              path: homeScreen,
-              name: homeScreen,
+              path: homePage,
+              name: homePage,
               pageBuilder: (context, state) =>
                   _fadeTransitionScreenWrapper(context, state, HomePage(cartBloc: getIt(),contactUsBloc: getIt(),homeBloc: getIt(),updateProfileBloc: getIt(),)),
             ),
 
             GoRoute(
               parentNavigatorKey: navigationBarKey,
-              path: offersScreen,
-              name: offersScreen,
+              path: offersPage,
+              name: offersPage,
               pageBuilder: (context, state) =>
                   _fadeTransitionScreenWrapper(context, state, OffersPage(homeBloc: getIt(),)),
             ),
             GoRoute(
               parentNavigatorKey: navigationBarKey,
-              path: cartScreen,
-              name: cartScreen,
+              path: cartPage,
+              name: cartPage,
               pageBuilder: (context, state) =>
                   _fadeTransitionScreenWrapper(context, state, CartPage(cartBloc: getIt(), productCategoryBloc: getIt())),
             ),
             GoRoute(
               parentNavigatorKey: navigationBarKey,
-              path: moreScreen,
-              name: moreScreen,
+              path: morePage,
+              name: morePage,
               pageBuilder: (context, state) =>
                   _fadeTransitionScreenWrapper(context, state, MorePage(contactUsBloc: getIt(),moreBloc: getIt(),productCategoryBloc: getIt(),)),
             ),
 
             GoRoute(
-              path: favouriteScreen,
-              name: favouriteScreen,
+              path: favouritePage,
+              name: favouritePage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) {
                 return _fadeTransitionScreenWrapper(
@@ -163,59 +181,57 @@ class Routes {
             ),
 
             GoRoute(
-              path: updateProfileScreen,
-              name: updateProfileScreen,
+              path: updateProfilePage,
+              name: updateProfilePage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, UpdateProfilePage(moreBloc: getIt(),),
               ),
             ),
             GoRoute(
-              path: usagePolicyScreen,
-              name: usagePolicyScreen,
+              path: usagePolicyPage,
+              name: usagePolicyPage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, UsagePolicyPage(usagePolicyBloc: getIt()),
               ),
             ),
             GoRoute(
-              path: faqScreen,
-              name: faqScreen,
+              path: faqPage,
+              name: faqPage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, FaqPage(),
               ),
             ),
             GoRoute(
-              path: productCategoryScreen,
-              name: productCategoryScreen,
+              path: productCategoryPage,
+              name: productCategoryPage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) {
-                Map<String,String > queryParameters = state.pathParameters;
-                bool isFavourite = queryParameters[ProductCategoryPage.isForFavouriteKey] == ProductCategoryPage.isFavouriteValue;
                 return _fadeTransitionScreenWrapper(context, state, ProductCategoryPage(homeBloc: getIt(), contactUsBloc: getIt(), productCategoryBloc: getIt(), cartBloc: getIt(),isForFavourite: false,));
                 } ,
               ),
 
             GoRoute(
-              path: accountChangePasswordScreen,
-              name: accountChangePasswordScreen,
+              path: accountChangePasswordPage,
+              name: accountChangePasswordPage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, AccountChangePasswordPage(),
               ),
             ),
             GoRoute(
-              path: myOrdersScreen,
-              name: myOrdersScreen,
+              path: myOrdersPage,
+              name: myOrdersPage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, MyOrdersPage(myOrdersBloc: getIt()),
               ),
             ),
             GoRoute(
-              path: cartOrderDetailsScreen,
-              name: cartOrderDetailsScreen,
+              path: cartOrderDetailsPage,
+              name: cartOrderDetailsPage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, CartOrderDetailsPage(cartBloc: getIt()),
@@ -223,8 +239,8 @@ class Routes {
             ),
 
             GoRoute(
-              path: cartSuccessScreen,
-              name: cartSuccessScreen,
+              path: cartSuccessPage,
+              name: cartSuccessPage,
               parentNavigatorKey: navigationBarKey,
               pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
                 context, state, CartSuccessPage(),
@@ -238,23 +254,23 @@ class Routes {
                 onTap: (index) {
                   if (index == 0) {
                     Routes.navigateToScreen(
-                        Routes.homeScreen, NavigationType.goNamed, context);
+                        Routes.homePage, NavigationType.goNamed, context);
                     return;
                   } else if (index == 1) {
-                    Routes.navigateToScreen(Routes.favouriteScreen,
+                    Routes.navigateToScreen(Routes.favouritePage,
                         NavigationType.goNamed, context);
                     return;
                   } else if (index == 2) {
                     Routes.navigateToScreen(
-                        Routes.offersScreen, NavigationType.goNamed, context);
+                        Routes.offersPage, NavigationType.goNamed, context);
                     return;
                   } else if (index == 3) {
                     Routes.navigateToScreen(
-                        Routes.cartScreen, NavigationType.goNamed, context);
+                        Routes.cartPage, NavigationType.goNamed, context);
                     return;
                   } else if (index == 4) {
                     Routes.navigateToScreen(
-                        Routes.moreScreen, NavigationType.goNamed, context);
+                        Routes.morePage, NavigationType.goNamed, context);
                     return;
                   }
                 },
@@ -273,15 +289,15 @@ class Routes {
     bool setBottomNavigationTab = true,
     Object? extra,
   }) async {
-    if(screenName == homeScreen && setBottomNavigationTab)
+    if(screenName == homePage && setBottomNavigationTab)
       setBottomNavigationSelectedTab(0, context);
-    else if(screenName == favouriteScreen && setBottomNavigationTab)
+    else if(screenName == favouritePage && setBottomNavigationTab)
       setBottomNavigationSelectedTab(1, context);
-    else if(screenName == offersScreen && setBottomNavigationTab)
+    else if(screenName == offersPage && setBottomNavigationTab)
       setBottomNavigationSelectedTab(2, context);
-    else if(screenName == cartScreen && setBottomNavigationTab)
+    else if(screenName == cartPage && setBottomNavigationTab)
       setBottomNavigationSelectedTab(3, context);
-    else if(screenName == moreScreen && setBottomNavigationTab)
+    else if(screenName == morePage && setBottomNavigationTab)
       setBottomNavigationSelectedTab(4, context);
 
     switch (navigationType) {

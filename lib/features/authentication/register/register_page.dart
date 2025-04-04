@@ -100,7 +100,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
         _bloc.countryBloc.value!,
         _bloc.mobileBloc.value,
         AppScreenEnum.newAccount.name);
-    Routes.navigateToScreen(Routes.otpScreen, NavigationType.pushNamed, context);
+    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.newAccountPage});
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushNamed(AppScreenEnum.otp.name);
   }
@@ -138,7 +138,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
                                       _bloc.countryBloc.value!,
                                       _bloc.mobileBloc.value,
                                       AppScreenEnum.newAccount.name);
-                                  Routes.navigateToScreen(Routes.otpScreen, NavigationType.pushNamed, context);
+                                  Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context);
                                   // CustomNavigatorModule.navigatorKey.currentState
                                   //     ?.pushNamed(AppScreenEnum.otp.name);
                                 });
@@ -161,7 +161,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
       );
 
   Widget get _loginWidget => InkWell(
-        onTap: () =>  Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushNamed, context),
+        onTap: () =>  Routes.navigateToScreen(Routes.loginPage, NavigationType.pushNamed, context),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
           child: Row(

@@ -29,7 +29,7 @@ class HeroBannerItem extends StatelessWidget {
           homeBloc.selectedOffer = item;
           // homeBloc.selectedOfferIndex = index;
           homeBloc.isBanner = true;
-          Routes.navigateToScreen(Routes.productCategoryScreen, NavigationType.pushNamed, context);
+          Routes.navigateToScreen(Routes.productCategoryPage, NavigationType.pushNamed, context);
           // CustomNavigatorModule.navigatorKey.currentState!
           //     .pushNamed(AppScreenEnum.product.name);
         }
