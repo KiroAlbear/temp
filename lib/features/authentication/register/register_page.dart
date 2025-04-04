@@ -113,44 +113,42 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
               _bloc.checkPhone.listen(
                 (event) {
                   // only for testing
-                  if(kDebugMode){
-                    onlyForTestingCode();
-                  }else{
-                    checkResponseStateWithButton(
-                      event,
-                      context,
-                      failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                      buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                      onSuccess: () {
-                        _otpBloc
-                            .sendOtp(
-                            "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
-                            S.of(context).otpPhoneIsNotValid)
-                            .then(
-                              (value) {
-                            checkResponseStateWithButton(value, context,
-                                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                                headerErrorMessage: S
-                                    .of(context)
-                                    .otpPhoneIsNotValid, onSuccess: () {
-                                  widget.authenticationSharedBloc.setDataToAuth(
-                                      _bloc.countryBloc.value!,
-                                      _bloc.mobileBloc.value,
-                                      AppScreenEnum.newAccount.name);
-                                  Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context);
-                                  // CustomNavigatorModule.navigatorKey.currentState
-                                  //     ?.pushNamed(AppScreenEnum.otp.name);
-                                });
+                     if (kDebugMode){
+                        if(event is SuccessState)
+                          onlyForTestingCode();
+                    } else{
+                        checkResponseStateWithButton(
+                          event,
+                          context,
+                          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                          onSuccess: () {
+                            _otpBloc
+                                .sendOtp(
+                                "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
+                                S.of(context).otpPhoneIsNotValid)
+                                .then(
+                                  (value) {
+                                checkResponseStateWithButton(value, context,
+                                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                                    headerErrorMessage: S
+                                        .of(context)
+                                        .otpPhoneIsNotValid, onSuccess: () {
+                                      widget.authenticationSharedBloc.setDataToAuth(
+                                          _bloc.countryBloc.value!,
+                                          _bloc.mobileBloc.value,
+                                          AppScreenEnum.newAccount.name);
+                                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context);
+                                      // CustomNavigatorModule.navigatorKey.currentState
+                                      //     ?.pushNamed(AppScreenEnum.otp.name);
+                                    });
+                              },
+                            );
                           },
                         );
-                      },
-                    );
-                  }
-
-
-
-                },
+                      }
+                    }
               );
             }
           },

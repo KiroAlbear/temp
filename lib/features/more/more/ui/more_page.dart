@@ -109,11 +109,11 @@ class _MoreWidgetState extends BaseState<MorePage> {
                     padding: EdgeInsets.symmetric(horizontal: 14.w),
                     child: CustomButtonWidget(
                       idleText: S.of(context).createAccount,
-                      onTap: () {
-                        Routes.navigateToScreen(Routes.registerPage, NavigationType.goNamed, context).then((value) {
-                          WidgetsBinding.instance
-                              .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
-                        },);
+                      onTap: () async {
+                        await Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
+                        await Routes.navigateToScreen(Routes.registerPage, NavigationType.pushNamed, context);
+                        WidgetsBinding.instance
+                            .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
                       },
                     )),
                 SizedBox(
