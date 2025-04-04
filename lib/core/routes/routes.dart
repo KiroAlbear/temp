@@ -1,5 +1,6 @@
 import 'package:deel/core/routes/navigation_type.dart';
 import 'package:deel/core/services/dependency_injection_service.dart';
+import 'package:deel/features/authentication/ui/resetPassword/reset_password_page.dart';
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navigation_bar.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
@@ -81,7 +82,7 @@ class Routes {
         name: loginPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context, state, LoginPage(bottomNavigationBloc: getIt(),enableSkip: true,),
+          context, state, LoginPage(enableSkip: true,),
         ),
       ),
 
@@ -106,7 +107,7 @@ class Routes {
         name: resetPasswordPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context, state, NewAccountPasswordPage(),
+          context, state, ResetPasswordPage( authenticationSharedBloc: getIt(), forgetPasswordBloc: getIt()),
         ),
       ),
       GoRoute(

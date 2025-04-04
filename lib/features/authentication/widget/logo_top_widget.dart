@@ -22,7 +22,6 @@ class LogoTopWidget extends StatefulWidget {
   final bool canSkip;
   final bool isHavingBackArrow;
   final bool pressingBackTwice;
-  final BottomNavigationBloc? bottomNavigationBloc;
 
   const LogoTopWidget(
       {super.key,
@@ -31,7 +30,6 @@ class LogoTopWidget extends StatefulWidget {
       required this.blocBase,
         this.isHavingBackArrow = false,
         this.pressingBackTwice = false,
-      this.bottomNavigationBloc,
       this.canSkip = false});
 
   @override

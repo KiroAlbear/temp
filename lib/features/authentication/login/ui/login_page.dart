@@ -14,11 +14,9 @@ import 'login_bloc.dart';
 
 class LoginPage extends BaseStatefulWidget {
   final bool enableSkip;
-  final BottomNavigationBloc? bottomNavigationBloc;
 
   const LoginPage(
       {super.key,
-      required this.bottomNavigationBloc,
       required this.enableSkip});
 
   @override
@@ -70,7 +68,6 @@ class _LoginWidgetState extends BaseState<LoginPage> {
         logo: Assets.svg.logoYellow,
         blocBase: _bloc,
         canSkip: widget.enableSkip,
-        bottomNavigationBloc: widget.bottomNavigationBloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
