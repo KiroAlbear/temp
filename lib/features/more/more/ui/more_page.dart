@@ -52,7 +52,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
 
   @override
   void onPopInvoked(didPop) {
-    handleCloseApplication();
+    handleCloseApplication(context);
     super.onPopInvoked(didPop);
   }
 

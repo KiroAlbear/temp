@@ -38,7 +38,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
 
   @override
   void onPopInvoked(didPop) {
-    handleCloseApplication();
+    handleCloseApplication(context);
   }
 
   @override

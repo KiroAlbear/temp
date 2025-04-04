@@ -1,6 +1,6 @@
 import 'package:deel/core/routes/navigation_type.dart';
 import 'package:deel/core/services/dependency_injection_service.dart';
-import 'package:deel/core/ui/custom_navigation_bar.dart';
+import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navigation_bar.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
 import 'package:flutter/material.dart';

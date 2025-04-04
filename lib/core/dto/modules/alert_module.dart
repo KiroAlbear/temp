@@ -57,36 +57,36 @@ class AlertModule {
     });
     // _showSnakeBar(key, duration, context, message);
   }
-
-  Future<dynamic> showDialog(
-      {required BuildContext context,
-      required String message,
-      String? confirmMessage,
-      String? headerSvg,
-      String? headerMessage,
-      String? cancelMessage,
-      VoidCallback? onCancel,
-      VoidCallback? onConfirm,
-      bool hasCancelButton = false,
-      bool sameButtonsColor = false,
-      bool errorColorInConfirm = false}) async {
-    return NavigationModule().pushBottomDialog(
-      widget: DialogWidget(
-        message: message,
-        confirmMessage: confirmMessage ?? S.of(context).ok,
-        cancelMessage: cancelMessage,
-        headerMessage: headerMessage,
-        headerSvg: headerSvg,
-        onCancel: onCancel,
-        onConfirm: onConfirm,
-        errorColorInConfirm: errorColorInConfirm,
-        hasCloseButton: hasCancelButton,
-        sameButtonsColor: sameButtonsColor,
-      ),
-      context: context,
-    );
-    // _flushBar(key, duration, context, message);
-  }
+  //
+  // Future<dynamic> showDialog(
+  //     {required BuildContext context,
+  //     required String message,
+  //     String? confirmMessage,
+  //     String? headerSvg,
+  //     String? headerMessage,
+  //     String? cancelMessage,
+  //     VoidCallback? onCancel,
+  //     VoidCallback? onConfirm,
+  //     bool hasCancelButton = false,
+  //     bool sameButtonsColor = false,
+  //     bool errorColorInConfirm = false}) async {
+  //   return NavigationModule().pushBottomDialog(
+  //     widget: DialogWidget(
+  //       message: message,
+  //       confirmMessage: confirmMessage ?? S.of(context).ok,
+  //       cancelMessage: cancelMessage,
+  //       headerMessage: headerMessage,
+  //       headerSvg: headerSvg,
+  //       onCancel: onCancel,
+  //       onConfirm: onConfirm,
+  //       errorColorInConfirm: errorColorInConfirm,
+  //       hasCloseButton: hasCancelButton,
+  //       sameButtonsColor: sameButtonsColor,
+  //     ),
+  //     context: context,
+  //   );
+  //   // _flushBar(key, duration, context, message);
+  // }
 
   Future<dynamic> showContactUsBottomSheet(
       {required ContactUsBloc contactUsBloc,

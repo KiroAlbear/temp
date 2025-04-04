@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -116,22 +117,39 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
       if (Navigator.canPop(context)) {
         Navigator.pop(context);
       } else {
-        handleCloseApplication();
+        handleCloseApplication(context);
       }
 
   }
 
-  void handleCloseApplication() {
-    AlertModule().showDialog(
-      context: context,
-      message: S.of(context).closeApplicationMessage,
-      cancelMessage: S.of(context).cancel,
-      confirmMessage: S.of(context).ok,
-      onCancel: () {},
-      onConfirm: () {
-        exit(0);
-      },
-    );
+  void handleCloseApplication(BuildContext context) {
+    showModalBottomSheet(context: context,
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.25,
+      ),
+      builder: (context) {
+      return DialogWidget(
+        sameButtonsColor: false,
+        message: S.of(context).closeApplicationMessage,
+        cancelMessage: S.of(context).cancel,
+        confirmMessage: S.of(context).ok,
+        onCancel: () {},
+        onConfirm: () {
+          exit(0);
+        },
+      );
+    },);
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).closeApplicationMessage,
+    //   cancelMessage: S.of(context).cancel,
+    //   confirmMessage: S.of(context).ok,
+    //   onCancel: () {},
+    //   onConfirm: () {
+    //     exit(0);
+    //   },
+    // );
   }
 
   Widget get _defaultBody => InkWell(

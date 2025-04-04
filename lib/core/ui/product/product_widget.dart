@@ -232,8 +232,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   : InkWell(
                       onTap: () {
                         if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
-                          Apputils.showNeedToLoginDialog(context);
-                          return;
+                          Apputils.showNeedToLoginBottomSheet(context);
                         } else {
                           widget.onTapFavourite!(
                               !widget.productMapper.isFavourite,
@@ -371,26 +370,55 @@ class _ProductWidgetState extends State<ProductWidget> {
   );
 
   void _showMaximumAlertDialog(String message, String qty) {
-    AlertModule().showDialog(
-      context: context,
-      message: "$message $qty",
-      confirmMessage: S.of(context).ok,
-      onConfirm: () {},
-    );
+    showModalBottomSheet(context: context,
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.20),
+      builder: (context) {
+      return DialogWidget(
+        sameButtonsColor: false,
+        message: "$message $qty",
+        confirmMessage: S.of(context).ok,
+        onConfirm: () {},
+      );
+    },);
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: "$message $qty",
+    //   confirmMessage: S.of(context).ok,
+    //   onConfirm: () {},
+    // );
   }
 
   void _showDeleteAlertDialog(String message, String qty) {
-    AlertModule().showDialog(
-      context: context,
-      message: "$message $qty",
-      confirmMessage: S.of(context).ok,
-      cancelMessage: S.of(context).cancel,
-      onCancel: () {},
-      onConfirm: () {
-        qtyValueNotifier.value=0;
-        widget.onDeleteClicked!(widget.productMapper);
-      },
-    );
+    showModalBottomSheet(context: context,
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.24),
+      builder: (context) {
+      return DialogWidget(
+        message: "$message $qty",
+        confirmMessage: S.of(context).ok,
+        cancelMessage: S.of(context).cancel,
+        sameButtonsColor: false,
+        onCancel: () {},
+        onConfirm: () {
+          qtyValueNotifier.value=0;
+          widget.onDeleteClicked!(widget.productMapper);
+        },
+      );
+    },);
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: "$message $qty",
+    //   confirmMessage: S.of(context).ok,
+    //   cancelMessage: S.of(context).cancel,
+    //   onCancel: () {},
+    //   onConfirm: () {
+    //     qtyValueNotifier.value=0;
+    //     widget.onDeleteClicked!(widget.productMapper);
+    //   },
+    // );
   }
 
   Widget _incrementDecrementButton() {
@@ -515,17 +543,18 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _addCartButton => InkWell(
         onTap: () async {
           if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
-            Apputils.showNeedToLoginDialog(context);
-            return;
-          }
-          if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
-          {
-            widget.onAddToCart!(widget.productMapper);
-            qtyValueNotifier.value =widget.productMapper.minQuantity==0?1: widget.productMapper.minQuantity.toInt();
-            if (widget.cartBloc != null) {
-              widget.cartBloc!.getMyCart();
+            await Apputils.showNeedToLoginBottomSheet(context);
+          }else{
+            if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
+                {
+              widget.onAddToCart!(widget.productMapper);
+              qtyValueNotifier.value =widget.productMapper.minQuantity==0?1: widget.productMapper.minQuantity.toInt();
+              if (widget.cartBloc != null) {
+                widget.cartBloc!.getMyCart();
+              }
             }
           }
+
         },
         child: Container(
           alignment: Alignment.center,

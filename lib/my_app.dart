@@ -14,8 +14,6 @@ import 'core/routes/routes.dart';
 import 'flavors.dart';
 import 'package:deel/gen/assets.gen.dart';
 
-part 'navigation_routes.dart';
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

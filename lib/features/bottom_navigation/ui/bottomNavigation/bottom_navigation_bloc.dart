@@ -8,14 +8,7 @@ class BottomNavigationBloc extends BlocBase {
   int get selectedTab => _selectedTabBehaviour.value;
 
   void setSelectedTab(int value, BuildContext? context) {
-    if ((value == 1 || value == 3) &&
-        (SharedPrefModule().userId ?? '').isEmpty) {
-      if (context != null) {
-        Apputils.showNeedToLoginDialog(context);
-      }
-    } else {
       _selectedTabBehaviour.sink.add(value);
-    }
   }
 
   BottomNavigationBloc() {

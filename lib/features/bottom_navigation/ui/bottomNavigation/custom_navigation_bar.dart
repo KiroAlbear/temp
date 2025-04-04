@@ -1,5 +1,3 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:deel/core/dto/modules/app_color_module.dart';
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
@@ -96,8 +94,11 @@ class CustomNavigationBar extends StatelessWidget {
               _buildCurvedNavigationBarItem(icon: Assets.svg.icMore,label: S.of(context).more,selectedIndex:snapshot.data??0,tabIndex: 4,context: context),
             ],
             onTap: (index) {
-              getIt<BottomNavigationBloc>().setSelectedTab(index, context);
-              onTap(index);
+              if((SharedPrefModule().userId ?? '').isEmpty && (index == 1 || index == 3)){
+                Apputils.showNeedToLoginBottomSheet(context);
+              }else{
+                onTap(index);
+              }
             },
           );
         }

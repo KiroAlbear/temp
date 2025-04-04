@@ -39,7 +39,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
 
   @override
   void onPopInvoked(didPop) {
-    handleCloseApplication();
+    handleCloseApplication(context);
     super.onPopInvoked(didPop);
   }
 
