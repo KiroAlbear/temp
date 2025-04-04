@@ -30,6 +30,7 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyPage> {
   @override
   void onPopInvoked(didPop)  {
     changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
 
   }
 

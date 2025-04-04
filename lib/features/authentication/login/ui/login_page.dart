@@ -35,11 +35,6 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   bool canPop() => true;
 
   @override
-  void onPopInvoked(didPop) {
-    handleCloseApplication(context);
-  }
-
-  @override
   bool isSafeArea() => false;
 
   @override

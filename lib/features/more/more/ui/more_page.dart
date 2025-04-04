@@ -51,12 +51,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
   bool isSafeArea() => true;
 
   @override
-  void onPopInvoked(didPop) {
-    handleCloseApplication(context);
-    super.onPopInvoked(didPop);
-  }
-
-  @override
   void dispose() {
     widget.moreBloc.selectedFileBehaviour.drain();
     super.dispose();
@@ -242,13 +236,14 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 // CustomNavigatorModule.navigatorKey.currentState
                 //     ?.pushNamed(AppScreenEnum.usagePolicy.name);
               }),
-              SizedBox(
-                height: 10.h,
-              ),
-              _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
-                _deleteAccount();
-              }),
+
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
+                SizedBox(
+                  height: 10.h,
+                ),
+                _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
+                  _deleteAccount();
+                }),
                 SizedBox(
                   height: 20.h,
                 ),

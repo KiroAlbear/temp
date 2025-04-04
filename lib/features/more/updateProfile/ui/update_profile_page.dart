@@ -38,6 +38,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
+    super .onPopInvoked(didPop);
   }
 
   @override

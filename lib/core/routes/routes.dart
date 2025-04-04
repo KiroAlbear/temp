@@ -249,32 +249,35 @@ class Routes {
             ),
           ],
           builder: (context, state, child) {
-            return Scaffold(
-              body: child,
-              bottomNavigationBar: CustomNavigationBar(
-                onTap: (index) {
-                  if (index == 0) {
-                    Routes.navigateToScreen(
-                        Routes.homePage, NavigationType.goNamed, context);
-                    return;
-                  } else if (index == 1) {
-                    Routes.navigateToScreen(Routes.favouritePage,
-                        NavigationType.goNamed, context);
-                    return;
-                  } else if (index == 2) {
-                    Routes.navigateToScreen(
-                        Routes.offersPage, NavigationType.goNamed, context);
-                    return;
-                  } else if (index == 3) {
-                    Routes.navigateToScreen(
-                        Routes.cartPage, NavigationType.goNamed, context);
-                    return;
-                  } else if (index == 4) {
-                    Routes.navigateToScreen(
-                        Routes.morePage, NavigationType.goNamed, context);
-                    return;
-                  }
-                },
+            return PopScope(
+              canPop: false,
+              child: Scaffold(
+                body: child,
+                bottomNavigationBar: CustomNavigationBar(
+                  onTap: (index) {
+                    if (index == 0) {
+                      Routes.navigateToScreen(
+                          Routes.homePage, NavigationType.goNamed, context);
+                      return;
+                    } else if (index == 1) {
+                      Routes.navigateToScreen(Routes.favouritePage,
+                          NavigationType.goNamed, context);
+                      return;
+                    } else if (index == 2) {
+                      Routes.navigateToScreen(
+                          Routes.offersPage, NavigationType.goNamed, context);
+                      return;
+                    } else if (index == 3) {
+                      Routes.navigateToScreen(
+                          Routes.cartPage, NavigationType.goNamed, context);
+                      return;
+                    } else if (index == 4) {
+                      Routes.navigateToScreen(
+                          Routes.morePage, NavigationType.goNamed, context);
+                      return;
+                    }
+                  },
+                ),
               ),
             );
           }),

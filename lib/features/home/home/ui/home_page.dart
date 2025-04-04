@@ -37,11 +37,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
   @override
   bool isSafeArea() => true;
 
-  @override
-  void onPopInvoked(didPop) {
-    handleCloseApplication(context);
-    super.onPopInvoked(didPop);
-  }
 
   @override
   void initState() {

@@ -90,10 +90,4 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
           ],
         ),
       );
-
-  @override
-  void onPopInvoked(didPop) {
-    super.onPopInvoked(didPop);
-    handleCloseApplication(context);
-  }
 }

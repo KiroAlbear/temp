@@ -82,6 +82,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
       bloc: _bloc,
       child: LogoTopWidget(
           isHavingBackArrow: true,
+          pressingBackTwice: true,
           logo: Assets.svg.logoYellow,
           blocBase: _bloc,
           canSkip: false,

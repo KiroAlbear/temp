@@ -36,7 +36,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
   @override
   void onPopInvoked(didPop) async {
     changeSystemNavigationBarColor(secondaryColor);
-    await Future.delayed(Duration(milliseconds: 100));
+    // await Future.delayed(Duration(milliseconds: 100));
+    super.onPopInvoked(didPop);
   }
 
   @override

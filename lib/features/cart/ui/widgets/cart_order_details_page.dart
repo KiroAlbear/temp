@@ -33,6 +33,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
   }
 
   @override

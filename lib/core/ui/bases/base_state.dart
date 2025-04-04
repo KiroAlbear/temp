@@ -1,15 +1,7 @@
-import 'dart:io';
-
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-import '../../dto/modules/alert_module.dart';
-import '../../dto/modules/app_color_module.dart';
-import '../../dto/modules/app_provider_module.dart';
-import '../../dto/modules/constants_module.dart';
-import '../../dto/modules/response_handler_module.dart';
 import '../../generated/l10n.dart';
 
 abstract class BaseStatefulWidget extends StatefulWidget {
@@ -79,37 +71,37 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppProviderModule>(
-      builder: (context, value, child) => PopScope(
-        canPop: canPop(),
-        onPopInvoked: (didPop) {
+    return  PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
           onPopInvoked(didPop);
-        },
-        child: useCustomScaffold
-            ? _defaultBody
-            : Scaffold(
-                // floatingActionButton: customFloatActionButton(),
-                // floatingActionButtonLocation:
-                //     FloatingActionButtonLocation.startFloat,
-                bottomNavigationBar: customBottomNavBar(),
-                resizeToAvoidBottomInset: true,
-                extendBodyBehindAppBar: true,
-                extendBody: true,
-                primary: true,
-                restorationId: ConstantModule.appTitle,
-                key: scaffoldKey,
-                backgroundColor: customBackgroundColor ??
-                 ( Platform.isIOS?secondaryColor:  Theme.of(context).scaffoldBackgroundColor),
-                appBar: appBar(),
-                body:
-                    isSafeArea() ? SafeArea(
-                        bottom: isBottomSafeArea(),
-                        child: Container(
-                        color: Colors.white,
-                        child: _defaultBody)) : _defaultBody,
-                // )
-              ),
-      ),
+      },
+      child: Consumer<AppProviderModule>(
+        builder: (context, value, child) => useCustomScaffold
+          ? _defaultBody
+          : Scaffold(
+              // floatingActionButton: customFloatActionButton(),
+              // floatingActionButtonLocation:
+              //     FloatingActionButtonLocation.startFloat,
+              bottomNavigationBar: customBottomNavBar(),
+              resizeToAvoidBottomInset: true,
+              extendBodyBehindAppBar: true,
+              extendBody: true,
+              primary: true,
+              restorationId: ConstantModule.appTitle,
+              key: scaffoldKey,
+              backgroundColor: customBackgroundColor ??
+               ( Platform.isIOS?secondaryColor:  Theme.of(context).scaffoldBackgroundColor),
+              appBar: appBar(),
+              body:
+                  isSafeArea() ? SafeArea(
+                      bottom: isBottomSafeArea(),
+                      child: Container(
+                      color: Colors.white,
+                      child: _defaultBody)) : _defaultBody,
+              // )
+            ),
+            ),
     );
   }
 
@@ -122,7 +114,7 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
 
   }
 
-  void handleCloseApplication(BuildContext context) {
+  static void handleCloseApplication(BuildContext context) {
     showModalBottomSheet(context: context,
       useRootNavigator: true,
       constraints: BoxConstraints(
@@ -140,16 +132,6 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
         },
       );
     },);
-    // AlertModule().showDialog(
-    //   context: context,
-    //   message: S.of(context).closeApplicationMessage,
-    //   cancelMessage: S.of(context).cancel,
-    //   confirmMessage: S.of(context).ok,
-    //   onCancel: () {},
-    //   onConfirm: () {
-    //     exit(0);
-    //   },
-    // );
   }
 
   Widget get _defaultBody => InkWell(
