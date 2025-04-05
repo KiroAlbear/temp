@@ -35,7 +35,7 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyPage> {
   }
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
 
   @override

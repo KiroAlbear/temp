@@ -27,7 +27,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
   Color? statusBarColor() => Colors.white;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
 
   @override

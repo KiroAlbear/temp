@@ -30,7 +30,7 @@ class _FaqWidgetState extends BaseState<FaqPage> {
   Widget getBody(BuildContext context) => _screenDesign;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
   @override
   void onPopInvoked(didPop)  {

@@ -51,7 +51,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
           widget.homeBloc.isBanner = false;
           widget.homeBloc.selectedOffer = null;
 
-              ProductCategoryBloc.searchValue = null;
+          ProductCategoryBloc.searchValue = null;
           ProductCategoryPage.cateogryId = item.id!;
           widget.homeBloc.selectedCategoryText = item.name;
           ProductCategoryPage.categoryProductsCount = item.productExactCount;

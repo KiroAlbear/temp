@@ -69,11 +69,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
 
   @override
   Color? systemNavigationBarColor() {
-    if (widget.isForFavourite) {
-      return secondaryColor;
-    } else {
-      return Colors.white;
-    }
+    return secondaryColor;
   }
 
   @override

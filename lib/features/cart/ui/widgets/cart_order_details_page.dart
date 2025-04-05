@@ -28,7 +28,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   bool isSafeArea() => true;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
   @override
   void onPopInvoked(didPop) {
