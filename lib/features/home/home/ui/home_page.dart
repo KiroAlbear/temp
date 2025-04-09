@@ -6,13 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import '../../../../../core/generated/l10n.dart';
 
-class HomeWidget extends BaseStatefulWidget {
+class HomePage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
   final CartBloc cartBloc;
   final UpdateProfileBloc updateProfileBloc;
   final ContactUsBloc contactUsBloc;
 
-  const HomeWidget({
+  const HomePage({
     super.key,
     required this.homeBloc,
     required this.cartBloc,
@@ -21,10 +21,10 @@ class HomeWidget extends BaseStatefulWidget {
   });
 
   @override
-  State<HomeWidget> createState() => _HomeWidgetState();
+  State<HomePage> createState() => _HomeWidgetState();
 }
 
-class _HomeWidgetState extends BaseState<HomeWidget> {
+class _HomeWidgetState extends BaseState<HomePage> {
   final ScrollController _scrollController = ScrollController();
   final FocusNode _focusNode = FocusNode();
 
@@ -37,11 +37,6 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   @override
   bool isSafeArea() => true;
 
-  @override
-  void onPopInvoked(didPop) {
-    handleCloseApplication();
-    super.onPopInvoked(didPop);
-  }
 
   @override
   void initState() {
@@ -96,7 +91,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
               return SizedBox();
             }
           }),
-      OffersWidget(
+      OffersListingWidget(
         homeBloc: widget.homeBloc,
         isMainPage: false,
       ),
@@ -136,13 +131,12 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
       },
       textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
       doSearch: () {
-        widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value);
+        widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value,context);
         widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
             .add(TextEditingController(text: ''));
         widget.homeBloc.searchBloc.updateStringBehaviour('');
         FocusScope.of(context).requestFocus(new FocusNode()); //remove focus
-      },
-      contactUsBloc: widget.contactUsBloc);
+      },);
 
   @override
   Widget? customFloatActionButton() => FloatingActionButton(

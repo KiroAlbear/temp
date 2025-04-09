@@ -6,16 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 import 'account_change_password_bloc.dart';
 
-class AccountChangePassword extends BaseStatefulWidget {
+class AccountChangePasswordPage extends BaseStatefulWidget {
 
 
-  const AccountChangePassword({super.key});
+  const AccountChangePasswordPage({super.key});
 
   @override
-  State<AccountChangePassword> createState() => _AccountChangePasswordState();
+  State<AccountChangePasswordPage> createState() => _AccountChangePasswordState();
 }
 
-class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
+class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
   final AccountChangePasswordBloc _bloc = AccountChangePasswordBloc();
 
   @override
@@ -31,12 +31,13 @@ class _AccountChangePasswordState extends BaseState<AccountChangePassword> {
   bool isBottomSafeArea() =>false;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
   @override
   void onPopInvoked(didPop) async {
     changeSystemNavigationBarColor(secondaryColor);
-    await Future.delayed(Duration(milliseconds: 100));
+    // await Future.delayed(Duration(milliseconds: 100));
+    super.onPopInvoked(didPop);
   }
 
   @override

@@ -8,7 +8,7 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../../core/generated/l10n.dart';
 import '../../../../../core/ui/app_top_widget.dart';
 import 'home_bloc.dart';
-import 'offers_widget.dart';
+import 'offers_listing_widget.dart';
 
 class OffersPage extends BaseStatefulWidget {
   HomeBloc homeBloc;
@@ -49,7 +49,7 @@ class _OffersPageState extends BaseState<OffersPage> {
                     snapshot.data!.response != null &&
                     snapshot.data!.response!.isNotEmpty)
                 ? Expanded(
-                    child: OffersWidget(
+                    child: OffersListingWidget(
                       homeBloc: widget.homeBloc,
                       isMainPage: true,
                     ),

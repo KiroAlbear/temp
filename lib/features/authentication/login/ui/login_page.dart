@@ -12,20 +12,18 @@ import '../../../../../core/generated/l10n.dart';
 import '../../widget/logo_top_widget.dart';
 import 'login_bloc.dart';
 
-class LoginWidget extends BaseStatefulWidget {
+class LoginPage extends BaseStatefulWidget {
   final bool enableSkip;
-  final BottomNavigationBloc? bottomNavigationBloc;
 
-  const LoginWidget(
+  const LoginPage(
       {super.key,
-      required this.bottomNavigationBloc,
       required this.enableSkip});
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<LoginPage> createState() => _LoginWidgetState();
 }
 
-class _LoginWidgetState extends BaseState<LoginWidget> {
+class _LoginWidgetState extends BaseState<LoginPage> {
   final LoginBloc _bloc = LoginBloc();
   bool isLoggingWithBiometric = true;
 
@@ -35,11 +33,6 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
 
   @override
   bool canPop() => true;
-
-  @override
-  void onPopInvoked(didPop) {
-    handleCloseApplication();
-  }
 
   @override
   bool isSafeArea() => false;
@@ -70,7 +63,6 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
         logo: Assets.svg.logoYellow,
         blocBase: _bloc,
         canSkip: widget.enableSkip,
-        bottomNavigationBloc: widget.bottomNavigationBloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
@@ -154,8 +146,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
   Widget get _forgetPassword => Container(
         alignment: Alignment.centerLeft,
         child: InkWell(
-          onTap: () => CustomNavigatorModule.navigatorKey.currentState
-              ?.pushNamed(AppScreenEnum.forgetPassword.name),
+          onTap: () =>  Routes.navigateToScreen(Routes.forgotPasswordPage, NavigationType.pushNamed, context),
           child: CustomText(
               text: S.of(context).forgotPassword,
               customTextStyle:
@@ -252,8 +243,7 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       );
 
   Widget get _registerWidget => InkWell(
-        onTap: () => CustomNavigatorModule.navigatorKey.currentState
-            ?.pushNamed(AppScreenEnum.register.name),
+        onTap: () =>  Routes.navigateToScreen(Routes.registerPage, NavigationType.pushNamed, context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -283,11 +273,12 @@ class _LoginWidgetState extends BaseState<LoginWidget> {
       //     int.tryParse(_bloc.countryBloc.value!.description.replaceAll("+", ""));
       SharedPrefModule().password = _bloc.passwordBloc.value;
     }
-
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushReplacementNamed(AppScreenEnum.home.name);
-    if (widget.bottomNavigationBloc != null)
-      widget.bottomNavigationBloc!.setSelectedTab(0, context);
+    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+    // CustomNavigatorModule.navigatorKey.currentState
+    //     ?.pushReplacementNamed(AppScreenEnum.home.name);
+    getIt<BottomNavigationBloc>().setSelectedTab(0, context);
+    // if (widget.bottomNavigationBloc != null)
+    //   widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }
 
 

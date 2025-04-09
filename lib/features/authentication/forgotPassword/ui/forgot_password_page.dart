@@ -6,22 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
-class ForgotPasswordWidget extends BaseStatefulWidget {
+class ForgotPasswordPage extends BaseStatefulWidget {
 
   final ForgotPasswordBloc forgetPasswordBloc;
   final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const ForgotPasswordWidget(
+  const ForgotPasswordPage(
       {super.key,
 
       required this.authenticationSharedBloc,
       required this.forgetPasswordBloc});
 
   @override
-  State<ForgotPasswordWidget> createState() => _ForgotPasswordWidgetState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordWidgetState();
 }
 
-class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
+class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
 
   @override
   PreferredSizeWidget? appBar() =>null;
@@ -94,9 +94,11 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
         widget.forgetPasswordBloc.countryBloc.value!,
         widget.forgetPasswordBloc.mobileBloc.value,
         AppScreenEnum.accountChangePassword.name);
-    widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushReplacementNamed(AppScreenEnum.otp.name);
+    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushReplacementNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.resetPasswordPage});
+
+
+    // CustomNavigatorModule.navigatorKey.currentState
+    //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
   }
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).sendOTP,
@@ -120,9 +122,10 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordWidget> {
                           widget.forgetPasswordBloc.countryBloc.value!,
                           widget.forgetPasswordBloc.mobileBloc.value,
                           AppScreenEnum.accountChangePassword.name);
-                      widget.authenticationSharedBloc.isOtpNavigatedFromRegistration = false;
-                      CustomNavigatorModule.navigatorKey.currentState
-                          ?.pushReplacementNamed(AppScreenEnum.otp.name);
+                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushReplacementNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.resetPasswordPage});
+
+                      // CustomNavigatorModule.navigatorKey.currentState
+                      //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
                     },
                   );
                 }

@@ -6,7 +6,7 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../core/generated/l10n.dart';
 
 
-class ProductCategoryWidget extends BaseStatefulWidget {
+class ProductCategoryPage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
   final ContactUsBloc contactUsBloc;
   static int cateogryId = 1;
@@ -19,19 +19,25 @@ class ProductCategoryWidget extends BaseStatefulWidget {
   ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
   ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
 
-  ProductCategoryWidget({
+  static final String isForFavouriteKey = 'isForFavouriteKey';
+  static final String isFavouriteValue = 'isFavouriteValue';
+  static final String isNotFavouriteValue = 'isNotFavouriteValue';
+  final bool isForFavourite;
+
+  ProductCategoryPage({
     super.key,
     required this.homeBloc,
     required this.contactUsBloc,
     required this.productCategoryBloc,
     required this.cartBloc,
+    required this.isForFavourite
   });
 
   @override
-  State<ProductCategoryWidget> createState() => _ProductCategoryWidgetState();
+  State<ProductCategoryPage> createState() => _ProductCategoryWidgetState();
 }
 
-class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
+class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   final double filterHorizontalPadding = 15.h;
 
   @override
@@ -39,7 +45,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
 
   @override
   bool canPop() {
-    return (widget.productCategoryBloc.isForFavourite &&
+    return (widget.isForFavourite &&
         widget.productCategoryBloc.isNavigatingFromMore == false)
         ? false
         : true;
@@ -47,7 +53,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
 
   @override
   void onPopInvoked(didPop) {
-    ProductCategoryWidget.cateogryId = 1;
+    ProductCategoryPage.cateogryId = 1;
     widget.productCategoryBloc.categoryId = 1;
     widget.productCategoryBloc.isNavigatingFromMore = false;
     widget.homeBloc.selectedOffer = null;
@@ -63,11 +69,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
 
   @override
   Color? systemNavigationBarColor() {
-    if (widget.productCategoryBloc.isForFavourite) {
-      return secondaryColor;
-    } else {
-      return Colors.white;
-    }
+    return secondaryColor;
   }
 
   @override
@@ -84,14 +86,14 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         widget.productCategoryBloc.getProductWithSubcategoryBrand(
             null, widget.productCategoryBloc.brandId, null);
       }
-    } else if (ProductCategoryWidget.categoryProductsCount > 0) {
+    } else if (ProductCategoryPage.categoryProductsCount > 0) {
       widget.productCategoryBloc.getProductWithSubcategoryBrand(
-          ProductCategoryWidget.cateogryId, null, null);
+          ProductCategoryPage.cateogryId, null, null);
     } else {
-      widget.productCategoryBloc.categoryId = ProductCategoryWidget.cateogryId;
+      widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
       widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
       widget.productCategoryBloc.reset();
-      widget.productCategoryBloc.loadMore();
+      widget.productCategoryBloc.loadMore(widget.isForFavourite);
     }
     super.initState();
   }
@@ -105,9 +107,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
   }
 
   bool isFavouriteOrSearchOrCategory() {
-    return widget.productCategoryBloc.isForFavourite ||
+    return widget.isForFavourite ||
         ProductCategoryBloc.searchValue != null ||
-        ProductCategoryWidget.categoryProductsCount > 0;
+        ProductCategoryPage.categoryProductsCount > 0;
   }
 
   bool isNavigatedFromBannersOrOffers() {
@@ -129,18 +131,17 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
         isHavingSupportIcon: true,
-        contactUsBloc: widget.contactUsBloc,
-        doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value),
+        doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value,context),
         textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
         onChanged: (value) => widget.homeBloc.searchBloc.updateStringBehaviour(value),
-        isHavingBack: (widget.productCategoryBloc.isForFavourite &&
+        isHavingBack: (widget.isForFavourite &&
             widget.productCategoryBloc.isNavigatingFromMore == false)
             ? false
             : true,
         isHavingSupport: true,
         title: isNavigatedFromBannersOrOffers()
             ? " "
-            : widget.productCategoryBloc.isForFavourite
+            : widget.isForFavourite
             ? S.of(context).favourites
             : widget.homeBloc.selectedCategoryText,
       ),
@@ -178,7 +179,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                     itemBuilder: (context, index) {
                                       return FilterItemWidget(
                                           title: snapshot.data!.response![index].name ==
-                                              ProductCategoryWidget.filterAllText
+                                              ProductCategoryPage.filterAllText
                                               ? S.of(context).productsFilterAll
                                               : snapshot.data!.response![index].name,
                                           textColor: darkSecondaryColor,
@@ -240,7 +241,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                     itemBuilder: (context, index) {
                                       return FilterItemWidget(
                                           title: snapshot.data!.response![index].name ==
-                                              ProductCategoryWidget.filterAllText
+                                              ProductCategoryPage.filterAllText
                                               ? S.of(context).productsFilterAll
                                               : snapshot.data!.response![index].name,
                                           withBorders: true,
@@ -270,7 +271,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                 ),
                 isBannersOrOffersExist()
                     ? SizedBox()
-                    : SizedBox(height: widget.productCategoryBloc.isForFavourite ? 0 : 10.h),
+                    : SizedBox(height: widget.isForFavourite ? 0 : 10.h),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -312,14 +313,14 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                             : SizedBox(),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 16.w, vertical: widget.productCategoryBloc.isForFavourite ? 0 : 18.h),
+                              horizontal: 16.w, vertical: widget.isForFavourite ? 0 : 18.h),
                           child: StreamBuilder<ApiState<List<ProductMapper>>>(
                             stream: widget.productCategoryBloc.loadedListStream,
                             initialData: LoadingState(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 if (snapshot.data!.response != null && snapshot.data!.response!.isEmpty) {
-                                  if (widget.productCategoryBloc.isForFavourite) {
+                                  if (widget.isForFavourite) {
                                     return EmptyFavouriteProducts(
                                         emptyFavouriteScreen: Assets.svg.emptyFavourite);
                                   } else {
@@ -341,6 +342,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                   snapshot.data ?? LoadingState<List<ProductMapper>>(),
                                   context,
                                   onSuccess: ProductListWidget(
+                                    isForFavourite: widget.isForFavourite,
                                     deleteIcon: Assets.svg.icDelete,
                                     emptyFavouriteScreen: Assets.svg.emptyFavourite,
                                     cartBloc: widget.cartBloc,
@@ -431,8 +433,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryWidget> {
                                     },
                                     onTapFavourite: (favourite, productMapper) {},
                                     loadMore: (Function func) {
-                                      if (widget.productCategoryBloc.isForFavourite)
-                                        widget.productCategoryBloc.loadMore();
+                                      if (widget.isForFavourite)
+                                        widget.productCategoryBloc.loadMore(true);
                                       else
                                         _loadProducts(false, func);
                                     },

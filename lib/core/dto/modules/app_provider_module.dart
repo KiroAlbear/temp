@@ -1,11 +1,12 @@
 import 'package:deel/core/dto/modules/shared_pref_module.dart';
+import 'package:deel/core/routes/navigation_type.dart';
+import 'package:deel/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../enums/app_screen_enum.dart';
 import '../models/baseModules/api_state.dart';
 import '../remote/language_remote.dart';
-import 'custom_navigator_module.dart';
 import 'odoo_dio_module.dart';
 
 /// This module manages various application-level states and configurations.
@@ -108,24 +109,29 @@ class AppProviderModule with ChangeNotifier {
     LanguageRemote().saveToCart().listen((event) {
       if (event is SuccessState &&
           event.response != null &&
-          event.response!.isNotEmpty)
+          event.response!.isNotEmpty){
+
         SharedPrefModule().apiARLanguageCode = event.response!
             .firstWhere(
                 (element) => element.lang.toLowerCase().contains("arabic"))
             .code;
 
-      SharedPrefModule().apiENLanguageCode = event.response!
-          .firstWhere(
-              (element) => element.lang.toLowerCase().contains("english"))
-          .code;
+        SharedPrefModule().apiENLanguageCode = event.response!
+            .firstWhere(
+                (element) => element.lang.toLowerCase().contains("english"))
+            .code;
 
-      if (SharedPrefModule().language == 'ar') {
-        SharedPrefModule().apiSelectedLanguageCode =
-            SharedPrefModule().apiARLanguageCode;
-      } else {
-        SharedPrefModule().apiSelectedLanguageCode =
-            SharedPrefModule().apiENLanguageCode;
+        if (SharedPrefModule().language == 'ar') {
+          SharedPrefModule().apiSelectedLanguageCode =
+              SharedPrefModule().apiARLanguageCode;
+        } else {
+          SharedPrefModule().apiSelectedLanguageCode =
+              SharedPrefModule().apiENLanguageCode;
+        }
       }
+
+
+
     });
   }
 
@@ -135,23 +141,20 @@ class AppProviderModule with ChangeNotifier {
     _loadAppLanguages();
     if (_isLoggedIn) {
       /// TODO replace it with bearer token refresh
-      final isRefreshed = true;
-      if (isRefreshed) {
-        OdooDioModule().setAppHeaders();
 
-        CustomNavigatorModule.navigatorKey.currentState
-            ?.pushReplacementNamed(AppScreenEnum.home.name);
-      } else {
-        // SharedPrefModule().clear;
-        CustomNavigatorModule.navigatorKey.currentState
-            ?.pushReplacementNamed(AppScreenEnum.login.name);
-      }
+      OdooDioModule().setAppHeaders();
+
+      await Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushReplacementNamed(AppScreenEnum.home.name);
+
     } else {
-      CustomNavigatorModule.navigatorKey.currentState
-          ?.pushReplacementNamed(AppScreenEnum.login.name);
+      Routes.navigateToScreen(Routes.loginPage, NavigationType.pushReplacementNamed, context);
+      // CustomNavigatorModule.navigatorKey.currentState
+      //     ?.pushReplacementNamed(AppScreenEnum.login.name);
     }
     notifyListeners();
-    return Future.value();
+    // return Future.value();
   }
 
   void initAppThemeAndLanguage() {
@@ -181,8 +184,9 @@ class AppProviderModule with ChangeNotifier {
     _isLoggedIn = true;
     init(context);
     notifyListeners();
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushReplacementNamed(AppScreenEnum.login.name);
+    Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
+    // CustomNavigatorModule.navigatorKey.currentState
+    //     ?.pushReplacementNamed(AppScreenEnum.login.name);
   }
 
   /// Check if the user's token is expired or about to expire.

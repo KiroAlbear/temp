@@ -8,16 +8,16 @@ import 'package:image_loader/image_helper.dart';
 import '../cart_bloc.dart';
 import 'cart_order_details_Icon_item.dart';
 
-class CartOrderDetails extends BaseStatefulWidget {
+class CartOrderDetailsPage extends BaseStatefulWidget {
   final CartBloc cartBloc;
-  const CartOrderDetails(
+  const CartOrderDetailsPage(
       {required this.cartBloc, super.key});
 
   @override
-  State<CartOrderDetails> createState() => _CartOrderDetailsState();
+  State<CartOrderDetailsPage> createState() => _CartOrderDetailsState();
 }
 
-class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
+class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -28,11 +28,12 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
   bool isSafeArea() => true;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
   }
 
   @override
@@ -99,10 +100,12 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetails> {
                           .listen((event) {
                         if (event is SuccessState) {
                           widget.cartBloc.getMyCart();
-                          CustomNavigatorModule
-                              .navigatorKey.currentState!
-                              .pushReplacementNamed(
-                              AppScreenEnum.cartSuccessScreen.name);
+                          Routes.navigateToScreen(Routes.cartSuccessPage, NavigationType.pushReplacementNamed, context);
+                          // CustomNavigatorModule
+                          //     .navigatorKey.currentState!
+                          //     .pushReplacementNamed(
+                          //     AppScreenEnum.cartSuccessScreen.name);
+
                           widget.cartBloc.cartProductsBehavior.sink
                               .add(IdleState());
                         }

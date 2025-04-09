@@ -7,7 +7,6 @@ class AuthenticationSharedBloc extends BlocBase {
   late String? _mobile;
   late String? _nextScreen;
   late String? _userData;
-  bool isOtpNavigatedFromRegistration = false;
 
   DropDownMapper get countryMapper => _countryMapper ?? DropDownMapper.empty();
 

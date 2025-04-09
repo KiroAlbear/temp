@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/generated/l10n.dart';
 import 'faq_bloc.dart';
-class FaqWidget extends BaseStatefulWidget {
-  const FaqWidget({super.key});
+class FaqPage extends BaseStatefulWidget {
+  const FaqPage({super.key});
 
   @override
-  State<FaqWidget> createState() => _FaqWidgetState();
+  State<FaqPage> createState() => _FaqWidgetState();
 }
 
-class _FaqWidgetState extends BaseState<FaqWidget> {
+class _FaqWidgetState extends BaseState<FaqPage> {
   final FaqBloc _bloc = FaqBloc();
 
   @override
@@ -30,12 +30,12 @@ class _FaqWidgetState extends BaseState<FaqWidget> {
   Widget getBody(BuildContext context) => _screenDesign;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
   @override
   void onPopInvoked(didPop)  {
     changeSystemNavigationBarColor(secondaryColor);
-
+    super.onPopInvoked(didPop);
   }
 
   // BlocProvider get _blocProvider =>
