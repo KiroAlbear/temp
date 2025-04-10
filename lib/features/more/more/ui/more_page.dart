@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:deel/core/routes/navigation_type.dart';
+import 'package:deel/core/routes/routes.dart';
 import 'package:deel/deel.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +14,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
-class MoreWidget extends BaseStatefulWidget {
+class MorePage extends BaseStatefulWidget {
   final MoreBloc moreBloc;
   final ContactUsBloc contactUsBloc;
   final ProductCategoryBloc productCategoryBloc;
 
-  const MoreWidget({
+  const MorePage({
     super.key,
     required this.moreBloc,
     required this.contactUsBloc,
@@ -25,10 +27,10 @@ class MoreWidget extends BaseStatefulWidget {
   });
 
   @override
-  State<MoreWidget> createState() => _MoreWidgetState();
+  State<MorePage> createState() => _MoreWidgetState();
 }
 
-class _MoreWidgetState extends BaseState<MoreWidget> {
+class _MoreWidgetState extends BaseState<MorePage> {
   @override
   void initState() {
     super.initState();
@@ -47,12 +49,6 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
 
   @override
   bool isSafeArea() => true;
-
-  @override
-  void onPopInvoked(didPop) {
-    handleCloseApplication();
-    super.onPopInvoked(didPop);
-  }
 
   @override
   void dispose() {
@@ -107,12 +103,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                     padding: EdgeInsets.symmetric(horizontal: 14.w),
                     child: CustomButtonWidget(
                       idleText: S.of(context).createAccount,
-                      onTap: () {
-                        CustomNavigatorModule.navigatorKey.currentState
-                            ?.pushNamed(AppScreenEnum.register.name).then((value) {
-                          WidgetsBinding.instance
-                              .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
-                        },);
+                      onTap: () async {
+                        await Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
+                        await Routes.navigateToScreen(Routes.registerPage, NavigationType.pushNamed, context);
+                        WidgetsBinding.instance
+                            .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
                       },
                     )),
                 SizedBox(
@@ -142,15 +137,17 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).accountInfo, Assets.svg.icPerson, () {
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
+                  Routes.navigateToScreen(Routes.updateProfilePage, NavigationType.pushNamed, context);
+                  // CustomNavigatorModule.navigatorKey.currentState
+                  //     ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
                 }),
                 SizedBox(
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).changePassword, Assets.svg.icLock, () {
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.accountChangePassword.name);
+                  Routes.navigateToScreen(Routes.accountChangePasswordPage, NavigationType.pushNamed, context);
+                  // CustomNavigatorModule.navigatorKey.currentState
+                  //     ?.pushNamed(AppScreenEnum.accountChangePassword.name);
                 }),
                 SizedBox(
                   height: 10.h,
@@ -159,8 +156,9 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   S.of(context).myOrders,
                   Assets.svg.icMyOrders,
                       () {
-                    CustomNavigatorModule.navigatorKey.currentState
-                        ?.pushNamed(AppScreenEnum.myOrders.name);
+                        Routes.navigateToScreen(Routes.myOrdersPage, NavigationType.pushNamed, context);
+                    // CustomNavigatorModule.navigatorKey.currentState
+                    //     ?.pushNamed(AppScreenEnum.myOrders.name);
                   },
                   disabled: (SharedPrefModule().userId ?? '').isEmpty,
                   width: 17.w,
@@ -170,10 +168,11 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
-                  widget.productCategoryBloc.isForFavourite = true;
+                  // widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
-                  CustomNavigatorModule.navigatorKey.currentState
-                      ?.pushNamed(AppScreenEnum.product.name);
+                  Routes.navigateToScreen(Routes.favouritePage, NavigationType.pushNamed, context,setBottomNavigationTab: false);
+                  // CustomNavigatorModule.navigatorKey.currentState
+                  //     ?.pushNamed(AppScreenEnum.product.name);
                 },
                     disabled: (SharedPrefModule().userId ?? '').isEmpty,
                     height: 17.h,
@@ -218,32 +217,35 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
                 height: 8.h,
               ),
               _menuItem(S.of(context).contactUs, Assets.svg.icContactUsMore, () {
-                AlertModule().showContactUsDialog(
+                AlertModule().showContactUsBottomSheet(
                     contactUsBloc: widget.contactUsBloc, context: context);
               }),
               SizedBox(
                 height: 10.h,
               ),
               _menuItem(S.of(context).faq, Assets.svg.icFaq, () {
-                CustomNavigatorModule.navigatorKey.currentState
-                    ?.pushNamed(AppScreenEnum.faq.name);
+                Routes.navigateToScreen(Routes.faqPage, NavigationType.pushNamed, context);
+                // CustomNavigatorModule.navigatorKey.currentState
+                //     ?.pushNamed(AppScreenEnum.faq.name);
               }),
               SizedBox(
                 height: 10.h,
               ),
               _menuItem(S.of(context).usagePolicy, Assets.svg.icHealthCheck, () {
-                CustomNavigatorModule.navigatorKey.currentState
-                    ?.pushNamed(AppScreenEnum.usagePolicy.name);
+                Routes.navigateToScreen(Routes.usagePolicyPage, NavigationType.pushNamed, context);
+                // CustomNavigatorModule.navigatorKey.currentState
+                //     ?.pushNamed(AppScreenEnum.usagePolicy.name);
               }),
-              SizedBox(
-                height: 10.h,
-              ),
-              _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
-                _deleteAccount();
-              }),
+
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
                 SizedBox(
-                  height: 37.h,
+                  height: 10.h,
+                ),
+                _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
+                  _deleteAccount();
+                }),
+                SizedBox(
+                  height: 20.h,
                 ),
                 _menuItem(S.of(context).logout, Assets.svg.icLogout, color: Colors.red, () {
                   _logout();
@@ -274,21 +276,42 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
       );
 
   void handleCameraOrGallery() {
-    AlertModule().showDialog(
+    showModalBottomSheet(
       context: context,
-      message: S.of(context).selectPhotoFromCameraOrGallery,
-      cancelMessage: S.of(context).gallery,
-      confirmMessage: S.of(context).camera,
-      sameButtonsColor: true,
-      onCancel: () {
-        _requestGalleryPermission();
-        _listenForGalleryPermission();
-      },
-      onConfirm: () {
-        requestCameraPermission();
-        _listenForCameraPermissionResult();
-      },
-    );
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.24),
+      builder: (context) {
+      return DialogWidget(
+        message: S.of(context).selectPhotoFromCameraOrGallery,
+        cancelMessage: S.of(context).gallery,
+        confirmMessage: S.of(context).camera,
+        sameButtonsColor: true,
+        onCancel: () {
+          _requestGalleryPermission();
+          _listenForGalleryPermission();
+        },
+        onConfirm: () {
+          requestCameraPermission();
+          _listenForCameraPermissionResult();
+        },);
+    },);
+
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).selectPhotoFromCameraOrGallery,
+    //   cancelMessage: S.of(context).gallery,
+    //   confirmMessage: S.of(context).camera,
+    //   sameButtonsColor: true,
+    //   onCancel: () {
+    //     _requestGalleryPermission();
+    //     _listenForGalleryPermission();
+    //   },
+    //   onConfirm: () {
+    //     requestCameraPermission();
+    //     _listenForCameraPermissionResult();
+    //   },
+    // );
   }
 
   void requestCameraPermission() {
@@ -447,46 +470,94 @@ class _MoreWidgetState extends BaseState<MoreWidget> {
             )),
       );
 
-  void _updateImage(File file) {
-    /// TODO click on update profile image
-  }
 
   void _logout() {
-    AlertModule().showDialog(
+
+    showModalBottomSheet(
       context: context,
-      message: S.of(context).logoutMessage,
-      cancelMessage: S.of(context).cancel,
-      confirmMessage: S.of(context).yes,
-      headerMessage: S.of(context).logout,
-      headerSvg: Assets.svg.icAlert,
-      errorColorInConfirm: true,
-      onConfirm: () {
-        Future.delayed(const Duration(milliseconds: 600)).then((value) {
-          AppProviderModule().logout(context);
-          widget.moreBloc.selectedFileBehaviour.sink.add("");
-        });
-      },
-    );
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.48),
+      builder: (context) {
+        return DialogWidget(
+
+          message: S.of(context).logoutMessage,
+          cancelMessage: S.of(context).cancel,
+          confirmMessage: S.of(context).yes,
+          headerMessage: S.of(context).logout,
+          headerSvg: Assets.svg.icAlert,
+          errorColorInConfirm: true,
+          onConfirm: () {
+            Future.delayed(const Duration(milliseconds: 600)).then((value) {
+              AppProviderModule().logout(context);
+              widget.moreBloc.selectedFileBehaviour.sink.add("");
+            });
+          },
+
+          hasCloseButton: true,
+          sameButtonsColor: false,);
+      },);
+
+
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).logoutMessage,
+    //   cancelMessage: S.of(context).cancel,
+    //   confirmMessage: S.of(context).yes,
+    //   headerMessage: S.of(context).logout,
+    //   headerSvg: Assets.svg.icAlert,
+    //   errorColorInConfirm: true,
+    //   onConfirm: () {
+    //     Future.delayed(const Duration(milliseconds: 600)).then((value) {
+    //       AppProviderModule().logout(context);
+    //       widget.moreBloc.selectedFileBehaviour.sink.add("");
+    //     });
+    //   },
+    // );
   }
 
   void _deleteAccount() {
-    AlertModule().showDialog(
+    showModalBottomSheet(
       context: context,
-      message: S.of(context).deleteAccountMessage,
-      cancelMessage: S.of(context).cancel,
-      confirmMessage: S.of(context).deleteAccount,
-      headerMessage: S.of(context).deleteAccount,
-      headerSvg: Assets.svg.icAlert,
-      errorColorInConfirm: true,
-      onConfirm: () {
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.48),
+      builder: (context) {
+      return DialogWidget(
+        message: S.of(context).deleteAccountMessage,
+        cancelMessage: S.of(context).cancel,
+        confirmMessage: S.of(context).deleteAccount,
+        headerMessage: S.of(context).deleteAccount,
+        headerSvg: Assets.svg.icAlert,
+        errorColorInConfirm: true,
+        hasCloseButton: true,
+        sameButtonsColor: false,
+        onConfirm: () {
         widget.moreBloc.deactivateAccountStream.listen((event) {
           if (event is SuccessState) {
             AppProviderModule().logout(context);
             widget.moreBloc.selectedFileBehaviour.sink.add("");
           }
         });
-      },
-      hasCancelButton: true,
-    );
+      },);
+    },);
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).deleteAccountMessage,
+    //   cancelMessage: S.of(context).cancel,
+    //   confirmMessage: S.of(context).deleteAccount,
+    //   headerMessage: S.of(context).deleteAccount,
+    //   headerSvg: Assets.svg.icAlert,
+    //   errorColorInConfirm: true,
+    //   onConfirm: () {
+    //     widget.moreBloc.deactivateAccountStream.listen((event) {
+    //       if (event is SuccessState) {
+    //         AppProviderModule().logout(context);
+    //         widget.moreBloc.selectedFileBehaviour.sink.add("");
+    //       }
+    //     });
+    //   },
+    //   hasCancelButton: true,
+    // );
   }
 }

@@ -38,10 +38,10 @@ class DialogWidget extends StatefulWidget {
 
 class _DialogWidgetState extends State<DialogWidget> {
   @override
-  Widget build(BuildContext context) => _getContainer(child: _column);
+  Widget build(BuildContext context) =>  _column;
 
-  Widget _getContainer({required Widget child}) =>
-      DialogHeaderWidget(child: child);
+  // Widget _getContainer({required Widget child}) =>
+  //     DialogHeaderWidget(child: child);
 
   Widget get _column => Padding(
         padding: EdgeInsets.symmetric(horizontal: 17.w),
@@ -51,9 +51,9 @@ class _DialogWidgetState extends State<DialogWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
-                  height: 35.h,
-                ),
+                // SizedBox(
+                //   height: 35.h,
+                // ),
                 if (widget.headerMessage != null) _headerMessage,
                 if (widget.headerSvg != null) ...[
                   SizedBox(

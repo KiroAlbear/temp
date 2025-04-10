@@ -1,21 +1,20 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'home_bloc.dart';
 import 'offer_item.dart';
 
-class OffersWidget extends StatefulWidget {
+class OffersListingWidget extends StatefulWidget {
   final HomeBloc homeBloc;
   final bool isMainPage;
-  const OffersWidget(
+  const OffersListingWidget(
       {super.key, required this.homeBloc, required this.isMainPage});
 
   @override
-  State<OffersWidget> createState() => _OffersWidgetState();
+  State<OffersListingWidget> createState() => _OffersListingWidgetState();
 }
 
-class _OffersWidgetState extends State<OffersWidget>
+class _OffersListingWidgetState extends State<OffersListingWidget>
     with ResponseHandlerModule {
   final PageController _pageScrollController =
       PageController(viewportFraction: 0.6, keepPage: true);

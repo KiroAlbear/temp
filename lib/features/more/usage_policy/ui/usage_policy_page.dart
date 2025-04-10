@@ -4,17 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
-class UsagePolicyScreen extends BaseStatefulWidget {
+class UsagePolicyPage extends BaseStatefulWidget {
   final UsagePolicyBloc usagePolicyBloc;
 
-  const UsagePolicyScreen(
+  const UsagePolicyPage(
       {super.key, required this.usagePolicyBloc, });
 
   @override
-  State<UsagePolicyScreen> createState() => _UsagePolicyScreenState();
+  State<UsagePolicyPage> createState() => _UsagePolicyScreenState();
 }
 
-class _UsagePolicyScreenState extends BaseState<UsagePolicyScreen> {
+class _UsagePolicyScreenState extends BaseState<UsagePolicyPage> {
 
 
   @override
@@ -30,11 +30,12 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyScreen> {
   @override
   void onPopInvoked(didPop)  {
     changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
 
   }
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
 
   @override

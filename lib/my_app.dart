@@ -1,5 +1,6 @@
+import 'package:deel/core/services/dependency_injection_service.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/more/accountChangePassword/ui/account_change_password.dart';
+import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,10 +10,9 @@ import 'package:transition_easy/custom_transition_module.dart';
 import 'package:transition_easy/easy_fade_in_transition.dart';
 import 'package:transition_easy/easy_transition.dart';
 import 'core/generated/l10n.dart';
+import 'core/routes/routes.dart';
 import 'flavors.dart';
 import 'package:deel/gen/assets.gen.dart';
-
-part 'navigation_routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         },
       );
 
-  Widget _materialApp(BuildContext context) => MaterialApp(
+  Widget _materialApp(BuildContext context) => MaterialApp.router(
         title: F.name,
 
         /// default theme here
@@ -51,18 +51,8 @@ class MyApp extends StatelessWidget {
         locale: const Locale('ar'),
         supportedLocales: S.delegate.supportedLocales,
 
-        /// navigation key use for do navigation outside any context
-        navigatorKey: CustomNavigatorModule.navigatorKey,
+        routerConfig: Routes.goRouter,
 
-        /// allow Chucker Flutter to show
-        // navigatorObservers: [ChuckerFlutter.navigatorObserver],
-
-        /// handle generated routes for navigation
-        onGenerateRoute: (settings) =>
-            _onGenerateRoute(settings.name ?? '', context),
-
-        /// set default screen route for app
-        initialRoute: AppScreenEnum.splash.name,
       );
 
   List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {

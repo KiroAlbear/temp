@@ -6,16 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/generated/l10n.dart';
 import 'my_orders_bloc.dart';
 
-class MyOrdersScreen extends BaseStatefulWidget {
+class MyOrdersPage extends BaseStatefulWidget {
   final MyOrdersBloc myOrdersBloc;
-  MyOrdersScreen(
+  MyOrdersPage(
       { required this.myOrdersBloc, super.key});
 
   @override
-  State<MyOrdersScreen> createState() => _MyOrdersScreenState();
+  State<MyOrdersPage> createState() => _MyOrdersScreenState();
 }
 
-class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
+class _MyOrdersScreenState extends BaseState<MyOrdersPage>
     with SingleTickerProviderStateMixin {
   ValueNotifier<double> _toggleXAlign = ValueNotifier<double>(-1);
   late final TabController _tabController;
@@ -33,11 +33,12 @@ class _MyOrdersScreenState extends BaseState<MyOrdersScreen>
   bool isBottomSafeArea() =>false;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
   }
 
   @override

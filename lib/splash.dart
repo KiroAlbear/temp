@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'deel.dart';
 
-class SplashWidget extends BaseStatefulWidget {
-  const SplashWidget({super.key});
+class SplashScreen extends BaseStatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<SplashWidget> createState() => _SplashWidgetState();
+  State<SplashScreen> createState() => _SplashWidgetState();
 }
 
-class _SplashWidgetState extends BaseState<SplashWidget> {
+class _SplashWidgetState extends BaseState<SplashScreen> {
   @override
   PreferredSizeWidget? appBar() => null;
 
   @override
   void initState() {
     customBackgroundColor = primaryColor;
-    super.initState();
     Future.delayed(const Duration(seconds: 2))
         .then((value) => AppProviderModule().init(context));
+    super.initState();
+
   }
 
   @override

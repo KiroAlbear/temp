@@ -4,25 +4,14 @@ import 'package:rxdart/rxdart.dart';
 
 class BottomNavigationBloc extends BlocBase {
   final BehaviorSubject<int> _selectedTabBehaviour = BehaviorSubject();
-  final Widget loginWidget;
-  List<Widget> widgetList = [];
-
   Stream<int> get selectedTabStream => _selectedTabBehaviour.stream;
-
   int get selectedTab => _selectedTabBehaviour.value;
 
   void setSelectedTab(int value, BuildContext? context) {
-    if ((value == 1 || value == 3) &&
-        (SharedPrefModule().userId ?? '').isEmpty) {
-      if (context != null) {
-        Apputils.showNeedToLoginDialog(context);
-      }
-    } else {
       _selectedTabBehaviour.sink.add(value);
-    }
   }
 
-  BottomNavigationBloc(this.widgetList, this.loginWidget) {
+  BottomNavigationBloc() {
     _selectedTabBehaviour.sink.add(0);
   }
 

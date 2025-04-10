@@ -8,7 +8,6 @@ import 'package:image_loader/image_helper.dart';
 
 import '../../../../core/dto/enums/app_screen_enum.dart';
 import '../../../../core/dto/modules/app_color_module.dart';
-import '../../../../core/dto/modules/custom_navigator_module.dart';
 import '../../../../core/dto/modules/custom_text_style_module.dart';
 import '../../../../core/generated/l10n.dart';
 import '../../../../core/ui/bases/bloc_base.dart';
@@ -23,7 +22,6 @@ class LogoTopWidget extends StatefulWidget {
   final bool canSkip;
   final bool isHavingBackArrow;
   final bool pressingBackTwice;
-  final BottomNavigationBloc? bottomNavigationBloc;
 
   const LogoTopWidget(
       {super.key,
@@ -32,7 +30,6 @@ class LogoTopWidget extends StatefulWidget {
       required this.blocBase,
         this.isHavingBackArrow = false,
         this.pressingBackTwice = false,
-      this.bottomNavigationBloc,
       this.canSkip = false});
 
   @override
@@ -71,11 +68,12 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                     onTap: () {
 
                       if(widget.pressingBackTwice){
-                        CustomNavigatorModule.navigatorKey.currentState?.pop();
-                        // Navigator.pop(context);
+
+                        // CustomNavigatorModule.navigatorKey.currentState?.pop();
+                        Navigator.pop(context);
                       }
-                      CustomNavigatorModule.navigatorKey.currentState?.pop();
-                      // Navigator.pop(context);
+                      // CustomNavigatorModule.navigatorKey.currentState?.pop();
+                      Navigator.pop(context);
                     },
                     child: SizedBox(
                       width: 30.w,
@@ -114,10 +112,11 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
         children: [
           InkWell(
             onTap: () {
-              CustomNavigatorModule.navigatorKey.currentState
-                  ?.pushReplacementNamed(AppScreenEnum.home.name);
-              if (widget.bottomNavigationBloc != null)
-                widget.bottomNavigationBloc!.setSelectedTab(0, context);
+              Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+              // CustomNavigatorModule.navigatorKey.currentState
+              //     ?.pushReplacementNamed(AppScreenEnum.home.name);
+              getIt<BottomNavigationBloc>().setSelectedTab(0, context);
+                // widget.bottomNavigationBloc!.setSelectedTab(0, context);
             },
             child: Padding(
               padding: EdgeInsetsDirectional.only(top: 50.h,start: 26.w,end: 26.w, ),

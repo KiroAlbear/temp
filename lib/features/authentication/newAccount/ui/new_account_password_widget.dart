@@ -7,20 +7,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'new_account_bloc.dart';
 
-class NewAccountPasswordWidget extends StatefulWidget {
+class NewAccountPasswordPage extends StatefulWidget {
   final NewAccountBloc newAccountBloc;
   final PasswordValidationBloc passwordValidationBloc;
-  const NewAccountPasswordWidget(
+  const NewAccountPasswordPage(
       {super.key,
       required this.newAccountBloc,
       required this.passwordValidationBloc});
 
   @override
-  State<NewAccountPasswordWidget> createState() =>
-      _NewAccountPasswordWidgetState();
+  State<NewAccountPasswordPage> createState() =>
+      _NewAccountPasswordPageState();
 }
 
-class _NewAccountPasswordWidgetState extends State<NewAccountPasswordWidget>
+class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
     with ResponseHandlerModule {
   // ValueNotifier<bool> isValidated = ValueNotifier(false);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

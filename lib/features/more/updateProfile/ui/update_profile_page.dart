@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
-class UpdateProfileScreen extends BaseStatefulWidget {
+class UpdateProfilePage extends BaseStatefulWidget {
 
   final MoreBloc moreBloc;
 
-  const UpdateProfileScreen(
+  const UpdateProfilePage(
       { required this.moreBloc, super.key});
 
   @override
-  State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
+  State<UpdateProfilePage> createState() => _UpdateProfileScreenState();
 }
 
-class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
+class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
   final UpdateProfileBloc _bloc = UpdateProfileBloc();
   final double _headerSpacing = 15.h;
   final double _textfieldsSpacing = 20.h;
@@ -33,11 +33,12 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfileScreen> {
   bool isBottomSafeArea() =>false;
 
   @override
-  Color? systemNavigationBarColor() => Colors.white;
+  Color? systemNavigationBarColor() => secondaryColor;
 
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
+    super .onPopInvoked(didPop);
   }
 
   @override

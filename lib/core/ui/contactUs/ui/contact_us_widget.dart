@@ -18,19 +18,17 @@ class ContactUsWidget extends StatefulWidget {
 class _ContactUsWidgetState extends State<ContactUsWidget>
     with ResponseHandlerModule {
   @override
-  Widget build(BuildContext context) => DialogHeaderWidget(
-        child: StreamBuilder<ApiState<ContactUsMapper>>(
-          stream: widget.contactUsBloc.contactUsStream,
-          builder: (context, snapshot) {
-            if (snapshot.data == null) {
-              return const SizedBox();
-            } else
-              return checkResponseStateWithLoadingWidget(
-                  snapshot.data!, context,
-                  onSuccess: _buildScreenDesign(snapshot.data!.response!));
-          },
-        ),
-      );
+  Widget build(BuildContext context) => StreamBuilder<ApiState<ContactUsMapper>>(
+    stream: widget.contactUsBloc.contactUsStream,
+    builder: (context, snapshot) {
+      if (snapshot.data == null) {
+        return const SizedBox();
+      } else
+        return checkResponseStateWithLoadingWidget(
+            snapshot.data!, context,
+            onSuccess: _buildScreenDesign(snapshot.data!.response!));
+    },
+  );
 
   Widget _buildScreenDesign(ContactUsMapper contactUsMapper) => Column(
         children: [
@@ -92,9 +90,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
                   Assets.svg.icFaceBook, S.of(context).faceBook),
             ),
           ),
-          SizedBox(
-            height: 50.h,
-          ),
+          // SizedBox(
+          //   height: 50.h,
+          // ),
         ],
       );
 

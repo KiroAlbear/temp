@@ -1,4 +1,5 @@
 import 'package:deel/deel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HomeBloc extends BlocBase {
@@ -11,7 +12,7 @@ class HomeBloc extends BlocBase {
       BehaviorSubject()..sink.add(LoadingState());
 
   final Function(CategoryMapper categoryMapper) onCategoryClick;
-  final Function(String value) doSearch;
+  final Function(String value,BuildContext context) doSearch;
 
   HomeBloc({required this.onCategoryClick, required this.doSearch});
 

@@ -1,24 +1,45 @@
+import 'package:deel/deel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../dto/enums/app_screen_enum.dart';
 import '../dto/modules/alert_module.dart';
-import '../dto/modules/custom_navigator_module.dart';
 import '../generated/l10n.dart';
 
 class Apputils {
-  static showNeedToLoginDialog(BuildContext context) {
-    AlertModule().showDialog(
+  static Future<void> showNeedToLoginBottomSheet(BuildContext context) async {
+    await showModalBottomSheet(
       context: context,
-      message: S.of(context).youNeedToLoginToUseApp,
-      onConfirm: () {
-        Future.delayed(const Duration(milliseconds: 600)).then(
-          (value) {
-            CustomNavigatorModule.navigatorKey.currentState
-                ?.pushReplacementNamed(AppScreenEnum.login.name);
-          },
-        );
-      },
-      cancelMessage: S.of(context).cancel,
-    );
+      useRootNavigator: true,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.25,
+      ),
+      builder: (context) {
+      return DialogWidget(
+        message: S.of(context).youNeedToLoginToUseApp,
+        confirmMessage: S.of(context).ok,
+        sameButtonsColor: false,
+        onConfirm: () {
+          Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
+        },
+        cancelMessage: S.of(context).cancel,
+      );
+    },);
+
+    // AlertModule().showDialog(
+    //   context: context,
+    //   message: S.of(context).youNeedToLoginToUseApp,
+    //   confirmMessage: S.of(context).ok,
+    //   onConfirm: () {
+    //     Future.delayed(const Duration(milliseconds: 600)).then(
+    //       (value) {
+    //         Routes.navigateToScreen(Routes.loginScreen, NavigationType.pushReplacementNamed, context);
+    //         // CustomNavigatorModule.navigatorKey.currentState
+    //         //     ?.pushReplacementNamed(AppScreenEnum.login.name);
+    //       },
+    //     );
+    //   },
+    //   cancelMessage: S.of(context).cancel,
+    // );
   }
 
   static Map<String, dynamic> convertFlaseToNullJson(

@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/generated/l10n.dart';
 
-class CartScreen extends BaseStatefulWidget {
+class CartPage extends BaseStatefulWidget {
 
   final CartBloc cartBloc;
 
   final ProductCategoryBloc productCategoryBloc;
 
-  CartScreen(
+  CartPage(
       {required this.cartBloc,
 
       required this.productCategoryBloc,
       super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<CartPage> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends BaseState<CartScreen> {
+class _CartScreenState extends BaseState<CartPage> {
   ValueNotifier<bool> isLoading = ValueNotifier(false);
 
   @override
@@ -153,6 +153,7 @@ class _CartScreenState extends BaseState<CartScreen> {
                         barrierColor: bottomSheetBarrierColor,
                         backgroundColor: whiteColor,
                         useRootNavigator: true,
+                        elevation: 0,
                         constraints: BoxConstraints(
                             maxHeight:
                                 MediaQuery.of(context).size.height * 0.26),

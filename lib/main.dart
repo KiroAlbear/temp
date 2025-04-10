@@ -10,6 +10,7 @@ import 'core/dto/modules/app_provider_module.dart';
 import 'core/dto/modules/logger_module.dart';
 import 'core/dto/modules/odoo_dio_module.dart';
 import 'core/dto/network/app_http_overrides.dart';
+import 'core/services/dependency_injection_service.dart';
 import 'flavors.dart';
 import 'my_app.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,6 +23,8 @@ FutureOr<void> main() async {
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
   );
+
+
 
   F.appFlavor ??= Flavor.app_stage;
 
@@ -60,7 +63,7 @@ FutureOr<void> main() async {
   /// allow Chucker to show in release mode
   // ChuckerFlutter.showOnRelease = true;
   HttpOverrides.global = AppHttpOverrides();
-
+  await DependencyInjectionService().init();
   /// run app and use provider for app config
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AppProviderModule>(create: (_) {

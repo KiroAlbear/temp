@@ -5,18 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
-class RegisterWidget extends BaseStatefulWidget {
+class RegisterPage extends BaseStatefulWidget {
 
   final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const RegisterWidget(
+  const RegisterPage(
       {super.key,  required this.authenticationSharedBloc});
 
   @override
-  State<RegisterWidget> createState() => _RegisterWidgetState();
+  State<RegisterPage> createState() => _RegisterWidgetState();
 }
 
-class _RegisterWidgetState extends BaseState<RegisterWidget>
+class _RegisterWidgetState extends BaseState<RegisterPage>
 {
   final RegisterBloc _bloc = RegisterBloc();
   final OtpBloc _otpBloc = OtpBloc();
@@ -100,8 +100,9 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
         _bloc.countryBloc.value!,
         _bloc.mobileBloc.value,
         AppScreenEnum.newAccount.name);
-    CustomNavigatorModule.navigatorKey.currentState
-        ?.pushNamed(AppScreenEnum.otp.name);
+    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.newAccountPage});
+    // CustomNavigatorModule.navigatorKey.currentState
+    //     ?.pushNamed(AppScreenEnum.otp.name);
   }
 
   Widget get _button => Center(
@@ -112,43 +113,42 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
               _bloc.checkPhone.listen(
                 (event) {
                   // only for testing
-                  if(kDebugMode){
-                    onlyForTestingCode();
-                  }else{
-                    checkResponseStateWithButton(
-                      event,
-                      context,
-                      failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                      buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                      onSuccess: () {
-                        _otpBloc
-                            .sendOtp(
-                            "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
-                            S.of(context).otpPhoneIsNotValid)
-                            .then(
-                              (value) {
-                            checkResponseStateWithButton(value, context,
-                                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                                headerErrorMessage: S
-                                    .of(context)
-                                    .otpPhoneIsNotValid, onSuccess: () {
-                                  widget.authenticationSharedBloc.setDataToAuth(
-                                      _bloc.countryBloc.value!,
-                                      _bloc.mobileBloc.value,
-                                      AppScreenEnum.newAccount.name);
-                                  CustomNavigatorModule.navigatorKey.currentState
-                                      ?.pushNamed(AppScreenEnum.otp.name);
-                                });
+                     if (kDebugMode){
+                        if(event is SuccessState)
+                          onlyForTestingCode();
+                    } else{
+                        checkResponseStateWithButton(
+                          event,
+                          context,
+                          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                          onSuccess: () {
+                            _otpBloc
+                                .sendOtp(
+                                "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
+                                S.of(context).otpPhoneIsNotValid)
+                                .then(
+                                  (value) {
+                                checkResponseStateWithButton(value, context,
+                                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                                    headerErrorMessage: S
+                                        .of(context)
+                                        .otpPhoneIsNotValid, onSuccess: () {
+                                      widget.authenticationSharedBloc.setDataToAuth(
+                                          _bloc.countryBloc.value!,
+                                          _bloc.mobileBloc.value,
+                                          AppScreenEnum.newAccount.name);
+                                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context);
+                                      // CustomNavigatorModule.navigatorKey.currentState
+                                      //     ?.pushNamed(AppScreenEnum.otp.name);
+                                    });
+                              },
+                            );
                           },
                         );
-                      },
-                    );
-                  }
-
-
-
-                },
+                      }
+                    }
               );
             }
           },
@@ -159,8 +159,7 @@ class _RegisterWidgetState extends BaseState<RegisterWidget>
       );
 
   Widget get _loginWidget => InkWell(
-        onTap: () => CustomNavigatorModule.navigatorKey.currentState
-            ?.pushNamed(AppScreenEnum.login.name),
+        onTap: () =>  Routes.navigateToScreen(Routes.loginPage, NavigationType.pushNamed, context),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
           child: Row(

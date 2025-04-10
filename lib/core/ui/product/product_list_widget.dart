@@ -12,6 +12,9 @@ class ProductListWidget extends StatefulWidget {
   final CartBloc cartBloc;
   final ProductCategoryBloc productCategoryBloc;
   final String emptyFavouriteScreen;
+  final bool isForFavourite;
+
+
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
   final Function(ProductMapper productMapper) onAddToCart;
   final Function(ProductMapper productMapper)? onDecrementClicked;
@@ -33,6 +36,7 @@ class ProductListWidget extends StatefulWidget {
       required this.loadMore,
       required this.emptyFavouriteScreen,
       required this.onDeleteClicked,
+      required this.isForFavourite,
       this.onDecrementClicked,
       this.onIncrementClicked});
 
@@ -51,7 +55,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
     favouriteList.addAll(widget.productList);
     widget.cartBloc.addCartInfoToProducts(widget.productList);
 
-    if (widget.productCategoryBloc.isForFavourite) addAllProductToFavourite();
+    if (widget.isForFavourite) addAllProductToFavourite();
     super.initState();
   }
 
@@ -84,7 +88,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
         child: ValueListenableBuilder(
           valueListenable: refreshNotifier,
           builder: (context, value, child) {
-            if (widget.productCategoryBloc.isForFavourite &&
+            if (widget.isForFavourite &&
                 widget.productList
                     .where(
                       (element) => element.isFavourite == true,
@@ -110,7 +114,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   },
                   cartBloc: widget.cartBloc,
                   productCategoryBloc: widget.productCategoryBloc,
-                  productMapper: widget.productCategoryBloc.isForFavourite
+                  productMapper: widget.isForFavourite
                       ? favouriteList[index]
                       : widget.productList[index],
                   onAddToCart: widget.onAddToCart,
@@ -121,7 +125,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   onDecrementClicked: widget.onDecrementClicked,
                   favouriteIconFilled: widget.favouriteIconFilled,
                 ),
-                itemCount: widget.productCategoryBloc.isForFavourite
+                itemCount: widget.isForFavourite
                     ? favouriteList.length
                     : widget.productList.length,
                 shrinkWrap: true,
