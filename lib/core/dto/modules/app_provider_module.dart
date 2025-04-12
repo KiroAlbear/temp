@@ -137,7 +137,7 @@ class AppProviderModule with ChangeNotifier {
 
   /// Initialize the app's state and check user authentication status.
   Future<void> init(BuildContext context) async {
-    _isLoggedIn = SharedPrefModule().bearerToken != null;
+    _isLoggedIn = SharedPrefModule().bearerToken != null && SharedPrefModule().bearerToken!.isNotEmpty;
     _loadAppLanguages();
     if (_isLoggedIn) {
       /// TODO replace it with bearer token refresh
@@ -149,7 +149,7 @@ class AppProviderModule with ChangeNotifier {
       //     ?.pushReplacementNamed(AppScreenEnum.home.name);
 
     } else {
-      Routes.navigateToScreen(Routes.loginPage, NavigationType.pushReplacementNamed, context);
+      await Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
       // CustomNavigatorModule.navigatorKey.currentState
       //     ?.pushReplacementNamed(AppScreenEnum.login.name);
     }
@@ -168,7 +168,7 @@ class AppProviderModule with ChangeNotifier {
   }
 
   /// Log the user out by clearing shared preferences and updating the state.
-  void logout(BuildContext context) {
+  void logout(BuildContext context) async {
     var locale = SharedPrefModule().locale;
     var isDark = SharedPrefModule().isDarkMode;
     var userPhone = SharedPrefModule().userPhone;
@@ -182,11 +182,8 @@ class AppProviderModule with ChangeNotifier {
     SharedPrefModule().userPhoneWithoutCountry = userPhoneWithoutCountry;
     SharedPrefModule().bearerToken = null;
     _isLoggedIn = true;
-    init(context);
+    await init(context);
     notifyListeners();
-    Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
-    // CustomNavigatorModule.navigatorKey.currentState
-    //     ?.pushReplacementNamed(AppScreenEnum.login.name);
   }
 
   /// Check if the user's token is expired or about to expire.

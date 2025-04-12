@@ -472,13 +472,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
 
 
   void _logout() {
-
+/**/
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
       constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.48),
-      builder: (context) {
+      builder: (context2) {
         return DialogWidget(
 
           message: S.of(context).logoutMessage,
