@@ -995,6 +995,15 @@ class S {
     );
   }
 
+  String get changePasswordError {
+    return Intl.message(
+      'Error in changing password',
+      name: 'changePasswordError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Products`
   String get products {
     return Intl.message(

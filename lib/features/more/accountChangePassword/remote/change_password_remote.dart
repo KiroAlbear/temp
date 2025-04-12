@@ -9,7 +9,7 @@ import '../../../../core/dto/remote/base_remote_module.dart';
 class ChangePasswordRemote extends BaseRemoteModule<void, void> {
   ChangePasswordRemote(
       {required String oldPassword, required String newPassword}) {
-    var apiFuture = ApiClient(OdooDioModule().build()).changePassword(
+    apiFuture = ApiClient(OdooDioModule().build()).changePassword(
         ChangePasswordRequest(
             clientId: int.parse((SharedPrefModule().userId ?? '0')),
             newPassword: newPassword,
@@ -20,6 +20,7 @@ class ChangePasswordRemote extends BaseRemoteModule<void, void> {
   ApiState<void> onSuccessHandle(void response) {
     return SuccessState(null);
   }
+
 
   @override
   Future<bool> refreshToken() async {

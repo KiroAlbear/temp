@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Account balance"),
         "accountInfo": MessageLookupByLibrary.simpleMessage("Account info"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
+  "changePasswordError": MessageLookupByLibrary.simpleMessage("Error in changing password"),
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":

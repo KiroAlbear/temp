@@ -22,7 +22,7 @@ class AccountChangePasswordBloc extends BlocBase{
           _validatorModule.isMatchValid(
               passwordBloc.value, confirmPasswordBloc.value);
 
-  Stream<ApiState<void>> get changePassword=> ChangePasswordRemote(
+  Stream<ApiState<void>> get changePassword => ChangePasswordRemote(
     newPassword: passwordBloc.value,
     oldPassword: currentPasswordBloc.value
   ).callApiAsStream();

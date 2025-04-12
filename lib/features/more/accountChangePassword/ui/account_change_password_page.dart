@@ -185,18 +185,21 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
             _bloc.changePassword.listen(
               (event) {
                 // only for testing
-                if(kDebugMode){
-                  onlyForTestingCode();
-                }else{
+                // if(kDebugMode){
+                //   onlyForTestingCode();
+                // }else
+                {
                   checkResponseStateWithButton(event, context,
                       failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                      headerErrorMessage: S.of(context).changePasswordError,
                       onSuccess: () {
-                        Future.delayed(const Duration(milliseconds: 600))
-                            .then((value) {
-                          AppProviderModule().logout(context);
-                        });
-                        // Navigator.pop(context);
+                        AppProviderModule().logout(context);
+
+                        // Future.delayed(const Duration(milliseconds: 600))
+                        //     .then((value) {
+                        // });
+
                       });
                 }
               },
