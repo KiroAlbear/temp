@@ -1,7 +1,7 @@
 name: deel
 description: "A new Flutter project."
 
-version: 1.0.7+17
+version: 1.0.8+19
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -21,7 +21,7 @@ dependencies:
   firebase_crashlytics: ^4.1.5
   firebase_analytics: ^11.3.5
   otp_text_field: ^1.1.3
-  otp_pin_field: 1.4.1
+  otp_pin_field: 1.2.9+1
   country_codes: ^3.1.0+2
   permission_handler: ^11.3.1
   flutter_screenutil: ^5.9.1
@@ -59,10 +59,7 @@ dependencies:
   index_generator: ^3.4.1
   mockito: ^5.4.4
   retrofit_generator: '>=5.0.0 <6.0.0'
-  timelines:
-    git:
-      url: https://github.com/KiroAlbear/timelines_pubdev.git
-      ref: main
+  timelines: ^0.1.0
   geolocator: ^13.0.2
   http_mock_adapter: ^0.6.1
   dio: ^5.8.0+1
