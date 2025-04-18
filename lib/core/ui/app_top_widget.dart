@@ -165,13 +165,15 @@ class _AppTopWidgetState extends State<AppTopWidget> {
 
   Widget get _searchProductWidget => widget.searchIcon == null?SizedBox():InkWell(
         onTap: () => widget.doSearch!(),
-        child: ImageHelper(
-          image: widget.searchIcon!,
-          imageType: ImageType.svg,
-          color: disabledButtonTextColorLightMode,
-          width: 19.w,
-          height: 19.h,
-          boxFit: BoxFit.scaleDown,
+        child: Padding(
+          padding: EdgeInsetsDirectional.only(start: 15.0,end: 5.0),
+          child: ImageHelper(
+            image: widget.searchIcon!,
+            imageType: ImageType.svg,
+            color: disabledButtonTextColorLightMode,
+
+            boxFit: BoxFit.scaleDown,
+          ),
         ),
       );
 

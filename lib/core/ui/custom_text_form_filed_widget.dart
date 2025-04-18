@@ -236,7 +236,14 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         label: widget.customLabelText ?? _labelText,
         suffixIcon: widget.isPassword ? _passwordIcon : widget.suffixIcon,
         prefixIcon: widget.prefixIcon,
-
+        prefixIconConstraints: widget.prefixIcon != null
+            ? BoxConstraints(
+                minWidth: 0.w,
+                minHeight: 0.h,
+                maxWidth: 60.w,
+                maxHeight: 40.h,
+              )
+            : null,
         border: _getBorder(greyTextFieldBorderColorLightMode),
         disabledBorder: _getBorder(greyColor),
         enabledBorder: _getBorder(greyTextFieldBorderColorLightMode),

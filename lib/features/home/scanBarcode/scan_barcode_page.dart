@@ -2,17 +2,16 @@ import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_zxing/flutter_zxing.dart';
+import 'package:image_loader/image_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/generated/l10n.dart';
 import '../home/ui/home_bloc.dart';
 
 class ScanBarcodePage extends BaseStatefulWidget {
-
   final HomeBloc homeBloc;
 
-  const ScanBarcodePage(
-      {super.key, required this.homeBloc});
+  const ScanBarcodePage({super.key, required this.homeBloc});
 
   @override
   State<ScanBarcodePage> createState() => _ScanBarcodeWidgetState();
@@ -62,34 +61,67 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
   bool isSafeArea() => true;
 
   @override
-  bool isBottomSafeArea() =>false;
+  bool isBottomSafeArea() => false;
 
   @override
   Widget getBody(BuildContext context) => BlocProvider(
       bloc: _bloc,
-      child: Column(
+      child: Stack(
         children: [
-          AppTopWidget(
-            title: S.of(context).scanBarcode,
-            isHavingBack: true,
-          ),
-          SizedBox(
-            height: 40.h,
-          ),
           _scanStreamBuilder,
-          SizedBox(
-            height: 30.h,
+          Positioned(
+            child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: ImageHelper(
+                  image: Assets.svg.icBack,
+                  imageType: ImageType.svg,
+                  width: 25.w,
+                  height: 25.h,
+                )),
+            top: 50.h,
+            right: 20.w,
           ),
-          CustomText(
-            text: S.of(context).scanText,
-            customTextStyle: RegularStyle(
-              color: lightBlackColor,
-              fontSize: 18.sp,
+          Positioned(
+            bottom: 70,
+            left: 0,
+            right: 0,
+            child: CustomText(
+              text: S.of(context).scanText,
+              customTextStyle: RegularStyle(
+                color: Colors.white,
+                fontSize: 16.sp,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
+          )
         ],
-      ));
+      )
+      // Column(
+      //   children: [
+      //     AppTopWidget(
+      //       title: S.of(context).scanBarcode,
+      //       isHavingBack: true,
+      //     ),
+      //     SizedBox(
+      //       height: 40.h,
+      //     ),
+      //     _scanStreamBuilder,
+      //     SizedBox(
+      //       height: 30.h,
+      //     ),
+      //     CustomText(
+      //       text: S.of(context).scanText,
+      //       customTextStyle: RegularStyle(
+      //         color: lightBlackColor,
+      //         fontSize: 18.sp,
+      //       ),
+      //       textAlign: TextAlign.center,
+      //     ),
+      //   ],
+      // )
+      );
 
   StreamBuilder<bool> get _scanStreamBuilder => StreamBuilder<bool>(
         stream: _bloc.scanStream,
@@ -99,24 +131,24 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
       );
 
   Widget get _scanningWidget => SizedBox(
-        height: 270.h,
-        width: MediaQuery.of(context).size.width,
         child: ReaderWidget(
           isMultiScan: false,
           lensDirection: CameraLensDirection.back,
           showScannerOverlay: true,
-          actionButtonsBackgroundColor: secondaryColor,
+          actionButtonsBackgroundColor: yellowSwitchColorBorderLightMode,
           scannerOverlay: FixedScannerOverlay(
-            borderColor: secondaryColor,
+            borderColor: yellowSwitchColorBorderLightMode,
             borderLength: 20.w,
             borderWidth: 4.w,
+            cutOutSize: 300.w,
           ),
           showToggleCamera: false,
           showGallery: false,
+          showFlashlight: false,
           codeFormat: Format.any,
           onScan: (code) {
             if (code.text != null && code.text!.isNotEmpty) {
-              widget.homeBloc.doSearch(code.text ?? '',context);
+              widget.homeBloc.doSearch(code.text ?? '', context);
             }
           },
         ),
