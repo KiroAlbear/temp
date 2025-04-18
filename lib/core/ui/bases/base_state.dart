@@ -105,17 +105,17 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
     );
   }
 
-  void onPopInvoked(didPop) {
+  void onPopInvoked(didPop) async {
       if (Navigator.canPop(context)) {
         Navigator.pop(context);
       } else {
-        handleCloseApplication(context);
+        await handleCloseApplication(context);
       }
 
   }
 
-  static void handleCloseApplication(BuildContext context) {
-    showModalBottomSheet(context: context,
+  static Future<void> handleCloseApplication(BuildContext context) async {
+    await showModalBottomSheet(context: context,
       useRootNavigator: true,
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.25,
