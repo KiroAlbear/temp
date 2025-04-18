@@ -132,10 +132,10 @@ class _OtpWidgetState extends BaseState<OtpPage> {
           maxLength: _bloc.otpCodeLength,
           otpPinFieldDecoration: OtpPinFieldDecoration.defaultPinBoxDecoration,
           otpPinFieldStyle: OtpPinFieldStyle(
-            textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 20.sp)
+            textStyle: SemiBoldStyle(color: lightBlackColor, fontSize: 27.sp)
                 .getStyle(),
             defaultFieldBackgroundColor: whiteColor,
-            defaultFieldBorderColor: greyColor,
+            defaultFieldBorderColor: greyTextFieldBorderColorLightMode,
             fieldBorderWidth: 1,
             fieldBorderRadius: 5.w,
           ),
