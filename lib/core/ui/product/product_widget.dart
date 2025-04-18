@@ -58,6 +58,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   final ValueNotifier<bool> isAddingToFavSucess = ValueNotifier(true);
   final double buttonWidth = 145.w;
   final double buttonHeight = 30.h;
+  final double plusMinusIconSize = 18.sp;
   String priceTextToShow = "";
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
 
@@ -435,8 +436,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         children: [
           horizontalSpace,
           Container(
-            height: 20.h,
-            width: 20.w,
+
             child: InkWell(
               onTap: () {
                 if (widget.isCartProduct &&
@@ -464,11 +464,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                       widget.productMapper.maxQuantity.round().toString());
                 }
               },
-              child: CustomText(
-                text: '+',
-                textAlign: TextAlign.center,
-                customTextStyle:
-                    MediumStyle(color: cartSuccessBlueColor, fontSize: 14.sp,lineHeight: 1.2),
+              child: Icon(
+                Icons.add,
+                weight: 10,
+                size: plusMinusIconSize,
+                color: cartSuccessBlueColor,
               ),
             ),
           ),
@@ -484,7 +484,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     text: value.toString(),
                     textAlign: TextAlign.center,
                     customTextStyle: MediumStyle(
-                        color: cartSuccessBlueColor, fontSize: 14.sp),
+                        color: cartSuccessBlueColor, fontSize: 14.sp,lineHeight: 0.7),
                   ),
                 );
               },
@@ -523,12 +523,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                             value <= 1)
                         ? ImageHelper(
                             image: widget.icDelete!, imageType: ImageType.svg)
-                        : CustomText(
-                            text: '-',
-                            textAlign: TextAlign.center,
-                            customTextStyle: MediumStyle(
-                                color: cartSuccessBlueColor, fontSize: 14.sp),
-                          );
+                        : Icon(
+                          Icons.remove,
+                          size: plusMinusIconSize,
+                          color: cartSuccessBlueColor,
+                    );
                   },
                 ),
               ),
