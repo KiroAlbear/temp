@@ -120,6 +120,15 @@ class S {
     );
   }
 
+  String get resetPasswordSetting {
+    return Intl.message(
+      'Forgot password?',
+      name: 'resetPasswordSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter`
   String get loginEnter {
     return Intl.message(

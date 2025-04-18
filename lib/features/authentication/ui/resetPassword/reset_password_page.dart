@@ -44,7 +44,7 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
       isHavingBackArrow: true,
-      logo: Assets.svg.logoYellow,
+      logo: null,
       blocBase: widget.forgetPasswordBloc,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -55,7 +55,7 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
               child: CustomText(
                   text: S.of(context).resetPassword,
                   customTextStyle:
-                      BoldStyle(color: lightBlackColor, fontSize: 24.sp)),
+                      BoldStyle(color: secondaryColor, fontSize: 24.sp)),
             ),
             SizedBox(
               height: 12.h,
@@ -63,7 +63,7 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
             CustomText(
                 text: S.of(context).password,
                 customTextStyle:
-                    RegularStyle(fontSize: 20.sp, color: lightBlackColor)),
+                MediumStyle(fontSize: 20.sp, color: secondaryColor)),
             SizedBox(
               height: 12.h,
             ),
@@ -78,8 +78,8 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
                     ),
                     CustomText(
                         text: S.of(context).confirmPassword,
-                        customTextStyle: RegularStyle(
-                            color: lightBlackColor, fontSize: 20.sp)),
+                        customTextStyle: MediumStyle(
+                            color: secondaryColor, fontSize: 20.sp)),
                     SizedBox(
                       height: 12.h,
                     ),
@@ -154,7 +154,7 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
       );
 
   Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).next,
+        idleText: S.of(context).save,
         onTap: () {
           if (widget.forgetPasswordBloc.isPasswordValid) {
             widget.forgetPasswordBloc.resetPassword.listen((event) {

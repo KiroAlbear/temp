@@ -144,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "favourites": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة السر؟"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
         "fullName": MessageLookupByLibrary.simpleMessage("اسم صاحب المنشأة ثلاثي"),
         "threeFullName": MessageLookupByLibrary.simpleMessage("الاسم الثلاثي"),
         "gallery": MessageLookupByLibrary.simpleMessage("معرض الصور"),
@@ -249,8 +250,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "registerNow": MessageLookupByLibrary.simpleMessage("انشئ حساب جديد"),
         "required": MessageLookupByLibrary.simpleMessage("حقل مطلوب"),
         "resendOtpAfter": m3,
-        "resetPassword":
-            MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة السر"),
+        "resetPasswordSetting":
+            MessageLookupByLibrary.simpleMessage("إعادة ضبط كلمة السر"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "saveChange": MessageLookupByLibrary.simpleMessage("حفظ التغيير"),
         "editData": MessageLookupByLibrary.simpleMessage("تعديل البيانات"),

@@ -47,7 +47,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
         isHavingBackArrow: true,
-        logo: Assets.svg.logoYellow,
+        logo: null,
         blocBase: widget.forgetPasswordBloc,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -56,7 +56,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
             children: [
               Center(
                 child: CustomText(
-                    text: S.of(context).forgotPassword,
+                    text: S.of(context).resetPasswordSetting,
                     customTextStyle:
                         BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
               ),

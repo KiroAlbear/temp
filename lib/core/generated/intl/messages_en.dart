@@ -149,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "favourites": MessageLookupByLibrary.simpleMessage("Favourites"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
+        "resetPasswordSetting": MessageLookupByLibrary.simpleMessage("Reset password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "generalError": MessageLookupByLibrary.simpleMessage(

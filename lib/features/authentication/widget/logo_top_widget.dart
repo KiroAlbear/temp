@@ -17,7 +17,7 @@ import '../../../../core/ui/logo_widget.dart';
 class LogoTopWidget extends StatefulWidget {
 
   final Widget child;
-  final String logo;
+  final String? logo;
   final BlocBase blocBase;
   final bool canSkip;
   final bool isHavingBackArrow;
@@ -26,7 +26,7 @@ class LogoTopWidget extends StatefulWidget {
   const LogoTopWidget(
       {super.key,
       required this.child,
-      required this.logo,
+      this.logo,
       required this.blocBase,
         this.isHavingBackArrow = false,
         this.pressingBackTwice = false,
@@ -86,10 +86,10 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
               SizedBox(
                 height:  widget.isHavingBackArrow?20.h:30.h,
               ),
-
+              widget.logo== null?SizedBox(height: 78.h, width: 234.w,):
               Center(
                 child:
-                    LogoWidget(height: 78.h, width: 234.w, logo: widget.logo),
+                    LogoWidget(height: 78.h, width: 234.w, logo: widget.logo!),
               ),
               SizedBox(
                 height: 30.h,
