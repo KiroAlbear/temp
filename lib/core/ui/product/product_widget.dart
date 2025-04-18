@@ -59,6 +59,8 @@ class _ProductWidgetState extends State<ProductWidget> {
   final double buttonWidth = 145.w;
   final double buttonHeight = 30.h;
   final double plusMinusIconSize = 18.sp;
+  final double plusMinusIconHeight = 30.h;
+
   String priceTextToShow = "";
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
 
@@ -423,8 +425,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   Widget _incrementDecrementButton() {
-    final SizedBox horizontalSpace = 10.horizontalSpace;
-    final SizedBox spacing = 0.horizontalSpace;
+    final double horizontalSpace = 10.w;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
@@ -434,9 +435,10 @@ class _ProductWidgetState extends State<ProductWidget> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          horizontalSpace,
           Container(
-
+            // color: Colors.red,
+            height: plusMinusIconHeight,
+            padding: EdgeInsetsDirectional.only(start: horizontalSpace),
             child: InkWell(
               onTap: () {
                 if (widget.isCartProduct &&
@@ -472,7 +474,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
             ),
           ),
-          spacing,
+
           Container(
             height: 20.h,
             width: 20.w,
@@ -490,50 +492,58 @@ class _ProductWidgetState extends State<ProductWidget> {
               },
             ),
           ),
-          spacing,
-          InkWell(
-            onTap: () {
-              if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
-                  qtyValueNotifier.value > 1) {
-                qtyValueNotifier.value--;
-                widget.productMapper.cartUserQuantity =
-                    qtyValueNotifier.value.toDouble();
 
-                widget.onDecrementClicked!(widget.productMapper);
-              }
-              // else if (qtyValueNotifier.value ==
-              //         widget.productMapper.minQuantity &&
-              //     widget.productMapper.minQuantity > 1) {
-              //   _showMaximumAlertDialog(
-              //       S.of(context).cartMinimumProductsReached,
-              //       widget.productMapper.minQuantity.round().toString());
-              // }
-              else {
-                _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
-              }
-            },
-            child: Container(
-              height: 30.h,
-              width: 20.w,
-              child: Center(
-                child: ValueListenableBuilder(
-                  valueListenable: qtyValueNotifier,
-                  builder: (context, value, child) {
-                    return (value == widget.productMapper.minQuantity ||
-                            value <= 1)
-                        ? ImageHelper(
-                            image: widget.icDelete!, imageType: ImageType.svg)
-                        : Icon(
-                          Icons.remove,
-                          size: plusMinusIconSize,
-                          color: cartSuccessBlueColor,
-                    );
-                  },
+          Container(
+            // color: Colors.red,
+            padding: EdgeInsetsDirectional.only(
+                end: horizontalSpace),
+            child: InkWell(
+              onTap: () {
+                if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
+                    qtyValueNotifier.value > 1) {
+                  qtyValueNotifier.value--;
+                  widget.productMapper.cartUserQuantity =
+                      qtyValueNotifier.value.toDouble();
+
+                  widget.onDecrementClicked!(widget.productMapper);
+                }
+                // else if (qtyValueNotifier.value ==
+                //         widget.productMapper.minQuantity &&
+                //     widget.productMapper.minQuantity > 1) {
+                //   _showMaximumAlertDialog(
+                //       S.of(context).cartMinimumProductsReached,
+                //       widget.productMapper.minQuantity.round().toString());
+                // }
+                else {
+                  _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
+                }
+              },
+              child: Container(
+                height: plusMinusIconHeight,
+
+                child: Center(
+                  child: ValueListenableBuilder(
+                    valueListenable: qtyValueNotifier,
+                    builder: (context, value, child) {
+                      return (value == widget.productMapper.minQuantity ||
+                              value <= 1)
+                          ? SizedBox(
+                            height: 24.h,
+                            width: 24.w,
+                            child: ImageHelper(
+                                image: widget.icDelete!, imageType: ImageType.svg),
+                          )
+                          : Icon(
+                            Icons.remove,
+                            size: plusMinusIconSize,
+                            color: cartSuccessBlueColor,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
           ),
-          horizontalSpace
         ],
       ),
     );
