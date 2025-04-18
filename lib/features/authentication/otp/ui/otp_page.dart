@@ -90,13 +90,14 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                           ),
                           _otpWidget(),
                           SizedBox(
-                            height: 16.h,
-                          ),
-
-                          SizedBox(
-                            height: 180.h,
+                            height: 37.h,
                           ),
                           Center(child: _sendOtpCounter),
+
+                          SizedBox(
+                            height: 150.h,
+                          ),
+
                           SizedBox(
                             height: 15.h,
                           ),
@@ -157,6 +158,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
               '+'),
       customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor));
 
+
   Widget get _sendOtpAgain => StreamBuilder(
         stream: _bloc.enableSendOtpStream,
         initialData: false,
@@ -177,7 +179,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   },
                   child: CustomText(
                       text: S.of(context).sendOtpAgain,
-                      customTextStyle: RegularStyle(
+                      customTextStyle: MediumStyle(
                           fontSize: 14.sp,
                           color: !(enableSnapShot.data ?? false)
                               ? greyColor
@@ -200,11 +202,9 @@ class _OtpWidgetState extends BaseState<OtpPage> {
           Visibility(
             visible: !(enableSnapShot.data ?? false),
             child: CustomText(
-                text: S
-                    .of(context)
-                    .resendOtpAfter('0:${timeSnapShot.data ?? 59}'),
+                text: '0:${timeSnapShot.data ?? 59}',
                 customTextStyle:
-                RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
+                MediumStyle(color: switchBorderColor, fontSize: 32.sp)),
           ),
         ],
       ),
