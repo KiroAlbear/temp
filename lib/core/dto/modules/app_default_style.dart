@@ -12,6 +12,6 @@ BoxDecoration get leftRadiusWhiteBorder => BoxDecoration(
 
 BoxDecoration get grayRectangleBorder=> BoxDecoration(
   color: whiteColor,
-  borderRadius: BorderRadius.circular(10.r),
+  borderRadius: BorderRadius.circular(6.r),
   border: Border.all(width: 1.w, color: greyTextFieldBorderColorLightMode)
 );

@@ -53,7 +53,6 @@ class MobileCountryWidget extends StatelessWidget {
         onChanged: (value) => mobileBloc.updateStringBehaviour(value),
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.number,
-
         defaultTextStyle:
             RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         validator: enableValidator
