@@ -31,14 +31,12 @@ class MobileCountryWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          Flexible(flex: 3, child: _countryPicker),
+          _countryPicker,
           SizedBox(
             width: 7.w,
           ),
-          Flexible(
-            flex: 7,
-            child: _mobileTextFormFiled(context),
-          ),
+          Expanded(child: _mobileTextFormFiled(context)),
+
 
         ],
       );
