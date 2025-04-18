@@ -15,7 +15,6 @@ class AppTopWidget extends StatefulWidget {
   final bool isHavingHomeLogo;
   final bool isHavingSearch;
   final bool isHavingSupport;
-  final bool isHavingSupportIcon;
   final String? notificationIcon;
   final String? scanIcon;
   final String? searchIcon;
@@ -40,7 +39,6 @@ class AppTopWidget extends StatefulWidget {
       this.isHavingHomeLogo = false,
       this.isHavingSearch = false,
       this.isHavingSupport = false,
-        this.isHavingSupportIcon = false,
       this.doSearch,
       this.onChanged,
       this.textFiledControllerStream,

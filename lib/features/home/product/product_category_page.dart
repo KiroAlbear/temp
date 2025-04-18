@@ -130,7 +130,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
         notificationIcon: Assets.svg.icNotification,
         scanIcon: Assets.svg.icScan,
         searchIcon: Assets.svg.icSearch,
-        isHavingSupportIcon: true,
+        isHavingSupport: true,
         doSearch: () => widget.homeBloc.doSearch(widget.homeBloc.searchBloc.value,context),
         textFiledControllerStream: widget.homeBloc.searchBloc.textFormFiledStream,
         onChanged: (value) => widget.homeBloc.searchBloc.updateStringBehaviour(value),
@@ -138,7 +138,6 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
             widget.productCategoryBloc.isNavigatingFromMore == false)
             ? false
             : true,
-        isHavingSupport: true,
         title: isNavigatedFromBannersOrOffers()
             ? " "
             : widget.isForFavourite

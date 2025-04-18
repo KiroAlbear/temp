@@ -368,6 +368,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
   }
 
   Widget get _logoWidget => AppTopWidget(
+    isHavingSupport: (SharedPrefModule().userId ?? '').isNotEmpty,
     title: S.of(context).more,
   );
 

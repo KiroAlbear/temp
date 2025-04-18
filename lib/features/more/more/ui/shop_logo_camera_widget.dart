@@ -93,7 +93,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
   );
 
   Widget get _shopLogoWidget => Positioned(
-        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) + 10.h ,
+        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) ,
         top: 20,
         child: StreamBuilder<String>(
           stream: widget.moreBloc.selectedFileStream,
@@ -136,7 +136,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
 
   Widget get _cameraWidget => Positioned(
         top: 75.h,
-        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) + 70.h ,
+        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) + 60.h ,
         child: InkWell(
           onTap: () => widget.openCameraOrGallery(),
           child: Container(
@@ -145,7 +145,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: secondaryColor,
-              borderRadius: BorderRadius.circular(10.w),
+              borderRadius: BorderRadius.circular(6.w),
             ),
             child: ImageHelper(
               image: widget.cameraIcon,

@@ -125,7 +125,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
       scanIcon: Assets.svg.icScan,
       focusNode: _focusNode,
       searchIcon: Assets.svg.icSearch,
-      isHavingSupportIcon: true,
       onChanged: (value) {
         widget.homeBloc.searchBloc.updateStringBehaviour(value);
       },
