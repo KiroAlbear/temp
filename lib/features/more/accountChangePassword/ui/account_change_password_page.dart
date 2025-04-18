@@ -197,9 +197,6 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
                         await SharedPrefModule().setPassword(_bloc.passwordBloc.textFormFiledBehaviour.value.text);
                         await AppProviderModule().logout(context);
 
-
-
-
                       });
                 }
               },
