@@ -228,10 +228,11 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   S.of(context).otpIsNotValid)
               .then(
             (value) {
-              //only for testing
+              // only for testing
               if(kDebugMode){
                  onlyForTestingCode();
-              }else{
+              }else
+              {
                 checkResponseStateWithButton(
                   value,
                   context,
@@ -240,6 +241,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   onSuccess: () {
                     widget.authenticationSharedBloc.userData = _bloc.userData;
                     Routes.navigateToScreen(widget.nextPage, NavigationType.pushReplacementNamed, context);
+
                     // CustomNavigatorModule.navigatorKey.currentState
                     //     ?.pushReplacementNamed(
                     //   widget.authenticationSharedBloc.nextScreen,

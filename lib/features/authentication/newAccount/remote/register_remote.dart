@@ -17,7 +17,7 @@ class RegisterRemote
       required String latitude,
       required String longitude}) {
     SharedPrefModule().userPhone = phone;
-    SharedPrefModule().password = password;
+    SharedPrefModule().setPassword(password);
     apiFuture = ApiClient(OdooDioModule().build()).register(RegisterRequest(
         login: phone,
         password: password,

@@ -112,11 +112,12 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
             if (_bloc.isValid) {
               _bloc.checkPhone.listen(
                 (event) {
-                  // only for testing
+                  //only for testing
                      if (kDebugMode){
                         if(event is SuccessState)
                           onlyForTestingCode();
-                    } else{
+                    } else
+                    {
                         checkResponseStateWithButton(
                           event,
                           context,
@@ -139,7 +140,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
                                           _bloc.countryBloc.value!,
                                           _bloc.mobileBloc.value,
                                           AppScreenEnum.newAccount.name);
-                                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context);
+                                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.newAccountPage});
                                       // CustomNavigatorModule.navigatorKey.currentState
                                       //     ?.pushNamed(AppScreenEnum.otp.name);
                                     });

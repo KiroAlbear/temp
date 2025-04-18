@@ -168,7 +168,7 @@ class AppProviderModule with ChangeNotifier {
   }
 
   /// Log the user out by clearing shared preferences and updating the state.
-  void logout(BuildContext context) async {
+  Future<void> logout(BuildContext context) async {
     var locale = SharedPrefModule().locale;
     var isDark = SharedPrefModule().isDarkMode;
     var userPhone = SharedPrefModule().userPhone;
@@ -177,7 +177,7 @@ class AppProviderModule with ChangeNotifier {
     SharedPrefModule().clear;
     SharedPrefModule().isDarkMode = isDark;
     SharedPrefModule().locale = locale;
-    SharedPrefModule().password = password;
+    await SharedPrefModule().setPassword(password);
     SharedPrefModule().userPhone = userPhone;
     SharedPrefModule().userPhoneWithoutCountry = userPhoneWithoutCountry;
     SharedPrefModule().bearerToken = null;

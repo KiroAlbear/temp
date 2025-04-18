@@ -126,8 +126,9 @@ class SharedPrefModule {
   String? get password =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.password));
 
-  set password(String? value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.password), value: value ?? '');
+  Future<void> setPassword(String? value) async {
+   await _sharedPref.setValue<String>(key: _sharedKey(SharedPRefEnum.password), value: value ?? '');
+}
 
   void get clear => _sharedPref.clear();
 

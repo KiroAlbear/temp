@@ -263,7 +263,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
         ),
       );
 
-  void _navigateHome() {
+  void _navigateHome() async {
     if (isLoggingWithBiometric == false) {
       SharedPrefModule().userPhone =
           "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
@@ -271,7 +271,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
       // SharedPrefModule().countryCode =
       //     int.tryParse(_bloc.countryBloc.value!.description.replaceAll("+", ""));
-      SharedPrefModule().password = _bloc.passwordBloc.value;
+      await SharedPrefModule().setPassword( _bloc.passwordBloc.value);
     }
     Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
     // CustomNavigatorModule.navigatorKey.currentState

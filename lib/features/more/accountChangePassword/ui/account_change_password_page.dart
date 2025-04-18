@@ -193,12 +193,12 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
                       failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
                       headerErrorMessage: S.of(context).changePasswordError,
-                      onSuccess: () {
-                        AppProviderModule().logout(context);
+                      onSuccess: () async {
+                        await SharedPrefModule().setPassword(_bloc.passwordBloc.textFormFiledBehaviour.value.text);
+                        await AppProviderModule().logout(context);
 
-                        // Future.delayed(const Duration(milliseconds: 600))
-                        //     .then((value) {
-                        // });
+
+
 
                       });
                 }
