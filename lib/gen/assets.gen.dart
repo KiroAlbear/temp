@@ -41,6 +41,7 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/ic_arrow_down.svg
   String get icArrowDown => 'assets/svg/ic_arrow_down.svg';
+  String get icArrowDownGrey => 'assets/svg/ic_arrow_down_grey.svg';
 
   String get icArrowDownBlue => 'assets/svg/ic_arrow_down_blue.svg';
 
@@ -219,6 +220,7 @@ class $AssetsSvgGen {
         icAcceptedOrderGreen,
         icAlert,
         icArrowDown,
+        icAcceptedOrderGray,
         icBack,
         icBiometric,
         icCamera,

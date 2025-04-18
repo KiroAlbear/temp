@@ -1,4 +1,5 @@
 import 'package:country_codes/country_codes.dart';
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -64,8 +65,9 @@ class _CountryWidgetState extends State<CountryWidget> {
       ),
       child: Container(
         height: 55.h,
+        width: 90.w,
         decoration: grayRectangleBorder,
-        padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 13.w),
+        padding: EdgeInsets.symmetric( horizontal: 0.w),
         child: StreamBuilder<DropDownMapper?>(
             stream: widget.countryBloc.selectedDropDownStream,
             builder: (context, snapshot) => Row(
@@ -86,10 +88,10 @@ class _CountryWidgetState extends State<CountryWidget> {
                       width: 12.w,
                     ),
                     ImageHelper(
-                      image: 'assets/svg/ic_arrow_down.svg',
+                      image: Assets.svg.icArrowDownGrey,
                       imageType: ImageType.svg,
-                      width: 17.w,
-                      height: 9.h,
+                      // width: 15.w,
+                      // height: 9.h,
                       color: greyTextFieldBorderColorLightMode,
                     ),
                   ],
