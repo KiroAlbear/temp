@@ -19,7 +19,8 @@ class CountryRemote
             id: (element.id ?? 0).toString(),
             image: element.imageUrl ?? '',
             description: (element.phoneCode ??0).toString(),
-        customValidator: ConstantModule.mobileRegex));
+            mobileValidator: ConstantModule.mobileRegex,
+            mobilePlusValidator: ConstantModule.mobilePlusRegex,));
       },
     );
     return SuccessState(list);

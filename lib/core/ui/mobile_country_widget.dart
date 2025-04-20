@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../dto/commonBloc/drop_down_bloc.dart';
@@ -30,13 +31,11 @@ class MobileCountryWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           _countryPicker,
           SizedBox(
             width: 7.w,
           ),
           Expanded(child: _mobileTextFormFiled(context)),
-
 
         ],
       );
@@ -53,11 +52,14 @@ class MobileCountryWidget extends StatelessWidget {
         onChanged: (value) => mobileBloc.updateStringBehaviour(value),
         textInputAction: TextInputAction.next,
         textInputType: TextInputType.number,
+        inputFormatter: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
         defaultTextStyle:
             RegularStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
         validator: enableValidator
             ? (value) => ValidatorModule()
-                .mobileValidator(context, countryBloc.value?.customValidator)
+                .mobileValidator(context, countryBloc.value?.mobileValidator)
                 .call(value)
             : null,
       );

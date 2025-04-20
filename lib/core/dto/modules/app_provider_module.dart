@@ -174,9 +174,13 @@ class AppProviderModule with ChangeNotifier {
     var userPhone = SharedPrefModule().userPhone;
     var userPhoneWithoutCountry = SharedPrefModule().userPhoneWithoutCountry;
     var password = SharedPrefModule().password;
+    var country = SharedPrefModule().getCountryCode();
+    
     SharedPrefModule().clear;
+    
     SharedPrefModule().isDarkMode = isDark;
     SharedPrefModule().locale = locale;
+    SharedPrefModule().setCountryCode(country);
     await SharedPrefModule().setPassword(password);
     SharedPrefModule().userPhone = userPhone;
     SharedPrefModule().userPhoneWithoutCountry = userPhoneWithoutCountry;

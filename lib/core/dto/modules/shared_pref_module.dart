@@ -116,11 +116,15 @@ class SharedPrefModule {
       key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry),
       value: value ?? '');
 
-  int? get countryCode =>
-      _sharedPref.getValue<int>(key: _sharedKey(SharedPRefEnum.countryCode));
+  String? getCountryCode()  {
+    return  _sharedPref.getValue<String>(key: SharedPRefEnum.countryCode);
+  }
 
-  set countryCode(int? value) => _sharedPref.setValue<int>(
-      key: _sharedKey(SharedPRefEnum.countryCode), value: value ?? 0);
+
+  Future<void> setCountryCode(String? countryCode) async {
+    await _sharedPref.setValue<String>(
+        key: SharedPRefEnum.countryCode, value: countryCode??'' );
+  }
 
   /// password
   String? get password =>

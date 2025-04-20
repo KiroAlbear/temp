@@ -50,7 +50,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   void initState() {
     super.initState();
     _bloc.init(
-        mobileNumber: getIt<AuthenticationSharedBloc>().mobile ,
+        mobileNumberValue: getIt<AuthenticationSharedBloc>().mobile ,
         countryId: int.parse( getIt<AuthenticationSharedBloc>().countryMapper.id ),
         countryCode: getIt<AuthenticationSharedBloc>().countryMapper.description);
     _passwordValidationBloc =
@@ -177,6 +177,13 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                   buttonBehaviour:
                   _bloc.buttonBloc.buttonBehavior,
                   onSuccess: () {
+                    SharedPrefModule().setCountryCode(
+                        _bloc.countryCode ?? '');
+                    SharedPrefModule().userPhoneWithoutCountry =
+                        _bloc.mobileNumber ?? '';
+
+                    SharedPrefModule().setPassword(
+                        _bloc.passwordBloc.textFormFiledBehaviour.value.text);
                     Routes.navigateToScreen(Routes.registerSuccessPage, NavigationType.pushNamed, context);
                     // CustomNavigatorModule.navigatorKey.currentState
                     //     ?.pushNamed(AppScreenEnum.successRegister.name);

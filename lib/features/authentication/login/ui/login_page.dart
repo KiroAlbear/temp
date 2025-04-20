@@ -175,7 +175,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
         onTap: () {
           _bloc
               .authenticateWithBiometric(S.of(context).biometricLoginMessage)
-              .then((value) {
+              .then((value) async {
             isLoggingWithBiometric = true;
             if (value) {
               _bloc.mobileBloc.textFormFiledBehaviour.sink.add(
@@ -186,23 +186,46 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                   TextEditingController(text: SharedPrefModule().password));
 
               _bloc.mobileBloc
-                  .updateStringBehaviour(SharedPrefModule().userPhone ?? '');
+                  .updateStringBehaviour(SharedPrefModule().userPhoneWithoutCountry ?? '');
 
               _bloc.passwordBloc
                   .updateStringBehaviour(SharedPrefModule().password ?? '');
 
-              _bloc.loginWithBiometrics.listen((event) {
-                checkResponseStateWithButton(event, context,
-                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                    onSuccess: () {
-                  _bloc.passwordBloc.textFormFiledBehaviour.sink
-                      .add(TextEditingController(text: ""));
-                  _bloc.mobileBloc.textFormFiledBehaviour.sink
-                      .add(TextEditingController(text: ""));
-                  _navigateHome();
-                });
+              String countryCode =  SharedPrefModule().getCountryCode()??"" ;
+
+              _bloc.countryStream.listen((event) {
+                if (event is SuccessState) {
+                  _bloc.countryBloc.updateValue(event.response!.firstWhere(
+                    (element) => element.description == countryCode.replaceAll("+", ""),
+                    orElse: () => event.response!.first,
+                  ));
+                  _bloc.login.listen((event) {
+                    checkResponseStateWithButton(
+                      event,
+                      context,
+                      failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                      buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                      onSuccess: () {
+                        _navigateHome();
+                      },
+                    );
+                  });
+                }
               });
+
+
+              // _bloc.loginWithBiometrics.listen((event) {
+              //   checkResponseStateWithButton(event, context,
+              //       failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+              //       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+              //       onSuccess: () {
+              //     _bloc.passwordBloc.textFormFiledBehaviour.sink
+              //         .add(TextEditingController(text: ""));
+              //     _bloc.mobileBloc.textFormFiledBehaviour.sink
+              //         .add(TextEditingController(text: ""));
+              //     _navigateHome();
+              //   });
+              // });
             }
           });
         },
@@ -222,8 +245,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
             ? (MediaQuery.of(context).size.width - 156.w)
             : (MediaQuery.of(context).size.width - 32.w),
         onTap: () {
-          isLoggingWithBiometric = false;
-          if (_bloc.isValid) {
+            isLoggingWithBiometric = false;
             _bloc.login.listen((event) {
               checkResponseStateWithButton(
                 event,
@@ -235,7 +257,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                 },
               );
             });
-          }
+
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
         failedBehaviour: _bloc.buttonBloc.failedBehaviour,
@@ -269,8 +291,9 @@ class _LoginWidgetState extends BaseState<LoginPage> {
           "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
       //
       SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
-      // SharedPrefModule().countryCode =
-      //     int.tryParse(_bloc.countryBloc.value!.description.replaceAll("+", ""));
+
+      await SharedPrefModule().setCountryCode(_bloc.countryBloc.value!.description);
+
       await SharedPrefModule().setPassword( _bloc.passwordBloc.value);
     }
     Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);

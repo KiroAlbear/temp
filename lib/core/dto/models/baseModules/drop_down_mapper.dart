@@ -2,7 +2,8 @@ class DropDownMapper {
   late final String name;
   late final String id;
   late final String description;
-  late final String customValidator;
+  late final String mobileValidator;
+  late final String mobilePlusValidator;
   late bool selected;
   late final bool enable;
   late final String image;
@@ -13,7 +14,8 @@ class DropDownMapper {
       this.description = '',
       this.selected = false,
       this.enable = true,
-      this.customValidator = '',
+      this.mobileValidator = '',
+      this.mobilePlusValidator = '',
       this.image = ''});
 
   DropDownMapper.empty() {
@@ -22,7 +24,8 @@ class DropDownMapper {
     description = '';
     selected = false;
     enable = false;
-    customValidator = '';
+    mobileValidator = '';
+    mobilePlusValidator = '';
     image = '';
   }
 }

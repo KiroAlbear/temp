@@ -9,15 +9,15 @@ import 'package:rxdart/rxdart.dart';
 enum NewAccountStepEnum { info, locationInfo, editLocation, password }
 
 class NewAccountBloc extends BlocBase {
-  late final String _mobileNumber;
+  late final String mobileNumber;
   late final int _countryId;
   late final String countryCode;
 
   void init(
       {int countryId = 245,
-      required String mobileNumber,
+      required String mobileNumberValue,
       required String countryCode}) {
-    _mobileNumber = mobileNumber;
+    mobileNumber = mobileNumberValue;
     _countryId = countryId;
     this.countryCode = "+${countryCode}";
     StateRemote(countryId).callApiAsStream().listen(
@@ -101,7 +101,7 @@ class NewAccountBloc extends BlocBase {
   Stream<ApiState<LoginMapper>> get register => RegisterRemote(
           shopName: facilityNameBloc.value,
           name: fullNameBloc.value,
-          phone: "${this.countryCode}${_mobileNumber}",
+          phone: "${this.countryCode}${mobileNumber}",
           password: passwordBloc.value,
           latitude: _longitudeBehaviour.valueOrNull.toString(),
           longitude: _latitudeBehaviour.valueOrNull.toString())

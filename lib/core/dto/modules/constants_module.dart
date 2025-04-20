@@ -12,6 +12,7 @@ class ConstantModule {
 
   /// default validation regex
   static const String mobileRegex = r'(^[0-9]{5,13}$)';
+  static const String mobilePlusRegex = r'(^\+?[0-9]{5,13}$)';
   static const String passwordRegex =
       '$atLeastLowerCaseRegex'
       // '$atLeastUpperCaseRegex'
