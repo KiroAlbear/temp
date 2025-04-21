@@ -1,3 +1,4 @@
+import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ class _CartScreenState extends BaseState<CartPage> {
 
   @override
   Widget getBody(BuildContext context) {
-    return Column(
+    return  (SharedPrefModule().userId ?? '').isEmpty?NotLoggedInWidget(): Column(
       children: [
         AppTopWidget(
           title: S.of(context).cartTitle,

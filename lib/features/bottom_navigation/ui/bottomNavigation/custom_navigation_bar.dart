@@ -94,11 +94,7 @@ class CustomNavigationBar extends StatelessWidget {
               _buildCurvedNavigationBarItem(icon: Assets.svg.icMore,label: S.of(context).more,selectedIndex:snapshot.data??0,tabIndex: 4,context: context),
             ],
             onTap: (index) {
-              if((SharedPrefModule().userId ?? '').isEmpty && (index == 1 || index == 3)){
-                Apputils.showNeedToLoginBottomSheet(context);
-              }else{
                 onTap(index);
-              }
             },
           );
         }

@@ -1,5 +1,6 @@
 import 'package:deel/core/routes/navigation_type.dart';
 import 'package:deel/core/services/dependency_injection_service.dart';
+import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/features/authentication/ui/resetPassword/reset_password_page.dart';
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navigation_bar.dart';
 import 'package:deel/deel.dart';

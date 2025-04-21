@@ -111,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
+        "createAccountMessage": MessageLookupByLibrary.simpleMessage("create your account and start order all your needs now from the same place "),
+
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
             "\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests."),
         "discount": m0,

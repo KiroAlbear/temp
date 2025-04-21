@@ -914,6 +914,15 @@ class S {
     );
   }
 
+  String get createAccountMessage {
+    return Intl.message(
+      'Create Account Message',
+      name: 'createAccountMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Favourites`
   String get favourites {
     return Intl.message(
