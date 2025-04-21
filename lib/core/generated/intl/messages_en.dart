@@ -221,7 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderOutside":
             MessageLookupByLibrary.simpleMessage("Outside for delivery"),
         "orderRecieved": MessageLookupByLibrary.simpleMessage("Order received"),
-        "orderSending": MessageLookupByLibrary.simpleMessage("Sending order"),
+        "orderSending": MessageLookupByLibrary.simpleMessage("Receiving order"),
         "orderShipping": MessageLookupByLibrary.simpleMessage("Shipping order"),
         "orderTotal": MessageLookupByLibrary.simpleMessage("Order total:"),
         "cartDetailsTotal": MessageLookupByLibrary.simpleMessage("Total"),

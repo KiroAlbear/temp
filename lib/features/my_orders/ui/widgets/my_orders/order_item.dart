@@ -84,32 +84,65 @@ class OrderItem extends StatelessWidget {
           onExpansionChanged: (value) {
             isExpanded.value = value;
           },
-          title: Row(
+          title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ImageHelper(
-                image: Assets.svg.icNormalOrder,
-                width: 32,
-                height: 32,
-                color: darkSecondaryColor,
-                imageType: ImageType.svg,
-              ),
-              SizedBox(width: 10),
-              Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ImageHelper(
+                    image: Assets.svg.icNormalOrder,
+                    width: 32,
+                    height: 32,
+                    color: darkSecondaryColor,
+                    imageType: ImageType.svg,
+                  ),
+                  SizedBox(width: 3),
+                  Padding(
+                    padding:  EdgeInsets.only(top:3.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          text: "${S.of(context).orderNumber} #${currentOrder!.id}",
+                          customTextStyle: titleTextStyle,
+                        ),
+                        OrderItemGreyText(
+                          text:
+                              "${S.of(context).orderTotal} ${currentOrder!.totalPrice}",
+                        ),
+                        OrderItemGreyText(
+                          text:
+                              "${S.of(context).orderItemCount} ${currentOrder!.itemsCount} ${S.of(context).orderItem}",
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+              SizedBox(
+                height: 4,
+              ),
+              Row(
+                children: [
                   CustomText(
-                    text: "${S.of(context).orderNumber} #${currentOrder!.id}",
-                    customTextStyle: titleTextStyle,
+                    text: "${S.of(context).orderDetails}",
+                    customTextStyle: RegularStyle(
+                        color: darkSecondaryColor, fontSize: 14.sp),
                   ),
-                  OrderItemGreyText(
-                    text:
-                        "${S.of(context).orderTotal} ${currentOrder!.totalPrice}",
+                  SizedBox(
+                    width: 2,
                   ),
-                  OrderItemGreyText(
-                    text:
-                        "${S.of(context).orderItemCount} ${currentOrder!.itemsCount} ${S.of(context).orderItem}",
-                  ),
+                  ValueListenableBuilder(valueListenable: isExpanded, builder: (context, value, child) {
+                    return Padding(
+                      padding: EdgeInsets.only(top:5.0),
+                      child: Icon(
+                        isExpanded.value ? Icons.keyboard_arrow_up_rounded:  Icons.keyboard_arrow_down_rounded,
+                        color: darkSecondaryColor,
+                      ),
+                    );
+                  },)
                 ],
               ),
             ],
