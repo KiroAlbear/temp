@@ -143,6 +143,14 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
               scanIcon: Assets.svg.icScan,
               searchIcon: Assets.svg.icSearch,
               isHavingSupport: true,
+              onBackPressed: () {
+                if(Navigator.canPop(context))
+                  {
+                    Navigator.pop(context);
+                  }else{
+                  Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+                }
+              },
               doSearch: () => widget.homeBloc
                   .doSearch(widget.homeBloc.searchBloc.value, context),
               textFiledControllerStream:

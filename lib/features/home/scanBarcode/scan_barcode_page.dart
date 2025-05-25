@@ -98,29 +98,6 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
           )
         ],
       )
-      // Column(
-      //   children: [
-      //     AppTopWidget(
-      //       title: S.of(context).scanBarcode,
-      //       isHavingBack: true,
-      //     ),
-      //     SizedBox(
-      //       height: 40.h,
-      //     ),
-      //     _scanStreamBuilder,
-      //     SizedBox(
-      //       height: 30.h,
-      //     ),
-      //     CustomText(
-      //       text: S.of(context).scanText,
-      //       customTextStyle: RegularStyle(
-      //         color: lightBlackColor,
-      //         fontSize: 18.sp,
-      //       ),
-      //       textAlign: TextAlign.center,
-      //     ),
-      //   ],
-      // )
       );
 
   StreamBuilder<bool> get _scanStreamBuilder => StreamBuilder<bool>(

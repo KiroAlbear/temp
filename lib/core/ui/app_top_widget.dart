@@ -29,6 +29,8 @@ class AppTopWidget extends StatefulWidget {
 
   final FocusNode? focusNode;
 
+  final Function()? onBackPressed;
+
   const AppTopWidget(
       {super.key,
       this.notificationIcon,
@@ -41,6 +43,7 @@ class AppTopWidget extends StatefulWidget {
       this.isHavingSupport = false,
       this.doSearch,
       this.onChanged,
+      this.onBackPressed,
       this.textFiledControllerStream,
 
       this.focusNode});
@@ -183,7 +186,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
       children: [
         if (widget.isHavingBack)
           InkWell(
-            onTap: () {
+            onTap: widget.onBackPressed??() {
               Navigator.pop(context);
             },
             child: Padding(
