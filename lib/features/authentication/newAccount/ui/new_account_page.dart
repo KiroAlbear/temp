@@ -86,15 +86,13 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
           logo: Assets.svg.logoYellow,
           blocBase: _bloc,
           canSkip: false,
-          child: Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            
-                _stepRow,
-                _registerInfoWidget,
-              ]),
-            ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
+              _stepRow,
+              _registerInfoWidget,
+            ]),
           )));
 
   Widget get _stepRow => StreamBuilder(
