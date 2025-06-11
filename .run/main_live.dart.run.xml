@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="main_live.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="additionalArgs" value="--debug" />
     <option name="buildFlavor" value="app_live" />
     <option name="filePath" value="$PROJECT_DIR$/lib/main_app_live.dart" />
     <method v="2" />

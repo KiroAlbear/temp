@@ -72,7 +72,7 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   @override
   Widget build(BuildContext context) {
     return  PopScope(
-      canPop: false,
+      canPop: canPop(),
       onPopInvokedWithResult: (didPop, result) {
           onPopInvoked(didPop);
       },

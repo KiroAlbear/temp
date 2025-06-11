@@ -8,12 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 import '../../../../../core/generated/l10n.dart';
-import 'new_account_bloc.dart';
+
 
 
 class NewAccountPage extends BaseStatefulWidget {
+  final NewAccountBloc _bloc = NewAccountBloc();
 
-  const NewAccountPage(
+  NewAccountPage(
       {super.key,});
 
   @override
@@ -21,7 +22,6 @@ class NewAccountPage extends BaseStatefulWidget {
 }
 
 class _NewAccountWidgetState extends BaseState<NewAccountPage> {
-  final NewAccountBloc _bloc = NewAccountBloc();
   late final PasswordValidationBloc _passwordValidationBloc;
 
 
@@ -33,7 +33,8 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
 
   @override
   void onPopInvoked(didPop) {
-    _handleBackPressing();
+
+    // _handleBackPressing();
   }
 
   @override
@@ -49,42 +50,49 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   @override
   void initState() {
     super.initState();
-    _bloc.init(
+    widget._bloc.init(
         mobileNumberValue: getIt<AuthenticationSharedBloc>().mobile ,
         countryId: int.parse( getIt<AuthenticationSharedBloc>().countryMapper.id ),
         countryCode: getIt<AuthenticationSharedBloc>().countryMapper.description);
     _passwordValidationBloc =
-        PasswordValidationBloc(_bloc.passwordBloc.textFormFiledBehaviour.value);
+        PasswordValidationBloc(widget._bloc.passwordBloc.textFormFiledBehaviour.value);
   }
+  //
+  // void _handleBackPressing() async {
 
-  void _handleBackPressing() async {
-    if (await _bloc.stepsStream.first == NewAccountStepEnum.locationInfo) {
-      _bloc.nextStep(NewAccountStepEnum.info);
-    } else if (await _bloc.stepsStream.first == NewAccountStepEnum.password) {
-      _bloc.nextStep(NewAccountStepEnum.locationInfo);
-    } else if (await _bloc.stepsStream.first ==
-        NewAccountStepEnum.editLocation) {
-      _bloc.nextStep(NewAccountStepEnum.locationInfo);
-    } else {
-      // Navigator.pop(context);
-      // Navigator.pop(context);
-      Navigator.pop(context);
+      // NewAccountStepEnum currentStep = await widget._bloc.stepsStream.first;
+      // if (currentStep == NewAccountStepEnum.locationInfo) {
+      //   widget._bloc.nextStep(NewAccountStepEnum.info);
+      // } else if (currentStep == NewAccountStepEnum.password) {
+      //   widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
+      // } else if (currentStep ==
+      //     NewAccountStepEnum.editLocation) {
+      //   widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
+      // } else {
+      //   // Navigator.pop(context);
+      //   // Navigator.pop(context);
+      //   // display navigator stack
+      //   // Navigator.pop(context);
+      //
+      //
+      //   // CustomNavigatorModule.navigatorKey.currentState
+      //   //     ?.pushNamed(AppScreenEnum.register.name);
+      //   // CustomNavigatorModule.navigatorKey.currentState
+      //   //     ?.pushNamed(AppScreenEnum.register.name);
+      // }
 
-      // CustomNavigatorModule.navigatorKey.currentState
-      //     ?.pushNamed(AppScreenEnum.register.name);
-      // CustomNavigatorModule.navigatorKey.currentState
-      //     ?.pushNamed(AppScreenEnum.register.name);
-    }
-  }
+
+    // Routes.navigateToFirstScreen(context);
+  // }
 
   @override
   Widget getBody(BuildContext context) => BlocProvider(
-      bloc: _bloc,
+      bloc: widget._bloc,
       child: LogoTopWidget(
           isHavingBackArrow: true,
           pressingBackTwice: true,
           logo: Assets.svg.logoYellow,
-          blocBase: _bloc,
+          blocBase: widget._bloc,
           canSkip: false,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -96,14 +104,14 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
           )));
 
   Widget get _stepRow => StreamBuilder(
-        stream: _bloc.stepsStream,
+        stream: widget._bloc.stepsStream,
         initialData: NewAccountStepEnum.info,
         builder: (context, snapshot) =>
             _whichStep(snapshot.data ?? NewAccountStepEnum.info),
       );
 
   Widget get _registerInfoWidget => StreamBuilder(
-        stream: _bloc.stepsStream,
+        stream: widget._bloc.stepsStream,
         initialData: NewAccountStepEnum.info,
         builder: (context, snapshot) =>
             _whichRegisterInfoWidget(snapshot.data ?? NewAccountStepEnum.info),
@@ -112,11 +120,11 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   Widget _whichRegisterInfoWidget(NewAccountStepEnum step) {
     switch (step) {
       case NewAccountStepEnum.info:
-        return NewAccountInfoWidget(newAccountBloc: _bloc);
+        return NewAccountInfoWidget(newAccountBloc: widget._bloc);
       case NewAccountStepEnum.locationInfo:
         return Column(
           children: [
-            NewAccountLocationInfoWidget(newAccountBloc: _bloc),
+            NewAccountLocationInfoWidget(newAccountBloc: widget._bloc),
             _nextPreviousButtonLocationInfo,
             SizedBox(
               height: 21.h,
@@ -124,12 +132,12 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
           ],
         );
       case NewAccountStepEnum.editLocation:
-        return NewAccountLocationWidget(newAccountBloc: _bloc);
+        return NewAccountLocationWidget(newAccountBloc: widget._bloc);
       case NewAccountStepEnum.password:
         return Column(
           children: [
             NewAccountPasswordPage(
-              newAccountBloc: _bloc,
+              newAccountBloc: widget._bloc,
               passwordValidationBloc: _passwordValidationBloc,
             ),
             SizedBox(
@@ -143,27 +151,27 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
 
   Widget get _nextPreviousButtonAccountPasswor => Row(
     children: [
-      Expanded(child: PreviousNextButton(isPrevious: true, isButtonEnabledStream: _bloc.validatePasswordStream,onTap: () {
-        _bloc.nextStep(NewAccountStepEnum.locationInfo);
+      Expanded(child: PreviousNextButton(isPrevious: true, isButtonEnabledStream: widget._bloc.validatePasswordStream,onTap: () {
+        widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
       },)),
       SizedBox(
         width: 9.w,
       ),
-      Expanded(child: PreviousNextButton(isPrevious: false, isButtonEnabledStream: _bloc.validatePasswordStream,onTap: () {
+      Expanded(child: PreviousNextButton(isPrevious: false, isButtonEnabledStream: widget._bloc.validatePasswordStream,onTap: () {
         _nextFunctionality();
-      },buttonStateStream: _bloc.buttonBloc.buttonBehavior,)),
+      },buttonStateStream: widget._bloc.buttonBloc.buttonBehavior,)),
     ],
   );
 
   void _nextFunctionality(){
-    if (_bloc.isPasswordValid) {
-      _bloc.register.listen(
+    if (widget._bloc.isPasswordValid) {
+      widget._bloc.register.listen(
             (event) {
           if (event is LoadingState) {
-            _bloc.buttonBloc.buttonBehavior.sink
+            widget._bloc.buttonBloc.buttonBehavior.sink
                 .add(ButtonState.loading);
           } else if (event is SuccessState) {
-            _bloc
+            widget._bloc
                 .updateAddress(event.response?.userId ?? 0)
                 .listen(
                   (event) {
@@ -171,17 +179,17 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                   event,
                   context,
                   failedBehaviour:
-                  _bloc.buttonBloc.failedBehaviour,
+                  widget._bloc.buttonBloc.failedBehaviour,
                   buttonBehaviour:
-                  _bloc.buttonBloc.buttonBehavior,
+                  widget._bloc.buttonBloc.buttonBehavior,
                   onSuccess: () {
                     SharedPrefModule().setCountryCode(
-                        _bloc.countryCode ?? '');
+                        widget._bloc.countryCode ?? '');
                     SharedPrefModule().userPhoneWithoutCountry =
-                        _bloc.mobileNumber ?? '';
+                        widget._bloc.mobileNumber ?? '';
 
                     SharedPrefModule().setPassword(
-                        _bloc.passwordBloc.textFormFiledBehaviour.value.text);
+                        widget._bloc.passwordBloc.textFormFiledBehaviour.value.text);
                     Routes.navigateToScreen(Routes.registerSuccessPage, NavigationType.pushNamed, context);
                     // CustomNavigatorModule.navigatorKey.currentState
                     //     ?.pushNamed(AppScreenEnum.successRegister.name);
@@ -197,15 +205,16 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
 
   Widget get _nextPreviousButtonLocationInfo => Row(
     children: [
-      Expanded(child: PreviousNextButton(isPrevious: true, isButtonEnabledStream: _bloc.validateLocationStream,onTap: () {
-        _bloc.nextStep(NewAccountStepEnum.info);
+      Expanded(child: PreviousNextButton(isPrevious: true, isButtonEnabledStream: widget._bloc.validateLocationStream,onTap: () {
+
+        widget._bloc.nextStep(NewAccountStepEnum.info);
       },)),
       SizedBox(
         width: 9.w,
       ),
-      Expanded(child: PreviousNextButton(isPrevious: false, isButtonEnabledStream: _bloc.validateLocationStream,onTap: () {
-        if (_bloc.isLocationValid) {
-          _bloc.nextStep(NewAccountStepEnum.password);
+      Expanded(child: PreviousNextButton(isPrevious: false, isButtonEnabledStream: widget._bloc.validateLocationStream,onTap: () {
+        if (widget._bloc.isLocationValid) {
+          widget._bloc.nextStep(NewAccountStepEnum.password);
         }
       },)),
     ],
