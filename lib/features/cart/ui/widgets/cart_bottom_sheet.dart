@@ -22,7 +22,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
   final double _spacing = 10.0;
   int _groupeValue = -1;
 
-  Widget _paymentRow(int value, String title, String icon) {
+  Widget _paymentRow(int value, String title, Widget icon) {
     return InkWell(
       onTap: () {
         setState(() {
@@ -48,7 +48,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               onChanged: (value) {},
             ),
           ),
-          ImageHelper(image: icon, imageType: ImageType.svg,color: darkSecondaryColor,),
+          icon,
           _spacing.horizontalSpace,
           CustomText(
               text: title,
@@ -74,8 +74,8 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 customTextStyle:
                     BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
           ),
-          _paymentRow(0, S.of(context).cartCashOnDelivery, Assets.svg.icCash),
-          _paymentRow(1, S.of(context).cartDokkanWallet, Assets.svg.icCash),
+          _paymentRow(0, S.of(context).cartCashOnDelivery,ImageHelper(image:  Assets.svg.icCash, imageType: ImageType.svg,color: darkSecondaryColor,)),
+          _paymentRow(1, S.of(context).cartDokkanWallet, Icon(Icons.credit_card_rounded,color: darkSecondaryColor)),
           18.verticalSpace,
           IgnorePointer(
             ignoring: _groupeValue == -1,

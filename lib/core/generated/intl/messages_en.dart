@@ -64,7 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure to remove the product from the cart?"),
         "cartDokkanWallet":
-            MessageLookupByLibrary.simpleMessage("Dokkan wallet"),
+            MessageLookupByLibrary.simpleMessage("Bank Card"),
         "cartEmpty": MessageLookupByLibrary.simpleMessage("There is no orders"),
         "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(
             "The maximum quantity you can add to this product is"),

@@ -100,25 +100,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                     onTap: () async {
 
                       if(widget.cartOrderDetailsArgs.isItVisa){
-                        await FlutterPaymob.instance.payWithCard(
-                          context: context, // Passes the BuildContext required for UI interactions
-                          currency: "YER", // Specifies the currency for the transaction (Egyptian Pound)
-                          amount: 100, // Sets the amount of money to be paid (100 EGP)
-                          // Optional callback function invoked when the payment process is completed
-                          onPayment: (response) {
-                            // Checks if the payment was successful
-                            if (response.responseCode == "APPROVED") {
-                              _ConfirmOder();
-                              // If successful, displays a snackbar with the success message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(response.message ??
-                                      "Success"), // Shows "Success" message or response message
-                                ),
-                              );}
-                          },
-
-                        );
+                        _payWithCard();
                       }else{
                         _ConfirmOder();
                       }
@@ -135,7 +117,22 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       )
     ]);
   }
+  void _payWithCard()async {
+    await FlutterPaymob.instance.payWithCard(
+      context: context, // Passes the BuildContext required for UI interactions
+      currency: "EGP", // Specifies the currency for the transaction (Egyptian Pound)
+      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream.value , // Sets the amount of money to be paid (100 EGP)
+      // Optional callback function invoked when the payment process is completed
+      onPayment: (response) {
+        // Checks if the payment was successful
+        if (response.responseCode == "APPROVED") {
+          _ConfirmOder();
 
+        }
+      },
+
+    );
+  }
   void _ConfirmOder(){
     widget.cartBloc
         .confirmOrderCart()
@@ -218,7 +215,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                                     textAlign: TextAlign.start,
                                     customTextStyle: BoldStyle(
                                         color: darkSecondaryColor, fontSize: 14.sp)),
-                                    deliveryFees(),
+                                    // deliveryFees(),
                                   ],
                                 ),
                               ],

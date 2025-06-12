@@ -20,6 +20,7 @@ class CartBloc extends BlocBase {
   BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartOrderDetailsTotalBehaviour = BehaviorSubject();
+  BehaviorSubject<double> cartOrderDetailsTotalDoubleBehaviour = BehaviorSubject();
   BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartMinimumOrderCurrencyBehaviour = BehaviorSubject();
   CartRemote cartRemote = CartRemote();
@@ -86,10 +87,13 @@ class CartBloc extends BlocBase {
 
     // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
+    double totalWithDelivery = parsedTotalSum + deliveryFees;
+
+    cartOrderDetailsTotalDoubleBehaviour.sink.add(totalWithDelivery);
 
     cartTotalBehaviour.sink.add("$parsedTotalSum $currency");
     cartOrderDetailsTotalBehaviour.sink
-        .add("${parsedTotalSum + deliveryFees} $currency");
+        .add("${totalWithDelivery} $currency");
   }
 
   void _getTotalCartDeliverySum() {
