@@ -1,7 +1,9 @@
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/cart/models/cart_order_details_args.dart';
 import 'package:deel/features/cart/ui/widgets/cart_product_summary_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
@@ -10,8 +12,9 @@ import 'cart_order_details_Icon_item.dart';
 
 class CartOrderDetailsPage extends BaseStatefulWidget {
   final CartBloc cartBloc;
+  final CartOrderDetailsArgs cartOrderDetailsArgs;
   const CartOrderDetailsPage(
-      {required this.cartBloc, super.key});
+      {required this.cartBloc,required this.cartOrderDetailsArgs, super.key});
 
   @override
   State<CartOrderDetailsPage> createState() => _CartOrderDetailsState();
@@ -94,22 +97,34 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                 62.verticalSpace,
                 CustomButtonWidget(
                     idleText: S.of(context).cartConfirmOrder,
-                    onTap: () {
-                      widget.cartBloc
-                          .confirmOrderCart()
-                          .listen((event) {
-                        if (event is SuccessState) {
-                          widget.cartBloc.getMyCart();
-                          Routes.navigateToScreen(Routes.cartSuccessPage, NavigationType.pushReplacementNamed, context);
-                          // CustomNavigatorModule
-                          //     .navigatorKey.currentState!
-                          //     .pushReplacementNamed(
-                          //     AppScreenEnum.cartSuccessScreen.name);
+                    onTap: () async {
 
-                          widget.cartBloc.cartProductsBehavior.sink
-                              .add(IdleState());
-                        }
-                      });
+                      if(widget.cartOrderDetailsArgs.isItVisa){
+                        await FlutterPaymob.instance.payWithCard(
+                          context: context, // Passes the BuildContext required for UI interactions
+                          currency: "YER", // Specifies the currency for the transaction (Egyptian Pound)
+                          amount: 100, // Sets the amount of money to be paid (100 EGP)
+                          // Optional callback function invoked when the payment process is completed
+                          onPayment: (response) {
+                            // Checks if the payment was successful
+                            if (response.responseCode == "APPROVED") {
+                              _ConfirmOder();
+                              // If successful, displays a snackbar with the success message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(response.message ??
+                                      "Success"), // Shows "Success" message or response message
+                                ),
+                              );}
+                          },
+
+                        );
+                      }else{
+                        _ConfirmOder();
+                      }
+
+
+
                     }),
                 49.verticalSpace,
 
@@ -119,6 +134,24 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         ),
       )
     ]);
+  }
+
+  void _ConfirmOder(){
+    widget.cartBloc
+        .confirmOrderCart()
+        .listen((event) {
+      if (event is SuccessState) {
+        widget.cartBloc.getMyCart();
+        Routes.navigateToScreen(Routes.cartSuccessPage, NavigationType.pushReplacementNamed, context);
+        // CustomNavigatorModule
+        //     .navigatorKey.currentState!
+        //     .pushReplacementNamed(
+        //     AppScreenEnum.cartSuccessScreen.name);
+
+        widget.cartBloc.cartProductsBehavior.sink
+            .add(IdleState());
+      }
+    });
   }
 
   Column _buildAddress() {

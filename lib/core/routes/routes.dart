@@ -8,6 +8,8 @@ import 'package:deel/features/more/accountChangePassword/ui/account_change_passw
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/cart/models/cart_order_details_args.dart';
+
 class Routes {
   static BuildContext? buildContext;
 
@@ -235,9 +237,16 @@ class Routes {
               path: cartOrderDetailsPage,
               name: cartOrderDetailsPage,
               parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context, state, CartOrderDetailsPage(cartBloc: getIt()),
-              ),
+              pageBuilder: (context, state)
+              {
+                final CartOrderDetailsArgs? args = state.extra as CartOrderDetailsArgs?;
+
+                return _fadeTransitionScreenWrapper(
+                  context,
+                  state,
+                  CartOrderDetailsPage(cartBloc: getIt(),cartOrderDetailsArgs: args!,),
+                );
+              },
             ),
 
             GoRoute(

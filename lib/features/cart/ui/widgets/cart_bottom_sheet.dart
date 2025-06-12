@@ -1,6 +1,9 @@
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/cart/models/cart_order_details_args.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paymob/billing_data.dart';
+import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
@@ -72,7 +75,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                     BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
           ),
           _paymentRow(0, S.of(context).cartCashOnDelivery, Assets.svg.icCash),
-          // _paymentRow(1, S.of(context).cartDokkanWallet, Assets.svg.icWallet),
+          _paymentRow(1, S.of(context).cartDokkanWallet, Assets.svg.icCash),
           18.verticalSpace,
           IgnorePointer(
             ignoring: _groupeValue == -1,
@@ -80,13 +83,20 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 buttonColor: _groupeValue == -1 ? disabledButtonColorLightMode : primaryColor,
                 idleText: S.of(context).next,
                 textColor:  _groupeValue == -1 ?disabledButtonTextColorLightMode: darkSecondaryColor,
-                onTap: () {
+                onTap: () async {
                   // pop the bottom sheet
                   Navigator.pop(context);
-                  if (_groupeValue != -1) {
-                    Routes.navigateToScreen(Routes.cartOrderDetailsPage, NavigationType.pushNamed, context);
+                  if (_groupeValue == 0) {
+                    Routes.navigateToScreen(Routes.cartOrderDetailsPage, NavigationType.pushNamed, context,extra: CartOrderDetailsArgs(isItVisa: false));
                     // CustomNavigatorModule.navigatorKey.currentState!
                     //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
+                  }else{
+                    Routes.navigateToScreen(Routes.cartOrderDetailsPage, NavigationType.pushNamed, context,extra: CartOrderDetailsArgs(isItVisa: true));
+
+
+
+
+
                   }
                 }),
           ),

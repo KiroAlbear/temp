@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:deel/deel.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_shared_pref/simple_shared_pref.dart';
 
@@ -19,6 +20,14 @@ import 'firebase_options.dart';
 FutureOr<void> main() async {
   /// ensure widget init
   WidgetsFlutterBinding.ensureInitialized();
+
+  await  FlutterPaymob.instance.initialize(
+      userTokenExpiration: 3600, // optional, default is 30 days
+      apiKey:
+      "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==", //  // from dashboard Select Settings -> Account Info -> API Key
+      integrationID: 5106629 ,
+      walletIntegrationId: 5106875 ,
+      iFrameID: 926227);
   ///
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
