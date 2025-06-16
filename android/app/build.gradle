@@ -76,8 +76,8 @@ android {
         applicationId "com.icons.deelexpress"
         minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 20
-        versionName "20.0"
+        versionCode 21
+        versionName "21.0"
     }
 
     signingConfigs {
