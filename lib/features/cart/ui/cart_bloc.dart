@@ -1,6 +1,7 @@
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_available_model.dart';
 import 'package:deel/features/cart/models/cart_product_qty.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -23,6 +24,9 @@ class CartBloc extends BlocBase {
   BehaviorSubject<double> cartOrderDetailsTotalDoubleBehaviour = BehaviorSubject();
   BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartMinimumOrderCurrencyBehaviour = BehaviorSubject();
+  final walletNumberBehaviour = BehaviorSubject<TextEditingController>()
+    ..sink.add(TextEditingController(text: ''));
+
   CartRemote cartRemote = CartRemote();
   CartSaveRemote cartSaveRemote = CartSaveRemote();
   CartEditRemote cartEditRemote = CartEditRemote();

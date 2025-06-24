@@ -101,6 +101,9 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
 
                       if(widget.cartOrderDetailsArgs.isItVisa){
                         _payWithCard();
+                        // _payWithWallet();
+                      }else if (widget.cartOrderDetailsArgs.isItWallet){
+                        _payWithWallet(widget.cartOrderDetailsArgs.walletNumber!);
                       }else{
                         _ConfirmOder();
                       }
@@ -128,6 +131,22 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         if (response.responseCode == "APPROVED") {
           _ConfirmOder();
 
+        }
+      },
+
+    );
+  }
+  void _payWithWallet(String walletNumber) async {
+    await FlutterPaymob.instance.payWithWallet(
+      number: walletNumber, // The wallet number to be used for the payment
+      context: context, // Passes the BuildContext required for UI interactions
+      currency: "EGP", // Specifies the currency for the transaction (Egyptian Pound)
+      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream.value , // Sets the amount of money to be paid (100 EGP)
+      // Optional callback function invoked when the payment process is completed
+      onPayment: (response) {
+        // Checks if the payment was successful
+        if (response.responseCode == "200") {
+          _ConfirmOder();
         }
       },
 

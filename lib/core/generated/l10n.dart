@@ -1836,6 +1836,24 @@ class S {
     );
   }
 
+  String get cartDokkanWalletNumber {
+    return Intl.message(
+      'Dokkan wallet',
+      name: 'cartDokkanWalletNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get cartBankCard {
+    return Intl.message(
+      'Dokkan Bankcard',
+      name: 'cartDokkanBankCard',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Product is not available`
   String get productIsNotAvailable {
     return Intl.message(

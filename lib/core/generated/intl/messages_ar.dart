@@ -59,7 +59,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartConfirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
             "هل انت متاكد من ازاله المنتج من السلة؟"),
-        "cartDokkanWallet": MessageLookupByLibrary.simpleMessage("كارت البنك"),
+        "cartDokkanWallet": MessageLookupByLibrary.simpleMessage("محفظة"),
+        "cartDokkanWalletNumber": MessageLookupByLibrary.simpleMessage("رقم المحفظة"),
+        "cartDokkanBankCard": MessageLookupByLibrary.simpleMessage("كارت البنك"),
         "cartEmpty":
             MessageLookupByLibrary.simpleMessage("لا يوجد طلبات حالياً"),
         "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(

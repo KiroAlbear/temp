@@ -157,7 +157,7 @@ class _CartScreenState extends BaseState<CartPage> {
                         elevation: 0,
                         constraints: BoxConstraints(
                             maxHeight:
-                                MediaQuery.of(context).size.height * 0.30),
+                                MediaQuery.of(context).size.height * 0.35),
                         context: context,
                         builder: (context) {
                           return CartBottomSheet(
@@ -211,8 +211,7 @@ class _CartScreenState extends BaseState<CartPage> {
                       },
                       onIncrementClicked: (productMapper) {
                         isLoading.value = true;
-                        CartCommonFunctions()
-                            .editCart(
+                        CartCommonFunctions().editCart(
                           cartBloc: widget.cartBloc,
                           cartItemId: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
@@ -220,8 +219,7 @@ class _CartScreenState extends BaseState<CartPage> {
                               snapshot.data!.response![index].cartUserQuantity,
                           price: snapshot.data!.response![index].finalPrice,
                           state: CartState.increment,
-                        )
-                            .listen((event) {
+                        ).listen((event) {
                           if (event is SuccessState) {
                             // widget.cartBloc.getMyCart();
                             isLoading.value = false;
