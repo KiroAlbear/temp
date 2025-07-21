@@ -1011,7 +1011,7 @@ class _ApiClient implements ApiClient {
     )
             .compose(
               _dio.options,
-              'get/country',
+              'get/country?lang_code=ar_001',
               queryParameters: queryParameters,
               data: _data,
             )
