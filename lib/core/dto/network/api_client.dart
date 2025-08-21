@@ -76,7 +76,8 @@ abstract class ApiClient {
       @http.Body() SubcategoryRequest request,
       @http.Path(_ApiClientKey.languagePath) String lang_code);
 
-  @http.POST("${_ApiClientKey._brandBySubCategory}${_ApiClientKey.urlLanguageCode}")
+  @http.POST(
+      "${_ApiClientKey._brandBySubCategory}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<BrandResponse>>> getBrandBySubCategory(
       @http.Body() BrandRequest request,
       @http.Path(_ApiClientKey.languagePath) String lang_code);
@@ -163,10 +164,12 @@ abstract class ApiClient {
       @http.Body() ClientRequest request);
 
   @http.POST(_ApiClientKey._changePassword)
-  Future<HeaderResponse> changePassword(@http.Body() ChangePasswordRequest request);
+  Future<HeaderResponse> changePassword(
+      @http.Body() ChangePasswordRequest request);
 
   @http.POST(_ApiClientKey._resetPassword)
-  Future<HeaderResponse> resetPassword(@http.Body() ResetPasswordRequest request);
+  Future<HeaderResponse> resetPassword(
+      @http.Body() ResetPasswordRequest request);
 
   @http.PUT('${_ApiClientKey._updateProfileImage}/{mobileNumber}')
   @http.MultiPart()
@@ -190,7 +193,8 @@ abstract class ApiClient {
       @http.Path("userId") String userId);
 
   @http.PUT(_ApiClientKey._updateProfile)
-  Future<HeaderResponse> updateProfile(@http.Body() UpdateProfileRequestBody body);
+  Future<HeaderResponse> updateProfile(
+      @http.Body() UpdateProfileRequestBody body);
 
   @http.POST(_ApiClientKey._getProfile)
   Future<HeaderResponse<ProfileResponse>> getProfile(
