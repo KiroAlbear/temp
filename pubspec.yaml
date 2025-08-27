@@ -60,7 +60,10 @@ dependencies:
   index_generator: ^3.4.1
   mockito: ^5.4.4
   retrofit_generator: '>=5.0.0 <6.0.0'
-  timelines: ^0.1.0
+  timelines:
+    git:
+      url: https://github.com/KiroAlbear/timelines_pubdev.git
+      ref: d58cdc41dcef4aaf093ad050eb3824d3ee8376aa
   geolocator: ^13.0.2
   http_mock_adapter: ^0.6.1
   dio: ^5.8.0+1
