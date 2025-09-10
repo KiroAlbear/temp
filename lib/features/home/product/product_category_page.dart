@@ -97,10 +97,17 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
     } else {
       widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
       widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
-      widget.productCategoryBloc.reset();
+      // widget.productCategoryBloc.reset();
       widget.productCategoryBloc.loadMore(widget.isForFavourite);
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.homeBloc.reset();
+    widget.productCategoryBloc.reset();
+    super.dispose();
   }
 
   void _loadProducts(bool isFirstTime, Function? onGettingProducts) {
@@ -144,11 +151,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
               searchIcon: Assets.svg.icSearch,
               isHavingSupport: true,
               onBackPressed: () {
-                if(Navigator.canPop(context))
-                  {
-                    Navigator.pop(context);
-                  }else{
-                  Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                } else {
+                  Routes.navigateToScreen(
+                      Routes.homePage, NavigationType.goNamed, context);
                 }
               },
               doSearch: () => widget.homeBloc

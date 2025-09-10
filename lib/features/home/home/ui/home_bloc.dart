@@ -12,7 +12,7 @@ class HomeBloc extends BlocBase {
       BehaviorSubject()..sink.add(LoadingState());
 
   final Function(CategoryMapper categoryMapper) onCategoryClick;
-  final Function(String value,BuildContext context) doSearch;
+  final Function(String value, BuildContext context) doSearch;
 
   HomeBloc({required this.onCategoryClick, required this.doSearch});
 
@@ -61,6 +61,12 @@ class HomeBloc extends BlocBase {
     CategoryRemote().callApiAsStream().listen((event) {
       _categoryBehaviour.sink.add(event);
     });
+  }
+
+  void reset() {
+    isBanner = false;
+    selectedOffer = null;
+    selectedCategoryText = "";
   }
 
   @override

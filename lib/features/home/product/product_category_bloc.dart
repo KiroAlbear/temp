@@ -2,12 +2,10 @@ import 'package:deel/deel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
-
 class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int categoryId = 1;
   int? subcategoryId;
   int? brandId;
-
 
   // bool isForFavourite = false;
   bool isNavigatingFromMore = false;
@@ -37,6 +35,16 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     //     setLoaded(event.response ?? []);
     //   }
     // });
+  }
+
+  void reset() {
+    searchValue = null;
+    subcategoryId = null;
+    brandId = null;
+    isLoading?.value = false;
+    subCategoryByCategoryStream.sink.add(LoadingState());
+    brandBySubcategoryStream.sink.add(LoadingState());
+    super.reset();
   }
 
   void _loadWithFavourites() {
