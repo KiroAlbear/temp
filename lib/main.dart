@@ -98,7 +98,7 @@ FutureOr<void> main() async {
   F.appFlavor ??= Flavor.app_stage;
 
   if (F.apiUrl.isEmpty) {
-    F.apiUrl = 'https://dokkan.odoo.com/';
+    F.apiUrl = 'https://deel-demo.odoo.com/';
   }
 
   if (F.adminApiUrl.isEmpty) {

@@ -55,6 +55,7 @@ class UpdateProfileBloc extends BlocBase {
 
   void loadDeliveryAddress(String userId) {
     String userAddressText = "";
+    if (userId == "0") return;
     DeliveryAddressRemote(userId).callApiAsStream().listen((event) {
       deliveryAddressBehaviour.sink.add(event);
       if (event.response != null) {

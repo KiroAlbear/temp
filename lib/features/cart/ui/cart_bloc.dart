@@ -21,7 +21,8 @@ class CartBloc extends BlocBase {
   BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartOrderDetailsTotalBehaviour = BehaviorSubject();
-  BehaviorSubject<double> cartOrderDetailsTotalDoubleBehaviour = BehaviorSubject();
+  BehaviorSubject<double> cartOrderDetailsTotalDoubleBehaviour =
+      BehaviorSubject();
   BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartMinimumOrderCurrencyBehaviour = BehaviorSubject();
   final walletNumberBehaviour = BehaviorSubject<TextEditingController>()
@@ -96,8 +97,7 @@ class CartBloc extends BlocBase {
     cartOrderDetailsTotalDoubleBehaviour.sink.add(totalWithDelivery);
 
     cartTotalBehaviour.sink.add("$parsedTotalSum $currency");
-    cartOrderDetailsTotalBehaviour.sink
-        .add("${totalWithDelivery} $currency");
+    cartOrderDetailsTotalBehaviour.sink.add("${totalWithDelivery} $currency");
   }
 
   void _getTotalCartDeliverySum() {
@@ -105,6 +105,7 @@ class CartBloc extends BlocBase {
   }
 
   void _getCartMinimumOrder() {
+    if (clientId == 0) return;
     cartMinimumOrderRemote
         .getCartMinimumOrder(
             CartMinimumOrderRequest(customer_id: clientId, company_id: 1))
@@ -270,6 +271,8 @@ class CartBloc extends BlocBase {
       {Function()? onGettingCart}) async {
     // cartProductsBehavior.sink.add(LoadingState());
 
+    if (clientId == 0) return;
+
     cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) async {
       if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
         cartCheckAvailabilityRemote
@@ -283,7 +286,6 @@ class CartBloc extends BlocBase {
 
             getcartProductQtyList(getCartEvent.response!);
             getTotalCartSum(cartRemote.myOrderResponse);
-
 
             cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
                 getCartEvent.response!, checkAvailabilityEvent.response!)));
@@ -311,6 +313,7 @@ class CartBloc extends BlocBase {
         }
       }
     });
+
     // await Future.delayed(Duration(milliseconds: 2000));
   }
 
@@ -324,8 +327,8 @@ class CartBloc extends BlocBase {
         if (products[i].productId == availability[j].id) {
           products[i].isAvailable = availability[j].available_quantity! > 0;
           products[i].availableQuantity = availability[j].available_quantity!;
-          if(products[i].availableQuantity < products[i].quantity && products[i].availableQuantity > 0){
-
+          if (products[i].availableQuantity < products[i].quantity &&
+              products[i].availableQuantity > 0) {
             productsOfMoreThanAvailable.add(CartAvailableModel(
                 name: products[i].name,
                 quantity: products[i].availableQuantity.toString()));
@@ -344,8 +347,10 @@ class CartBloc extends BlocBase {
 
   void getcartProductQtyList(List<ProductMapper> products) {
     List<CartProductQty> cartProductQtyList = [];
-    products.forEach((elem) => cartProductQtyList
-        .add(CartProductQty(title: elem.name, qty: elem.quantity.toInt(),price: "${elem.finalPrice} ${elem.currency}")));
+    products.forEach((elem) => cartProductQtyList.add(CartProductQty(
+        title: elem.name,
+        qty: elem.quantity.toInt(),
+        price: "${elem.finalPrice} ${elem.currency}")));
     itemsBehaviour.sink.add(cartProductQtyList);
   }
 
