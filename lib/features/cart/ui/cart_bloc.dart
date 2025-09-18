@@ -108,7 +108,7 @@ class CartBloc extends BlocBase {
     if (clientId == 0) return;
     cartMinimumOrderRemote
         .getCartMinimumOrder(
-            CartMinimumOrderRequest(customer_id: clientId, company_id: 1))
+            CartMinimumOrderRequest(customer_id: clientId, company_id: 2))
         .listen((event) {
       if (event is SuccessState) {
         cartMinimumOrderBehaviour.sink.add(event.response!.min_order_limit!);

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -104,7 +103,8 @@ class NewAccountBloc extends BlocBase {
           phone: "${this.countryCode}${mobileNumber}",
           password: passwordBloc.value,
           latitude: _longitudeBehaviour.valueOrNull.toString(),
-          longitude: _latitudeBehaviour.valueOrNull.toString())
+          longitude: _latitudeBehaviour.valueOrNull.toString(),
+          countryId: _countryId)
       .callApiAsStream();
 
   Stream<ApiState<LoginMapper>> updateAddress(int clientId) =>
