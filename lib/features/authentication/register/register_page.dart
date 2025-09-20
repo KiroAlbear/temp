@@ -6,18 +6,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
 class RegisterPage extends BaseStatefulWidget {
-
   final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const RegisterPage(
-      {super.key,  required this.authenticationSharedBloc});
+  const RegisterPage({super.key, required this.authenticationSharedBloc});
 
   @override
   State<RegisterPage> createState() => _RegisterWidgetState();
 }
 
-class _RegisterWidgetState extends BaseState<RegisterPage>
-{
+class _RegisterWidgetState extends BaseState<RegisterPage> {
   final RegisterBloc _bloc = RegisterBloc();
   final OtpBloc _otpBloc = OtpBloc();
 
@@ -35,8 +32,6 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
 
   @override
   Color? systemNavigationBarColor() => Colors.white;
-
-
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
@@ -95,12 +90,11 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
                 countryBloc: _bloc.countryBloc)),
       );
 
-  void onlyForTestingCode(){
-    widget.authenticationSharedBloc.setDataToAuth(
-        _bloc.countryBloc.value!,
-        _bloc.mobileBloc.value,
-        AppScreenEnum.newAccount.name);
-    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.newAccountPage});
+  void onlyForTestingCode() {
+    widget.authenticationSharedBloc.setDataToAuth(_bloc.countryBloc.value!,
+        _bloc.mobileBloc.value, AppScreenEnum.newAccount.name);
+    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,
+        queryParameters: {OtpPage.nextPageKey: Routes.newAccountPage});
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushNamed(AppScreenEnum.otp.name);
   }
@@ -110,47 +104,44 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
           idleText: S.of(context).next,
           onTap: () {
             if (_bloc.isValid) {
-              _bloc.checkPhone.listen(
-                (event) {
-                  //only for testing
-                     if (kDebugMode){
-                        if(event is SuccessState)
-                          onlyForTestingCode();
-                    } else
-                    {
-                        checkResponseStateWithButton(
-                          event,
-                          context,
-                          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                          onSuccess: () {
-                            _otpBloc
-                                .sendOtp(
-                                "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
-                                S.of(context).otpPhoneIsNotValid)
-                                .then(
-                                  (value) {
-                                checkResponseStateWithButton(value, context,
-                                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                                    headerErrorMessage: S
-                                        .of(context)
-                                        .otpPhoneIsNotValid, onSuccess: () {
-                                      widget.authenticationSharedBloc.setDataToAuth(
-                                          _bloc.countryBloc.value!,
-                                          _bloc.mobileBloc.value,
-                                          AppScreenEnum.newAccount.name);
-                                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.newAccountPage});
-                                      // CustomNavigatorModule.navigatorKey.currentState
-                                      //     ?.pushNamed(AppScreenEnum.otp.name);
-                                    });
-                              },
-                            );
-                          },
-                        );
-                      }
-                    }
-              );
+              _bloc.checkPhone.listen((event) {
+                //TODO: this code is commented only for temp use, revert it when go to production
+                //    if (kDebugMode){
+                if (event is SuccessState) onlyForTestingCode();
+                // } else
+                // {
+                //     checkResponseStateWithButton(
+                //       event,
+                //       context,
+                //       failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                //       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                //       onSuccess: () {
+                //         _otpBloc
+                //             .sendOtp(
+                //             "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
+                //             S.of(context).otpPhoneIsNotValid)
+                //             .then(
+                //               (value) {
+                //             checkResponseStateWithButton(value, context,
+                //                 failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                //                 buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                //                 headerErrorMessage: S
+                //                     .of(context)
+                //                     .otpPhoneIsNotValid, onSuccess: () {
+                //                   widget.authenticationSharedBloc.setDataToAuth(
+                //                       _bloc.countryBloc.value!,
+                //                       _bloc.mobileBloc.value,
+                //                       AppScreenEnum.newAccount.name);
+                //                   Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.newAccountPage});
+                //                   // CustomNavigatorModule.navigatorKey.currentState
+                //                   //     ?.pushNamed(AppScreenEnum.otp.name);
+                //                 });
+                //           },
+                //         );
+                //       },
+                //     );
+                //   }
+              });
             }
           },
           buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
@@ -160,7 +151,8 @@ class _RegisterWidgetState extends BaseState<RegisterPage>
       );
 
   Widget get _loginWidget => InkWell(
-        onTap: () =>  Routes.navigateToScreen(Routes.loginPage, NavigationType.pushNamed, context),
+        onTap: () => Routes.navigateToScreen(
+            Routes.loginPage, NavigationType.pushNamed, context),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
           child: Row(

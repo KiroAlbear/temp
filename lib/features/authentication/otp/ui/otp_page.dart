@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 
-
 class OtpPage extends BaseStatefulWidget {
-
   final String nextPage;
   static final String nextPageKey = 'nextPage';
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const OtpPage(
-      {super.key,  required this.authenticationSharedBloc,required this.nextPage});
+      {super.key,
+      required this.authenticationSharedBloc,
+      required this.nextPage});
 
   @override
   State<OtpPage> createState() => _OtpWidgetState();
@@ -79,7 +79,8 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                             child: CustomText(
                                 text: S.of(context).enterVerificationCode,
                                 customTextStyle: BoldStyle(
-                                    color: darkSecondaryColor, fontSize: 28.sp)),
+                                    color: darkSecondaryColor,
+                                    fontSize: 28.sp)),
                           ),
                           SizedBox(
                             height: 33.h,
@@ -93,11 +94,9 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                             height: 37.h,
                           ),
                           Center(child: _sendOtpCounter),
-
                           SizedBox(
                             height: 150.h,
                           ),
-
                           SizedBox(
                             height: 15.h,
                           ),
@@ -158,7 +157,6 @@ class _OtpWidgetState extends BaseState<OtpPage> {
               '+'),
       customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor));
 
-
   Widget get _sendOtpAgain => StreamBuilder(
         stream: _bloc.enableSendOtpStream,
         initialData: false,
@@ -190,36 +188,35 @@ class _OtpWidgetState extends BaseState<OtpPage> {
       );
 
   Widget get _sendOtpCounter => StreamBuilder(
-    stream: _bloc.enableSendOtpStream,
-    initialData: false,
-    builder: (context, enableSnapShot) => StreamBuilder(
-      stream: _bloc.timeStream,
-      initialData: 59,
-      builder: (context, timeSnapShot) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Visibility(
-            visible: !(enableSnapShot.data ?? false),
-            child: CustomText(
-                text: '0:${timeSnapShot.data ?? 59}',
-                customTextStyle:
-                MediumStyle(color: switchBorderColor, fontSize: 32.sp)),
+        stream: _bloc.enableSendOtpStream,
+        initialData: false,
+        builder: (context, enableSnapShot) => StreamBuilder(
+          stream: _bloc.timeStream,
+          initialData: 59,
+          builder: (context, timeSnapShot) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Visibility(
+                visible: !(enableSnapShot.data ?? false),
+                child: CustomText(
+                    text: '0:${timeSnapShot.data ?? 59}',
+                    customTextStyle:
+                        MediumStyle(color: switchBorderColor, fontSize: 32.sp)),
+              ),
+            ],
           ),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 
   void onlyForTestingCode() {
     widget.authenticationSharedBloc.userData = _bloc.userData;
-    Routes.navigateToScreen(widget.nextPage, NavigationType.pushReplacementNamed, context);
-
+    Routes.navigateToScreen(
+        widget.nextPage, NavigationType.pushReplacementNamed, context);
   }
 
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).otpAuthenticate,
-
         onTap: () {
           _bloc.buttonBloc.buttonBehavior.sink.add(ButtonState.loading);
           _bloc
@@ -228,27 +225,28 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   S.of(context).otpIsNotValid)
               .then(
             (value) {
+              //TODO: this code is commented only for temp use, revert it when go to production
               // only for testing
-              if(kDebugMode){
-                 onlyForTestingCode();
-              }else
-              {
-                checkResponseStateWithButton(
-                  value,
-                  context,
-                  buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                  failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                  onSuccess: () {
-                    widget.authenticationSharedBloc.userData = _bloc.userData;
-                    Routes.navigateToScreen(widget.nextPage, NavigationType.pushReplacementNamed, context);
-
-                    // CustomNavigatorModule.navigatorKey.currentState
-                    //     ?.pushReplacementNamed(
-                    //   widget.authenticationSharedBloc.nextScreen,
-                    // );
-                  },
-                );
-              }
+              // if(kDebugMode){
+              onlyForTestingCode();
+              // }else
+              // {
+              //   checkResponseStateWithButton(
+              //     value,
+              //     context,
+              //     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+              //     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+              //     onSuccess: () {
+              //       widget.authenticationSharedBloc.userData = _bloc.userData;
+              //       Routes.navigateToScreen(widget.nextPage, NavigationType.pushReplacementNamed, context);
+              //
+              //       // CustomNavigatorModule.navigatorKey.currentState
+              //       //     ?.pushReplacementNamed(
+              //       //   widget.authenticationSharedBloc.nextScreen,
+              //       // );
+              //     },
+              //   );
+              // }
             },
           );
         },

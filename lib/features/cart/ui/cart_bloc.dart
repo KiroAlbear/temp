@@ -107,8 +107,8 @@ class CartBloc extends BlocBase {
   void _getCartMinimumOrder() {
     if (clientId == 0) return;
     cartMinimumOrderRemote
-        .getCartMinimumOrder(
-            CartMinimumOrderRequest(customer_id: clientId, company_id: 2))
+        .getCartMinimumOrder(CartMinimumOrderRequest(
+            customer_id: clientId, company_id: AppConstants.companyId))
         .listen((event) {
       if (event is SuccessState) {
         cartMinimumOrderBehaviour.sink.add(event.response!.min_order_limit!);
@@ -207,7 +207,7 @@ class CartBloc extends BlocBase {
     _getClientData();
     final CartSaveRequest request = CartSaveRequest(
       client_id: clientId,
-      company_id: 1,
+      company_id: AppConstants.companyId,
       apply_auto_promo: "yes",
       order_line: [
         CartOrderLineSaveRequest(
