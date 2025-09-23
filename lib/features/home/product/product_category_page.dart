@@ -98,6 +98,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
       widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
       widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
       // widget.productCategoryBloc.reset();
+
       widget.productCategoryBloc.loadMore(widget.isForFavourite);
     }
     super.initState();
@@ -106,7 +107,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   @override
   void dispose() {
     widget.homeBloc.reset();
-    widget.productCategoryBloc.reset();
+    widget.productCategoryBloc.disposeReset();
     super.dispose();
   }
 
@@ -246,6 +247,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                       index ==
                                                                           value,
                                                                   onTap: () {
+                                                                    widget
+                                                                        .productCategoryBloc
+                                                                        .reset();
                                                                     widget.selectedCategoryIndex
                                                                             .value =
                                                                         index;
@@ -255,9 +259,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                             .data!
                                                                             .response![index]
                                                                             .id;
-                                                                    widget
-                                                                        .productCategoryBloc
-                                                                        .reset();
+
                                                                     widget.productCategoryBloc.getBrandBy(widget
                                                                             .productCategoryBloc
                                                                             .subcategoryId ??
@@ -351,6 +353,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                 index == value,
                                                             onTap: () {
                                                               widget
+                                                                  .productCategoryBloc
+                                                                  .reset();
+                                                              widget
                                                                   .selectedBrandIndex
                                                                   .value = index;
                                                               widget.productCategoryBloc
@@ -360,9 +365,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                       .response![
                                                                           index]
                                                                       .id;
-                                                              widget
-                                                                  .productCategoryBloc
-                                                                  .reset();
+
                                                               _loadProducts(
                                                                   true, null);
                                                             });

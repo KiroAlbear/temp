@@ -37,7 +37,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     // });
   }
 
-  void reset() {
+  void disposeReset() {
     searchValue = null;
     subcategoryId = null;
     brandId = null;
@@ -45,6 +45,16 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     subCategoryByCategoryStream.sink.add(LoadingState());
     brandBySubcategoryStream.sink.add(LoadingState());
     super.reset();
+  }
+
+  void reset() {
+    searchValue = null;
+    subcategoryId = null;
+    brandId = null;
+    isLoading?.value = false;
+    super.reset();
+    // subCategoryByCategoryStream.sink.add(LoadingState());
+    // brandBySubcategoryStream.sink.add(LoadingState());
   }
 
   void _loadWithFavourites() {
