@@ -44,6 +44,8 @@ class Routes {
   static const String cartSuccessPage = '/cartSuccess';
   static const String cartOrderDetailsPage = '/cartOrderDetails';
 
+  static String currentNavigationPage = "";
+
   static final GoRouter goRouter = GoRouter(
     observers: [],
     initialLocation: splashScreen,
@@ -220,7 +222,7 @@ class Routes {
                     ProductCategoryPage(
                       homeBloc: getIt(),
                       contactUsBloc: getIt(),
-                      productCategoryBloc: getIt(),
+                      productCategoryBloc: ProductCategoryBloc(),
                       cartBloc: getIt(),
                       isForFavourite: true,
                     ),
@@ -331,23 +333,37 @@ class Routes {
                 body: child,
                 bottomNavigationBar: CustomNavigationBar(
                   onTap: (index) {
-                    if (index == 0) {
+                    if (index == 0 &&
+                        currentNavigationPage != Routes.homePage) {
+                      currentNavigationPage = Routes.homePage;
                       Routes.navigateToScreen(
                           Routes.homePage, NavigationType.goNamed, context);
                       return;
-                    } else if (index == 1) {
+                    } else if (index == 1 &&
+                        currentNavigationPage != Routes.favouritePage) {
+                      currentNavigationPage = Routes.favouritePage;
+
                       Routes.navigateToScreen(Routes.favouritePage,
                           NavigationType.goNamed, context);
                       return;
-                    } else if (index == 2) {
+                    } else if (index == 2 &&
+                        currentNavigationPage != Routes.offersPage) {
+                      currentNavigationPage = Routes.offersPage;
+
                       Routes.navigateToScreen(
                           Routes.offersPage, NavigationType.goNamed, context);
                       return;
-                    } else if (index == 3) {
+                    } else if (index == 3 &&
+                        currentNavigationPage != Routes.cartPage) {
+                      currentNavigationPage = Routes.cartPage;
+
                       Routes.navigateToScreen(
                           Routes.cartPage, NavigationType.goNamed, context);
                       return;
-                    } else if (index == 4) {
+                    } else if (index == 4 &&
+                        currentNavigationPage != Routes.morePage) {
+                      currentNavigationPage = Routes.morePage;
+
                       Routes.navigateToScreen(
                           Routes.morePage, NavigationType.goNamed, context);
                       return;

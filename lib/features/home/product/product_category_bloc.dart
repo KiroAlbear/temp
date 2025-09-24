@@ -53,8 +53,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     brandId = null;
     isLoading?.value = false;
     super.reset();
-    // subCategoryByCategoryStream.sink.add(LoadingState());
-    // brandBySubcategoryStream.sink.add(LoadingState());
   }
 
   void _loadWithFavourites() {
