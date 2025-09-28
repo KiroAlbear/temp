@@ -127,7 +127,7 @@ class CartBloc extends BlocBase {
       required int quantity}) {
     final CartEditRequest request = CartEditRequest(
       client_id: clientId,
-      company_id: 1,
+      company_id: AppConstants.companyId,
       apply_auto_promo: "yes",
       order_line: [
         CartOrderLineEditRequest(

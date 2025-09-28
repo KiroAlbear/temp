@@ -37,7 +37,7 @@ class ProductWidget extends StatefulWidget {
     this.isCartProduct = false,
     this.onIncrementClicked,
     this.onDecrementClicked,
-  }): super(key: key) {
+  }) : super(key: key) {
     if (!isCartProduct &&
         (favouriteIcon == null ||
             onTapFavourite == null && onAddToCart == null)) {
@@ -72,18 +72,21 @@ class _ProductWidgetState extends State<ProductWidget> {
       qtyValueNotifier.value = widget.productMapper.cartUserQuantity.round();
     }
 
-    double price = widget.isCartProduct ? widget.productMapper.cartFinalUnitPrice??0: widget.productMapper.finalPrice;
+    double price = widget.isCartProduct
+        ? widget.productMapper.cartFinalUnitPrice ?? 0
+        : widget.productMapper.finalPrice;
     String FormatedPrice = NumberFormat("#,##0.00").format(price);
-    priceTextToShow =  '$FormatedPrice ${widget.productMapper.currency}';
-
+    priceTextToShow = '$FormatedPrice ${widget.productMapper.currency}';
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => Padding(
-     padding:widget.isCartProduct? EdgeInsets.symmetric(horizontal: 16.w):EdgeInsets.zero,
-    child: Container(
+        padding: widget.isCartProduct
+            ? EdgeInsets.symmetric(horizontal: 16.w)
+            : EdgeInsets.zero,
+        child: Container(
           decoration: BoxDecoration(
             color: productCardColor,
             borderRadius: BorderRadius.circular(16.w),
@@ -92,11 +95,11 @@ class _ProductWidgetState extends State<ProductWidget> {
               ? _getCartProductWidget()
               : _getProductWidget(),
         ),
-  );
+      );
 
   Widget _getProductWidget() {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 14.w,end:14.w, top: 14.w),
+      padding: EdgeInsetsDirectional.only(start: 14.w, end: 14.w, top: 14.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,24 +120,30 @@ class _ProductWidgetState extends State<ProductWidget> {
             height: 5.h,
           ),
           ImageFiltered(
-              imageFilter:SharedPrefModule().userId==null? ImageFilter.blur(sigmaX: 4, sigmaY: 4):ImageFilter.blur(sigmaX: 0, sigmaY:0),
+              imageFilter: SharedPrefModule().userId == null
+                  ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
+                  : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
               child: _priceRow),
           SizedBox(
             height: 2.h,
           ),
           _productName,
 
-          widget.productMapper.description.isEmpty?SizedBox(): SizedBox(
-            height: 4.h,
-          ),
-          widget.productMapper.description.isEmpty?SizedBox():_productDescription,
+          widget.productMapper.description.isEmpty
+              ? SizedBox()
+              : SizedBox(
+                  height: 4.h,
+                ),
+          widget.productMapper.description.isEmpty
+              ? SizedBox()
+              : _productDescription,
           SizedBox(
             height: 9.h,
           ),
           // Center(child: _addCartButton),
 
           Padding(
-            padding: const EdgeInsets.only(top:5.0),
+            padding: const EdgeInsets.only(top: 5.0),
             child: ValueListenableBuilder(
               valueListenable: qtyValueNotifier,
               builder: (context, value, child) {
@@ -159,33 +168,39 @@ class _ProductWidgetState extends State<ProductWidget> {
     return SizedBox(
       height: 110.h,
       child: Padding(
-        padding: EdgeInsetsDirectional.only(top: 8.h, bottom: 8.h, end: 16.w, start: 16.w),
+        padding: EdgeInsetsDirectional.only(
+            top: 8.h, bottom: 8.h, end: 16.w, start: 16.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       ConstrainedBox(
-                              constraints: BoxConstraints(maxWidth: 280.w),
-                              child: _productName),
-                      SizedBox(height: 8.h,),
-
-                      widget.productMapper.isAvailable
-                          ? SizedBox()
-                          : _notAvailableProduct(),
-                    ],
-                  ),
-                  _priceRow,
-                ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(child: _productName),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        widget.productMapper.isAvailable
+                            ? SizedBox()
+                            : _notAvailableProduct(),
+                      ],
+                    ),
+                    _priceRow,
+                  ],
+                ),
               ),
             ),
             Column(
@@ -226,54 +241,56 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget get _favouriteRow => Row(
         children: [
           if (SharedPrefModule().bearerToken?.isNotEmpty ?? false)
-          ValueListenableBuilder(
-            valueListenable: isAddingToFavSucess,
-            builder: (context, value, child) {
-              return !value
-                  ? SizedBox(
-                      height: 18, width: 18, child: CircularProgressIndicator())
-                  : InkWell(
-                      onTap: () {
-                        if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
-                          Apputils.showNeedToLoginBottomSheet(context);
-                        } else {
-                          widget.onTapFavourite!(
-                              !widget.productMapper.isFavourite,
-                              widget.productMapper);
-
-                          if (widget.productMapper.isFavourite) {
-                            widget.productCategoryBloc
-                                .removeProductFromFavourite(
-                              productId: widget.productMapper.id,
-                              clientId:
-                                  int.parse(SharedPrefModule().userId ?? '0'),
-                            )
-                                .listen((event) {
-                              if (widget.onProductRemoved != null &&
-                                  event.response != null &&
-                                  event.response!) {
-                                widget
-                                    .onProductRemoved!(widget.productMapper.id);
-                              }
-                              _handleFavouriteIcon(event, false);
-                            });
+            ValueListenableBuilder(
+              valueListenable: isAddingToFavSucess,
+              builder: (context, value, child) {
+                return !value
+                    ? SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator())
+                    : InkWell(
+                        onTap: () {
+                          if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
+                            Apputils.showNeedToLoginBottomSheet(context);
                           } else {
-                            widget.productCategoryBloc
-                                .addProductToFavourite(
-                              productId: widget.productMapper.id,
-                              clientId:
-                                  int.parse(SharedPrefModule().userId ?? '0'),
-                            )
-                                .listen((event) {
-                              _handleFavouriteIcon(event, true);
-                            });
+                            widget.onTapFavourite!(
+                                !widget.productMapper.isFavourite,
+                                widget.productMapper);
+
+                            if (widget.productMapper.isFavourite) {
+                              widget.productCategoryBloc
+                                  .removeProductFromFavourite(
+                                productId: widget.productMapper.id,
+                                clientId:
+                                    int.parse(SharedPrefModule().userId ?? '0'),
+                              )
+                                  .listen((event) {
+                                if (widget.onProductRemoved != null &&
+                                    event.response != null &&
+                                    event.response!) {
+                                  widget.onProductRemoved!(
+                                      widget.productMapper.id);
+                                }
+                                _handleFavouriteIcon(event, false);
+                              });
+                            } else {
+                              widget.productCategoryBloc
+                                  .addProductToFavourite(
+                                productId: widget.productMapper.id,
+                                clientId:
+                                    int.parse(SharedPrefModule().userId ?? '0'),
+                              )
+                                  .listen((event) {
+                                _handleFavouriteIcon(event, true);
+                              });
+                            }
                           }
-                        }
-                      },
-                      child: _favouriteIcon,
-                    );
-            },
-          ),
+                        },
+                        child: _favouriteIcon,
+                      );
+              },
+            ),
           const Spacer(),
           if (widget.productMapper.discountPercentage > 0) _discountWidget,
         ],
@@ -327,64 +344,69 @@ class _ProductWidgetState extends State<ProductWidget> {
             : ImageHelper(
                 image: widget.productMapper.image,
                 imageType: ImageType.network,
-                height:widget.isCartProduct? 50.h:90.h,
-                width:widget.isCartProduct? 50.w:90.w,
+                height: widget.isCartProduct ? 50.h : 90.h,
+                width: widget.isCartProduct ? 50.w : 90.w,
               ),
       );
 
   Widget get _productName => CustomText(
-    text: widget.productMapper.name,
-    textAlign: TextAlign.center,
-    customTextStyle:widget.isCartProduct?BoldStyle(color: lightBlackColor, fontSize: 14.sp): MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-    maxLines: 1,
-  );
+        text: widget.productMapper.name,
+        textAlign: TextAlign.center,
+        customTextStyle: widget.isCartProduct
+            ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
+            : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+        maxLines: 1,
+      );
 
   Widget get _priceRow => Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Expanded(
-        flex:widget.isCartProduct? 0:1,
-        child: CustomText(
-            text: priceTextToShow,
-            textAlign: TextAlign.start,
-            customTextStyle:
-                BoldStyle(fontSize:widget.isCartProduct? 16.sp:14.sp, color: darkSecondaryColor)),
-      ),
-      SizedBox(
-        width:widget.productMapper.hasDiscount? 10.w:0,
-      ),
-      if (widget.productMapper.hasDiscount)
-        CustomText(
-          text:
-              '${widget.isCartProduct ? widget.productMapper.cartOriginalUnitPrice.toString() : widget.productMapper.productOriginalPrice.toString()} ${widget.productMapper.currency}',
-          customTextStyle: BoldStyle(
-              color: redColor,
-              fontSize: 10.sp,
-              textDecoration: TextDecoration.lineThrough),
-        )
-    ],
-  );
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: widget.isCartProduct ? 0 : 1,
+            child: CustomText(
+                text: priceTextToShow,
+                textAlign: TextAlign.start,
+                customTextStyle: BoldStyle(
+                    fontSize: widget.isCartProduct ? 16.sp : 14.sp,
+                    color: darkSecondaryColor)),
+          ),
+          SizedBox(
+            width: widget.productMapper.hasDiscount ? 10.w : 0,
+          ),
+          if (widget.productMapper.hasDiscount)
+            CustomText(
+              text:
+                  '${widget.isCartProduct ? widget.productMapper.cartOriginalUnitPrice.toString() : widget.productMapper.productOriginalPrice.toString()} ${widget.productMapper.currency}',
+              customTextStyle: BoldStyle(
+                  color: redColor,
+                  fontSize: 10.sp,
+                  textDecoration: TextDecoration.lineThrough),
+            )
+        ],
+      );
 
   Widget get _productDescription => CustomText(
-    text: widget.productMapper.description,
-    customTextStyle: RegularStyle(fontSize: 12.sp, color: greyColor),
-    maxLines: 2,
-  );
+        text: widget.productMapper.description,
+        customTextStyle: RegularStyle(fontSize: 12.sp, color: greyColor),
+        maxLines: 2,
+      );
 
   void _showMaximumAlertDialog(String message, String qty) {
-    showModalBottomSheet(context: context,
+    showModalBottomSheet(
+      context: context,
       useRootNavigator: true,
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.20),
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.20),
       builder: (context) {
-      return DialogWidget(
-        sameButtonsColor: false,
-        message: "$message $qty",
-        confirmMessage: S.of(context).ok,
-        onConfirm: () {},
-      );
-    },);
+        return DialogWidget(
+          sameButtonsColor: false,
+          message: "$message $qty",
+          confirmMessage: S.of(context).ok,
+          onConfirm: () {},
+        );
+      },
+    );
     // AlertModule().showDialog(
     //   context: context,
     //   message: "$message $qty",
@@ -394,23 +416,25 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   void _showDeleteAlertDialog(String message, String qty) {
-    showModalBottomSheet(context: context,
+    showModalBottomSheet(
+      context: context,
       useRootNavigator: true,
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.24),
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.24),
       builder: (context) {
-      return DialogWidget(
-        message: "$message $qty",
-        confirmMessage: S.of(context).ok,
-        cancelMessage: S.of(context).cancel,
-        sameButtonsColor: false,
-        onCancel: () {},
-        onConfirm: () {
-          qtyValueNotifier.value=0;
-          widget.onDeleteClicked!(widget.productMapper);
-        },
-      );
-    },);
+        return DialogWidget(
+          message: "$message $qty",
+          confirmMessage: S.of(context).ok,
+          cancelMessage: S.of(context).cancel,
+          sameButtonsColor: false,
+          onCancel: () {},
+          onConfirm: () {
+            qtyValueNotifier.value = 0;
+            widget.onDeleteClicked!(widget.productMapper);
+          },
+        );
+      },
+    );
     // AlertModule().showDialog(
     //   context: context,
     //   message: "$message $qty",
@@ -474,7 +498,6 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
             ),
           ),
-
           Container(
             height: 20.h,
             width: 20.w,
@@ -486,17 +509,17 @@ class _ProductWidgetState extends State<ProductWidget> {
                     text: value.toString(),
                     textAlign: TextAlign.center,
                     customTextStyle: MediumStyle(
-                        color: cartSuccessBlueColor, fontSize: 14.sp,lineHeight: 0.7),
+                        color: cartSuccessBlueColor,
+                        fontSize: 14.sp,
+                        lineHeight: 0.7),
                   ),
                 );
               },
             ),
           ),
-
           Container(
             // color: Colors.red,
-            padding: EdgeInsetsDirectional.only(
-                end: horizontalSpace),
+            padding: EdgeInsetsDirectional.only(end: horizontalSpace),
             child: InkWell(
               onTap: () {
                 if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
@@ -520,7 +543,6 @@ class _ProductWidgetState extends State<ProductWidget> {
               },
               child: Container(
                 height: plusMinusIconHeight,
-
                 child: Center(
                   child: ValueListenableBuilder(
                     valueListenable: qtyValueNotifier,
@@ -528,16 +550,17 @@ class _ProductWidgetState extends State<ProductWidget> {
                       return (value == widget.productMapper.minQuantity ||
                               value <= 1)
                           ? SizedBox(
-                            height: 24.h,
-                            width: 24.w,
-                            child: ImageHelper(
-                                image: widget.icDelete!, imageType: ImageType.svg),
-                          )
+                              height: 24.h,
+                              width: 24.w,
+                              child: ImageHelper(
+                                  image: widget.icDelete!,
+                                  imageType: ImageType.svg),
+                            )
                           : Icon(
-                            Icons.remove,
-                            size: plusMinusIconSize,
-                            color: cartSuccessBlueColor,
-                      );
+                              Icons.remove,
+                              size: plusMinusIconSize,
+                              color: cartSuccessBlueColor,
+                            );
                     },
                   ),
                 ),
@@ -553,17 +576,18 @@ class _ProductWidgetState extends State<ProductWidget> {
         onTap: () async {
           if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
             await Apputils.showNeedToLoginBottomSheet(context);
-          }else{
+          } else {
             if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
-                {
+            {
               widget.onAddToCart!(widget.productMapper);
-              qtyValueNotifier.value =widget.productMapper.minQuantity==0?1: widget.productMapper.minQuantity.toInt();
+              qtyValueNotifier.value = widget.productMapper.minQuantity == 0
+                  ? 1
+                  : widget.productMapper.minQuantity.toInt();
               if (widget.cartBloc != null) {
                 widget.cartBloc!.getMyCart();
               }
             }
           }
-
         },
         child: Container(
           alignment: Alignment.center,
@@ -571,14 +595,18 @@ class _ProductWidgetState extends State<ProductWidget> {
           height: buttonHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.r),
-            color:
-                widget.productMapper.canAddToCart() ? primaryColor : disabledButtonColorLightMode,
+            color: widget.productMapper.canAddToCart()
+                ? primaryColor
+                : disabledButtonColorLightMode,
           ),
           child: Center(
             child: CustomText(
                 text: S.of(context).addToCart,
-                customTextStyle:
-                    RegularStyle(color:widget.productMapper.canAddToCart()? darkSecondaryColor :disabledButtonTextColorLightMode, fontSize: 12.sp)),
+                customTextStyle: RegularStyle(
+                    color: widget.productMapper.canAddToCart()
+                        ? darkSecondaryColor
+                        : disabledButtonTextColorLightMode,
+                    fontSize: 12.sp)),
           ),
         ),
       );
