@@ -195,7 +195,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           valueListenable:
                                               widget.selectedCategoryIndex,
                                           builder: (context, value, child) {
-                                            return !snapshot.hasData
+                                            return (!snapshot.hasData ||
+                                                    snapshot.data == null ||
+                                                    snapshot.data?.response ==
+                                                        null)
                                                 ? Container()
                                                 : Padding(
                                                     padding: EdgeInsets.symmetric(

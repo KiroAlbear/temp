@@ -170,7 +170,8 @@ class CartBloc extends BlocBase {
   }
 
   void addCartInfoToProducts(List<ProductMapper> productsList) {
-    if (cartProductsBehavior.value.response?.isEmpty ?? true) {
+    if (cartProductsBehavior.hasValue == true &&
+        (cartProductsBehavior.value.response?.isEmpty ?? true)) {
       // return;
       for (int i = 0; i < productsList.length; i++) {
         productsList[i].cartUserQuantity = 0;
@@ -179,6 +180,7 @@ class CartBloc extends BlocBase {
         // productsList[i].productId = 0;
       }
     } else {
+      if (cartProductsBehavior.hasValue == false) return;
       for (int i = 0; i < productsList.length; i++) {
         for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
           if (productsList[i].id ==
