@@ -60,7 +60,7 @@ class DioBuilder {
   /// The logger can be printed to the console or integrated with the Chucker library for more detailed logs.
   DioBuilder addLogger({bool allowChucker = true, bool printLog = true}) {
     if (allowChucker) {
-      // dio.interceptors.add(ChuckerDioInterceptor());
+      dio.interceptors.add(ChuckerDioInterceptor());
     }
     if (printLog) {
       dio.interceptors.add(PrettyDioLogger(

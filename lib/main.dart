@@ -129,7 +129,7 @@ FutureOr<void> main() async {
   LoggerModule.log(message: OdooDioModule().baseUrl, name: 'odoo dio module');
 
   /// allow Chucker to show in release mode
-  // ChuckerFlutter.showOnRelease = true;
+  ChuckerFlutter.showOnRelease = true;
   HttpOverrides.global = AppHttpOverrides();
   await DependencyInjectionService().init();
 

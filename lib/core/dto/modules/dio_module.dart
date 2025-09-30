@@ -16,7 +16,7 @@ abstract class DioModule extends DioBuilder {
     setDefaultTimeOut(30);
     // Configure logging based on the environment
     if (ConstantModule.isLive) {
-      addLogger(allowChucker: false, printLog: false);
+      addLogger(allowChucker: true, printLog: false);
     } else {
       addLogger(allowChucker: true, printLog: true);
     }

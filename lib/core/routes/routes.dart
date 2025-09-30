@@ -47,7 +47,7 @@ class Routes {
   static String currentNavigationPage = "";
 
   static final GoRouter goRouter = GoRouter(
-    observers: [],
+    observers: [ChuckerFlutter.navigatorObserver],
     initialLocation: splashScreen,
     navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: false,

@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
         locale: const Locale('ar'),
         supportedLocales: S.delegate.supportedLocales,
 
+
         routerConfig: Routes.goRouter,
 
       );
