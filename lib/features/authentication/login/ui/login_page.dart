@@ -15,9 +15,7 @@ import 'login_bloc.dart';
 class LoginPage extends BaseStatefulWidget {
   final bool enableSkip;
 
-  const LoginPage(
-      {super.key,
-      required this.enableSkip});
+  const LoginPage({super.key, required this.enableSkip});
 
   @override
   State<LoginPage> createState() => _LoginWidgetState();
@@ -26,7 +24,6 @@ class LoginPage extends BaseStatefulWidget {
 class _LoginWidgetState extends BaseState<LoginPage> {
   final LoginBloc _bloc = LoginBloc();
   bool isLoggingWithBiometric = true;
-
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -46,8 +43,8 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   @override
   void initState() {
     customBackgroundColor = Colors.white;
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(whiteColor));
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => changeSystemNavigationBarAndStatusColor(whiteColor));
 
     Timer(Duration(milliseconds: 200), () {
       changeSystemNavigationBarAndStatusColor(whiteColor);
@@ -92,7 +89,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
               CustomText(
                   text: S.of(context).password,
                   customTextStyle:
-                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                      MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -131,7 +128,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       );
 
   Widget get _passwordTextFormFiled => CustomTextFormFiled(
-    key:  Key("PasswordWidget"),
+        key: Key("PasswordWidget"),
         labelText: S.of(context).enterYourPassword,
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
         onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
@@ -146,7 +143,8 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   Widget get _forgetPassword => Container(
         alignment: Alignment.centerLeft,
         child: InkWell(
-          onTap: () =>  Routes.navigateToScreen(Routes.forgotPasswordPage, NavigationType.pushNamed, context),
+          onTap: () => Routes.navigateToScreen(
+              Routes.forgotPasswordPage, NavigationType.pushNamed, context),
           child: CustomText(
               text: S.of(context).forgotPassword,
               customTextStyle:
@@ -185,18 +183,19 @@ class _LoginWidgetState extends BaseState<LoginPage> {
               _bloc.passwordBloc.textFormFiledBehaviour.sink.add(
                   TextEditingController(text: SharedPrefModule().password));
 
-              _bloc.mobileBloc
-                  .updateStringBehaviour(SharedPrefModule().userPhoneWithoutCountry ?? '');
+              _bloc.mobileBloc.updateStringBehaviour(
+                  SharedPrefModule().userPhoneWithoutCountry ?? '');
 
               _bloc.passwordBloc
                   .updateStringBehaviour(SharedPrefModule().password ?? '');
 
-              String countryCode =  SharedPrefModule().getCountryCode()??"" ;
+              String countryCode = SharedPrefModule().getCountryCode() ?? "";
 
               _bloc.countryStream.listen((event) {
                 if (event is SuccessState) {
                   _bloc.countryBloc.updateValue(event.response!.firstWhere(
-                    (element) => element.description == countryCode.replaceAll("+", ""),
+                    (element) =>
+                        element.description == countryCode.replaceAll("+", ""),
                     orElse: () => event.response!.first,
                   ));
                   _bloc.login.listen((event) {
@@ -205,6 +204,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                       context,
                       failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                      headerErrorMessage: event.message,
                       onSuccess: () {
                         _navigateHome();
                       },
@@ -212,7 +212,6 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                   });
                 }
               });
-
 
               // _bloc.loginWithBiometrics.listen((event) {
               //   checkResponseStateWithButton(event, context,
@@ -239,25 +238,24 @@ class _LoginWidgetState extends BaseState<LoginPage> {
 
   Widget _button(bool hasBiometric) => CustomButtonWidget(
         idleText: S.of(context).loginEnter,
-
         borderRadius: 8,
         width: hasBiometric
             ? (MediaQuery.of(context).size.width - 156.w)
             : (MediaQuery.of(context).size.width - 32.w),
         onTap: () {
-            isLoggingWithBiometric = false;
-            _bloc.login.listen((event) {
-              checkResponseStateWithButton(
-                event,
-                context,
-                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                onSuccess: () {
-                  _navigateHome();
-                },
-              );
-            });
-
+          isLoggingWithBiometric = false;
+          _bloc.login.listen((event) {
+            checkResponseStateWithButton(
+              event,
+              context,
+              failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+              buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+              headerErrorMessage: "خطأ في رقم الهاتف او كلمة المرور",
+              onSuccess: () {
+                _navigateHome();
+              },
+            );
+          });
         },
         buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
         failedBehaviour: _bloc.buttonBloc.failedBehaviour,
@@ -265,7 +263,8 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       );
 
   Widget get _registerWidget => InkWell(
-        onTap: () =>  Routes.navigateToScreen(Routes.registerPage, NavigationType.pushNamed, context),
+        onTap: () => Routes.navigateToScreen(
+            Routes.registerPage, NavigationType.pushNamed, context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -292,9 +291,10 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       //
       SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
 
-      await SharedPrefModule().setCountryCode(_bloc.countryBloc.value!.description);
+      await SharedPrefModule()
+          .setCountryCode(_bloc.countryBloc.value!.description);
 
-      await SharedPrefModule().setPassword( _bloc.passwordBloc.value);
+      await SharedPrefModule().setPassword(_bloc.passwordBloc.value);
     }
     Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
     // CustomNavigatorModule.navigatorKey.currentState
@@ -303,8 +303,4 @@ class _LoginWidgetState extends BaseState<LoginPage> {
     // if (widget.bottomNavigationBloc != null)
     //   widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }
-
-
-
-
 }
