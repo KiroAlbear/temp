@@ -333,35 +333,30 @@ class Routes {
                 body: child,
                 bottomNavigationBar: CustomNavigationBar(
                   onTap: (index) {
-                    if (index == 0 &&
-                        currentNavigationPage != Routes.homePage) {
+                    if (index == 0) {
                       currentNavigationPage = Routes.homePage;
                       Routes.navigateToScreen(
                           Routes.homePage, NavigationType.goNamed, context);
                       return;
-                    } else if (index == 1 &&
-                        currentNavigationPage != Routes.favouritePage) {
+                    } else if (index == 1) {
                       currentNavigationPage = Routes.favouritePage;
 
                       Routes.navigateToScreen(Routes.favouritePage,
                           NavigationType.goNamed, context);
                       return;
-                    } else if (index == 2 &&
-                        currentNavigationPage != Routes.offersPage) {
+                    } else if (index == 2) {
                       currentNavigationPage = Routes.offersPage;
 
                       Routes.navigateToScreen(
                           Routes.offersPage, NavigationType.goNamed, context);
                       return;
-                    } else if (index == 3 &&
-                        currentNavigationPage != Routes.cartPage) {
+                    } else if (index == 3) {
                       currentNavigationPage = Routes.cartPage;
 
                       Routes.navigateToScreen(
                           Routes.cartPage, NavigationType.goNamed, context);
                       return;
-                    } else if (index == 4 &&
-                        currentNavigationPage != Routes.morePage) {
+                    } else if (index == 4) {
                       currentNavigationPage = Routes.morePage;
 
                       Routes.navigateToScreen(
