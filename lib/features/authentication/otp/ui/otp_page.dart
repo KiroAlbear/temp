@@ -152,7 +152,9 @@ class _OtpWidgetState extends BaseState<OtpPage> {
   Widget get _otpWithMobile => CustomText(
       text: S.of(context).enterVerificationCodeSentTo(
           _bloc.otpCodeLength,
-          widget.authenticationSharedBloc.countryMapper.description +
+          (widget.authenticationSharedBloc.countryMapper.description == "20"
+                  ? "2"
+                  : widget.authenticationSharedBloc.countryMapper.description) +
               widget.authenticationSharedBloc.mobile +
               '+'),
       customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor));
