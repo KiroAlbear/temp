@@ -44,10 +44,13 @@ FutureOr<void> main() async {
   // of notifications they would like to receive once the user receives a notification.
 
   // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
-  final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-  if (apnsToken != null) {
-    // APNS token is available, make FCM plugin API requests...
-  }
+  final apnsToken = await FirebaseMessaging.instance.getAPNSToken().then(
+    (apnsToken) async {
+      if (apnsToken != null) {
+        print("********* fcmToken $apnsToken **********");
+      }
+    },
+  );
 
   final notificationSettings =
       await FirebaseMessaging.instance.requestPermission(
@@ -67,12 +70,13 @@ FutureOr<void> main() async {
 
   await requestNotificationPermissions();
 
-  String? token = await FirebaseMessaging.instance.getToken();
-  if (token != null) {
-    LoggerModule.log(
-        message: "********* fcm Token $token **********", name: "fcm Token");
-    // Send initial token to your server
-  }
+  final String? tok = await FirebaseMessaging.instance.getToken().then(
+    (tok) async {
+      if (tok != null) {
+        print("********* fcmToken $tok **********");
+      }
+    },
+  );
 
   FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
     // print("********* fcm Token $fcmToken **********");
