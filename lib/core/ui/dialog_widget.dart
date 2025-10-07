@@ -180,6 +180,8 @@ class _DialogWidgetState extends State<DialogWidget> {
         if (widget.onCancel != null) {
           widget.onCancel!();
         }
-        Navigator.pop(context);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pop(context);
+        });
       });
 }

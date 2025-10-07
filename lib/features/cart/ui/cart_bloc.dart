@@ -10,6 +10,7 @@ import '../models/latlong.dart';
 enum CartState { increment, decrement }
 
 class CartBloc extends BlocBase {
+  final ButtonBloc buttonBloc = ButtonBloc();
   BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
       BehaviorSubject();
 
@@ -360,6 +361,7 @@ class CartBloc extends BlocBase {
 
   @override
   void dispose() {
+    buttonBloc.dispose();
     // cartProductsBehavior.sink.add(IdleState());
     // cartProductsBehavior.close();
   }

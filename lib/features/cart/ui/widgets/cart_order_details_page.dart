@@ -1,3 +1,4 @@
+import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_order_details_args.dart';
@@ -45,6 +46,12 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   }
 
   @override
+  void dispose() {
+    widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.idle);
+    super.dispose();
+  }
+
+  @override
   Widget getBody(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       AppTopWidget(
@@ -56,7 +63,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
 
                 _buildOrderSummary(context),
@@ -97,7 +104,10 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                 62.verticalSpace,
                 CustomButtonWidget(
                     idleText: S.of(context).cartConfirmOrder,
+                    buttonBehaviour: widget.cartBloc.buttonBloc.buttonBehavior,
+
                     onTap: () async {
+                      widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.loading);
 
                       if(widget.cartOrderDetailsArgs.isItVisa){
                         _payWithCard();
@@ -130,11 +140,14 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         // Checks if the payment was successful
         if (response.responseCode == "APPROVED") {
           _ConfirmOder();
-
+        }else{
+          widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         }
       },
 
     );
+    widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+
   }
   void _payWithWallet(String walletNumber) async {
     await FlutterPaymob.instance.payWithWallet(
@@ -147,16 +160,22 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         // Checks if the payment was successful
         if (response.responseCode == "200") {
           _ConfirmOder();
+        }else{
+          widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         }
       },
 
     );
+    widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+
   }
   void _ConfirmOder(){
+    widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.loading);
     widget.cartBloc
         .confirmOrderCart()
         .listen((event) {
       if (event is SuccessState) {
+        widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         widget.cartBloc.getMyCart();
         Routes.navigateToScreen(Routes.cartSuccessPage, NavigationType.pushReplacementNamed, context);
         // CustomNavigatorModule
