@@ -2,10 +2,8 @@
 import 'package:deel/core/dto/models/notifications/notification_update_device_data_request_model.dart';
 import 'package:deel/core/dto/models/notifications/notification_update_device_data_response_model.dart';
 import 'package:deel/deel.dart';
+import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
-
-
-
 part 'admin_client.g.dart';
 part 'admin_client_key.dart';
 

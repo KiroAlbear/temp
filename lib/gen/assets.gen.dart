@@ -1,3 +1,5 @@
+// dart format width=80
+
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
@@ -5,7 +7,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 
@@ -14,9 +16,6 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/cart_success.svg
   String get cartSuccess => 'assets/svg/cart_success.svg';
-
-  /// File path: assets/svg/ic_forward_arr_unified.svg
-  String get icForwardArrUnified => 'assets/svg/ic_forward_arr_unified.svg';
 
   /// File path: assets/svg/cart_success_logo.svg
   String get cartSuccessLogo => 'assets/svg/cart_success_logo.svg';
@@ -41,13 +40,15 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/ic_arrow_down.svg
   String get icArrowDown => 'assets/svg/ic_arrow_down.svg';
-  String get icArrowDownGrey => 'assets/svg/ic_arrow_down_grey.svg';
 
+  /// File path: assets/svg/ic_arrow_down_blue.svg
   String get icArrowDownBlue => 'assets/svg/ic_arrow_down_blue.svg';
+
+  /// File path: assets/svg/ic_arrow_down_grey.svg
+  String get icArrowDownGrey => 'assets/svg/ic_arrow_down_grey.svg';
 
   /// File path: assets/svg/ic_back.svg
   String get icBack => 'assets/svg/ic_back.svg';
-
 
   /// File path: assets/svg/ic_biometric.svg
   String get icBiometric => 'assets/svg/ic_biometric.svg';
@@ -103,17 +104,17 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_favourite_filled.svg
   String get icFavouriteFilled => 'assets/svg/ic_favourite_filled.svg';
 
+  /// File path: assets/svg/ic_forward_arr_unified.svg
+  String get icForwardArrUnified => 'assets/svg/ic_forward_arr_unified.svg';
+
+  /// File path: assets/svg/ic_forward_grey.svg
+  String get icForwardGrey => 'assets/svg/ic_forward_grey.svg';
+
   /// File path: assets/svg/ic_health_check.svg
   String get icHealthCheck => 'assets/svg/ic_health_check.svg';
 
   /// File path: assets/svg/ic_home.svg
   String get icHome => 'assets/svg/ic_home.svg';
-
-  /// File path: assets/svg/logo_yellow.svg
-  String get logoYellow => 'assets/svg/logo_yellow.svg';
-
-  /// File path: assets/svg/logo_text.svg
-  String get logoText => 'assets/svg/logo_text.svg';
 
   /// File path: assets/svg/ic_items.svg
   String get icItems => 'assets/svg/ic_items.svg';
@@ -164,12 +165,14 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_phone.svg
   String get icPhone => 'assets/svg/ic_phone.svg';
 
+  /// File path: assets/svg/ic_previous_blue.svg
+  String get icPreviousBlue => 'assets/svg/ic_previous_blue.svg';
+
   /// File path: assets/svg/ic_previous_order.svg
   String get icPreviousOrder => 'assets/svg/ic_previous_order.svg';
 
   /// File path: assets/svg/ic_promo.svg
   String get icPromo => 'assets/svg/ic_promo.svg';
-
 
   /// File path: assets/svg/ic_scan.svg
   String get icScan => 'assets/svg/ic_scan.svg';
@@ -189,28 +192,23 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_success_register.svg
   String get icSuccessRegister => 'assets/svg/ic_success_register.svg';
 
-
   /// File path: assets/svg/ic_total.svg
   String get icTotal => 'assets/svg/ic_total.svg';
-
-
 
   /// File path: assets/svg/ic_whats_app.svg
   String get icWhatsApp => 'assets/svg/ic_whats_app.svg';
 
-
   /// File path: assets/svg/img_cancel_order.svg
   String get imgCancelOrder => 'assets/svg/img_cancel_order.svg';
 
+  /// File path: assets/svg/logo_text.svg
+  String get logoText => 'assets/svg/logo_text.svg';
 
-
-  String get icForwardGrey => 'assets/svg/ic_forward_grey.svg';
-
-  String get icPreviousBlue => 'assets/svg/ic_previous_blue.svg';
+  /// File path: assets/svg/logo_yellow.svg
+  String get logoYellow => 'assets/svg/logo_yellow.svg';
 
   /// List of all assets
   List<dynamic> get values => [
-        icForwardArrUnified,
         cartSuccess,
         cartSuccessLogo,
         emptyCart,
@@ -220,7 +218,8 @@ class $AssetsSvgGen {
         icAcceptedOrderGreen,
         icAlert,
         icArrowDown,
-        icAcceptedOrderGray,
+        icArrowDownBlue,
+        icArrowDownGrey,
         icBack,
         icBiometric,
         icCamera,
@@ -240,10 +239,10 @@ class $AssetsSvgGen {
         icFaq,
         icFavourite,
         icFavouriteFilled,
+        icForwardArrUnified,
+        icForwardGrey,
         icHealthCheck,
         icHome,
-        logoYellow,
-        logoText,
         icItems,
         icLauncher,
         icLocation,
@@ -260,6 +259,7 @@ class $AssetsSvgGen {
         icOutsideOrderGreen,
         icPerson,
         icPhone,
+        icPreviousBlue,
         icPreviousOrder,
         icPromo,
         icScan,
@@ -271,8 +271,8 @@ class $AssetsSvgGen {
         icTotal,
         icWhatsApp,
         imgCancelOrder,
-        icForwardGrey,
-        icPreviousBlue
+        logoText,
+        logoYellow
       ];
 }
 
@@ -280,6 +280,10 @@ class Assets {
   const Assets._();
 
   static const $AssetsSvgGen svg = $AssetsSvgGen();
+  static const String shorebird = 'shorebird.yaml';
+
+  /// List of all assets
+  static List<String> get values => [shorebird];
 }
 
 class AssetGenImage {
@@ -287,12 +291,14 @@ class AssetGenImage {
     this._assetName, {
     this.size,
     this.flavors = const {},
+    this.animation,
   });
 
   final String _assetName;
 
   final Size? size;
   final Set<String> flavors;
+  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -361,4 +367,16 @@ class AssetGenImage {
   String get path => _assetName;
 
   String get keyName => _assetName;
+}
+
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({
+    required this.isAnimation,
+    required this.duration,
+    required this.frames,
+  });
+
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
 }

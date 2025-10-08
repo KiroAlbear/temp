@@ -1,4 +1,5 @@
 import 'package:deel/deel.dart';
+import 'package:retrofit/error_logger.dart';
 
 import '../models/address/address_request.dart';
 import '../models/balance/balance_response.dart';

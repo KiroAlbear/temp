@@ -31,7 +31,7 @@ dependencies:
   google_fonts: 6.2.1
   rxdart: ^0.27.7
   form_field_validator: ^1.1.0
-  retrofit: '>=4.0.0 <5.0.0'
+  retrofit: ^4.7.3
   logger: any
   json_annotation: ^4.9.0
   custom_progress_button: ^2.0.1
@@ -59,7 +59,7 @@ dependencies:
   http: ^1.2.2
   index_generator: ^3.4.1
   mockito: ^5.4.4
-  retrofit_generator: '>=5.0.0 <6.0.0'
+  retrofit_generator: 10.0.6
   timelines:
     git:
       url: https://github.com/KiroAlbear/timelines_pubdev.git
@@ -83,7 +83,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   flutter_flavorizr: ^2.2.3
-  build_runner:
+  build_runner: ^2.4.15
   json_serializable: ^6.8.0
   flutter_gen_runner:
 
@@ -91,6 +91,7 @@ dependency_overrides:
   http: ^0.13.5
   intl: 0.18.1
   geolocator: ^10.1.0
+  dart_style: ^3.1.1
 
 
 index_generator:
