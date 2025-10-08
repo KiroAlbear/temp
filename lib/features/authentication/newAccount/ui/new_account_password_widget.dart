@@ -26,11 +26,11 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        _formKey.currentState!.validate();
-      },
-    );
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (timeStamp) {
+    //     _formKey.currentState!.validate();
+    //   },
+    // );
     super.initState();
   }
 
