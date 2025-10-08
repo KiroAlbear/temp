@@ -1,4 +1,6 @@
 
+import 'package:deel/core/dto/models/notifications/notification_update_device_data_request_model.dart';
+import 'package:deel/core/dto/models/notifications/notification_update_device_data_response_model.dart';
 import 'package:deel/deel.dart';
 import 'package:retrofit/http.dart';
 
@@ -14,6 +16,10 @@ abstract class AdminClient {
   @POST(_AdminApiKey._faq)
   Future<AdminHeaderResponse<List<FaqResponse>>> getFaq(
       @Body() AdminHeaderRequest request);
+
+  @POST(_AdminApiKey._notificationUpdateDeviceData)
+  Future<AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>> updateDeviceData(
+      @Body() NotificationsUpdateDeviceDataRequestModel request);
 
   @POST(_AdminApiKey._contactUs)
   Future<AdminHeaderResponse<List<ContactUsResponse>>> getContactUs(
