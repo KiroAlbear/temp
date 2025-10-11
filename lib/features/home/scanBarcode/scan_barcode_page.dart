@@ -97,8 +97,7 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
             ),
           )
         ],
-      )
-      );
+      ));
 
   StreamBuilder<bool> get _scanStreamBuilder => StreamBuilder<bool>(
         stream: _bloc.scanStream,
@@ -113,7 +112,7 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
           lensDirection: CameraLensDirection.back,
           showScannerOverlay: true,
           actionButtonsBackgroundColor: yellowSwitchColorBorderLightMode,
-          scannerOverlay: FixedScannerOverlay(
+          scannerOverlay: ScannerOverlayBorder(
             borderColor: yellowSwitchColorBorderLightMode,
             borderLength: 20.w,
             borderWidth: 4.w,

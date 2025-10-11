@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 export 'dart:io';
-export 'package:chucker_flutter/chucker_flutter.dart';
 export 'package:dio/dio.dart';
 export 'package:dio_smart_retry/dio_smart_retry.dart';
 export 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -60,12 +58,12 @@ class DioBuilder {
   /// The logger can be printed to the console or integrated with the Chucker library for more detailed logs.
   DioBuilder addLogger({bool allowChucker = true, bool printLog = true}) {
     if (allowChucker) {
-      dio.interceptors.add(ChuckerDioInterceptor());
+      // dio.interceptors.add(ChuckerDioInterceptor());
     }
     if (printLog) {
       dio.interceptors.add(PrettyDioLogger(
         request: true,
-        enabled:  true,
+        enabled: true,
         requestHeader: true,
         requestBody: true,
         responseBody: true,
@@ -255,19 +253,19 @@ class DioBuilder {
 
   /// Handles the error that occurred during the HTTP request.
   void handleOnError(
-      DioException dioException, ErrorInterceptorHandler handler){
+      DioException dioException, ErrorInterceptorHandler handler) {
     handler.next(dioException);
   }
 
   /// Handles the request before it is sent.
   void handleOnRequest(
-      RequestOptions options, RequestInterceptorHandler handler){
+      RequestOptions options, RequestInterceptorHandler handler) {
     handler.next(options);
   }
 
   /// Handles the response after it is received.
   void handleOnResponse(
-      Response<dynamic> response, ResponseInterceptorHandler handler){
+      Response<dynamic> response, ResponseInterceptorHandler handler) {
     handler.next(response);
   }
 }

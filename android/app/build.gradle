@@ -74,10 +74,11 @@ android {
 
     defaultConfig {
         applicationId "com.icons.deelexpress"
-        minSdkVersion 24
-        targetSdkVersion 35
+        minSdkVersion 23
+        targetSdkVersion flutter.targetSdkVersion
         versionCode 24
         versionName "24.0"
+        multiDexEnabled true
     }
 
     signingConfigs {
