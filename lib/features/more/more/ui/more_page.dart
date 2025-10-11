@@ -31,6 +31,8 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
+  final appVersionNumber = "0.1.0";
+
   @override
   void initState() {
     super.initState();
@@ -91,11 +93,16 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 SizedBox(
                   height: 40.h,
                 ),
-                ImageHelper(image: Assets.svg.logoYellow, imageType: ImageType.svg),
+                ImageHelper(
+                    image: Assets.svg.logoYellow, imageType: ImageType.svg),
                 SizedBox(
                   height: 17.h,
                 ),
-                Center(child: CustomText(text: S.of(context).startOrderNow, customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor))),
+                Center(
+                    child: CustomText(
+                        text: S.of(context).startOrderNow,
+                        customTextStyle: RegularStyle(
+                            fontSize: 14.sp, color: lightBlackColor))),
                 SizedBox(
                   height: 36.h,
                 ),
@@ -104,10 +111,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
                     child: CustomButtonWidget(
                       idleText: S.of(context).createAccount,
                       onTap: () async {
-                        await Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
-                        await Routes.navigateToScreen(Routes.registerPage, NavigationType.pushNamed, context);
-                        WidgetsBinding.instance
-                            .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
+                        await Routes.navigateToScreen(
+                            Routes.loginPage, NavigationType.goNamed, context);
+                        await Routes.navigateToScreen(Routes.registerPage,
+                            NavigationType.pushNamed, context);
+                        WidgetsBinding.instance.addPostFrameCallback((_) =>
+                            changeSystemNavigationBarAndStatusColor(
+                                secondaryColor));
                       },
                     )),
                 SizedBox(
@@ -131,13 +141,14 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   child: CustomText(
                       text: S.of(context).settings,
                       customTextStyle:
-                      BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+                          BoldStyle(fontSize: 18.sp, color: secondaryColor)),
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).accountInfo, Assets.svg.icPerson, () {
-                  Routes.navigateToScreen(Routes.updateProfilePage, NavigationType.pushNamed, context);
+                  Routes.navigateToScreen(Routes.updateProfilePage,
+                      NavigationType.pushNamed, context);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
                 }),
@@ -145,7 +156,8 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).changePassword, Assets.svg.icLock, () {
-                  Routes.navigateToScreen(Routes.accountChangePasswordPage, NavigationType.pushNamed, context);
+                  Routes.navigateToScreen(Routes.accountChangePasswordPage,
+                      NavigationType.pushNamed, context);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.accountChangePassword.name);
                 }),
@@ -155,8 +167,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 _menuItem(
                   S.of(context).myOrders,
                   Assets.svg.icMyOrders,
-                      () {
-                        Routes.navigateToScreen(Routes.myOrdersPage, NavigationType.pushNamed, context);
+                  () {
+                    Routes.navigateToScreen(
+                        Routes.myOrdersPage, NavigationType.pushNamed, context);
                     // CustomNavigatorModule.navigatorKey.currentState
                     //     ?.pushNamed(AppScreenEnum.myOrders.name);
                   },
@@ -170,14 +183,15 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
                   // widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
-                  Routes.navigateToScreen(Routes.favouritePage, NavigationType.pushNamed, context,setBottomNavigationTab: false);
+                  Routes.navigateToScreen(
+                      Routes.favouritePage, NavigationType.pushNamed, context,
+                      setBottomNavigationTab: false);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.product.name);
                 },
                     disabled: (SharedPrefModule().userId ?? '').isEmpty,
                     height: 17.h,
                     width: 17.w),
-
                 SizedBox(
                   height: 18.h,
                 ),
@@ -211,12 +225,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 child: CustomText(
                     text: S.of(context).supportAndAssistance,
                     customTextStyle:
-                    BoldStyle(fontSize: 18.sp, color: secondaryColor)),
+                        BoldStyle(fontSize: 18.sp, color: secondaryColor)),
               ),
               SizedBox(
                 height: 8.h,
               ),
-              _menuItem(S.of(context).contactUs, Assets.svg.icContactUsMore, () {
+              _menuItem(S.of(context).contactUs, Assets.svg.icContactUsMore,
+                  () {
                 AlertModule().showContactUsBottomSheet(
                     contactUsBloc: widget.contactUsBloc, context: context);
               }),
@@ -224,19 +239,30 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 height: 10.h,
               ),
               _menuItem(S.of(context).faq, Assets.svg.icFaq, () {
-                Routes.navigateToScreen(Routes.faqPage, NavigationType.pushNamed, context);
+                Routes.navigateToScreen(
+                    Routes.faqPage, NavigationType.pushNamed, context);
                 // CustomNavigatorModule.navigatorKey.currentState
                 //     ?.pushNamed(AppScreenEnum.faq.name);
               }),
               SizedBox(
                 height: 10.h,
               ),
-              _menuItem(S.of(context).usagePolicy, Assets.svg.icHealthCheck, () {
-                Routes.navigateToScreen(Routes.usagePolicyPage, NavigationType.pushNamed, context);
+              _menuItem(S.of(context).usagePolicy, Assets.svg.icHealthCheck,
+                  () {
+                Routes.navigateToScreen(
+                    Routes.usagePolicyPage, NavigationType.pushNamed, context);
                 // CustomNavigatorModule.navigatorKey.currentState
                 //     ?.pushNamed(AppScreenEnum.usagePolicy.name);
               }),
-
+              if ((SharedPrefModule().userId ?? '').isEmpty)
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 180.h,
+                    ),
+                    _buildVersionNumber(),
+                  ],
+                ),
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
                 SizedBox(
                   height: 10.h,
@@ -247,12 +273,14 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 SizedBox(
                   height: 20.h,
                 ),
-                _menuItem(S.of(context).logout, Assets.svg.icLogout, color: Colors.red, () {
+                _menuItem(S.of(context).logout, Assets.svg.icLogout,
+                    color: Colors.red, () {
                   _logout();
                 }, isBoldStyle: true),
                 SizedBox(
                   height: 20.h,
                 ),
+                _buildVersionNumber()
               ],
             ],
           ),
@@ -261,10 +289,28 @@ class _MoreWidgetState extends BaseState<MorePage> {
     );
   }
 
+  Widget _buildVersionNumber() {
+    return Container(
+      // color: Colors.red,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomText(
+                text: "Version $appVersionNumber",
+                customTextStyle:
+                    RegularStyle(fontSize: 12.sp, color: lightBlackColor)),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _imageWithCameraWidget(
-      {required String mobile,
-        required String name,
-        required String image}) =>
+          {required String mobile,
+          required String name,
+          required String image}) =>
       ShopLogoCameraWidget(
         placeHolder: Assets.svg.icEmptyShop,
         shopLogo: image,
@@ -279,23 +325,25 @@ class _MoreWidgetState extends BaseState<MorePage> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.24),
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.24),
       builder: (context) {
-      return DialogWidget(
-        message: S.of(context).selectPhotoFromCameraOrGallery,
-        cancelMessage: S.of(context).gallery,
-        confirmMessage: S.of(context).camera,
-        sameButtonsColor: true,
-        onCancel: () {
-          _requestGalleryPermission();
-          _listenForGalleryPermission();
-        },
-        onConfirm: () {
-          requestCameraPermission();
-          _listenForCameraPermissionResult();
-        },);
-    },);
+        return DialogWidget(
+          message: S.of(context).selectPhotoFromCameraOrGallery,
+          cancelMessage: S.of(context).gallery,
+          confirmMessage: S.of(context).camera,
+          sameButtonsColor: true,
+          onCancel: () {
+            _requestGalleryPermission();
+            _listenForGalleryPermission();
+          },
+          onConfirm: () {
+            requestCameraPermission();
+            _listenForCameraPermissionResult();
+          },
+        );
+      },
+    );
 
     // AlertModule().showDialog(
     //   context: context,
@@ -368,16 +416,16 @@ class _MoreWidgetState extends BaseState<MorePage> {
   }
 
   Widget get _logoWidget => AppTopWidget(
-    isHavingSupport: (SharedPrefModule().userId ?? '').isNotEmpty,
-    title: S.of(context).more,
-  );
+        isHavingSupport: (SharedPrefModule().userId ?? '').isNotEmpty,
+        title: S.of(context).more,
+      );
 
   Widget _menuItem(String text, String imagePath, VoidCallback onTap,
-      {bool isBoldStyle = false,
-        bool disabled = false,
-        double? height,
-        Color? color,
-        double? width}) =>
+          {bool isBoldStyle = false,
+          bool disabled = false,
+          double? height,
+          Color? color,
+          double? width}) =>
       IgnorePointer(
         ignoring: disabled,
         child: InkWell(
@@ -405,11 +453,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   textAlign: TextAlign.center,
                   customTextStyle: isBoldStyle
                       ? BoldStyle(
-                      color: disabled ? greyColor : color?? lightBlackColor,
-                      fontSize: 18.sp)
+                          color:
+                              disabled ? greyColor : color ?? lightBlackColor,
+                          fontSize: 18.sp)
                       : RegularStyle(
-                      color: disabled ? greyColor : color?? lightBlackColor,
-                      fontSize: 16.w)),
+                          color:
+                              disabled ? greyColor : color ?? lightBlackColor,
+                          fontSize: 16.w)),
               SizedBox(
                 width: 16.w,
               ),
@@ -443,14 +493,17 @@ class _MoreWidgetState extends BaseState<MorePage> {
                       child: CustomText(
                           text: S.of(context).accountBalance,
                           textAlign: TextAlign.center,
-                          customTextStyle:
-                          BoldStyle(fontSize: 18.sp, color: secondaryColor,)),
+                          customTextStyle: BoldStyle(
+                            fontSize: 18.sp,
+                            color: secondaryColor,
+                          )),
                     ),
                     Container(
                       decoration: BoxDecoration(
                           color: redColor,
                           borderRadius: BorderRadius.circular(4)),
-                      padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
                       child: Directionality(
                         textDirection: TextDirection.ltr,
                         child: Padding(
@@ -471,17 +524,15 @@ class _MoreWidgetState extends BaseState<MorePage> {
             )),
       );
 
-
   void _logout() {
 /**/
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.48),
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
       builder: (context2) {
         return DialogWidget(
-
           message: S.of(context).logoutMessage,
           cancelMessage: S.of(context).cancel,
           confirmMessage: S.of(context).yes,
@@ -494,11 +545,11 @@ class _MoreWidgetState extends BaseState<MorePage> {
               widget.moreBloc.selectedFileBehaviour.sink.add("");
             });
           },
-
           hasCloseButton: true,
-          sameButtonsColor: false,);
-      },);
-
+          sameButtonsColor: false,
+        );
+      },
+    );
 
     // AlertModule().showDialog(
     //   context: context,
@@ -521,27 +572,29 @@ class _MoreWidgetState extends BaseState<MorePage> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.48),
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
       builder: (context) {
-      return DialogWidget(
-        message: S.of(context).deleteAccountMessage,
-        cancelMessage: S.of(context).cancel,
-        confirmMessage: S.of(context).deleteAccount,
-        headerMessage: S.of(context).deleteAccount,
-        headerSvg: Assets.svg.icAlert,
-        errorColorInConfirm: true,
-        hasCloseButton: true,
-        sameButtonsColor: false,
-        onConfirm: () {
-        widget.moreBloc.deactivateAccountStream.listen((event) {
-          if (event is SuccessState) {
-            AppProviderModule().logout(context);
-            widget.moreBloc.selectedFileBehaviour.sink.add("");
-          }
-        });
-      },);
-    },);
+        return DialogWidget(
+          message: S.of(context).deleteAccountMessage,
+          cancelMessage: S.of(context).cancel,
+          confirmMessage: S.of(context).deleteAccount,
+          headerMessage: S.of(context).deleteAccount,
+          headerSvg: Assets.svg.icAlert,
+          errorColorInConfirm: true,
+          hasCloseButton: true,
+          sameButtonsColor: false,
+          onConfirm: () {
+            widget.moreBloc.deactivateAccountStream.listen((event) {
+              if (event is SuccessState) {
+                AppProviderModule().logout(context);
+                widget.moreBloc.selectedFileBehaviour.sink.add("");
+              }
+            });
+          },
+        );
+      },
+    );
     // AlertModule().showDialog(
     //   context: context,
     //   message: S.of(context).deleteAccountMessage,
