@@ -4,6 +4,7 @@ import 'package:deel/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../../../deel.dart';
 import '../enums/app_screen_enum.dart';
 import '../models/baseModules/api_state.dart';
 import '../remote/language_remote.dart';
@@ -138,7 +139,12 @@ class AppProviderModule with ChangeNotifier {
   /// Initialize the app's state and check user authentication status.
   Future<void> init(BuildContext context) async {
     _isLoggedIn = SharedPrefModule().bearerToken != null && SharedPrefModule().bearerToken!.isNotEmpty;
+
+
+    MoreBloc().updateNotificationsDeviceData(SharedPrefModule().userId??"", AppConstants.fcmToken);
+
     _loadAppLanguages();
+
     if (_isLoggedIn) {
       /// TODO replace it with bearer token refresh
 

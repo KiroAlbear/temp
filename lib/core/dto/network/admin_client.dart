@@ -16,7 +16,7 @@ abstract class AdminClient {
       @Body() AdminHeaderRequest request);
 
   @POST(_AdminApiKey._notificationUpdateDeviceData)
-  Future<AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>> updateDeviceData(
+  Future<AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>> updateNotificationsDeviceData(
       @Body() NotificationsUpdateDeviceDataRequestModel request);
 
   @POST(_AdminApiKey._contactUs)

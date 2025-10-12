@@ -60,7 +60,7 @@ class _AdminClient implements AdminClient {
 
   @override
   Future<AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>>
-      updateDeviceData(
+      updateNotificationsDeviceData(
           NotificationsUpdateDeviceDataRequestModel request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
