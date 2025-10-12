@@ -43,6 +43,8 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   @override
   void initState() {
     customBackgroundColor = Colors.white;
+
+
     WidgetsBinding.instance.addPostFrameCallback(
         (_) => changeSystemNavigationBarAndStatusColor(whiteColor));
 

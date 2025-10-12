@@ -44,10 +44,14 @@ FutureOr<void> main() async {
   // of notifications they would like to receive once the user receives a notification.
 
   // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
-  final apnsToken = await FirebaseMessaging.instance.getAPNSToken().then(
+   await FirebaseMessaging.instance.getAPNSToken().then(
     (apnsToken) async {
       if (apnsToken != null) {
         print("********* fcmToken $apnsToken **********");
+
+        AppConstants.fcmToken = apnsToken;
+        MoreBloc().updateNotificationsDeviceData(SharedPrefModule().userId??"", apnsToken);
+
       }
     },
   );
@@ -70,10 +74,14 @@ FutureOr<void> main() async {
 
   await requestNotificationPermissions();
 
-  final String? tok = await FirebaseMessaging.instance.getToken().then(
+  await FirebaseMessaging.instance.getToken().then(
     (tok) async {
       if (tok != null) {
         print("********* fcmToken $tok **********");
+        AppConstants.fcmToken = tok;
+
+        MoreBloc().updateNotificationsDeviceData(SharedPrefModule().userId??"", tok);
+
       }
     },
   );

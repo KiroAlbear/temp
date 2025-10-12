@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:deel/deel.dart';
+import 'package:deel/features/more/updateProfile/remote/notifications_update_device_remote.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rxdart/rxdart.dart';
@@ -52,6 +53,11 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
       maxWidth: 500,
       preferredCameraDevice: CameraDevice.rear,
     );
+  }
+
+  Future<ApiState<void>> updateNotificationsDeviceData(String userId, String fcmToken) {
+    return  NotificationsUpdateDeviceRemote()
+        .updateNotificationsDeviceData(userId,fcmToken);
   }
 
   Future<XFile?> pickFromGallery() async {
