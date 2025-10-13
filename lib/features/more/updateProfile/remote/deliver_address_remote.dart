@@ -7,9 +7,16 @@ import '../../../../core/dto/remote/base_remote_module.dart';
 
 class DeliveryAddressRemote extends BaseRemoteModule<DeliveryAddressMapper,
     List<DeliveryAddressResponse>> {
+
   DeliveryAddressRemote(String userId) {
-    apiFuture = ApiClient(OdooDioModule().build()).getDeliveryAddress(userId);
+    try{
+      apiFuture = ApiClient(OdooDioModule().build()).getDeliveryAddress(userId);
+    }catch (e) {
+      print(e);
+    }
   }
+
+
 
   @override
   ApiState<DeliveryAddressMapper> onSuccessHandle(

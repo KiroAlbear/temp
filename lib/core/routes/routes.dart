@@ -6,6 +6,7 @@ import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navig
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/cart/models/cart_order_details_args.dart';
@@ -44,7 +45,7 @@ class Routes {
   static const String cartSuccessPage = '/cartSuccess';
   static const String cartOrderDetailsPage = '/cartOrderDetails';
 
-  static String currentNavigationPage = "";
+  static String currentNavigationPage = Routes.homePage;
 
   static final GoRouter goRouter = GoRouter(
     // observers: [ChuckerFlutter.navigatorObserver],
@@ -332,36 +333,33 @@ class Routes {
               child: Scaffold(
                 body: child,
                 bottomNavigationBar: CustomNavigationBar(
-                  onTap: (index) {
+                  onTap: (index) async {
                     if (index == 0) {
                       currentNavigationPage = Routes.homePage;
-                      Routes.navigateToScreen(
+
+                      await Routes.navigateToScreen(
                           Routes.homePage, NavigationType.goNamed, context);
-                      return;
                     } else if (index == 1) {
                       currentNavigationPage = Routes.favouritePage;
 
-                      Routes.navigateToScreen(Routes.favouritePage,
+                      await Routes.navigateToScreen(Routes.favouritePage,
                           NavigationType.goNamed, context);
-                      return;
                     } else if (index == 2) {
                       currentNavigationPage = Routes.offersPage;
 
-                      Routes.navigateToScreen(
+
+                      await Routes.navigateToScreen(
                           Routes.offersPage, NavigationType.goNamed, context);
-                      return;
                     } else if (index == 3) {
                       currentNavigationPage = Routes.cartPage;
 
-                      Routes.navigateToScreen(
+                      await Routes.navigateToScreen(
                           Routes.cartPage, NavigationType.goNamed, context);
-                      return;
-                    } else if (index == 4) {
-                      currentNavigationPage = Routes.morePage;
+                    } else if (index == 4 ) {
+                       currentNavigationPage = Routes.morePage;
 
-                      Routes.navigateToScreen(
+                       await Routes.navigateToScreen(
                           Routes.morePage, NavigationType.goNamed, context);
-                      return;
                     }
                   },
                 ),
@@ -397,12 +395,12 @@ class Routes {
         break;
 
       case NavigationType.goNamed:
-        GoRouter.of(context).goNamed(screenName,
+         GoRouter.of(context).goNamed(screenName,
             queryParameters: queryParameters ?? {}, extra: extra);
         break;
 
       case NavigationType.pushReplacementNamed:
-        GoRouter.of(context).pushReplacementNamed(screenName,
+        await GoRouter.of(context).pushReplacementNamed(screenName,
             queryParameters: queryParameters ?? {}, extra: extra);
         break;
 

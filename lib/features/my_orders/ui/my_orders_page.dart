@@ -38,7 +38,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
-    super.onPopInvoked(didPop);
+    // super.onPopInvoked(didPop);
   }
 
   @override

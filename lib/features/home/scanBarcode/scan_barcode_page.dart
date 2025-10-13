@@ -26,7 +26,7 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
-    super.onPopInvoked(didPop);
+    // super.onPopInvoked(didPop);
   }
 
   @override

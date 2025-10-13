@@ -36,9 +36,14 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
   Color? systemNavigationBarColor() => secondaryColor;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
-    super .onPopInvoked(didPop);
+    // super .onPopInvoked(didPop);
   }
 
   @override

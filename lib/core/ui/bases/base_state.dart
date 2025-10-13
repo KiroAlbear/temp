@@ -115,23 +115,26 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   }
 
   static Future<void> handleCloseApplication(BuildContext context) async {
-    await showModalBottomSheet(context: context,
-      useRootNavigator: true,
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await showModalBottomSheet(context: Routes.rootNavigatorKey.currentContext!,
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.25,
       ),
       builder: (context) {
-      return DialogWidget(
-        sameButtonsColor: false,
-        message: S.of(context).closeApplicationMessage,
-        cancelMessage: S.of(context).cancel,
-        confirmMessage: S.of(context).ok,
-        onCancel: () {},
-        onConfirm: () {
-          exit(0);
-        },
-      );
+        return DialogWidget(
+          sameButtonsColor: false,
+          message: S.of(context).closeApplicationMessage,
+          cancelMessage: S.of(context).cancel,
+          confirmMessage: S.of(context).ok,
+          onCancel: () {},
+          onConfirm: () {
+            exit(0);
+          },
+        );
+      },);
     },);
+
   }
 
   Widget get _defaultBody => InkWell(

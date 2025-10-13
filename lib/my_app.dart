@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       );
 
   Widget _materialApp(BuildContext context) => MaterialApp.router(
+
         title: F.name,
 
         /// default theme here
