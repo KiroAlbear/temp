@@ -88,6 +88,12 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
       Routes.navigateToScreen(Routes.productCategoryPage,
           NavigationType.goNamed, Routes.rootNavigatorKey.currentContext!);
+    } else if (responseModel.notificationType == NotificationType.product) {
+      getIt<HomeBloc>().selectedCategoryText = responseModel.name!;
+      getProductById(int.tryParse(responseModel.id!) ?? 0);
+
+      Routes.navigateToScreen(Routes.productCategoryPage,
+          NavigationType.goNamed, Routes.rootNavigatorKey.currentContext!);
     }
   }
 
