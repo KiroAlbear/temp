@@ -72,17 +72,23 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     });
   }
 
-  void handleNotificationNavigation(NotificationResponseModel responseModel){
+  void handleNotificationNavigation(NotificationResponseModel responseModel) {
     getIt<ProductCategoryBloc>().isNavigationFromNotifications = true;
 
-    if(responseModel.notificationType == NotificationType.category){
+    if (responseModel.notificationType == NotificationType.category) {
       getIt<HomeBloc>().selectedCategoryText = responseModel.name!;
-      categoryId = int.tryParse(responseModel.id!)?? 1 ;
+      categoryId = int.tryParse(responseModel.id!) ?? 1;
 
-      Routes.navigateToScreen(Routes.productCategoryPage, NavigationType.pushNamed, Routes.rootNavigatorKey.currentContext!);
+      Routes.navigateToScreen(Routes.productCategoryPage,
+          NavigationType.goNamed, Routes.rootNavigatorKey.currentContext!);
+    } else if (responseModel.notificationType == NotificationType.brand) {
+      getIt<HomeBloc>().selectedCategoryText = responseModel.name!;
+      getProductWithSubcategoryBrand(
+          null, int.tryParse(responseModel.id!), null);
+
+      Routes.navigateToScreen(Routes.productCategoryPage,
+          NavigationType.goNamed, Routes.rootNavigatorKey.currentContext!);
     }
-
-
   }
 
   Stream<ApiState<bool>> addProductToFavourite(
