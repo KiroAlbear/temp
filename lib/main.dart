@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:deel/core/dto/models/notifications/notification_response_model.dart';
 import 'package:deel/deel.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -63,6 +64,14 @@ FutureOr<void> main() async {
     badge: true,
     sound: true,
   );
+
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print(message.category);
+
+    getIt<ProductCategoryBloc>().handleNotificationNavigation(NotificationResponseModel.fromJson(message.data));
+
+  });
 
   // Android 13+: Request permission
   // if (defaultTargetPlatform == TargetPlatform.android) {

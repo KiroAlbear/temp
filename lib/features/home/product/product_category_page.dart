@@ -73,34 +73,46 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
 
   @override
   void initState() {
-    if (widget.homeBloc.selectedOffer != null) {
-      if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
-          "category") {
-        widget.productCategoryBloc.categoryId =
-            widget.homeBloc.selectedOffer!.relatedItemId;
-        widget.productCategoryBloc.getProductWithSubcategoryBrand(
-            widget.productCategoryBloc.categoryId, null, null);
-      } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
-          "product") {
-        widget.productCategoryBloc
-            .getProductById(widget.homeBloc.selectedOffer!.relatedItemId);
-      } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
-          "brand") {
-        widget.productCategoryBloc.brandId =
-            widget.homeBloc.selectedOffer!.relatedItemId;
-        widget.productCategoryBloc.getProductWithSubcategoryBrand(
-            null, widget.productCategoryBloc.brandId, null);
-      }
-    } else if (ProductCategoryPage.categoryProductsCount > 0) {
-      widget.productCategoryBloc.getProductWithSubcategoryBrand(
-          ProductCategoryPage.cateogryId, null, null);
-    } else {
-      widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
-      widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
-      // widget.productCategoryBloc.reset();
 
-      widget.productCategoryBloc.loadMore(widget.isForFavourite);
+    if(widget.productCategoryBloc.isNavigationFromNotifications){
+
+      widget.productCategoryBloc.getProductWithSubcategoryBrand(
+          widget.productCategoryBloc.categoryId, null, null);
+
+
+    }else{
+      if (widget.homeBloc.selectedOffer != null) {
+        if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
+            "category") {
+          widget.productCategoryBloc.categoryId =
+              widget.homeBloc.selectedOffer!.relatedItemId;
+          widget.productCategoryBloc.getProductWithSubcategoryBrand(
+              widget.productCategoryBloc.categoryId, null, null);
+        } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
+            "product") {
+          widget.productCategoryBloc
+              .getProductById(widget.homeBloc.selectedOffer!.relatedItemId);
+        } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
+            "brand") {
+          widget.productCategoryBloc.brandId =
+              widget.homeBloc.selectedOffer!.relatedItemId;
+          widget.productCategoryBloc.getProductWithSubcategoryBrand(
+              null, widget.productCategoryBloc.brandId, null);
+        }
+      } else if (ProductCategoryPage.categoryProductsCount > 0) {
+        widget.productCategoryBloc.getProductWithSubcategoryBrand(
+            ProductCategoryPage.cateogryId, null, null);
+      } else {
+        widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
+        widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
+        // widget.productCategoryBloc.reset();
+
+        widget.productCategoryBloc.loadMore(widget.isForFavourite);
+      }
     }
+
+
+
     super.initState();
   }
 
@@ -181,7 +193,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                   Column(
                     children: [
                       (isFavouriteOrSearchOrCategory() ||
-                              widget.homeBloc.selectedOffer != null)
+                              widget.homeBloc.selectedOffer != null || widget.productCategoryBloc.isNavigationFromNotifications)
                           ? SizedBox()
                           : StreamBuilder<ApiState<List<CategoryMapper>>>(
                               stream: widget.productCategoryBloc
@@ -293,13 +305,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                               },
                             ),
                       (isFavouriteOrSearchOrCategory() ||
-                              widget.homeBloc.selectedOffer != null)
+                              widget.homeBloc.selectedOffer != null || widget.productCategoryBloc.isNavigationFromNotifications)
                           ? SizedBox()
                           : SizedBox(
                               height: 14.h,
                             ),
                       (isFavouriteOrSearchOrCategory() ||
-                              widget.homeBloc.selectedOffer != null)
+                              widget.homeBloc.selectedOffer != null || widget.productCategoryBloc.isNavigationFromNotifications)
                           ? SizedBox()
                           : StreamBuilder<ApiState<List<BrandMapper>>>(
                               stream: widget

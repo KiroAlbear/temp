@@ -1,4 +1,6 @@
+import 'package:deel/core/dto/models/notifications/notification_response_model.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/home/product/enums/product_notification_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -9,6 +11,10 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   // bool isForFavourite = false;
   bool isNavigatingFromMore = false;
+  bool isNavigationFromNotifications = false;
+
+  NotificationType? productNotificationType;
+
   ValueNotifier<bool>? isLoading = null;
 
   static String? searchValue;
@@ -64,6 +70,19 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         _handleProductResponse(event.response);
       }
     });
+  }
+
+  void handleNotificationNavigation(NotificationResponseModel responseModel){
+    getIt<ProductCategoryBloc>().isNavigationFromNotifications = true;
+
+    if(responseModel.notificationType == NotificationType.category){
+      getIt<HomeBloc>().selectedCategoryText = responseModel.name!;
+      categoryId = int.tryParse(responseModel.id!)?? 1 ;
+
+      Routes.navigateToScreen(Routes.productCategoryPage, NavigationType.pushNamed, Routes.rootNavigatorKey.currentContext!);
+    }
+
+
   }
 
   Stream<ApiState<bool>> addProductToFavourite(
