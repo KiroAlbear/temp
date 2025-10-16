@@ -131,8 +131,8 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
             ),
           ],
         );
-      case NewAccountStepEnum.editLocation:
-        return NewAccountLocationWidget(newAccountBloc: widget._bloc);
+      // case NewAccountStepEnum.editLocation:
+      //   return EditLocationPage(newAccountBloc: widget._bloc);
       case NewAccountStepEnum.password:
         return Column(
           children: [
@@ -226,8 +226,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         return _firstStep;
       case NewAccountStepEnum.locationInfo:
         return _secondStep;
-      case NewAccountStepEnum.editLocation:
-        return _secondStep;
+
       case NewAccountStepEnum.password:
         return _lastStep;
     }

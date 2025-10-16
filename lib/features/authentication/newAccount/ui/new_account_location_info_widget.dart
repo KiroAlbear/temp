@@ -74,8 +74,10 @@ class _NewAccountLocationInfoWidgetState
                     opacity: showMap ? 1 : 0,
                     child: MapPreviewWidget(
                       clickOnChangeLocation: () {
-                        widget.newAccountBloc
-                            .nextStep(NewAccountStepEnum.editLocation);
+                        // widget.newAccountBloc
+                        //     .nextStep(NewAccountStepEnum.editLocation);
+
+                        Routes.navigateToScreen(Routes.editLocationPage, NavigationType.pushNamed, context,extra: widget.newAccountBloc);
                       },
                       latitude: latitudeSnapShot.data,
                       longitude: longitudeSnapShot.data,

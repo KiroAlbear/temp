@@ -171,7 +171,7 @@ export 'features/authentication/newAccount/remote/update_address_remote.dart';
 export 'features/authentication/newAccount/ui/new_account_bloc.dart';
 export 'features/authentication/newAccount/ui/new_account_info_widget.dart';
 export 'features/authentication/newAccount/ui/new_account_location_info_widget.dart';
-export 'features/authentication/newAccount/ui/new_account_location_widget.dart';
+export 'features/authentication/newAccount/ui/edit_location_page.dart';
 export 'features/authentication/newAccount/ui/new_account_page.dart';
 export 'features/authentication/newAccount/ui/new_account_password_widget.dart';
 export 'features/authentication/otp/remote/otp_remote.dart';

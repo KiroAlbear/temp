@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';
 
-enum NewAccountStepEnum { info, locationInfo, editLocation, password }
+enum NewAccountStepEnum { info, locationInfo, password }
 
 class NewAccountBloc extends BlocBase {
   late final String mobileNumber;

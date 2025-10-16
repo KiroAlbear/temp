@@ -36,6 +36,7 @@ class Routes {
   static const String newAccountPage = '/newAccount';
   static const String otpPage = '/otp';
   static const String registerPage = '/register';
+  static const String editLocationPage = '/editLocationPage';
   static const String productCategoryPage = '/productCategory';
   static const String accountChangePasswordPage = '/accountChangePassword';
   static const String resetPasswordPage = '/resetPasswordPage';
@@ -157,6 +158,21 @@ class Routes {
             authenticationSharedBloc: getIt(),
           ),
         ),
+      ),
+
+      GoRoute(
+        path: editLocationPage,
+        name: editLocationPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state){
+
+        final NewAccountBloc _bloc = state.extra as NewAccountBloc;
+         return _fadeTransitionScreenWrapper(
+            context,
+            state,
+            EditLocationPage(newAccountBloc: _bloc,)
+          );
+        }
       ),
       ShellRoute(
           navigatorKey: navigationBarKey,
