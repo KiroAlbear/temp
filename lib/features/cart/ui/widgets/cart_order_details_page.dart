@@ -15,7 +15,7 @@ class CartOrderDetailsPage extends BaseStatefulWidget {
   final CartBloc cartBloc;
   final CartOrderDetailsArgs cartOrderDetailsArgs;
   const CartOrderDetailsPage(
-      {required this.cartBloc,required this.cartOrderDetailsArgs, super.key});
+      {required this.cartBloc, required this.cartOrderDetailsArgs, super.key});
 
   @override
   State<CartOrderDetailsPage> createState() => _CartOrderDetailsState();
@@ -65,7 +65,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-
                 _buildOrderSummary(context),
                 20.verticalSpace,
                 _getSeperator(),
@@ -82,20 +81,21 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                     return !snapshot.hasData
                         ? SizedBox()
                         : CartOrderDetailsIconItem(
-                      icon: Assets.svg.icDate,
-                      title: snapshot.data!,
-                    );
+                            icon: Assets.svg.icDate,
+                            title: snapshot.data!,
+                          );
                   },
                 ),
                 12.verticalSpace,
-
                 _getSeperator(),
-
                 15.verticalSpace,
-
                 CartOrderDetailsIconItem(
                   icon: Assets.svg.icTotal,
-                  title: S.of(context).payCashOnDelivery,
+                  title: widget.cartOrderDetailsArgs.isItVisa
+                      ? S.of(context).cartBankCard
+                      : widget.cartOrderDetailsArgs.isItWallet
+                          ? S.of(context).cartDokkanWallet
+                          : S.of(context).payCashOnDelivery,
                   iconSize: 18,
                   space: 8,
                 ),
@@ -105,24 +105,21 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                 CustomButtonWidget(
                     idleText: S.of(context).cartConfirmOrder,
                     buttonBehaviour: widget.cartBloc.buttonBloc.buttonBehavior,
-
                     onTap: () async {
-                      widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.loading);
+                      widget.cartBloc.buttonBloc.buttonBehavior
+                          .add(ButtonState.loading);
 
-                      if(widget.cartOrderDetailsArgs.isItVisa){
+                      if (widget.cartOrderDetailsArgs.isItVisa) {
                         _payWithCard();
                         // _payWithWallet();
-                      }else if (widget.cartOrderDetailsArgs.isItWallet){
-                        _payWithWallet(widget.cartOrderDetailsArgs.walletNumber!);
-                      }else{
+                      } else if (widget.cartOrderDetailsArgs.isItWallet) {
+                        _payWithWallet(
+                            widget.cartOrderDetailsArgs.walletNumber!);
+                      } else {
                         _ConfirmOder();
                       }
-
-
-
                     }),
                 49.verticalSpace,
-
               ],
             ),
           ),
@@ -130,61 +127,62 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       )
     ]);
   }
-  void _payWithCard()async {
+
+  void _payWithCard() async {
     await FlutterPaymob.instance.payWithCard(
       context: context, // Passes the BuildContext required for UI interactions
-      currency: "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream.value , // Sets the amount of money to be paid (100 EGP)
+      currency:
+          "EGP", // Specifies the currency for the transaction (Egyptian Pound)
+      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream
+          .value, // Sets the amount of money to be paid (100 EGP)
       // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
         // Checks if the payment was successful
         if (response.responseCode == "APPROVED") {
           _ConfirmOder();
-        }else{
+        } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         }
       },
-
     );
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
-
   }
+
   void _payWithWallet(String walletNumber) async {
     await FlutterPaymob.instance.payWithWallet(
       number: walletNumber, // The wallet number to be used for the payment
       context: context, // Passes the BuildContext required for UI interactions
-      currency: "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream.value , // Sets the amount of money to be paid (100 EGP)
+      currency:
+          "EGP", // Specifies the currency for the transaction (Egyptian Pound)
+      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream
+          .value, // Sets the amount of money to be paid (100 EGP)
       // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
         // Checks if the payment was successful
         if (response.responseCode == "200") {
           _ConfirmOder();
-        }else{
+        } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         }
       },
-
     );
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
-
   }
-  void _ConfirmOder(){
+
+  void _ConfirmOder() {
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.loading);
-    widget.cartBloc
-        .confirmOrderCart()
-        .listen((event) {
+    widget.cartBloc.confirmOrderCart().listen((event) {
       if (event is SuccessState) {
         widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         widget.cartBloc.getMyCart();
-        Routes.navigateToScreen(Routes.cartSuccessPage, NavigationType.pushReplacementNamed, context);
+        Routes.navigateToScreen(Routes.cartSuccessPage,
+            NavigationType.pushReplacementNamed, context);
         // CustomNavigatorModule
         //     .navigatorKey.currentState!
         //     .pushReplacementNamed(
         //     AppScreenEnum.cartSuccessScreen.name);
 
-        widget.cartBloc.cartProductsBehavior.sink
-            .add(IdleState());
+        widget.cartBloc.cartProductsBehavior.sink.add(IdleState());
       }
     });
   }
@@ -192,110 +190,116 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   Column _buildAddress() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        StreamBuilder(
-                          stream: widget.cartBloc.latLongBehaviour.stream,
-                          builder: (context, snapshot) {
-                            return !snapshot.hasData
-                                ? SizedBox()
-                                : Padding(
-                                    padding: EdgeInsets.only(top: 8.h),
-                                    child: MapPreviewWidget(
-                                      clickOnChangeLocation: () {},
-                                      latitude: snapshot.data!.lat,
-                                      longitude: snapshot.data!.long,
-                                      height: 200.h,
-                                      showEditLocation: false,
-                                    ),
-                                  );
-                          },
-                        ),
-                        12.verticalSpace,
-                        StreamBuilder(
-                          stream: widget.cartBloc.addressBehaviour.stream,
-                          builder: (context, snapshot) {
-                            return !snapshot.hasData
-                                ? SizedBox()
-                                :Padding(
-                                  padding: EdgeInsetsDirectional.only(start: 5.0),
-                                  child: CustomText(
-                                  text: snapshot.data!,
-                                  textAlign: TextAlign.start,
-                                  customTextStyle: RegularStyle(
-                                      color: lightBlackColor, fontSize: 14.sp)),
-                                );
-
-                          },
-                        ),
-                      ],
-                    );
+      children: [
+        StreamBuilder(
+          stream: widget.cartBloc.latLongBehaviour.stream,
+          builder: (context, snapshot) {
+            return !snapshot.hasData
+                ? SizedBox()
+                : Padding(
+                    padding: EdgeInsets.only(top: 8.h),
+                    child: MapPreviewWidget(
+                      clickOnChangeLocation: () {},
+                      latitude: snapshot.data!.lat,
+                      longitude: snapshot.data!.long,
+                      height: 200.h,
+                      showEditLocation: false,
+                    ),
+                  );
+          },
+        ),
+        12.verticalSpace,
+        StreamBuilder(
+          stream: widget.cartBloc.addressBehaviour.stream,
+          builder: (context, snapshot) {
+            return !snapshot.hasData
+                ? SizedBox()
+                : Padding(
+                    padding: EdgeInsetsDirectional.only(start: 5.0),
+                    child: CustomText(
+                        text: snapshot.data!,
+                        textAlign: TextAlign.start,
+                        customTextStyle: RegularStyle(
+                            color: lightBlackColor, fontSize: 14.sp)),
+                  );
+          },
+        ),
+      ],
+    );
   }
 
   StreamBuilder<String> _buildTotalPayment() {
     return StreamBuilder(
-                      stream: widget.cartBloc.cartOrderDetailsTotalBehaviour.stream,
-                      builder: (context, snapshot) {
-                        return !snapshot.hasData
-                            ? SizedBox()
-                            : Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomText(
-                                    text: S.of(context).cartDetailsTotal,
-                                    textAlign: TextAlign.start,
-                                    customTextStyle: RegularStyle(
-                                        color: lightBlackColor, fontSize: 14.sp)),
-                                11.horizontalSpace,
-                                Column(
-                                  children: [
-                                    CustomText(
-                                    text: snapshot.data!,
-                                    textAlign: TextAlign.start,
-                                    customTextStyle: BoldStyle(
-                                        color: darkSecondaryColor, fontSize: 14.sp)),
-                                    // deliveryFees(),
-                                  ],
-                                ),
-                              ],
-                            );
-                      },
-                    );
+      stream: widget.cartBloc.cartOrderDetailsTotalBehaviour.stream,
+      builder: (context, snapshot) {
+        return !snapshot.hasData
+            ? SizedBox()
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                      text: S.of(context).cartDetailsTotal,
+                      textAlign: TextAlign.start,
+                      customTextStyle: RegularStyle(
+                          color: lightBlackColor, fontSize: 14.sp)),
+                  11.horizontalSpace,
+                  Column(
+                    children: [
+                      CustomText(
+                          text: snapshot.data!,
+                          textAlign: TextAlign.start,
+                          customTextStyle: BoldStyle(
+                              color: darkSecondaryColor, fontSize: 14.sp)),
+                      // deliveryFees(),
+                    ],
+                  ),
+                ],
+              );
+      },
+    );
   }
 
   Column _buildOrderSummary(BuildContext context) {
     return Column(
       children: [
-                        _buildIconItem( S.of(context).cartProductsSummary,Assets.svg.icItems),
-                        StreamBuilder(
-                          stream: widget.cartBloc.itemsBehaviour.stream,
-                          builder: (context, snapshot) {
-                            return !snapshot.hasData
-                                ? SizedBox()
-                                : ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: snapshot.data!.length,
-                                    itemBuilder: (context, index) {
-                                      return CartProductSummaryItem(
-                                        priceText: snapshot.data![index].price,
-                                        title: snapshot.data![index].title,
-                                        count: snapshot.data![index].qty,
-                                      );
-                                    },
-                                  );
-                          },
-                        ),
-                      ],
-                    );
+        _buildIconItem(S.of(context).cartProductsSummary, Assets.svg.icItems),
+        StreamBuilder(
+          stream: widget.cartBloc.itemsBehaviour.stream,
+          builder: (context, snapshot) {
+            return !snapshot.hasData
+                ? SizedBox()
+                : ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return CartProductSummaryItem(
+                        priceText: snapshot.data![index].price,
+                        title: snapshot.data![index].title,
+                        count: snapshot.data![index].qty,
+                      );
+                    },
+                  );
+          },
+        ),
+      ],
+    );
   }
 
   Row _buildIconItem(String title, String icon) {
     return Row(
-                        children: [
-                            ImageHelper(image: icon, imageType: ImageType.svg,color: darkSecondaryColor,),
-                            CustomText(text: title, customTextStyle: BoldStyle(color: darkSecondaryColor, fontSize: 14.sp)),
-                        ],
-                      );
+      children: [
+        ImageHelper(
+          image: icon,
+          imageType: ImageType.svg,
+          color: darkSecondaryColor,
+        ),
+        CustomText(
+            text: title,
+            customTextStyle:
+                BoldStyle(color: darkSecondaryColor, fontSize: 14.sp)),
+      ],
+    );
   }
 
   Widget deliveryFees() {
@@ -307,11 +311,10 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
               : CustomText(
                   text: snapshot.data!,
                   textAlign: TextAlign.start,
-                  customTextStyle: RegularStyle(
-                      color: lightBlackColor, fontSize: 14.sp));
+                  customTextStyle:
+                      RegularStyle(color: lightBlackColor, fontSize: 14.sp));
         });
   }
-
 
   Widget _getSeperator() {
     return Container(
