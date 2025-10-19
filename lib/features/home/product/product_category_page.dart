@@ -405,49 +405,53 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                           ? SizedBox()
                           : SizedBox(height: widget.isForFavourite ? 0 : 10.h),
                       Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              (widget.homeBloc.isBanner == true &&
-                                      widget.homeBloc.selectedOffer != null)
+                        child: CustomScrollView(
+                          slivers: [
+                            SliverToBoxAdapter(
+                              child: (widget.homeBloc.isBanner == true &&
+                                widget.homeBloc.selectedOffer != null)
+                                ? Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: HeroBannerItem(
+                                item: widget.homeBloc.selectedOffer!,
+                                homeBloc: widget.homeBloc,
+                                isMainPage: true,
+                                isClickable: false,
+                              ),
+                            )
+                                : SizedBox(),),
+
+                            SliverToBoxAdapter(child: (widget.homeBloc.isBanner == false &&
+                                  widget.homeBloc.selectedOffer != null)
                                   ? Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: HeroBannerItem(
-                                        item: widget.homeBloc.selectedOffer!,
-                                        homeBloc: widget.homeBloc,
-                                        isMainPage: true,
-                                        isClickable: false,
-                                      ),
-                                    )
-                                  : SizedBox(),
-                              (widget.homeBloc.isBanner == false &&
-                                      widget.homeBloc.selectedOffer != null)
-                                  ? Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: OfferItem(
-                                        isInProductPage: true,
-                                        isMainPage: true,
-                                        item: widget.homeBloc.selectedOffer!,
-                                        homeBloc: widget.homeBloc,
-                                        isClickable: false,
-                                      ),
-                                    )
-                                  : SizedBox(),
-                              isBannersOrOffersExist()
-                                  ? Padding(
-                                      padding: EdgeInsetsDirectional.only(
-                                          start: 15, top: 5),
-                                      child: CustomText(
-                                        text: S.of(context).promoItems,
-                                        textAlign: TextAlign.start,
-                                        customTextStyle: BoldStyle(
-                                            color: darkSecondaryColor,
-                                            fontSize: 18.sp),
-                                      ),
-                                    )
-                                  : SizedBox(),
-                              Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: OfferItem(
+                                  isInProductPage: true,
+                                  isMainPage: true,
+                                  item: widget.homeBloc.selectedOffer!,
+                                  homeBloc: widget.homeBloc,
+                                  isClickable: false,
+                                  ),
+                                  )
+                                      : SizedBox(),),
+
+                            SliverToBoxAdapter(child: isBannersOrOffersExist()
+                                ? Padding(
+                              padding: EdgeInsetsDirectional.only(
+                                  start: 15, top: 5),
+                              child: CustomText(
+                                text: S.of(context).promoItems,
+                                textAlign: TextAlign.start,
+                                customTextStyle: BoldStyle(
+                                    color: darkSecondaryColor,
+                                    fontSize: 18.sp),
+                              ),
+                            )
+                                : SizedBox(),),
+                            SliverFillRemaining(
+                              hasScrollBody: true,
+
+                            child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16.w,
                                     vertical: widget.isForFavourite ? 0 : 18.h),
@@ -463,13 +467,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         if (widget.isForFavourite) {
                                           return EmptyFavouriteProducts(
                                               emptyFavouriteScreen:
-                                                  Assets.svg.emptyFavourite);
+                                              Assets.svg.emptyFavourite);
                                         } else {
                                           return Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
+                                            CrossAxisAlignment.stretch,
                                             children: [
                                               ImageHelper(
                                                 image: Assets.svg.icNotFound,
@@ -489,42 +493,42 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           isForFavourite: widget.isForFavourite,
                                           deleteIcon: Assets.svg.icDelete,
                                           emptyFavouriteScreen:
-                                              Assets.svg.emptyFavourite,
+                                          Assets.svg.emptyFavourite,
                                           cartBloc: widget.cartBloc,
                                           productCategoryBloc:
-                                              widget.productCategoryBloc,
+                                          widget.productCategoryBloc,
                                           productList:
-                                              snapshot.data?.response ?? [],
+                                          snapshot.data?.response ?? [],
                                           favouriteIcon: Assets.svg.icFavourite,
                                           favouriteIconFilled:
-                                              Assets.svg.icFavouriteFilled,
+                                          Assets.svg.icFavouriteFilled,
                                           onAddToCart: (productMapper) {
                                             widget.showOverlayLoading.value =
-                                                true;
+                                            true;
                                             widget.cartBloc
                                                 .saveToCart(
-                                                    productMapper.id,
-                                                    productMapper.minQuantity ==
-                                                            0
-                                                        ? 1
-                                                        : productMapper
-                                                            .minQuantity
-                                                            .toInt())
+                                                productMapper.id,
+                                                productMapper.minQuantity ==
+                                                    0
+                                                    ? 1
+                                                    : productMapper
+                                                    .minQuantity
+                                                    .toInt())
                                                 .listen((event) {
                                               if (event is SuccessState) {
                                                 widget.cartBloc.orderId =
-                                                    event.response!;
+                                                event.response!;
                                                 SharedPrefModule().orderId =
-                                                    event.response!;
+                                                event.response!;
                                                 widget.cartBloc.getMyCart(
                                                   onGettingCart: () {
                                                     widget.showOverlayLoading
                                                         .value = false;
                                                     widget.cartBloc
                                                         .addCartInfoToProducts(
-                                                            snapshot.data
-                                                                    ?.response ??
-                                                                []);
+                                                        snapshot.data
+                                                            ?.response ??
+                                                            []);
                                                   },
                                                 );
                                               }
@@ -532,12 +536,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           },
                                           onDeleteClicked: (productMapper) {
                                             widget.showOverlayLoading.value =
-                                                true;
+                                            true;
                                             CartCommonFunctions()
                                                 .editCart(
                                               cartBloc: widget.cartBloc,
                                               cartItemId:
-                                                  productMapper.productId,
+                                              productMapper.productId,
                                               productId: productMapper.id,
                                               quantity: 0,
                                               price: productMapper.finalPrice,
@@ -551,9 +555,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                         .value = false;
                                                     widget.cartBloc
                                                         .addCartInfoToProducts(
-                                                            snapshot.data
-                                                                    ?.response ??
-                                                                []);
+                                                        snapshot.data
+                                                            ?.response ??
+                                                            []);
                                                     setState(() {});
                                                   },
                                                 );
@@ -562,12 +566,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           },
                                           onDecrementClicked: (productMapper) {
                                             widget.showOverlayLoading.value =
-                                                true;
+                                            true;
                                             CartCommonFunctions()
                                                 .editCart(
                                               cartBloc: widget.cartBloc,
                                               cartItemId:
-                                                  productMapper.productId,
+                                              productMapper.productId,
                                               productId: productMapper.id,
                                               quantity: productMapper
                                                   .cartUserQuantity,
@@ -583,12 +587,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           },
                                           onIncrementClicked: (productMapper) {
                                             widget.showOverlayLoading.value =
-                                                true;
+                                            true;
                                             CartCommonFunctions()
                                                 .editCart(
                                               cartBloc: widget.cartBloc,
                                               cartItemId:
-                                                  productMapper.productId,
+                                              productMapper.productId,
                                               productId: productMapper.id,
                                               quantity: productMapper
                                                   .cartUserQuantity,
@@ -598,13 +602,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                 .listen((event) {
                                               if (event is SuccessState) {
                                                 if (productMapper
-                                                        .cartUserQuantity ==
+                                                    .cartUserQuantity ==
                                                     1) {
                                                   widget.cartBloc
                                                       .addCartInfoToProducts(
-                                                          snapshot.data
-                                                                  ?.response ??
-                                                              []);
+                                                      snapshot.data
+                                                          ?.response ??
+                                                          []);
                                                 }
                                                 widget.showOverlayLoading
                                                     .value = false;
@@ -624,8 +628,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                   },
                                 ),
                               ),
-                            ],
-                          ),
+                          )],
+
                         ),
                       ),
                     ],
