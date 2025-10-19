@@ -32,7 +32,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final appVersionNumber = "0.1.2";
+  final appVersionNumber = "0.1.3";
 
   @override
   void initState() {
@@ -147,9 +147,12 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 SizedBox(
                   height: 10.h,
                 ),
-                _menuItem(S.of(context).accountInfo, Assets.svg.icPerson, () async {
-                   Routes.navigateToScreen(Routes.updateProfilePage,
-                      NavigationType.pushNamed, Routes.rootNavigatorKey.currentContext!);
+                _menuItem(S.of(context).accountInfo, Assets.svg.icPerson,
+                    () async {
+                  Routes.navigateToScreen(
+                      Routes.updateProfilePage,
+                      NavigationType.pushNamed,
+                      Routes.rootNavigatorKey.currentContext!);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
                 }),
@@ -526,35 +529,29 @@ class _MoreWidgetState extends BaseState<MorePage> {
       );
 
   void _logout() async {
-
-      await showModalBottomSheet(
-        context: Routes.rootNavigatorKey.currentContext!,
-
-        constraints:
-        BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
-        builder: (context2) {
-          return DialogWidget(
-            message: S.of(context).logoutMessage,
-            cancelMessage: S.of(context).cancel,
-            confirmMessage: S.of(context).yes,
-            headerMessage: S.of(context).logout,
-            headerSvg: Assets.svg.icAlert,
-            errorColorInConfirm: true,
-            onConfirm: () {
-              Future.delayed(const Duration(milliseconds: 600)).then((value) {
-                AppProviderModule().logout(context);
-                widget.moreBloc.selectedFileBehaviour.sink.add("");
-              });
-            },
-            hasCloseButton: true,
-            sameButtonsColor: false,
-          );
-        },
-      );
-
-
-
-
+    await showModalBottomSheet(
+      context: Routes.rootNavigatorKey.currentContext!,
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
+      builder: (context2) {
+        return DialogWidget(
+          message: S.of(context).logoutMessage,
+          cancelMessage: S.of(context).cancel,
+          confirmMessage: S.of(context).yes,
+          headerMessage: S.of(context).logout,
+          headerSvg: Assets.svg.icAlert,
+          errorColorInConfirm: true,
+          onConfirm: () {
+            Future.delayed(const Duration(milliseconds: 600)).then((value) {
+              AppProviderModule().logout(context);
+              widget.moreBloc.selectedFileBehaviour.sink.add("");
+            });
+          },
+          hasCloseButton: true,
+          sameButtonsColor: false,
+        );
+      },
+    );
 
     // AlertModule().showDialog(
     //   context: context,

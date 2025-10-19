@@ -75,7 +75,7 @@ android {
     defaultConfig {
         applicationId "com.icons.deelexpress"
         minSdkVersion 23
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionCode
         multiDexEnabled true
