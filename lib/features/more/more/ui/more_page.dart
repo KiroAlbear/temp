@@ -32,7 +32,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final appVersionNumber = "0.1.3";
+  final appVersionNumber = "0.1.4";
 
   @override
   void initState() {
@@ -321,7 +321,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
         cameraIcon: Assets.svg.icCamera,
         moreBloc: widget.moreBloc,
         openCameraOrGallery: () => handleCameraOrGallery(),
-        mobile: mobile,
+        mobile:Apputils.formatMobilePhone(mobile),
         name: name,
       );
 

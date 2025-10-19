@@ -42,6 +42,11 @@ class Apputils {
     // );
   }
 
+
+  static formatMobilePhone(String phone){
+    return phone.contains("+20")?phone.replaceAll("+20", "+2"):phone;
+  }
+
   static Map<String, dynamic> convertFlaseToNullJson(
       Map<String, dynamic> json) {
     json.updateAll((key, value) => value == false ? null : value);

@@ -81,7 +81,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     _bloc.fullNameBloc.updateStringBehaviour(userName);
 
     _bloc.phoneBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: email));
+        .add(TextEditingController(text: Apputils.formatMobilePhone(email)));
     _bloc.phoneBloc.updateStringBehaviour(email);
 
     _bloc.buildingNameBloc.textFormFiledBehaviour.sink
