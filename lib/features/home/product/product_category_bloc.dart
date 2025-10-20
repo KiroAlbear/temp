@@ -25,11 +25,11 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   // BehaviorSubject<ApiState<List<ProductMapper>>>
   //     productBySubCategoryBrandStream = BehaviorSubject();
 
-  void loadMore(bool isForFavourite) {
+  void loadMore(bool isForFavourite,Function? onGettingMoreProducts) {
     // await loadedListStream.drain();
     Stream<ApiState<List<ProductMapper>>> stream = Stream.empty();
     if (isForFavourite) {
-      _loadWithFavourites();
+      _loadWithFavourites(onGettingMoreProducts);
     } else if (searchValue != null) {
       _loadWithSearch(searchValue!);
     } else {
@@ -61,13 +61,16 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     super.reset();
   }
 
-  void _loadWithFavourites() {
+  void _loadWithFavourites(Function? onGettingMoreProducts) {
     FavouriteProductRemote()
         .loadProduct(PageRequest(pageSize, pageNumber, 1,
             int.parse(SharedPrefModule().userId ?? '0')))
         .listen((event) {
       if (event is SuccessState && event.response != null) {
         _handleProductResponse(event.response);
+        if (onGettingMoreProducts != null) {
+          onGettingMoreProducts();
+        }
       }
     });
   }

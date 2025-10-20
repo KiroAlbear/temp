@@ -107,7 +107,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
         widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
         // widget.productCategoryBloc.reset();
 
-        widget.productCategoryBloc.loadMore(widget.isForFavourite);
+        widget.productCategoryBloc.loadMore(widget.isForFavourite,null);
       }
     }
 
@@ -620,7 +620,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           loadMore: (Function func) {
                                             if (widget.isForFavourite)
                                               widget.productCategoryBloc
-                                                  .loadMore(true);
+                                                  .loadMore(true,func);
                                             else
                                               _loadProducts(false, func);
                                           },

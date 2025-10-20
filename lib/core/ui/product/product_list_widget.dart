@@ -81,6 +81,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
             widget.loadMore!(
               () {
                 widget.cartBloc.addCartInfoToProducts(widget.productList);
+                if(widget.isForFavourite)
+                addAllProductToFavourite();
               },
             );
           }
@@ -99,7 +101,6 @@ class _ProductListWidgetState extends State<ProductListWidget> {
               );
             } else {
               return GridView.builder(
-
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 11.w,
