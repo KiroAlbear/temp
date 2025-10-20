@@ -159,21 +159,19 @@ class Routes {
           ),
         ),
       ),
-
       GoRoute(
-        path: editLocationPage,
-        name: editLocationPage,
-        parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state){
-
-        final NewAccountBloc _bloc = state.extra as NewAccountBloc;
-         return _fadeTransitionScreenWrapper(
-            context,
-            state,
-            EditLocationPage(newAccountBloc: _bloc,)
-          );
-        }
-      ),
+          path: editLocationPage,
+          name: editLocationPage,
+          parentNavigatorKey: rootNavigatorKey,
+          pageBuilder: (context, state) {
+            final NewAccountBloc _bloc = state.extra as NewAccountBloc;
+            return _fadeTransitionScreenWrapper(
+                context,
+                state,
+                EditLocationPage(
+                  newAccountBloc: _bloc,
+                ));
+          }),
       ShellRoute(
           navigatorKey: navigationBarKey,
           parentNavigatorKey: rootNavigatorKey,
@@ -350,7 +348,8 @@ class Routes {
                 body: child,
                 bottomNavigationBar: CustomNavigationBar(
                   onTap: (index) async {
-                    if (index == 0 && currentNavigationPage != Routes.homePage) {
+                    if (index == 0 &&
+                        currentNavigationPage != Routes.homePage) {
                       currentNavigationPage = Routes.homePage;
 
                       await Routes.navigateToScreen(
@@ -363,7 +362,6 @@ class Routes {
                     } else if (index == 2) {
                       currentNavigationPage = Routes.offersPage;
 
-
                       await Routes.navigateToScreen(
                           Routes.offersPage, NavigationType.goNamed, context);
                     } else if (index == 3) {
@@ -371,10 +369,10 @@ class Routes {
 
                       await Routes.navigateToScreen(
                           Routes.cartPage, NavigationType.goNamed, context);
-                    } else if (index == 4 ) {
-                       currentNavigationPage = Routes.morePage;
+                    } else if (index == 4) {
+                      currentNavigationPage = Routes.morePage;
 
-                       await Routes.navigateToScreen(
+                      await Routes.navigateToScreen(
                           Routes.morePage, NavigationType.goNamed, context);
                     }
                   },
@@ -411,7 +409,7 @@ class Routes {
         break;
 
       case NavigationType.goNamed:
-         GoRouter.of(context).goNamed(screenName,
+        GoRouter.of(context).goNamed(screenName,
             queryParameters: queryParameters ?? {}, extra: extra);
         break;
 

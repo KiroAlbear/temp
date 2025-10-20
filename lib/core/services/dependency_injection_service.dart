@@ -19,6 +19,7 @@ class DependencyInjectionService {
     getIt.registerSingleton<MoreBloc>(MoreBloc());
     getIt.registerSingleton<UpdateProfileBloc>(UpdateProfileBloc());
     getIt.registerSingleton<BottomNavigationBloc>(BottomNavigationBloc());
+    getIt.registerSingleton<NewAccountBloc>(NewAccountBloc());
 
     getIt.registerSingleton<HomeBloc>(HomeBloc(
       onCategoryClick: (categoryMapper) {

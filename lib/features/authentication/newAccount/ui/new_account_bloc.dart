@@ -8,9 +8,9 @@ import 'package:rxdart/rxdart.dart';
 enum NewAccountStepEnum { info, locationInfo, password }
 
 class NewAccountBloc extends BlocBase {
-  late final String mobileNumber;
-  late final int _countryId;
-  late final String countryCode;
+  String mobileNumber = "";
+  int _countryId = 0;
+  String countryCode = "";
 
   void init(
       {int countryId = 245,
@@ -19,6 +19,22 @@ class NewAccountBloc extends BlocBase {
     mobileNumber = mobileNumberValue;
     _countryId = countryId;
     this.countryCode = "+${countryCode}";
+
+    fullNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    facilityNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    streetNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    neighborhoodBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    cityBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    passwordBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    confirmPasswordBloc.textFormFiledBehaviour.sink
+        .add(TextEditingController());
+
+    _stepBehaviour.sink.add(NewAccountStepEnum.info);
+    countryCodeBehaviour.sink.add("+${countryCode}");
+
+    _latitudeBehaviour.sink.add(null);
+    _longitudeBehaviour.sink.add(null);
+
     StateRemote(countryId).callApiAsStream().listen(
       (event) {
         _stateBehaviour.sink.add(event);
@@ -41,19 +57,21 @@ class NewAccountBloc extends BlocBase {
   final BehaviorSubject<double?> _longitudeBehaviour = BehaviorSubject();
 
   final BehaviorSubject<ApiState<List<DropDownMapper>>> _stateBehaviour =
-      BehaviorSubject()..sink.add(LoadingState());
+      BehaviorSubject();
 
   DropDownMapper? selectedState;
 
   /// info recorded from preview steps
 
-  set latitude(double value) => _latitudeBehaviour.sink.add(value);
+  set latitude(double? value) => _latitudeBehaviour.sink.add(value);
 
-  set longitude(double value) => _longitudeBehaviour.sink.add(value);
+  set longitude(double? value) => _longitudeBehaviour.sink.add(value);
 
-  double get latitude => _latitudeBehaviour.value ?? 0.0;
+  double? get latitude =>
+      _latitudeBehaviour.hasValue ? _latitudeBehaviour.value : null;
 
-  double get longitude => _longitudeBehaviour.value ?? 0.0;
+  double? get longitude =>
+      _longitudeBehaviour.hasValue ? _longitudeBehaviour.value : null;
 
   Stream<double?> get latitudeStream => _latitudeBehaviour.stream;
 
@@ -77,7 +95,7 @@ class NewAccountBloc extends BlocBase {
   Stream<NewAccountStepEnum> get stepsStream => _stepBehaviour.stream;
 
   void nextStep(NewAccountStepEnum stepEnum) {
-      _stepBehaviour.sink.add(stepEnum);
+    _stepBehaviour.sink.add(stepEnum);
     // check if the step is the last step
   }
 
@@ -170,16 +188,29 @@ class NewAccountBloc extends BlocBase {
 
   @override
   void dispose() {
-    fullNameBloc.dispose();
-    facilityNameBloc.dispose();
-    _stepBehaviour.close();
-    streetNameBloc.dispose();
-    buttonBloc.dispose();
-    neighborhoodBloc.dispose();
-    cityBloc.dispose();
-    passwordBloc.dispose();
-    confirmPasswordBloc.dispose();
-    _latitudeBehaviour.close();
-    _longitudeBehaviour.close();
+    // fullNameBloc.dispose();
+    // facilityNameBloc.dispose();
+    // _stepBehaviour.close();
+    // streetNameBloc.dispose();
+    // buttonBloc.dispose();
+    // neighborhoodBloc.dispose();
+    // cityBloc.dispose();
+    // passwordBloc.dispose();
+    // confirmPasswordBloc.dispose();
+    // countryCodeBehaviour.close();
+    // _stateBehaviour.close();
+    // _latitudeBehaviour.close();
+    // _longitudeBehaviour.close();
+    // stepsStream.drain();
+    // latitudeStream.drain();
+    // longitudeStream.drain();
+    // validateInfoStream.drain();
+    // validateLocationStream.drain();
+    // validatePasswordStream.drain();
+    // register.drain();
+
+    mobileNumber = "";
+    countryCode = "";
+    _countryId = 0;
   }
 }
