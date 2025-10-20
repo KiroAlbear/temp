@@ -3,6 +3,7 @@ import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'new_account_bloc.dart';
@@ -28,31 +29,38 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-    AppTopWidget(
-      notificationIcon: Assets.svg.icNotification,
-      isHavingHomeLogo: false,
-      isHavingSearch: true,
-      isHavingSupport: false,
-      searchIcon: Assets.svg.icSearch,
-      isHavingBack: true,
-      onBackPressed: () {
-
-      },
-      onChanged: (value) {
-        // widget.homeBloc.searchBloc.updateStringBehaviour(value);
-      },
-      textFiledControllerStream:BehaviorSubject<TextEditingController>().stream,
-      doSearch: () {
-
-      },
-    ),
             SizedBox(
               height: 30.h,
             ),
-            CustomText(
-                text: S.of(context).selectLocation,
-                customTextStyle:
-                    RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+            Row(
+              children: [
+                SizedBox(
+                  width: 11.w,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: ImageHelper(
+                      image: Assets.svg.icPreviousBlue,
+                      imageType: ImageType.svg,
+                      height: 30.h,
+                      width: 30.w,
+
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 11.w,
+                ),
+                CustomText(
+                    text: S.of(context).selectLocation,
+                    customTextStyle:
+                        RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+              ],
+            ),
             SizedBox(
               height: 12.h,
             ),
@@ -108,7 +116,7 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
 
   void _confirmPickLocation(double longitude, double latitude, String city,
       String area, String address) {
-    ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+    // ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     widget.newAccountBloc.longitude = longitude;
     widget.newAccountBloc.latitude = latitude;
     if (area.isNotEmpty) {
@@ -130,6 +138,7 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
         break;
       }
     }
+    Navigator.pop(context);
   }
 
   @override

@@ -33,8 +33,7 @@ class NewAccountBloc extends BlocBase {
   final TextFormFiledBloc cityBloc = TextFormFiledBloc();
   final TextFormFiledBloc passwordBloc = TextFormFiledBloc();
   final TextFormFiledBloc confirmPasswordBloc = TextFormFiledBloc();
-  final BehaviorSubject<NewAccountStepEnum> _stepBehaviour = BehaviorSubject()
-    ..sink.add(NewAccountStepEnum.info);
+  final BehaviorSubject<NewAccountStepEnum> _stepBehaviour = BehaviorSubject();
   final ValidatorModule _validatorModule = ValidatorModule();
   final ButtonBloc buttonBloc = ButtonBloc();
   final BehaviorSubject<String> countryCodeBehaviour = BehaviorSubject();
@@ -78,7 +77,7 @@ class NewAccountBloc extends BlocBase {
   Stream<NewAccountStepEnum> get stepsStream => _stepBehaviour.stream;
 
   void nextStep(NewAccountStepEnum stepEnum) {
-    _stepBehaviour.sink.add(stepEnum);
+      _stepBehaviour.sink.add(stepEnum);
     // check if the step is the last step
   }
 
