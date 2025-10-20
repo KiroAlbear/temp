@@ -33,11 +33,11 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        _formKey.currentState!.validate();
-      },
-    );
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (timeStamp) {
+    //     _formKey.currentState!.validate();
+    //   },
+    // );
     super.initState();
   }
 

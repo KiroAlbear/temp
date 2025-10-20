@@ -60,6 +60,10 @@ class _MoreWidgetState extends BaseState<MorePage> {
   }
 
   @override
+  void onPopInvoked(didPop) {
+  }
+
+  @override
   Widget getBody(BuildContext context) =>
       StreamBuilder<ApiState<ProfileMapper>>(
         stream: widget.moreBloc.userStream,
@@ -188,8 +192,8 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   // widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
                   Routes.navigateToScreen(
-                      Routes.favouritePage, NavigationType.pushNamed, context,
-                      setBottomNavigationTab: false);
+                      Routes.favouritePage, NavigationType.goNamed, context,
+                      setBottomNavigationTab: true);
                   // CustomNavigatorModule.navigatorKey.currentState
                   //     ?.pushNamed(AppScreenEnum.product.name);
                 },

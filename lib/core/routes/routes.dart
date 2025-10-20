@@ -350,7 +350,7 @@ class Routes {
                 body: child,
                 bottomNavigationBar: CustomNavigationBar(
                   onTap: (index) async {
-                    if (index == 0) {
+                    if (index == 0 && currentNavigationPage != Routes.homePage) {
                       currentNavigationPage = Routes.homePage;
 
                       await Routes.navigateToScreen(
