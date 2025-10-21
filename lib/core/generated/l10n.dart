@@ -561,7 +561,7 @@ class S {
   /// `Locate your location`
   String get locationYourLocation {
     return Intl.message(
-      'Locate your location',
+      'Search your location',
       name: 'locationYourLocation',
       desc: '',
       args: [],
@@ -855,6 +855,7 @@ class S {
       args: [],
     );
   }
+
   String get address {
     return Intl.message(
       'Address',

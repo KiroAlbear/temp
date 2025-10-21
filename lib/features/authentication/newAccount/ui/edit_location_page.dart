@@ -1,4 +1,3 @@
-
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
@@ -15,58 +14,19 @@ class EditLocationPage extends BaseStatefulWidget {
   const EditLocationPage({super.key, required this.newAccountBloc});
 
   @override
-  State<EditLocationPage> createState() =>
-      _EditLocationPageState();
+  State<EditLocationPage> createState() => _EditLocationPageState();
 }
 
 class _EditLocationPageState extends BaseState<EditLocationPage> {
-
-
   @override
-  Widget getBody(BuildContext context) => Scaffold(
-    body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            SizedBox(
-              height: 30.h,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 11.w,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: ImageHelper(
-                      image: Assets.svg.icPreviousBlue,
-                      imageType: ImageType.svg,
-                      height: 30.h,
-                      width: 30.w,
-
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 11.w,
-                ),
-                CustomText(
-                    text: S.of(context).selectLocation,
-                    customTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
-              ],
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            MapModule().loadMap(
+  Widget getBody(BuildContext context) => SafeArea(
+        child: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: MapModule().loadMap(
                 onPicked: (latitude, longitude, city, area, address) {
-                  _confirmPickLocation(longitude, latitude, city, area, address);
+                  _confirmPickLocation(
+                      longitude, latitude, city, area, address);
                   // AlertModule().showDialog(
                   //   context: context,
                   //   message: S.of(context).pickLocationEnsureMessage,
@@ -86,9 +46,9 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
                 longitude: widget.newAccountBloc.longitude,
                 hintText: S.of(context).locationYourLocation,
                 buttonText: S.of(context).confirm),
-          ],
+          ),
         ),
-  );
+      );
 
   /* Widget _cancelButton(BuildContext context) =>
       CustomButtonWidget(
@@ -146,7 +106,6 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
 
   @override
   bool canPop() => false;
-
 
   @override
   bool isSafeArea() => true;

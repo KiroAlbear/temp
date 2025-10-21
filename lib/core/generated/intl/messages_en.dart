@@ -169,7 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "itemsDetails": MessageLookupByLibrary.simpleMessage("Items details"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "locationYourLocation":
-            MessageLookupByLibrary.simpleMessage("Locate your location"),
+            MessageLookupByLibrary.simpleMessage("Search your location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginEnter": MessageLookupByLibrary.simpleMessage("Sign in"),
         "loginNow": MessageLookupByLibrary.simpleMessage("Login now"),
