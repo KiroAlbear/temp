@@ -85,17 +85,17 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
         if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "category") {
           widget.productCategoryBloc.categoryId =
-              widget.homeBloc.selectedOffer!.relatedItemId;
+              widget.homeBloc.selectedOffer!.relatedItemId[0];
           widget.productCategoryBloc.getProductWithSubcategoryBrand(
               widget.productCategoryBloc.categoryId, null, null);
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "product") {
           widget.productCategoryBloc
-              .getProductById(widget.homeBloc.selectedOffer!.relatedItemId);
+              .getProductById(widget.homeBloc.selectedOffer!.relatedItemId[0]);
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "brand") {
           widget.productCategoryBloc.brandId =
-              widget.homeBloc.selectedOffer!.relatedItemId;
+              widget.homeBloc.selectedOffer!.relatedItemId[0];
           widget.productCategoryBloc.getProductWithSubcategoryBrand(
               null, widget.productCategoryBloc.brandId, null);
         }

@@ -16,7 +16,7 @@ class BannerResponse {
   String? link;
 
   @JsonKey(name: 'relatedItemId')
-  int? relatedItemId;
+  List<int>? relatedItemId;
   BannerResponse();
 
   factory BannerResponse.fromJson(Map<String, dynamic> json) =>

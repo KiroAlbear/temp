@@ -12,7 +12,9 @@ BannerResponse _$BannerResponseFromJson(Map<String, dynamic> json) =>
       ..title = json['title'] as String?
       ..imagePath = json['imagePath'] as String?
       ..link = json['link'] as String?
-      ..relatedItemId = (json['relatedItemId'] as num?)?.toInt();
+      ..relatedItemId = (json['relatedItemId'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList();
 
 Map<String, dynamic> _$BannerResponseToJson(BannerResponse instance) =>
     <String, dynamic>{

@@ -10,7 +10,7 @@ class OfferMapper {
   late final int id;
   late final bool clickable;
   late final String link;
-  late final int relatedItemId;
+  late final List<int> relatedItemId;
 
   OfferMapper(BannerResponse response) {
     name = response.title ?? '';
@@ -18,6 +18,6 @@ class OfferMapper {
     id = response.id ?? 0;
     clickable = (response.link ?? '').isNotEmpty;
     link = response.link ?? '';
-    relatedItemId = response.relatedItemId ?? 0;
+    relatedItemId = response.relatedItemId ?? [];
   }
 }

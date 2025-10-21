@@ -2,8 +2,6 @@
 
 part of 'admin_client.dart';
 
-// dart format off
-
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -61,7 +59,8 @@ class _AdminClient implements AdminClient {
   @override
   Future<AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>>
       updateNotificationsDeviceData(
-          NotificationsUpdateDeviceDataRequestModel request) async {
+    NotificationsUpdateDeviceDataRequestModel request,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -326,5 +325,3 @@ class _AdminClient implements AdminClient {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
-
-// dart format on
