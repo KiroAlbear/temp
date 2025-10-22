@@ -138,7 +138,10 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
         break;
       }
     }
-    Navigator.pop(context);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.pop(context);
+    },);
   }
 
   @override

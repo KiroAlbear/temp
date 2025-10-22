@@ -152,9 +152,10 @@ class NewAccountBloc extends BlocBase {
     Map<dynamic, dynamic> address = decodedResponse['address'];
     _setState(address);
     _setNeighborhood(address);
-    String houseNumber = address['house_number'] ?? '';
-    String road = address['road'];
-    String area = '$houseNumber / $road';
+
+    String area = Apputils.getFormattedAddress(address);
+
+
     _setStreamName(area);
   }
 

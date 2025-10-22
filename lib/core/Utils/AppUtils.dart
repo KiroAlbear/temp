@@ -42,6 +42,27 @@ class Apputils {
     // );
   }
 
+  static String getFormattedAddress(Map<dynamic, dynamic> address){
+    String formattedAddress = '';
+
+    if ((address['house_number'] as String?) != null ) {
+      formattedAddress += '${address['house_number']} /';
+    }
+
+    if ((address['road'] as String?) !=null) {
+      formattedAddress += ' ${address['road']} /';
+    }
+
+    if ((address['village'] as String?) !=null) {
+      formattedAddress += ' ${address['village']} /';
+    }
+
+    if ((address['state']as String?) !=null  ) {
+      formattedAddress += ' ${address['state']}';
+    }
+    return formattedAddress;
+  }
+
 
   static formatMobilePhone(String phone){
     return phone.contains("+20")?phone.replaceAll("+20", "+2"):phone;
