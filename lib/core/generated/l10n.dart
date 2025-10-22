@@ -588,6 +588,16 @@ class S {
     );
   }
 
+  /// `Confirm`
+  String get confirmLocation {
+    return Intl.message(
+      'Confirm Location',
+      name: 'confirmLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Building number / street name`
   String get streetName {
     return Intl.message(

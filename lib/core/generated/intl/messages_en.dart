@@ -34,9 +34,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accountBalance":
             MessageLookupByLibrary.simpleMessage("Account balance"),
+        "confirmLocation":
+            MessageLookupByLibrary.simpleMessage("Confirm Location"),
         "accountInfo": MessageLookupByLibrary.simpleMessage("Account info"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
-  "changePasswordError": MessageLookupByLibrary.simpleMessage("Error in changing password"),
+        "changePasswordError":
+            MessageLookupByLibrary.simpleMessage("Error in changing password"),
         "atLeastOneCapChar":
             MessageLookupByLibrary.simpleMessage("At least one capital letter"),
         "atLeastOneNumber":
@@ -57,15 +60,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelOrder": MessageLookupByLibrary.simpleMessage("Cancel Order"),
         "cartCashOnDelivery":
             MessageLookupByLibrary.simpleMessage("Cash on delivery"),
-
-        "payCashOnDelivery": MessageLookupByLibrary.simpleMessage("Pay Cash on delivery"),
+        "payCashOnDelivery":
+            MessageLookupByLibrary.simpleMessage("Pay Cash on delivery"),
         "cartConfirmOrder":
             MessageLookupByLibrary.simpleMessage("Confirm order"),
         "cartDeleteMessage": MessageLookupByLibrary.simpleMessage(
             "Are you sure to remove the product from the cart?"),
-        "cartDokkanWallet":
-            MessageLookupByLibrary.simpleMessage("Wallet"),
-        "cartDokkanWalletNumber": MessageLookupByLibrary.simpleMessage("Wallet Number"),
+        "cartDokkanWallet": MessageLookupByLibrary.simpleMessage("Wallet"),
+        "cartDokkanWalletNumber":
+            MessageLookupByLibrary.simpleMessage("Wallet Number"),
         "cartDokkanBankCard": MessageLookupByLibrary.simpleMessage("Bank Card"),
         "cartEmpty": MessageLookupByLibrary.simpleMessage("There is no orders"),
         "cartMaximumProductsReached": MessageLookupByLibrary.simpleMessage(
@@ -77,11 +80,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "cartOrderNow": MessageLookupByLibrary.simpleMessage("Order now"),
         "cartOrderOrderDetails":
             MessageLookupByLibrary.simpleMessage("Order details"),
-        "cartPaymentOptions": MessageLookupByLibrary.simpleMessage(
-            "Choose payment method"),
+        "cartPaymentOptions":
+            MessageLookupByLibrary.simpleMessage("Choose payment method"),
         "cartProductDetails":
             MessageLookupByLibrary.simpleMessage("Products Details"),
-        "cartProductsSummary": MessageLookupByLibrary.simpleMessage("Products Summary"),
+        "cartProductsSummary":
+            MessageLookupByLibrary.simpleMessage("Products Summary"),
         "cartProductQuantityNotAvailable": MessageLookupByLibrary.simpleMessage(
             "only available with quantity"),
         "cartProductsNotAvailable": MessageLookupByLibrary.simpleMessage(
@@ -113,8 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current password"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
-        "createAccountMessage": MessageLookupByLibrary.simpleMessage("create your account and start order all your needs now from the same place "),
-
+        "createAccountMessage": MessageLookupByLibrary.simpleMessage(
+            "create your account and start order all your needs now from the same place "),
         "deleteAccountMessage": MessageLookupByLibrary.simpleMessage(
             "\nAre you sure you want to delete your account?\nThis will erase all your data and previous requests."),
         "discount": m0,
@@ -130,7 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter confirm password"),
         "enterFullName":
             MessageLookupByLibrary.simpleMessage("Enter full name"),
-        "threeFullName": MessageLookupByLibrary.simpleMessage("Enter full name"),
+        "threeFullName":
+            MessageLookupByLibrary.simpleMessage("Enter full name"),
         "enterMobileNumber":
             MessageLookupByLibrary.simpleMessage("Enter mobile number"),
         "enterNeighborhood":
@@ -153,7 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "favourites": MessageLookupByLibrary.simpleMessage("Favourites"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
-        "resetPasswordSetting": MessageLookupByLibrary.simpleMessage("Reset password"),
+        "resetPasswordSetting":
+            MessageLookupByLibrary.simpleMessage("Reset password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "generalError": MessageLookupByLibrary.simpleMessage(
@@ -306,13 +312,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "usagePolicyTitle":
             MessageLookupByLibrary.simpleMessage("Usage Policy"),
         "validateOtp": MessageLookupByLibrary.simpleMessage("Validate"),
-        "welcomeToDokkan":
-            MessageLookupByLibrary.simpleMessage("Welcome to"),
+        "welcomeToDokkan": MessageLookupByLibrary.simpleMessage("Welcome to"),
         "whatsApp": MessageLookupByLibrary.simpleMessage("WhatsApp"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "youCanStartOrderNow":
             MessageLookupByLibrary.simpleMessage("You can start order now"),
-        "startOrderNow": MessageLookupByLibrary.simpleMessage("Order all your needs from the same place"),
+        "startOrderNow": MessageLookupByLibrary.simpleMessage(
+            "Order all your needs from the same place"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("You need to login"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")

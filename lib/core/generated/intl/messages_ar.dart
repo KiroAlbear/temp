@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accountBalance": MessageLookupByLibrary.simpleMessage("رصيد الحساب"),
+        "confirmLocation": MessageLookupByLibrary.simpleMessage("تأكيد الموقع"),
         "accountInfo": MessageLookupByLibrary.simpleMessage("بيانات حسابي"),
         "addToCart": MessageLookupByLibrary.simpleMessage("أضف الي السلة"),
         "changePasswordError":

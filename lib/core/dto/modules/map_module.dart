@@ -20,7 +20,7 @@ class MapModule {
       OpenStreetMapSearchAndPick(
         textFieldProgressBarColor: primaryColor,
         onPicked: (pickedData) {
-          Map<String,dynamic> address = pickedData.address;
+          Map<String, dynamic> address = pickedData.address;
 
           onPicked(
               pickedData.latLong.latitude,
@@ -39,7 +39,7 @@ class MapModule {
         locationPinIcon: Icons.location_pin,
         zoomInIcon: Icons.zoom_in,
         zoomOutIcon: Icons.zoom_out_sharp,
-        buttonTextColor: lightBlackColor,
+        buttonTextColor: darkSecondaryColor,
         backArrowWidget: InkWell(
           onTap: () {
             Navigator.of(Routes.rootNavigatorKey.currentContext!).pop();
@@ -51,11 +51,13 @@ class MapModule {
           ),
         ),
         buttonTextStyle:
-            MediumStyle(fontSize: 16.sp, color: lightBlackColor).getStyle(),
+            MediumStyle(fontSize: 16.sp, color: darkSecondaryColor).getStyle(),
         currentLocationIcon: Icons.location_searching,
+        buttonLoadingWidget: CustomProgress(color: secondaryColor),
         locationPinIconColor: redColor,
         setLocationButtonBorderRadious: 10,
-        searchSuffixIcon:Icon(Icons.search),
+        searchSuffixIcon:
+            RotatedBox(quarterTurns: 1, child: Icon(Icons.search)),
         buttonWidth: double.infinity,
         buttonHeight: 70.h,
         hintText: hintText,

@@ -45,7 +45,7 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
                 latitude: widget.newAccountBloc.latitude,
                 longitude: widget.newAccountBloc.longitude,
                 hintText: S.of(context).locationYourLocation,
-                buttonText: S.of(context).confirm),
+                buttonText: S.of(context).confirmLocation),
           ),
         ),
       );
@@ -99,9 +99,11 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
       }
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.pop(context);
-    },);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        Navigator.pop(context);
+      },
+    );
   }
 
   @override
