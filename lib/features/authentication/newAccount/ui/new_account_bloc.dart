@@ -144,9 +144,13 @@ class NewAccountBloc extends BlocBase {
 
   Future<void> pickLocationInfo() async {
     var client = http.Client();
+    final Map<String, String> _headers = const {
+      "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+    };
     String url =
         'https://nominatim.openstreetmap.org/reverse?format=json&lat=${_latitudeBehaviour.value}&lon=${_longitudeBehaviour.value}&zoom=18&addressdetails=1';
-    var response = await client.get(Uri.parse(url));
+    var response = await client.get(Uri.parse(url),headers: _headers);
     var decodedResponse =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<dynamic, dynamic>;
     Map<dynamic, dynamic> address = decodedResponse['address'];
