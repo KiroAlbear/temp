@@ -55,7 +55,7 @@ class MapModule {
         currentLocationIcon: Icons.location_searching,
         locationPinIconColor: redColor,
         setLocationButtonBorderRadious: 10,
-        searchSuffixIcon: Icons.search,
+        searchSuffixIcon:Icon(Icons.search) ,
         buttonWidth: double.infinity,
         buttonHeight: 70.h,
         hintText: hintText,
