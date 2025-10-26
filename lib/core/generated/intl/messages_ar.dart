@@ -170,6 +170,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
             MessageLookupByLibrary.simpleMessage("رقم الجوال غير صالح"),
+
+        "invalidWallet":
+        MessageLookupByLibrary.simpleMessage("يجب كتابة ١١ رقم"),
+
         "itemsDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":

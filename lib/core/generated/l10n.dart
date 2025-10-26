@@ -249,6 +249,16 @@ class S {
     );
   }
 
+  /// `Invalid email`
+  String get invalidWallet {
+    return Intl.message(
+      '11 numbers are required',
+      name: 'invalidWallet',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Filed required`
   String get required {
     return Intl.message(

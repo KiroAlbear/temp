@@ -21,6 +21,7 @@ class CartBottomSheet extends StatefulWidget {
 class _CartBottomSheetState extends State<CartBottomSheet> {
   final double _spacing = 10.0;
   int _groupeValue = -1;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _paymentRow(int value, String title, Widget icon) {
     return InkWell(
@@ -142,16 +143,30 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomTextFormFiled(
-                    textInputType: TextInputType.number,
-                    textInputAction: TextInputAction.done,
-                    inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                    labelText: S.of(context).cartDokkanWalletNumber,
-                    textFiledControllerStream:
-                        widget.cartBloc.walletNumberBehaviour,
-                    onChanged: (value) {
-                      // widget.cartBloc.updateWalletNumber(value);
-                    },
+                  Form(
+                    key: _formKey,
+                    child: CustomTextFormFiled(
+                      textInputType: TextInputType.number,
+                      textInputAction: TextInputAction.done,
+                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                      labelText: S.of(context).cartDokkanWalletNumber,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return S.of(context).required;
+                        }
+
+                        if(value.length == 11){
+                          return null;
+                        }else{
+                          return S.of(context).invalidWallet;
+                        }
+                      },
+                      textFiledControllerStream:
+                          widget.cartBloc.walletNumberBehaviour,
+                      onChanged: (value) {
+                        // widget.cartBloc.updateWalletNumber(value);
+                      },
+                    ),
                   ),
                   16.verticalSpace,
                   CustomButtonWidget(
@@ -162,18 +177,21 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                           : darkSecondaryColor,
                       onTap: () async {
                         // pop the bottom sheet
-                        Navigator.pop(context);
-                        await Routes.navigateToScreen(
-                            Routes.cartOrderDetailsPage,
-                            NavigationType.pushNamed,
-                            context,
-                            extra: CartOrderDetailsArgs(
-                                isItVisa: false,
-                                isItWallet: true,
-                                walletNumber: widget.cartBloc
-                                    .walletNumberBehaviour.valueOrNull?.text));
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pop(context);
+                          await Routes.navigateToScreen(
+                              Routes.cartOrderDetailsPage,
+                              NavigationType.pushNamed,
+                              context,
+                              extra: CartOrderDetailsArgs(
+                                  isItVisa: false,
+                                  isItWallet: true,
+                                  walletNumber: widget.cartBloc
+                                      .walletNumberBehaviour.valueOrNull?.text));
 
-                        widget.cartBloc.walletNumberBehaviour.value.clear();
+                          widget.cartBloc.walletNumberBehaviour.value.clear();
+                        }
+
                       })
                 ],
               ),
