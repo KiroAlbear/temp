@@ -1,6 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:timezone/timezone.dart' as tz;
-
 import 'my_orders_response.dart';
 
 class MyOrdersMapper {
