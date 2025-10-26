@@ -73,6 +73,7 @@ class OrderItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadious),
         ),
         child: ExpansionTile(
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadious),
           ),
@@ -164,9 +165,11 @@ class OrderItem extends StatelessWidget {
                       ? CurrentOrdersStates(
                           statuses: orderStatuses,
                         )
-                      : PastOrdersStates(
-                          orderStatuses: orderStatuses,
-                        ),
+                      :SizedBox(),
+
+                  // PastOrdersStates(
+                  //         orderStatuses: orderStatuses,
+                  //       ),
                   CustomButtonWidget(
                       buttonColor: secondaryColor,
                       textColor: Colors.white,
