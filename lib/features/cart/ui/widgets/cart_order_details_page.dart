@@ -142,6 +142,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           _ConfirmOder();
         } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+          showInvalidPaymentBottomSheet();
         }
       },
     );
@@ -163,10 +164,29 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           _ConfirmOder();
         } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+
+          showInvalidPaymentBottomSheet();
         }
       },
     );
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+  }
+
+  Future<dynamic> showInvalidPaymentBottomSheet() {
+    return showModalBottomSheet(
+          context: context,
+          useRootNavigator: true,
+          constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.20),
+          builder: (context) {
+            return DialogWidget(
+              sameButtonsColor: false,
+              message:  S.of(context).invalidPayment,
+              confirmMessage: S.of(context).ok,
+              onConfirm: () {},
+            );
+          },
+        );
   }
 
   void _ConfirmOder() {

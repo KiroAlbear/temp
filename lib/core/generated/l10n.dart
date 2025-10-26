@@ -249,11 +249,22 @@ class S {
     );
   }
 
-  /// `Invalid email`
+  /// `Invalid wallet`
   String get invalidWallet {
     return Intl.message(
       '11 numbers are required',
       name: 'invalidWallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+
+  /// `Invalid payment`
+  String get invalidPayment {
+    return Intl.message(
+      'Something went wrong with payment',
+      name: 'invalidPayment',
       desc: '',
       args: [],
     );

@@ -173,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
         "invalidWallet": MessageLookupByLibrary.simpleMessage("11 numbers are required"),
+        "invalidPayment":
+        MessageLookupByLibrary.simpleMessage("Something went wrong with payment"),
         "itemsDetails": MessageLookupByLibrary.simpleMessage("Items details"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "locationYourLocation":

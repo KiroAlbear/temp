@@ -174,6 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidWallet":
         MessageLookupByLibrary.simpleMessage("يجب كتابة ١١ رقم"),
 
+        "invalidPayment":
+        MessageLookupByLibrary.simpleMessage("حدثت مشكلة في الدفع"),
+
         "itemsDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":
