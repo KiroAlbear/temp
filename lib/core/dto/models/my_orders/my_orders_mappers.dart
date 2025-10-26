@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
+
 import 'my_orders_response.dart';
 
 class MyOrdersMapper {
@@ -14,11 +17,11 @@ class MyOrdersMapper {
           id: e.id!,
           totalPrice: "${e.amountUnpaid!.toString()} $currency",
           itemsCount: e.itemsCount!,
-          sendingOrder: getFormatedDate(e.sendingOrder),
-          acceptingOrder: getFormatedDate(e.acceptingOrder),
-          shippingOrder: getFormatedDate(e.shippingOrder),
-          outOrder: getFormatedDate(e.outOrder),
-          deliverOrder: getFormatedDate(e.deliveredOrder),
+          sendingOrder: getFormatedDate(e.sendingOrder ??""),
+          acceptingOrder: getFormatedDate(e.acceptingOrder??""),
+          shippingOrder: getFormatedDate(e.shippingOrder??""),
+          outOrder: getFormatedDate(e.outOrder??""),
+          deliverOrder: getFormatedDate(e.deliveredOrder??""),
           state: e.state,
           items: getOrderItems(e));
       if (e.deliveredOrder == null && e.state != "cancel") {
@@ -29,14 +32,23 @@ class MyOrdersMapper {
     }
   }
 
-  String? getFormatedDate(String? date) {
-    // we remove the second part of the date
-    String? removedTFromData =
-        date?.replaceAll("T", "   ").split(" ").reversed.join(" ").toString();
+  String? getFormatedDate(String date) {
+
+    if(date.isEmpty)
+      return null;
+
+    DateTime gmtTime = DateTime.parse(date+ 'Z').toUtc();
+
+    DateTime localTime = gmtTime.toLocal();
+
+    final formatedDate = DateFormat('hh:mm:ss  yyyy-MM-dd',"en").format(localTime);
+
+    // String? removedTFromData =
+    //     date?.replaceAll("T", "   ").split(" ").reversed.join(" ").toString();
     // List<String>? strList = removedTFromData?.split(":");
     // strList?.removeRange(1, 2);
 
-    return removedTFromData;
+    return formatedDate;
   }
 
   List<OrderItemMapper> getOrderItems(MyOrdersResponse orderResponse) {
