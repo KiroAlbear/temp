@@ -14,6 +14,9 @@ import 'package:flutter/widgets.dart';
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
+  /// File path: assets/svg/Pin location.svg
+  String get pinLocation => 'assets/svg/Pin location.svg';
+
   /// File path: assets/svg/cart_success.svg
   String get cartSuccess => 'assets/svg/cart_success.svg';
 
@@ -209,6 +212,7 @@ class $AssetsSvgGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        pinLocation,
         cartSuccess,
         cartSuccessLogo,
         emptyCart,
