@@ -44,7 +44,7 @@ class CartBloc extends BlocBase {
   int orderId = 0;
   String userAddressText = "";
   String currency = "";
-  int deliveryFees = 20;
+  int deliveryFees = 0;
   bool isAnyProductOutOfStock = false;
   List<CartAvailableModel> productsOfMoreThanAvailable = [];
   // bool isAnyQuantityGreaterThanStockQuantity = false;
@@ -102,7 +102,7 @@ class CartBloc extends BlocBase {
   }
 
   void _getTotalCartDeliverySum() {
-    cartTotalDeliveryBehaviour.sink.add('+ $deliveryFees  ر.ي. التوصيل');
+    cartTotalDeliveryBehaviour.sink.add('+ $deliveryFees  ج.م. التوصيل');
   }
 
   void _getCartMinimumOrder() {
