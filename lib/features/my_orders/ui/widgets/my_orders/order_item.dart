@@ -167,9 +167,9 @@ class OrderItem extends StatelessWidget {
                         )
                       :SizedBox(),
 
-                  // PastOrdersStates(
-                  //         orderStatuses: orderStatuses,
-                  //       ),
+                  currentOrder.state == "cancel"? SizedBox(): PastOrdersStates(
+                          orderStatuses: orderStatuses,
+                        ),
                   CustomButtonWidget(
                       buttonColor: secondaryColor,
                       textColor: Colors.white,
