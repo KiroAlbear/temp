@@ -354,7 +354,7 @@ class Routes {
 
                       await Routes.navigateToScreen(
                           Routes.homePage, NavigationType.goNamed, context);
-                    } else if (index == 1) {
+                    } else if (index == 1 && currentNavigationPage != Routes.favouritePage) {
                       currentNavigationPage = Routes.favouritePage;
 
                       await Routes.navigateToScreen(Routes.favouritePage,

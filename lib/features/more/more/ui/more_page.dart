@@ -190,6 +190,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
                   // widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
+                  Routes.currentNavigationPage = Routes.favouritePage;
                   Routes.navigateToScreen(
                       Routes.favouritePage, NavigationType.goNamed, context,
                       setBottomNavigationTab: true);
