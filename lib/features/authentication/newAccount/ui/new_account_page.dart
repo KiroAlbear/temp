@@ -98,6 +98,8 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               _stepRow,
               _registerInfoWidget,
+              SizedBox(height: 50),
+
             ]),
           )));
 

@@ -111,6 +111,9 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
                   height: 160.h,
                 ),
                 Center(child: _button),
+                SizedBox(
+                  height: 50.h,
+                ),
               ],
             ),
           ),

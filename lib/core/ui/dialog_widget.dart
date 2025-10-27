@@ -48,12 +48,12 @@ class _DialogWidgetState extends State<DialogWidget> {
         child: Stack(
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // SizedBox(
-                //   height: 35.h,
-                // ),
+                SizedBox(
+                  height: 10.h,
+                ),
                 if (widget.headerMessage != null) _headerMessage,
                 if (widget.headerSvg != null) ...[
                   SizedBox(

@@ -157,7 +157,7 @@ class _CartScreenState extends BaseState<CartPage> {
                         elevation: 0,
                         constraints: BoxConstraints(
                             maxHeight:
-                                MediaQuery.of(context).size.height * 0.35),
+                                MediaQuery.of(context).size.height * 0.38),
                         context: context,
                         builder: (context) {
                           return CartBottomSheet(

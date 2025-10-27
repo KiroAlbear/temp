@@ -329,11 +329,15 @@ class _MoreWidgetState extends BaseState<MorePage> {
       );
 
   void handleCameraOrGallery() {
+
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
+      useSafeArea: true,
+      isScrollControlled: true,
+
       constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.24),
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.26),
       builder: (context) {
         return DialogWidget(
           message: S.of(context).selectPhotoFromCameraOrGallery,

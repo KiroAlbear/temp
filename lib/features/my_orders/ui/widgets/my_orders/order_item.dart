@@ -227,7 +227,7 @@ class OrderItem extends StatelessWidget {
             child: InkWell(
               onTap: () async {
                 await UtilityModule().showBottomSheetDialog(
-                    useFixedHeight: false,
+                    useFixedHeight: true,
                     child: CancelOrderBottomSheet(
                       myOrdersBloc: myOrdersBloc,
                       orderId: currentOrder!.id,
