@@ -36,7 +36,7 @@ class MapModule {
             .getStyle(),
         locationPinTextStyle:
             MediumStyle(fontSize: 12.sp, color: lightBlackColor).getStyle(),
-        locationPinIcon: Icons.location_pin,
+        locationPinIcon: ImageHelper(image: Assets.svg.pinLocation, imageType: ImageType.svg),
         zoomInIcon: Icons.zoom_in,
         zoomOutIcon: Icons.zoom_out_sharp,
         buttonTextColor: darkSecondaryColor,
@@ -54,7 +54,7 @@ class MapModule {
             MediumStyle(fontSize: 16.sp, color: darkSecondaryColor).getStyle(),
         currentLocationIcon: Icons.location_searching,
         buttonLoadingWidget: CustomProgress(color: secondaryColor),
-        locationPinIconColor: redColor,
+
         setLocationButtonBorderRadious: 10,
         searchSuffixIcon:
             RotatedBox(quarterTurns: 1, child: Icon(Icons.search)),
