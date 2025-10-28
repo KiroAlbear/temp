@@ -32,7 +32,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final appVersionNumber = "0.1.7";
+  final appVersionNumber = "0.1.8";
 
   @override
   void initState() {
@@ -330,13 +330,11 @@ class _MoreWidgetState extends BaseState<MorePage> {
       );
 
   void handleCameraOrGallery() {
-
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
       useSafeArea: true,
       isScrollControlled: true,
-
       constraints:
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.26),
       builder: (context) {
