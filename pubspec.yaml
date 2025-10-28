@@ -29,7 +29,7 @@ dependencies:
   image_loader:
     git:
       url: https://github.com/KiroAlbear/image_loader.git
-      ref: 67526b6
+      ref: 801c49b
 
   provider: ^6.1.2
   google_fonts: 6.2.1
