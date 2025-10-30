@@ -196,7 +196,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   void getProductWithSubcategoryBrand(
       int? subCategory, int? brand, Function? onGettingMoreProducts) {
-    if ((subCategory == null && brand == null)) {
+    if ((subCategory == null)) {
       ProductRemote()
           .loadProductBySubCategoryBrand(ProductSubcategoryBrandRequest(
         categoryId,
@@ -220,26 +220,29 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
           }
         },
       );
-    } else if (subCategory == null && brand != null) {
-      ProductRemote()
-          .loadProductByBrand(ProductBrandRequest(
-              brand_id: brand, page: pageNumber, limit: pageSize))
-          .listen(
-        (event) {
-          if (event is SuccessState &&
-              event.response != null &&
-              event.response!.isNotEmpty) {
-            _handleProductResponse(event.response);
+    }
+    // else if (subCategory == null && brand != null) {
+    //   ProductRemote()
+    //       .loadProductByBrand(ProductBrandRequest(
+    //           brand_id: brand, page: pageNumber, limit: pageSize))
+    //       .listen(
+    //     (event) {
+    //       if (event is SuccessState &&
+    //           event.response != null &&
+    //           event.response!.isNotEmpty) {
+    //         _handleProductResponse(event.response);
+    //
+    //         if (onGettingMoreProducts != null) {
+    //           onGettingMoreProducts();
+    //         }
+    //       } else if (event.response != null && event.response!.isEmpty) {
+    //         _handleProductResponse(null);
+    //       }
+    //     },
+    //   );
+    // }
 
-            if (onGettingMoreProducts != null) {
-              onGettingMoreProducts();
-            }
-          } else if (event.response != null && event.response!.isEmpty) {
-            _handleProductResponse(null);
-          }
-        },
-      );
-    } else {
+    else {
       ProductRemote()
           .loadProductBySubCategoryBrand(ProductSubcategoryBrandRequest(
         subCategory!,
