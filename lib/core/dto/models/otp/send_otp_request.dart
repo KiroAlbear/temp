@@ -4,7 +4,7 @@ part 'send_otp_request.g.dart';
 
 @JsonSerializable()
 class SendOtpRequest {
-  @JsonKey(name: 'mobileNo')
+  @JsonKey(name: 'phoneNumber')
   String phone;
 
   SendOtpRequest({

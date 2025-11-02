@@ -173,7 +173,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   onTap: () {
                     if (enableSnapShot.data ?? false) {
                       _bloc.sendOtp(
-                          "+${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}",
+                          "${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}",
                           S.of(context).otpPhoneIsNotValid);
                     }
                   },
@@ -223,32 +223,32 @@ class _OtpWidgetState extends BaseState<OtpPage> {
           _bloc.buttonBloc.buttonBehavior.sink.add(ButtonState.loading);
           _bloc
               .verifyOtp(
-                  "+${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}",
+                  "${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile.replaceRange(0, 1, "")}",
                   S.of(context).otpIsNotValid)
               .then(
             (value) {
               //TODO: this code is commented only for temp use, revert it when go to production
               // only for testing
-              // if(kDebugMode){
-              onlyForTestingCode();
-              // }else
-              // {
-              //   checkResponseStateWithButton(
-              //     value,
-              //     context,
-              //     buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-              //     failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-              //     onSuccess: () {
-              //       widget.authenticationSharedBloc.userData = _bloc.userData;
-              //       Routes.navigateToScreen(widget.nextPage, NavigationType.pushReplacementNamed, context);
-              //
-              //       // CustomNavigatorModule.navigatorKey.currentState
-              //       //     ?.pushReplacementNamed(
-              //       //   widget.authenticationSharedBloc.nextScreen,
-              //       // );
-              //     },
-              //   );
-              // }
+              if (kDebugMode) {
+                onlyForTestingCode();
+              } else {
+                checkResponseStateWithButton(
+                  value,
+                  context,
+                  buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                  failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                  onSuccess: () {
+                    widget.authenticationSharedBloc.userData = _bloc.userData;
+                    Routes.navigateToScreen(widget.nextPage,
+                        NavigationType.pushReplacementNamed, context);
+
+                    // CustomNavigatorModule.navigatorKey.currentState
+                    //     ?.pushReplacementNamed(
+                    //   widget.authenticationSharedBloc.nextScreen,
+                    // );
+                  },
+                );
+              }
             },
           );
         },

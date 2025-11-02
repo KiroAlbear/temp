@@ -245,7 +245,7 @@ class _AdminClient implements AdminClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'OTP/SendOTP',
+            'Sms/send',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -278,7 +278,7 @@ class _AdminClient implements AdminClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'OTP/VerifyOTP',
+            'Sms/VerifyOTP',
             queryParameters: queryParameters,
             data: _data,
           )

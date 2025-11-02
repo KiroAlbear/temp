@@ -106,41 +106,44 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
             if (_bloc.isValid) {
               _bloc.checkPhone.listen((event) {
                 //TODO: this code is commented only for temp use, revert it when go to production
-                //    if (kDebugMode){
-                if (event is SuccessState) onlyForTestingCode();
-                // } else
-                // {
-                //     checkResponseStateWithButton(
-                //       event,
-                //       context,
-                //       failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                //       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                //       onSuccess: () {
-                //         _otpBloc
-                //             .sendOtp(
-                //             "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}",
-                //             S.of(context).otpPhoneIsNotValid)
-                //             .then(
-                //               (value) {
-                //             checkResponseStateWithButton(value, context,
-                //                 failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                //                 buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                //                 headerErrorMessage: S
-                //                     .of(context)
-                //                     .otpPhoneIsNotValid, onSuccess: () {
-                //                   widget.authenticationSharedBloc.setDataToAuth(
-                //                       _bloc.countryBloc.value!,
-                //                       _bloc.mobileBloc.value,
-                //                       AppScreenEnum.newAccount.name);
-                //                   Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.newAccountPage});
-                //                   // CustomNavigatorModule.navigatorKey.currentState
-                //                   //     ?.pushNamed(AppScreenEnum.otp.name);
-                //                 });
-                //           },
-                //         );
-                //       },
-                //     );
-                //   }
+                if (kDebugMode) {
+                  if (event is SuccessState) onlyForTestingCode();
+                } else {
+                  checkResponseStateWithButton(
+                    event,
+                    context,
+                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                    onSuccess: () {
+                      _otpBloc
+                          .sendOtp(
+                              "${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value.replaceRange(0, 1, "")}",
+                              S.of(context).otpPhoneIsNotValid)
+                          .then(
+                        (value) {
+                          checkResponseStateWithButton(value, context,
+                              failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                              buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                              headerErrorMessage: S
+                                  .of(context)
+                                  .otpPhoneIsNotValid, onSuccess: () {
+                            widget.authenticationSharedBloc.setDataToAuth(
+                                _bloc.countryBloc.value!,
+                                _bloc.mobileBloc.value,
+                                AppScreenEnum.newAccount.name);
+                            Routes.navigateToScreen(Routes.otpPage,
+                                NavigationType.pushNamed, context,
+                                queryParameters: {
+                                  OtpPage.nextPageKey: Routes.newAccountPage
+                                });
+                            // CustomNavigatorModule.navigatorKey.currentState
+                            //     ?.pushNamed(AppScreenEnum.otp.name);
+                          });
+                        },
+                      );
+                    },
+                  );
+                }
               });
             }
           },
