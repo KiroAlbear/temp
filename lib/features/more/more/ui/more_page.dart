@@ -32,7 +32,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final appVersionNumber = "0.1.9";
+  final deelVersionNumber = "0.1.10";
 
   @override
   void initState() {
@@ -306,7 +306,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CustomText(
-                text: "Version $appVersionNumber",
+                text: "Version $deelVersionNumber",
                 customTextStyle:
                     RegularStyle(fontSize: 12.sp, color: lightBlackColor)),
           ],
