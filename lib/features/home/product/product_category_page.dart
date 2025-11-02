@@ -96,8 +96,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
             "brand") {
           widget.productCategoryBloc.brandId =
               widget.homeBloc.selectedOffer!.relatedItemId[0];
-          widget.productCategoryBloc.getProductWithSubcategoryBrand(
-              null, widget.productCategoryBloc.brandId, null);
+          widget.productCategoryBloc.getProductsByBrandId(
+               widget.productCategoryBloc.brandId!);
         }
       } else if (ProductCategoryPage.categoryProductsCount > 0) {
         widget.productCategoryBloc.getProductWithSubcategoryBrand(

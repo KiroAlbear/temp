@@ -269,6 +269,24 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     }
   }
 
+  void getProductsByBrandId(int brandId){
+      ProductRemote()
+          .loadProductByBrand(ProductBrandRequest(
+              brand_id: brandId, page: pageNumber, limit: pageSize))
+          .listen(
+        (event) {
+          if (event is SuccessState &&
+              event.response != null &&
+              event.response!.isNotEmpty) {
+            _handleProductResponse(event.response);
+
+          } else if (event.response != null && event.response!.isEmpty) {
+            _handleProductResponse(null);
+          }
+        },
+      );
+  }
+
   void _handleBrandResponse(List<BrandMapper>? response, int? subCategory) {
     if (response != null && response!.isNotEmpty) {
       response.insert(
