@@ -173,7 +173,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   onTap: () {
                     if (enableSnapShot.data ?? false) {
                       _bloc.sendOtp(
-                          "${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}",
+                          "${widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile.replaceRange(0, 1, "")}",
                           S.of(context).otpPhoneIsNotValid);
                     }
                   },
