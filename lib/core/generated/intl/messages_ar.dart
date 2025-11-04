@@ -170,13 +170,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
             MessageLookupByLibrary.simpleMessage("رقم الجوال غير صالح"),
-
         "invalidWallet":
-        MessageLookupByLibrary.simpleMessage("يجب كتابة ١١ رقم"),
-
+            MessageLookupByLibrary.simpleMessage("يجب كتابة ١١ رقم"),
         "invalidPayment":
-        MessageLookupByLibrary.simpleMessage("حدثت مشكلة في الدفع"),
-
+            MessageLookupByLibrary.simpleMessage("حدثت مشكلة في الدفع"),
         "itemsDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":
@@ -324,6 +321,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "اطلب كل احتياجاتك من نفس المكان دلوقتي"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
-        "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
+        "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "goToMainPage":
+            MessageLookupByLibrary.simpleMessage("الذهاب الي الرئيسية"),
       };
 }

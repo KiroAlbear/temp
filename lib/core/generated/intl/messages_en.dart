@@ -172,9 +172,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("How can we help?"),
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
-        "invalidWallet": MessageLookupByLibrary.simpleMessage("11 numbers are required"),
-        "invalidPayment":
-        MessageLookupByLibrary.simpleMessage("Something went wrong with payment"),
+        "invalidWallet":
+            MessageLookupByLibrary.simpleMessage("11 numbers are required"),
+        "invalidPayment": MessageLookupByLibrary.simpleMessage(
+            "Something went wrong with payment"),
         "itemsDetails": MessageLookupByLibrary.simpleMessage("Items details"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "locationYourLocation":
@@ -324,6 +325,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Order all your needs from the same place"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("You need to login"),
-        "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")
+        "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile"),
+        "goToMainPage": MessageLookupByLibrary.simpleMessage("Go to main page"),
       };
 }

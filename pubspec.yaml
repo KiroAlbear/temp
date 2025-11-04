@@ -123,6 +123,7 @@ flutter:
   assets:
     - shorebird.yaml
     - assets/svg/
+    - assets/png/
   fonts:
     - family: DINNext
       fonts:

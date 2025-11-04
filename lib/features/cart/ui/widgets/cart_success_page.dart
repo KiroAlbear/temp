@@ -6,7 +6,6 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../core/generated/l10n.dart';
 
 class CartSuccessPage extends BaseStatefulWidget {
-
   const CartSuccessPage({super.key});
 
   @override
@@ -29,7 +28,6 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
-
   @override
   void initState() {
     super.initState();
@@ -41,17 +39,12 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
         children: [
-          100.verticalSpace,
-          ImageHelper(
-              image: Assets.svg.logoYellow, imageType: ImageType.svg),
-          SizedBox(height: 60),
+          200.verticalSpace,
           SizedBox(
-            width: 130,
-            height: 130,
             child: ImageHelper(
-                image: Assets.svg.cartSuccess, imageType: ImageType.svg),
+                image: Assets.png.cartSuccess.path, imageType: ImageType.asset),
           ),
-          30.verticalSpace,
+          10.verticalSpace,
           CustomText(
               text: S.of(context).cartSuccessConfirmation,
               textAlign: TextAlign.center,
@@ -65,9 +58,9 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
               maxLines: 2,
               customTextStyle:
                   RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
-          40.verticalSpace,
+          30.verticalSpace,
           Padding(
-            padding: const EdgeInsets.only(bottom: 50.0),
+            padding: const EdgeInsets.only(bottom: 20.0),
             child: CustomButtonWidget(
                 idleText: S.of(context).cartSuccessTrackButton,
                 borderRadius: 8,
@@ -80,8 +73,10 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
                   // Navigator.pop(context);
                   // getIt<BottomNavigationBloc>().setSelectedTab(4, context);
                   // widget.bottomNavigationBloc.setSelectedTab(4, context);
-                  Routes.navigateToScreen(Routes.morePage, NavigationType.goNamed, context);
-                  Routes.navigateToScreen(Routes.myOrdersPage, NavigationType.pushNamed, context);
+                  Routes.navigateToScreen(
+                      Routes.morePage, NavigationType.goNamed, context);
+                  Routes.navigateToScreen(
+                      Routes.myOrdersPage, NavigationType.pushNamed, context);
                   // CustomNavigatorModule.navigatorKey.currentState!
                   //     .pushNamed(AppScreenEnum.myOrders.name);
 
@@ -89,7 +84,17 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
                   //     .pushNamed();
                   // CustomNavigatorModule.navigatorKey.currentState!.pop();
                 }),
-          )
+          ),
+          InkWell(
+              onTap: () {
+                Routes.navigateToFirstScreen(context);
+                Routes.navigateToScreen(
+                    Routes.homePage, NavigationType.goNamed, context);
+              },
+              child: CustomText(
+                  text: S.of(context).goToMainPage,
+                  customTextStyle:
+                      MediumStyle(fontSize: 14.sp, color: secondaryColor)))
         ],
       ),
     );

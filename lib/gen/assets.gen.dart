@@ -11,14 +11,22 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsPngGen {
+  const $AssetsPngGen();
+
+  /// File path: assets/png/cart_success.png
+  AssetGenImage get cartSuccess =>
+      const AssetGenImage('assets/png/cart_success.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [cartSuccess];
+}
+
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
   /// File path: assets/svg/Pin location.svg
   String get pinLocation => 'assets/svg/Pin location.svg';
-
-  /// File path: assets/svg/cart_success.svg
-  String get cartSuccess => 'assets/svg/cart_success.svg';
 
   /// File path: assets/svg/cart_success_logo.svg
   String get cartSuccessLogo => 'assets/svg/cart_success_logo.svg';
@@ -213,7 +221,6 @@ class $AssetsSvgGen {
   /// List of all assets
   List<dynamic> get values => [
         pinLocation,
-        cartSuccess,
         cartSuccessLogo,
         emptyCart,
         emptyFavourite,
@@ -283,6 +290,7 @@ class $AssetsSvgGen {
 class Assets {
   const Assets._();
 
+  static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
   static const String shorebird = 'shorebird.yaml';
 

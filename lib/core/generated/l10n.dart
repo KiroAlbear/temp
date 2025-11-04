@@ -259,7 +259,6 @@ class S {
     );
   }
 
-
   /// `Invalid payment`
   String get invalidPayment {
     return Intl.message(
@@ -594,6 +593,15 @@ class S {
     return Intl.message(
       'Select your location',
       name: 'selectLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get goToMainPage {
+    return Intl.message(
+      'Go to main page',
+      name: 'goToMainPage',
       desc: '',
       args: [],
     );
