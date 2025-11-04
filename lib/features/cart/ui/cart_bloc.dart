@@ -286,7 +286,7 @@ class CartBloc extends BlocBase {
             .listen((checkAvailabilityEvent) async {
           if (checkAvailabilityEvent is SuccessState) {
             // stream.sink.add(getCartEvent);
-
+            orderId = getCartEvent.response?.first.orderId??0;
             getcartProductQtyList(getCartEvent.response!);
             getTotalCartSum(cartRemote.myOrderResponse);
 

@@ -132,68 +132,71 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
       useRootNavigator: true,
       barrierDismissible: true,
       builder: (context) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 300.h),
-          child: Material(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Form(
-                    key: _formKey,
-                    child: CustomTextFormFiled(
-                      textInputType: TextInputType.number,
-                      textInputAction: TextInputAction.done,
-                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                      labelText: S.of(context).cartDokkanWalletNumber,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return S.of(context).required;
-                        }
+        return Center(
+          child: Container(
+            height: 185,
+            padding: EdgeInsets.symmetric(horizontal: 16.w,),
+            child: Material(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Form(
+                      key: _formKey,
+                      child: CustomTextFormFiled(
+                        textInputType: TextInputType.number,
+                        textInputAction: TextInputAction.done,
+                        inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                        labelText: S.of(context).cartDokkanWalletNumber,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return S.of(context).required;
+                          }
 
-                        if(value.length == 11){
-                          return null;
-                        }else{
-                          return S.of(context).invalidWallet;
-                        }
-                      },
-                      textFiledControllerStream:
-                          widget.cartBloc.walletNumberBehaviour,
-                      onChanged: (value) {
-                        // widget.cartBloc.updateWalletNumber(value);
-                      },
+                          if(value.length == 11){
+                            return null;
+                          }else{
+                            return S.of(context).invalidWallet;
+                          }
+                        },
+                        textFiledControllerStream:
+                            widget.cartBloc.walletNumberBehaviour,
+                        onChanged: (value) {
+                          // widget.cartBloc.updateWalletNumber(value);
+                        },
+                      ),
                     ),
-                  ),
-                  16.verticalSpace,
-                  CustomButtonWidget(
-                      buttonColor: primaryColor,
-                      idleText: S.of(context).next,
-                      textColor: _groupeValue == -1
-                          ? disabledButtonTextColorLightMode
-                          : darkSecondaryColor,
-                      onTap: () async {
-                        // pop the bottom sheet
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.pop(context);
-                          await Routes.navigateToScreen(
-                              Routes.cartOrderDetailsPage,
-                              NavigationType.pushNamed,
-                              context,
-                              extra: CartOrderDetailsArgs(
-                                  isItVisa: false,
-                                  isItWallet: true,
-                                  walletNumber: widget.cartBloc
-                                      .walletNumberBehaviour.valueOrNull?.text));
+                    16.verticalSpace,
+                    CustomButtonWidget(
+                        buttonColor: primaryColor,
+                        idleText: S.of(context).next,
+                        textColor: _groupeValue == -1
+                            ? disabledButtonTextColorLightMode
+                            : darkSecondaryColor,
+                        onTap: () async {
+                          // pop the bottom sheet
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pop(context);
+                            await Routes.navigateToScreen(
+                                Routes.cartOrderDetailsPage,
+                                NavigationType.pushNamed,
+                                context,
+                                extra: CartOrderDetailsArgs(
+                                    isItVisa: false,
+                                    isItWallet: true,
+                                    walletNumber: widget.cartBloc
+                                        .walletNumberBehaviour.valueOrNull?.text));
 
-                          widget.cartBloc.walletNumberBehaviour.value.clear();
-                        }
+                            widget.cartBloc.walletNumberBehaviour.value.clear();
+                          }
 
-                      })
-                ],
+                        })
+                  ],
+                ),
               ),
             ),
           ),

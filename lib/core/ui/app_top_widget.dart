@@ -181,7 +181,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   Widget get _titleRow => Expanded(
     // color: Colors.red,
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         if (widget.isHavingBack)
@@ -209,7 +209,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
               textAlign: TextAlign.start,
               // softWrap: true,
               customTextStyle:
-                  BoldStyle(fontSize: 26.sp, color: darkSecondaryColor)),
+                  BoldStyle(fontSize: 20.sp, color: darkSecondaryColor)),
         ),
       ],
     ),

@@ -38,6 +38,8 @@ class ProductMapper {
   bool isAvailable = false;
 
   bool isAddedToCart = false;
+
+  int orderId = 0;
   ProductMapper();
 
   ProductMapper.fromOrderResponse(MyOrderItemResponse orderItem) {
@@ -60,6 +62,8 @@ class ProductMapper {
     minQuantity = orderItem.min_qty ?? 0;
     maxQuantity = orderItem.max_qty ?? 0;
     productId = orderItem.product_id?[0] ?? 0;
+    orderId =  orderItem.orderId!.first as int;
+
   }
   ProductMapper.fromProduct(ProductResponse? productResponse) {
     if (productResponse != null) {
