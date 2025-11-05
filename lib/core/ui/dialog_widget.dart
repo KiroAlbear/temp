@@ -50,6 +50,7 @@ class _DialogWidgetState extends State<DialogWidget> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
                   height: 10.h,
