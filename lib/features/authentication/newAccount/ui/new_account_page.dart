@@ -120,7 +120,15 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   Widget _whichRegisterInfoWidget(NewAccountStepEnum step) {
     switch (step) {
       case NewAccountStepEnum.info:
-        return NewAccountInfoWidget(newAccountBloc: widget._bloc);
+        return Column(
+          children: [
+            NewAccountInfoWidget(newAccountBloc: widget._bloc),
+            SizedBox(
+              height: 120.h,
+            ),
+            _nextPreviousButtonAccountName,
+          ],
+        );
       case NewAccountStepEnum.locationInfo:
         return Column(
           children: [
@@ -143,47 +151,80 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
             SizedBox(
               height: 160.h,
             ),
-            _nextPreviousButtonAccountPasswor
+            _nextPreviousButtonAccountPassword
           ],
         );
     }
   }
 
-  Widget get _nextPreviousButtonAccountPasswor => Row(
-        children: [
-          Expanded(
-              child: PreviousNextButton(
-            isPrevious: true,
-            isButtonEnabledStream: widget._bloc.validatePasswordStream,
-            onTap: () {
-              widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
-            },
-          )),
-          SizedBox(
-            width: 9.w,
-          ),
-          Expanded(
-              child: PreviousNextButton(
-            isPrevious: false,
-            isButtonEnabledStream: widget._bloc.validatePasswordStream,
-            onTap: () {
-              _nextFunctionality();
-            },
-            buttonStateStream: widget._bloc.buttonBloc.buttonBehavior,
-          )),
-        ],
-      );
+  Widget get _nextPreviousButtonAccountName => _nextPreviousButtonGeneric(
+    previousValidationStream: widget._bloc.validateInfoStream,
+    nextValidationStream: widget._bloc.validateInfoStream,
+    hidePrevious: true,
+    previousOnTap: () {},
+    nextOnTap: () {
+      if (widget._bloc.isInfoValid) {
+        widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
+      }
+  },);
 
-  void _nextFunctionality() {
+  Widget get _nextPreviousButtonAccountPassword => _nextPreviousButtonGeneric(
+    previousValidationStream: widget._bloc.validatePasswordStream,
+    nextValidationStream: widget._bloc.validatePasswordStream,
+    buttonStateStream: widget._bloc.buttonBloc.buttonBehavior,
+    previousOnTap: () {
+      widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
+    },nextOnTap: () {
+    if (widget._bloc.isLocationValid) {
+      _passwordNextFunctionality();
+    }
+  },);
+
+
+  Widget get _nextPreviousButtonLocationInfo => _nextPreviousButtonGeneric(
+    previousValidationStream: widget._bloc.validateLocationStream,
+    nextValidationStream: widget._bloc.validateLocationStream,
+    previousOnTap: () {
+      widget._bloc.nextStep(NewAccountStepEnum.info);
+    },nextOnTap: () {
+    if (widget._bloc.isLocationValid) {
+      widget._bloc.nextStep(NewAccountStepEnum.password);
+    }
+  },);
+
+  Widget  _nextPreviousButtonGeneric({required Stream<bool> previousValidationStream,required Stream<bool> nextValidationStream,required Function() previousOnTap,Stream<ButtonState>? buttonStateStream,required Function() nextOnTap,bool hidePrevious = false}) {
+    return Row(
+      children: [
+        Expanded(
+            child:hidePrevious?SizedBox(): PreviousNextButton(
+              isPrevious: true,
+              isButtonEnabledStream: previousValidationStream,
+              onTap: previousOnTap,
+            )),
+        SizedBox(
+          width: 9.w,
+        ),
+        Expanded(
+            child: PreviousNextButton(
+              isPrevious: false,
+              isButtonEnabledStream: nextValidationStream,
+              onTap: nextOnTap,
+              buttonStateStream: buttonStateStream,
+            )),
+      ],
+    );
+  }
+
+  void _passwordNextFunctionality() {
     if (widget._bloc.isPasswordValid) {
       widget._bloc.register.listen(
-        (event) {
+            (event) {
           if (event is LoadingState) {
             widget._bloc.buttonBloc.buttonBehavior.sink
                 .add(ButtonState.loading);
           } else if (event is SuccessState) {
             widget._bloc.updateAddress(event.response?.userId ?? 0).listen(
-              (event) {
+                  (event) {
                 checkResponseStateWithButton(
                   event,
                   context,
@@ -210,32 +251,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
       );
     }
   }
-
-  Widget get _nextPreviousButtonLocationInfo => Row(
-        children: [
-          Expanded(
-              child: PreviousNextButton(
-            isPrevious: true,
-            isButtonEnabledStream: widget._bloc.validateLocationStream,
-            onTap: () {
-              widget._bloc.nextStep(NewAccountStepEnum.info);
-            },
-          )),
-          SizedBox(
-            width: 9.w,
-          ),
-          Expanded(
-              child: PreviousNextButton(
-            isPrevious: false,
-            isButtonEnabledStream: widget._bloc.validateLocationStream,
-            onTap: () {
-              if (widget._bloc.isLocationValid) {
-                widget._bloc.nextStep(NewAccountStepEnum.password);
-              }
-            },
-          )),
-        ],
-      );
 
   Widget _whichStep(NewAccountStepEnum step) {
     switch (step) {

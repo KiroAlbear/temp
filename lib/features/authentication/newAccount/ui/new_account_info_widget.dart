@@ -25,7 +25,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
             height: 12.h,
           ),
           CustomText(
-              text: S.of(context).fullName,
+              text: S.of(context).threeFullName,
               customTextStyle:
                   MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
           SizedBox(
@@ -46,7 +46,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
           SizedBox(
             height: 160.h,
           ),
-          _button,
+
         ],
       );
 
@@ -86,15 +86,4 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
         textInputAction: TextInputAction.next,
       );
 
-  Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).next,
-        onTap: () {
-          if (widget.newAccountBloc.isInfoValid) {
-            widget.newAccountBloc.nextStep(NewAccountStepEnum.locationInfo);
-          }
-        },
-        buttonBehaviour: widget.newAccountBloc.buttonBloc.buttonBehavior,
-        failedBehaviour: widget.newAccountBloc.buttonBloc.failedBehaviour,
-        validateStream: widget.newAccountBloc.validateInfoStream,
-      );
 }
