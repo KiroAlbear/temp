@@ -23,6 +23,7 @@ class NewAccountPage extends BaseStatefulWidget {
 
 class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   late final PasswordValidationBloc _passwordValidationBloc;
+  final ValueNotifier<bool> _loadingNotifier = ValueNotifier(false);
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -86,22 +87,34 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   @override
   Widget getBody(BuildContext context) => BlocProvider(
       bloc: widget._bloc,
-      child: LogoTopWidget(
-          isHavingBackArrow: true,
-          pressingBackTwice: true,
-          logo: Assets.svg.logoYellow,
-          blocBase: widget._bloc,
-          canSkip: false,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              _stepRow,
-              _registerInfoWidget,
-              SizedBox(height: 50),
+      child: ValueListenableBuilder(
+        valueListenable: _loadingNotifier,
+        builder: (context, value, child) {
+          return Stack(
+            children: [
+              LogoTopWidget(
+                  isHavingBackArrow: true,
+                  pressingBackTwice: true,
+                  logo: Assets.svg.logoYellow,
+                  blocBase: widget._bloc,
+                  canSkip: false,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child:
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      _stepRow,
+                      _registerInfoWidget,
+                      SizedBox(height: 50),
 
-            ]),
-          )));
+                    ]),
+                  )),
+              OverlayLoadingWidget(showOverlayLoading: _loadingNotifier,),
+
+            ],
+          );
+
+        },
+      ));
 
   Widget get _stepRow => StreamBuilder(
         stream: widget._bloc.stepsStream,
@@ -217,11 +230,14 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
 
   void _passwordNextFunctionality() {
     if (widget._bloc.isPasswordValid) {
+
       widget._bloc.register.listen(
             (event) {
           if (event is LoadingState) {
-            widget._bloc.buttonBloc.buttonBehavior.sink
-                .add(ButtonState.loading);
+            // widget._bloc.buttonBloc.buttonBehavior.sink
+            //     .add(ButtonState.loading);
+            _loadingNotifier.value = true;
+
           } else if (event is SuccessState) {
             widget._bloc.updateAddress(event.response?.userId ?? 0).listen(
                   (event) {
@@ -230,7 +246,11 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                   context,
                   failedBehaviour: widget._bloc.buttonBloc.failedBehaviour,
                   buttonBehaviour: widget._bloc.buttonBloc.buttonBehavior,
+                  customFailedCallBack: () {
+                    _loadingNotifier.value = false;
+                  },
                   onSuccess: () {
+                    _loadingNotifier.value = false;
                     SharedPrefModule()
                         .setCountryCode(widget._bloc.countryCode ?? '');
                     SharedPrefModule().userPhoneWithoutCountry =
@@ -246,6 +266,8 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                 );
               },
             );
+          }else {
+            _loadingNotifier.value = false;
           }
         },
       );
