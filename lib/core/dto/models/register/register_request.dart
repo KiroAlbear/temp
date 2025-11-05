@@ -31,6 +31,9 @@ class RegisterRequest {
   @JsonKey(name: 'country_id')
   int countryId;
 
+  @JsonKey(name: 'company_type_id')
+  int company_type_id;
+
   RegisterRequest(
       {required this.login,
       required this.password,
@@ -40,7 +43,9 @@ class RegisterRequest {
       required this.latitude,
       required this.longitude,
       required this.countryId,
-      required this.shopName});
+      required this.shopName,
+      this.company_type_id = 1
+      });
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) =>
       _$RegisterRequestFromJson(json);
