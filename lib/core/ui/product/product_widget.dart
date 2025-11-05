@@ -138,7 +138,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               ? SizedBox()
               : _productDescription,
           SizedBox(
-            height: 9.h,
+            height: 0.h,
           ),
           // Center(child: _addCartButton),
 
@@ -165,62 +165,60 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   _getCartProductWidget() {
-    return SizedBox(
-      height: 110.h,
-      child: Padding(
-        padding: EdgeInsetsDirectional.only(
-            top: 8.h, bottom: 8.h, end: 16.w, start: 16.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(child: _productName),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        widget.productMapper.isAvailable
-                            ? SizedBox()
-                            : _notAvailableProduct(),
-                      ],
-                    ),
-                    _priceRow,
-                  ],
-                ),
+    return Padding(
+      padding: EdgeInsetsDirectional.only(
+          top: 8.h, bottom: 8.h, end: 16.w, start: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(child: _productName),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      widget.productMapper.isAvailable
+                          ? SizedBox()
+                          : _notAvailableProduct(),
+                    ],
+                  ),
+                  _priceRow,
+                ],
               ),
             ),
-            Column(
-              children: [
-                _productImage,
-                SizedBox(
-                  height: 8.h,
-                ),
-                _incrementDecrementButton(),
-              ],
-            )
-          ],
-        ),
+          ),
+          Column(
+            children: [
+              _productImage,
+              SizedBox(
+                height: 8.h,
+              ),
+              _incrementDecrementButton(),
+            ],
+          )
+        ],
       ),
     );
   }
 
   Widget _notAvailableProduct() {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 16.w),
+      padding: EdgeInsetsDirectional.only(start: 0.w),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.red.withOpacity(.5),
@@ -349,14 +347,17 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
       );
 
-  Widget get _productName => CustomText(
-        text: widget.productMapper.name,
-        textAlign: TextAlign.center,
-        customTextStyle: widget.isCartProduct
-            ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
-            : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-        maxLines: 1,
-      );
+  Widget get _productName => SizedBox(
+    height: 40,
+    child: CustomText(
+          text: widget.productMapper.name,
+          textAlign: TextAlign.start,
+          customTextStyle: widget.isCartProduct
+              ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
+              : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+          maxLines: 2,
+        ),
+  );
 
   Widget get _priceRow => Row(
         mainAxisAlignment: MainAxisAlignment.start,

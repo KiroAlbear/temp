@@ -8,9 +8,9 @@ import 'package:image_loader/image_helper.dart';
 class PreviousNextButton extends StatelessWidget {
   final isPrevious;
   final Stream<bool> isButtonEnabledStream;
-  final Stream<ButtonState> buttonStateStream;
+  final Stream<ButtonState>? buttonStateStream;
   final void Function() onTap;
-  const PreviousNextButton({super.key,required this.isPrevious,required this.isButtonEnabledStream,required this.onTap,this.buttonStateStream = const Stream.empty()});
+  const PreviousNextButton({super.key,required this.isPrevious,required this.isButtonEnabledStream,required this.onTap,this.buttonStateStream });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class PreviousNextButton extends StatelessWidget {
       stream: isButtonEnabledStream,
       builder: (context, snapshot) {
         return StreamBuilder<ButtonState>(
-          stream: buttonStateStream,
+          stream: buttonStateStream??const Stream.empty(),
           builder: (context, snapshot2) {
             return snapshot2.data == ButtonState.loading? CustomProgress(color: darkSecondaryColor,size: 30,):InkWell(
               onTap: onTap,

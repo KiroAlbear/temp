@@ -537,8 +537,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
   void _logout() async {
     await showModalBottomSheet(
       context: Routes.rootNavigatorKey.currentContext!,
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
+      isScrollControlled: false,
+      useRootNavigator: true,
+      useSafeArea: true,
       builder: (context2) {
         return DialogWidget(
           message: S.of(context).logoutMessage,

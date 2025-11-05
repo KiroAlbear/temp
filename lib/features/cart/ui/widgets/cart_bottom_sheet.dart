@@ -67,6 +67,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Center(
             child: CustomText(
@@ -75,6 +76,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 customTextStyle:
                     BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
           ),
+          8.verticalSpace,
           _paymentRow(
               0,
               S.of(context).cartCashOnDelivery,
@@ -121,6 +123,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   }
                 }),
           ),
+          18.verticalSpace,
         ],
       ),
     );

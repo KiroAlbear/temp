@@ -154,10 +154,7 @@ class _CartScreenState extends BaseState<CartPage> {
                         barrierColor: bottomSheetBarrierColor,
                         backgroundColor: whiteColor,
                         useRootNavigator: true,
-                        elevation: 0,
-                        constraints: BoxConstraints(
-                            maxHeight:
-                                MediaQuery.of(context).size.height * 0.38),
+                        isScrollControlled: false,
                         context: context,
                         builder: (context) {
                           return CartBottomSheet(
