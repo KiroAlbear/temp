@@ -138,7 +138,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               ? SizedBox()
               : _productDescription,
           SizedBox(
-            height: 9.h,
+            height: 0.h,
           ),
           // Center(child: _addCartButton),
 
@@ -349,14 +349,17 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
       );
 
-  Widget get _productName => CustomText(
-        text: widget.productMapper.name,
-        textAlign: TextAlign.center,
-        customTextStyle: widget.isCartProduct
-            ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
-            : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-        maxLines: 1,
-      );
+  Widget get _productName => SizedBox(
+    height: 40,
+    child: CustomText(
+          text: widget.productMapper.name,
+          textAlign: TextAlign.center,
+          customTextStyle: widget.isCartProduct
+              ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
+              : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+          maxLines: 2,
+        ),
+  );
 
   Widget get _priceRow => Row(
         mainAxisAlignment: MainAxisAlignment.start,

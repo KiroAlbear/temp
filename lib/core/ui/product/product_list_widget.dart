@@ -105,7 +105,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 11.w,
                     mainAxisSpacing: 11.h,
-                    mainAxisExtent: 210.h),
+                    mainAxisExtent: 220.h),
                 itemBuilder: (context, index) => ProductWidget(
                   key: ValueKey(index),
                   icDelete: widget.deleteIcon,
