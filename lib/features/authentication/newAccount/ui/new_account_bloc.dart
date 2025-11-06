@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:deel/core/dto/models/register/company_type_reeponse_model.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/authentication/newAccount/remote/company_type_remote.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';
@@ -40,10 +42,18 @@ class NewAccountBloc extends BlocBase {
         _stateBehaviour.sink.add(event);
       },
     );
+
+    CompanyTypeRemote()
+        .callApiAsStream().listen((event) {
+          _companyTypeBehaviour.sink.add(event);
+        },);
+
+
   }
 
   final TextFormFiledBloc fullNameBloc = TextFormFiledBloc();
   final TextFormFiledBloc facilityNameBloc = TextFormFiledBloc();
+  final TextFormFiledBloc companyBloc = TextFormFiledBloc();
   final TextFormFiledBloc streetNameBloc = TextFormFiledBloc();
   final TextFormFiledBloc neighborhoodBloc = TextFormFiledBloc();
   final TextFormFiledBloc cityBloc = TextFormFiledBloc();
@@ -59,7 +69,11 @@ class NewAccountBloc extends BlocBase {
   final BehaviorSubject<ApiState<List<DropDownMapper>>> _stateBehaviour =
       BehaviorSubject();
 
+  final BehaviorSubject<ApiState<List<DropDownMapper>>> _companyTypeBehaviour =
+  BehaviorSubject();
+
   DropDownMapper? selectedState;
+  DropDownMapper? selectedCompany;
 
   /// info recorded from preview steps
 
@@ -77,10 +91,11 @@ class NewAccountBloc extends BlocBase {
 
   Stream<double?> get longitudeStream => _longitudeBehaviour.stream;
 
-  Stream<bool> get validateInfoStream => Rx.combineLatest2(
+  Stream<bool> get validateInfoStream => Rx.combineLatest3(
       fullNameBloc.stringStream,
       facilityNameBloc.stringStream,
-      (fullName, platformName) => isInfoValid);
+      companyBloc.stringStream,
+      (fullName, platformName,companyType) => isNamesInfoValid);
 
   Stream<bool> get validateLocationStream => Rx.combineLatest3(
       streetNameBloc.stringStream,
@@ -99,9 +114,9 @@ class NewAccountBloc extends BlocBase {
     // check if the step is the last step
   }
 
-  bool get isInfoValid =>
+  bool get isNamesInfoValid =>
       _validatorModule.isFiledNotEmpty(fullNameBloc.value) &&
-      _validatorModule.isFiledNotEmpty(facilityNameBloc.value);
+      _validatorModule.isFiledNotEmpty(facilityNameBloc.value) && selectedCompany!=null;
 
   bool get isLocationValid =>
       _validatorModule.isFiledNotEmpty(neighborhoodBloc.value) &&
@@ -121,8 +136,14 @@ class NewAccountBloc extends BlocBase {
           password: passwordBloc.value,
           latitude: _longitudeBehaviour.valueOrNull.toString(),
           longitude: _latitudeBehaviour.valueOrNull.toString(),
-          countryId: _countryId)
+          countryId: _countryId,
+          companyId: selectedCompany != null ? int.parse(selectedCompany!.id) : 0,
+  )
       .callApiAsStream();
+
+
+  Stream<ApiState<List<DropDownMapper>>> get companyStream =>
+      _companyTypeBehaviour.stream;
 
   Stream<ApiState<LoginMapper>> updateAddress(int clientId) =>
       UpdateAddressRemote(

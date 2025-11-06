@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 import 'new_account_bloc.dart';
 
-class NewAccountInfoWidget extends StatefulWidget {
+class NewAccountInfoWidget extends BaseStatefulWidget {
   final NewAccountBloc newAccountBloc;
 
   const NewAccountInfoWidget({super.key, required this.newAccountBloc});
@@ -15,9 +15,23 @@ class NewAccountInfoWidget extends StatefulWidget {
   State<NewAccountInfoWidget> createState() => _NewAccountInfoWidgetState();
 }
 
-class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
+class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
+
   @override
-  Widget build(BuildContext context) => Column(
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() =>true;
+
+  @override
+  bool isSafeArea()=> false;
+
+  @override
+  bool get useCustomScaffold => true;
+
+
+  @override
+  Widget getBody(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,6 +49,7 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
           SizedBox(
             height: 24.h,
           ),
+
           CustomText(
               text: S.of(context).platformName,
               customTextStyle:
@@ -44,7 +59,19 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
           ),
           _platformNameTextFiled,
           SizedBox(
-            height: 160.h,
+            height: 24.h,
+          ),
+          CustomText(
+              text: S.of(context).platformType,
+              customTextStyle:
+              MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+          SizedBox(
+            height: 12.h,
+          ),
+          _companyTextFormFiled,
+
+          SizedBox(
+            height: 50.h,
           ),
 
         ],
@@ -85,5 +112,50 @@ class _NewAccountInfoWidgetState extends State<NewAccountInfoWidget> {
         ],
         textInputAction: TextInputAction.next,
       );
+
+  Widget get _companyTextFormFiled =>
+      StreamBuilder<ApiState<List<DropDownMapper>>>(
+          stream: widget.newAccountBloc.companyStream,
+          initialData: LoadingState(),
+          builder: (context, snapshot) =>
+              checkResponseStateWithLoadingWidget(snapshot.data!, context,
+                  onSuccess: CustomTextFormFiled(
+                    labelText: S.of(context).platformType,
+                    defaultTextStyle:
+                    RegularStyle(color: lightBlackColor, fontSize: 16.w)
+                        .getStyle(),
+                    textFiledControllerStream:
+                    widget.newAccountBloc.companyBloc.textFormFiledStream,
+                    onChanged: (value) => widget.newAccountBloc.companyBloc
+                        .updateStringBehaviour(value),
+                    validator: (value) =>
+                        ValidatorModule().emptyValidator(context).call(value),
+                    textInputType: TextInputType.none,
+                    textInputAction: TextInputAction.done,
+                    readOnly: true,
+                    onTap: () {
+                      _showCompanyDropDown(snapshot.data?.response ?? []);
+                    },
+                  )));
+
+  void _showCompanyDropDown(List<DropDownMapper> list) => showModalBottomSheet(
+    context: context,
+    builder: (context) => CustomDropDownWidget(
+      dropDownList: list,
+      hasImage: false,
+      onSelect: (value) {
+        widget.newAccountBloc.selectedCompany = value;
+        widget.newAccountBloc.companyBloc.textFormFiledBehaviour.sink
+            .add(TextEditingController(text: value.name));
+        widget.newAccountBloc.companyBloc.updateStringBehaviour(value.name);
+      },
+      headerText: S.of(context).choosePlatformType,
+    ),
+    backgroundColor: Colors.transparent,
+    enableDrag: false,
+  );
+
+
+
 
 }

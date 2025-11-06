@@ -44,7 +44,7 @@ class RegisterRequest {
       required this.longitude,
       required this.countryId,
       required this.shopName,
-      this.company_type_id = 1
+      required this.company_type_id
       });
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) =>

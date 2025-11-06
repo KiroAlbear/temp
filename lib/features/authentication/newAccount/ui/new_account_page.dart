@@ -116,6 +116,32 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         },
       ));
 
+
+  Widget get _companyTextFormFiled =>
+      StreamBuilder<ApiState<List<DropDownMapper>>>(
+          stream: widget._bloc.companyStream,
+          initialData: LoadingState(),
+          builder: (context, snapshot) =>
+              checkResponseStateWithLoadingWidget(snapshot.data!, context,
+                  onSuccess: CustomTextFormFiled(
+                    labelText: S.of(context).enterCity,
+                    defaultTextStyle:
+                    RegularStyle(color: lightBlackColor, fontSize: 16.w)
+                        .getStyle(),
+                    textFiledControllerStream:
+                    widget._bloc.companyBloc.textFormFiledStream,
+                    onChanged: (value) => widget._bloc.companyBloc
+                        .updateStringBehaviour(value),
+                    validator: (value) =>
+                        ValidatorModule().emptyValidator(context).call(value),
+                    textInputType: TextInputType.none,
+                    textInputAction: TextInputAction.done,
+                    readOnly: true,
+                    onTap: () {
+                      _showCompanyDropDown(snapshot.data?.response ?? []);
+                    },
+                  )));
+
   Widget get _stepRow => StreamBuilder(
         stream: widget._bloc.stepsStream,
         initialData: NewAccountStepEnum.info,
@@ -176,7 +202,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
     hidePrevious: true,
     previousOnTap: () {},
     nextOnTap: () {
-      if (widget._bloc.isInfoValid) {
+      if (widget._bloc.isNamesInfoValid) {
         widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
       }
   },);
@@ -273,6 +299,20 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
       );
     }
   }
+
+  void _showCompanyDropDown(List<DropDownMapper> list) => showModalBottomSheet(
+    context: context,
+    builder: (context) => CustomDropDownWidget(
+      dropDownList: list,
+      hasImage: false,
+      onSelect: (value) {
+
+      },
+      headerText: S.of(context).chooseCity,
+    ),
+    backgroundColor: Colors.transparent,
+    enableDrag: false,
+  );
 
   Widget _whichStep(NewAccountStepEnum step) {
     switch (step) {

@@ -250,6 +250,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
+        "platformType": MessageLookupByLibrary.simpleMessage("نوع المنشأه"),
+        "choosePlatformType": MessageLookupByLibrary.simpleMessage("اختر نوع المنشأه"),
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
         "productIsNotAvailable":

@@ -142,6 +142,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter the neighborhood name"),
         "enterPlatformName":
             MessageLookupByLibrary.simpleMessage("Enter establishment name"),
+        "platformType": MessageLookupByLibrary.simpleMessage("Platform type"),
+        "choosePlatformType": MessageLookupByLibrary.simpleMessage("Chose Platform type"),
+
         "enterStreetName": MessageLookupByLibrary.simpleMessage(
             "Enter the building number and street name"),
         "enterVerificationCode":

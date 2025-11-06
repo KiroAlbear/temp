@@ -548,6 +548,24 @@ class S {
     );
   }
 
+  String get platformType {
+    return Intl.message(
+      'Platform type',
+      name: 'platformType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get choosePlatformType {
+    return Intl.message(
+      'Choose Platform type',
+      name: 'choosePlatformType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter establishment name`
   String get enterPlatformName {
     return Intl.message(
