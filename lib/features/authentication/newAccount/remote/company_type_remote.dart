@@ -5,7 +5,7 @@ import '../../../../deel.dart';
 class CompanyTypeRemote
     extends BaseRemoteModule<List<DropDownMapper>, List<CompanyTypeResponseModel>> {
   CompanyTypeRemote() {
-    apiFuture = ApiClient(OdooDioModule().build()).getCompanyType();
+    apiFuture = ApiClient(OdooDioModule().build()).getCompanyType(SharedPrefModule().apiSelectedLanguageCode);
   }
 
   @override

@@ -65,8 +65,8 @@ abstract class ApiClient {
   Future<HeaderResponse<List<LoginResponse>>> login(
       @http.Body() LoginRequest request);
 
-  @http.POST(_ApiClientKey._getCompanyType)
-  Future<HeaderResponse<List<CompanyTypeResponseModel>>> getCompanyType();
+  @http.POST("${_ApiClientKey._getCompanyType}${_ApiClientKey.urlLanguageCode}")
+  Future<HeaderResponse<List<CompanyTypeResponseModel>>> getCompanyType(@http.Path(_ApiClientKey.languagePath) String langCode);
 
   @http.POST("${_ApiClientKey._category}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<CategoryResponse>>> category(

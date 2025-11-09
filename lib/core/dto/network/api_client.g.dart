@@ -98,8 +98,9 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HeaderResponse<List<CompanyTypeResponseModel>>>
-      getCompanyType() async {
+  Future<HeaderResponse<List<CompanyTypeResponseModel>>> getCompanyType(
+    String langCode,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -109,7 +110,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/get/company_type',
+            '/get/company_type?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
