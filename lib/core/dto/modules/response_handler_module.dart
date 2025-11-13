@@ -56,7 +56,8 @@ mixin ResponseHandlerModule {
       } else {
         return _getAnimWidget(child: onSuccess);
       }
-    } else if (apiState is LoadingState) {
+    }
+    else if (apiState is LoadingState) {
       if (useExpanded) {
         return Expanded(
             child: _getAnimWidget(
@@ -65,7 +66,8 @@ mixin ResponseHandlerModule {
         return _getAnimWidget(
             child: _getLoadingWidget(loaderColor, loaderSize, context));
       }
-    } else if (apiState is SuccessState) {
+    }
+    else if (apiState is SuccessState) {
       onSuccessFunction?.call();
       if (useExpanded) {
         return Expanded(child: _getAnimWidget(child: onSuccess));

@@ -7,25 +7,25 @@ class LoadMoreBloc<T> extends BlocBase {
   int pageNumber = 1;
   int pageSize = 10;
 
-  final BehaviorSubject<ApiState<List<T>>> _loadedListBehaviour =
+   BehaviorSubject<ApiState<List<T>>> loadedListBehaviour =
       BehaviorSubject()..sink.add(LoadingState());
 
-  Stream<ApiState<List<T>>> get loadedListStream => _loadedListBehaviour.stream;
+  Stream<ApiState<List<T>>> get loadedListStream => loadedListBehaviour.stream;
 
   void reset() {
-    _loadedListBehaviour.sink.add(LoadingState());
+    loadedListBehaviour.sink.add(LoadingState());
     pageNumber = 1;
   }
 
   void setLoaded(List<T> list) {
-    List<T> beforeList = _loadedListBehaviour.value.response ?? [];
+    List<T> beforeList = loadedListBehaviour.value.response ?? [];
     beforeList.addAll(list);
-    _loadedListBehaviour.sink.add(SuccessState(beforeList));
+    loadedListBehaviour.sink.add(SuccessState(beforeList));
     pageNumber = pageNumber + 1;
   }
 
   @override
   void dispose() {
-    // _loadedListBehaviour.close();
+    loadedListBehaviour.close();
   }
 }

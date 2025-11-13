@@ -250,32 +250,6 @@ class _CartScreenState extends BaseState<CartPage> {
     );
   }
 
-  // void editCart(
-  //     {required int id,
-  //     required int productId,
-  //     required double quantity,
-  //     required double price,
-  //     required CartState state,
-  //     bool isDelete = false}) {
-  //   isLoading.value = true;
-  //   widget.cartBloc
-  //       .editCart(
-  //     cartItemId: id,
-  //     productId: productId,
-  //     price: price,
-  //     cartState: state,
-  //     quantity: quantity.toInt(),
-  //   )
-  //       .listen((event) {
-  //     if (event is SuccessState && isDelete) {
-  //       // widget.cartBloc.getMyCart();
-  //       isLoading.value = false;
-  //     } else if (event is SuccessState && !isDelete) {
-  //       isLoading.value = false;
-  //     }
-  //   });
-  // }
-
   Widget _cartHeader(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),

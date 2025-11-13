@@ -309,8 +309,7 @@ class Routes {
                 name: favouritePage,
                 parentNavigatorKey: navigationBarKey,
                 pageBuilder: (context, state) {
-                  getIt<HomeBloc>().reset();
-                  getIt<ProductCategoryBloc>().disposeReset();
+
 
                   return _fadeTransitionScreenWrapper(
                     context,
@@ -318,7 +317,7 @@ class Routes {
                     ProductCategoryPage(
                       homeBloc: getIt(),
                       contactUsBloc: getIt(),
-                      productCategoryBloc: ProductCategoryBloc(),
+                      productCategoryBloc: getIt(),
                       cartBloc: getIt(),
                       isForFavourite: true,
                     ),
@@ -362,6 +361,9 @@ class Routes {
                           Routes.homePage, NavigationType.goNamed, context);
                     } else if (index == 1 && currentNavigationPage != Routes.favouritePage) {
                       currentNavigationPage = Routes.favouritePage;
+
+                      getIt<HomeBloc>().reset();
+                      getIt<ProductCategoryBloc>().disposeReset();
 
                       await Routes.navigateToScreen(Routes.favouritePage,
                           NavigationType.goNamed, context);

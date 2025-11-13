@@ -15,7 +15,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   NotificationType? productNotificationType;
 
-  ValueNotifier<bool>? isLoading = null;
+  ValueNotifier<bool>? isLoading = ValueNotifier(false);
 
   static String? searchValue;
   BehaviorSubject<ApiState<List<CategoryMapper>>> subCategoryByCategoryStream =
@@ -50,6 +50,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     isLoading?.value = false;
     subCategoryByCategoryStream.sink.add(LoadingState());
     brandBySubcategoryStream.sink.add(LoadingState());
+    loadedListBehaviour.sink.add(IdleState());
     super.reset();
   }
 
@@ -58,6 +59,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     subcategoryId = null;
     brandId = null;
     isLoading?.value = false;
+    loadedListBehaviour.sink.add(IdleState());
     super.reset();
   }
 
@@ -71,7 +73,11 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         if (onGettingMoreProducts != null) {
           onGettingMoreProducts();
         }
+      }else{
+        isLoading?.value = false;
       }
+    }).onError((error, stackTrace) {
+       isLoading?.value = false;
     });
   }
 
@@ -163,7 +169,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   }
 
   void getBrandBy(int subCategory) {
-    isLoading?.value = true;
+    isLoading?.value = false;
     // if (subCategory == null) {
     //   BrandRemote().loadAllBrands(AllBrandsRequest(1, 1000)).listen(
     //     (event) {
