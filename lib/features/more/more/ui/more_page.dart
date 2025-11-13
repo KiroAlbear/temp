@@ -80,6 +80,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
         _logoWidget,
         Expanded(
           child: ListView(
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             children: [
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
@@ -595,9 +596,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
           hasCloseButton: true,
           sameButtonsColor: false,
           onConfirm: () {
-            widget.moreBloc.deactivateAccountStream.listen((event) {
+            widget.moreBloc.deactivateAccountStream.listen((event) async {
               if (event is SuccessState) {
-                AppProviderModule().logout(context);
+                await AppProviderModule()
+                    .logout(Routes.rootNavigatorKey.currentState!.context);
+
+                // Routes.navigateToScreen(
+                //     Routes.loginPage, NavigationType.goNamed, context);
                 widget.moreBloc.selectedFileBehaviour.sink.add("");
               }
             });

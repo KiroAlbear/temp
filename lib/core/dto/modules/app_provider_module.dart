@@ -110,8 +110,7 @@ class AppProviderModule with ChangeNotifier {
     LanguageRemote().saveToCart().listen((event) {
       if (event is SuccessState &&
           event.response != null &&
-          event.response!.isNotEmpty){
-
+          event.response!.isNotEmpty) {
         SharedPrefModule().apiARLanguageCode = event.response!
             .firstWhere(
                 (element) => element.lang.toLowerCase().contains("arabic"))
@@ -130,18 +129,16 @@ class AppProviderModule with ChangeNotifier {
               SharedPrefModule().apiENLanguageCode;
         }
       }
-
-
-
     });
   }
 
   /// Initialize the app's state and check user authentication status.
   Future<void> init(BuildContext context) async {
-    _isLoggedIn = SharedPrefModule().bearerToken != null && SharedPrefModule().bearerToken!.isNotEmpty;
+    _isLoggedIn = SharedPrefModule().bearerToken != null &&
+        SharedPrefModule().bearerToken!.isNotEmpty;
 
-
-    MoreBloc().updateNotificationsDeviceData(SharedPrefModule().userId??"", AppConstants.fcmToken);
+    MoreBloc().updateNotificationsDeviceData(
+        SharedPrefModule().userId ?? "", AppConstants.fcmToken);
 
     _loadAppLanguages();
 
@@ -150,12 +147,13 @@ class AppProviderModule with ChangeNotifier {
 
       OdooDioModule().setAppHeaders();
 
-      await Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+      await Routes.navigateToScreen(
+          Routes.homePage, NavigationType.goNamed, context);
       // CustomNavigatorModule.navigatorKey.currentState
       //     ?.pushReplacementNamed(AppScreenEnum.home.name);
-
     } else {
-      await Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
+      await Routes.navigateToScreen(
+          Routes.loginPage, NavigationType.goNamed, context);
       // CustomNavigatorModule.navigatorKey.currentState
       //     ?.pushReplacementNamed(AppScreenEnum.login.name);
     }
@@ -181,9 +179,9 @@ class AppProviderModule with ChangeNotifier {
     var userPhoneWithoutCountry = SharedPrefModule().userPhoneWithoutCountry;
     var password = SharedPrefModule().password;
     var country = SharedPrefModule().getCountryCode();
-    
+
     SharedPrefModule().clear;
-    
+
     SharedPrefModule().isDarkMode = isDark;
     SharedPrefModule().locale = locale;
     SharedPrefModule().setCountryCode(country);
