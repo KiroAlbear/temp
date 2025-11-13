@@ -113,7 +113,7 @@ mixin ResponseHandlerModule {
   Widget _getLoadingWidget(Color? color, double? size, BuildContext context) =>
       CustomProgress(
         color: color ?? Theme.of(context).colorScheme.primary,
-        size: size ?? 30.r,
+        size: size ?? 0.r,
       );
 
   void showErrorDialog(String message, BuildContext context,

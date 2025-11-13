@@ -51,7 +51,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
   bool canPop() => false;
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   void dispose() {

@@ -84,14 +84,14 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
           : Scaffold(
               bottomNavigationBar: customBottomNavBar(),
               resizeToAvoidBottomInset: true,
-              extendBodyBehindAppBar: true,
-              extendBody: true,
+              // extendBodyBehindAppBar: true,
+              // extendBody: true,
               primary: true,
-              restorationId: ConstantModule.appTitle,
+              // restorationId: ConstantModule.appTitle,
               key: scaffoldKey,
               backgroundColor: customBackgroundColor ??
                ( Platform.isIOS?secondaryColor:  Theme.of(context).scaffoldBackgroundColor),
-              appBar: appBar(),
+              // appBar: appBar(),
               body:
               Container(
                 padding: EdgeInsets.only(top: appTopPadding()),
