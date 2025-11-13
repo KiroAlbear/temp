@@ -454,7 +454,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
-        color: primaryColor,
+        color:widget.isCartProduct?lightGrey2ColorDarkMode: primaryColor,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

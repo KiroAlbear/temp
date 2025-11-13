@@ -125,7 +125,7 @@ class _CartScreenState extends BaseState<CartPage> {
                 width: 200.w,
                 height: 48.h,
                 borderRadius: 8,
-                idleText: S.of(context).cartOrderNow,
+                idleText: S.of(context).next,
                 textStyle: MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)
                     .getStyle(),
                 onTap: () async {
