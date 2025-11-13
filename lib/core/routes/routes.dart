@@ -46,6 +46,14 @@ class Routes {
   static const String cartSuccessPage = '/cartSuccess';
   static const String cartOrderDetailsPage = '/cartOrderDetails';
 
+  static ProductCategoryPage favouriteWidget = ProductCategoryPage(
+    homeBloc: getIt(),
+    contactUsBloc: getIt(),
+    productCategoryBloc: ProductCategoryBloc(),
+    cartBloc: getIt(),
+    isForFavourite: true,
+  );
+
   static String currentNavigationPage = Routes.homePage;
 
   static final GoRouter goRouter = GoRouter(
@@ -314,13 +322,7 @@ class Routes {
                   return _fadeTransitionScreenWrapper(
                     context,
                     state,
-                    ProductCategoryPage(
-                      homeBloc: getIt(),
-                      contactUsBloc: getIt(),
-                      productCategoryBloc: getIt(),
-                      cartBloc: getIt(),
-                      isForFavourite: true,
-                    ),
+                    favouriteWidget,
                   );
                 }),
 
@@ -390,6 +392,9 @@ class Routes {
           }),
     ],
   );
+
+
+
 
   static Future<void> navigateToScreen(
     String screenName,

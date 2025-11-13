@@ -50,7 +50,11 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     isLoading?.value = false;
     subCategoryByCategoryStream.sink.add(LoadingState());
     brandBySubcategoryStream.sink.add(LoadingState());
-    loadedListBehaviour.sink.add(IdleState());
+
+    loadedListBehaviour.close();
+    loadedListBehaviour.stream.drain();
+    loadedListBehaviour =
+    BehaviorSubject()..sink.add(LoadingState());
     super.reset();
   }
 
@@ -59,7 +63,14 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     subcategoryId = null;
     brandId = null;
     isLoading?.value = false;
-    loadedListBehaviour.sink.add(IdleState());
+
+    loadedListBehaviour.close();
+    loadedListBehaviour.stream.drain();
+
+    loadedListBehaviour =
+    BehaviorSubject()..sink.add(LoadingState());
+
+
     super.reset();
   }
 
