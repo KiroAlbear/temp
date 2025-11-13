@@ -336,7 +336,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
       useSafeArea: true,
       isScrollControlled: true,
       constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.26),
+          BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.23),
       builder: (context) {
         return DialogWidget(
           message: S.of(context).selectPhotoFromCameraOrGallery,

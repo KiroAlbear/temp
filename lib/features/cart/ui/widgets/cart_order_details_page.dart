@@ -113,6 +113,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                         _payWithCard();
                         // _payWithWallet();
                       } else if (widget.cartOrderDetailsArgs.isItWallet) {
+
                         _payWithWallet(
                             widget.cartOrderDetailsArgs.walletNumber!);
                       } else {
@@ -177,7 +178,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           context: context,
           useRootNavigator: true,
           constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.20),
+          BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.17),
           builder: (context) {
             return DialogWidget(
               sameButtonsColor: false,
