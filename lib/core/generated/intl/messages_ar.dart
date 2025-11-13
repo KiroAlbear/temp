@@ -108,7 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
-        "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "currentOrders":
             MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
         "address": MessageLookupByLibrary.simpleMessage("العنوان"),
@@ -251,7 +251,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
         "platformType": MessageLookupByLibrary.simpleMessage("نوع المنشأه"),
-        "choosePlatformType": MessageLookupByLibrary.simpleMessage("اختر نوع المنشأه"),
+        "choosePlatformType":
+            MessageLookupByLibrary.simpleMessage("اختر نوع المنشأه"),
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
         "productIsNotAvailable":

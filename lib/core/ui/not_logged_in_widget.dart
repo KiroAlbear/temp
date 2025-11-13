@@ -7,7 +7,8 @@ import 'package:image_loader/image_helper.dart';
 import '../generated/l10n.dart';
 
 class NotLoggedInWidget extends BaseStatefulWidget {
-  const NotLoggedInWidget({super.key});
+  final String title;
+  const NotLoggedInWidget({super.key, required this.title});
 
   @override
   State<NotLoggedInWidget> createState() => _NotLoggedInWidgetState();
@@ -29,50 +30,62 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
   @override
   Widget getBody(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ImageHelper(image: Assets.svg.imgCancelOrder, imageType: ImageType.svg),
-        SizedBox(
-          height: 18.h,
+        AppTopWidget(
+          isHavingBack: false,
+          title: widget.title,
         ),
-        Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 40.w),
-          child: CustomText(
-              text: S.of(context).createAccountMessage,
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              customTextStyle: RegularStyle(
-                fontSize: 14.sp,
-                color: lightBlackColor,
-              )),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ImageHelper(
+                  image: Assets.svg.imgCancelOrder, imageType: ImageType.svg),
+              SizedBox(
+                height: 18.h,
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 40.w),
+                child: CustomText(
+                    text: S.of(context).createAccountMessage,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    customTextStyle: RegularStyle(
+                      fontSize: 14.sp,
+                      color: lightBlackColor,
+                    )),
+              ),
+              SizedBox(
+                height: 34.h,
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.w),
+                  child: CustomButtonWidget(
+                    idleText: S.of(context).createAccount,
+                    onTap: () async {
+                      await Routes.navigateToScreen(
+                          Routes.loginPage, NavigationType.goNamed, context);
+                      await Routes.navigateToScreen(Routes.registerPage,
+                          NavigationType.pushNamed, context);
+                      WidgetsBinding.instance.addPostFrameCallback((_) =>
+                          changeSystemNavigationBarAndStatusColor(
+                              secondaryColor));
+                    },
+                  )),
+              SizedBox(
+                height: 17.h,
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.w),
+                  child: CustomButtonWidget(
+                    buttonShapeEnum: ButtonShapeEnum.outline,
+                    buttonColor: secondaryColor,
+                    idleText: S.of(context).login,
+                    onTap: () => AppProviderModule().logout(context),
+                  )),
+            ],
+          ),
         ),
-        SizedBox(
-          height: 34.h,
-        ),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.w),
-            child: CustomButtonWidget(
-              idleText: S.of(context).createAccount,
-              onTap: () async {
-                await Routes.navigateToScreen(
-                    Routes.loginPage, NavigationType.goNamed, context);
-                await Routes.navigateToScreen(
-                    Routes.registerPage, NavigationType.pushNamed, context);
-                WidgetsBinding.instance.addPostFrameCallback((_) =>
-                    changeSystemNavigationBarAndStatusColor(secondaryColor));
-              },
-            )),
-        SizedBox(
-          height: 17.h,
-        ),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.w),
-            child: CustomButtonWidget(
-              buttonShapeEnum: ButtonShapeEnum.outline,
-              buttonColor: secondaryColor,
-              idleText: S.of(context).login,
-              onTap: () => AppProviderModule().logout(context),
-            )),
       ],
     );
   }

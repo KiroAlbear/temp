@@ -146,7 +146,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   Widget getBody(BuildContext context) => ((SharedPrefModule().userId ?? '')
               .isEmpty &&
           widget.isForFavourite)
-      ? NotLoggedInWidget()
+      ? NotLoggedInWidget(
+          title: S.of(context).favourite,
+        )
       : Column(
           children: [
             AppTopWidget(
