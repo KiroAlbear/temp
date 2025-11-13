@@ -348,8 +348,8 @@ class _ProductWidgetState extends State<ProductWidget> {
       );
 
   Widget get _productName => SizedBox(
-    height: 40,
-    child: CustomText(
+        height: 40,
+        child: CustomText(
           text: widget.productMapper.name,
           textAlign: TextAlign.start,
           customTextStyle: widget.isCartProduct
@@ -357,7 +357,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
           maxLines: 2,
         ),
-  );
+      );
 
   Widget get _priceRow => Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -397,7 +397,6 @@ class _ProductWidgetState extends State<ProductWidget> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-
       builder: (context) {
         return DialogWidget(
           sameButtonsColor: false,
@@ -419,7 +418,6 @@ class _ProductWidgetState extends State<ProductWidget> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-
       builder: (context) {
         return DialogWidget(
           message: "$message $qty",
@@ -452,7 +450,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
-        color:widget.isCartProduct?lightGrey2ColorDarkMode: primaryColor,
+        color: widget.isCartProduct ? lightGrey2ColorDarkMode : primaryColor,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -594,17 +592,21 @@ class _ProductWidgetState extends State<ProductWidget> {
           height: buttonHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.r),
-            color: widget.productMapper.canAddToCart()
-                ? primaryColor
-                : disabledButtonColorLightMode,
+            color: (SharedPrefModule().userId == null)
+                ? disabledButtonColorLightMode
+                : widget.productMapper.canAddToCart()
+                    ? primaryColor
+                    : disabledButtonColorLightMode,
           ),
           child: Center(
             child: CustomText(
                 text: S.of(context).addToCart,
                 customTextStyle: RegularStyle(
-                    color: widget.productMapper.canAddToCart()
-                        ? darkSecondaryColor
-                        : disabledButtonTextColorLightMode,
+                    color: (SharedPrefModule().userId == null)
+                        ? disabledButtonTextColorLightMode
+                        : widget.productMapper.canAddToCart()
+                            ? darkSecondaryColor
+                            : disabledButtonTextColorLightMode,
                     fontSize: 12.sp)),
           ),
         ),

@@ -189,8 +189,10 @@ class AppProviderModule with ChangeNotifier {
     SharedPrefModule().userPhone = userPhone;
     SharedPrefModule().userPhoneWithoutCountry = userPhoneWithoutCountry;
     SharedPrefModule().bearerToken = null;
-    _isLoggedIn = true;
+    _isLoggedIn = false;
     await init(context);
+
+    getIt<CartBloc>().reset();
     notifyListeners();
   }
 

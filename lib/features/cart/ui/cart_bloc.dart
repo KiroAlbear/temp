@@ -234,6 +234,10 @@ class CartBloc extends BlocBase {
     return totalSum;
   }
 
+  void reset() {
+    cartProductsBehavior.sink.add(IdleState());
+  }
+
   void getMyCart({Function()? onGettingCart}) {
     _getClientData();
     _getAddress();
@@ -286,7 +290,7 @@ class CartBloc extends BlocBase {
             .listen((checkAvailabilityEvent) async {
           if (checkAvailabilityEvent is SuccessState) {
             // stream.sink.add(getCartEvent);
-            orderId = getCartEvent.response?.first.orderId??0;
+            orderId = getCartEvent.response?.first.orderId ?? 0;
             getcartProductQtyList(getCartEvent.response!);
             getTotalCartSum(cartRemote.myOrderResponse);
 
