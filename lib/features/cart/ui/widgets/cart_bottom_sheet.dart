@@ -205,6 +205,8 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           ),
         );
       },
-    );
+    ).then((value) {
+      widget.cartBloc.walletNumberBehaviour.value.clear();
+    },);
   }
 }
