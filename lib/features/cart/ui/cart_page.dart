@@ -155,6 +155,8 @@ class _CartScreenState extends BaseState<CartPage> {
                         backgroundColor: whiteColor,
                         useRootNavigator: true,
                         isScrollControlled: false,
+                        useSafeArea: true,
+
                         context: context,
                         builder: (context) {
                           return CartBottomSheet(

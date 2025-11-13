@@ -33,6 +33,10 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
+
+  @override
+  double appTopPadding() => 0;
+
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
       isHavingBackArrow: true,

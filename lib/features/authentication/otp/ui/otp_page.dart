@@ -41,6 +41,9 @@ class _OtpWidgetState extends BaseState<OtpPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
+  @override
+  double appTopPadding() => 0;
+
   // void _initSignature() async {
   //   _signature = await SmsVerification.getAppSignature();
   //   SmsVerification.startListeningSms().then((value) {

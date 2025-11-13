@@ -24,6 +24,13 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
     with ResponseHandlerModule {
   // ValueNotifier<bool> isValidated = ValueNotifier(false);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+
+  @override
+  double appTopPadding() => 0;
+
+
   @override
   void initState() {
     // WidgetsBinding.instance.addPostFrameCallback(

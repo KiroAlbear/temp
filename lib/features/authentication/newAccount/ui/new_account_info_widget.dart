@@ -21,13 +21,20 @@ class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
   PreferredSizeWidget? appBar() => null;
 
   @override
-  bool canPop() =>true;
+  bool canPop() =>false;
 
   @override
   bool isSafeArea()=> false;
 
   @override
   bool get useCustomScaffold => true;
+
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  Color? statusBarColor() => Colors.white;
 
 
   @override

@@ -10,9 +10,6 @@ class Apputils {
     await showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.25,
-      ),
       builder: (context) {
       return DialogWidget(
         message: S.of(context).youNeedToLoginToUseApp,

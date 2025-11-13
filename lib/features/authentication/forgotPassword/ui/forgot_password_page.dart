@@ -39,6 +39,9 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
   bool isSafeArea() => false;
 
   @override
+  double appTopPadding() => 0;
+
+  @override
   void initState() {
     widget.forgetPasswordBloc.resetBloc();
     super.initState();

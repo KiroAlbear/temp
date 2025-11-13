@@ -59,9 +59,10 @@ class AlertModule {
 
     showModalBottomSheet(
       useRootNavigator: true,
-      constraints: BoxConstraints(
-          maxHeight:
-          MediaQuery.of(context).size.height * 0.30),
+      isScrollControlled: false,
+
+
+
       context: context, builder: (context) {
       return ContactUsWidget(
         contactUsBloc: contactUsBloc,

@@ -135,10 +135,9 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
       useRootNavigator: true,
       barrierDismissible: true,
       builder: (context) {
-        return Center(
-          child: Container(
-            height: 185,
-            padding: EdgeInsets.symmetric(horizontal: 16.w,),
+        return Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Center(
             child: Material(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.r),
@@ -146,6 +145,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Form(

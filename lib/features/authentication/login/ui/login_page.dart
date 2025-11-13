@@ -40,6 +40,10 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
+
+  @override
+  double appTopPadding() => 0;
+
   @override
   void initState() {
     customBackgroundColor = Colors.white;

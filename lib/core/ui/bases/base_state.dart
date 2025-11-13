@@ -43,6 +43,8 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   Color? statusBarColor() => null;
   Color? systemNavigationBarColor() => null;
 
+  double appTopPadding() => 25;
+
   
 
   void changeSystemNavigationBarColor(Color color){
@@ -80,9 +82,6 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
         builder: (context, value, child) => useCustomScaffold
           ? _defaultBody
           : Scaffold(
-              // floatingActionButton: customFloatActionButton(),
-              // floatingActionButtonLocation:
-              //     FloatingActionButtonLocation.startFloat,
               bottomNavigationBar: customBottomNavBar(),
               resizeToAvoidBottomInset: true,
               extendBodyBehindAppBar: true,
@@ -94,11 +93,10 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
                ( Platform.isIOS?secondaryColor:  Theme.of(context).scaffoldBackgroundColor),
               appBar: appBar(),
               body:
-                  isSafeArea() ? SafeArea(
-                      bottom: isBottomSafeArea(),
-                      child: Container(
-                      color: Colors.white,
-                      child: _defaultBody)) : _defaultBody,
+              Container(
+                padding: EdgeInsets.only(top: appTopPadding()),
+                  color: Colors.white,
+                  child: _defaultBody),
               // )
             ),
             ),
@@ -118,9 +116,7 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await showModalBottomSheet(context: Routes.rootNavigatorKey.currentContext!,
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.25,
-      ),
+
       builder: (context) {
         return DialogWidget(
           sameButtonsColor: false,

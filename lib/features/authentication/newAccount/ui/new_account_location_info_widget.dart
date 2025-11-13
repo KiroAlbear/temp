@@ -9,20 +9,39 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../../core/generated/l10n.dart';
 import 'new_account_bloc.dart';
 
-class NewAccountLocationInfoWidget extends StatefulWidget {
+class NewAccountLocationInfoWidget extends BaseStatefulWidget {
   final NewAccountBloc newAccountBloc;
 
   const NewAccountLocationInfoWidget({super.key, required this.newAccountBloc});
 
   @override
-  State<NewAccountLocationInfoWidget> createState() =>
+  BaseState<NewAccountLocationInfoWidget> createState() =>
       _NewAccountLocationInfoWidgetState();
 }
 
 class _NewAccountLocationInfoWidgetState
-    extends State<NewAccountLocationInfoWidget> with ResponseHandlerModule {
+    extends BaseState<NewAccountLocationInfoWidget>  {
   @override
-  Widget build(BuildContext context) => Column(
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() =>true;
+
+  @override
+  bool isSafeArea()=> false;
+
+  @override
+  bool get useCustomScaffold => true;
+
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  Widget getBody(BuildContext context) => Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

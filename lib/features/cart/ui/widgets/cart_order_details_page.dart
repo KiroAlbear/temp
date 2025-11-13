@@ -177,8 +177,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
     return showModalBottomSheet(
           context: context,
           useRootNavigator: true,
-          constraints:
-          BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.17),
+          isScrollControlled: false,
           builder: (context) {
             return DialogWidget(
               sameButtonsColor: false,

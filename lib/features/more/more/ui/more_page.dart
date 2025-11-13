@@ -338,8 +338,8 @@ class _MoreWidgetState extends BaseState<MorePage> {
       useRootNavigator: true,
       useSafeArea: true,
       isScrollControlled: true,
-      constraints:
-          BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.23),
+      // constraints:
+      //     BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.24),
       builder: (context) {
         return DialogWidget(
           message: S.of(context).selectPhotoFromCameraOrGallery,
@@ -584,8 +584,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
       builder: (context) {
         return DialogWidget(
           message: S.of(context).deleteAccountMessage,

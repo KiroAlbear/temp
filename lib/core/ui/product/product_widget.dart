@@ -397,8 +397,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.20),
+
       builder: (context) {
         return DialogWidget(
           sameButtonsColor: false,
@@ -420,8 +419,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.24),
+
       builder: (context) {
         return DialogWidget(
           message: "$message $qty",

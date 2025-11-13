@@ -160,6 +160,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
     switch (step) {
       case NewAccountStepEnum.info:
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             NewAccountInfoWidget(newAccountBloc: widget._bloc),
             SizedBox(
@@ -170,6 +171,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         );
       case NewAccountStepEnum.locationInfo:
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             NewAccountLocationInfoWidget(newAccountBloc: widget._bloc),
             _nextPreviousButtonLocationInfo,
@@ -182,6 +184,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
       //   return EditLocationPage(newAccountBloc: widget._bloc);
       case NewAccountStepEnum.password:
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             NewAccountPasswordPage(
               newAccountBloc: widget._bloc,

@@ -37,6 +37,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
   @override
   bool isSafeArea() => true;
 
+
   @override
   void initState() {
     super.initState();
