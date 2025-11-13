@@ -14,7 +14,6 @@ class NotLoggedInWidget extends BaseStatefulWidget {
 }
 
 class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
-
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -23,6 +22,9 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
 
   @override
   bool isSafeArea() => true;
+
+  @override
+  void onPopInvoked(didPop) {}
 
   @override
   Widget getBody(BuildContext context) {
@@ -35,13 +37,14 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
         ),
         Padding(
           padding: EdgeInsetsDirectional.symmetric(horizontal: 40.w),
-          child: CustomText(text: S.of(context).createAccountMessage,
+          child: CustomText(
+              text: S.of(context).createAccountMessage,
               maxLines: 2,
               textAlign: TextAlign.center,
               customTextStyle: RegularStyle(
-            fontSize: 14.sp,
-            color: lightBlackColor,
-          )),
+                fontSize: 14.sp,
+                color: lightBlackColor,
+              )),
         ),
         SizedBox(
           height: 34.h,
@@ -51,10 +54,12 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
             child: CustomButtonWidget(
               idleText: S.of(context).createAccount,
               onTap: () async {
-                await Routes.navigateToScreen(Routes.loginPage, NavigationType.goNamed, context);
-                await Routes.navigateToScreen(Routes.registerPage, NavigationType.pushNamed, context);
-                WidgetsBinding.instance
-                    .addPostFrameCallback((_) => changeSystemNavigationBarAndStatusColor(secondaryColor));
+                await Routes.navigateToScreen(
+                    Routes.loginPage, NavigationType.goNamed, context);
+                await Routes.navigateToScreen(
+                    Routes.registerPage, NavigationType.pushNamed, context);
+                WidgetsBinding.instance.addPostFrameCallback((_) =>
+                    changeSystemNavigationBarAndStatusColor(secondaryColor));
               },
             )),
         SizedBox(
@@ -71,5 +76,4 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
       ],
     );
   }
-
 }

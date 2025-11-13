@@ -60,7 +60,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
   }
 
   @override
-  void onPopInvoked(didPop) {}
+  void onPopInvoked(didPop) {
+    super.onPopInvoked(didPop);
+  }
 
   @override
   Widget getBody(BuildContext context) =>
