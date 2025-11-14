@@ -327,5 +327,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "goToMainPage":
             MessageLookupByLibrary.simpleMessage("الذهاب الي الرئيسية"),
+        "firstStep": MessageLookupByLibrary.simpleMessage("١. انشاء حساب"),
+        "secondStep": MessageLookupByLibrary.simpleMessage("٢. حدد موقع محلك"),
+        "thirdStep": MessageLookupByLibrary.simpleMessage("٣. تعيين كلمة السر"),
       };
 }

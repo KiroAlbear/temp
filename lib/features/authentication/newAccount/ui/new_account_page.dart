@@ -6,8 +6,10 @@ import 'package:deel/features/authentication/widget/previous_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../../core/generated/l10n.dart';
+import '../../widget/register_stepper.dart';
 
 class NewAccountPage extends BaseStatefulWidget {
   final NewAccountBloc _bloc = getIt<NewAccountBloc>();
@@ -24,6 +26,10 @@ class NewAccountPage extends BaseStatefulWidget {
 class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   late final PasswordValidationBloc _passwordValidationBloc;
   final ValueNotifier<bool> _loadingNotifier = ValueNotifier(false);
+
+  final PageController pageController = PageController(
+    initialPage: 0,
+  );
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -95,18 +101,37 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         builder: (context, value, child) {
           return Stack(
             children: [
-              LogoTopWidget(
+              RegisterStepperWidget(
                   isHavingBackArrow: true,
-                  pressingBackTwice: true,
-                  logo: Assets.svg.logoYellow,
-                  blocBase: widget._bloc,
-                  canSkip: false,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _stepRow,
+                          Offstage(
+                            offstage: true,
+                            child: SizedBox(
+                              height: 1,
+                              width: 1,
+                              child: PageView(
+                                controller: pageController,
+                                children: [
+                                  Container(),
+                                  Container(),
+                                  Container(),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              _stepRow,
+                              _indicatorWidget(),
+                            ],
+                          ),
+                          SizedBox(height: 30),
                           _registerInfoWidget,
                           SizedBox(height: 50),
                         ]),
@@ -209,6 +234,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         nextOnTap: () {
           if (widget._bloc.isNamesInfoValid) {
             widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
+            animateToPage(1);
           }
         },
       );
@@ -219,6 +245,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         buttonStateStream: widget._bloc.buttonBloc.buttonBehavior,
         previousOnTap: () {
           widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
+          animateToPage(1);
         },
         nextOnTap: () {
           if (widget._bloc.isLocationValid) {
@@ -232,10 +259,12 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         nextValidationStream: widget._bloc.validateLocationStream,
         previousOnTap: () {
           widget._bloc.nextStep(NewAccountStepEnum.info);
+          animateToPage(0);
         },
         nextOnTap: () {
           if (widget._bloc.isLocationValid) {
             widget._bloc.nextStep(NewAccountStepEnum.password);
+            animateToPage(2);
           }
         },
       );
@@ -330,99 +359,94 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   Widget _whichStep(NewAccountStepEnum step) {
     switch (step) {
       case NewAccountStepEnum.info:
-        return _firstStep;
+        return _titleText(S.of(context).firstStep);
       case NewAccountStepEnum.locationInfo:
-        return _secondStep;
+        return _titleText(S.of(context).secondStep);
 
       case NewAccountStepEnum.password:
-        return _lastStep;
+        return _titleText(S.of(context).thirdStep);
     }
   }
 
-  Widget get _firstStep => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _stepContainer(1, true, false),
-          SizedBox(
-            width: 20.w,
-          ),
-          CustomText(
-              text: S.of(context).createAccount,
-              customTextStyle:
-                  BoldStyle(fontSize: 30.sp, color: darkSecondaryColor)),
-          const Spacer(),
-          _stepContainer(2, false, false),
-          SizedBox(
-            width: 10.w,
-          ),
-          _stepContainer(3, false, false),
-        ],
-      );
+  // Widget get _firstStep => ;
 
-  Widget get _secondStep => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _stepContainer(1, true, true),
-          SizedBox(
-            width: 10.w,
-          ),
-          _stepContainer(2, true, false),
-          SizedBox(
-            width: 20.w,
-          ),
-          CustomText(
-              text: S.of(context).locationYourLocation,
-              customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
-          const Spacer(),
-          _stepContainer(3, false, false),
-        ],
-      );
+  // Widget get _secondStep => Row(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         _stepContainer(1, true, true),
+  //         SizedBox(
+  //           width: 10.w,
+  //         ),
+  //         _stepContainer(2, true, false),
+  //         SizedBox(
+  //           width: 20.w,
+  //         ),
+  //         CustomText(
+  //             text: S.of(context).locationYourLocation,
+  //             customTextStyle:
+  //                 MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
+  //         const Spacer(),
+  //         _stepContainer(3, false, false),
+  //       ],
+  //     );
+  //
+  // Widget get _lastStep => Row(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         _stepContainer(1, true, true),
+  //         SizedBox(
+  //           width: 10.w,
+  //         ),
+  //         _stepContainer(2, true, true),
+  //         SizedBox(
+  //           width: 10.w,
+  //         ),
+  //         _stepContainer(3, true, false),
+  //         SizedBox(
+  //           width: 20.w,
+  //         ),
+  //         CustomText(
+  //             text: S.of(context).password,
+  //             customTextStyle:
+  //                 MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
+  //       ],
+  //     );
 
-  Widget get _lastStep => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _stepContainer(1, true, true),
-          SizedBox(
-            width: 10.w,
-          ),
-          _stepContainer(2, true, true),
-          SizedBox(
-            width: 10.w,
-          ),
-          _stepContainer(3, true, false),
-          SizedBox(
-            width: 20.w,
-          ),
-          CustomText(
-              text: S.of(context).password,
-              customTextStyle:
-                  MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
-        ],
-      );
+  Widget _indicatorWidget() {
+    return Column(
+      children: [
+        SmoothPageIndicator(
+            controller: pageController,
+            count: 3,
+            effect: CustomizableEffect(
+              spacing: 3,
+              dotDecoration: DotDecoration(
+                width: 18,
+                height: 3,
+                color: secondaryColor,
+                borderRadius: BorderRadius.circular(6.r),
+              ),
+              activeDotDecoration: DotDecoration(
+                width: 60,
+                height: 3,
+                color: primaryColor,
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+            ), // your preferred effect
+            onDotClicked: (index) {}),
+        SizedBox(
+          height: 5,
+        )
+      ],
+    );
+  }
 
-  Widget _stepContainer(int step, bool current, bool finished) =>
-      AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          decoration: BoxDecoration(
-              color: current ? darkSecondaryColor : whiteColor,
-              borderRadius: BorderRadius.circular(7.w),
-              border: Border.all(color: darkSecondaryColor, width: 1.w)),
-          child: Center(
-            child: finished
-                ? Icon(
-                    Icons.check,
-                    color: whiteColor,
-                    size: 20.w,
-                  )
-                : Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
-                    child: CustomText(
-                        text: step.toString(),
-                        customTextStyle: SemiBoldStyle(
-                            color: current ? whiteColor : darkSecondaryColor,
-                            fontSize: 20.sp)),
-                  ),
-          ));
+  void animateToPage(int pageIndex) {
+    pageController.animateToPage(pageIndex,
+        duration: Duration(milliseconds: 700), curve: Curves.easeInOut);
+  }
+
+  Widget _titleText(String title) => CustomText(
+      text: title,
+      customTextStyle: BoldStyle(fontSize: 20.sp, color: darkSecondaryColor));
 }
