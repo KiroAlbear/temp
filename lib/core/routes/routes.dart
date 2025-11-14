@@ -113,7 +113,7 @@ class Routes {
           state,
           ForgotPasswordPage(
             authenticationSharedBloc: getIt(),
-            forgetPasswordBloc: ForgotPasswordBloc(),
+            forgetPasswordBloc: getIt(),
           ),
         ),
       ),
