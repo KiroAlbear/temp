@@ -135,6 +135,7 @@ class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
                     textInputType: TextInputType.none,
                     textInputAction: TextInputAction.done,
                     readOnly: true,
+                    isDropDownMenu: true,
                     onTap: () {
                       _showCompanyDropDown(snapshot.data?.response ?? []);
                     },

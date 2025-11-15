@@ -202,6 +202,7 @@ class _NewAccountLocationInfoWidgetState
                     textInputType: TextInputType.none,
                     textInputAction: TextInputAction.done,
                     readOnly: true,
+                    isDropDownMenu: true,
                     onTap: () {
                       _showStateDropDown(snapshot.data?.response ?? []);
                     },

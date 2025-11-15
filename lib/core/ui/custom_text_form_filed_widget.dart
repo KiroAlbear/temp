@@ -26,6 +26,7 @@ class CustomTextFormFiled extends StatefulWidget {
   final bool isLabel;
   final bool isDense;
   final bool readOnly;
+  final bool isDropDownMenu;
   final ValueChanged<String>? onFieldSubmitted;
   final EdgeInsets? customContentPadding;
   final int? minLines, maxLines;
@@ -77,6 +78,7 @@ class CustomTextFormFiled extends StatefulWidget {
       this.isLabel = false,
       this.isDense = false,
       this.readOnly = false,
+      this.isDropDownMenu = false,
       this.customContentPadding,
       this.onFieldSubmitted,
       this.validator,
@@ -234,7 +236,11 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         floatingLabelBehavior:
             widget.floatingLabelBehavior ?? FloatingLabelBehavior.never,
         label: widget.customLabelText ?? _labelText,
-        suffixIcon: widget.isPassword ? _passwordIcon : widget.suffixIcon,
+        suffixIcon: widget.isPassword
+            ? _passwordIcon
+            : widget.isDropDownMenu
+                ? _dropDownIcon()
+                : widget.suffixIcon,
         prefixIcon: widget.prefixIcon,
         prefixIconConstraints: widget.prefixIcon != null
             ? BoxConstraints(
@@ -293,7 +299,8 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
                     child: CustomText(
                       text: widget.labelText,
                       customTextStyle: MediumStyle(
-                          color: widget.textLabelColor ??  greyBorderColorLightMode,
+                          color:
+                              widget.textLabelColor ?? greyBorderColorLightMode,
                           fontSize: 16.sp),
                     ),
                   ),
@@ -311,6 +318,14 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
               ],
             ),
           ));
+
+  Widget _dropDownIcon() {
+    return ImageHelper(
+      image: Assets.svg.icDropDownArrow,
+      imageType: ImageType.svg,
+      boxFit: BoxFit.scaleDown,
+    );
+  }
 
   TextStyle get _counterTextStyle =>
       MediumStyle(color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
