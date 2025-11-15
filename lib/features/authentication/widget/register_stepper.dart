@@ -16,12 +16,10 @@ import '../../../../core/ui/logo_widget.dart';
 
 class RegisterStepperWidget extends StatefulWidget {
   final Widget child;
-  final bool isHavingBackArrow;
 
   const RegisterStepperWidget({
     super.key,
     required this.child,
-    this.isHavingBackArrow = false,
   });
 
   @override
@@ -39,28 +37,6 @@ class _RegisterStepperWidgetState extends State<RegisterStepperWidget> {
           children: [
             SizedBox(
               height: 50.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Material(
-                child: InkWell(
-                  highlightColor: Colors.transparent,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: SizedBox(
-                    width: 30.w,
-                    height: 30.h,
-                    child: ImageHelper(
-                      image: Assets.svg.icPreviousBlue,
-                      imageType: ImageType.svg,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: widget.isHavingBackArrow ? 20.h : 30.h,
             ),
             SizedBox(
               height: 30.h,

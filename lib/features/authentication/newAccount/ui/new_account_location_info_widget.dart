@@ -75,9 +75,6 @@ class _NewAccountLocationInfoWidgetState
               height: 24.h,
             ),
             _cityAndDistrictRow,
-            SizedBox(
-              height: 21.h,
-            ),
           ]);
   // ValueNotifier<bool> _isLocationDetected = ValueNotifier(true);
 

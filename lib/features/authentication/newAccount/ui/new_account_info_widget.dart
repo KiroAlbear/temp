@@ -75,9 +75,6 @@ class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
             height: 12.h,
           ),
           _companyTextFormFiled,
-          SizedBox(
-            height: 50.h,
-          ),
         ],
       );
 

@@ -10,7 +10,12 @@ class PreviousNextButton extends StatelessWidget {
   final Stream<bool> isButtonEnabledStream;
   final Stream<ButtonState>? buttonStateStream;
   final void Function() onTap;
-  const PreviousNextButton({super.key,required this.isPrevious,required this.isButtonEnabledStream,required this.onTap,this.buttonStateStream });
+  const PreviousNextButton(
+      {super.key,
+      required this.isPrevious,
+      required this.isButtonEnabledStream,
+      required this.onTap,
+      this.buttonStateStream});
 
   @override
   Widget build(BuildContext context) {
@@ -18,42 +23,61 @@ class PreviousNextButton extends StatelessWidget {
       stream: isButtonEnabledStream,
       builder: (context, snapshot) {
         return StreamBuilder<ButtonState>(
-          stream: buttonStateStream??const Stream.empty(),
+          stream: buttonStateStream ?? const Stream.empty(),
           builder: (context, snapshot2) {
-            return snapshot2.data == ButtonState.loading? CustomProgress(color: darkSecondaryColor,size: 30,):InkWell(
-              onTap: onTap,
-              child: Directionality(
-                textDirection: isPrevious? TextDirection.rtl:TextDirection.ltr,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ImageHelper(
-                      image:isPrevious? Assets.svg.icPreviousBlue:Assets.svg.icForwardGrey,
-                      imageType: ImageType.svg,
-                      color:isPrevious? darkSecondaryColor: snapshot.data == true ? darkSecondaryColor: greyColor ,
-                      width: 22.w,
-                      height: 22.h,
-                    ),
-                    SizedBox(width: 4), // Add spacing between the text and the icon
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 4.0),
-                      child: CustomText(
-                        text:isPrevious? S.of(context).previous:S.of(context).next,
-                        customTextStyle: RegularStyle(
-                          fontSize: 16.sp,
-                          color: isPrevious? darkSecondaryColor: snapshot.data == true ? darkSecondaryColor: greyColor, // Use your desired color
-                        ),
-
+            return snapshot2.data == ButtonState.loading
+                ? CustomProgress(
+                    color: darkSecondaryColor,
+                    size: 30,
+                  )
+                : InkWell(
+                    onTap: snapshot.data == true ? onTap : null,
+                    child: Directionality(
+                      textDirection:
+                          isPrevious ? TextDirection.rtl : TextDirection.ltr,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ImageHelper(
+                            image: isPrevious
+                                ? Assets.svg.icPreviousBlue
+                                : Assets.svg.icForwardGrey,
+                            imageType: ImageType.svg,
+                            color: isPrevious
+                                ? darkSecondaryColor
+                                : snapshot.data == true
+                                    ? darkSecondaryColor
+                                    : greyColor,
+                            width: 22.w,
+                            height: 22.h,
+                          ),
+                          SizedBox(
+                              width:
+                                  8), // Add spacing between the text and the icon
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 4.0),
+                            child: CustomText(
+                              text: isPrevious
+                                  ? S.of(context).previous
+                                  : S.of(context).next,
+                              customTextStyle: RegularStyle(
+                                fontSize: 16.sp,
+                                color: isPrevious
+                                    ? darkSecondaryColor
+                                    : snapshot.data == true
+                                        ? darkSecondaryColor
+                                        : greyColor, // Use your desired color
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            );
+                  );
           },
         );
       },
-
-    );;
+    );
+    ;
   }
 }

@@ -16,8 +16,7 @@ class NewAccountPasswordPage extends StatefulWidget {
       required this.passwordValidationBloc});
 
   @override
-  State<NewAccountPasswordPage> createState() =>
-      _NewAccountPasswordPageState();
+  State<NewAccountPasswordPage> createState() => _NewAccountPasswordPageState();
 }
 
 class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
@@ -25,11 +24,8 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
   // ValueNotifier<bool> isValidated = ValueNotifier(false);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
-
   @override
   double appTopPadding() => 0;
-
 
   @override
   void initState() {
@@ -43,47 +39,44 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
 
   @override
   Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      CustomText(
-          text: S.of(context).password,
-          customTextStyle:
-          MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
-      SizedBox(
-        height: 12.h,
-      ),
-      Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _passwordFiled,
-              SizedBox(
-                height: 24.h,
-              ),
-              CustomText(
-                  text: S.of(context).confirmPassword,
-                  customTextStyle: MediumStyle(
-                      color: darkSecondaryColor, fontSize: 16.sp)),
-              SizedBox(
-                height: 12.h,
-              ),
-              _confirmPasswordFiled,
-            ],
-          )),
-      SizedBox(
-        height: 8.h,
-      ),
-      PasswordValidationWidget(
-        passwordValidationBloc: widget.passwordValidationBloc,
-        passwordController: widget
-            .newAccountBloc.passwordBloc.textFormFiledBehaviour.value,
-      ),
-      SizedBox(
-        height: 40.h,
-      ),
-    ],
-  );
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+              text: S.of(context).password,
+              customTextStyle:
+                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+          SizedBox(
+            height: 12.h,
+          ),
+          Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _passwordFiled,
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  CustomText(
+                      text: S.of(context).confirmPassword,
+                      customTextStyle: MediumStyle(
+                          color: darkSecondaryColor, fontSize: 16.sp)),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  _confirmPasswordFiled,
+                ],
+              )),
+          SizedBox(
+            height: 8.h,
+          ),
+          PasswordValidationWidget(
+            passwordValidationBloc: widget.passwordValidationBloc,
+            passwordController:
+                widget.newAccountBloc.passwordBloc.textFormFiledBehaviour.value,
+          ),
+        ],
+      );
 
   Widget get _passwordFiled => CustomTextFormFiled(
         onChanged: (value) {

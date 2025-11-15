@@ -23,14 +23,31 @@ class NewAccountBloc extends BlocBase {
     this.countryCode = "+${countryCode}";
 
     fullNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    fullNameBloc.stringBehaviour.add("");
+
     facilityNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    facilityNameBloc.stringBehaviour.add("");
+
     streetNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    streetNameBloc.stringBehaviour.add("");
+
     neighborhoodBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    neighborhoodBloc.stringBehaviour.add("");
+
     cityBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    cityBloc.stringBehaviour.add("");
+
     companyBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    companyBloc.stringBehaviour.add("");
+
+    selectedCompany = null;
+
     passwordBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    passwordBloc.stringBehaviour.add("");
+
     confirmPasswordBloc.textFormFiledBehaviour.sink
         .add(TextEditingController());
+    confirmPasswordBloc.stringBehaviour.add("");
 
     _stepBehaviour.sink.add(NewAccountStepEnum.info);
     countryCodeBehaviour.sink.add("+${countryCode}");

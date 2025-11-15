@@ -26,6 +26,9 @@ class NewAccountPage extends BaseStatefulWidget {
 class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   late final PasswordValidationBloc _passwordValidationBloc;
   final ValueNotifier<bool> _loadingNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> _backButtonVisibilityNotifier = ValueNotifier(true);
+  final ValueNotifier<NewAccountStepEnum> _nextPreviousNotifier =
+      ValueNotifier(NewAccountStepEnum.info);
 
   final PageController pageController = PageController(
     initialPage: 0,
@@ -66,32 +69,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
     _passwordValidationBloc = PasswordValidationBloc(
         widget._bloc.passwordBloc.textFormFiledBehaviour.value);
   }
-  //
-  // void _handleBackPressing() async {
-
-  // NewAccountStepEnum currentStep = await widget._bloc.stepsStream.first;
-  // if (currentStep == NewAccountStepEnum.locationInfo) {
-  //   widget._bloc.nextStep(NewAccountStepEnum.info);
-  // } else if (currentStep == NewAccountStepEnum.password) {
-  //   widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
-  // } else if (currentStep ==
-  //     NewAccountStepEnum.editLocation) {
-  //   widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
-  // } else {
-  //   // Navigator.pop(context);
-  //   // Navigator.pop(context);
-  //   // display navigator stack
-  //   // Navigator.pop(context);
-  //
-  //
-  //   // CustomNavigatorModule.navigatorKey.currentState
-  //   //     ?.pushNamed(AppScreenEnum.register.name);
-  //   // CustomNavigatorModule.navigatorKey.currentState
-  //   //     ?.pushNamed(AppScreenEnum.register.name);
-  // }
-
-  // Routes.navigateToFirstScreen(context);
-  // }
 
   @override
   Widget getBody(BuildContext context) => BlocProvider(
@@ -101,41 +78,75 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         builder: (context, value, child) {
           return Stack(
             children: [
-              RegisterStepperWidget(
-                  isHavingBackArrow: true,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Offstage(
-                            offstage: true,
-                            child: SizedBox(
-                              height: 1,
-                              width: 1,
-                              child: PageView(
-                                controller: pageController,
-                                children: [
-                                  Container(),
-                                  Container(),
-                                  Container(),
-                                ],
+              Column(
+                children: [
+                  Expanded(
+                    child: RegisterStepperWidget(
+                        child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Offstage(
+                              offstage: true,
+                              child: SizedBox(
+                                height: 1,
+                                width: 1,
+                                child: PageView(
+                                  controller: pageController,
+                                  children: [
+                                    Container(),
+                                    Container(),
+                                    Container(),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              _stepRow,
-                              _indicatorWidget(),
-                            ],
-                          ),
-                          SizedBox(height: 30),
-                          _registerInfoWidget,
-                          SizedBox(height: 50),
-                        ]),
-                  )),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                  children: [
+                                    ValueListenableBuilder(
+                                      valueListenable:
+                                          _backButtonVisibilityNotifier,
+                                      builder: (context, value, child) {
+                                        return value ? _backButton : SizedBox();
+                                      },
+                                    ),
+                                    SizedBox(width: 10.w),
+                                    _stepRow,
+                                  ],
+                                ),
+                                _indicatorWidget(),
+                              ],
+                            ),
+                            SizedBox(height: 20.h),
+                            _registerInfoWidget,
+                            SizedBox(height: 50),
+                          ]),
+                    )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 22.0, vertical: 16),
+                    child: ValueListenableBuilder(
+                      valueListenable: _nextPreviousNotifier,
+                      builder: (context, value, child) {
+                        switch (value) {
+                          case NewAccountStepEnum.info:
+                            return _nextPreviousButtonAccountName;
+                          case NewAccountStepEnum.locationInfo:
+                            return _nextPreviousButtonLocationInfo;
+                          case NewAccountStepEnum.password:
+                            return _nextPreviousButtonAccountPassword;
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
               OverlayLoadingWidget(
                 showOverlayLoading: _loadingNotifier,
               ),
@@ -144,30 +155,22 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         },
       ));
 
-  Widget get _companyTextFormFiled =>
-      StreamBuilder<ApiState<List<DropDownMapper>>>(
-          stream: widget._bloc.companyStream,
-          initialData: LoadingState(),
-          builder: (context, snapshot) =>
-              checkResponseStateWithLoadingWidget(snapshot.data!, context,
-                  onSuccess: CustomTextFormFiled(
-                    labelText: S.of(context).enterCity,
-                    defaultTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 16.w)
-                            .getStyle(),
-                    textFiledControllerStream:
-                        widget._bloc.companyBloc.textFormFiledStream,
-                    onChanged: (value) =>
-                        widget._bloc.companyBloc.updateStringBehaviour(value),
-                    validator: (value) =>
-                        ValidatorModule().emptyValidator(context).call(value),
-                    textInputType: TextInputType.none,
-                    textInputAction: TextInputAction.done,
-                    readOnly: true,
-                    onTap: () {
-                      _showCompanyDropDown(snapshot.data?.response ?? []);
-                    },
-                  )));
+  Widget get _backButton => Material(
+        child: InkWell(
+          highlightColor: Colors.transparent,
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: SizedBox(
+            width: 30.w,
+            height: 30.h,
+            child: ImageHelper(
+              image: Assets.svg.icPreviousBlue,
+              imageType: ImageType.svg,
+            ),
+          ),
+        ),
+      );
 
   Widget get _stepRow => StreamBuilder(
         stream: widget._bloc.stepsStream,
@@ -186,42 +189,13 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   Widget _whichRegisterInfoWidget(NewAccountStepEnum step) {
     switch (step) {
       case NewAccountStepEnum.info:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            NewAccountInfoWidget(newAccountBloc: widget._bloc),
-            SizedBox(
-              height: 120.h,
-            ),
-            _nextPreviousButtonAccountName,
-          ],
-        );
+        return NewAccountInfoWidget(newAccountBloc: widget._bloc);
       case NewAccountStepEnum.locationInfo:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            NewAccountLocationInfoWidget(newAccountBloc: widget._bloc),
-            _nextPreviousButtonLocationInfo,
-            SizedBox(
-              height: 21.h,
-            ),
-          ],
-        );
-      // case NewAccountStepEnum.editLocation:
-      //   return EditLocationPage(newAccountBloc: widget._bloc);
+        return NewAccountLocationInfoWidget(newAccountBloc: widget._bloc);
       case NewAccountStepEnum.password:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            NewAccountPasswordPage(
-              newAccountBloc: widget._bloc,
-              passwordValidationBloc: _passwordValidationBloc,
-            ),
-            SizedBox(
-              height: 160.h,
-            ),
-            _nextPreviousButtonAccountPassword
-          ],
+        return NewAccountPasswordPage(
+          newAccountBloc: widget._bloc,
+          passwordValidationBloc: _passwordValidationBloc,
         );
     }
   }
@@ -232,6 +206,9 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         hidePrevious: true,
         previousOnTap: () {},
         nextOnTap: () {
+          _backButtonVisibilityNotifier.value = false;
+          _nextPreviousNotifier.value = NewAccountStepEnum.locationInfo;
+
           if (widget._bloc.isNamesInfoValid) {
             widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
             animateToPage(1);
@@ -239,32 +216,39 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         },
       );
 
+  Widget get _nextPreviousButtonLocationInfo => _nextPreviousButtonGeneric(
+        previousValidationStream: Stream.value(true),
+        nextValidationStream: widget._bloc.validateLocationStream,
+        previousOnTap: () {
+          _nextPreviousNotifier.value = NewAccountStepEnum.info;
+
+          _backButtonVisibilityNotifier.value = true;
+          widget._bloc.nextStep(NewAccountStepEnum.info);
+          animateToPage(0);
+        },
+        nextOnTap: () {
+          _nextPreviousNotifier.value = NewAccountStepEnum.password;
+
+          if (widget._bloc.isLocationValid) {
+            widget._bloc.nextStep(NewAccountStepEnum.password);
+            animateToPage(2);
+          }
+        },
+      );
+
   Widget get _nextPreviousButtonAccountPassword => _nextPreviousButtonGeneric(
-        previousValidationStream: widget._bloc.validatePasswordStream,
+        previousValidationStream: Stream.value(true),
         nextValidationStream: widget._bloc.validatePasswordStream,
         buttonStateStream: widget._bloc.buttonBloc.buttonBehavior,
         previousOnTap: () {
+          _nextPreviousNotifier.value = NewAccountStepEnum.locationInfo;
+
           widget._bloc.nextStep(NewAccountStepEnum.locationInfo);
           animateToPage(1);
         },
         nextOnTap: () {
           if (widget._bloc.isLocationValid) {
             _passwordNextFunctionality();
-          }
-        },
-      );
-
-  Widget get _nextPreviousButtonLocationInfo => _nextPreviousButtonGeneric(
-        previousValidationStream: widget._bloc.validateLocationStream,
-        nextValidationStream: widget._bloc.validateLocationStream,
-        previousOnTap: () {
-          widget._bloc.nextStep(NewAccountStepEnum.info);
-          animateToPage(0);
-        },
-        nextOnTap: () {
-          if (widget._bloc.isLocationValid) {
-            widget._bloc.nextStep(NewAccountStepEnum.password);
-            animateToPage(2);
           }
         },
       );
@@ -367,50 +351,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         return _titleText(S.of(context).thirdStep);
     }
   }
-
-  // Widget get _firstStep => ;
-
-  // Widget get _secondStep => Row(
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: [
-  //         _stepContainer(1, true, true),
-  //         SizedBox(
-  //           width: 10.w,
-  //         ),
-  //         _stepContainer(2, true, false),
-  //         SizedBox(
-  //           width: 20.w,
-  //         ),
-  //         CustomText(
-  //             text: S.of(context).locationYourLocation,
-  //             customTextStyle:
-  //                 MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
-  //         const Spacer(),
-  //         _stepContainer(3, false, false),
-  //       ],
-  //     );
-  //
-  // Widget get _lastStep => Row(
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: [
-  //         _stepContainer(1, true, true),
-  //         SizedBox(
-  //           width: 10.w,
-  //         ),
-  //         _stepContainer(2, true, true),
-  //         SizedBox(
-  //           width: 10.w,
-  //         ),
-  //         _stepContainer(3, true, false),
-  //         SizedBox(
-  //           width: 20.w,
-  //         ),
-  //         CustomText(
-  //             text: S.of(context).password,
-  //             customTextStyle:
-  //                 MediumStyle(fontSize: 30.sp, color: darkSecondaryColor)),
-  //       ],
-  //     );
 
   Widget _indicatorWidget() {
     return Column(
