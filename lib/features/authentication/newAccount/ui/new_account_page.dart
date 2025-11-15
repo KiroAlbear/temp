@@ -58,6 +58,9 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   double appTopPadding() => 0;
 
   @override
+  bool isBottomSafeArea() => true;
+
+  @override
   void initState() {
     super.initState();
     widget._bloc.init(
