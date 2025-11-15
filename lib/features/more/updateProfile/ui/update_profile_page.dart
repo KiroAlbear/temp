@@ -4,11 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
 class UpdateProfilePage extends BaseStatefulWidget {
-
   final MoreBloc moreBloc;
 
-  const UpdateProfilePage(
-      { required this.moreBloc, super.key});
+  const UpdateProfilePage({required this.moreBloc, super.key});
 
   @override
   State<UpdateProfilePage> createState() => _UpdateProfileScreenState();
@@ -30,7 +28,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
   bool isSafeArea() => true;
 
   @override
-  bool isBottomSafeArea() =>false;
+  bool isBottomSafeArea() => false;
 
   @override
   Color? systemNavigationBarColor() => Colors.white;
@@ -196,7 +194,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
   CustomText _label(String text) {
     return CustomText(
         text: text,
-        customTextStyle: MediumStyle(fontSize: 16.sp, color: darkSecondaryColor));
+        customTextStyle:
+            MediumStyle(fontSize: 16.sp, color: darkSecondaryColor));
   }
 
   Column _nameTextField(BuildContext context) {
@@ -209,7 +208,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
         ),
         CustomTextFormFiled(
           labelText: S.of(context).threeFullName,
-          defaultTextStyle: _getTextStyle(),
+          defaultTextStyle: _getTextStyle(isEnabled: true),
           textFiledControllerStream: _bloc.fullNameBloc.textFormFiledBehaviour,
           onChanged: (value) => _bloc.fullNameBloc.updateStringBehaviour(value),
           validator: (value) =>
@@ -281,7 +280,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
         ),
         CustomTextFormFiled(
           labelText: S.of(context).updateProfileBuildingName,
-          defaultTextStyle: _getTextStyle(),
+          defaultTextStyle: _getTextStyle(isEnabled: true),
           textFiledControllerStream:
               _bloc.buildingNameBloc.textFormFiledBehaviour,
           onChanged: (value) =>
@@ -356,7 +355,9 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     );
   }
 
-  TextStyle _getTextStyle() {
-    return RegularStyle(fontSize: 14.sp, color: lightGreyColorDarkMode).getStyle();
+  TextStyle _getTextStyle({bool isEnabled = false}) {
+    return RegularStyle(
+            fontSize: 14.sp, color: isEnabled ? black : lightGreyColorDarkMode)
+        .getStyle();
   }
 }
