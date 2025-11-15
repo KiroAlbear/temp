@@ -38,9 +38,6 @@ class _RegisterStepperWidgetState extends State<RegisterStepperWidget> {
             SizedBox(
               height: 50.h,
             ),
-            SizedBox(
-              height: 30.h,
-            ),
             _bottomWidget,
           ],
         ),

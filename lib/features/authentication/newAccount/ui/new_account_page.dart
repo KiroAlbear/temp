@@ -328,18 +328,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
     }
   }
 
-  void _showCompanyDropDown(List<DropDownMapper> list) => showModalBottomSheet(
-        context: context,
-        builder: (context) => CustomDropDownWidget(
-          dropDownList: list,
-          hasImage: false,
-          onSelect: (value) {},
-          headerText: S.of(context).chooseCity,
-        ),
-        backgroundColor: Colors.transparent,
-        enableDrag: false,
-      );
-
   Widget _whichStep(NewAccountStepEnum step) {
     switch (step) {
       case NewAccountStepEnum.info:
