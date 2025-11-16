@@ -46,23 +46,7 @@ class OrderItem extends StatelessWidget {
           ? DismissDirection.endToStart
           : DismissDirection.none,
       confirmDismiss: (direction) async {
-        showModalBottomSheet(
-          context: context,
-          useRootNavigator: true,
-          builder: (context) {
-            return CancelOrderBottomSheet(
-              myOrdersBloc: myOrdersBloc,
-              orderId: currentOrder!.id,
-            );
-          },
-        );
-        // await UtilityModule().showBottomSheetDialog(
-        //     useFixedHeight: false,
-        //     child: CancelOrderBottomSheet(
-        //       myOrdersBloc: myOrdersBloc,
-        //       orderId: currentOrder!.id,
-        //     ),
-        //     context: context);
+        await _showCancelBottomSheet(context);
         return false;
       },
       background: Container(
@@ -210,6 +194,21 @@ class OrderItem extends StatelessWidget {
     );
   }
 
+
+  Future<void> _showCancelBottomSheet(BuildContext context) async {
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (context) {
+        return CancelOrderBottomSheet(
+          myOrdersBloc: myOrdersBloc,
+          orderId: currentOrder!.id,
+        );
+      },
+    );
+  }
+
   Widget _getPastOrdersTrailingWidget(
       BuildContext context, bool isOrderReceived) {
     return Container(
@@ -242,13 +241,7 @@ class OrderItem extends StatelessWidget {
             duration: Duration(milliseconds: 500),
             child: InkWell(
                 onTap: () async {
-                  await UtilityModule().showBottomSheetDialog(
-                      useFixedHeight: true,
-                      child: CancelOrderBottomSheet(
-                        myOrdersBloc: myOrdersBloc,
-                        orderId: currentOrder!.id,
-                      ),
-                      context: context);
+                  _showCancelBottomSheet(context);
                 },
                 child: Container(
                     decoration: BoxDecoration(
