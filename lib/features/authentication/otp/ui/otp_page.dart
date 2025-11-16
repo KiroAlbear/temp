@@ -232,7 +232,9 @@ class _OtpWidgetState extends BaseState<OtpPage> {
             (value) {
               //TODO: this code is commented only for temp use, revert it when go to production
               // only for testing
-              if (kDebugMode) {
+              if (kDebugMode &&
+                  _otpPinFieldController.currentState!.controller.text ==
+                      "135791") {
                 onlyForTestingCode();
               } else {
                 checkResponseStateWithButton(
