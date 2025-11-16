@@ -21,7 +21,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
   Widget build(BuildContext context) => StreamBuilder<ApiState<ContactUsMapper>>(
     stream: widget.contactUsBloc.contactUsStream,
     builder: (context, snapshot) {
-      if (snapshot.data == null) {
+      if (snapshot.data == null || snapshot.data?.response == null) {
         return const SizedBox();
       } else
         return checkResponseStateWithLoadingWidget(

@@ -51,6 +51,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
 
   @override
   Widget getBody(BuildContext context) => ListView(
+        padding: EdgeInsets.zero,
         controller: _scrollController,
         shrinkWrap: true,
         children: [

@@ -61,7 +61,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
         padding: EdgeInsetsDirectional.only(start: 16.w,end: 16.w,bottom:(widget.isHavingHomeLogo == false&&widget.title.trim().isEmpty)?0: 20.h),
         child: Column(
           children: [
-            // if (widget.isHavingHomeLogo) 15.verticalSpace,
+            if (widget.isHavingHomeLogo) 15.verticalSpace,
             if (widget.isHavingHomeLogo) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

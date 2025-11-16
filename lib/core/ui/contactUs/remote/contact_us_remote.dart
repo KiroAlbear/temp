@@ -22,7 +22,7 @@ class ContactUsRemote
 
   @override
   Future<bool> refreshToken() async {
-    return true;
+    return false;
   }
 
   ContactUsRemote() {
