@@ -67,14 +67,17 @@ class CancelOrderBottomSheet extends StatelessWidget {
                             textAlignVertical: TextAlignVertical.top,
                             textAlign: TextAlign.justify,
                             onChanged: (value) {
-                              myOrdersBloc.cancelOrderReason.sink.add(value);
+                              myOrdersBloc.cancelOrderReason.add(value);
               
                               if (value.trim().isEmpty) {
                                 myOrdersBloc.buttonBloc.buttonBehavior.sink
                                     .add(ButtonState.idle);
+                                myOrdersBloc.buttonBloc.buttonBehavior.add(ButtonState.idle);
                               } else {
                                 myOrdersBloc.buttonBloc.buttonBehavior.sink
                                     .add(ButtonState.success);
+                                myOrdersBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+
                               }
                             },
                             validator: (value) {
@@ -113,11 +116,14 @@ class CancelOrderBottomSheet extends StatelessWidget {
                   CustomButtonWidget(
                     idleText: S.of(context).next,
                     buttonBehaviour: myOrdersBloc.buttonBloc.buttonBehavior,
-                    validateStream: myOrdersBloc.cancelOrderReason.stream
-                        .map((reason) => reason.trim().isNotEmpty),
+                    buttonColor: disabledButtonColorLightMode,
+                    successColor: primaryColor,
+                    idleTextColor: disabledButtonTextColorLightMode,
+                    // textColor: disabledButtonTextColorLightMode,
+
                     onTap: () {
                       if (!_formKey.currentState!.validate()) return;
-              
+
                       final int clientId =
                           int.tryParse(SharedPrefModule().userId ?? "0") ?? 0;
                       myOrdersBloc.cancelOrder(OrderCancelRequest(
