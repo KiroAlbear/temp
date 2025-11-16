@@ -58,8 +58,7 @@ mixin ResponseHandlerModule {
       } else {
         return _getAnimWidget(child: onSuccess);
       }
-    }
-    else if (apiState is LoadingState) {
+    } else if (apiState is LoadingState) {
       print("********* LoadingState");
 
       if (useExpanded) {
@@ -70,8 +69,7 @@ mixin ResponseHandlerModule {
         return _getAnimWidget(
             child: _getLoadingWidget(loaderColor, loaderSize, context));
       }
-    }
-    else if (apiState is SuccessState) {
+    } else if (apiState is SuccessState) {
       onSuccessFunction?.call();
       print("********* SuccessState");
       if (useExpanded) {
@@ -113,7 +111,7 @@ mixin ResponseHandlerModule {
   Widget _getLoadingWidget(Color? color, double? size, BuildContext context) =>
       CustomProgress(
         color: color ?? Theme.of(context).colorScheme.primary,
-        size: size ?? 0.r,
+        size: size ?? 30.r,
       );
 
   void showErrorDialog(String message, BuildContext context,

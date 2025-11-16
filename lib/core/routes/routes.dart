@@ -212,7 +212,6 @@ class Routes {
           MyOrdersPage(myOrdersBloc: getIt()),
         ),
       ),
-
       GoRoute(
         path: usagePolicyPage,
         name: usagePolicyPage,
@@ -239,7 +238,7 @@ class Routes {
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) {
           final CartOrderDetailsArgs? args =
-          state.extra as CartOrderDetailsArgs?;
+              state.extra as CartOrderDetailsArgs?;
 
           return _fadeTransitionScreenWrapper(
             context,
@@ -317,16 +316,12 @@ class Routes {
                 name: favouritePage,
                 parentNavigatorKey: navigationBarKey,
                 pageBuilder: (context, state) {
-
-
                   return _fadeTransitionScreenWrapper(
                     context,
                     state,
                     favouriteWidget,
                   );
                 }),
-
-
             GoRoute(
               path: productCategoryPage,
               name: productCategoryPage,
@@ -344,9 +339,6 @@ class Routes {
                     ));
               },
             ),
-
-
-
           ],
           builder: (context, state, child) {
             return PopScope(
@@ -361,7 +353,8 @@ class Routes {
 
                       await Routes.navigateToScreen(
                           Routes.homePage, NavigationType.goNamed, context);
-                    } else if (index == 1 && currentNavigationPage != Routes.favouritePage) {
+                    } else if (index == 1 &&
+                        currentNavigationPage != Routes.favouritePage) {
                       currentNavigationPage = Routes.favouritePage;
 
                       getIt<HomeBloc>().reset();
@@ -392,9 +385,6 @@ class Routes {
           }),
     ],
   );
-
-
-
 
   static Future<void> navigateToScreen(
     String screenName,

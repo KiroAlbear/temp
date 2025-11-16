@@ -1636,6 +1636,15 @@ class S {
     );
   }
 
+  String get orderCancelReason {
+    return Intl.message(
+      'Reason for canceling your order',
+      name: 'orderCancelReason',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reason for canceling the order`
   String get orderCancelReasonHint {
     return Intl.message(
@@ -1947,6 +1956,33 @@ class S {
     return Intl.message(
       'Problem with verification code',
       name: 'otpIsNotValid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get firstStep {
+    return Intl.message(
+      "1. Create account",
+      name: 'firstStep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get secondStep {
+    return Intl.message(
+      "2. Choose your location",
+      name: 'secondStep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get thirdStep {
+    return Intl.message(
+      "3. Set your password",
+      name: 'thirdStep',
       desc: '',
       args: [],
     );

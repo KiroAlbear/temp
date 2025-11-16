@@ -1,3 +1,4 @@
+import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,23 +25,31 @@ class CancelOrderBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomText(
-                  textAlign: TextAlign.center,
-                  text: S.of(context).orderCancelConfirmation,
-                  customTextStyle:
-                      RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
-              ImageHelper(
-                  image: Assets.svg.imgCancelOrder, imageType: ImageType.svg),
               SizedBox(
                 height: 10,
+              ),
+              ImageHelper(
+                  image: Assets.png.orderCancel.path,
+                  imageType: ImageType.asset,
+                  width: 150,
+                  height: 150),
+              SizedBox(
+                height: 5,
               ),
               CustomText(
                   textAlign: TextAlign.center,
                   text: S.of(context).orderCancelReasonTitle,
                   customTextStyle:
-                      RegularStyle(color: lightBlackColor, fontSize: 20.sp)),
+                      BoldStyle(color: secondaryColor, fontSize: 18.sp)),
               SizedBox(
-                height: 5,
+                height: 25,
+              ),
+              CustomText(
+                  textAlign: TextAlign.start,
+                  text: S.of(context).orderCancelReason,
+                  customTextStyle: RegularStyle(color: black, fontSize: 15.sp)),
+              SizedBox(
+                height: 10,
               ),
               SizedBox(
                 height: 100.h,
@@ -50,6 +59,17 @@ class CancelOrderBottomSheet extends StatelessWidget {
                     controller: _cancelReasonController,
                     textAlignVertical: TextAlignVertical.top,
                     textAlign: TextAlign.justify,
+                    onChanged: (value) {
+                      myOrdersBloc.cancelOrderReason.sink.add(value);
+
+                      if (value.trim().isEmpty) {
+                        myOrdersBloc.buttonBloc.buttonBehavior.sink
+                            .add(ButtonState.idle);
+                      } else {
+                        myOrdersBloc.buttonBloc.buttonBehavior.sink
+                            .add(ButtonState.success);
+                      }
+                    },
                     validator: (value) {
                       if (value == null ||
                           value.isEmpty ||
@@ -82,6 +102,9 @@ class CancelOrderBottomSheet extends StatelessWidget {
               ),
               CustomButtonWidget(
                 idleText: S.of(context).orderCancelConfirmButton,
+                buttonBehaviour: myOrdersBloc.buttonBloc.buttonBehavior,
+                validateStream: myOrdersBloc.cancelOrderReason.stream
+                    .map((reason) => reason.trim().isNotEmpty),
                 onTap: () {
                   if (!_formKey.currentState!.validate()) return;
 
@@ -99,20 +122,10 @@ class CancelOrderBottomSheet extends StatelessWidget {
                     }
                   });
                 },
-                textColor: Colors.white,
-                buttonColor: redColor,
               ),
               SizedBox(
                 height: 15,
               ),
-              CustomButtonWidget(
-                idleText: S.of(context).orderCancelBackButton,
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                textColor: Colors.white,
-                buttonColor: lightGreyColorLightMode,
-              )
             ],
           ),
         ),

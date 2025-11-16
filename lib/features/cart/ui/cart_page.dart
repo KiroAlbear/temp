@@ -2,19 +2,16 @@ import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 import '../../../core/generated/l10n.dart';
 
 class CartPage extends BaseStatefulWidget {
-
   final CartBloc cartBloc;
 
   final ProductCategoryBloc productCategoryBloc;
 
   CartPage(
-      {required this.cartBloc,
-
-      required this.productCategoryBloc,
-      super.key});
+      {required this.cartBloc, required this.productCategoryBloc, super.key});
 
   @override
   State<CartPage> createState() => _CartScreenState();
@@ -35,7 +32,6 @@ class _CartScreenState extends BaseState<CartPage> {
   @override
   Color? statusBarColor() => Colors.white;
 
-
   @override
   Color? systemNavigationBarColor() => secondaryColor;
 
@@ -47,44 +43,51 @@ class _CartScreenState extends BaseState<CartPage> {
 
   @override
   Widget getBody(BuildContext context) {
-    return  (SharedPrefModule().userId ?? '').isEmpty?NotLoggedInWidget(): Column(
-      children: [
-        AppTopWidget(
-          title: S.of(context).cartTitle,
-          isHavingSupport: true,
-        ),
-        Expanded(
-          child: Stack(
+    return (SharedPrefModule().userId ?? '').isEmpty
+        ? NotLoggedInWidget(
+            title: S.of(context).cartTitle,
+            image: Assets.png.icGuestCart.path,
+            imageType: ImageType.asset,
+          )
+        : Column(
             children: [
-              StreamBuilder(
-                stream: widget.cartBloc.cartProductsBehavior.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.data == null)
-                    return Container();
-                  else
-                    return checkResponseStateWithLoadingWidget(
-                      snapshot.data!,
-                      context,
-                      onSuccess: snapshot.data!.response?.isEmpty ?? true
-                          ? CartEmptyWidget()
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _cartHeader(context),
-                                16.verticalSpace,
-                                _productList(),
-                                _bottomWidget(context)
-                              ],
-                            ),
-                    );
-                },
+              AppTopWidget(
+                title: S.of(context).cartTitle,
+                isHavingSupport: true,
               ),
-              OverlayLoadingWidget(showOverlayLoading: isLoading),
+              Expanded(
+                child: Stack(
+                  children: [
+                    StreamBuilder(
+                      stream: widget.cartBloc.cartProductsBehavior.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.data == null)
+                          return Container();
+                        else
+                          return checkResponseStateWithLoadingWidget(
+                            snapshot.data!,
+                            context,
+                            onSuccess: snapshot.data!.response?.isEmpty ?? true
+                                ? CartEmptyWidget()
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _cartHeader(context),
+                                      16.verticalSpace,
+                                      _productList(),
+                                      _bottomWidget(context)
+                                    ],
+                                  ),
+                          );
+                      },
+                    ),
+                    OverlayLoadingWidget(showOverlayLoading: isLoading),
+                  ],
+                ),
+              ),
             ],
-          ),
-        ),
-      ],
-    );
+          );
   }
 
   Container _bottomWidget(BuildContext context) {
@@ -115,8 +118,8 @@ class _CartScreenState extends BaseState<CartPage> {
                     return CustomText(
                         text: snapshot.data ?? '',
                         textAlign: TextAlign.start,
-                        customTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 14.sp));
+                        customTextStyle: RegularStyle(
+                            color: lightBlackColor, fontSize: 14.sp));
                   },
                 ),
               ],
@@ -126,8 +129,9 @@ class _CartScreenState extends BaseState<CartPage> {
                 height: 48.h,
                 borderRadius: 8,
                 idleText: S.of(context).next,
-                textStyle: MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)
-                    .getStyle(),
+                textStyle:
+                    MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)
+                        .getStyle(),
                 onTap: () async {
                   if (widget.cartBloc.totalSum <=
                       widget.cartBloc.cartMinimumOrderBehaviour.value) {
@@ -136,27 +140,25 @@ class _CartScreenState extends BaseState<CartPage> {
                       message:
                           "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                     );
-                  }
-                  else if(widget.cartBloc.isAnyProductOutOfStock) {
+                  } else if (widget.cartBloc.isAnyProductOutOfStock) {
                     AlertModule().showMessage(
                       context: context,
-                      message:S.of(context).cartProductsNotAvailable,
+                      message: S.of(context).cartProductsNotAvailable,
                     );
-                  }
-                  else if(widget.cartBloc.productsOfMoreThanAvailable.isNotEmpty) {
+                  } else if (widget
+                      .cartBloc.productsOfMoreThanAvailable.isNotEmpty) {
                     AlertModule().showMessage(
                       context: context,
-                      message: "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
+                      message:
+                          "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
                     );
-                  }
-                  else {
+                  } else {
                     showModalBottomSheet(
                         barrierColor: bottomSheetBarrierColor,
                         backgroundColor: whiteColor,
                         useRootNavigator: true,
                         isScrollControlled: false,
                         useSafeArea: true,
-
                         context: context,
                         builder: (context) {
                           return CartBottomSheet(
@@ -165,7 +167,6 @@ class _CartScreenState extends BaseState<CartPage> {
                         });
                   }
                 }),
-
           ],
         ),
       ),
@@ -210,7 +211,8 @@ class _CartScreenState extends BaseState<CartPage> {
                       },
                       onIncrementClicked: (productMapper) {
                         isLoading.value = true;
-                        CartCommonFunctions().editCart(
+                        CartCommonFunctions()
+                            .editCart(
                           cartBloc: widget.cartBloc,
                           cartItemId: snapshot.data!.response![index].id,
                           productId: snapshot.data!.response![index].productId,
@@ -218,7 +220,8 @@ class _CartScreenState extends BaseState<CartPage> {
                               snapshot.data!.response![index].cartUserQuantity,
                           price: snapshot.data!.response![index].finalPrice,
                           state: CartState.increment,
-                        ).listen((event) {
+                        )
+                            .listen((event) {
                           if (event is SuccessState) {
                             // widget.cartBloc.getMyCart();
                             isLoading.value = false;
@@ -280,11 +283,10 @@ class _CartScreenState extends BaseState<CartPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomText(
-                              text:
-                              "${S.of(context).cartMinimumOrder} ",
+                              text: "${S.of(context).cartMinimumOrder} ",
                               textAlign: TextAlign.center,
-                              customTextStyle:
-                              RegularStyle(color: whiteColor, fontSize: 12.sp),
+                              customTextStyle: RegularStyle(
+                                  color: whiteColor, fontSize: 12.sp),
                             ),
                             CustomText(
                               text:

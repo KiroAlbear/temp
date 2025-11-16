@@ -143,8 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterPlatformName":
             MessageLookupByLibrary.simpleMessage("Enter establishment name"),
         "platformType": MessageLookupByLibrary.simpleMessage("Platform type"),
-        "choosePlatformType": MessageLookupByLibrary.simpleMessage("Chose Platform type"),
-
+        "choosePlatformType":
+            MessageLookupByLibrary.simpleMessage("Chose Platform type"),
         "enterStreetName": MessageLookupByLibrary.simpleMessage(
             "Enter the building number and street name"),
         "enterVerificationCode":
@@ -219,7 +219,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to cancel this order?"),
         "orderCancelReasonHint": MessageLookupByLibrary.simpleMessage(
             "Reason for canceling the order"),
-        "orderCancelReasonTitle": MessageLookupByLibrary.simpleMessage(
+        "orderCancelReasonTitle":
+            MessageLookupByLibrary.simpleMessage("Cancel Order"),
+        "orderCancelReason": MessageLookupByLibrary.simpleMessage(
             "Reason for canceling your order"),
         "orderCancelReasonValidation": MessageLookupByLibrary.simpleMessage(
             "Please enter a reason for canceling the order"),
@@ -330,5 +332,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("You need to login"),
         "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile"),
         "goToMainPage": MessageLookupByLibrary.simpleMessage("Go to main page"),
+        "firstStep": MessageLookupByLibrary.simpleMessage("1. Create account"),
+        "secondStep":
+            MessageLookupByLibrary.simpleMessage("2. Choose your location"),
+        "thirdStep":
+            MessageLookupByLibrary.simpleMessage("3. Set your password"),
       };
 }

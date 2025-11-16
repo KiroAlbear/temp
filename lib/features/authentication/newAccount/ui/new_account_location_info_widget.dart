@@ -20,25 +20,27 @@ class NewAccountLocationInfoWidget extends BaseStatefulWidget {
 }
 
 class _NewAccountLocationInfoWidgetState
-    extends BaseState<NewAccountLocationInfoWidget>  {
+    extends BaseState<NewAccountLocationInfoWidget> {
   @override
   PreferredSizeWidget? appBar() => null;
 
   @override
-  bool canPop() =>true;
+  bool canPop() => true;
 
   @override
-  bool isSafeArea()=> false;
+  bool isSafeArea() => false;
 
   @override
   bool get useCustomScaffold => true;
-
 
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
   @override
   Color? statusBarColor() => Colors.white;
+
+  @override
+  double appTopPadding() => 0;
 
   @override
   Widget getBody(BuildContext context) => Column(
@@ -73,10 +75,6 @@ class _NewAccountLocationInfoWidgetState
               height: 24.h,
             ),
             _cityAndDistrictRow,
-            SizedBox(
-              height: 21.h,
-            ),
-
           ]);
   // ValueNotifier<bool> _isLocationDetected = ValueNotifier(true);
 
@@ -96,7 +94,9 @@ class _NewAccountLocationInfoWidgetState
                         // widget.newAccountBloc
                         //     .nextStep(NewAccountStepEnum.editLocation);
 
-                        Routes.navigateToScreen(Routes.editLocationPage, NavigationType.pushNamed, context,extra: widget.newAccountBloc);
+                        Routes.navigateToScreen(Routes.editLocationPage,
+                            NavigationType.pushNamed, context,
+                            extra: widget.newAccountBloc);
                       },
                       latitude: latitudeSnapShot.data,
                       longitude: longitudeSnapShot.data,
@@ -202,6 +202,7 @@ class _NewAccountLocationInfoWidgetState
                     textInputType: TextInputType.none,
                     textInputAction: TextInputAction.done,
                     readOnly: true,
+                    isDropDownMenu: true,
                     onTap: () {
                       _showStateDropDown(snapshot.data?.response ?? []);
                     },

@@ -32,7 +32,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final deelVersionNumber = "0.1.13";
+  final deelVersionNumber = "0.1.15";
 
   @override
   void initState() {
@@ -60,7 +60,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
   }
 
   @override
-  void onPopInvoked(didPop) {}
+  void onPopInvoked(didPop) {
+    super.onPopInvoked(didPop);
+  }
 
   @override
   Widget getBody(BuildContext context) =>
@@ -80,6 +82,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
         _logoWidget,
         Expanded(
           child: ListView(
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             children: [
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
@@ -595,9 +598,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
           hasCloseButton: true,
           sameButtonsColor: false,
           onConfirm: () {
-            widget.moreBloc.deactivateAccountStream.listen((event) {
+            widget.moreBloc.deactivateAccountStream.listen((event) async {
               if (event is SuccessState) {
-                AppProviderModule().logout(context);
+                await AppProviderModule()
+                    .logout(Routes.rootNavigatorKey.currentState!.context);
+
+                // Routes.navigateToScreen(
+                //     Routes.loginPage, NavigationType.goNamed, context);
                 widget.moreBloc.selectedFileBehaviour.sink.add("");
               }
             });
