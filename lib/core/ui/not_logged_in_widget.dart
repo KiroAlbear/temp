@@ -8,7 +8,13 @@ import '../generated/l10n.dart';
 
 class NotLoggedInWidget extends BaseStatefulWidget {
   final String title;
-  const NotLoggedInWidget({super.key, required this.title});
+  final String image;
+  final ImageType imageType;
+  const NotLoggedInWidget(
+      {super.key,
+      required this.title,
+      required this.image,
+      required this.imageType});
 
   @override
   State<NotLoggedInWidget> createState() => _NotLoggedInWidgetState();
@@ -39,8 +45,7 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ImageHelper(
-                  image: Assets.svg.imgCancelOrder, imageType: ImageType.svg),
+              ImageHelper(image: widget.image, imageType: widget.imageType),
               SizedBox(
                 height: 18.h,
               ),

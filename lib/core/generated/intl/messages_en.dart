@@ -219,7 +219,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to cancel this order?"),
         "orderCancelReasonHint": MessageLookupByLibrary.simpleMessage(
             "Reason for canceling the order"),
-        "orderCancelReasonTitle": MessageLookupByLibrary.simpleMessage(
+        "orderCancelReasonTitle":
+            MessageLookupByLibrary.simpleMessage("Cancel Order"),
+        "orderCancelReason": MessageLookupByLibrary.simpleMessage(
             "Reason for canceling your order"),
         "orderCancelReasonValidation": MessageLookupByLibrary.simpleMessage(
             "Please enter a reason for canceling the order"),

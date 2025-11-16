@@ -1636,6 +1636,15 @@ class S {
     );
   }
 
+  String get orderCancelReason {
+    return Intl.message(
+      'Reason for canceling your order',
+      name: 'orderCancelReason',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reason for canceling the order`
   String get orderCancelReasonHint {
     return Intl.message(

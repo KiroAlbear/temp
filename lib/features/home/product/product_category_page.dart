@@ -148,6 +148,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
           widget.isForFavourite)
       ? NotLoggedInWidget(
           title: S.of(context).favourite,
+          image: Assets.svg.imgGuestFavourite,
+          imageType: ImageType.svg,
         )
       : Column(
           children: [

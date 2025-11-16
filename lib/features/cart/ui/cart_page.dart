@@ -2,6 +2,7 @@ import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 import '../../../core/generated/l10n.dart';
 
 class CartPage extends BaseStatefulWidget {
@@ -45,6 +46,8 @@ class _CartScreenState extends BaseState<CartPage> {
     return (SharedPrefModule().userId ?? '').isEmpty
         ? NotLoggedInWidget(
             title: S.of(context).cartTitle,
+            image: Assets.png.icGuestCart.path,
+            imageType: ImageType.asset,
           )
         : Column(
             children: [
