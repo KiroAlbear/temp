@@ -113,17 +113,17 @@ class _CartScreenState extends BaseState<CartPage> {
                   },
                 ),
                 StreamBuilder(
-                  stream: widget.cartBloc.cartProductsBehavior.stream,
+                  stream: widget.cartBloc.cartTotaDiscountStringBehaviour.stream,
                   builder: (context, snapshot) {
                     return CustomText(
-                        text: snapshot.data?.response?.second.first.finalPrice.toString() ?? '',
+                        text: snapshot.data.toString() ?? '',
                         textAlign: TextAlign.start,
                         customTextStyle: BoldStyle(
                             color: darkSecondaryColor, fontSize: 14.sp));
                   },
                 ),
                 StreamBuilder(
-                  stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
+                  stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
                   builder: (context, snapshot) {
                     return CustomText(
                         text: snapshot.data ?? '',

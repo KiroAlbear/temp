@@ -324,7 +324,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
 
   Widget deliveryFees() {
     return StreamBuilder(
-        stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
+        stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
         builder: (context, snapshot) {
           return !snapshot.hasData
               ? SizedBox()

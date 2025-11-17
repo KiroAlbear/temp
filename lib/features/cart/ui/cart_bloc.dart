@@ -20,7 +20,9 @@ class CartBloc extends BlocBase {
   BehaviorSubject<String> dateBehaviour = BehaviorSubject();
   BehaviorSubject<String> timeBehaviour = BehaviorSubject();
   BehaviorSubject<List<CartProductQty>> itemsBehaviour = BehaviorSubject();
-  BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
+  BehaviorSubject<String> cartTotalDeliveryStringBehaviour = BehaviorSubject();
+  BehaviorSubject<String> cartTotaDiscountStringBehaviour = BehaviorSubject();
+  BehaviorSubject<double> cartTotaDiscountBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartOrderDetailsTotalBehaviour = BehaviorSubject();
   BehaviorSubject<double> cartOrderDetailsTotalDoubleBehaviour =
@@ -95,15 +97,21 @@ class CartBloc extends BlocBase {
     // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
     double totalWithDelivery = parsedTotalSum + deliveryFees;
+    double totalDiscount = cartTotaDiscountBehaviour.value;
 
     cartOrderDetailsTotalDoubleBehaviour.sink.add(totalWithDelivery);
 
     cartTotalBehaviour.sink.add("$parsedTotalSum $currency");
-    cartOrderDetailsTotalBehaviour.sink.add("${totalWithDelivery} $currency");
+    cartOrderDetailsTotalBehaviour.sink.add("${totalWithDelivery + totalDiscount} $currency");
   }
 
   void _getTotalCartDeliverySum() {
-    cartTotalDeliveryBehaviour.sink.add('+ $deliveryFees  ج.م. التوصيل');
+    cartTotalDeliveryStringBehaviour.sink.add('+ $deliveryFees  ج.م. التوصيل');
+  }
+
+  void _getTotalCartDiscountSum(double discount) {
+    cartTotaDiscountBehaviour.sink.add(discount);
+    cartTotaDiscountStringBehaviour.sink.add('$discount  ج.م ');
   }
 
   void _getCartMinimumOrder() {
@@ -293,6 +301,7 @@ class CartBloc extends BlocBase {
             // stream.sink.add(getCartEvent);
             orderId = getCartEvent.response?.getFirst.first.orderId ?? 0;
             getcartProductQtyList(getCartEvent.response!.getFirst);
+            _getTotalCartDiscountSum(getCartEvent.response!.second.first.finalPrice );
             getTotalCartSum(cartRemote.myOrderResponse);
 
             cartProductsBehavior.sink.add(SuccessState(Pair(first: addAvailabilityToProduct(
