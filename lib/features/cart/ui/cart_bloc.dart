@@ -96,9 +96,10 @@ class CartBloc extends BlocBase {
 
     // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
-    double totalWithDelivery = parsedTotalSum + deliveryFees;
+    double totalWithDelivery =
+        double.parse((parsedTotalSum + deliveryFees).toStringAsFixed(2));
     double totalDiscount = cartTotaDiscountBehaviour.hasValue
-        ? cartTotaDiscountBehaviour.value
+        ? double.parse(cartTotaDiscountBehaviour.value.toStringAsFixed(2))
         : 0;
 
     cartTotalBeforeDiscountDoubleBehaviour.sink.add(totalWithDelivery);
