@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../core/dto/modules/pair.dart';
 import '../models/latlong.dart';
 
 enum CartState { increment, decrement }
 
 class CartBloc extends BlocBase {
   final ButtonBloc buttonBloc = ButtonBloc();
-  BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
+  BehaviorSubject<ApiState<Pair<List<ProductMapper>,List<ProductMapper>>>> cartProductsBehavior =
       BehaviorSubject();
 
   BehaviorSubject<String> addressBehaviour = BehaviorSubject();
@@ -172,7 +173,7 @@ class CartBloc extends BlocBase {
 
   void addCartInfoToProducts(List<ProductMapper> productsList) {
     if (cartProductsBehavior.hasValue == true &&
-        (cartProductsBehavior.value.response?.isEmpty ?? true)) {
+        (cartProductsBehavior.value.response?.getFirst.isEmpty ?? true)) {
       // return;
       for (int i = 0; i < productsList.length; i++) {
         productsList[i].cartUserQuantity = 0;
@@ -183,14 +184,14 @@ class CartBloc extends BlocBase {
     } else {
       if (cartProductsBehavior.hasValue == false) return;
       for (int i = 0; i < productsList.length; i++) {
-        for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
+        for (int j = 0; j < cartProductsBehavior.value.response!.getFirst.length; j++) {
           if (productsList[i].id ==
-              cartProductsBehavior.value.response![j].productId) {
+              cartProductsBehavior.value.response!.getFirst[j].productId) {
             productsList[i].cartUserQuantity =
-                cartProductsBehavior.value.response![j].quantity;
+                cartProductsBehavior.value.response!.getFirst[j].quantity;
 
             productsList[i].productId =
-                cartProductsBehavior.value.response![j].id;
+                cartProductsBehavior.value.response!.getFirst[j].id;
           }
         }
       }
@@ -281,21 +282,21 @@ class CartBloc extends BlocBase {
     if (clientId == 0) return;
 
     cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) async {
-      if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
+      if (getCartEvent is SuccessState && getCartEvent.response!.getFirst.isNotEmpty) {
         cartCheckAvailabilityRemote
             .checkAvailability(CartCheckAvailabilityRequest(
                 client_id: clientId,
                 product_ids:
-                    getCartEvent.response!.map((e) => e.productId).toList()))
+                    getCartEvent.response!.getFirst.map((e) => e.productId).toList()))
             .listen((checkAvailabilityEvent) async {
           if (checkAvailabilityEvent is SuccessState) {
             // stream.sink.add(getCartEvent);
-            orderId = getCartEvent.response?.first.orderId ?? 0;
-            getcartProductQtyList(getCartEvent.response!);
+            orderId = getCartEvent.response?.getFirst.first.orderId ?? 0;
+            getcartProductQtyList(getCartEvent.response!.getFirst);
             getTotalCartSum(cartRemote.myOrderResponse);
 
-            cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
-                getCartEvent.response!, checkAvailabilityEvent.response!)));
+            cartProductsBehavior.sink.add(SuccessState(Pair(first: addAvailabilityToProduct(
+                getCartEvent.response!.getFirst, checkAvailabilityEvent.response!),second:getCartEvent.response!.second )));
 
             if (onGettingCart != null) {
               onGettingCart();
@@ -308,12 +309,16 @@ class CartBloc extends BlocBase {
             // cartFinishCallingApi.sink.add(cartFinishCallingApi.value! + 1);
           }
         });
-      } else if (getCartEvent.response?.isEmpty ?? true) {
+      } else if (getCartEvent.response?.getFirst.isEmpty ?? true) {
         if (isEditing == false) {
           if (apiState != null && stream != null) {
             stream.sink.add(apiState);
           }
-          cartProductsBehavior.sink.add((getCartEvent));
+          if(getCartEvent.response?.getFirst == null){
+            cartProductsBehavior.sink.add(LoadingState());
+          }else{
+            cartProductsBehavior.sink.add((SuccessState(getCartEvent.response!)));
+          }
           if (onGettingCart != null) {
             onGettingCart();
           }

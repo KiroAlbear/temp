@@ -67,7 +67,7 @@ class _CartScreenState extends BaseState<CartPage> {
                           return checkResponseStateWithLoadingWidget(
                             snapshot.data!,
                             context,
-                            onSuccess: snapshot.data!.response?.isEmpty ?? true
+                            onSuccess: snapshot.data!.response?.getFirst.isEmpty ?? true
                                 ? CartEmptyWidget()
                                 : Column(
                                     crossAxisAlignment:
@@ -183,23 +183,23 @@ class _CartScreenState extends BaseState<CartPage> {
                 child: ListView.separated(
                   separatorBuilder: (context, index) => 16.verticalSpace,
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.response!.length,
+                  itemCount: snapshot.data!.response!.getFirst.length,
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
                       icDelete: Assets.svg.icDelete,
-                      productMapper: snapshot.data!.response![index],
+                      productMapper: snapshot.data!.response!.getFirst[index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {
                         isLoading.value = true;
                         CartCommonFunctions()
                             .editCart(
                           cartBloc: widget.cartBloc,
-                          cartItemId: snapshot.data!.response![index].id,
-                          productId: snapshot.data!.response![index].productId,
+                          cartItemId: snapshot.data!.response!.getFirst[index].id,
+                          productId: snapshot.data!.response!.getFirst[index].productId,
                           quantity:
-                              snapshot.data!.response![index].cartUserQuantity,
-                          price: snapshot.data!.response![index].finalPrice,
+                              snapshot.data!.response!.getFirst[index].cartUserQuantity,
+                          price: snapshot.data!.response!.getFirst[index].finalPrice,
                           state: CartState.decrement,
                         )
                             .listen((event) {
@@ -214,11 +214,11 @@ class _CartScreenState extends BaseState<CartPage> {
                         CartCommonFunctions()
                             .editCart(
                           cartBloc: widget.cartBloc,
-                          cartItemId: snapshot.data!.response![index].id,
-                          productId: snapshot.data!.response![index].productId,
+                          cartItemId: snapshot.data!.response!.getFirst[index].id,
+                          productId: snapshot.data!.response!.getFirst[index].productId,
                           quantity:
-                              snapshot.data!.response![index].cartUserQuantity,
-                          price: snapshot.data!.response![index].finalPrice,
+                              snapshot.data!.response!.getFirst[index].cartUserQuantity,
+                          price: snapshot.data!.response!.getFirst[index].finalPrice,
                           state: CartState.increment,
                         )
                             .listen((event) {
@@ -234,10 +234,10 @@ class _CartScreenState extends BaseState<CartPage> {
                         CartCommonFunctions()
                             .editCart(
                           cartBloc: widget.cartBloc,
-                          cartItemId: snapshot.data!.response![index].id,
-                          productId: snapshot.data!.response![index].productId,
+                          cartItemId: snapshot.data!.response!.getFirst[index].id,
+                          productId: snapshot.data!.response!.getFirst[index].productId,
                           quantity: 0,
-                          price: snapshot.data!.response![index].finalPrice,
+                          price: snapshot.data!.response!.getFirst[index].finalPrice,
                           state: CartState.decrement,
                         )
                             .listen((event) {

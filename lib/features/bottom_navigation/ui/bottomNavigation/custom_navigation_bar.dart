@@ -37,10 +37,10 @@ class CustomNavigationBar extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData &&
                   snapshot.data!.response != null &&
-                  snapshot.data!.response!.isNotEmpty) {
-                _cartCounter = snapshot.data!.response!.length;
+                  snapshot.data!.response!.getFirst.isNotEmpty) {
+                _cartCounter = snapshot.data!.response!.getFirst.length;
               } else if (snapshot.data?.response != null &&
-                  snapshot.data!.response!.isEmpty) {
+                  snapshot.data!.response!.getFirst.isEmpty) {
                 _cartCounter = 0;
               }
               return  _cartCounter == 0?SizedBox(): Container(
