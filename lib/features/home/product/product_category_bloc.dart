@@ -25,7 +25,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   // BehaviorSubject<ApiState<List<ProductMapper>>>
   //     productBySubCategoryBrandStream = BehaviorSubject();
 
-  void loadMore(bool isForFavourite,Function? onGettingMoreProducts) {
+  void loadMore(bool isForFavourite, Function? onGettingMoreProducts) {
     // await loadedListStream.drain();
     Stream<ApiState<List<ProductMapper>>> stream = Stream.empty();
     if (isForFavourite) {
@@ -53,8 +53,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
     loadedListBehaviour.close();
     loadedListBehaviour.stream.drain();
-    loadedListBehaviour =
-    BehaviorSubject()..sink.add(LoadingState());
+    loadedListBehaviour = BehaviorSubject()..sink.add(LoadingState());
     super.reset();
   }
 
@@ -64,12 +63,10 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     brandId = null;
     isLoading?.value = false;
 
-    loadedListBehaviour.close();
-    loadedListBehaviour.stream.drain();
+    // loadedListBehaviour.close();
+    // loadedListBehaviour.stream.drain();
 
-    loadedListBehaviour =
-    BehaviorSubject()..sink.add(LoadingState());
-
+    // loadedListBehaviour = BehaviorSubject()..sink.add(LoadingState());
 
     super.reset();
   }
@@ -84,11 +81,11 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         if (onGettingMoreProducts != null) {
           onGettingMoreProducts();
         }
-      }else{
+      } else {
         isLoading?.value = false;
       }
     }).onError((error, stackTrace) {
-       isLoading?.value = false;
+      isLoading?.value = false;
     });
   }
 
@@ -286,22 +283,21 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     }
   }
 
-  void getProductsByBrandId(int brandId){
-      ProductRemote()
-          .loadProductByBrand(ProductBrandRequest(
-              brand_id: brandId, page: pageNumber, limit: pageSize))
-          .listen(
-        (event) {
-          if (event is SuccessState &&
-              event.response != null &&
-              event.response!.isNotEmpty) {
-            _handleProductResponse(event.response);
-
-          } else if (event.response != null && event.response!.isEmpty) {
-            _handleProductResponse(null);
-          }
-        },
-      );
+  void getProductsByBrandId(int brandId) {
+    ProductRemote()
+        .loadProductByBrand(ProductBrandRequest(
+            brand_id: brandId, page: pageNumber, limit: pageSize))
+        .listen(
+      (event) {
+        if (event is SuccessState &&
+            event.response != null &&
+            event.response!.isNotEmpty) {
+          _handleProductResponse(event.response);
+        } else if (event.response != null && event.response!.isEmpty) {
+          _handleProductResponse(null);
+        }
+      },
+    );
   }
 
   void _handleBrandResponse(List<BrandMapper>? response, int? subCategory) {
