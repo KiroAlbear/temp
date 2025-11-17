@@ -178,9 +178,11 @@ class _CartScreenState extends BaseState<CartPage> {
             StreamBuilder(
               stream: widget.cartBloc.cartTotaDiscountStringBehaviour.stream,
               builder: (context, snapshot) {
-                return _bottomCalculationsWidget(
-                    "إجمالي الخصم", snapshot.data ?? '',
-                    color: redColor);
+                return (snapshot.hasData == false || snapshot.data == "")
+                    ? SizedBox()
+                    : _bottomCalculationsWidget(
+                        "إجمالي الخصم", snapshot.data ?? '',
+                        color: redColor);
                 CustomText(
                     text: snapshot.data.toString() ?? '',
                     textAlign: TextAlign.start,

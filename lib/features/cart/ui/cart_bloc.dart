@@ -97,7 +97,9 @@ class CartBloc extends BlocBase {
     // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
     double totalWithDelivery = parsedTotalSum + deliveryFees;
-    double totalDiscount = cartTotaDiscountBehaviour.value;
+    double totalDiscount = cartTotaDiscountBehaviour.hasValue
+        ? cartTotaDiscountBehaviour.value
+        : 0;
 
     cartTotalBeforeDiscountDoubleBehaviour.sink.add(totalWithDelivery);
 
@@ -111,8 +113,13 @@ class CartBloc extends BlocBase {
   }
 
   void _getTotalCartDiscountSum(double discount) {
-    cartTotaDiscountBehaviour.sink.add(discount);
-    cartTotaDiscountStringBehaviour.sink.add('$discount  ج.م ');
+    if (discount < 0) {
+      cartTotaDiscountBehaviour.sink.add(discount);
+      cartTotaDiscountStringBehaviour.sink.add('$discount  ج.م ');
+    } else {
+      cartTotaDiscountBehaviour.sink.add(0);
+      cartTotaDiscountStringBehaviour.sink.add('');
+    }
   }
 
   void _getCartMinimumOrder() {
@@ -306,8 +313,15 @@ class CartBloc extends BlocBase {
             // stream.sink.add(getCartEvent);
             orderId = getCartEvent.response?.getFirst.first.orderId ?? 0;
             getcartProductQtyList(getCartEvent.response!.getFirst);
-            _getTotalCartDiscountSum(
-                getCartEvent.response!.second.first.finalPrice);
+            if (getCartEvent.response != null &&
+                getCartEvent.response!.second.isNotEmpty &&
+                getCartEvent.response?.second.first != null) {
+              _getTotalCartDiscountSum(
+                  getCartEvent.response?.second.first.finalPrice ?? 0);
+            } else {
+              _getTotalCartDiscountSum(0);
+            }
+
             getTotalCartSum(cartRemote.myOrderResponse);
 
             cartProductsBehavior.sink.add(SuccessState(Pair(
