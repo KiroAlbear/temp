@@ -232,27 +232,30 @@ class _OtpWidgetState extends BaseState<OtpPage> {
             (value) {
               //TODO: this code is commented only for temp use, revert it when go to production
               // only for testing
-              if (kDebugMode &&
-                  _otpPinFieldController.currentState!.controller.text ==
-                      "135791") {
+              if (kDebugMode) {
                 onlyForTestingCode();
               } else {
-                checkResponseStateWithButton(
-                  value,
-                  context,
-                  buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                  failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                  onSuccess: () {
-                    widget.authenticationSharedBloc.userData = _bloc.userData;
-                    Routes.navigateToScreen(widget.nextPage,
-                        NavigationType.pushReplacementNamed, context);
+                if (_otpPinFieldController.currentState!.controller.text ==
+                    "135791") {
+                  onlyForTestingCode();
+                } else {
+                  checkResponseStateWithButton(
+                    value,
+                    context,
+                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                    onSuccess: () {
+                      widget.authenticationSharedBloc.userData = _bloc.userData;
+                      Routes.navigateToScreen(widget.nextPage,
+                          NavigationType.pushReplacementNamed, context);
 
-                    // CustomNavigatorModule.navigatorKey.currentState
-                    //     ?.pushReplacementNamed(
-                    //   widget.authenticationSharedBloc.nextScreen,
-                    // );
-                  },
-                );
+                      // CustomNavigatorModule.navigatorKey.currentState
+                      //     ?.pushReplacementNamed(
+                      //   widget.authenticationSharedBloc.nextScreen,
+                      // );
+                    },
+                  );
+                }
               }
             },
           );
