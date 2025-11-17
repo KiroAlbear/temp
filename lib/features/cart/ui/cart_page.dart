@@ -113,6 +113,16 @@ class _CartScreenState extends BaseState<CartPage> {
                   },
                 ),
                 StreamBuilder(
+                  stream: widget.cartBloc.cartProductsBehavior.stream,
+                  builder: (context, snapshot) {
+                    return CustomText(
+                        text: snapshot.data?.response?.second.first.finalPrice.toString() ?? '',
+                        textAlign: TextAlign.start,
+                        customTextStyle: BoldStyle(
+                            color: darkSecondaryColor, fontSize: 14.sp));
+                  },
+                ),
+                StreamBuilder(
                   stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
                   builder: (context, snapshot) {
                     return CustomText(
