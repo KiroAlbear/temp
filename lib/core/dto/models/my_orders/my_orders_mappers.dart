@@ -13,13 +13,13 @@ class MyOrdersMapper {
           : "";
       OrdersMapper order = OrdersMapper(
           id: e.id!,
-          totalPrice: "${e.amountUnpaid!.toString()} $currency",
+          totalPrice: "${getOrderSum(e)} $currency",
           itemsCount: e.itemsCount!,
-          sendingOrder: getFormatedDate(e.sendingOrder ??""),
-          acceptingOrder: getFormatedDate(e.acceptingOrder??""),
-          shippingOrder: getFormatedDate(e.shippingOrder??""),
-          outOrder: getFormatedDate(e.outOrder??""),
-          deliverOrder: getFormatedDate(e.deliveredOrder??""),
+          sendingOrder: getFormatedDate(e.sendingOrder ?? ""),
+          acceptingOrder: getFormatedDate(e.acceptingOrder ?? ""),
+          shippingOrder: getFormatedDate(e.shippingOrder ?? ""),
+          outOrder: getFormatedDate(e.outOrder ?? ""),
+          deliverOrder: getFormatedDate(e.deliveredOrder ?? ""),
           state: e.state,
           items: getOrderItems(e));
       if (e.deliveredOrder == null && e.state != "cancel") {
@@ -31,15 +31,14 @@ class MyOrdersMapper {
   }
 
   String? getFormatedDate(String date) {
+    if (date.isEmpty) return null;
 
-    if(date.isEmpty)
-      return null;
-
-    DateTime gmtTime = DateTime.parse(date+ 'Z').toUtc();
+    DateTime gmtTime = DateTime.parse(date + 'Z').toUtc();
 
     DateTime localTime = gmtTime.toLocal();
 
-    final formatedDate = DateFormat('hh:mm:ss  yyyy-MM-dd',"en").format(localTime);
+    final formatedDate =
+        DateFormat('hh:mm:ss  yyyy-MM-dd', "en").format(localTime);
 
     // String? removedTFromData =
     //     date?.replaceAll("T", "   ").split(" ").reversed.join(" ").toString();
@@ -49,17 +48,27 @@ class MyOrdersMapper {
     return formatedDate;
   }
 
+  double getOrderSum(MyOrdersResponse orderResponse) {
+    double sum = 0;
+    for (var i = 0; i < orderResponse.items!.length; i++) {
+      sum += (orderResponse.items![i].price_total ?? 0);
+    }
+    return sum;
+  }
+
   List<OrderItemMapper> getOrderItems(MyOrdersResponse orderResponse) {
     List<OrderItemMapper> items = [];
     for (var i = 0; i < orderResponse.items!.length; i++) {
-      items.add(OrderItemMapper(
-          id: orderResponse.items![i].id!,
-          title: orderResponse.items![i].name!,
-          description: orderResponse.items![i].description!,
-          image: orderResponse.items![i].image,
-          price:
-              "${orderResponse.items![i].price_total!.toString()} ${orderResponse.items![i].currency![1]}",
-          count: orderResponse.items![i].count!.toInt()));
+      if ((orderResponse.items![i].price_total ?? 0) > 0) {
+        items.add(OrderItemMapper(
+            id: orderResponse.items![i].id!,
+            title: orderResponse.items![i].name!,
+            description: orderResponse.items![i].description!,
+            image: orderResponse.items![i].image,
+            price:
+                "${orderResponse.items![i].price_total!.toString()} ${orderResponse.items![i].currency![1]}",
+            count: orderResponse.items![i].count!.toInt()));
+      }
     }
     return items;
   }
