@@ -30,6 +30,9 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
   }
 
   @override
+  double appTopPadding() => 0;
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(

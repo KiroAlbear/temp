@@ -108,7 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "contactUs": MessageLookupByLibrary.simpleMessage("تواصل معنا"),
-        "createAccount": MessageLookupByLibrary.simpleMessage("انشاء حساب"),
+        "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "currentOrders":
             MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
         "address": MessageLookupByLibrary.simpleMessage("العنوان"),
@@ -170,13 +170,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "invalidMobile":
             MessageLookupByLibrary.simpleMessage("رقم الجوال غير صالح"),
-
         "invalidWallet":
-        MessageLookupByLibrary.simpleMessage("يجب كتابة ١١ رقم"),
-
+            MessageLookupByLibrary.simpleMessage("يجب كتابة ١١ رقم"),
         "invalidPayment":
-        MessageLookupByLibrary.simpleMessage("حدثت مشكلة في الدفع"),
-
+            MessageLookupByLibrary.simpleMessage("حدثت مشكلة في الدفع"),
         "itemsDetails": MessageLookupByLibrary.simpleMessage("تفاصيل المنتجات"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "locationYourLocation":
@@ -219,7 +216,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderCancelReasonHint":
             MessageLookupByLibrary.simpleMessage("سبب إلغاء الطلب"),
         "orderCancelReasonTitle":
-            MessageLookupByLibrary.simpleMessage("سبب إلغاء طلبك"),
+            MessageLookupByLibrary.simpleMessage("إلغاء الطلب"),
+        "orderCancelReason":
+            MessageLookupByLibrary.simpleMessage("برجاء توضيح سبب إلغاء الطلب"),
         "orderCancelReasonValidation": MessageLookupByLibrary.simpleMessage(
             "الرجاء إدخال سبب إلغاء الطلب"),
         "orderDelivered": MessageLookupByLibrary.simpleMessage("تسليم الطلب"),
@@ -253,6 +252,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickLocationEnsureMessage": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد تحديد هذا الموقع؟"),
         "platformName": MessageLookupByLibrary.simpleMessage("اسم المنشأه"),
+        "platformType": MessageLookupByLibrary.simpleMessage("نوع المنشأه"),
+        "choosePlatformType":
+            MessageLookupByLibrary.simpleMessage("اختر نوع المنشأه"),
         "previous": MessageLookupByLibrary.simpleMessage("السابق"),
         "previousOrder": MessageLookupByLibrary.simpleMessage("طلباتي السابقة"),
         "productIsNotAvailable":
@@ -324,6 +326,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "اطلب كل احتياجاتك من نفس المكان دلوقتي"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("انت تحتاج الي تسجيل الدخول"),
-        "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف")
+        "yourMobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+        "goToMainPage":
+            MessageLookupByLibrary.simpleMessage("الذهاب الي الرئيسية"),
+        "firstStep": MessageLookupByLibrary.simpleMessage("١. انشاء حساب"),
+        "secondStep": MessageLookupByLibrary.simpleMessage("٢. حدد موقع محلك"),
+        "thirdStep": MessageLookupByLibrary.simpleMessage("٣. تعيين كلمة السر"),
       };
 }

@@ -142,6 +142,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter the neighborhood name"),
         "enterPlatformName":
             MessageLookupByLibrary.simpleMessage("Enter establishment name"),
+        "platformType": MessageLookupByLibrary.simpleMessage("Platform type"),
+        "choosePlatformType":
+            MessageLookupByLibrary.simpleMessage("Chose Platform type"),
         "enterStreetName": MessageLookupByLibrary.simpleMessage(
             "Enter the building number and street name"),
         "enterVerificationCode":
@@ -172,9 +175,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("How can we help?"),
         "inValidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidMobile": MessageLookupByLibrary.simpleMessage("Invalid mobile"),
-        "invalidWallet": MessageLookupByLibrary.simpleMessage("11 numbers are required"),
-        "invalidPayment":
-        MessageLookupByLibrary.simpleMessage("Something went wrong with payment"),
+        "invalidWallet":
+            MessageLookupByLibrary.simpleMessage("11 numbers are required"),
+        "invalidPayment": MessageLookupByLibrary.simpleMessage(
+            "Something went wrong with payment"),
         "itemsDetails": MessageLookupByLibrary.simpleMessage("Items details"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "locationYourLocation":
@@ -215,7 +219,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to cancel this order?"),
         "orderCancelReasonHint": MessageLookupByLibrary.simpleMessage(
             "Reason for canceling the order"),
-        "orderCancelReasonTitle": MessageLookupByLibrary.simpleMessage(
+        "orderCancelReasonTitle":
+            MessageLookupByLibrary.simpleMessage("Cancel Order"),
+        "orderCancelReason": MessageLookupByLibrary.simpleMessage(
             "Reason for canceling your order"),
         "orderCancelReasonValidation": MessageLookupByLibrary.simpleMessage(
             "Please enter a reason for canceling the order"),
@@ -324,6 +330,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Order all your needs from the same place"),
         "youNeedToLoginToUseApp":
             MessageLookupByLibrary.simpleMessage("You need to login"),
-        "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile")
+        "yourMobile": MessageLookupByLibrary.simpleMessage("Mobile"),
+        "goToMainPage": MessageLookupByLibrary.simpleMessage("Go to main page"),
+        "firstStep": MessageLookupByLibrary.simpleMessage("1. Create account"),
+        "secondStep":
+            MessageLookupByLibrary.simpleMessage("2. Choose your location"),
+        "thirdStep":
+            MessageLookupByLibrary.simpleMessage("3. Set your password"),
       };
 }

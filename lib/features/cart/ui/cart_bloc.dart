@@ -5,24 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../core/dto/modules/pair.dart';
 import '../models/latlong.dart';
 
 enum CartState { increment, decrement }
 
 class CartBloc extends BlocBase {
   final ButtonBloc buttonBloc = ButtonBloc();
-  BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsBehavior =
-      BehaviorSubject();
+  BehaviorSubject<ApiState<Pair<List<ProductMapper>, List<ProductMapper>>>>
+      cartProductsBehavior = BehaviorSubject();
 
   BehaviorSubject<String> addressBehaviour = BehaviorSubject();
   BehaviorSubject<Latlong> latLongBehaviour = BehaviorSubject();
   BehaviorSubject<String> dateBehaviour = BehaviorSubject();
   BehaviorSubject<String> timeBehaviour = BehaviorSubject();
   BehaviorSubject<List<CartProductQty>> itemsBehaviour = BehaviorSubject();
-  BehaviorSubject<String> cartTotalDeliveryBehaviour = BehaviorSubject();
-  BehaviorSubject<String> cartTotalBehaviour = BehaviorSubject();
-  BehaviorSubject<String> cartOrderDetailsTotalBehaviour = BehaviorSubject();
-  BehaviorSubject<double> cartOrderDetailsTotalDoubleBehaviour =
+  BehaviorSubject<String> cartTotalDeliveryStringBehaviour = BehaviorSubject();
+  BehaviorSubject<String> cartTotaDiscountStringBehaviour = BehaviorSubject();
+  BehaviorSubject<double> cartTotaDiscountBehaviour = BehaviorSubject();
+  BehaviorSubject<String> cartTotalBeforeDiscountBehaviour = BehaviorSubject();
+  BehaviorSubject<String> cartTotalAfterDiscountBehaviour = BehaviorSubject();
+  BehaviorSubject<double> cartTotalBeforeDiscountDoubleBehaviour =
       BehaviorSubject();
   BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartMinimumOrderCurrencyBehaviour = BehaviorSubject();
@@ -81,28 +84,45 @@ class CartBloc extends BlocBase {
     timeBehaviour.sink.add("8 - 9 صباحاً");
   }
 
-  void getTotalCartSum(List<MyOrderItemResponse>? myOrderResponse) {
+  void getTotalCartSum(List<ProductMapper>? myOrderResponse, String currency) {
     totalSum = 0;
     //getting the currency from the first element of items
 
-    currency = myOrderResponse![0].currency![1] ?? '';
+    currency = currency;
 
-    myOrderResponse.forEach((element) {
-      totalSum += element.price_total ?? 0;
+    myOrderResponse?.forEach((element) {
+      totalSum += element.finalPrice ?? 0;
     });
 
     // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
-    double totalWithDelivery = parsedTotalSum + deliveryFees;
+    double totalWithDelivery =
+        double.parse((parsedTotalSum + deliveryFees).toStringAsFixed(2));
+    double discount = cartTotaDiscountBehaviour.hasValue
+        ? double.parse(cartTotaDiscountBehaviour.value.toStringAsFixed(2))
+        : 0;
 
-    cartOrderDetailsTotalDoubleBehaviour.sink.add(totalWithDelivery);
+    double totalAfterDiscount =
+        double.parse((totalWithDelivery + discount).toStringAsFixed(2));
 
-    cartTotalBehaviour.sink.add("$parsedTotalSum $currency");
-    cartOrderDetailsTotalBehaviour.sink.add("${totalWithDelivery} $currency");
+    cartTotalBeforeDiscountDoubleBehaviour.sink.add(totalWithDelivery);
+
+    cartTotalBeforeDiscountBehaviour.sink.add("$parsedTotalSum $currency");
+    cartTotalAfterDiscountBehaviour.sink.add("${totalAfterDiscount} $currency");
   }
 
   void _getTotalCartDeliverySum() {
-    cartTotalDeliveryBehaviour.sink.add('+ $deliveryFees  ج.م. التوصيل');
+    cartTotalDeliveryStringBehaviour.sink.add('$deliveryFees ج.م');
+  }
+
+  void _getTotalCartDiscountSum(double discount) {
+    if (discount < 0) {
+      cartTotaDiscountBehaviour.sink.add(discount);
+      cartTotaDiscountStringBehaviour.sink.add('$discount  ج.م ');
+    } else {
+      cartTotaDiscountBehaviour.sink.add(0);
+      cartTotaDiscountStringBehaviour.sink.add('');
+    }
   }
 
   void _getCartMinimumOrder() {
@@ -172,7 +192,7 @@ class CartBloc extends BlocBase {
 
   void addCartInfoToProducts(List<ProductMapper> productsList) {
     if (cartProductsBehavior.hasValue == true &&
-        (cartProductsBehavior.value.response?.isEmpty ?? true)) {
+        (cartProductsBehavior.value.response?.getFirst.isEmpty ?? true)) {
       // return;
       for (int i = 0; i < productsList.length; i++) {
         productsList[i].cartUserQuantity = 0;
@@ -183,14 +203,16 @@ class CartBloc extends BlocBase {
     } else {
       if (cartProductsBehavior.hasValue == false) return;
       for (int i = 0; i < productsList.length; i++) {
-        for (int j = 0; j < cartProductsBehavior.value.response!.length; j++) {
+        for (int j = 0;
+            j < cartProductsBehavior.value.response!.getFirst.length;
+            j++) {
           if (productsList[i].id ==
-              cartProductsBehavior.value.response![j].productId) {
+              cartProductsBehavior.value.response!.getFirst[j].productId) {
             productsList[i].cartUserQuantity =
-                cartProductsBehavior.value.response![j].quantity;
+                cartProductsBehavior.value.response!.getFirst[j].quantity;
 
             productsList[i].productId =
-                cartProductsBehavior.value.response![j].id;
+                cartProductsBehavior.value.response!.getFirst[j].id;
           }
         }
       }
@@ -232,6 +254,10 @@ class CartBloc extends BlocBase {
 
   double getCartTotal() {
     return totalSum;
+  }
+
+  void reset() {
+    cartProductsBehavior.sink.add(IdleState());
   }
 
   void getMyCart({Function()? onGettingCart}) {
@@ -277,21 +303,36 @@ class CartBloc extends BlocBase {
     if (clientId == 0) return;
 
     cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) async {
-      if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
+      if (getCartEvent is SuccessState &&
+          getCartEvent.response!.getFirst.isNotEmpty) {
         cartCheckAvailabilityRemote
             .checkAvailability(CartCheckAvailabilityRequest(
                 client_id: clientId,
-                product_ids:
-                    getCartEvent.response!.map((e) => e.productId).toList()))
+                product_ids: getCartEvent.response!.getFirst
+                    .map((e) => e.productId)
+                    .toList()))
             .listen((checkAvailabilityEvent) async {
           if (checkAvailabilityEvent is SuccessState) {
             // stream.sink.add(getCartEvent);
+            orderId = getCartEvent.response?.getFirst.first.orderId ?? 0;
+            getcartProductQtyList(getCartEvent.response!.getFirst);
+            if (getCartEvent.response != null &&
+                getCartEvent.response!.second.isNotEmpty &&
+                getCartEvent.response?.second.first != null) {
+              _getTotalCartDiscountSum(
+                  getCartEvent.response?.second.first.finalPrice ?? 0);
+            } else {
+              _getTotalCartDiscountSum(0);
+            }
 
-            getcartProductQtyList(getCartEvent.response!);
-            getTotalCartSum(cartRemote.myOrderResponse);
+            getTotalCartSum(
+                getCartEvent.response!.getFirst! as List<ProductMapper>,
+                cartRemote.myOrderResponse![0].currency![1] ?? '');
 
-            cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
-                getCartEvent.response!, checkAvailabilityEvent.response!)));
+            cartProductsBehavior.sink.add(SuccessState(Pair(
+                first: addAvailabilityToProduct(getCartEvent.response!.getFirst,
+                    checkAvailabilityEvent.response!),
+                second: getCartEvent.response!.second)));
 
             if (onGettingCart != null) {
               onGettingCart();
@@ -304,12 +345,17 @@ class CartBloc extends BlocBase {
             // cartFinishCallingApi.sink.add(cartFinishCallingApi.value! + 1);
           }
         });
-      } else if (getCartEvent.response?.isEmpty ?? true) {
+      } else if (getCartEvent.response?.getFirst.isEmpty ?? true) {
         if (isEditing == false) {
           if (apiState != null && stream != null) {
             stream.sink.add(apiState);
           }
-          cartProductsBehavior.sink.add((getCartEvent));
+          if (getCartEvent.response?.getFirst == null) {
+            cartProductsBehavior.sink.add(LoadingState());
+          } else {
+            cartProductsBehavior.sink
+                .add((SuccessState(getCartEvent.response!)));
+          }
           if (onGettingCart != null) {
             onGettingCart();
           }

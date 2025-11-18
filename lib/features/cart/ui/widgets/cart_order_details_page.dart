@@ -32,7 +32,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   bool isSafeArea() => true;
 
   @override
-  Color? systemNavigationBarColor() => secondaryColor;
+  Color? systemNavigationBarColor() => Colors.white;
 
   @override
   void onPopInvoked(didPop) {
@@ -133,7 +133,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       context: context, // Passes the BuildContext required for UI interactions
       currency:
           "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream
+      amount: widget.cartBloc.cartTotalBeforeDiscountDoubleBehaviour.stream
           .value, // Sets the amount of money to be paid (100 EGP)
       // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
@@ -155,7 +155,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       context: context, // Passes the BuildContext required for UI interactions
       currency:
           "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-      amount: widget.cartBloc.cartOrderDetailsTotalDoubleBehaviour.stream
+      amount: widget.cartBloc.cartTotalBeforeDiscountDoubleBehaviour.stream
           .value, // Sets the amount of money to be paid (100 EGP)
       // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
@@ -174,19 +174,18 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
 
   Future<dynamic> showInvalidPaymentBottomSheet() {
     return showModalBottomSheet(
-          context: context,
-          useRootNavigator: true,
-          constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.20),
-          builder: (context) {
-            return DialogWidget(
-              sameButtonsColor: false,
-              message:  S.of(context).invalidPayment,
-              confirmMessage: S.of(context).ok,
-              onConfirm: () {},
-            );
-          },
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: false,
+      builder: (context) {
+        return DialogWidget(
+          sameButtonsColor: false,
+          message: S.of(context).invalidPayment,
+          confirmMessage: S.of(context).ok,
+          onConfirm: () {},
         );
+      },
+    );
   }
 
   void _ConfirmOder() {
@@ -250,7 +249,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
 
   StreamBuilder<String> _buildTotalPayment() {
     return StreamBuilder(
-      stream: widget.cartBloc.cartOrderDetailsTotalBehaviour.stream,
+      stream: widget.cartBloc.cartTotalAfterDiscountBehaviour.stream,
       builder: (context, snapshot) {
         return !snapshot.hasData
             ? SizedBox()
@@ -324,7 +323,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
 
   Widget deliveryFees() {
     return StreamBuilder(
-        stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
+        stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
         builder: (context, snapshot) {
           return !snapshot.hasData
               ? SizedBox()

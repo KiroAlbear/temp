@@ -46,6 +46,14 @@ class Routes {
   static const String cartSuccessPage = '/cartSuccess';
   static const String cartOrderDetailsPage = '/cartOrderDetails';
 
+  static ProductCategoryPage favouriteWidget = ProductCategoryPage(
+    homeBloc: getIt(),
+    contactUsBloc: getIt(),
+    productCategoryBloc: ProductCategoryBloc(),
+    cartBloc: getIt(),
+    isForFavourite: true,
+  );
+
   static String currentNavigationPage = Routes.homePage;
 
   static final GoRouter goRouter = GoRouter(
@@ -172,6 +180,86 @@ class Routes {
                   newAccountBloc: _bloc,
                 ));
           }),
+      GoRoute(
+        path: updateProfilePage,
+        name: updateProfilePage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          UpdateProfilePage(
+            moreBloc: getIt(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: accountChangePasswordPage,
+        name: accountChangePasswordPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          AccountChangePasswordPage(),
+        ),
+      ),
+      GoRoute(
+        path: myOrdersPage,
+        name: myOrdersPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          MyOrdersPage(myOrdersBloc: getIt()),
+        ),
+      ),
+      GoRoute(
+        path: usagePolicyPage,
+        name: usagePolicyPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          UsagePolicyPage(usagePolicyBloc: getIt()),
+        ),
+      ),
+      GoRoute(
+        path: faqPage,
+        name: faqPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          FaqPage(),
+        ),
+      ),
+      GoRoute(
+        path: cartOrderDetailsPage,
+        name: cartOrderDetailsPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final CartOrderDetailsArgs? args =
+              state.extra as CartOrderDetailsArgs?;
+
+          return _fadeTransitionScreenWrapper(
+            context,
+            state,
+            CartOrderDetailsPage(
+              cartBloc: getIt(),
+              cartOrderDetailsArgs: args!,
+            ),
+          );
+        },
+      ),
+      GoRoute(
+        path: cartSuccessPage,
+        name: cartSuccessPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          CartSuccessPage(),
+        ),
+      ),
       ShellRoute(
           navigatorKey: navigationBarKey,
           parentNavigatorKey: rootNavigatorKey,
@@ -228,53 +316,12 @@ class Routes {
                 name: favouritePage,
                 parentNavigatorKey: navigationBarKey,
                 pageBuilder: (context, state) {
-                  getIt<HomeBloc>().reset();
-                  getIt<ProductCategoryBloc>().disposeReset();
-
                   return _fadeTransitionScreenWrapper(
                     context,
                     state,
-                    ProductCategoryPage(
-                      homeBloc: getIt(),
-                      contactUsBloc: getIt(),
-                      productCategoryBloc: ProductCategoryBloc(),
-                      cartBloc: getIt(),
-                      isForFavourite: true,
-                    ),
+                    favouriteWidget,
                   );
                 }),
-            GoRoute(
-              path: updateProfilePage,
-              name: updateProfilePage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context,
-                state,
-                UpdateProfilePage(
-                  moreBloc: getIt(),
-                ),
-              ),
-            ),
-            GoRoute(
-              path: usagePolicyPage,
-              name: usagePolicyPage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context,
-                state,
-                UsagePolicyPage(usagePolicyBloc: getIt()),
-              ),
-            ),
-            GoRoute(
-              path: faqPage,
-              name: faqPage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context,
-                state,
-                FaqPage(),
-              ),
-            ),
             GoRoute(
               path: productCategoryPage,
               name: productCategoryPage,
@@ -292,54 +339,6 @@ class Routes {
                     ));
               },
             ),
-            GoRoute(
-              path: accountChangePasswordPage,
-              name: accountChangePasswordPage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context,
-                state,
-                AccountChangePasswordPage(),
-              ),
-            ),
-            GoRoute(
-              path: myOrdersPage,
-              name: myOrdersPage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context,
-                state,
-                MyOrdersPage(myOrdersBloc: getIt()),
-              ),
-            ),
-            GoRoute(
-              path: cartOrderDetailsPage,
-              name: cartOrderDetailsPage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) {
-                final CartOrderDetailsArgs? args =
-                    state.extra as CartOrderDetailsArgs?;
-
-                return _fadeTransitionScreenWrapper(
-                  context,
-                  state,
-                  CartOrderDetailsPage(
-                    cartBloc: getIt(),
-                    cartOrderDetailsArgs: args!,
-                  ),
-                );
-              },
-            ),
-            GoRoute(
-              path: cartSuccessPage,
-              name: cartSuccessPage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                context,
-                state,
-                CartSuccessPage(),
-              ),
-            ),
           ],
           builder: (context, state, child) {
             return PopScope(
@@ -354,8 +353,12 @@ class Routes {
 
                       await Routes.navigateToScreen(
                           Routes.homePage, NavigationType.goNamed, context);
-                    } else if (index == 1 && currentNavigationPage != Routes.favouritePage) {
+                    } else if (index == 1 &&
+                        currentNavigationPage != Routes.favouritePage) {
                       currentNavigationPage = Routes.favouritePage;
+
+                      getIt<HomeBloc>().reset();
+                      getIt<ProductCategoryBloc>().disposeReset();
 
                       await Routes.navigateToScreen(Routes.favouritePage,
                           NavigationType.goNamed, context);

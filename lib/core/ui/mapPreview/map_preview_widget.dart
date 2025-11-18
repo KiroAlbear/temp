@@ -103,11 +103,11 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
         onTap: () => widget.clickOnChangeLocation(),
         child: Container(
           alignment: Alignment.center,
-          color: yellowColor.withOpacity(0.8),
+          color: switchBorderColor,
           padding: EdgeInsets.symmetric(vertical: 6.h),
           child: CustomText(
             text: S.of(context).editLocation,
-            customTextStyle: RegularStyle(color: blackColor, fontSize: 16.w),
+            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 16.w),
           ),
         ),
       ));

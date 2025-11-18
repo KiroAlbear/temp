@@ -2,19 +2,16 @@ import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 import '../../../core/generated/l10n.dart';
 
 class CartPage extends BaseStatefulWidget {
-
   final CartBloc cartBloc;
 
   final ProductCategoryBloc productCategoryBloc;
 
   CartPage(
-      {required this.cartBloc,
-
-      required this.productCategoryBloc,
-      super.key});
+      {required this.cartBloc, required this.productCategoryBloc, super.key});
 
   @override
   State<CartPage> createState() => _CartScreenState();
@@ -35,7 +32,6 @@ class _CartScreenState extends BaseState<CartPage> {
   @override
   Color? statusBarColor() => Colors.white;
 
-
   @override
   Color? systemNavigationBarColor() => secondaryColor;
 
@@ -47,43 +43,113 @@ class _CartScreenState extends BaseState<CartPage> {
 
   @override
   Widget getBody(BuildContext context) {
-    return  (SharedPrefModule().userId ?? '').isEmpty?NotLoggedInWidget(): Column(
-      children: [
-        AppTopWidget(
-          title: S.of(context).cartTitle,
-          isHavingSupport: true,
-        ),
-        Expanded(
-          child: Stack(
+    return (SharedPrefModule().userId ?? '').isEmpty
+        ? NotLoggedInWidget(
+            title: S.of(context).cartTitle,
+            image: Assets.png.icGuestCart.path,
+            imageType: ImageType.asset,
+          )
+        : Column(
             children: [
-              StreamBuilder(
-                stream: widget.cartBloc.cartProductsBehavior.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.data == null)
-                    return Container();
-                  else
-                    return checkResponseStateWithLoadingWidget(
-                      snapshot.data!,
-                      context,
-                      onSuccess: snapshot.data!.response?.isEmpty ?? true
-                          ? CartEmptyWidget()
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _cartHeader(context),
-                                16.verticalSpace,
-                                _productList(),
-                                _bottomWidget(context)
-                              ],
-                            ),
-                    );
-                },
+              AppTopWidget(
+                title: S.of(context).cartTitle,
+                isHavingSupport: true,
               ),
-              OverlayLoadingWidget(showOverlayLoading: isLoading),
+              Expanded(
+                child: Stack(
+                  children: [
+                    StreamBuilder(
+                      stream: widget.cartBloc.cartProductsBehavior.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.data == null)
+                          return Container();
+                        else
+                          return checkResponseStateWithLoadingWidget(
+                            snapshot.data!,
+                            context,
+                            onSuccess:
+                                snapshot.data!.response?.getFirst.isEmpty ??
+                                        true
+                                    ? CartEmptyWidget()
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          _cartHeader(context),
+                                          16.verticalSpace,
+                                          _productList(),
+                                          _bottomWidget(context)
+                                        ],
+                                      ),
+                          );
+                      },
+                    ),
+                    OverlayLoadingWidget(showOverlayLoading: isLoading),
+                  ],
+                ),
+              ),
             ],
+          );
+  }
+
+  Widget _seperator() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      child: Divider(
+        color: lightGreyColorLightMode,
+        thickness: 0.5,
+        height: 24.h,
+      ),
+    );
+  }
+
+  Widget _bottomCalculationsWidget(String title, String value, {Color? color}) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 4.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 20,
+            child: CustomText(
+                text: title,
+                customTextStyle: MediumStyle(
+                    color: greyOrderGreyTextColorLightMode, fontSize: 14.sp)),
           ),
-        ),
-      ],
+          Expanded(
+            flex: 7,
+            child: CustomText(
+                text: value,
+                customTextStyle:
+                    RegularStyle(color: color ?? black, fontSize: 14.sp)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _bottomTotalWidget(String title, String value) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 0.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 20,
+            child: CustomText(
+                text: title,
+                customTextStyle:
+                    BoldStyle(color: secondaryColor, fontSize: 16.sp)),
+          ),
+          Expanded(
+            flex: 7,
+            child: CustomText(
+                text: value,
+                customTextStyle:
+                    BoldStyle(color: secondaryColor, fontSize: 16.sp)),
+          ),
+        ],
+      ),
     );
   }
 
@@ -92,42 +158,71 @@ class _CartScreenState extends BaseState<CartPage> {
       color: whiteColor,
       child: Padding(
         padding: EdgeInsetsDirectional.only(
-            start: 16.w, end: 16.w, top: 16.h, bottom: 26.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            start: 16.w, end: 16.w, top: 4.h, bottom: 26.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                StreamBuilder(
-                  stream: widget.cartBloc.cartTotalBehaviour.stream,
-                  builder: (context, snapshot) {
-                    return CustomText(
-                        text: snapshot.data ?? '',
-                        textAlign: TextAlign.start,
-                        customTextStyle: BoldStyle(
-                            color: darkSecondaryColor, fontSize: 14.sp));
-                  },
-                ),
-                StreamBuilder(
-                  stream: widget.cartBloc.cartTotalDeliveryBehaviour.stream,
-                  builder: (context, snapshot) {
-                    return CustomText(
-                        text: snapshot.data ?? '',
-                        textAlign: TextAlign.start,
-                        customTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 14.sp));
-                  },
-                ),
-              ],
+            _seperator(),
+            StreamBuilder(
+              stream: widget.cartBloc.cartTotalBeforeDiscountBehaviour.stream,
+              builder: (context, snapshot) {
+                return _bottomCalculationsWidget(
+                    "إجمالي قبل الخصم", snapshot.data ?? '');
+                CustomText(
+                    text: snapshot.data ?? '',
+                    textAlign: TextAlign.start,
+                    customTextStyle:
+                        BoldStyle(color: darkSecondaryColor, fontSize: 14.sp));
+              },
             ),
+            StreamBuilder(
+              stream: widget.cartBloc.cartTotaDiscountStringBehaviour.stream,
+              builder: (context, snapshot) {
+                return (snapshot.hasData == false || snapshot.data == "")
+                    ? SizedBox()
+                    : _bottomCalculationsWidget(
+                        "إجمالي الخصم", snapshot.data ?? '',
+                        color: redColor);
+                CustomText(
+                    text: snapshot.data.toString() ?? '',
+                    textAlign: TextAlign.start,
+                    customTextStyle:
+                        BoldStyle(color: darkSecondaryColor, fontSize: 14.sp));
+              },
+            ),
+            StreamBuilder(
+              stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
+              builder: (context, snapshot) {
+                return _bottomCalculationsWidget(
+                    "مصاريف التوصيل", snapshot.data ?? '');
+                CustomText(
+                    text: snapshot.data ?? '',
+                    textAlign: TextAlign.start,
+                    customTextStyle:
+                        RegularStyle(color: lightBlackColor, fontSize: 14.sp));
+              },
+            ),
+            _seperator(),
+            StreamBuilder(
+              stream: widget.cartBloc.cartTotalAfterDiscountBehaviour.stream,
+              builder: (context, snapshot) {
+                return _bottomTotalWidget("إجمالي", snapshot.data ?? '');
+                CustomText(
+                    text: snapshot.data ?? '',
+                    textAlign: TextAlign.start,
+                    customTextStyle:
+                        RegularStyle(color: lightBlackColor, fontSize: 14.sp));
+              },
+            ),
+            SizedBox(height: 12.h),
             CustomButtonWidget(
                 width: 200.w,
                 height: 48.h,
                 borderRadius: 8,
-                idleText: S.of(context).cartOrderNow,
-                textStyle: MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)
-                    .getStyle(),
+                idleText: S.of(context).next,
+                textStyle:
+                    MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)
+                        .getStyle(),
                 onTap: () async {
                   if (widget.cartBloc.totalSum <=
                       widget.cartBloc.cartMinimumOrderBehaviour.value) {
@@ -136,28 +231,25 @@ class _CartScreenState extends BaseState<CartPage> {
                       message:
                           "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                     );
-                  }
-                  else if(widget.cartBloc.isAnyProductOutOfStock) {
+                  } else if (widget.cartBloc.isAnyProductOutOfStock) {
                     AlertModule().showMessage(
                       context: context,
-                      message:S.of(context).cartProductsNotAvailable,
+                      message: S.of(context).cartProductsNotAvailable,
                     );
-                  }
-                  else if(widget.cartBloc.productsOfMoreThanAvailable.isNotEmpty) {
+                  } else if (widget
+                      .cartBloc.productsOfMoreThanAvailable.isNotEmpty) {
                     AlertModule().showMessage(
                       context: context,
-                      message: "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
+                      message:
+                          "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
                     );
-                  }
-                  else {
+                  } else {
                     showModalBottomSheet(
                         barrierColor: bottomSheetBarrierColor,
                         backgroundColor: whiteColor,
                         useRootNavigator: true,
-                        elevation: 0,
-                        constraints: BoxConstraints(
-                            maxHeight:
-                                MediaQuery.of(context).size.height * 0.38),
+                        isScrollControlled: false,
+                        useSafeArea: true,
                         context: context,
                         builder: (context) {
                           return CartBottomSheet(
@@ -166,7 +258,6 @@ class _CartScreenState extends BaseState<CartPage> {
                         });
                   }
                 }),
-
           ],
         ),
       ),
@@ -183,23 +274,26 @@ class _CartScreenState extends BaseState<CartPage> {
                 child: ListView.separated(
                   separatorBuilder: (context, index) => 16.verticalSpace,
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.response!.length,
+                  itemCount: snapshot.data!.response!.getFirst.length,
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
                       icDelete: Assets.svg.icDelete,
-                      productMapper: snapshot.data!.response![index],
+                      productMapper: snapshot.data!.response!.getFirst[index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {
                         isLoading.value = true;
                         CartCommonFunctions()
                             .editCart(
                           cartBloc: widget.cartBloc,
-                          cartItemId: snapshot.data!.response![index].id,
-                          productId: snapshot.data!.response![index].productId,
-                          quantity:
-                              snapshot.data!.response![index].cartUserQuantity,
-                          price: snapshot.data!.response![index].finalPrice,
+                          cartItemId:
+                              snapshot.data!.response!.getFirst[index].id,
+                          productId: snapshot
+                              .data!.response!.getFirst[index].productId,
+                          quantity: snapshot
+                              .data!.response!.getFirst[index].cartUserQuantity,
+                          price: snapshot
+                              .data!.response!.getFirst[index].finalPrice,
                           state: CartState.decrement,
                         )
                             .listen((event) {
@@ -211,15 +305,20 @@ class _CartScreenState extends BaseState<CartPage> {
                       },
                       onIncrementClicked: (productMapper) {
                         isLoading.value = true;
-                        CartCommonFunctions().editCart(
+                        CartCommonFunctions()
+                            .editCart(
                           cartBloc: widget.cartBloc,
-                          cartItemId: snapshot.data!.response![index].id,
-                          productId: snapshot.data!.response![index].productId,
-                          quantity:
-                              snapshot.data!.response![index].cartUserQuantity,
-                          price: snapshot.data!.response![index].finalPrice,
+                          cartItemId:
+                              snapshot.data!.response!.getFirst[index].id,
+                          productId: snapshot
+                              .data!.response!.getFirst[index].productId,
+                          quantity: snapshot
+                              .data!.response!.getFirst[index].cartUserQuantity,
+                          price: snapshot
+                              .data!.response!.getFirst[index].finalPrice,
                           state: CartState.increment,
-                        ).listen((event) {
+                        )
+                            .listen((event) {
                           if (event is SuccessState) {
                             // widget.cartBloc.getMyCart();
                             isLoading.value = false;
@@ -232,10 +331,13 @@ class _CartScreenState extends BaseState<CartPage> {
                         CartCommonFunctions()
                             .editCart(
                           cartBloc: widget.cartBloc,
-                          cartItemId: snapshot.data!.response![index].id,
-                          productId: snapshot.data!.response![index].productId,
+                          cartItemId:
+                              snapshot.data!.response!.getFirst[index].id,
+                          productId: snapshot
+                              .data!.response!.getFirst[index].productId,
                           quantity: 0,
-                          price: snapshot.data!.response![index].finalPrice,
+                          price: snapshot
+                              .data!.response!.getFirst[index].finalPrice,
                           state: CartState.decrement,
                         )
                             .listen((event) {
@@ -252,32 +354,6 @@ class _CartScreenState extends BaseState<CartPage> {
       },
     );
   }
-
-  // void editCart(
-  //     {required int id,
-  //     required int productId,
-  //     required double quantity,
-  //     required double price,
-  //     required CartState state,
-  //     bool isDelete = false}) {
-  //   isLoading.value = true;
-  //   widget.cartBloc
-  //       .editCart(
-  //     cartItemId: id,
-  //     productId: productId,
-  //     price: price,
-  //     cartState: state,
-  //     quantity: quantity.toInt(),
-  //   )
-  //       .listen((event) {
-  //     if (event is SuccessState && isDelete) {
-  //       // widget.cartBloc.getMyCart();
-  //       isLoading.value = false;
-  //     } else if (event is SuccessState && !isDelete) {
-  //       isLoading.value = false;
-  //     }
-  //   });
-  // }
 
   Widget _cartHeader(BuildContext context) {
     return Padding(
@@ -307,11 +383,10 @@ class _CartScreenState extends BaseState<CartPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomText(
-                              text:
-                              "${S.of(context).cartMinimumOrder} ",
+                              text: "${S.of(context).cartMinimumOrder} ",
                               textAlign: TextAlign.center,
-                              customTextStyle:
-                              RegularStyle(color: whiteColor, fontSize: 12.sp),
+                              customTextStyle: RegularStyle(
+                                  color: whiteColor, fontSize: 12.sp),
                             ),
                             CustomText(
                               text:

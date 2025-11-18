@@ -17,6 +17,7 @@ RegisterRequest _$RegisterRequestFromJson(Map<String, dynamic> json) =>
       longitude: json['partner_longitude'] as String,
       countryId: (json['country_id'] as num).toInt(),
       shopName: json['shop_name'] as String,
+      company_type_id: (json['company_type_id'] as num).toInt(),
     );
 
 Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
       'shop_name': instance.shopName,
       'partner_longitude': instance.longitude,
       'country_id': instance.countryId,
+      'company_type_id': instance.company_type_id,
     };

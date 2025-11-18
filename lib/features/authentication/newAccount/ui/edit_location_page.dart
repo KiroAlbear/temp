@@ -18,37 +18,55 @@ class EditLocationPage extends BaseStatefulWidget {
 }
 
 class _EditLocationPageState extends BaseState<EditLocationPage> {
+
   @override
-  Widget getBody(BuildContext context) => SafeArea(
-        child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: MapModule().loadMap(
-                onPicked: (latitude, longitude, city, area, address) {
-                  _confirmPickLocation(
-                      longitude, latitude, city, area, address);
-                  // AlertModule().showDialog(
-                  //   context: context,
-                  //   message: S.of(context).pickLocationEnsureMessage,
-                  //   cancelMessage: S.of(context).cancel,
-                  //   confirmMessage: S.of(context).ok,
-                  //   headerMessage: '',
-                  //   onConfirm: () {
-                  //     _confirmPickLocation(
-                  //         longitude, latitude, city, area, address);
-                  //   },
-                  //   onCancel: () {
-                  //     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-                  //   },
-                  // );
-                },
-                latitude: widget.newAccountBloc.latitude,
-                longitude: widget.newAccountBloc.longitude,
-                hintText: S.of(context).locationYourLocation,
-                buttonText: S.of(context).confirmLocation),
-          ),
-        ),
-      );
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => false;
+
+  @override
+  bool isSafeArea()=> false;
+
+  @override
+  bool get useCustomScaffold => false;
+
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  Widget getBody(BuildContext context) => Scaffold(
+    body: Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: MapModule().loadMap(
+          onPicked: (latitude, longitude, city, area, address) {
+            _confirmPickLocation(
+                longitude, latitude, city, area, address);
+            // AlertModule().showDialog(
+            //   context: context,
+            //   message: S.of(context).pickLocationEnsureMessage,
+            //   cancelMessage: S.of(context).cancel,
+            //   confirmMessage: S.of(context).ok,
+            //   headerMessage: '',
+            //   onConfirm: () {
+            //     _confirmPickLocation(
+            //         longitude, latitude, city, area, address);
+            //   },
+            //   onCancel: () {
+            //     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+            //   },
+            // );
+          },
+          latitude: widget.newAccountBloc.latitude,
+          longitude: widget.newAccountBloc.longitude,
+          hintText: S.of(context).locationYourLocation,
+          buttonText: S.of(context).confirmLocation),
+    ),
+  );
 
   /* Widget _cancelButton(BuildContext context) =>
       CustomButtonWidget(
@@ -106,12 +124,4 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
     );
   }
 
-  @override
-  PreferredSizeWidget? appBar() => null;
-
-  @override
-  bool canPop() => false;
-
-  @override
-  bool isSafeArea() => true;
 }

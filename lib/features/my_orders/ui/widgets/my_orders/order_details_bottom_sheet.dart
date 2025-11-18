@@ -46,19 +46,21 @@ class OrderDetailsBottomSheet extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        ListView.separated(
-          shrinkWrap: true,
-          separatorBuilder: (context, index) => SizedBox(height: 15),
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return CurrentOrderDetailsItem(
-              title: items[index].title,
-              subtitle: items[index].description,
-              price: items[index].price,
-              orderImage: items[index].image,
-              quantity: items[index].count,
-            );
-          },
+        Expanded(
+          child: ListView.separated(
+            shrinkWrap: true,
+            separatorBuilder: (context, index) => SizedBox(height: 15),
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return CurrentOrderDetailsItem(
+                title: items[index].title,
+                subtitle: items[index].description,
+                price: items[index].price,
+                orderImage: items[index].image,
+                quantity: items[index].count,
+              );
+            },
+          ),
         ),
         // CurrentOrderDetailsItem(
         //   title: "ربيع",

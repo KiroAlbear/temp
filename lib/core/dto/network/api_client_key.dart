@@ -21,6 +21,7 @@ class _ApiClientKey {
   static const String _balance = 'get/wallet';
   static const String _changePassword = 'reset/password';
   static const String _resetPassword = 'app/set/password';
+  static const String _getCompanyType = '/get/company_type';
 
   static const String _updateProfileImage = 'app/update_image';
   static const String _deActiveProfile = 'profile/deactivate';

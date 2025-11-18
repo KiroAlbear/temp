@@ -11,20 +11,33 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsPngGen {
+  const $AssetsPngGen();
+
+  /// File path: assets/png/ic_guest_cart.png
+  AssetGenImage get icGuestCart =>
+      const AssetGenImage('assets/png/ic_guest_cart.png');
+
+  /// File path: assets/png/order_cancel.png
+  AssetGenImage get orderCancel =>
+      const AssetGenImage('assets/png/order_cancel.png');
+
+  /// File path: assets/png/order_success.png
+  AssetGenImage get orderSuccess =>
+      const AssetGenImage('assets/png/order_success.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [icGuestCart, orderCancel, orderSuccess];
+}
+
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
   /// File path: assets/svg/Pin location.svg
   String get pinLocation => 'assets/svg/Pin location.svg';
 
-  /// File path: assets/svg/cart_success.svg
-  String get cartSuccess => 'assets/svg/cart_success.svg';
-
   /// File path: assets/svg/cart_success_logo.svg
   String get cartSuccessLogo => 'assets/svg/cart_success_logo.svg';
-
-  /// File path: assets/svg/empty_cart.svg
-  String get emptyCart => 'assets/svg/empty_cart.svg';
 
   /// File path: assets/svg/empty_favourite.svg
   String get emptyFavourite => 'assets/svg/empty_favourite.svg';
@@ -91,6 +104,9 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/ic_delivered_order_green.svg
   String get icDeliveredOrderGreen => 'assets/svg/ic_delivered_order_green.svg';
+
+  /// File path: assets/svg/ic_drop_down_arrow.svg
+  String get icDropDownArrow => 'assets/svg/ic_drop_down_arrow.svg';
 
   /// File path: assets/svg/ic_empty_shop.svg
   String get icEmptyShop => 'assets/svg/ic_empty_shop.svg';
@@ -201,8 +217,8 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_whats_app.svg
   String get icWhatsApp => 'assets/svg/ic_whats_app.svg';
 
-  /// File path: assets/svg/img_cancel_order.svg
-  String get imgCancelOrder => 'assets/svg/img_cancel_order.svg';
+  /// File path: assets/svg/img_guest_favourite.svg
+  String get imgGuestFavourite => 'assets/svg/img_guest_favourite.svg';
 
   /// File path: assets/svg/logo_text.svg
   String get logoText => 'assets/svg/logo_text.svg';
@@ -213,9 +229,7 @@ class $AssetsSvgGen {
   /// List of all assets
   List<dynamic> get values => [
         pinLocation,
-        cartSuccess,
         cartSuccessLogo,
-        emptyCart,
         emptyFavourite,
         emptyOffers,
         icAcceptedOrderGray,
@@ -238,6 +252,7 @@ class $AssetsSvgGen {
         icDeleteOrder,
         icDeliveredOrderGray,
         icDeliveredOrderGreen,
+        icDropDownArrow,
         icEmptyShop,
         icFaceBook,
         icFaq,
@@ -274,7 +289,7 @@ class $AssetsSvgGen {
         icSuccessRegister,
         icTotal,
         icWhatsApp,
-        imgCancelOrder,
+        imgGuestFavourite,
         logoText,
         logoYellow
       ];
@@ -283,6 +298,7 @@ class $AssetsSvgGen {
 class Assets {
   const Assets._();
 
+  static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
   static const String shorebird = 'shorebird.yaml';
 

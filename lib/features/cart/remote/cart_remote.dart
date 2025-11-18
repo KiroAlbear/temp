@@ -1,3 +1,5 @@
+import 'package:deel/core/dto/modules/pair.dart';
+
 import '../../../core/dto/models/baseModules/api_state.dart';
 import '../../../core/dto/models/cart/cart_request.dart';
 import '../../../core/dto/models/my_orders/my_order_item_response.dart';
@@ -7,21 +9,21 @@ import '../../../core/dto/network/api_client.dart';
 import '../../../core/dto/remote/base_remote_module.dart';
 
 class CartRemote
-    extends BaseRemoteModule<List<ProductMapper>, List<MyOrderItemResponse>> {
+    extends BaseRemoteModule<Pair<List<ProductMapper>,List<ProductMapper>>, List<MyOrderItemResponse>> {
   List<MyOrderItemResponse>? myOrderResponse;
 
   CartRemote();
 
-  Stream<ApiState<List<ProductMapper>>> getMyCart(CartRequest request) {
+  Stream<ApiState<Pair<List<ProductMapper>,List<ProductMapper>>>> getMyCart(CartRequest request) {
     apiFuture = ApiClient(OdooDioModule().build()).getMyCart(request);
     return callApiAsStream();
   }
 
   @override
-  ApiState<List<ProductMapper>> onSuccessHandle(
+  ApiState<Pair<List<ProductMapper>,List<ProductMapper>>> onSuccessHandle(
       List<MyOrderItemResponse>? response) {
     myOrderResponse = response;
-    return SuccessState(getCartProductsFromOrderResponse(response),
+    return SuccessState(Pair(first: getCartProductsFromOrderResponse(response),second:getCartDiscountProductsFromOrderResponse(response)) ,
         message: 'Success');
   }
 
@@ -29,7 +31,24 @@ class CartRemote
       List<MyOrderItemResponse>? myOrderResponse) {
     List<ProductMapper> cartProducts = [];
     myOrderResponse!.forEach((element) {
-      cartProducts.add(ProductMapper.fromOrderResponse(element));
+      if ((element.price_total??0) > 0){
+        cartProducts.add(ProductMapper.fromOrderResponse(element));
+      }
+      // cartProducts.add(ProductMapper.fromOrderResponse(element));
+      
+    });
+    return cartProducts;
+  }
+
+  List<ProductMapper> getCartDiscountProductsFromOrderResponse(
+      List<MyOrderItemResponse>? myOrderResponse) {
+    List<ProductMapper> cartProducts = [];
+    myOrderResponse!.forEach((element) {
+      if ((element.price_total??0) < 0){
+        cartProducts.add(ProductMapper.fromOrderResponse(element));
+      }
+      // cartProducts.add(ProductMapper.fromOrderResponse(element));
+
     });
     return cartProducts;
   }

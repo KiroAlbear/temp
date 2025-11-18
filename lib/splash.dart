@@ -27,10 +27,17 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
   @override
   Color? systemNavigationBarColor() => primaryColor;
 
+
+  @override
+  double appTopPadding() =>0;
+
   @override
   Widget getBody(BuildContext context) {
-    return LogoWidget(
-      logo: Assets.svg.icLogo,
+    return Container(
+      color: primaryColor,
+      child: LogoWidget(
+        logo: Assets.svg.icLogo,
+      ),
     );
   }
 

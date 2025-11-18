@@ -98,6 +98,49 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<HeaderResponse<List<CompanyTypeResponseModel>>> getCompanyType(
+    String langCode,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HeaderResponse<List<CompanyTypeResponseModel>>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/get/company_type?lang_code=${langCode}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(
+            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+          ),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late HeaderResponse<List<CompanyTypeResponseModel>> _value;
+    try {
+      _value = HeaderResponse<List<CompanyTypeResponseModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<CompanyTypeResponseModel>(
+                  (i) => CompanyTypeResponseModel.fromJson(
+                    i as Map<String, dynamic>,
+                  ),
+                )
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<HeaderResponse<List<CategoryResponse>>> category(
     PageRequest request,
     String langCode,

@@ -9,20 +9,41 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../../core/generated/l10n.dart';
 import 'new_account_bloc.dart';
 
-class NewAccountLocationInfoWidget extends StatefulWidget {
+class NewAccountLocationInfoWidget extends BaseStatefulWidget {
   final NewAccountBloc newAccountBloc;
 
   const NewAccountLocationInfoWidget({super.key, required this.newAccountBloc});
 
   @override
-  State<NewAccountLocationInfoWidget> createState() =>
+  BaseState<NewAccountLocationInfoWidget> createState() =>
       _NewAccountLocationInfoWidgetState();
 }
 
 class _NewAccountLocationInfoWidgetState
-    extends State<NewAccountLocationInfoWidget> with ResponseHandlerModule {
+    extends BaseState<NewAccountLocationInfoWidget> {
   @override
-  Widget build(BuildContext context) => Column(
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  bool canPop() => true;
+
+  @override
+  bool isSafeArea() => false;
+
+  @override
+  bool get useCustomScaffold => true;
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+  @override
+  Color? statusBarColor() => Colors.white;
+
+  @override
+  double appTopPadding() => 0;
+
+  @override
+  Widget getBody(BuildContext context) => Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -54,10 +75,6 @@ class _NewAccountLocationInfoWidgetState
               height: 24.h,
             ),
             _cityAndDistrictRow,
-            SizedBox(
-              height: 21.h,
-            ),
-
           ]);
   // ValueNotifier<bool> _isLocationDetected = ValueNotifier(true);
 
@@ -77,7 +94,9 @@ class _NewAccountLocationInfoWidgetState
                         // widget.newAccountBloc
                         //     .nextStep(NewAccountStepEnum.editLocation);
 
-                        Routes.navigateToScreen(Routes.editLocationPage, NavigationType.pushNamed, context,extra: widget.newAccountBloc);
+                        Routes.navigateToScreen(Routes.editLocationPage,
+                            NavigationType.pushNamed, context,
+                            extra: widget.newAccountBloc);
                       },
                       latitude: latitudeSnapShot.data,
                       longitude: longitudeSnapShot.data,
@@ -183,6 +202,7 @@ class _NewAccountLocationInfoWidgetState
                     textInputType: TextInputType.none,
                     textInputAction: TextInputAction.done,
                     readOnly: true,
+                    isDropDownMenu: true,
                     onTap: () {
                       _showStateDropDown(snapshot.data?.response ?? []);
                     },

@@ -18,19 +18,24 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) => ScreenUtilInit(
-        minTextAdapt: true,
-        splitScreenMode: true,
-        designSize: const Size(393, 852),
-        ensureScreenSize: true,
-        useInheritedMediaQuery: true,
-        builder: (BuildContext context, Widget? child) {
-          AppProviderModule().updateSystemUIOverLayDependOnThemeModeSystem();
-          return _materialApp(context);
-        },
-      );
+  Widget build(BuildContext context) => SafeArea(
+    top: false,
+    child: ScreenUtilInit(
+          minTextAdapt: true,
+          splitScreenMode: true,
+          designSize: const Size(393, 852),
+          ensureScreenSize: true,
+          useInheritedMediaQuery: true,
+          builder: (BuildContext context, Widget? child) {
+            AppProviderModule().updateSystemUIOverLayDependOnThemeModeSystem();
+            return _materialApp(context);
+          },
+        ),
+  );
 
   Widget _materialApp(BuildContext context) => MaterialApp.router(
+
+
 
         title: F.name,
 
@@ -51,6 +56,7 @@ class MyApp extends StatelessWidget {
         // locale: Locale(Provider.of<AppProviderModule>(context).locale, ''),
         locale: const Locale('ar'),
         supportedLocales: S.delegate.supportedLocales,
+        
 
 
         routerConfig: Routes.goRouter,

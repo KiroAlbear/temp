@@ -259,7 +259,6 @@ class S {
     );
   }
 
-
   /// `Invalid payment`
   String get invalidPayment {
     return Intl.message(
@@ -549,6 +548,24 @@ class S {
     );
   }
 
+  String get platformType {
+    return Intl.message(
+      'Platform type',
+      name: 'platformType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get choosePlatformType {
+    return Intl.message(
+      'Choose Platform type',
+      name: 'choosePlatformType',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter establishment name`
   String get enterPlatformName {
     return Intl.message(
@@ -594,6 +611,15 @@ class S {
     return Intl.message(
       'Select your location',
       name: 'selectLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get goToMainPage {
+    return Intl.message(
+      'Go to main page',
+      name: 'goToMainPage',
       desc: '',
       args: [],
     );
@@ -1610,6 +1636,15 @@ class S {
     );
   }
 
+  String get orderCancelReason {
+    return Intl.message(
+      'Reason for canceling your order',
+      name: 'orderCancelReason',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reason for canceling the order`
   String get orderCancelReasonHint {
     return Intl.message(
@@ -1921,6 +1956,33 @@ class S {
     return Intl.message(
       'Problem with verification code',
       name: 'otpIsNotValid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get firstStep {
+    return Intl.message(
+      "1. Create account",
+      name: 'firstStep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get secondStep {
+    return Intl.message(
+      "2. Choose your location",
+      name: 'secondStep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get thirdStep {
+    return Intl.message(
+      "3. Set your password",
+      name: 'thirdStep',
       desc: '',
       args: [],
     );

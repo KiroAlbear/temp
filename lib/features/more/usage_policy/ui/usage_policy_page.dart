@@ -27,6 +27,11 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyPage> {
   @override
   bool isSafeArea() =>true;
 
+
+  @override
+  Color? systemNavigationBarColor() => Colors.white;
+
+
   @override
   void onPopInvoked(didPop)  {
     changeSystemNavigationBarColor(secondaryColor);
@@ -34,8 +39,6 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyPage> {
 
   }
 
-  @override
-  Color? systemNavigationBarColor() => secondaryColor;
 
 
   @override

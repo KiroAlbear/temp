@@ -15,8 +15,8 @@ class CartEmptyWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ImageHelper(
-          image: Assets.svg.emptyCart,
-          imageType: ImageType.svg,
+          image: Assets.png.icGuestCart.path,
+          imageType: ImageType.asset,
           width: 150,
           height: 150,
         ),

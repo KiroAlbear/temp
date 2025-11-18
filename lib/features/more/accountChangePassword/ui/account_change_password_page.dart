@@ -31,7 +31,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
   bool isBottomSafeArea() =>false;
 
   @override
-  Color? systemNavigationBarColor() => secondaryColor;
+  Color? systemNavigationBarColor() => Colors.white;
 
   @override
   void onPopInvoked(didPop) async {

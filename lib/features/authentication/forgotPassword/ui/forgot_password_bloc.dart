@@ -29,9 +29,13 @@ class ForgotPasswordBloc extends BlocBase {
 
   void resetBloc() {
     mobileBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    mobileBloc.updateStringBehaviour("");
+
     passwordBloc.textFormFiledBehaviour.sink.add(TextEditingController());
+    passwordBloc.updateStringBehaviour("");
     confirmPasswordBloc.textFormFiledBehaviour.sink
         .add(TextEditingController());
+    confirmPasswordBloc.updateStringBehaviour("");
 
     buttonBloc.buttonBehavior.sink.add(ButtonState.idle);
   }

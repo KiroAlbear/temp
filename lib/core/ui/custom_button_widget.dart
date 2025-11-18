@@ -19,6 +19,7 @@ class CustomButtonWidget extends StatefulWidget {
   final bool isAllCaps;
   final bool useGradient;
   final Color? buttonColor;
+  final Color? idleTextColor;
   final String? loadingText;
   final double? textSize;
   final ButtonShapeEnum buttonShapeEnum;
@@ -47,6 +48,7 @@ class CustomButtonWidget extends StatefulWidget {
       this.enableClick = true,
       this.useGradient = false,
       this.buttonColor,
+      this.idleTextColor,
       this.loadingText,
       this.textSize,
       this.elevation = 0.0,
@@ -126,7 +128,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       ignoring: isIgnoring,
       child: CustomProgressButton(
         stateWidgets: {
-          ButtonState.idle: _idleText(enable ?? true),
+          ButtonState.idle: _idleText(enable ?? true,idleTextColor: widget.idleTextColor),
           ButtonState.fail: _failText(failedText),
           ButtonState.loading: _loadingText,
           ButtonState.success: widget.useSuccessState
@@ -211,11 +213,11 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         padding: EdgeInsets.only(top: 8.h),
       );
 
-  Widget _idleText(bool enable) => Text(
+  Widget _idleText(bool enable,{Color? idleTextColor}) => Text(
         widget.isAllCaps
             ? (widget.idleText ?? '').toUpperCase()
             : (widget.idleText ?? ''),
-        style:enable? widget.textStyle ??_successTextStyle: widget.textStyle ?? _textStyle,
+        style:enable? widget.textStyle ??_successTextStyle.copyWith(color: idleTextColor): widget.textStyle ?? _textStyle,
       );
 
   Widget _failText(String text) => Text(

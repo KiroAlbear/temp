@@ -57,6 +57,9 @@ const Color bottomSheetBarrierDarkMode = Color.fromRGBO(43, 43, 43, 0.4);
 const Color lightGreyColorLightMode = Color.fromRGBO(168, 172, 177, 1);
 const Color lightGreyColorDarkMode = Color.fromRGBO(168, 172, 177, 1);
 
+const Color lightGrey2ColorLightMode = Color.fromRGBO(237, 237, 237, 1);
+const Color lightGrey2ColorDarkMode = Color.fromRGBO(237, 237, 237, 1);
+
 /// off white color
 const Color offWhiteColorLightMode = Color.fromRGBO(251, 251, 251, 1);
 const Color offWhiteColorDarkMore = Color.fromRGBO(63, 63, 63, 1);

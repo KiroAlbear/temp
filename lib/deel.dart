@@ -92,7 +92,6 @@ export 'core/dto/models/profile/profile_mapper.dart';
 export 'core/dto/models/profile/profile_response.dart';
 export 'core/dto/models/register/register_request.dart';
 export 'core/dto/models/setting_mapper.dart';
-export 'core/dto/models/signUp/sign_up_request.dart';
 export 'core/dto/models/state/state_request.dart';
 export 'core/dto/models/state/state_response.dart';
 export 'core/dto/models/update_profile/delivery_address_mapper.dart';

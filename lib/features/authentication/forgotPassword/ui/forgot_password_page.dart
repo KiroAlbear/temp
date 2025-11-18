@@ -1,4 +1,3 @@
-
 import 'package:deel/deel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -7,13 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/generated/l10n.dart';
 
 class ForgotPasswordPage extends BaseStatefulWidget {
-
   final ForgotPasswordBloc forgetPasswordBloc;
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const ForgotPasswordPage(
       {super.key,
-
       required this.authenticationSharedBloc,
       required this.forgetPasswordBloc});
 
@@ -22,21 +19,23 @@ class ForgotPasswordPage extends BaseStatefulWidget {
 }
 
 class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
+  @override
+  PreferredSizeWidget? appBar() => null;
 
   @override
-  PreferredSizeWidget? appBar() =>null;
-
-  @override
-  bool canPop() =>true;
+  bool canPop() => true;
 
   @override
   Color? statusBarColor() => Colors.white;
 
   @override
-  Color? systemNavigationBarColor()  => Colors.white;
+  Color? systemNavigationBarColor() => Colors.white;
 
   @override
   bool isSafeArea() => false;
+
+  @override
+  double appTopPadding() => 0;
 
   @override
   void initState() {
@@ -89,17 +88,19 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
                 countryList: snapshot.data?.response ?? [],
                 countryBloc: widget.forgetPasswordBloc.countryBloc)),
       );
-  void onlyForTestingCode(){
+  void onlyForTestingCode() {
     widget.authenticationSharedBloc.setDataToAuth(
         widget.forgetPasswordBloc.countryBloc.value!,
         widget.forgetPasswordBloc.mobileBloc.value,
         AppScreenEnum.accountChangePassword.name);
-    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushReplacementNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.resetPasswordPage});
-
+    Routes.navigateToScreen(
+        Routes.otpPage, NavigationType.pushReplacementNamed, context,
+        queryParameters: {OtpPage.nextPageKey: Routes.resetPasswordPage});
 
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
   }
+
   Widget get _button => CustomButtonWidget(
         idleText: S.of(context).sendOTP,
         onTap: () {
@@ -107,31 +108,32 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
             widget.forgetPasswordBloc.checkPhone.listen(
               (event) {
                 // only for testing
-                if(kDebugMode){
+                if (kDebugMode) {
                   onlyForTestingCode();
-                }else{
+                } else {
                   checkResponseStateWithButton(
                     event,
                     context,
                     failedBehaviour:
-                    widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
+                        widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
                     buttonBehaviour:
-                    widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
+                        widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
                     onSuccess: () {
                       widget.authenticationSharedBloc.setDataToAuth(
                           widget.forgetPasswordBloc.countryBloc.value!,
                           widget.forgetPasswordBloc.mobileBloc.value,
                           AppScreenEnum.accountChangePassword.name);
-                      Routes.navigateToScreen(Routes.otpPage, NavigationType.pushReplacementNamed, context,queryParameters: {OtpPage.nextPageKey:Routes.resetPasswordPage});
+                      Routes.navigateToScreen(Routes.otpPage,
+                          NavigationType.pushReplacementNamed, context,
+                          queryParameters: {
+                            OtpPage.nextPageKey: Routes.resetPasswordPage
+                          });
 
                       // CustomNavigatorModule.navigatorKey.currentState
                       //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
                     },
                   );
                 }
-
-
-
               },
             );
           }
@@ -140,6 +142,4 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
         failedBehaviour: widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
         validateStream: widget.forgetPasswordBloc.validate,
       );
-
-
 }

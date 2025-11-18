@@ -32,7 +32,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final deelVersionNumber = "0.1.10";
+  final deelVersionNumber = "0.1.23";
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
   bool canPop() => false;
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   void dispose() {
@@ -60,7 +60,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
   }
 
   @override
-  void onPopInvoked(didPop) {}
+  void onPopInvoked(didPop) {
+    super.onPopInvoked(didPop);
+  }
 
   @override
   Widget getBody(BuildContext context) =>
@@ -80,6 +82,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
         _logoWidget,
         Expanded(
           child: ListView(
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             children: [
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
@@ -188,9 +191,12 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   height: 10.h,
                 ),
                 _menuItem(S.of(context).favourite, Assets.svg.icFavourite, () {
-                  // widget.productCategoryBloc.isForFavourite = true;
                   widget.productCategoryBloc.isNavigatingFromMore = true;
                   Routes.currentNavigationPage = Routes.favouritePage;
+
+                  getIt<HomeBloc>().reset();
+                  getIt<ProductCategoryBloc>().disposeReset();
+
                   Routes.navigateToScreen(
                       Routes.favouritePage, NavigationType.goNamed, context,
                       setBottomNavigationTab: true);
@@ -335,8 +341,8 @@ class _MoreWidgetState extends BaseState<MorePage> {
       useRootNavigator: true,
       useSafeArea: true,
       isScrollControlled: true,
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.26),
+      // constraints:
+      //     BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.24),
       builder: (context) {
         return DialogWidget(
           message: S.of(context).selectPhotoFromCameraOrGallery,
@@ -537,8 +543,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
   void _logout() async {
     await showModalBottomSheet(
       context: Routes.rootNavigatorKey.currentContext!,
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
+      isScrollControlled: false,
+      useRootNavigator: true,
+      useSafeArea: true,
       builder: (context2) {
         return DialogWidget(
           message: S.of(context).logoutMessage,
@@ -580,8 +587,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.48),
       builder: (context) {
         return DialogWidget(
           message: S.of(context).deleteAccountMessage,
@@ -593,9 +598,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
           hasCloseButton: true,
           sameButtonsColor: false,
           onConfirm: () {
-            widget.moreBloc.deactivateAccountStream.listen((event) {
+            widget.moreBloc.deactivateAccountStream.listen((event) async {
               if (event is SuccessState) {
-                AppProviderModule().logout(context);
+                await AppProviderModule()
+                    .logout(Routes.rootNavigatorKey.currentState!.context);
+
+                // Routes.navigateToScreen(
+                //     Routes.loginPage, NavigationType.goNamed, context);
                 widget.moreBloc.selectedFileBehaviour.sink.add("");
               }
             });

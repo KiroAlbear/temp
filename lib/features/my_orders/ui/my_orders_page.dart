@@ -33,7 +33,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
   bool isBottomSafeArea() =>false;
 
   @override
-  Color? systemNavigationBarColor() => secondaryColor;
+  Color? systemNavigationBarColor() => Colors.white;
 
   @override
   void onPopInvoked(didPop) {

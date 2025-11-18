@@ -30,7 +30,7 @@ class _FaqWidgetState extends BaseState<FaqPage> {
   Widget getBody(BuildContext context) => _screenDesign;
 
   @override
-  Color? systemNavigationBarColor() => secondaryColor;
+  Color? systemNavigationBarColor() => Colors.white;
 
   @override
   void onPopInvoked(didPop)  {
@@ -76,6 +76,7 @@ class _FaqWidgetState extends BaseState<FaqPage> {
                   separatorBuilder: (context, index) => SizedBox(
                         height: 16.h,
                       ),
+                  padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   itemCount: snapshot.data?.response?.length ?? 0),
             )),

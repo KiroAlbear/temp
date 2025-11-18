@@ -53,6 +53,9 @@ class MyOrderItemResponse {
   @JsonKey(name: 'state')
   String? state;
 
+  @JsonKey(name: 'order_id')
+  List<dynamic>? orderId;
+
   MyOrderItemResponse(
       {this.id,
       this.name,
@@ -65,6 +68,7 @@ class MyOrderItemResponse {
       this.price_reduce_taxinc,
       this.list_price,
       this.price_unit,
+      this.orderId,
       this.state});
 
   factory MyOrderItemResponse.fromJson(Map<String, dynamic> json) =>

@@ -51,12 +51,16 @@ mixin ResponseHandlerModule {
     bool showError = true,
   }) {
     if (apiState is IdleState) {
+      print("********* IdleState");
+
       if (useExpanded) {
         return Expanded(child: _getAnimWidget(child: onSuccess));
       } else {
         return _getAnimWidget(child: onSuccess);
       }
     } else if (apiState is LoadingState) {
+      print("********* LoadingState");
+
       if (useExpanded) {
         return Expanded(
             child: _getAnimWidget(
@@ -67,6 +71,7 @@ mixin ResponseHandlerModule {
       }
     } else if (apiState is SuccessState) {
       onSuccessFunction?.call();
+      print("********* SuccessState");
       if (useExpanded) {
         return Expanded(child: _getAnimWidget(child: onSuccess));
       } else {

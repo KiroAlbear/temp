@@ -1,3 +1,4 @@
+import 'package:deel/core/dto/models/register/company_type_reeponse_model.dart';
 import 'package:deel/deel.dart';
 import 'package:retrofit/error_logger.dart';
 
@@ -63,6 +64,9 @@ abstract class ApiClient {
   @http.POST(_ApiClientKey._login)
   Future<HeaderResponse<List<LoginResponse>>> login(
       @http.Body() LoginRequest request);
+
+  @http.POST("${_ApiClientKey._getCompanyType}${_ApiClientKey.urlLanguageCode}")
+  Future<HeaderResponse<List<CompanyTypeResponseModel>>> getCompanyType(@http.Path(_ApiClientKey.languagePath) String langCode);
 
   @http.POST("${_ApiClientKey._category}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<CategoryResponse>>> category(

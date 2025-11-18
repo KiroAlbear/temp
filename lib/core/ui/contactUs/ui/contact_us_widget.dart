@@ -21,7 +21,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
   Widget build(BuildContext context) => StreamBuilder<ApiState<ContactUsMapper>>(
     stream: widget.contactUsBloc.contactUsStream,
     builder: (context, snapshot) {
-      if (snapshot.data == null) {
+      if (snapshot.data == null || snapshot.data?.response == null) {
         return const SizedBox();
       } else
         return checkResponseStateWithLoadingWidget(
@@ -31,6 +31,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
   );
 
   Widget _buildScreenDesign(ContactUsMapper contactUsMapper) => Column(
+    mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             height: 39.h,
@@ -93,6 +94,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
           // SizedBox(
           //   height: 50.h,
           // ),
+          SizedBox(
+            height: 25.h,
+          ),
         ],
       );
 
