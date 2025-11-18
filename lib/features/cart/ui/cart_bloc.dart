@@ -84,29 +84,31 @@ class CartBloc extends BlocBase {
     timeBehaviour.sink.add("8 - 9 صباحاً");
   }
 
-  void getTotalCartSum(List<MyOrderItemResponse>? myOrderResponse) {
+  void getTotalCartSum(List<ProductMapper>? myOrderResponse, String currency) {
     totalSum = 0;
     //getting the currency from the first element of items
 
-    currency = myOrderResponse![0].currency![1] ?? '';
+    currency = currency;
 
-    myOrderResponse.forEach((element) {
-      totalSum += element.price_total ?? 0;
+    myOrderResponse?.forEach((element) {
+      totalSum += element.finalPrice ?? 0;
     });
 
     // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
     double totalWithDelivery =
         double.parse((parsedTotalSum + deliveryFees).toStringAsFixed(2));
-    double totalDiscount = cartTotaDiscountBehaviour.hasValue
+    double discount = cartTotaDiscountBehaviour.hasValue
         ? double.parse(cartTotaDiscountBehaviour.value.toStringAsFixed(2))
         : 0;
+
+    double totalAfterDiscount =
+        double.parse((totalWithDelivery + discount).toStringAsFixed(2));
 
     cartTotalBeforeDiscountDoubleBehaviour.sink.add(totalWithDelivery);
 
     cartTotalBeforeDiscountBehaviour.sink.add("$parsedTotalSum $currency");
-    cartTotalAfterDiscountBehaviour.sink
-        .add("${totalWithDelivery + totalDiscount} $currency");
+    cartTotalAfterDiscountBehaviour.sink.add("${totalAfterDiscount} $currency");
   }
 
   void _getTotalCartDeliverySum() {
@@ -323,7 +325,9 @@ class CartBloc extends BlocBase {
               _getTotalCartDiscountSum(0);
             }
 
-            getTotalCartSum(cartRemote.myOrderResponse);
+            getTotalCartSum(
+                getCartEvent.response!.getFirst! as List<ProductMapper>,
+                cartRemote.myOrderResponse![0].currency![1] ?? '');
 
             cartProductsBehavior.sink.add(SuccessState(Pair(
                 first: addAvailabilityToProduct(getCartEvent.response!.getFirst,
