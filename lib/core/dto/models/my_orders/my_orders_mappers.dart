@@ -53,7 +53,7 @@ class MyOrdersMapper {
     for (var i = 0; i < orderResponse.items!.length; i++) {
       sum += (orderResponse.items![i].price_total ?? 0);
     }
-    return sum;
+    return double.parse(sum.toStringAsFixed(2));
   }
 
   List<OrderItemMapper> getOrderItems(MyOrdersResponse orderResponse) {
