@@ -642,14 +642,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    child: ValueListenableBuilder(
-                      valueListenable: widget.showOverlayLoading,
-                      builder: (context, value, child) {
-                        return value
-                            ? Container(color: Colors.black.withOpacity(0.3))
-                            : SizedBox();
-                      },
-                    ),
+                    child:OverlayLoadingWidget(showOverlayLoading: widget.showOverlayLoading,),
+
                   ),
                 ],
               ),
