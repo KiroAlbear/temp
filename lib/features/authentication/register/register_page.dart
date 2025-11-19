@@ -2,6 +2,7 @@ import 'package:deel/deel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:otp_autofill/otp_autofill.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
@@ -36,6 +37,27 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
 
   @override
   double appTopPadding() => 0;
+
+  @override
+  void initState() {
+    final _otpInteractor = OTPInteractor();
+    _otpInteractor.getAppSignature()
+        .then((value) => print('******* signature - $value'));
+    final controller = OTPTextEditController(
+      codeLength: 6,
+      onCodeReceive: (code) => print('******** Your Application receive code - $code'),
+    )..startListenUserConsent(
+          (code) {
+
+        final exp = RegExp(r'(\d{5})');
+        return exp.stringMatch(code ?? '') ?? '';
+      },
+      strategies: [
+
+      ],
+    );
+    super.initState();
+  }
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(

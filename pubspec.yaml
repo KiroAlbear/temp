@@ -82,6 +82,7 @@ dependencies:
   curved_labeled_navigation_bar: ^2.0.5
   flutter_paymob: ^1.0.4
   smooth_page_indicator: ^1.2.1
+  otp_autofill: ^4.1.0
 
 dev_dependencies:
   flutter_test:
