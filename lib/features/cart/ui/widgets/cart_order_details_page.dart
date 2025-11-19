@@ -22,6 +22,9 @@ class CartOrderDetailsPage extends BaseStatefulWidget {
 }
 
 class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
+
+  ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
+
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -59,70 +62,84 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         isHavingBack: true,
       ),
       Expanded(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildOrderSummary(context),
-                20.verticalSpace,
-                _getSeperator(),
-                20.verticalSpace,
-                _buildIconItem(S.of(context).address, Assets.svg.icLocation),
-                5.verticalSpace,
-                _buildAddress(),
-                25.verticalSpace,
-                _getSeperator(),
-                12.verticalSpace,
-                StreamBuilder(
-                  stream: widget.cartBloc.dateBehaviour.stream,
-                  builder: (context, snapshot) {
-                    return !snapshot.hasData
-                        ? SizedBox()
-                        : CartOrderDetailsIconItem(
-                            icon: Assets.svg.icDate,
-                            title: snapshot.data!,
-                          );
-                  },
-                ),
-                12.verticalSpace,
-                _getSeperator(),
-                15.verticalSpace,
-                CartOrderDetailsIconItem(
-                  icon: Assets.svg.icTotal,
-                  title: widget.cartOrderDetailsArgs.isItVisa
-                      ? S.of(context).cartBankCard
-                      : widget.cartOrderDetailsArgs.isItWallet
-                          ? S.of(context).cartDokkanWallet
-                          : S.of(context).payCashOnDelivery,
-                  iconSize: 18,
-                  space: 8,
-                ),
-                10.verticalSpace,
-                _buildTotalPayment(),
-                62.verticalSpace,
-                CustomButtonWidget(
-                    idleText: S.of(context).cartConfirmOrder,
-                    buttonBehaviour: widget.cartBloc.buttonBloc.buttonBehavior,
-                    onTap: () async {
-                      widget.cartBloc.buttonBloc.buttonBehavior
-                          .add(ButtonState.loading);
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildOrderSummary(context),
+                    20.verticalSpace,
+                    _getSeperator(),
+                    20.verticalSpace,
+                    _buildIconItem(S.of(context).address, Assets.svg.icLocation),
+                    5.verticalSpace,
+                    _buildAddress(),
+                    25.verticalSpace,
+                    _getSeperator(),
+                    12.verticalSpace,
+                    StreamBuilder(
+                      stream: widget.cartBloc.dateBehaviour.stream,
+                      builder: (context, snapshot) {
+                        return !snapshot.hasData
+                            ? SizedBox()
+                            : CartOrderDetailsIconItem(
+                                icon: Assets.svg.icDate,
+                                title: snapshot.data!,
+                              );
+                      },
+                    ),
+                    12.verticalSpace,
+                    _getSeperator(),
+                    15.verticalSpace,
+                    CartOrderDetailsIconItem(
+                      icon: Assets.svg.icTotal,
+                      title: widget.cartOrderDetailsArgs.isItVisa
+                          ? S.of(context).cartBankCard
+                          : widget.cartOrderDetailsArgs.isItWallet
+                              ? S.of(context).cartDokkanWallet
+                              : S.of(context).payCashOnDelivery,
+                      iconSize: 18,
+                      space: 8,
+                    ),
+                    10.verticalSpace,
+                    _buildTotalPayment(),
+                    62.verticalSpace,
+                    CustomButtonWidget(
+                        idleText: S.of(context).cartConfirmOrder,
+                        buttonBehaviour: widget.cartBloc.buttonBloc.buttonBehavior,
+                        onTap: () async {
+                          widget.cartBloc.buttonBloc.buttonBehavior
+                              .add(ButtonState.loading);
 
-                      if (widget.cartOrderDetailsArgs.isItVisa) {
-                        _payWithCard();
-                        // _payWithWallet();
-                      } else if (widget.cartOrderDetailsArgs.isItWallet) {
-                        _payWithWallet(
-                            widget.cartOrderDetailsArgs.walletNumber!);
-                      } else {
-                        _ConfirmOder();
-                      }
-                    }),
-                49.verticalSpace,
-              ],
+                          showOverlayLoading.value = true;
+
+                          if (widget.cartOrderDetailsArgs.isItVisa) {
+                            _payWithCard();
+                            // _payWithWallet();
+                          } else if (widget.cartOrderDetailsArgs.isItWallet) {
+                            _payWithWallet(
+                                widget.cartOrderDetailsArgs.walletNumber!);
+                          } else {
+                            _ConfirmOder();
+                          }
+                        }),
+                    49.verticalSpace,
+                  ],
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child:OverlayLoadingWidget(showOverlayLoading: showOverlayLoading,),
+
+            ),
+          ],
         ),
       )
     ]);
@@ -143,9 +160,12 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
           showInvalidPaymentBottomSheet();
+          showOverlayLoading.value = false;
+
         }
       },
     );
+    showOverlayLoading.value = false;
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
   }
 
@@ -164,11 +184,13 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           _ConfirmOder();
         } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+          showOverlayLoading.value = false;
 
           showInvalidPaymentBottomSheet();
         }
       },
     );
+    showOverlayLoading.value = false;
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
   }
 
@@ -194,6 +216,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       if (event is SuccessState) {
         widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         widget.cartBloc.getMyCart();
+        showOverlayLoading.value = false;
         Routes.navigateToScreen(Routes.cartSuccessPage,
             NavigationType.pushReplacementNamed, context);
         // CustomNavigatorModule
