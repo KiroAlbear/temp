@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:otp_autofill/otp_autofill.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 
 class OtpPage extends BaseStatefulWidget {
@@ -24,7 +27,8 @@ class OtpPage extends BaseStatefulWidget {
 class _OtpWidgetState extends BaseState<OtpPage> {
   String? _signature;
   final OtpBloc _bloc = OtpBloc();
-  final _otpPinFieldController = GlobalKey<OtpPinFieldState>();
+  final _otpPinFieldKey = GlobalKey<OtpPinFieldState>();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -55,6 +59,38 @@ class _OtpWidgetState extends BaseState<OtpPage> {
   //     }
   //   });
   // }
+
+
+  @override
+  void initState() {
+    _controller.text = "123456";
+
+    Timer(Duration(seconds: 4),() {
+      _otpPinFieldKey.currentState?.widget.onChange("123456");
+    },);
+
+    // final _otpInteractor = OTPInteractor();
+    // _otpInteractor.getAppSignature()
+    //     .then((value) => print('******** signature - $value'));
+    // final controller = OTPTextEditController(
+    //   codeLength: 6,
+    //   otpInteractor: _otpInteractor,
+    //   onCodeReceive: (code) => print('******** Your Application receive code - $code'),
+    // )..startListenUserConsent(
+    //       (code) {
+    //
+    //     final exp = RegExp(r'(\d{6})');
+    //     final value = exp.stringMatch(code ?? '') ?? '';
+    //     _controller.text = value;
+    //
+    //
+    //     return exp.stringMatch(code ?? '') ?? '';
+    //   },
+    // );
+
+    super.initState();
+
+  }
 
   @override
   void dispose() {
@@ -115,6 +151,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
 
   double _otpSize = 50.w;
   Widget _otpWidget() {
+
     return Directionality(
       textDirection: AppProviderModule().locale == 'en'
           ? TextDirection.ltr
@@ -122,16 +159,20 @@ class _OtpWidgetState extends BaseState<OtpPage> {
       child: SizedBox(
         height: _otpSize,
         child: OtpPinField(
-          key: _otpPinFieldController,
-          onSubmit: (pin) {},
+          key: _otpPinFieldKey,
+         controller: _controller,
+          onSubmit: (pin) {
+            setState(() {});
+          },
           keyboardType: TextInputType.number,
           fieldHeight: _otpSize,
           fieldWidth: _otpSize,
-          autoFillEnable: false,
-          phoneNumbersHint: true,
-          beforeTextPaste: (text) {
-            return false;
-          },
+          // autoFillEnable: true,
+          phoneNumbersHint: false,
+
+          // smsRegex: r'(\d{6})',
+
+
           maxLength: _bloc.otpCodeLength,
           otpPinFieldDecoration: OtpPinFieldDecoration.defaultPinBoxDecoration,
           otpPinFieldStyle: OtpPinFieldStyle(
@@ -143,9 +184,13 @@ class _OtpWidgetState extends BaseState<OtpPage> {
             fieldBorderRadius: 5.w,
           ),
           onChange: (value) {
-            _bloc.otpBloc.textFormFiledBehaviour.sink
-                .add(TextEditingController(text: value));
-            _bloc.otpBloc.updateStringBehaviour(value);
+            if(value.length == 6){
+              _controller.text = "123456";
+              setState(() {});
+            }
+            // _bloc.otpBloc.textFormFiledBehaviour.sink
+            //     .add(TextEditingController(text: value));
+            // _bloc.otpBloc.updateStringBehaviour(value);
           },
         ),
       ),
@@ -235,7 +280,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
               if (kDebugMode) {
                 onlyForTestingCode();
               } else {
-                if (_otpPinFieldController.currentState!.controller.text ==
+                if (_otpPinFieldKey.currentState!.controller.text ==
                     "135791") {
                   onlyForTestingCode();
                 } else {

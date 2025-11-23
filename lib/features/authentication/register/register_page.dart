@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_autofill/otp_autofill.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/generated/l10n.dart';
 
@@ -40,23 +41,18 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
 
   @override
   void initState() {
-    final _otpInteractor = OTPInteractor();
-    _otpInteractor.getAppSignature()
-        .then((value) => print('******* signature - $value'));
-    final controller = OTPTextEditController(
-      codeLength: 6,
-      onCodeReceive: (code) => print('******** Your Application receive code - $code'),
-    )..startListenUserConsent(
-          (code) {
 
-        final exp = RegExp(r'(\d{5})');
-        return exp.stringMatch(code ?? '') ?? '';
-      },
-      strategies: [
+    requestSmsPermission();
 
-      ],
-    );
     super.initState();
+  }
+
+  Future<void> requestSmsPermission() async {
+    var status = await Permission.sms.status;
+    if (status.isDenied) {
+      // Request the permission if it's not granted
+      await Permission.sms.request();
+    }
   }
 
   @override
@@ -134,7 +130,8 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
                 //TODO: this code is commented only for temp use, revert it when go to production
                 if (kDebugMode) {
                   if (event is SuccessState) onlyForTestingCode();
-                } else {
+                } else
+                {
                   checkResponseStateWithButton(
                     event,
                     context,
