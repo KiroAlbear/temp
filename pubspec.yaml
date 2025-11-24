@@ -26,7 +26,7 @@ dependencies:
   otp_pin_field:
     git:
       url: https://github.com/KiroAlbear/otp_pin_field_package.git
-      ref: 6cce0bc
+      ref: e0db767
 
   country_codes: ^3.1.0+2
   permission_handler: ^11.3.1

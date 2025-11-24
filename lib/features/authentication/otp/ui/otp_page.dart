@@ -48,45 +48,9 @@ class _OtpWidgetState extends BaseState<OtpPage> {
   @override
   double appTopPadding() => 0;
 
-  // void _initSignature() async {
-  //   _signature = await SmsVerification.getAppSignature();
-  //   SmsVerification.startListeningSms().then((value) {
-  //     if (value != null) {
-  //       /// TODO handle message and listen to it
-  //       // _bloc.otpBloc.textFormFiledBehaviour.sink
-  //       //     .add(TextEditingController(text: value));
-  //       SmsVerification.stopListening();
-  //     }
-  //   });
-  // }
-
-
   @override
   void initState() {
-    _controller.text = "123456";
-
-    Timer(Duration(seconds: 4),() {
-      _otpPinFieldKey.currentState?.widget.onChange("123456");
-    },);
-
-    // final _otpInteractor = OTPInteractor();
-    // _otpInteractor.getAppSignature()
-    //     .then((value) => print('******** signature - $value'));
-    // final controller = OTPTextEditController(
-    //   codeLength: 6,
-    //   otpInteractor: _otpInteractor,
-    //   onCodeReceive: (code) => print('******** Your Application receive code - $code'),
-    // )..startListenUserConsent(
-    //       (code) {
-    //
-    //     final exp = RegExp(r'(\d{6})');
-    //     final value = exp.stringMatch(code ?? '') ?? '';
-    //     _controller.text = value;
-    //
-    //
-    //     return exp.stringMatch(code ?? '') ?? '';
-    //   },
-    // );
+    _listenForSmsCode();
 
     super.initState();
 
@@ -95,7 +59,22 @@ class _OtpWidgetState extends BaseState<OtpPage> {
   @override
   void dispose() {
     super.dispose();
-    // SmsVerification.stopListening();
+  }
+
+  void _listenForSmsCode(){
+    OTPTextEditController(
+      codeLength: 6,
+      onCodeReceive: (code) => print('******** Your Application receive code - $code'),
+    )..startListenUserConsent(
+          (code) {
+
+        final exp = RegExp(r'(\d{6})');
+        final value = exp.stringMatch(code ?? '') ?? '';
+        _pastCode(value);
+
+        return exp.stringMatch(code ?? '') ?? '';
+      },
+    );
   }
 
   @override
@@ -161,18 +140,11 @@ class _OtpWidgetState extends BaseState<OtpPage> {
         child: OtpPinField(
           key: _otpPinFieldKey,
          controller: _controller,
-          onSubmit: (pin) {
-            setState(() {});
-          },
+          onSubmit: (pin) {},
           keyboardType: TextInputType.number,
           fieldHeight: _otpSize,
           fieldWidth: _otpSize,
-          // autoFillEnable: true,
           phoneNumbersHint: false,
-
-          // smsRegex: r'(\d{6})',
-
-
           maxLength: _bloc.otpCodeLength,
           otpPinFieldDecoration: OtpPinFieldDecoration.defaultPinBoxDecoration,
           otpPinFieldStyle: OtpPinFieldStyle(
@@ -185,16 +157,24 @@ class _OtpWidgetState extends BaseState<OtpPage> {
           ),
           onChange: (value) {
             if(value.length == 6){
-              _controller.text = "123456";
-              setState(() {});
+              _addCodeToBloc( value);
             }
-            // _bloc.otpBloc.textFormFiledBehaviour.sink
-            //     .add(TextEditingController(text: value));
-            // _bloc.otpBloc.updateStringBehaviour(value);
           },
         ),
       ),
     );
+  }
+
+  void _pastCode(String text){
+    OtpPinFieldState.bindTextIntoWidget(text);
+    _otpPinFieldKey.currentState!.widget.onChange(text);
+    setState(() {});
+    FocusScope.of(context).unfocus();
+  }
+  void _addCodeToBloc(String text){
+    _bloc.otpBloc.textFormFiledBehaviour.sink
+        .add(TextEditingController(text: text));
+    _bloc.otpBloc.updateStringBehaviour(text);
   }
 
   Widget get _otpWithMobile => CustomText(
