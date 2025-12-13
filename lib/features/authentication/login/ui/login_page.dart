@@ -1,14 +1,18 @@
 import 'dart:async';
 
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
+import 'package:deel/core/Utils/firebase_analytics_utl.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 import '../../../../../core/generated/l10n.dart';
+import '../../../../core/Utils/firebase_analytics_key_names.dart';
 import '../../widget/logo_top_widget.dart';
 import 'login_bloc.dart';
 
@@ -40,14 +44,12 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
-
   @override
   double appTopPadding() => 0;
 
   @override
   void initState() {
     customBackgroundColor = Colors.white;
-
 
     WidgetsBinding.instance.addPostFrameCallback(
         (_) => changeSystemNavigationBarAndStatusColor(whiteColor));
@@ -258,6 +260,10 @@ class _LoginWidgetState extends BaseState<LoginPage> {
               buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
               headerErrorMessage: "خطأ في رقم الهاتف او كلمة المرور",
               onSuccess: () {
+                FirebaseAnalyticsUtil()
+                    .logEvent(FirebaseAnalyticsEventsNames.login, parameters: {
+                  FirebaseAnalyticsKeyNames.org_id: event.response?.userId ?? 0,
+                });
                 _navigateHome();
               },
             );

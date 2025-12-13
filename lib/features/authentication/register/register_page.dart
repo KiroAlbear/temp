@@ -6,6 +6,7 @@ import 'package:otp_autofill/otp_autofill.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/generated/l10n.dart';
+import '../../../core/Utils/firebase_analytics_utl.dart';
 
 class RegisterPage extends BaseStatefulWidget {
   final AuthenticationSharedBloc authenticationSharedBloc;
@@ -35,13 +36,11 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
-
   @override
   double appTopPadding() => 0;
 
   @override
   void initState() {
-
     requestSmsPermission();
 
     super.initState();
@@ -128,9 +127,9 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
             if (_bloc.isValid) {
               _bloc.checkPhone.listen((event) {
                 //TODO: this code is commented only for temp use, revert it when go to production
-                if (kDebugMode) {
-                  if (event is SuccessState) onlyForTestingCode();
-                } else
+                // if (kDebugMode) {
+                //   if (event is SuccessState) onlyForTestingCode();
+                // } else
                 {
                   checkResponseStateWithButton(
                     event,

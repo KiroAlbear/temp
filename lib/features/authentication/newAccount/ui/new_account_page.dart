@@ -1,4 +1,5 @@
 import 'package:custom_progress_button/custom_progress_button.dart';
+import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
 import 'package:deel/core/services/dependency_injection_service.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/authentication/widget/logo_top_widget.dart';
@@ -9,6 +10,8 @@ import 'package:image_loader/image_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../../core/generated/l10n.dart';
+import '../../../../core/Utils/firebase_analytics_key_names.dart';
+import '../../../../core/Utils/firebase_analytics_utl.dart';
 import '../../widget/register_stepper.dart';
 
 class NewAccountPage extends BaseStatefulWidget {
@@ -307,6 +310,13 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                     _loadingNotifier.value = false;
                   },
                   onSuccess: () {
+                    FirebaseAnalyticsUtil().logEvent(
+                        FirebaseAnalyticsEventsNames.sign_up,
+                        parameters: {
+                          FirebaseAnalyticsKeyNames.org_id:
+                              event.response!.userId,
+                        });
+
                     _loadingNotifier.value = false;
                     SharedPrefModule()
                         .setCountryCode(widget._bloc.countryCode ?? '');

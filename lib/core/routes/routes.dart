@@ -1,3 +1,4 @@
+import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
 import 'package:deel/core/routes/navigation_type.dart';
 import 'package:deel/core/services/dependency_injection_service.dart';
 import 'package:deel/core/ui/not_logged_in_widget.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/cart/models/cart_order_details_args.dart';
+import '../Utils/firebase_analytics_utl.dart';
 
 class Routes {
   static BuildContext? buildContext;
@@ -369,6 +371,9 @@ class Routes {
                           Routes.offersPage, NavigationType.goNamed, context);
                     } else if (index == 3) {
                       currentNavigationPage = Routes.cartPage;
+                      FirebaseAnalyticsUtil().logEvent(
+                          FirebaseAnalyticsEventsNames.view_cart,
+                          parameters: {});
 
                       await Routes.navigateToScreen(
                           Routes.cartPage, NavigationType.goNamed, context);

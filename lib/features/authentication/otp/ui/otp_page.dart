@@ -53,7 +53,6 @@ class _OtpWidgetState extends BaseState<OtpPage> {
     _listenForSmsCode();
 
     super.initState();
-
   }
 
   @override
@@ -61,20 +60,20 @@ class _OtpWidgetState extends BaseState<OtpPage> {
     super.dispose();
   }
 
-  void _listenForSmsCode(){
+  void _listenForSmsCode() {
     OTPTextEditController(
       codeLength: 6,
-      onCodeReceive: (code) => print('******** Your Application receive code - $code'),
+      onCodeReceive: (code) =>
+          print('******** Your Application receive code - $code'),
     )..startListenUserConsent(
-          (code) {
+        (code) {
+          final exp = RegExp(r'(\d{6})');
+          final value = exp.stringMatch(code ?? '') ?? '';
+          _pastCode(value);
 
-        final exp = RegExp(r'(\d{6})');
-        final value = exp.stringMatch(code ?? '') ?? '';
-        _pastCode(value);
-
-        return exp.stringMatch(code ?? '') ?? '';
-      },
-    );
+          return exp.stringMatch(code ?? '') ?? '';
+        },
+      );
   }
 
   @override
@@ -130,7 +129,6 @@ class _OtpWidgetState extends BaseState<OtpPage> {
 
   double _otpSize = 50.w;
   Widget _otpWidget() {
-
     return Directionality(
       textDirection: AppProviderModule().locale == 'en'
           ? TextDirection.ltr
@@ -139,7 +137,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
         height: _otpSize,
         child: OtpPinField(
           key: _otpPinFieldKey,
-         controller: _controller,
+          controller: _controller,
           onSubmit: (pin) {},
           keyboardType: TextInputType.number,
           fieldHeight: _otpSize,
@@ -156,8 +154,8 @@ class _OtpWidgetState extends BaseState<OtpPage> {
             fieldBorderRadius: 5.w,
           ),
           onChange: (value) {
-            if(value.length == 6){
-              _addCodeToBloc( value);
+            if (value.length == 6) {
+              _addCodeToBloc(value);
             }
           },
         ),
@@ -165,13 +163,14 @@ class _OtpWidgetState extends BaseState<OtpPage> {
     );
   }
 
-  void _pastCode(String text){
+  void _pastCode(String text) {
     OtpPinFieldState.bindTextIntoWidget(text);
     _otpPinFieldKey.currentState!.widget.onChange(text);
     setState(() {});
     FocusScope.of(context).unfocus();
   }
-  void _addCodeToBloc(String text){
+
+  void _addCodeToBloc(String text) {
     _bloc.otpBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: text));
     _bloc.otpBloc.updateStringBehaviour(text);
@@ -257,11 +256,12 @@ class _OtpWidgetState extends BaseState<OtpPage> {
             (value) {
               //TODO: this code is commented only for temp use, revert it when go to production
               // only for testing
-              if (kDebugMode) {
-                onlyForTestingCode();
-              } else {
-                if (_otpPinFieldKey.currentState!.controller.text ==
-                    "135791") {
+              // if (kDebugMode) {
+              //   onlyForTestingCode();
+              // } else
+              //
+              {
+                if (_otpPinFieldKey.currentState!.controller.text == "135791") {
                   onlyForTestingCode();
                 } else {
                   checkResponseStateWithButton(

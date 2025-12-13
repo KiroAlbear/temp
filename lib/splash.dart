@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'deel.dart';
 
@@ -15,10 +16,11 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
   @override
   void initState() {
     customBackgroundColor = primaryColor;
+    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+
     Future.delayed(const Duration(seconds: 2))
         .then((value) => AppProviderModule().init(context));
     super.initState();
-
   }
 
   @override
@@ -27,9 +29,8 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
   @override
   Color? systemNavigationBarColor() => primaryColor;
 
-
   @override
-  double appTopPadding() =>0;
+  double appTopPadding() => 0;
 
   @override
   Widget getBody(BuildContext context) {
