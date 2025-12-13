@@ -7,8 +7,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:simple_shared_pref/simple_shared_pref.dart';
 
 import 'core/dto/modules/admin_dio_module.dart';
@@ -44,36 +46,32 @@ FutureOr<void> main() async {
   // You may set the permission requests to "provisional" which allows the user to choose what type
   // of notifications they would like to receive once the user receives a notification.
 
-  if(Platform.isIOS){
+  if (Platform.isIOS) {
+    // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
+    await FirebaseMessaging.instance.getAPNSToken().then(
+      (apnsToken) async {
+        if (apnsToken != null) {
+          print("********* apnToken $apnsToken **********");
 
-  // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
-   await FirebaseMessaging.instance.getAPNSToken().then(
-    (apnsToken) async {
-      if (apnsToken != null) {
-        print("********* apnToken $apnsToken **********");
-
-        AppConstants.fcmToken = apnsToken;
-        MoreBloc().updateNotificationsDeviceData(SharedPrefModule().userId??"", apnsToken);
-
-      }
-    },
-  );
-  }else{
+          AppConstants.fcmToken = apnsToken;
+          MoreBloc().updateNotificationsDeviceData(
+              SharedPrefModule().userId ?? "", apnsToken);
+        }
+      },
+    );
+  } else {
     await FirebaseMessaging.instance.getToken().then(
-          (tok) async {
+      (tok) async {
         if (tok != null) {
           print("********* fcmToken $tok **********");
           AppConstants.fcmToken = tok;
 
-          MoreBloc().updateNotificationsDeviceData(SharedPrefModule().userId??"", tok);
-
+          MoreBloc().updateNotificationsDeviceData(
+              SharedPrefModule().userId ?? "", tok);
         }
       },
     );
   }
-
-
-
 
   final notificationSettings =
       await FirebaseMessaging.instance.requestPermission(
@@ -83,12 +81,11 @@ FutureOr<void> main() async {
     sound: true,
   );
 
-
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     print(message.category);
 
-    getIt<ProductCategoryBloc>().handleNotificationNavigation(NotificationResponseModel.fromJson(message.data));
-
+    getIt<ProductCategoryBloc>().handleNotificationNavigation(
+        NotificationResponseModel.fromJson(message.data));
   });
 
   // Android 13+: Request permission
@@ -100,8 +97,6 @@ FutureOr<void> main() async {
   // }
 
   await requestNotificationPermissions();
-
-
 
   FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
     // print("********* fcm Token $fcmToken **********");
@@ -163,14 +158,32 @@ FutureOr<void> main() async {
   await DependencyInjectionService().init();
 
   /// run app and use provider for app config
+  _checkForShorebirdUpdates();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AppProviderModule>(create: (_) {
       AppProviderModule appProviderModule = AppProviderModule();
       appProviderModule.initAppThemeAndLanguage();
       return appProviderModule;
     }),
-  ], child: const MyApp()));
+  ], child: Phoenix(child: const MyApp())));
   // _runAppWithSentry();
+}
+
+Future<void> _checkForShorebirdUpdates() async {
+  final shorebirdCodePush = ShorebirdUpdater();
+  // Check for updates and prompt the user to restart if one is available.
+  final UpdateStatus status = await shorebirdCodePush.checkForUpdate();
+
+  if (status == UpdateStatus.outdated) {
+    // Download the update.
+    await shorebirdCodePush.update();
+
+    Phoenix.rebirth(Routes.rootNavigatorKey.currentContext!);
+
+    // Optionally, notify the user that an update is ready and they should restart.
+    // In a real app, you might show a dialog or snackbar here.
+    print('Update downloaded. Please restart the app to apply the changes.');
+  }
 }
 
 Future<void> requestNotificationPermissions() async {
