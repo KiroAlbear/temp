@@ -174,6 +174,8 @@ Future<void> _checkForShorebirdUpdates() async {
   // Check for updates and prompt the user to restart if one is available.
   final UpdateStatus status = await shorebirdCodePush.checkForUpdate();
 
+  print('************** Shorebird status: $status *****');
+
   if (status == UpdateStatus.outdated) {
     // Download the update.
     await shorebirdCodePush.update();
