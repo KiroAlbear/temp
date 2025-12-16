@@ -139,7 +139,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
         key: Key("PasswordWidget"),
         labelText: S.of(context).enterYourPassword,
         textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
-        onChanged: (value) => () {},
+        onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
         validator: (value) =>
             ValidatorModule().emptyValidator(context).call(value),
         textInputAction: TextInputAction.done,
