@@ -352,12 +352,19 @@ class Routes {
                     if (index == 0 &&
                         currentNavigationPage != Routes.homePage) {
                       currentNavigationPage = Routes.homePage;
+                      FirebaseAnalyticsUtil().logEvent(
+                          FirebaseAnalyticsEventsNames.view_home_screen,
+                          parameters: {});
 
                       await Routes.navigateToScreen(
                           Routes.homePage, NavigationType.goNamed, context);
                     } else if (index == 1 &&
                         currentNavigationPage != Routes.favouritePage) {
                       currentNavigationPage = Routes.favouritePage;
+
+                      FirebaseAnalyticsUtil().logEvent(
+                          FirebaseAnalyticsEventsNames.view_favourite_screen,
+                          parameters: {});
 
                       getIt<HomeBloc>().reset();
                       getIt<ProductCategoryBloc>().disposeReset();
@@ -366,19 +373,26 @@ class Routes {
                           NavigationType.goNamed, context);
                     } else if (index == 2) {
                       currentNavigationPage = Routes.offersPage;
+                      FirebaseAnalyticsUtil().logEvent(
+                          FirebaseAnalyticsEventsNames.view_offers_screen,
+                          parameters: {});
 
                       await Routes.navigateToScreen(
                           Routes.offersPage, NavigationType.goNamed, context);
                     } else if (index == 3) {
                       currentNavigationPage = Routes.cartPage;
                       FirebaseAnalyticsUtil().logEvent(
-                          FirebaseAnalyticsEventsNames.view_cart,
+                          FirebaseAnalyticsEventsNames.view_cart_screen,
                           parameters: {});
 
                       await Routes.navigateToScreen(
                           Routes.cartPage, NavigationType.goNamed, context);
                     } else if (index == 4) {
                       currentNavigationPage = Routes.morePage;
+
+                      FirebaseAnalyticsUtil().logEvent(
+                          FirebaseAnalyticsEventsNames.view_more_screen,
+                          parameters: {});
 
                       await Routes.navigateToScreen(
                           Routes.morePage, NavigationType.goNamed, context);

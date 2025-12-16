@@ -6,6 +6,8 @@ import 'package:image_loader/image_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/generated/l10n.dart';
+import '../../../core/Utils/firebase_analytics_events_names.dart';
+import '../../../core/Utils/firebase_analytics_utl.dart';
 import '../home/ui/home_bloc.dart';
 
 class ScanBarcodePage extends BaseStatefulWidget {
@@ -35,6 +37,9 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
   @override
   void initState() {
     super.initState();
+    FirebaseAnalyticsUtil().logEvent(
+        FirebaseAnalyticsEventsNames.view_scan_qr_screen,
+        parameters: {});
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         _bloc.cameraPermissionBloc
