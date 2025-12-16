@@ -12,10 +12,6 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission-group.SMS" />
-
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="Deel"
