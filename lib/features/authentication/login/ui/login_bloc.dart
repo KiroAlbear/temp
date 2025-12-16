@@ -1,4 +1,3 @@
-
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/updateProfile/remote/notifications_update_device_remote.dart';
 import 'package:rxdart/rxdart.dart';
@@ -24,8 +23,6 @@ class LoginBloc extends BlocBase {
     );
   }
 
-
-
   Stream<bool> get biometricSupportedStream =>
       _biometricSupportedBehaviour.stream;
 
@@ -47,8 +44,9 @@ class LoginBloc extends BlocBase {
   bool get isValid {
     if (countryBloc.value != null) {
       return (_validatorModule.isMobileValid(
-              mobileBloc.value, countryBloc.value?.mobileValidator ?? '') || _validatorModule.isMobileValid(
-          mobileBloc.value, countryBloc.value?.mobilePlusValidator ?? '')) &&
+                  mobileBloc.value, countryBloc.value?.mobileValidator ?? '') ||
+              _validatorModule.isMobileValid(mobileBloc.value,
+                  countryBloc.value?.mobilePlusValidator ?? '')) &&
           _validatorModule.isFiledNotEmpty(passwordBloc.value);
     } else {
       return false;

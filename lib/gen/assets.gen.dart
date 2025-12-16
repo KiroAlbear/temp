@@ -220,9 +220,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/img_guest_favourite.svg
   String get imgGuestFavourite => 'assets/svg/img_guest_favourite.svg';
 
-  /// File path: assets/svg/logo_text.svg
-  String get logoText => 'assets/svg/logo_text.svg';
-
   /// File path: assets/svg/logo_yellow.svg
   String get logoYellow => 'assets/svg/logo_yellow.svg';
 
@@ -290,7 +287,6 @@ class $AssetsSvgGen {
         icTotal,
         icWhatsApp,
         imgGuestFavourite,
-        logoText,
         logoYellow
       ];
 }
