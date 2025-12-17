@@ -1,6 +1,9 @@
 import 'dart:ui';
 
+import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
+import 'package:deel/core/Utils/firebase_analytics_utl.dart';
 import 'package:deel/deel.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -271,6 +274,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                       widget.productMapper.id);
                                 }
                                 _handleFavouriteIcon(event, false);
+                                FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.remove_from_wishlist);
+
                               });
                             } else {
                               widget.productCategoryBloc
@@ -282,6 +287,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                   .listen((event) {
                                 _handleFavouriteIcon(event, true);
                               });
+                              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.add_to_wishlist);
+
                             }
                           }
                         },
@@ -428,6 +435,8 @@ class _ProductWidgetState extends State<ProductWidget> {
           onConfirm: () {
             qtyValueNotifier.value = 0;
             widget.onDeleteClicked!(widget.productMapper);
+            FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.remove_from_cart);
+
           },
         );
       },
@@ -481,6 +490,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                   widget.productMapper.cartUserQuantity =
                       qtyValueNotifier.value.toDouble();
                   widget.onIncrementClicked!(widget.productMapper);
+
+                  FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.update_cart_quantity);
+
+
                 } else {
                   _showMaximumAlertDialog(
                       S.of(context).cartMaximumProductsReached,
@@ -526,14 +539,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                       qtyValueNotifier.value.toDouble();
 
                   widget.onDecrementClicked!(widget.productMapper);
+                  FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.update_cart_quantity);
+
                 }
-                // else if (qtyValueNotifier.value ==
-                //         widget.productMapper.minQuantity &&
-                //     widget.productMapper.minQuantity > 1) {
-                //   _showMaximumAlertDialog(
-                //       S.of(context).cartMinimumProductsReached,
-                //       widget.productMapper.minQuantity.round().toString());
-                // }
                 else {
                   _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
                 }
@@ -583,6 +591,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               if (widget.cartBloc != null) {
                 widget.cartBloc!.getMyCart();
               }
+              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.add_to_cart);
             }
           }
         },

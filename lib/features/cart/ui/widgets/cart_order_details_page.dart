@@ -8,6 +8,8 @@ import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
+import '../../../../core/Utils/firebase_analytics_events_names.dart';
+import '../../../../core/Utils/firebase_analytics_utl.dart';
 import '../cart_bloc.dart';
 import 'cart_order_details_Icon_item.dart';
 
@@ -217,6 +219,9 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
         widget.cartBloc.getMyCart();
         showOverlayLoading.value = false;
+        FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.purchase);
+
+
         Routes.navigateToScreen(Routes.cartSuccessPage,
             NavigationType.pushReplacementNamed, context);
         // CustomNavigatorModule

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import '../../../../../core/generated/l10n.dart';
+import '../../../../core/Utils/firebase_analytics_events_names.dart';
+import '../../../../core/Utils/firebase_analytics_utl.dart';
 
 class HomePage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
@@ -138,7 +140,9 @@ class _HomeWidgetState extends BaseState<HomePage> {
           widget.homeBloc.searchBloc.textFormFiledBehaviour.sink
               .add(TextEditingController(text: ''));
           widget.homeBloc.searchBloc.updateStringBehaviour('');
-          FocusScope.of(context).requestFocus(new FocusNode()); //remove focus
+          FocusScope.of(context).requestFocus(new FocusNode());
+          FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.search);
+
         },
       );
 

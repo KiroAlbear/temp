@@ -180,7 +180,10 @@ Future<void> _checkForShorebirdUpdates() async {
     // Download the update.
     await shorebirdCodePush.update();
 
-    Phoenix.rebirth(Routes.rootNavigatorKey.currentContext!);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Phoenix.rebirth(Routes.rootNavigatorKey.currentContext!);
+    },);
+
 
     // Optionally, notify the user that an update is ready and they should restart.
     // In a real app, you might show a dialog or snackbar here.
