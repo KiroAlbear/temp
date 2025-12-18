@@ -158,37 +158,14 @@ FutureOr<void> main() async {
   await DependencyInjectionService().init();
 
   /// run app and use provider for app config
-  _checkForShorebirdUpdates();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AppProviderModule>(create: (_) {
       AppProviderModule appProviderModule = AppProviderModule();
       appProviderModule.initAppThemeAndLanguage();
       return appProviderModule;
     }),
-  ], child: Phoenix(child: const MyApp())));
+  ], child: const MyApp()));
   // _runAppWithSentry();
-}
-
-Future<void> _checkForShorebirdUpdates() async {
-  final shorebirdCodePush = ShorebirdUpdater();
-  // Check for updates and prompt the user to restart if one is available.
-  final UpdateStatus status = await shorebirdCodePush.checkForUpdate();
-
-  print('************** Shorebird status: $status *****');
-
-  if (status == UpdateStatus.outdated) {
-    // Download the update.
-    await shorebirdCodePush.update();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Phoenix.rebirth(Routes.rootNavigatorKey.currentContext!);
-    },);
-
-
-    // Optionally, notify the user that an update is ready and they should restart.
-    // In a real app, you might show a dialog or snackbar here.
-    print('Update downloaded. Please restart the app to apply the changes.');
-  }
 }
 
 Future<void> requestNotificationPermissions() async {

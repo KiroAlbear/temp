@@ -34,7 +34,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final deelVersionNumber = "0.1.30";
+  final deelVersionNumber = "0.1.46";
 
   @override
   void initState() {
@@ -140,8 +140,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                       idleText: S.of(context).login,
                       onTap: () {
                         AppProviderModule().logout(context);
-
-                        },
+                      },
                     )),
                 SizedBox(
                   height: 27.h,
@@ -564,8 +563,8 @@ class _MoreWidgetState extends BaseState<MorePage> {
               AppProviderModule().logout(context);
               widget.moreBloc.selectedFileBehaviour.sink.add("");
 
-              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.logout);
-
+              FirebaseAnalyticsUtil()
+                  .logEvent(FirebaseAnalyticsEventsNames.logout);
             });
           },
           hasCloseButton: true,
@@ -615,8 +614,8 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 //     Routes.loginPage, NavigationType.goNamed, context);
                 widget.moreBloc.selectedFileBehaviour.sink.add("");
 
-                FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.delete_account);
-
+                FirebaseAnalyticsUtil()
+                    .logEvent(FirebaseAnalyticsEventsNames.delete_account);
               }
             });
           },
