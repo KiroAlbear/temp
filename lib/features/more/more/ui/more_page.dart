@@ -14,6 +14,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/generated/l10n.dart';
+import '../../../../core/Utils/firebase_analytics_events_names.dart';
+import '../../../../core/Utils/firebase_analytics_utl.dart';
 
 class MorePage extends BaseStatefulWidget {
   final MoreBloc moreBloc;
@@ -136,7 +138,10 @@ class _MoreWidgetState extends BaseState<MorePage> {
                       buttonShapeEnum: ButtonShapeEnum.outline,
                       buttonColor: secondaryColor,
                       idleText: S.of(context).login,
-                      onTap: () => AppProviderModule().logout(context),
+                      onTap: () {
+                        AppProviderModule().logout(context);
+
+                        },
                     )),
                 SizedBox(
                   height: 27.h,
@@ -558,6 +563,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
             Future.delayed(const Duration(milliseconds: 600)).then((value) {
               AppProviderModule().logout(context);
               widget.moreBloc.selectedFileBehaviour.sink.add("");
+
+              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.logout);
+
             });
           },
           hasCloseButton: true,
@@ -606,6 +614,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 // Routes.navigateToScreen(
                 //     Routes.loginPage, NavigationType.goNamed, context);
                 widget.moreBloc.selectedFileBehaviour.sink.add("");
+
+                FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.delete_account);
+
               }
             });
           },

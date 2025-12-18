@@ -1,6 +1,8 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'core/Utils/firebase_analytics_events_names.dart';
+import 'core/Utils/firebase_analytics_utl.dart';
 import 'deel.dart';
 
 class SplashScreen extends BaseStatefulWidget {
@@ -20,7 +22,10 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
     FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
 
     Future.delayed(const Duration(seconds: 2))
-        .then((value) => AppProviderModule().init(context));
+        .then((value) {
+          FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);
+          AppProviderModule().init(context);
+        });
     super.initState();
   }
 

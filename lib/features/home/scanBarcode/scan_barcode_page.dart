@@ -133,6 +133,8 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
           onScan: (code) {
             if (code.text != null && code.text!.isNotEmpty) {
               widget.homeBloc.doSearch(code.text ?? '', context);
+              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.scan_qr);
+
             }
           },
         ),
