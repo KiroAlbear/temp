@@ -16,7 +16,7 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="Deel"
+        android:label="Deely"
         android:hardwareAccelerated="true"
         android:largeHeap="true"
         android:allowBackup="false"

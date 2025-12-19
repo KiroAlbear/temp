@@ -5,7 +5,7 @@ app:
 flavors:
   app_live:
     app:
-      name: "Deel"
+      name: "Deely"
     android:
       applicationId: "com.icons.deelexpress"
     ios:
@@ -13,7 +13,7 @@ flavors:
 
   app_stage:
     app:
-      name: "Deel stage"
+      name: "Deely stage"
     android:
       applicationId: "com.icons.deelexpress"
     ios:
@@ -21,7 +21,7 @@ flavors:
 
   app_test:
     app:
-      name: "Deel test"
+      name: "Deely test"
     android:
       applicationId: "com.icons.deelexpress"
     ios:
