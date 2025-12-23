@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,6 +18,7 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="Deely"
+        tools:replace="android:label"
         android:hardwareAccelerated="true"
         android:largeHeap="true"
         android:allowBackup="false"
