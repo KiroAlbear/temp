@@ -24,9 +24,13 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
 
     Future.delayed(const Duration(seconds: 2)).then((value) async {
       FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);
-      await Apputils.updateAndRestartApp(context);
 
-      AppProviderModule().init(context);
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) async {
+          await Apputils.updateAndRestartApp(context);
+          AppProviderModule().init(context);
+        },
+      );
     });
     super.initState();
   }
