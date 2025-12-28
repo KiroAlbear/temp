@@ -3,7 +3,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-
     }
 
     dependencies {
@@ -17,9 +16,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://nexusmobile.fawrystaging.com:2597/repository/maven-public/" }
-        maven { url "https://maven.google.com" }
-        jcenter()
     }
     // This code is where all the magic happens and fixes the error.
     subprojects {

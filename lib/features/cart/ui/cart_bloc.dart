@@ -1,13 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_available_model.dart';
 import 'package:deel/features/cart/models/cart_product_qty.dart';
-import 'package:fawry_sdk/fawry_sdk.dart';
-import 'package:fawry_sdk/fawry_utils.dart';
-import 'package:fawry_sdk/model/bill_item.dart';
-import 'package:fawry_sdk/model/fawry_launch_model.dart';
-import 'package:fawry_sdk/model/launch_customer_model.dart';
-import 'package:fawry_sdk/model/launch_merchant_model.dart';
-import 'package:fawry_sdk/model/payment_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
@@ -46,8 +39,6 @@ class CartBloc extends BlocBase {
   CartConfirmOrderRemote cartConfirmOrderRemote = CartConfirmOrderRemote();
   CartCheckAvailabilityRemote cartCheckAvailabilityRemote =
       CartCheckAvailabilityRemote();
-
-  String fawry_baseUrl = "https://atfawry.fawrystaging.com/";
 
   int clientId = 0;
   double clientLat = 0;
@@ -146,49 +137,6 @@ class CartBloc extends BlocBase {
             .add(event.response!.currency_name!);
       }
     });
-  }
-
-  void payWithFawry() async {
-    BillItem item = BillItem(
-      itemId: 'Item1',
-      description: 'Book',
-      quantity: 6,
-      price: 50,
-    );
-
-    List<BillItem> chargeItems = [item];
-
-    // LaunchCustomerModel customerModel = LaunchCustomerModel(
-    //   customerProfileId: '533518',
-    //   customerName: 'John Doe',
-    //   customerEmail: 'john.doe@xyz.com',
-    //   customerMobile: '+201000000000',
-    // );
-
-    LaunchMerchantModel merchantModel = LaunchMerchantModel(
-      merchantCode: 'YOUR MERCHANT CODE',
-      merchantRefNum: FawryUtils.randomAlphaNumeric(10),
-      secureKey: 'YOUR SECURE KEY',
-    );
-
-    FawryLaunchModel model = FawryLaunchModel(
-      allow3DPayment: true,
-      chargeItems: chargeItems,
-      // launchCustomerModel: customerModel,
-      launchMerchantModel: merchantModel,
-      skipLogin: true,
-      skipReceipt: true,
-      payWithCardToken: false,
-      paymentMethods: PaymentMethods.ALL,
-    );
-
-    String baseUrl = "https://atfawry.fawrystaging.com/";
-
-    await FawrySDK.instance.startPayment(
-      launchModel: model,
-      baseURL: baseUrl,
-      lang: FawrySDK.LANGUAGE_ENGLISH,
-    );
   }
 
   void onItemDeleted() {}
