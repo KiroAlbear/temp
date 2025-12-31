@@ -408,8 +408,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
       var androidInfo = await DeviceInfoPlugin().androidInfo;
       var sdkInt = androidInfo.version.sdkInt;
       if (sdkInt >= 33) {
-        await widget.moreBloc.galleryPermissionBloc
-            .requestPermission(context, Permission.photos);
+        await _pickPhotoFromGallery();
       } else {
         await widget.moreBloc.galleryPermissionBloc
             .requestPermission(context, Permission.storage);
@@ -427,12 +426,16 @@ class _MoreWidgetState extends BaseState<MorePage> {
         .isPermissionGrantedStream
         .listen((event) async {
       if (event) {
-        XFile? file = await widget.moreBloc.pickFromGallery();
-        if (file != null) {
-          widget.moreBloc.uploadImage(file.path);
-        }
+        await _pickPhotoFromGallery();
       }
     });
+  }
+
+  Future<void> _pickPhotoFromGallery() async {
+    XFile? file = await widget.moreBloc.pickFromGallery();
+    if (file != null) {
+      widget.moreBloc.uploadImage(file.path);
+    }
   }
 
   Widget get _logoWidget => AppTopWidget(
