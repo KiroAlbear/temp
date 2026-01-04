@@ -26,6 +26,22 @@ class Apputils {
     );
   }
 
+  static bool icCurrentVersionValid(
+      {required String currentVersion, required String latestVersion}) {
+    List<int> a = currentVersion.split('.').map(int.parse).toList();
+    List<int> b = latestVersion.split('.').map(int.parse).toList();
+
+    int maxLen = a.length > b.length ? a.length : b.length;
+    for (int i = 0; i < maxLen; i++) {
+      int x = i < a.length ? a[i] : 0;
+      int y = i < b.length ? b[i] : 0;
+
+      if (x > y) return true; // v1 > v2
+      if (x < y) return false; // v1 < v2
+    }
+    return true; // equal
+  }
+
   static Future<void> updateAndRestartApp(BuildContext context) async {
     final shorebirdCodePush = ShorebirdUpdater();
     // Check for updates and prompt the user to restart if one is available.
@@ -43,15 +59,15 @@ class Apputils {
           barrierDismissible: false,
           builder: (context) {
             return AlertDialog(
-              title: const Text('Update Ready'),
+              title: const Text('التحديث جاهز'),
               content: const Text(
-                  'An update has been downloaded and will be applied when the app restarts. Please restart the app to apply the update.'),
+                  "تم تنزيل التحديث وسيتم تطبيقه عند إعادة تشغيل التطبيق. يرجى إعادة تشغيل التطبيق لتطبيق التحديث."),
               actions: [
                 TextButton(
                   onPressed: () async {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('OK'),
+                  child: const Text('موافق'),
                 ),
               ],
             );

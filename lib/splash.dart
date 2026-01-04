@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'core/Utils/firebase_analytics_events_names.dart';
 import 'core/Utils/firebase_analytics_utl.dart';
 import 'deel.dart';
@@ -35,31 +36,71 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
               if (state is SuccessState) {
                 PackageInfo packageInfo = await PackageInfo.fromPlatform();
                 String version = packageInfo.version;
-                int currentVersionNumber = _getVersionNumber(version); //0.20.0
-                int latestVersionNumberAndroid = _getVersionNumber(state
-                        .response
+
+                String latestVersionNumberAndroid = state.response
                         ?.firstWhere((element) => element.type == 0)
                         .versionNum ??
-                    "0.0.0");
-                int latestVersionNumberIOS = _getVersionNumber(state.response
+                    "0.0.0";
+                String latestVersionNumberIOS = state.response
                         ?.firstWhere((element) => element.type == 1)
                         .versionNum ??
-                    "0.0.0");
+                    "0.0.0";
 
                 if (Platform.isAndroid &&
-                    latestVersionNumberAndroid <= currentVersionNumber) {
-                  AppProviderModule().init(context);
+                    Apputils.icCurrentVersionValid(
+                        currentVersion: version,
+                        latestVersion: latestVersionNumberAndroid)) {
+                  WidgetsBinding.instance.addPostFrameCallback(
+                    (timeStamp) async {
+                      AppProviderModule().init(context);
+                    },
+                  );
                 } else if (Platform.isIOS &&
-                    latestVersionNumberIOS <= currentVersionNumber) {
-                  AppProviderModule().init(context);
+                    Apputils.icCurrentVersionValid(
+                        currentVersion: version,
+                        latestVersion: latestVersionNumberIOS)) {
+                  WidgetsBinding.instance.addPostFrameCallback(
+                    (timeStamp) async {
+                      AppProviderModule().init(context);
+                    },
+                  );
                 } else {
-                  await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return DialogWidget(
-                          message: "Update Required",
-                          confirmMessage: "confirmMessage",
-                          sameButtonsColor: true);
+                  WidgetsBinding.instance.addPostFrameCallback(
+                    (timeStamp) async {
+                      if (mounted) {
+                        await showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return PopScope(
+                              canPop: false,
+                              child: AlertDialog(
+                                title: const Text('تحديث'),
+                                content: const Text(
+                                    "الرجاء تحديث التطبيق إلى أحدث إصدار للمتابعة"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      String updateUrl = "";
+                                      if (Platform.isIOS) {
+                                        updateUrl = AppConstants.iosUpdateUrl;
+                                      } else {
+                                        updateUrl =
+                                            AppConstants.androidUpdateUrl;
+                                      }
+                                      final uri = Uri.parse(
+                                        updateUrl,
+                                      );
+                                      await launchUrl(uri);
+                                    },
+                                    child: const Text('تحديث'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
                     },
                   );
                 }
@@ -71,16 +112,10 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
               }
             },
           );
-
-          AppProviderModule().init(context);
         },
       );
     });
     super.initState();
-  }
-
-  int _getVersionNumber(String version) {
-    return int.tryParse(version.split(".")[1]) ?? 0;
   }
 
   @override
