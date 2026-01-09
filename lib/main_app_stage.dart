@@ -6,6 +6,7 @@ Future<void> main() async {
   F.apiUrl = 'https://deel-demo.odoo.com/';
   // F.adminApiUrl = 'https://adminapi.dokkan-app.com/api/';
   // F.adminApiUrl = 'https://adminapi.deel-app.com/api/';
-  F.adminApiUrl = 'https://adminapi.stg.deel-app.com/api/';
+  F.adminApiUrl = 'https://adminapi.deel-app.com/api/';
+  // F.adminApiUrl = 'https://adminapi.stg.deel-app.com/api/';
   await runner.main();
 }

@@ -13,7 +13,7 @@ class HeroBannerRemote
     List<OfferMapper> list = [];
     response?.bannerList?.forEach(
       (element) {
-        list.add(OfferMapper(element));
+        list.add(OfferMapper.fromBannerResponse(element));
       },
     );
     return SuccessState(list);

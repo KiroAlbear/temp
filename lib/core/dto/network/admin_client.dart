@@ -1,9 +1,11 @@
+import 'package:deel/core/dto/models/announcement/announcement_response_model.dart';
 import 'package:deel/core/dto/models/notifications/notification_update_device_data_request_model.dart';
 import 'package:deel/core/dto/models/notifications/notification_update_device_data_response_model.dart';
 import 'package:deel/deel.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
+import '../models/announcement/announcement_request_model.dart';
 import '../models/update_app_response_model.dart';
 part 'admin_client.g.dart';
 part 'admin_client_key.dart';
@@ -11,6 +13,10 @@ part 'admin_client_key.dart';
 @RestApi()
 abstract class AdminClient {
   factory AdminClient(Dio dio) = _AdminClient;
+
+  @POST(_AdminApiKey._getAnnouncements)
+  Future<AdminHeaderResponse<AnnouncementResponseModel>> getAnnouncements(
+      @Body() AnnouncementRequestModel requestModel);
 
   @GET(_AdminApiKey._updateApp)
   Future<AdminHeaderResponse<List<UpdateAppResponseModel>>> updateApp();

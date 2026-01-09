@@ -1,4 +1,5 @@
 import 'package:deel/deel.dart';
+import 'package:deel/features/announcements/bloc/announcements_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -17,6 +18,7 @@ class DependencyInjectionService {
     getIt.registerSingleton<UsagePolicyBloc>(UsagePolicyBloc());
     getIt.registerSingleton<ContactUsBloc>(ContactUsBloc());
     getIt.registerSingleton<MoreBloc>(MoreBloc());
+    getIt.registerSingleton<AnnouncementsBloc>(AnnouncementsBloc());
     getIt.registerSingleton<UpdateProfileBloc>(UpdateProfileBloc());
     getIt.registerSingleton<BottomNavigationBloc>(BottomNavigationBloc());
     getIt.registerSingleton<NewAccountBloc>(NewAccountBloc());

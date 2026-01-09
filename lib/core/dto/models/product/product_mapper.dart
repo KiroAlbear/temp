@@ -1,8 +1,6 @@
-
-import 'package:deel/core/dto/models/product/product_response.dart';
 import 'package:flutter/foundation.dart';
 
-import '../my_orders/my_order_item_response.dart';
+import '../../../../deel.dart';
 
 class ProductMapper {
   int id = 0;
@@ -62,8 +60,7 @@ class ProductMapper {
     minQuantity = orderItem.min_qty ?? 0;
     maxQuantity = orderItem.max_qty ?? 0;
     productId = orderItem.product_id?[0] ?? 0;
-    orderId =  orderItem.orderId!.first as int;
-
+    orderId = orderItem.orderId!.first as int;
   }
   ProductMapper.fromProduct(ProductResponse? productResponse) {
     if (productResponse != null) {
@@ -88,7 +85,7 @@ class ProductMapper {
       id = productResponse.id ?? 0;
       isFavourite = productResponse.isFavourite ?? false;
 
-      if(kDebugMode){
+      if (F.appFlavor == Flavor.app_stage) {
         hasDiscount = true;
         productOriginalPrice = 125;
       }

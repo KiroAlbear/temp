@@ -1,4 +1,3 @@
-
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +13,7 @@ class HeroBannerItem extends StatelessWidget {
   final bool isMainPage;
   const HeroBannerItem(
       {
-        // required this.index,
+      // required this.index,
       required this.item,
       required this.homeBloc,
       required this.isClickable,
@@ -29,17 +28,19 @@ class HeroBannerItem extends StatelessWidget {
           homeBloc.selectedOffer = item;
           // homeBloc.selectedOfferIndex = index;
           homeBloc.isBanner = true;
-          Routes.navigateToScreen(Routes.productCategoryPage, NavigationType.pushNamed, context);
+          Routes.navigateToScreen(
+              Routes.productCategoryPage, NavigationType.pushNamed, context);
           // CustomNavigatorModule.navigatorKey.currentState!
           //     .pushNamed(AppScreenEnum.product.name);
         }
       },
-      child:  isMainPage ? _buildItem(context) : SizedBox(
-        height: 120,
-        child: AspectRatio(
-            aspectRatio:  16/9,
-            child: _buildItem(context)),
-      ),
+      child: isMainPage
+          ? _buildItem(context)
+          : SizedBox(
+              height: 120,
+              child:
+                  AspectRatio(aspectRatio: 16 / 9, child: _buildItem(context)),
+            ),
     );
   }
 
@@ -52,32 +53,11 @@ class HeroBannerItem extends StatelessWidget {
           // color: _whichCardColor(index)),
           color: Colors.transparent),
       child: ImageHelper(
-                borderRadius: BorderRadius.circular(20.w),
-                image: item.image,
-                imageType: ImageType.network,
-                boxFit: BoxFit.fill,
-              ),
+        borderRadius: BorderRadius.circular(20.w),
+        image: item.image,
+        imageType: ImageType.network,
+        boxFit: BoxFit.fill,
+      ),
     );
   }
-
-
-  // Color _whichBorderColor(int index) {
-  //   if (index % 3 == 0) {
-  //     return primaryColor;
-  //   } else if (index % 3 == 1) {
-  //     return greenColor;
-  //   } else {
-  //     return redColor;
-  //   }
-  // }
-
-  // Color _whichCardColor(int index) {
-  //   if (index % 3 == 0) {
-  //     return yellowCardColor;
-  //   } else if (index % 3 == 1) {
-  //     return greenCardColor;
-  //   } else {
-  //     return redCardColor;
-  //   }
-  // }
 }

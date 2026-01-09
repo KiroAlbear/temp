@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -23,6 +24,11 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
   void initState() {
     customBackgroundColor = primaryColor;
     FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+
+    if (F.appFlavor == Flavor.app_stage) {
+      AppProviderModule().init(context);
+      return;
+    }
 
     Future.delayed(const Duration(seconds: 2)).then((value) async {
       FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);

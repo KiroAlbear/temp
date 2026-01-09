@@ -18,6 +18,43 @@ class _AdminClient implements AdminClient {
   final ParseErrorLogger? errorLogger;
 
   @override
+  Future<AdminHeaderResponse<AnnouncementResponseModel>> getAnnouncements(
+    AnnouncementRequestModel requestModel,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestModel.toJson());
+    final _options =
+        _setStreamType<AdminHeaderResponse<AnnouncementResponseModel>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'Announcement/GetListForPublic',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(
+            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+          ),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late AdminHeaderResponse<AnnouncementResponseModel> _value;
+    try {
+      _value = AdminHeaderResponse<AnnouncementResponseModel>.fromJson(
+        _result.data!,
+        (json) =>
+            AnnouncementResponseModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<AdminHeaderResponse<List<UpdateAppResponseModel>>> updateApp() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

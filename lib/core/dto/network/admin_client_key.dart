@@ -9,6 +9,7 @@ class _AdminApiKey {
   static const _usagePolicy = 'UsagePolicy/Get';
   static const _sendOtp = 'Sms/send';
   static const _verifyOtp = 'Sms/VerifyOTP';
+  static const _getAnnouncements = 'Announcement/GetListForPublic';
 
   // static const _sendOtp = 'OTP/SendOTP';
   // static const _verifyOtp = 'OTP/VerifyOTP';

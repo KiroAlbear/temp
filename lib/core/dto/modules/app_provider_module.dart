@@ -1,7 +1,10 @@
 import 'package:deel/core/dto/modules/shared_pref_module.dart';
 import 'package:deel/core/routes/navigation_type.dart';
 import 'package:deel/core/routes/routes.dart';
+import 'package:deel/features/announcements/bloc/announcements_bloc.dart';
+import 'package:deel/features/announcements/ui/announcements_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_loader/image_helper.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../../../deel.dart';
@@ -137,13 +140,28 @@ class AppProviderModule with ChangeNotifier {
     _isLoggedIn = SharedPrefModule().bearerToken != null &&
         SharedPrefModule().bearerToken!.isNotEmpty;
 
-    MoreBloc().updateNotificationsDeviceData(
+    getIt<MoreBloc>().updateNotificationsDeviceData(
         SharedPrefModule().userId ?? "", AppConstants.fcmToken);
 
     _loadAppLanguages();
 
     if (_isLoggedIn) {
-      /// TODO replace it with bearer token refresh
+      getIt<AnnouncementsBloc>().announcementsStream.listen(
+        (event) async {
+          if (event is SuccessState) {
+            WidgetsBinding.instance.addPostFrameCallback(
+              (timeStamp) async {
+                showDialog(
+                  context: Routes.rootNavigatorKey.currentContext!,
+                  builder: (context) {
+                    return AnnouncementsDialogWidget(items: event.response!);
+                  },
+                );
+              },
+            );
+          }
+        },
+      );
 
       OdooDioModule().setAppHeaders();
 
