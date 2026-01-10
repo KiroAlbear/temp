@@ -308,10 +308,13 @@ class _LoginWidgetState extends BaseState<LoginPage> {
 
       await SharedPrefModule().setPassword(_bloc.passwordBloc.value);
     }
-    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+
+    Apputils.showAnnouncementsDialog();
+    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context,
+        setBottomNavigationTab: true);
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.home.name);
-    getIt<BottomNavigationBloc>().setSelectedTab(0, context);
+    // getIt<BottomNavigationBloc>().setSelectedTab(0, context);
     // if (widget.bottomNavigationBloc != null)
     //   widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }

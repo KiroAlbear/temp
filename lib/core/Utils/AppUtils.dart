@@ -1,4 +1,7 @@
 import 'package:deel/deel.dart';
+import 'package:deel/features/announcements/bloc/announcements_bloc.dart'
+    show AnnouncementsBloc;
+import 'package:deel/features/announcements/ui/announcements_dialog_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
@@ -22,6 +25,25 @@ class Apputils {
           },
           cancelMessage: S.of(context).cancel,
         );
+      },
+    );
+  }
+
+  static void showAnnouncementsDialog() {
+    getIt<AnnouncementsBloc>().announcementsStream.listen(
+      (event) async {
+        if (event is SuccessState) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (timeStamp) async {
+              showDialog(
+                context: Routes.rootNavigatorKey.currentContext!,
+                builder: (context) {
+                  return AnnouncementsDialogWidget(items: event.response!);
+                },
+              );
+            },
+          );
+        }
       },
     );
   }

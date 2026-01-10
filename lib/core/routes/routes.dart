@@ -413,16 +413,27 @@ class Routes {
     bool setBottomNavigationTab = true,
     Object? extra,
   }) async {
-    if (screenName == homePage && setBottomNavigationTab)
+    if (screenName == homePage && setBottomNavigationTab) {
+      Routes.currentNavigationPage = Routes.homePage;
+
       setBottomNavigationSelectedTab(0, context);
-    else if (screenName == favouritePage && setBottomNavigationTab)
+    } else if (screenName == favouritePage && setBottomNavigationTab) {
+      Routes.currentNavigationPage = Routes.favouritePage;
+
       setBottomNavigationSelectedTab(1, context);
-    else if (screenName == offersPage && setBottomNavigationTab)
+    } else if (screenName == offersPage && setBottomNavigationTab) {
+      Routes.currentNavigationPage = Routes.offersPage;
+
       setBottomNavigationSelectedTab(2, context);
-    else if (screenName == cartPage && setBottomNavigationTab)
+    } else if (screenName == cartPage && setBottomNavigationTab) {
+      Routes.currentNavigationPage = Routes.cartPage;
+
       setBottomNavigationSelectedTab(3, context);
-    else if (screenName == morePage && setBottomNavigationTab)
+    } else if (screenName == morePage && setBottomNavigationTab) {
+      Routes.currentNavigationPage = Routes.morePage;
+
       setBottomNavigationSelectedTab(4, context);
+    }
 
     switch (navigationType) {
       case NavigationType.pushNamed:

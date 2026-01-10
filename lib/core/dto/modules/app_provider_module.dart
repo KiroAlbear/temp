@@ -146,22 +146,7 @@ class AppProviderModule with ChangeNotifier {
     _loadAppLanguages();
 
     if (_isLoggedIn) {
-      getIt<AnnouncementsBloc>().announcementsStream.listen(
-        (event) async {
-          if (event is SuccessState) {
-            WidgetsBinding.instance.addPostFrameCallback(
-              (timeStamp) async {
-                showDialog(
-                  context: Routes.rootNavigatorKey.currentContext!,
-                  builder: (context) {
-                    return AnnouncementsDialogWidget(items: event.response!);
-                  },
-                );
-              },
-            );
-          }
-        },
-      );
+      Apputils.showAnnouncementsDialog();
 
       OdooDioModule().setAppHeaders();
 

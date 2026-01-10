@@ -1,6 +1,7 @@
 import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
 import 'package:deel/core/services/dependency_injection_service.dart';
+import 'package:deel/core/ui/cutom_page_indicator.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/authentication/widget/logo_top_widget.dart';
 import 'package:deel/features/authentication/widget/previous_next_button.dart';
@@ -12,7 +13,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../../core/generated/l10n.dart';
 import '../../../../core/Utils/firebase_analytics_key_names.dart';
 import '../../../../core/Utils/firebase_analytics_utl.dart';
-import '../../widget/register_stepper.dart';
 
 class NewAccountPage extends BaseStatefulWidget {
   final NewAccountBloc _bloc = getIt<NewAccountBloc>();
@@ -86,53 +86,45 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
             children: [
               Column(
                 children: [
+                  SizedBox(
+                    height: 50.h,
+                  ),
                   Expanded(
-                    child: RegisterStepperWidget(
-                        child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Offstage(
-                              offstage: true,
-                              child: SizedBox(
-                                height: 1,
-                                width: 1,
-                                child: PageView(
-                                  controller: pageController,
-                                  children: [
-                                    Container(),
-                                    Container(),
-                                    Container(),
-                                  ],
-                                ),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    children: [
+                                      ValueListenableBuilder(
+                                        valueListenable:
+                                            _backButtonVisibilityNotifier,
+                                        builder: (context, value, child) {
+                                          return value
+                                              ? _backButton
+                                              : SizedBox();
+                                        },
+                                      ),
+                                      SizedBox(width: 10.w),
+                                      _stepRow,
+                                    ],
+                                  ),
+                                  _indicatorWidget(),
+                                ],
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  children: [
-                                    ValueListenableBuilder(
-                                      valueListenable:
-                                          _backButtonVisibilityNotifier,
-                                      builder: (context, value, child) {
-                                        return value ? _backButton : SizedBox();
-                                      },
-                                    ),
-                                    SizedBox(width: 10.w),
-                                    _stepRow,
-                                  ],
-                                ),
-                                _indicatorWidget(),
-                              ],
-                            ),
-                            SizedBox(height: 20.h),
-                            _registerInfoWidget,
-                            SizedBox(height: 50),
-                          ]),
-                    )),
+                              SizedBox(height: 20.h),
+                              _registerInfoWidget,
+                              SizedBox(height: 50),
+                            ]),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -354,32 +346,11 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   }
 
   Widget _indicatorWidget() {
-    return Column(
-      children: [
-        SmoothPageIndicator(
-            controller: pageController,
-            count: 3,
-            effect: CustomizableEffect(
-              spacing: 3,
-              dotDecoration: DotDecoration(
-                width: 18,
-                height: 3,
-                color: secondaryColor,
-                borderRadius: BorderRadius.circular(6.r),
-              ),
-              activeDotDecoration: DotDecoration(
-                width: 60,
-                height: 3,
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-            ), // your preferred effect
-            onDotClicked: (index) {}),
-        SizedBox(
-          height: 5,
-        )
-      ],
-    );
+    return CutomPageIndicator(
+        pageController: pageController,
+        selectedColor: primaryColor,
+        unselectedColor: secondaryColor,
+        count: 3);
   }
 
   void animateToPage(int pageIndex) {

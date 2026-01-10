@@ -15,7 +15,6 @@ import '../../../../core/ui/custom_text.dart';
 import '../../../../core/ui/logo_widget.dart';
 
 class LogoTopWidget extends StatefulWidget {
-
   final Widget child;
   final String? logo;
   final BlocBase blocBase;
@@ -28,8 +27,8 @@ class LogoTopWidget extends StatefulWidget {
       required this.child,
       this.logo,
       required this.blocBase,
-        this.isHavingBackArrow = false,
-        this.pressingBackTwice = false,
+      this.isHavingBackArrow = false,
+      this.pressingBackTwice = false,
       this.canSkip = false});
 
   @override
@@ -58,39 +57,49 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               if (widget.canSkip) _skipText,
-              widget.isHavingBackArrow?SizedBox(height: 50.h,):SizedBox(),
-              !widget.isHavingBackArrow?SizedBox():
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 20.w),
-                child: Material(
-                  child: InkWell(
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-
-                      if(widget.pressingBackTwice){
-
-                        // CustomNavigatorModule.navigatorKey.currentState?.pop();
-                        Navigator.pop(context);
-                      }
-                      // CustomNavigatorModule.navigatorKey.currentState?.pop();
-                      Navigator.pop(context);
-                    },
-                    child: SizedBox(
-                      width: 30.w,
-                      height: 30.h,
-                      child: ImageHelper(image:Assets.svg.icPreviousBlue, imageType: ImageType.svg,),
+              widget.isHavingBackArrow
+                  ? SizedBox(
+                      height: 50.h,
+                    )
+                  : SizedBox(),
+              !widget.isHavingBackArrow
+                  ? SizedBox()
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Material(
+                        child: InkWell(
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            if (widget.pressingBackTwice) {
+                              // CustomNavigatorModule.navigatorKey.currentState?.pop();
+                              Navigator.pop(context);
+                            }
+                            // CustomNavigatorModule.navigatorKey.currentState?.pop();
+                            Navigator.pop(context);
+                          },
+                          child: SizedBox(
+                            width: 30.w,
+                            height: 30.h,
+                            child: ImageHelper(
+                              image: Assets.svg.icPreviousBlue,
+                              imageType: ImageType.svg,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
               SizedBox(
-                height:  widget.isHavingBackArrow?20.h:30.h,
+                height: widget.isHavingBackArrow ? 20.h : 30.h,
               ),
-              widget.logo== null?SizedBox(height: 78.h, width: 234.w,):
-              Center(
-                child:
-                    LogoWidget(height: 78.h, width: 234.w, logo: widget.logo!),
-              ),
+              widget.logo == null
+                  ? SizedBox(
+                      height: 78.h,
+                      width: 234.w,
+                    )
+                  : Center(
+                      child: LogoWidget(
+                          height: 78.h, width: 234.w, logo: widget.logo!),
+                    ),
               SizedBox(
                 height: 30.h,
               ),
@@ -102,7 +111,6 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
 
   Widget get _bottomWidget => Expanded(
         child: SingleChildScrollView(
-
           child: widget.child,
         ),
       );
@@ -112,14 +120,20 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
         children: [
           InkWell(
             onTap: () {
-              Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+              Routes.navigateToScreen(
+                  Routes.homePage, NavigationType.goNamed, context,
+                  setBottomNavigationTab: true);
               // CustomNavigatorModule.navigatorKey.currentState
               //     ?.pushReplacementNamed(AppScreenEnum.home.name);
-              getIt<BottomNavigationBloc>().setSelectedTab(0, context);
-                // widget.bottomNavigationBloc!.setSelectedTab(0, context);
+              // getIt<BottomNavigationBloc>().setSelectedTab(0, context);
+              // widget.bottomNavigationBloc!.setSelectedTab(0, context);
             },
             child: Padding(
-              padding: EdgeInsetsDirectional.only(top: 50.h,start: 26.w,end: 26.w, ),
+              padding: EdgeInsetsDirectional.only(
+                top: 50.h,
+                start: 26.w,
+                end: 26.w,
+              ),
               child: CustomText(
                   text: S.of(context).skip,
                   customTextStyle:

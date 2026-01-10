@@ -8,22 +8,21 @@ import 'package:image_loader/image_helper.dart';
 import '../../../../core/generated/l10n.dart';
 
 class RegisterSuccessPage extends BaseStatefulWidget {
-
-  const RegisterSuccessPage(
-      {super.key,
-      });
+  const RegisterSuccessPage({
+    super.key,
+  });
 
   @override
   State<RegisterSuccessPage> createState() => _SuccessRegisterWidgetState();
 }
 
 class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
-
   @override
   void initState() {
     customBackgroundColor = Colors.white;
     super.initState();
   }
+
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -34,7 +33,7 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
   bool isSafeArea() => false;
 
   @override
-  bool isBottomSafeArea() =>false;
+  bool isBottomSafeArea() => false;
 
   @override
   Color? statusBarColor() => whiteColor.withOpacity(0.5);
@@ -48,11 +47,10 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             CustomText(
                 text: S.of(context).welcomeToDokkan,
                 customTextStyle:
-                MediumStyle(fontSize: 28.sp, color: darkSecondaryColor)),
+                    MediumStyle(fontSize: 28.sp, color: darkSecondaryColor)),
             SizedBox(
               height: 15.h,
             ),
@@ -65,7 +63,6 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
             SizedBox(
               height: 20.h,
             ),
-
             CustomText(
                 text: S.of(context).youCanStartOrderNow,
                 customTextStyle:
@@ -77,11 +74,14 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
               idleText: S.of(context).start,
               onTap: () {
                 // Navigator.popUntil(context, (route) => route.isFirst);
-                Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
-                getIt<BottomNavigationBloc>().setSelectedTab(0, context);
+                Routes.navigateToScreen(
+                    Routes.homePage, NavigationType.goNamed, context,
+                    setBottomNavigationTab: true);
+                Apputils.showAnnouncementsDialog();
+
+                // getIt<BottomNavigationBloc>().setSelectedTab(0, context);
                 // CustomNavigatorModule.navigatorKey.currentState
                 //     ?.pushNamed(AppScreenEnum.home.name);
-
 
                 // if (widget.bottomNavigationBloc != null)
                 //   widget.bottomNavigationBloc!.setSelectedTab(0, context);

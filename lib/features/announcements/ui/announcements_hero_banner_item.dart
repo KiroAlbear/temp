@@ -20,31 +20,28 @@ class AnnouncementsHeroBannerItem extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(_borderRadius),
-      child: InkWell(
-          onTap: () {
-            if (isClickable) {
-              getIt<HomeBloc>().selectedOffer = item;
-              // homeBloc.selectedOfferIndex = index;
-              getIt<HomeBloc>().isBanner = true;
-              Routes.navigateToScreen(Routes.productCategoryPage,
-                  NavigationType.pushNamed, context);
-              // CustomNavigatorModule.navigatorKey.currentState!
-              //     .pushNamed(AppScreenEnum.product.name);
-            }
-          },
-          child: _buildItem(context)),
+      child: Padding(
+        padding: EdgeInsetsDirectional.symmetric(horizontal: 25),
+        child: InkWell(
+            borderRadius: BorderRadius.circular(_borderRadius),
+            onTap: () {
+              if (isClickable) {
+                // getIt<HomeBloc>().selectedOffer = item;
+                // // homeBloc.selectedOfferIndex = index;
+                // getIt<HomeBloc>().isBanner = true;
+                // Routes.navigateToScreen(Routes.productCategoryPage,
+                //     NavigationType.pushNamed, context);
+              }
+            },
+            child: _buildItem(context)),
+      ),
     );
   }
 
-  Container _buildItem(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(_borderRadius),
-          // border: Border.all(width: 1.w, color: _whichBorderColor(index)),
-          // color: _whichCardColor(index)),
-          color: Colors.transparent),
+  Widget _buildItem(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(_borderRadius),
       child: ImageHelper(
-        borderRadius: BorderRadius.circular(_borderRadius),
         image: item.image,
         imageType: ImageType.network,
         boxFit: BoxFit.fill,
