@@ -26,11 +26,11 @@ class AnnouncementsHeroBannerItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(_borderRadius),
             onTap: () {
               if (isClickable) {
-                // getIt<HomeBloc>().selectedOffer = item;
-                // // homeBloc.selectedOfferIndex = index;
-                // getIt<HomeBloc>().isBanner = true;
-                // Routes.navigateToScreen(Routes.productCategoryPage,
-                //     NavigationType.pushNamed, context);
+                getIt<HomeBloc>().selectedOffer = item;
+                getIt<HomeBloc>().isBanner = true;
+                Navigator.pop(context);
+                Routes.navigateToScreen(Routes.productCategoryPage,
+                    NavigationType.pushNamed, context);
               }
             },
             child: _buildItem(context)),

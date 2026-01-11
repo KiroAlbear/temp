@@ -26,42 +26,26 @@ class AnnouncementResponseModel {
 }
 
 class Announcements {
-  int? id;
   String? imagePath;
   String? link;
-  bool? status;
   int? orderNo;
-  String? createdAt;
-  String? updatedAt;
+  int? relatedItemId;
 
-  Announcements(
-      {this.id,
-      this.imagePath,
-      this.link,
-      this.status,
-      this.orderNo,
-      this.createdAt,
-      this.updatedAt});
+  Announcements({this.imagePath, this.link, this.orderNo, this.relatedItemId});
 
   Announcements.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     imagePath = json['imagePath'];
     link = json['link'];
-    status = json['status'];
     orderNo = json['orderNo'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    relatedItemId = json['relatedItemId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['imagePath'] = this.imagePath;
     data['link'] = this.link;
-    data['status'] = this.status;
     data['orderNo'] = this.orderNo;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    data['relatedItemId'] = this.relatedItemId;
     return data;
   }
 }

@@ -36,11 +36,11 @@ class OfferMapper {
 
   factory OfferMapper.fromAnnouncements(Announcements response) {
     return OfferMapper(
-      id: response.id!,
       name: '',
       image: response.imagePath ?? '',
       link: response.link!,
-      relatedItemId: [],
+      relatedItemId:
+          response.relatedItemId != null ? [response.relatedItemId!] : [],
     );
   }
 }
