@@ -34,13 +34,18 @@ class Apputils {
       (event) async {
         if (event is SuccessState) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (timeStamp) async {
-              showDialog(
-                context: Routes.rootNavigatorKey.currentContext!,
-                builder: (context) {
-                  return AnnouncementsDialogWidget(items: event.response!);
-                },
-              );
+              (timeStamp) async {
+                if(event.response?.isEmpty ?? true){
+                  return;
+                }else{
+                  showDialog(
+                    context: Routes.rootNavigatorKey.currentContext!,
+                    builder: (context) {
+                      return AnnouncementsDialogWidget(items: event.response!);
+                    },
+                  );
+                }
+
             },
           );
         }

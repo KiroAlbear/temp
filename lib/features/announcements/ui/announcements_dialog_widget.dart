@@ -36,7 +36,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
                     curve: Curves.easeInOut);
               },
               initialPage: 0,
-              enableInfiniteScroll: true,
+              enableInfiniteScroll:items.length >1,
               viewportFraction: 1.0,
               height: 450.h,
               reverse: false,
