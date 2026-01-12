@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,6 +35,9 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
       FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);
 
    if(mounted){
+     await Apputils.updateAndRestartApp(context);
+     LoggerModule.log(
+         name: "*********", message: 'Checking for updates...');
      MoreBloc().checkAppUpdateStream.listen(
            (state) async {
          if (state is SuccessState) {
