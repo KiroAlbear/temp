@@ -21,6 +21,10 @@ class CartBottomSheet extends StatefulWidget {
 class _CartBottomSheetState extends State<CartBottomSheet> {
   final double _spacing = 10.0;
   int _groupeValue = -1;
+  int _groupeCashValue = 0;
+  int _groupeVisaValue = 1;
+  int _groupeWalletValue = 2;
+  int _groupeFawryValue = 3;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _paymentRow(int value, String title, Widget icon) {
@@ -78,20 +82,22 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           ),
           8.verticalSpace,
           _paymentRow(
-              0,
+              _groupeCashValue,
               S.of(context).cartCashOnDelivery,
               ImageHelper(
                 image: Assets.svg.icCash,
                 imageType: ImageType.svg,
                 color: darkSecondaryColor,
               )),
-          _paymentRow(1, S.of(context).cartBankCard,
+          _paymentRow(_groupeVisaValue, S.of(context).cartBankCard,
               Icon(Icons.credit_card_rounded, color: darkSecondaryColor)),
           _paymentRow(
-              2,
+              _groupeWalletValue,
               S.of(context).cartDokkanWallet,
               Icon(Icons.account_balance_wallet_outlined,
                   color: darkSecondaryColor)),
+          _paymentRow(_groupeFawryValue, "فوري",
+              Icon(Icons.credit_card_rounded, color: darkSecondaryColor)),
           18.verticalSpace,
           IgnorePointer(
             ignoring: _groupeValue == -1,
@@ -106,20 +112,31 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 onTap: () async {
                   // pop the bottom sheet
                   Navigator.pop(context);
-                  if (_groupeValue == 0) {
+                  if (_groupeValue == _groupeCashValue) {
                     Routes.navigateToScreen(Routes.cartOrderDetailsPage,
                         NavigationType.pushNamed, context,
                         extra: CartOrderDetailsArgs(
-                            isItVisa: false, isItWallet: false));
+                            isItVisa: false,
+                            isItWallet: false,
+                            isItFawry: false));
                     // CustomNavigatorModule.navigatorKey.currentState!
                     //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
-                  } else if (_groupeValue == 2) {
-                    showWalletDialog();
-                  } else {
+                  } else if (_groupeValue == _groupeVisaValue) {
                     Routes.navigateToScreen(Routes.cartOrderDetailsPage,
                         NavigationType.pushNamed, context,
                         extra: CartOrderDetailsArgs(
-                            isItVisa: true, isItWallet: false));
+                            isItVisa: true,
+                            isItWallet: false,
+                            isItFawry: false));
+                  } else if (_groupeValue == _groupeWalletValue) {
+                    showWalletDialog();
+                  } else if (_groupeValue == _groupeFawryValue) {
+                    Routes.navigateToScreen(Routes.cartOrderDetailsPage,
+                        NavigationType.pushNamed, context,
+                        extra: CartOrderDetailsArgs(
+                            isItVisa: false,
+                            isItWallet: false,
+                            isItFawry: true));
                   }
                 }),
           ),
@@ -153,16 +170,18 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                       child: CustomTextFormFiled(
                         textInputType: TextInputType.number,
                         textInputAction: TextInputAction.done,
-                        inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatter: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         labelText: S.of(context).cartDokkanWalletNumber,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return S.of(context).required;
                           }
 
-                          if(value.length == 11){
+                          if (value.length == 11) {
                             return null;
-                          }else{
+                          } else {
                             return S.of(context).invalidWallet;
                           }
                         },
@@ -191,12 +210,15 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                                 extra: CartOrderDetailsArgs(
                                     isItVisa: false,
                                     isItWallet: true,
-                                    walletNumber: widget.cartBloc
-                                        .walletNumberBehaviour.valueOrNull?.text));
+                                    isItFawry: false,
+                                    walletNumber: widget
+                                        .cartBloc
+                                        .walletNumberBehaviour
+                                        .valueOrNull
+                                        ?.text));
 
                             widget.cartBloc.walletNumberBehaviour.value.clear();
                           }
-
                         })
                   ],
                 ),
@@ -205,8 +227,10 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           ),
         );
       },
-    ).then((value) {
-      widget.cartBloc.walletNumberBehaviour.value.clear();
-    },);
+    ).then(
+      (value) {
+        widget.cartBloc.walletNumberBehaviour.value.clear();
+      },
+    );
   }
 }

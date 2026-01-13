@@ -1,8 +1,19 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_order_details_args.dart';
 import 'package:deel/features/cart/ui/widgets/cart_product_summary_item.dart';
+import 'package:fawry_sdk/fawry_sdk.dart';
+import 'package:fawry_sdk/fawry_utils.dart';
+import 'package:fawry_sdk/model/bill_item.dart';
+import 'package:fawry_sdk/model/fawry_launch_model.dart';
+import 'package:fawry_sdk/model/launch_customer_model.dart';
+import 'package:fawry_sdk/model/launch_merchant_model.dart';
+import 'package:fawry_sdk/model/payment_methods.dart';
+import 'package:fawry_sdk/model/response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,9 +35,8 @@ class CartOrderDetailsPage extends BaseStatefulWidget {
 }
 
 class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
-
   ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
-
+  late StreamSubscription? _fawryCallbackResultStream;
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -40,19 +50,15 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   Color? systemNavigationBarColor() => Colors.white;
 
   @override
-  void onPopInvoked(didPop) {
-    changeSystemNavigationBarColor(secondaryColor);
-    // super.onPopInvoked(didPop);
-  }
-
-  @override
   void initState() {
     super.initState();
+    initSDKCallback();
   }
 
   @override
   void dispose() {
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.idle);
+    _fawryCallbackResultStream?.cancel();
     super.dispose();
   }
 
@@ -76,7 +82,8 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                     20.verticalSpace,
                     _getSeperator(),
                     20.verticalSpace,
-                    _buildIconItem(S.of(context).address, Assets.svg.icLocation),
+                    _buildIconItem(
+                        S.of(context).address, Assets.svg.icLocation),
                     5.verticalSpace,
                     _buildAddress(),
                     25.verticalSpace,
@@ -102,7 +109,9 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           ? S.of(context).cartBankCard
                           : widget.cartOrderDetailsArgs.isItWallet
                               ? S.of(context).cartDokkanWallet
-                              : S.of(context).payCashOnDelivery,
+                              : widget.cartOrderDetailsArgs.isItFawry
+                                  ? "فوري"
+                                  : S.of(context).payCashOnDelivery,
                       iconSize: 18,
                       space: 8,
                     ),
@@ -111,7 +120,8 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                     62.verticalSpace,
                     CustomButtonWidget(
                         idleText: S.of(context).cartConfirmOrder,
-                        buttonBehaviour: widget.cartBloc.buttonBloc.buttonBehavior,
+                        buttonBehaviour:
+                            widget.cartBloc.buttonBloc.buttonBehavior,
                         onTap: () async {
                           widget.cartBloc.buttonBloc.buttonBehavior
                               .add(ButtonState.loading);
@@ -121,6 +131,8 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           if (widget.cartOrderDetailsArgs.isItVisa) {
                             _payWithCard();
                             // _payWithWallet();
+                          } else if (widget.cartOrderDetailsArgs.isItFawry) {
+                            _payWithFawry();
                           } else if (widget.cartOrderDetailsArgs.isItWallet) {
                             _payWithWallet(
                                 widget.cartOrderDetailsArgs.walletNumber!);
@@ -138,13 +150,93 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
               left: 0,
               right: 0,
               bottom: 0,
-              child:OverlayLoadingWidget(showOverlayLoading: showOverlayLoading,),
-
+              child: OverlayLoadingWidget(
+                showOverlayLoading: showOverlayLoading,
+              ),
             ),
           ],
         ),
       )
     ]);
+  }
+
+  Future<void> initSDKCallback() async {
+    try {
+      _fawryCallbackResultStream =
+          FawrySDK.instance.callbackResultStream().listen((event) {
+        ResponseStatus response = ResponseStatus.fromJson(jsonDecode(event));
+        handleResponse(response);
+      });
+    } catch (ex) {
+      debugPrint(ex.toString());
+    }
+  }
+
+  Future<void> _payWithFawry() async {
+    BillItem item = BillItem(
+      itemId: widget.cartBloc.orderId.toString() ?? '',
+      description: 'Mobile Order',
+      quantity: 1,
+      price:
+          widget.cartBloc.cartTotalBeforeDiscountDoubleBehaviour.stream.value,
+    );
+
+    List<BillItem> chargeItems = [item];
+
+    // LaunchCustomerModel customerModel = LaunchCustomerModel(
+    //   customerProfileId: '533518',
+    //   customerName: 'John Doe',
+    //   customerEmail: 'john.doe@xyz.com',
+    //   customerMobile: '+201000000000',
+    // );
+
+    LaunchMerchantModel merchantModel = LaunchMerchantModel(
+      merchantCode: '770000021910',
+      merchantRefNum: FawryUtils.randomAlphaNumeric(10),
+      secureKey: '24e41c09e82d41c695926ca8cb003d5b',
+    );
+
+    FawryLaunchModel model = FawryLaunchModel(
+      allow3DPayment: true,
+      chargeItems: chargeItems,
+      launchMerchantModel: merchantModel,
+      skipLogin: true,
+      skipReceipt: true,
+      payWithCardToken: false,
+      paymentMethods: PaymentMethods.ALL,
+    );
+    String baseUrl = "https://atfawry.fawrystaging.com/";
+    await FawrySDK.instance.startPayment(
+      launchModel: model,
+      baseURL: baseUrl,
+      lang: FawrySDK.LANGUAGE_ENGLISH,
+    );
+  }
+
+  void handleResponse(ResponseStatus response) {
+    switch (response.status) {
+      case FawrySDK.RESPONSE_SUCCESS:
+        {
+          debugPrint('Message: ${response.message}');
+          debugPrint('Json Response: ${response.data}');
+          _ConfirmOder();
+        }
+        break;
+      case FawrySDK.RESPONSE_ERROR:
+        {
+          debugPrint('Error: ${response.message}');
+          widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+          showInvalidPaymentBottomSheet();
+          showOverlayLoading.value = false;
+        }
+        break;
+      case FawrySDK.RESPONSE_PAYMENT_COMPLETED:
+        {
+          debugPrint(
+              'Payment Completed: ${response.message}, ${response.data}');
+        }
+        break;
+    }
   }
 
   void _payWithCard() async {
@@ -163,7 +255,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
           showInvalidPaymentBottomSheet();
           showOverlayLoading.value = false;
-
         }
       },
     );
@@ -220,7 +311,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         widget.cartBloc.getMyCart();
         showOverlayLoading.value = false;
         FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.purchase);
-
 
         Routes.navigateToScreen(Routes.cartSuccessPage,
             NavigationType.pushReplacementNamed, context);
