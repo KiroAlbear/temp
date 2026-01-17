@@ -2,11 +2,13 @@
 
 part of 'api_client.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
 class _ApiClient implements ApiClient {
   _ApiClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -25,17 +27,17 @@ class _ApiClient implements ApiClient {
     const Map<String, dynamic>? _data = null;
     final _options =
         _setStreamType<HeaderResponse<List<LanguageResponseModel>>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'api/v1/res/lang',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'GET', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'api/v1/res/lang',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<LanguageResponseModel>> _value;
     try {
@@ -43,16 +45,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<LanguageResponseModel>(
-                  (i) => LanguageResponseModel.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<LanguageResponseModel>(
+                    (i) => LanguageResponseModel.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -84,14 +86,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<LoginResponse>(
-                  (i) => LoginResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<LoginResponse>(
+                    (i) => LoginResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -107,17 +109,17 @@ class _ApiClient implements ApiClient {
     const Map<String, dynamic>? _data = null;
     final _options =
         _setStreamType<HeaderResponse<List<CompanyTypeResponseModel>>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/get/company_type?lang_code=${langCode}',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                '/get/company_type?lang_code=${langCode}',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<CompanyTypeResponseModel>> _value;
     try {
@@ -125,16 +127,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CompanyTypeResponseModel>(
-                  (i) => CompanyTypeResponseModel.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<CompanyTypeResponseModel>(
+                    (i) => CompanyTypeResponseModel.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -167,14 +169,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CategoryResponse>(
-                  (i) => CategoryResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<CategoryResponse>(
+                    (i) => CategoryResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -208,14 +210,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CategoryResponse>(
-                  (i) => CategoryResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<CategoryResponse>(
+                    (i) => CategoryResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -248,14 +250,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<BrandResponse>(
-                  (i) => BrandResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<BrandResponse>(
+                    (i) => BrandResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -288,14 +290,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<BrandResponse>(
-                  (i) => BrandResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<BrandResponse>(
+                    (i) => BrandResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -327,14 +329,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<ProductResponse>(
-                  (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<ProductResponse>(
+                    (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -365,14 +367,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<ProductResponse>(
-                  (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<ProductResponse>(
+                    (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -405,14 +407,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<ProductResponse>(
-                  (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<ProductResponse>(
+                    (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -445,14 +447,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<ProductResponse>(
-                  (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<ProductResponse>(
+                    (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -469,17 +471,17 @@ class _ApiClient implements ApiClient {
     _data.addAll(request.toJson());
     final _options =
         _setStreamType<HeaderResponse<List<FavouriteProductResponse>>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'get/fav',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'get/fav',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<FavouriteProductResponse>> _value;
     try {
@@ -487,16 +489,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<FavouriteProductResponse>(
-                  (i) => FavouriteProductResponse.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<FavouriteProductResponse>(
+                    (i) => FavouriteProductResponse.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -528,14 +530,15 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<FavouriteResponse>(
-                  (i) => FavouriteResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<FavouriteResponse>(
+                    (i) =>
+                        FavouriteResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -567,14 +570,15 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<FavouriteResponse>(
-                  (i) => FavouriteResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<FavouriteResponse>(
+                    (i) =>
+                        FavouriteResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -607,14 +611,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<ProductResponse>(
-                  (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<ProductResponse>(
+                    (i) => ProductResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -646,14 +650,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<MyOrdersResponse>(
-                  (i) => MyOrdersResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<MyOrdersResponse>(
+                    (i) => MyOrdersResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -685,15 +689,15 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<MyOrderItemResponse>(
-                  (i) =>
-                      MyOrderItemResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<MyOrderItemResponse>(
+                    (i) =>
+                        MyOrderItemResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -710,17 +714,17 @@ class _ApiClient implements ApiClient {
     _data.addAll(request.toJson());
     final _options =
         _setStreamType<HeaderResponse<List<CartMinimumOrderResponse>>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'api/v1/order/minimum_limit',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'api/v1/order/minimum_limit',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<CartMinimumOrderResponse>> _value;
     try {
@@ -728,16 +732,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CartMinimumOrderResponse>(
-                  (i) => CartMinimumOrderResponse.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<CartMinimumOrderResponse>(
+                    (i) => CartMinimumOrderResponse.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -769,14 +773,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CartSaveResponse>(
-                  (i) => CartSaveResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<CartSaveResponse>(
+                    (i) => CartSaveResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -808,14 +812,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CartSaveResponse>(
-                  (i) => CartSaveResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<CartSaveResponse>(
+                    (i) => CartSaveResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -832,17 +836,17 @@ class _ApiClient implements ApiClient {
     _data.addAll(request.toJson());
     final _options =
         _setStreamType<HeaderResponse<List<CartCheckAvailabilityResponse>>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'get/available_quantity',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'get/available_quantity',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<CartCheckAvailabilityResponse>> _value;
     try {
@@ -850,16 +854,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CartCheckAvailabilityResponse>(
-                  (i) => CartCheckAvailabilityResponse.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<CartCheckAvailabilityResponse>(
+                    (i) => CartCheckAvailabilityResponse.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -876,17 +880,17 @@ class _ApiClient implements ApiClient {
     _data.addAll(request.toJson());
     final _options =
         _setStreamType<HeaderResponse<List<CartConfirmOrderResponse>>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'saleorder/confirm',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'saleorder/confirm',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<CartConfirmOrderResponse>> _value;
     try {
@@ -894,16 +898,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CartConfirmOrderResponse>(
-                  (i) => CartConfirmOrderResponse.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<CartConfirmOrderResponse>(
+                    (i) => CartConfirmOrderResponse.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -920,17 +924,17 @@ class _ApiClient implements ApiClient {
     _data.addAll(request.toJson());
     final _options =
         _setStreamType<HeaderResponse<List<CartConfirmOrderResponse>>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'order/cancel',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'order/cancel',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<CartConfirmOrderResponse>> _value;
     try {
@@ -938,16 +942,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CartConfirmOrderResponse>(
-                  (i) => CartConfirmOrderResponse.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<CartConfirmOrderResponse>(
+                    (i) => CartConfirmOrderResponse.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -979,14 +983,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<LoginResponse>(
-                  (i) => LoginResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<LoginResponse>(
+                    (i) => LoginResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1018,14 +1022,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<BalanceResponse>(
-                  (i) => BalanceResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<BalanceResponse>(
+                    (i) => BalanceResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1058,7 +1062,7 @@ class _ApiClient implements ApiClient {
         (json) => json as dynamic,
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1091,7 +1095,7 @@ class _ApiClient implements ApiClient {
         (json) => json as dynamic,
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1118,11 +1122,11 @@ class _ApiClient implements ApiClient {
     );
     final _options = _setStreamType<HeaderResponse<LoginResponse>>(
       Options(
-        method: 'PUT',
-        headers: _headers,
-        extra: _extra,
-        contentType: 'multipart/form-data',
-      )
+            method: 'PUT',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'multipart/form-data',
+          )
           .compose(
             _dio.options,
             'app/update_image/${mobileNumber}',
@@ -1139,7 +1143,7 @@ class _ApiClient implements ApiClient {
         (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1170,7 +1174,7 @@ class _ApiClient implements ApiClient {
         (json) => json as dynamic,
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1203,7 +1207,7 @@ class _ApiClient implements ApiClient {
         (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1219,17 +1223,17 @@ class _ApiClient implements ApiClient {
     const Map<String, dynamic>? _data = null;
     final _options =
         _setStreamType<HeaderResponse<List<DeliveryAddressResponse>>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'get/delivery_address//${userId}',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'GET', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'get/delivery_address//${userId}',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late HeaderResponse<List<DeliveryAddressResponse>> _value;
     try {
@@ -1237,16 +1241,16 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<DeliveryAddressResponse>(
-                  (i) => DeliveryAddressResponse.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<DeliveryAddressResponse>(
+                    (i) => DeliveryAddressResponse.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1279,7 +1283,7 @@ class _ApiClient implements ApiClient {
         (json) => json as dynamic,
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1312,7 +1316,7 @@ class _ApiClient implements ApiClient {
         (json) => ProfileResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1341,14 +1345,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CountryResponse>(
-                  (i) => CountryResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<CountryResponse>(
+                    (i) => CountryResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1380,14 +1384,15 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<CheckPhoneResponse>(
-                  (i) => CheckPhoneResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<CheckPhoneResponse>(
+                    (i) =>
+                        CheckPhoneResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1420,14 +1425,14 @@ class _ApiClient implements ApiClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<StateResponse>(
-                  (i) => StateResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<StateResponse>(
+                    (i) => StateResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -1460,3 +1465,5 @@ class _ApiClient implements ApiClient {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

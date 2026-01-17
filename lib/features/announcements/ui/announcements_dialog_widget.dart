@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:deel/core/dto/models/announcement/announcement_response_model.dart';
 import 'package:deel/core/ui/cutom_page_indicator.dart';
 import 'package:deel/features/announcements/ui/announcements_hero_banner_item.dart';
 import 'package:flutter/material.dart';

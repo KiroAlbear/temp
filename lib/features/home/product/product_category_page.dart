@@ -24,13 +24,14 @@ class ProductCategoryPage extends BaseStatefulWidget {
   static final String isNotFavouriteValue = 'isNotFavouriteValue';
   final bool isForFavourite;
 
-  ProductCategoryPage(
-      {super.key,
-      required this.homeBloc,
-      required this.contactUsBloc,
-      required this.productCategoryBloc,
-      required this.cartBloc,
-      required this.isForFavourite});
+  ProductCategoryPage({
+    super.key,
+    required this.homeBloc,
+    required this.contactUsBloc,
+    required this.productCategoryBloc,
+    required this.cartBloc,
+    required this.isForFavourite,
+  });
 
   @override
   State<ProductCategoryPage> createState() => _ProductCategoryWidgetState();
@@ -72,7 +73,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   void initState() {
     if (widget.productCategoryBloc.isNavigationFromNotifications) {
       widget.productCategoryBloc.getProductWithSubcategoryBrand(
-          widget.productCategoryBloc.categoryId, null, null);
+        widget.productCategoryBloc.categoryId,
+        null,
+        null,
+      );
     } else {
       if (widget.homeBloc.selectedOffer != null) {
         if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
@@ -80,21 +84,29 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
           widget.productCategoryBloc.categoryId =
               widget.homeBloc.selectedOffer!.relatedItemId[0];
           widget.productCategoryBloc.getProductWithSubcategoryBrand(
-              widget.productCategoryBloc.categoryId, null, null);
+            widget.productCategoryBloc.categoryId,
+            null,
+            null,
+          );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "product") {
-          widget.productCategoryBloc
-              .getProductById(widget.homeBloc.selectedOffer!.relatedItemId[0]);
+          widget.productCategoryBloc.getProductById(
+            widget.homeBloc.selectedOffer!.relatedItemId[0],
+          );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "brand") {
           widget.productCategoryBloc.brandId =
               widget.homeBloc.selectedOffer!.relatedItemId[0];
-          widget.productCategoryBloc
-              .getProductsByBrandId(widget.productCategoryBloc.brandId!);
+          widget.productCategoryBloc.getProductsByBrandId(
+            widget.productCategoryBloc.brandId!,
+          );
         }
       } else if (ProductCategoryPage.categoryProductsCount > 0) {
         widget.productCategoryBloc.getProductWithSubcategoryBrand(
-            ProductCategoryPage.cateogryId, null, null);
+          ProductCategoryPage.cateogryId,
+          null,
+          null,
+        );
       } else {
         widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
         widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
@@ -117,9 +129,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   void _loadProducts(bool isFirstTime, Function? onGettingProducts) {
     widget.showOverlayLoading.value = isFirstTime;
     widget.productCategoryBloc.getProductWithSubcategoryBrand(
-        widget.productCategoryBloc.subcategoryId,
-        widget.productCategoryBloc.brandId,
-        onGettingProducts);
+      widget.productCategoryBloc.subcategoryId,
+      widget.productCategoryBloc.brandId,
+      onGettingProducts,
+    );
   }
 
   bool isFavouriteOrSearchOrCategory() {
@@ -143,9 +156,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   }
 
   @override
-  Widget getBody(BuildContext context) => ((SharedPrefModule().userId ?? '')
-              .isEmpty &&
-          widget.isForFavourite)
+  Widget getBody(BuildContext context) =>
+      ((SharedPrefModule().userId ?? '').isEmpty && widget.isForFavourite)
       ? NotLoggedInWidget(
           title: S.of(context).favourite,
           image: Assets.svg.imgGuestFavourite,
@@ -163,24 +175,30 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                   Navigator.pop(context);
                 } else {
                   Routes.navigateToScreen(
-                      Routes.homePage, NavigationType.goNamed, context);
+                    Routes.homePage,
+                    NavigationType.goNamed,
+                    context,
+                  );
                 }
               },
-              doSearch: () => widget.homeBloc
-                  .doSearch(widget.homeBloc.searchBloc.value, context),
+              doSearch: () => widget.homeBloc.doSearch(
+                widget.homeBloc.searchBloc.value,
+                context,
+              ),
               textFiledControllerStream:
                   widget.homeBloc.searchBloc.textFormFiledStream,
               onChanged: (value) =>
                   widget.homeBloc.searchBloc.updateStringBehaviour(value),
-              isHavingBack: (widget.isForFavourite &&
+              isHavingBack:
+                  (widget.isForFavourite &&
                       widget.productCategoryBloc.isNavigatingFromMore == false)
                   ? false
                   : true,
               title: isNavigatedFromBannersOrOffers()
                   ? " "
                   : widget.isForFavourite
-                      ? S.of(context).favourites
-                      : widget.homeBloc.selectedCategoryText,
+                  ? S.of(context).favourites
+                  : widget.homeBloc.selectedCategoryText,
             ),
             Expanded(
               child: Stack(
@@ -189,11 +207,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                     children: [
                       (isFavouriteOrSearchOrCategory() ||
                               widget.homeBloc.selectedOffer != null ||
-                              widget.productCategoryBloc
+                              widget
+                                  .productCategoryBloc
                                   .isNavigationFromNotifications)
                           ? SizedBox()
                           : StreamBuilder<ApiState<List<CategoryMapper>>>(
-                              stream: widget.productCategoryBloc
+                              stream: widget
+                                  .productCategoryBloc
                                   .subCategoryByCategoryStream,
                               builder: (context, snapshot) {
                                 return !snapshot.hasData
@@ -211,19 +231,20 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                 ? Container()
                                                 : Padding(
                                                     padding: EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            filterHorizontalPadding),
+                                                      horizontal:
+                                                          filterHorizontalPadding,
+                                                    ),
                                                     child: Row(
                                                       children: [
                                                         Expanded(
-                                                          child: ListView
-                                                              .separated(
+                                                          child: ListView.separated(
                                                             separatorBuilder:
-                                                                (context,
-                                                                        index) =>
-                                                                    SizedBox(
-                                                                        width: 8
-                                                                            .w),
+                                                                (
+                                                                  context,
+                                                                  index,
+                                                                ) => SizedBox(
+                                                                  width: 8.w,
+                                                                ),
                                                             scrollDirection:
                                                                 Axis.horizontal,
                                                             shrinkWrap: true,
@@ -231,65 +252,67 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                 .data!
                                                                 .response!
                                                                 .length,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
+                                                            itemBuilder: (context, index) {
                                                               return FilterItemWidget(
-                                                                  title: snapshot
-                                                                              .data!
-                                                                              .response![
-                                                                                  index]
-                                                                              .name ==
-                                                                          ProductCategoryPage
-                                                                              .filterAllText
-                                                                      ? S
-                                                                          .of(
-                                                                              context)
-                                                                          .productsFilterAll
-                                                                      : snapshot
-                                                                          .data!
-                                                                          .response![
-                                                                              index]
-                                                                          .name,
-                                                                  textColor:
-                                                                      secondaryColor,
-                                                                  withBorders:
-                                                                      false,
-                                                                  isSelected:
-                                                                      index ==
-                                                                          value,
-                                                                  onTap: () {
-                                                                    widget
-                                                                        .productCategoryBloc
-                                                                        .reset();
-                                                                    widget.selectedCategoryIndex
-                                                                            .value =
-                                                                        index;
-                                                                    widget.productCategoryBloc
-                                                                            .subcategoryId =
-                                                                        snapshot
+                                                                title:
+                                                                    snapshot
                                                                             .data!
                                                                             .response![index]
-                                                                            .id;
+                                                                            .name ==
+                                                                        ProductCategoryPage
+                                                                            .filterAllText
+                                                                    ? S
+                                                                          .of(
+                                                                            context,
+                                                                          )
+                                                                          .productsFilterAll
+                                                                    : snapshot
+                                                                          .data!
+                                                                          .response![index]
+                                                                          .name,
+                                                                textColor:
+                                                                    secondaryColor,
+                                                                withBorders:
+                                                                    false,
+                                                                isSelected:
+                                                                    index ==
+                                                                    value,
+                                                                onTap: () {
+                                                                  widget
+                                                                      .productCategoryBloc
+                                                                      .reset();
+                                                                  widget
+                                                                          .selectedCategoryIndex
+                                                                          .value =
+                                                                      index;
+                                                                  widget
+                                                                      .productCategoryBloc
+                                                                      .subcategoryId = snapshot
+                                                                      .data!
+                                                                      .response![index]
+                                                                      .id;
 
-                                                                    widget.productCategoryBloc.getBrandBy(widget
+                                                                  widget.productCategoryBloc.getBrandBy(
+                                                                    widget
                                                                             .productCategoryBloc
                                                                             .subcategoryId ??
                                                                         widget
                                                                             .productCategoryBloc
-                                                                            .categoryId);
-                                                                    widget
-                                                                        .selectedBrandIndex
-                                                                        .value = 0;
-                                                                  },
-                                                                  imageUrl: index ==
-                                                                          0
-                                                                      ? null
-                                                                      : snapshot
+                                                                            .categoryId,
+                                                                  );
+                                                                  widget
+                                                                          .selectedBrandIndex
+                                                                          .value =
+                                                                      0;
+                                                                },
+                                                                imageUrl:
+                                                                    index == 0
+                                                                    ? null
+                                                                    : snapshot
                                                                           .data!
-                                                                          .response![
-                                                                              index]
-                                                                          .image);
+                                                                          .response![index]
+                                                                          .image,
+                                                              );
                                                             },
                                                           ),
                                                         ),
@@ -303,27 +326,28 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                             ),
                       (isFavouriteOrSearchOrCategory() ||
                               widget.homeBloc.selectedOffer != null ||
-                              widget.productCategoryBloc
+                              widget
+                                  .productCategoryBloc
                                   .isNavigationFromNotifications)
                           ? SizedBox()
-                          : SizedBox(
-                              height: 14.h,
-                            ),
+                          : SizedBox(height: 14.h),
                       (isFavouriteOrSearchOrCategory() ||
                               widget.homeBloc.selectedOffer != null ||
-                              widget.productCategoryBloc
+                              widget
+                                  .productCategoryBloc
                                   .isNavigationFromNotifications)
                           ? SizedBox()
                           : StreamBuilder<ApiState<List<BrandMapper>>>(
                               stream: widget
-                                  .productCategoryBloc.brandBySubcategoryStream,
+                                  .productCategoryBloc
+                                  .brandBySubcategoryStream,
                               builder: (context, snapshot) {
                                 return !snapshot.hasData
                                     ? Container()
                                     : Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal:
-                                                filterHorizontalPadding),
+                                          horizontal: filterHorizontalPadding,
+                                        ),
                                         child: SizedBox(
                                           height: 30.h,
                                           child: ValueListenableBuilder<int>(
@@ -337,54 +361,57 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                       separatorBuilder:
                                                           (context, index) =>
                                                               SizedBox(
-                                                                  width: 8.w),
+                                                                width: 8.w,
+                                                              ),
                                                       scrollDirection:
                                                           Axis.horizontal,
                                                       shrinkWrap: true,
-                                                      itemCount: snapshot
+                                                      itemCount:
+                                                          snapshot
                                                               .data
                                                               ?.response
                                                               ?.length ??
                                                           0,
-                                                      itemBuilder:
-                                                          (context, index) {
+                                                      itemBuilder: (context, index) {
                                                         return FilterItemWidget(
-                                                            title: snapshot
-                                                                        .data!
-                                                                        .response![
-                                                                            index]
-                                                                        .name ==
-                                                                    ProductCategoryPage
-                                                                        .filterAllText
-                                                                ? S
+                                                          title:
+                                                              snapshot
+                                                                      .data!
+                                                                      .response![index]
+                                                                      .name ==
+                                                                  ProductCategoryPage
+                                                                      .filterAllText
+                                                              ? S
                                                                     .of(context)
                                                                     .productsFilterAll
-                                                                : snapshot
+                                                              : snapshot
                                                                     .data!
-                                                                    .response![
-                                                                        index]
+                                                                    .response![index]
                                                                     .name,
-                                                            withBorders: true,
-                                                            isSelected:
-                                                                index == value,
-                                                            onTap: () {
-                                                              widget
-                                                                  .productCategoryBloc
-                                                                  .reset();
-                                                              widget
-                                                                  .selectedBrandIndex
-                                                                  .value = index;
-                                                              widget.productCategoryBloc
-                                                                      .brandId =
-                                                                  snapshot
-                                                                      .data!
-                                                                      .response![
-                                                                          index]
-                                                                      .id;
+                                                          withBorders: true,
+                                                          isSelected:
+                                                              index == value,
+                                                          onTap: () {
+                                                            widget
+                                                                .productCategoryBloc
+                                                                .reset();
+                                                            widget
+                                                                    .selectedBrandIndex
+                                                                    .value =
+                                                                index;
+                                                            widget
+                                                                .productCategoryBloc
+                                                                .brandId = snapshot
+                                                                .data!
+                                                                .response![index]
+                                                                .id;
 
-                                                              _loadProducts(
-                                                                  true, null);
-                                                            });
+                                                            _loadProducts(
+                                                              true,
+                                                              null,
+                                                            );
+                                                          },
+                                                        );
                                                       },
                                                     ),
                                                   ),
@@ -399,9 +426,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                       (isFavouriteOrSearchOrCategory() ||
                               widget.homeBloc.selectedOffer != null)
                           ? SizedBox()
-                          : SizedBox(
-                              height: 10.h,
-                            ),
+                          : SizedBox(height: 10.h),
                       isBannersOrOffersExist()
                           ? SizedBox()
                           : SizedBox(height: widget.isForFavourite ? 0 : 10.h),
@@ -409,7 +434,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                         child: CustomScrollView(
                           slivers: [
                             SliverToBoxAdapter(
-                              child: (widget.homeBloc.isBanner == true &&
+                              child:
+                                  (widget.homeBloc.isBanner == true &&
                                       widget.homeBloc.selectedOffer != null)
                                   ? Padding(
                                       padding: const EdgeInsets.all(15.0),
@@ -423,7 +449,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                   : SizedBox(),
                             ),
                             SliverToBoxAdapter(
-                              child: (widget.homeBloc.isBanner == false &&
+                              child:
+                                  (widget.homeBloc.isBanner == false &&
                                       widget.homeBloc.selectedOffer != null)
                                   ? Padding(
                                       padding: const EdgeInsets.all(15.0),
@@ -441,13 +468,16 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                               child: isBannersOrOffersExist()
                                   ? Padding(
                                       padding: EdgeInsetsDirectional.only(
-                                          start: 15, top: 5),
+                                        start: 15,
+                                        top: 5,
+                                      ),
                                       child: CustomText(
                                         text: S.of(context).promoItems,
                                         textAlign: TextAlign.start,
                                         customTextStyle: BoldStyle(
-                                            color: secondaryColor,
-                                            fontSize: 18.sp),
+                                          color: secondaryColor,
+                                          fontSize: 18.sp,
+                                        ),
                                       ),
                                     )
                                   : SizedBox(),
@@ -456,12 +486,13 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                               hasScrollBody: true,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 16.w,
-                                    vertical: widget.isForFavourite ? 0 : 18.h),
-                                child: StreamBuilder<
-                                    ApiState<List<ProductMapper>>>(
+                                  horizontal: 16.w,
+                                  vertical: widget.isForFavourite ? 0 : 18.h,
+                                ),
+                                child: StreamBuilder<ApiState<List<ProductMapper>>>(
                                   stream: widget
-                                      .productCategoryBloc.loadedListStream,
+                                      .productCategoryBloc
+                                      .loadedListStream,
                                   initialData: LoadingState(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
@@ -469,8 +500,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           snapshot.data!.response!.isEmpty) {
                                         if (widget.isForFavourite) {
                                           return EmptyFavouriteProducts(
-                                              emptyFavouriteScreen:
-                                                  Assets.svg.emptyFavourite);
+                                            emptyFavouriteScreen:
+                                                Assets.svg.emptyFavourite,
+                                          );
                                         } else {
                                           return Column(
                                             mainAxisAlignment:
@@ -488,150 +520,116 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                       }
                                     }
                                     return checkResponseStateWithLoadingWidget(
-                                        onSuccessFunction: () {},
-                                        snapshot.data ??
-                                            LoadingState<List<ProductMapper>>(),
-                                        context,
-                                        onSuccess: ProductListWidget(
-                                          isForFavourite: widget.isForFavourite,
-                                          deleteIcon: Assets.svg.icDelete,
-                                          emptyFavouriteScreen:
-                                              Assets.svg.emptyFavourite,
-                                          cartBloc: widget.cartBloc,
-                                          productCategoryBloc:
-                                              widget.productCategoryBloc,
-                                          productList:
-                                              snapshot.data?.response ?? [],
-                                          favouriteIcon: Assets.svg.icFavourite,
-                                          favouriteIconFilled:
-                                              Assets.svg.icFavouriteFilled,
-                                          onAddToCart: (productMapper) {
-                                            widget.showOverlayLoading.value =
-                                                true;
-                                            widget.cartBloc
-                                                .saveToCart(
-                                                    productMapper.id,
-                                                    productMapper.minQuantity ==
-                                                            0
-                                                        ? 1
-                                                        : productMapper
-                                                            .minQuantity
-                                                            .toInt())
-                                                .listen((event) {
-                                              if (event is SuccessState) {
-                                                widget.cartBloc.orderId =
-                                                    event.response!;
-                                                SharedPrefModule().orderId =
-                                                    event.response!;
-                                                widget.cartBloc.getMyCart(
-                                                  onGettingCart: () {
-                                                    widget.showOverlayLoading
-                                                        .value = false;
-                                                    widget.cartBloc
-                                                        .addCartInfoToProducts(
-                                                            snapshot.data
-                                                                    ?.response ??
-                                                                []);
-                                                  },
-                                                );
-                                              }
-                                            });
-                                          },
-                                          onDeleteClicked: (productMapper) {
-                                            widget.showOverlayLoading.value =
-                                                true;
-                                            CartCommonFunctions()
-                                                .editCart(
-                                              cartBloc: widget.cartBloc,
-                                              cartItemId:
-                                                  productMapper.productId,
-                                              productId: productMapper.id,
-                                              quantity: 0,
-                                              price: productMapper.finalPrice,
-                                              state: CartState.decrement,
-                                            )
-                                                .listen((event) {
-                                              if (event is SuccessState) {
-                                                widget.cartBloc.getMyCart(
-                                                  onGettingCart: () {
-                                                    widget.showOverlayLoading
-                                                        .value = false;
-                                                    widget.cartBloc
-                                                        .addCartInfoToProducts(
-                                                            snapshot.data
-                                                                    ?.response ??
-                                                                []);
-                                                    setState(() {});
-                                                  },
-                                                );
-                                              }
-                                            });
-                                          },
-                                          onDecrementClicked: (productMapper) {
-                                            widget.showOverlayLoading.value =
-                                                true;
-                                            CartCommonFunctions()
-                                                .editCart(
-                                              cartBloc: widget.cartBloc,
-                                              cartItemId:
-                                                  productMapper.productId,
-                                              productId: productMapper.id,
-                                              quantity: productMapper
-                                                  .cartUserQuantity,
-                                              price: productMapper.finalPrice,
-                                              state: CartState.decrement,
-                                            )
-                                                .listen((event) {
-                                              if (event is SuccessState) {
-                                                widget.showOverlayLoading
-                                                    .value = false;
-                                              }
-                                            });
-                                          },
-                                          onIncrementClicked: (productMapper) {
-                                            widget.showOverlayLoading.value =
-                                                true;
-                                            CartCommonFunctions()
-                                                .editCart(
-                                              cartBloc: widget.cartBloc,
-                                              cartItemId:
-                                                  productMapper.productId,
-                                              productId: productMapper.id,
-                                              quantity: productMapper
-                                                  .cartUserQuantity,
-                                              price: productMapper.finalPrice,
-                                              state: CartState.increment,
-                                            )
-                                                .listen((event) {
-                                              if (event is SuccessState) {
-                                                if (productMapper
-                                                        .cartUserQuantity ==
-                                                    1) {
-                                                  widget.cartBloc
-                                                      .addCartInfoToProducts(
-                                                          snapshot.data
-                                                                  ?.response ??
-                                                              []);
-                                                }
-                                                widget.showOverlayLoading
-                                                    .value = false;
-                                              }
-                                            });
-                                          },
-                                          onTapFavourite:
-                                              (favourite, productMapper) {},
-                                          loadMore: (Function func) {
-                                            if (widget.isForFavourite)
-                                              widget.productCategoryBloc
-                                                  .loadMore(true, func);
-                                            else
-                                              _loadProducts(false, func);
-                                          },
-                                        ));
+                                      onSuccessFunction: () {},
+                                      snapshot.data ??
+                                          LoadingState<List<ProductMapper>>(),
+                                      context,
+                                      onSuccess: ProductListWidget(
+                                        isForFavourite: widget.isForFavourite,
+                                        deleteIcon: Assets.svg.icDelete,
+                                        emptyFavouriteScreen:
+                                            Assets.svg.emptyFavourite,
+                                        cartBloc: widget.cartBloc,
+                                        productCategoryBloc:
+                                            widget.productCategoryBloc,
+                                        productList:
+                                            snapshot.data?.response ?? [],
+                                        favouriteIcon: Assets.svg.icFavourite,
+                                        favouriteIconFilled:
+                                            Assets.svg.icFavouriteFilled,
+                                        onAddToCart: (productMapper) {
+                                          widget.showOverlayLoading.value =
+                                              true;
+                                          widget.cartBloc.onAddToCart(
+                                            productMapper,
+                                            snapshot.data?.response,
+                                            () {
+                                              widget.showOverlayLoading.value =
+                                                  false;
+                                            },
+                                          );
+                                          // widget.cartBloc
+                                          //     .saveToCart(
+                                          //         productMapper.id,
+                                          //         productMapper.minQuantity ==
+                                          //                 0
+                                          //             ? 1
+                                          //             : productMapper
+                                          //                 .minQuantity
+                                          //                 .toInt())
+                                          //     .listen((event) {
+                                          //   if (event is SuccessState) {
+                                          //     widget.cartBloc.orderId =
+                                          //         event.response!;
+                                          //     SharedPrefModule().orderId =
+                                          //         event.response!;
+                                          //     widget.cartBloc.getMyCart(
+                                          //       onGettingCart: () {
+                                          //         widget.showOverlayLoading
+                                          //             .value = false;
+                                          //         widget.cartBloc
+                                          //             .addCartInfoToProducts(
+                                          //                 snapshot.data
+                                          //                         ?.response ??
+                                          //                     []);
+                                          //       },
+                                          //     );
+                                          //   }
+                                          // });
+                                        },
+                                        onDeleteClicked: (productMapper) {
+                                          widget.showOverlayLoading.value =
+                                              true;
+                                          widget.cartBloc.onDeleteFromCart(
+                                            productMapper,
+                                            snapshot.data?.response,
+                                            () {
+                                              widget.showOverlayLoading.value =
+                                                  false;
+                                            },
+                                          );
+                                        },
+                                        onDecrementClicked: (productMapper) {
+                                          widget.showOverlayLoading.value =
+                                              true;
+                                          widget.cartBloc.onDecrementIncrement(
+                                            productMapper,
+                                            snapshot.data?.response,
+                                            () {
+                                              widget.showOverlayLoading.value =
+                                                  false;
+                                            },
+                                          );
+                                        },
+                                        onIncrementClicked: (productMapper) {
+                                          widget.showOverlayLoading.value =
+                                              true;
+                                          widget.cartBloc.onDecrementIncrement(
+                                            productMapper,
+                                            snapshot.data?.response,
+                                            () {
+                                              widget.showOverlayLoading.value =
+                                                  false;
+                                            },
+                                          );
+                                        },
+                                        onTapFavourite:
+                                            (favourite, productMapper) {},
+                                        loadMore: (Function func) {
+                                          if (widget.isForFavourite)
+                                            widget.productCategoryBloc.loadMore(
+                                              true,
+                                              func,
+                                            );
+                                          else
+                                            _loadProducts(false, func);
+                                        },
+                                      ),
+                                    );
                                   },
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -648,7 +646,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         );
 }

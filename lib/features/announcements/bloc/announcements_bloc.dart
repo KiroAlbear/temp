@@ -1,13 +1,25 @@
-import 'package:deel/core/dto/models/announcement/announcement_request_model.dart';
-import 'package:deel/core/dto/models/announcement/announcement_response_model.dart';
-import 'package:deel/core/dto/remote/announcements_remote.dart';
+import 'package:deel/features/announcements/remote/announcements_remote.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../deel.dart';
+import '../models/announcement_request_model.dart';
 
 class AnnouncementsBloc extends BlocBase with ResponseHandlerModule {
-  Stream<ApiState<List<OfferMapper>>> get announcementsStream =>
-      AnnouncementsRemote().getAnnouncements(AnnouncementRequestModel(
-          pageIndex: 1, pageSize: 10, sortBy: "OrderNo", sortDirection: "asc"));
+  final BehaviorSubject<ApiState<List<OfferMapper>>> announcementsBehaviour =
+      BehaviorSubject()..sink.add(LoadingState());
+
+  void getAnnouncements() {
+    AnnouncementsRemote(
+      AnnouncementRequestModel(
+        pageIndex: 1,
+        pageSize: 10,
+        sortBy: "OrderNo",
+        sortDirection: "asc",
+      ),
+    ).callApiAsStream().listen((event) {
+      announcementsBehaviour.sink.add(event);
+    });
+  }
 
   @override
   void dispose() {}

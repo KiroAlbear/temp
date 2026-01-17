@@ -2,11 +2,13 @@
 
 part of 'admin_client.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
 class _AdminClient implements AdminClient {
   _AdminClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -16,6 +18,43 @@ class _AdminClient implements AdminClient {
   String? baseUrl;
 
   final ParseErrorLogger? errorLogger;
+
+  @override
+  Future<AdminHeaderResponse<MostSellingResponseModel>> getMostSelling(
+    MostSellingRequestModel requestModel,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestModel.toJson());
+    final _options =
+        _setStreamType<AdminHeaderResponse<MostSellingResponseModel>>(
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'MostSeller/GetListForPublic',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late AdminHeaderResponse<MostSellingResponseModel> _value;
+    try {
+      _value = AdminHeaderResponse<MostSellingResponseModel>.fromJson(
+        _result.data!,
+        (json) =>
+            MostSellingResponseModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
 
   @override
   Future<AdminHeaderResponse<AnnouncementResponseModel>> getAnnouncements(
@@ -28,17 +67,17 @@ class _AdminClient implements AdminClient {
     _data.addAll(requestModel.toJson());
     final _options =
         _setStreamType<AdminHeaderResponse<AnnouncementResponseModel>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'Announcement/GetListForPublic',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'Announcement/GetListForPublic',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late AdminHeaderResponse<AnnouncementResponseModel> _value;
     try {
@@ -48,7 +87,7 @@ class _AdminClient implements AdminClient {
             AnnouncementResponseModel.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -62,17 +101,17 @@ class _AdminClient implements AdminClient {
     const Map<String, dynamic>? _data = null;
     final _options =
         _setStreamType<AdminHeaderResponse<List<UpdateAppResponseModel>>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'UpdateChecker/GetLatestVersions',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'GET', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'UpdateChecker/GetLatestVersions',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late AdminHeaderResponse<List<UpdateAppResponseModel>> _value;
     try {
@@ -80,16 +119,16 @@ class _AdminClient implements AdminClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<UpdateAppResponseModel>(
-                  (i) => UpdateAppResponseModel.fromJson(
-                    i as Map<String, dynamic>,
-                  ),
-                )
-                .toList()
+                  .map<UpdateAppResponseModel>(
+                    (i) => UpdateAppResponseModel.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -121,14 +160,14 @@ class _AdminClient implements AdminClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<FaqResponse>(
-                  (i) => FaqResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<FaqResponse>(
+                    (i) => FaqResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -136,7 +175,7 @@ class _AdminClient implements AdminClient {
 
   @override
   Future<AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>>
-      updateNotificationsDeviceData(
+  updateNotificationsDeviceData(
     NotificationsUpdateDeviceDataRequestModel request,
   ) async {
     final _extra = <String, dynamic>{};
@@ -144,31 +183,35 @@ class _AdminClient implements AdminClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _options = _setStreamType<
-        AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'Notification/UpdateDeviceData',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+    final _options =
+        _setStreamType<
+          AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel>
+        >(
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'Notification/UpdateDeviceData',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late AdminHeaderResponse<NotificationsUpdateDeviceDataResponseModel> _value;
     try {
-      _value = AdminHeaderResponse<
-          NotificationsUpdateDeviceDataResponseModel>.fromJson(
-        _result.data!,
-        (json) => NotificationsUpdateDeviceDataResponseModel.fromJson(
-          json as Map<String, dynamic>,
-        ),
-      );
+      _value =
+          AdminHeaderResponse<
+            NotificationsUpdateDeviceDataResponseModel
+          >.fromJson(
+            _result.data!,
+            (json) => NotificationsUpdateDeviceDataResponseModel.fromJson(
+              json as Map<String, dynamic>,
+            ),
+          );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -185,17 +228,17 @@ class _AdminClient implements AdminClient {
     _data.addAll(request.toJson());
     final _options =
         _setStreamType<AdminHeaderResponse<List<ContactUsResponse>>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'SupportInfo/GetList',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(
-            baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
-          ),
-    );
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'SupportInfo/GetList',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late AdminHeaderResponse<List<ContactUsResponse>> _value;
     try {
@@ -203,14 +246,15 @@ class _AdminClient implements AdminClient {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<ContactUsResponse>(
-                  (i) => ContactUsResponse.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<ContactUsResponse>(
+                    (i) =>
+                        ContactUsResponse.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -243,7 +287,7 @@ class _AdminClient implements AdminClient {
         (json) => BannersResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -276,7 +320,7 @@ class _AdminClient implements AdminClient {
         (json) => BannersResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -306,7 +350,7 @@ class _AdminClient implements AdminClient {
         (json) => UsagePolicyResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -337,7 +381,7 @@ class _AdminClient implements AdminClient {
         (json) => json as dynamic,
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -370,7 +414,7 @@ class _AdminClient implements AdminClient {
         (json) => json as dynamic,
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -403,3 +447,5 @@ class _AdminClient implements AdminClient {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

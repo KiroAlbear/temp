@@ -16,11 +16,11 @@ AddVoiceFileRequest _$AddVoiceFileRequestFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$AddVoiceFileRequestToJson(
-        AddVoiceFileRequest instance) =>
-    <String, dynamic>{
-      'UserID': instance.userId,
-      'FileName': instance.fileName,
-      'VoiceTextID': instance.voiceTextId,
-      'Base64': instance.base64,
-      'FileType': instance.fileType,
-    };
+  AddVoiceFileRequest instance,
+) => <String, dynamic>{
+  'UserID': instance.userId,
+  'FileName': instance.fileName,
+  'VoiceTextID': instance.voiceTextId,
+  'Base64': instance.base64,
+  'FileType': instance.fileType,
+};

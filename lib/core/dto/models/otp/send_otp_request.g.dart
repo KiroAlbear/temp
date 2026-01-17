@@ -7,11 +7,7 @@ part of 'send_otp_request.dart';
 // **************************************************************************
 
 SendOtpRequest _$SendOtpRequestFromJson(Map<String, dynamic> json) =>
-    SendOtpRequest(
-      phone: json['phoneNumber'] as String,
-    );
+    SendOtpRequest(phone: json['phoneNumber'] as String);
 
 Map<String, dynamic> _$SendOtpRequestToJson(SendOtpRequest instance) =>
-    <String, dynamic>{
-      'phoneNumber': instance.phone,
-    };
+    <String, dynamic>{'phoneNumber': instance.phone};
