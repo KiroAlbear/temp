@@ -96,8 +96,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                             child: CustomText(
                                 text: S.of(context).enterVerificationCode,
                                 customTextStyle: BoldStyle(
-                                    color: darkSecondaryColor,
-                                    fontSize: 28.sp)),
+                                    color: secondaryColor, fontSize: 28.sp)),
                           ),
                           SizedBox(
                             height: 33.h,

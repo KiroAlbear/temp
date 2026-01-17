@@ -386,7 +386,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           text: snapshot.data!,
                           textAlign: TextAlign.start,
                           customTextStyle: BoldStyle(
-                              color: darkSecondaryColor, fontSize: 14.sp)),
+                              color: secondaryColor, fontSize: 14.sp)),
                       // deliveryFees(),
                     ],
                   ),
@@ -429,12 +429,11 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         ImageHelper(
           image: icon,
           imageType: ImageType.svg,
-          color: darkSecondaryColor,
+          color: secondaryColor,
         ),
         CustomText(
             text: title,
-            customTextStyle:
-                BoldStyle(color: darkSecondaryColor, fontSize: 14.sp)),
+            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 14.sp)),
       ],
     );
   }

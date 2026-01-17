@@ -172,7 +172,7 @@ class _CartScreenState extends BaseState<CartPage> {
                     text: snapshot.data ?? '',
                     textAlign: TextAlign.start,
                     customTextStyle:
-                        BoldStyle(color: darkSecondaryColor, fontSize: 14.sp));
+                        BoldStyle(color: secondaryColor, fontSize: 14.sp));
               },
             ),
             StreamBuilder(
@@ -187,7 +187,7 @@ class _CartScreenState extends BaseState<CartPage> {
                     text: snapshot.data.toString() ?? '',
                     textAlign: TextAlign.start,
                     customTextStyle:
-                        BoldStyle(color: darkSecondaryColor, fontSize: 14.sp));
+                        BoldStyle(color: secondaryColor, fontSize: 14.sp));
               },
             ),
             StreamBuilder(
@@ -220,9 +220,8 @@ class _CartScreenState extends BaseState<CartPage> {
                 height: 48.h,
                 borderRadius: 8,
                 idleText: S.of(context).next,
-                textStyle:
-                    MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)
-                        .getStyle(),
+                textStyle: MediumStyle(color: secondaryColor, fontSize: 16.sp)
+                    .getStyle(),
                 onTap: () async {
                   if (widget.cartBloc.totalSum <=
                       widget.cartBloc.cartMinimumOrderBehaviour.value) {
@@ -365,7 +364,7 @@ class _CartScreenState extends BaseState<CartPage> {
           CustomText(
               text: S.of(context).cartProductDetails,
               customTextStyle:
-                  BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
+                  BoldStyle(color: secondaryColor, fontSize: 18.sp)),
           10.verticalSpace,
           StreamBuilder(
             stream: widget.cartBloc.cartMinimumOrderBehaviour.stream,

@@ -53,7 +53,7 @@ class _NewAccountLocationInfoWidgetState
             CustomText(
                 text: S.of(context).selectLocation,
                 customTextStyle:
-                    MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)),
+                    MediumStyle(color: secondaryColor, fontSize: 16.sp)),
             SizedBox(
               height: 12.h,
             ),
@@ -64,7 +64,7 @@ class _NewAccountLocationInfoWidgetState
             CustomText(
                 text: S.of(context).streetName,
                 customTextStyle: MediumStyle(
-                  color: darkSecondaryColor,
+                  color: secondaryColor,
                   fontSize: 16.sp,
                 )),
             SizedBox(
@@ -148,7 +148,7 @@ class _NewAccountLocationInfoWidgetState
                 CustomText(
                     text: S.of(context).neighborhood,
                     customTextStyle: MediumStyle(
-                      color: darkSecondaryColor,
+                      color: secondaryColor,
                       fontSize: 16.sp,
                     )),
                 SizedBox(
@@ -169,7 +169,7 @@ class _NewAccountLocationInfoWidgetState
                 CustomText(
                     text: S.of(context).city,
                     customTextStyle: MediumStyle(
-                      color: darkSecondaryColor,
+                      color: secondaryColor,
                       fontSize: 16.sp,
                     )),
                 SizedBox(

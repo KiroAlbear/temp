@@ -115,7 +115,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
           child: ImageHelper(
             image: Assets.svg.icContactUs,
             imageType: ImageType.svg,
-            color: darkSecondaryColor,
+            color: secondaryColor,
             width: 24.w,
             height: 24.h,
           ),
@@ -154,7 +154,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
           focusNode: widget.focusNode,
           suffixIcon: _scanIconWidget,
           useOnFieldSubmitted: true,
-          // hintTextStyle: TextStyle(fontSize: 16.sp, color: darkSecondaryColor,fontFamily: AppConstants.DINNextFont),
+          // hintTextStyle: TextStyle(fontSize: 16.sp, color: secondaryColor,fontFamily: AppConstants.DINNextFont),
           onFieldSubmitted: (value) => widget.doSearch!(),
         ),
       );
@@ -219,7 +219,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
                   textAlign: TextAlign.start,
                   // softWrap: true,
                   customTextStyle:
-                      BoldStyle(fontSize: 20.sp, color: darkSecondaryColor)),
+                      BoldStyle(fontSize: 20.sp, color: secondaryColor)),
             ),
           ],
         ),

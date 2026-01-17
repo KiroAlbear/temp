@@ -30,16 +30,17 @@ class MapModule {
               Apputils.getFormattedAddress(address));
         },
         buttonColor: primaryColor,
-        searchBorderColor: darkSecondaryColor,
+        searchBorderColor: secondaryColor,
         buttonText: buttonText,
         hintStyle: MediumStyle(fontSize: 14.sp, color: lightGreyColorLightMode)
             .getStyle(),
         locationPinTextStyle:
             MediumStyle(fontSize: 12.sp, color: lightBlackColor).getStyle(),
-        locationPinIcon: ImageHelper(image: Assets.svg.pinLocation, imageType: ImageType.svg),
+        locationPinIcon: ImageHelper(
+            image: Assets.svg.pinLocation, imageType: ImageType.svg),
         zoomInIcon: Icons.zoom_in,
         zoomOutIcon: Icons.zoom_out_sharp,
-        buttonTextColor: darkSecondaryColor,
+        buttonTextColor: secondaryColor,
         backArrowWidget: InkWell(
           onTap: () {
             Navigator.of(Routes.rootNavigatorKey.currentContext!).pop();
@@ -51,10 +52,9 @@ class MapModule {
           ),
         ),
         buttonTextStyle:
-            MediumStyle(fontSize: 16.sp, color: darkSecondaryColor).getStyle(),
+            MediumStyle(fontSize: 16.sp, color: secondaryColor).getStyle(),
         currentLocationIcon: Icons.location_searching,
         buttonLoadingWidget: CustomProgress(color: secondaryColor),
-
         setLocationButtonBorderRadious: 10,
         searchSuffixIcon:
             RotatedBox(quarterTurns: 1, child: Icon(Icons.search)),

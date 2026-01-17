@@ -57,7 +57,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
                 child: CustomText(
                     text: S.of(context).resetPasswordSetting,
                     customTextStyle:
-                        BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
+                        BoldStyle(color: secondaryColor, fontSize: 28.sp)),
               ),
               SizedBox(
                 height: 30.h,
@@ -65,7 +65,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
               CustomText(
                   text: S.of(context).enterYouRegisteredMobile,
                   customTextStyle:
-                      MediumStyle(color: darkSecondaryColor, fontSize: 16.sp)),
+                      MediumStyle(color: secondaryColor, fontSize: 16.sp)),
               SizedBox(
                 height: 12.h,
               ),
