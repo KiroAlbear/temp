@@ -39,7 +39,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
   @override
   bool isSafeArea() => true;
 
-
   @override
   void initState() {
     super.initState();
@@ -77,7 +76,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
             child: CustomText(
                 text: S.of(context).lastOffers,
                 customTextStyle:
-                    BoldStyle(color: darkSecondaryColor, fontSize: 20.sp)),
+                    BoldStyle(color: secondaryColor, fontSize: 20.sp)),
           ),
           StreamBuilder<ApiState<List<OfferMapper>>>(
               stream: widget.homeBloc.offersStream,
@@ -108,7 +107,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
               child: CustomText(
                   text: S.of(context).browseSections,
                   customTextStyle:
-                      BoldStyle(color: darkSecondaryColor, fontSize: 20.sp))),
+                      BoldStyle(color: secondaryColor, fontSize: 20.sp))),
           SizedBox(
             height: 16.h,
           ),
@@ -142,7 +141,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
           widget.homeBloc.searchBloc.updateStringBehaviour('');
           FocusScope.of(context).requestFocus(new FocusNode());
           FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.search);
-
         },
       );
 

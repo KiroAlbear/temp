@@ -12,11 +12,11 @@ const Color filterItemColorLightMode = Color.fromRGBO(249, 243, 147, 1);
 const Color filterItemColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
 
 /// secondary color
-const Color secondaryLightMode = Color.fromRGBO(0, 76, 118, 1);
-const Color secondaryDarkMode = Color.fromRGBO(0, 76, 118, 1);
+const Color secondaryLightMode = Color.fromRGBO(0, 69, 122, 1);
+const Color secondaryDarkMode = Color.fromRGBO(0, 69, 122, 1);
 
-const Color darkSecondaryLightMode = Color.fromRGBO(0, 69, 122, 1);
-const Color darkSecondaryDarkMode = Color.fromRGBO(0, 69, 122, 1);
+// const Color darkSecondaryLightMode = Color.fromRGBO(0, 69, 122, 1);
+// const Color darkSecondaryDarkMode = Color.fromRGBO(0, 69, 122, 1);
 
 /// light black color
 const Color lightBlackLightMode = Color.fromRGBO(58, 58, 58, 1);
@@ -36,7 +36,8 @@ const Color greyBorderColorDarkMode = Color.fromRGBO(238, 238, 238, 1);
 const Color greyOrderGreyTextColorLightMode = Color.fromRGBO(132, 132, 132, 1);
 const Color greyOrderGreyTextColorDarkMode = Color.fromRGBO(132, 132, 132, 1);
 
-const Color greyTextFieldBorderColorLightMode = Color.fromRGBO(225, 225, 225, 1);
+const Color greyTextFieldBorderColorLightMode =
+    Color.fromRGBO(225, 225, 225, 1);
 const Color greyTextFieldBorderColorDarkMode = Color.fromRGBO(225, 225, 225, 1);
 
 /// green color
@@ -118,15 +119,18 @@ Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
 
 Color secondaryColor = _isDark ? secondaryDarkMode : secondaryLightMode;
 
-Color darkSecondaryColor = _isDark ? darkSecondaryDarkMode : darkSecondaryLightMode;
+// Color darkSecondaryColor = _isDark ? darkSecondaryDarkMode : darkSecondaryLightMode;
 
 Color paleBlueColor = _isDark ? paleBlueDarkMode : paleBlueLightMode;
 
 Color greyColor = _isDark ? greyColorDarkMode : greyColorLightMode;
 
-Color borderGreyColor = _isDark ? greyBorderColorDarkMode : greyBorderColorLightMode;
+Color borderGreyColor =
+    _isDark ? greyBorderColorDarkMode : greyBorderColorLightMode;
 
-Color textFieldBorderGreyColor = _isDark ? greyTextFieldBorderColorDarkMode : greyTextFieldBorderColorLightMode;
+Color textFieldBorderGreyColor = _isDark
+    ? greyTextFieldBorderColorDarkMode
+    : greyTextFieldBorderColorLightMode;
 
 Color greenColor = _isDark ? greenColorDarkMode : greenColorLightMode;
 

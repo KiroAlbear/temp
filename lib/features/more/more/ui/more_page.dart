@@ -464,7 +464,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 imageType: ImageType.svg,
                 width: height ?? 24.w,
                 height: width ?? 24.h,
-                color: disabled ? greyColor : color ?? darkSecondaryColor,
+                color: disabled ? greyColor : color ?? secondaryColor,
                 boxFit: BoxFit.fill,
               ),
               SizedBox(

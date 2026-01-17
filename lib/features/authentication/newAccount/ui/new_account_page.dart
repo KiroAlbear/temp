@@ -360,5 +360,5 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
 
   Widget _titleText(String title) => CustomText(
       text: title,
-      customTextStyle: BoldStyle(fontSize: 20.sp, color: darkSecondaryColor));
+      customTextStyle: BoldStyle(fontSize: 20.sp, color: secondaryColor));
 }

@@ -120,9 +120,9 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
   Widget _headerText(bool expanded) => Expanded(
         child: AnimatedDefaultTextStyle(
           style: MediumStyle(
-                  color: darkSecondaryColor,
-                  fontSize: 18.sp,
-                ).getStyle(),
+            color: secondaryColor,
+            fontSize: 18.sp,
+          ).getStyle(),
           duration: _animationController.duration!,
           child: Text(widget.question),
         ),
@@ -155,7 +155,6 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
           width: 17.w,
           height: 8.h,
           boxFit: BoxFit.contain,
-
           imageShape: ImageShape.rectangle,
         ),
       );

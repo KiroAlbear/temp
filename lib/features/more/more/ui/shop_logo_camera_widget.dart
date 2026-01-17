@@ -49,51 +49,50 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
 
   @override
   Widget build(BuildContext context) => Container(
-    // color: Colors.red,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Container(
-            // color: Colors.blue,
-            child: Stack(
+        // color: Colors.red,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                // color: Colors.blue,
+                child: Stack(
                   clipBehavior: Clip.none,
                   children: [
                     _shopLogoWidget,
                     _cameraWidget,
                   ],
                 ),
-          ),
+              ),
+            ),
+            _nameAndMobileWidget,
+          ],
         ),
-
-        _nameAndMobileWidget,
-      ],
-    ),
-  );
+      );
 
   Widget get _nameAndMobileWidget => Container(
-    // color: Colors.red,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        CustomText(
-            text: widget.name,
-            customTextStyle:
-                BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: CustomText(
-              text: widget.mobile,
-              customTextStyle:
-                  MediumStyle(color: greyOrderGreyTextColorLightMode, fontSize: 16.sp)),
-        )
-      ],
-    ),
-  );
+        // color: Colors.red,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomText(
+                text: widget.name,
+                customTextStyle:
+                    BoldStyle(color: secondaryColor, fontSize: 18.sp)),
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: CustomText(
+                  text: widget.mobile,
+                  customTextStyle: MediumStyle(
+                      color: greyOrderGreyTextColorLightMode, fontSize: 16.sp)),
+            )
+          ],
+        ),
+      );
 
   Widget get _shopLogoWidget => Positioned(
-        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) ,
+        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2),
         top: 20,
         child: StreamBuilder<String>(
           stream: widget.moreBloc.selectedFileStream,
@@ -101,8 +100,8 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
           builder: (context, snapshot) => !snapshot.hasData
               ? CircularProgressIndicator()
               : InkWell(
-                onTap: () => widget.openCameraOrGallery(),
-                child: Container(
+                  onTap: () => widget.openCameraOrGallery(),
+                  child: Container(
                     height: 70.h,
                     width: 70.w,
                     decoration: BoxDecoration(
@@ -130,13 +129,13 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                       ),
                     ),
                   ),
-              ),
+                ),
         ),
       );
 
   Widget get _cameraWidget => Positioned(
         top: 75.h,
-        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) + 60.h ,
+        right: (ScreenUtil.defaultSize.width / 2 - imageWidth / 2) + 60.h,
         child: InkWell(
           onTap: () => widget.openCameraOrGallery(),
           child: Container(
