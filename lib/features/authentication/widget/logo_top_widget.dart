@@ -137,7 +137,7 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
               child: CustomText(
                   text: S.of(context).skip,
                   customTextStyle:
-                      MediumStyle(fontSize: 14.sp, color: darkSecondaryColor)),
+                      MediumStyle(fontSize: 14.sp, color: secondaryColor)),
             ),
           ),
         ],

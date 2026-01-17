@@ -55,7 +55,8 @@ class _CategoryWidgetState extends State<CategoryWidget>
           ProductCategoryPage.cateogryId = item.id!;
           widget.homeBloc.selectedCategoryText = item.name;
           ProductCategoryPage.categoryProductsCount = item.productExactCount;
-          Routes.navigateToScreen(Routes.productCategoryPage, NavigationType.pushNamed, context);
+          Routes.navigateToScreen(
+              Routes.productCategoryPage, NavigationType.pushNamed, context);
           // CustomNavigatorModule.navigatorKey.currentState
           //     ?.pushNamed(AppScreenEnum.product.name);
         },
@@ -74,7 +75,6 @@ class _CategoryWidgetState extends State<CategoryWidget>
                 child: ImageHelper(
                   image: item.image,
                   imageType: ImageType.network,
-
                   boxFit: BoxFit.contain,
                 ),
               ),
@@ -82,11 +82,11 @@ class _CategoryWidgetState extends State<CategoryWidget>
                 height: 7.h,
               ),
               CustomText(
-                  text:item.name ,
+                  text: item.name,
                   maxLines: 2,
                   textAlign: TextAlign.center,
                   customTextStyle:
-                      MediumStyle(fontSize: 13.sp, color: darkSecondaryColor))
+                      MediumStyle(fontSize: 13.sp, color: secondaryColor))
             ],
           ),
         ),

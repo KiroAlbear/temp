@@ -8,8 +8,7 @@ import 'my_orders_bloc.dart';
 
 class MyOrdersPage extends BaseStatefulWidget {
   final MyOrdersBloc myOrdersBloc;
-  MyOrdersPage(
-      { required this.myOrdersBloc, super.key});
+  MyOrdersPage({required this.myOrdersBloc, super.key});
 
   @override
   State<MyOrdersPage> createState() => _MyOrdersScreenState();
@@ -30,7 +29,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
   bool isSafeArea() => true;
 
   @override
-  bool isBottomSafeArea() =>false;
+  bool isBottomSafeArea() => false;
 
   @override
   Color? systemNavigationBarColor() => Colors.white;
@@ -82,7 +81,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
           width: ScreenUtil.defaultSize.width,
           toggleBackgroundColor: productCardColorLightMode,
           toggleBorderColor: Colors.transparent,
-          toggleColor: darkSecondaryColor,
+          toggleColor: secondaryColor,
           activeTextColor: lightBlackColor,
           inactiveTextColor: Colors.white,
           leftDescription: S.of(context).pastOrders,

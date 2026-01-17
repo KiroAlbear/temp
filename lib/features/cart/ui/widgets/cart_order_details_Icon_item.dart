@@ -41,7 +41,7 @@ class CartOrderDetailsIconItem extends StatelessWidget {
                             height: iconSize,
                             child: ImageHelper(
                               image: icon!,
-                              color: darkSecondaryColor,
+                              color: secondaryColor,
                               imageType: ImageType.svg,
                             )),
                     space.horizontalSpace,

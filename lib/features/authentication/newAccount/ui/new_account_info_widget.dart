@@ -48,7 +48,7 @@ class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
           CustomText(
               text: S.of(context).threeFullName,
               customTextStyle:
-                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                  MediumStyle(fontSize: 16.sp, color: secondaryColor)),
           SizedBox(
             height: 12.h,
           ),
@@ -59,7 +59,7 @@ class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
           CustomText(
               text: S.of(context).platformName,
               customTextStyle:
-                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                  MediumStyle(fontSize: 16.sp, color: secondaryColor)),
           SizedBox(
             height: 12.h,
           ),
@@ -70,7 +70,7 @@ class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
           CustomText(
               text: S.of(context).platformType,
               customTextStyle:
-                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                  MediumStyle(fontSize: 16.sp, color: secondaryColor)),
           SizedBox(
             height: 12.h,
           ),

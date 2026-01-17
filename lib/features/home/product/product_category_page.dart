@@ -252,7 +252,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                               index]
                                                                           .name,
                                                                   textColor:
-                                                                      darkSecondaryColor,
+                                                                      secondaryColor,
                                                                   withBorders:
                                                                       false,
                                                                   isSelected:
@@ -446,7 +446,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         text: S.of(context).promoItems,
                                         textAlign: TextAlign.start,
                                         customTextStyle: BoldStyle(
-                                            color: darkSecondaryColor,
+                                            color: secondaryColor,
                                             fontSize: 18.sp),
                                       ),
                                     )
@@ -642,8 +642,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    child:OverlayLoadingWidget(showOverlayLoading: widget.showOverlayLoading,),
-
+                    child: OverlayLoadingWidget(
+                      showOverlayLoading: widget.showOverlayLoading,
+                    ),
                   ),
                 ],
               ),

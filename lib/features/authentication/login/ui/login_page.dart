@@ -78,7 +78,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                     key: const Key('login'),
                     text: S.of(context).login,
                     customTextStyle:
-                        BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
+                        BoldStyle(color: secondaryColor, fontSize: 28.sp)),
               ),
               SizedBox(
                 height: 30.h,
@@ -86,7 +86,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
               CustomText(
                   text: S.of(context).yourMobile,
                   customTextStyle:
-                      MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                      MediumStyle(fontSize: 16.sp, color: secondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -97,7 +97,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
               CustomText(
                   text: S.of(context).password,
                   customTextStyle:
-                      MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                      MediumStyle(fontSize: 16.sp, color: secondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -156,7 +156,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
           child: CustomText(
               text: S.of(context).forgotPassword,
               customTextStyle:
-                  RegularStyle(color: darkSecondaryColor, fontSize: 16.sp)),
+                  RegularStyle(color: secondaryColor, fontSize: 16.sp)),
         ),
       );
 
@@ -284,14 +284,14 @@ class _LoginWidgetState extends BaseState<LoginPage> {
             CustomText(
                 text: S.of(context).doNotHaveAccount,
                 customTextStyle:
-                    RegularStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                    RegularStyle(fontSize: 16.sp, color: secondaryColor)),
             SizedBox(
               width: 5.w,
             ),
             CustomText(
                 text: S.of(context).registerNow,
                 customTextStyle:
-                    BoldStyle(color: darkSecondaryColor, fontSize: 16.sp))
+                    BoldStyle(color: secondaryColor, fontSize: 16.sp))
           ],
         ),
       );

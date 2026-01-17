@@ -26,7 +26,7 @@ class OrderItem extends StatelessWidget {
       required this.orderStatuses});
 
   final CustomTextStyleModule titleTextStyle =
-      MediumStyle(color: darkSecondaryColor, fontSize: 14.sp);
+      MediumStyle(color: secondaryColor, fontSize: 14.sp);
 
   final double borderRadious = 10;
 
@@ -87,7 +87,7 @@ class OrderItem extends StatelessWidget {
                     image: Assets.svg.icNormalOrder,
                     width: 32,
                     height: 32,
-                    color: darkSecondaryColor,
+                    color: secondaryColor,
                     imageType: ImageType.svg,
                   ),
                   SizedBox(width: 3),
@@ -121,8 +121,8 @@ class OrderItem extends StatelessWidget {
                 children: [
                   CustomText(
                     text: "${S.of(context).orderDetails}",
-                    customTextStyle: RegularStyle(
-                        color: darkSecondaryColor, fontSize: 14.sp),
+                    customTextStyle:
+                        RegularStyle(color: secondaryColor, fontSize: 14.sp),
                   ),
                   SizedBox(
                     width: 2,
@@ -136,7 +136,7 @@ class OrderItem extends StatelessWidget {
                           isExpanded.value
                               ? Icons.keyboard_arrow_up_rounded
                               : Icons.keyboard_arrow_down_rounded,
-                          color: darkSecondaryColor,
+                          color: secondaryColor,
                         ),
                       );
                     },
@@ -193,7 +193,6 @@ class OrderItem extends StatelessWidget {
       ),
     );
   }
-
 
   Future<void> _showCancelBottomSheet(BuildContext context) async {
     await showModalBottomSheet(

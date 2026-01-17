@@ -51,7 +51,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
               textAlign: TextAlign.center,
               maxLines: 2,
               customTextStyle:
-                  BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
+                  BoldStyle(color: secondaryColor, fontSize: 28.sp)),
           5.verticalSpace,
           CustomText(
               text: S.of(context).cartSuccessIsDelivering,
@@ -65,7 +65,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
             child: CustomButtonWidget(
                 idleText: S.of(context).cartSuccessTrackButton,
                 borderRadius: 8,
-                textColor: darkSecondaryColor,
+                textColor: secondaryColor,
                 onTap: () async {
                   // await CustomNavigatorModule.navigatorKey.currentState!
                   //     .pushReplacementNamed(AppScreenEnum.home.name);

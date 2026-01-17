@@ -36,7 +36,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
                     curve: Curves.easeInOut);
               },
               initialPage: 0,
-              enableInfiniteScroll:items.length >1,
+              enableInfiniteScroll: items.length > 1,
               viewportFraction: 1.0,
               height: 450.h,
               reverse: false,
@@ -77,7 +77,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
               Icons.close,
               weight: 500,
               opticalSize: 20,
-              color: darkSecondaryColor,
+              color: secondaryColor,
             ),
             onPressed: () {
               Navigator.pop(context);

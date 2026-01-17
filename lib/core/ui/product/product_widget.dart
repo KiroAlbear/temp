@@ -274,8 +274,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                                       widget.productMapper.id);
                                 }
                                 _handleFavouriteIcon(event, false);
-                                FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.remove_from_wishlist);
-
+                                FirebaseAnalyticsUtil().logEvent(
+                                    FirebaseAnalyticsEventsNames
+                                        .remove_from_wishlist);
                               });
                             } else {
                               widget.productCategoryBloc
@@ -287,8 +288,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                   .listen((event) {
                                 _handleFavouriteIcon(event, true);
                               });
-                              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.add_to_wishlist);
-
+                              FirebaseAnalyticsUtil().logEvent(
+                                  FirebaseAnalyticsEventsNames.add_to_wishlist);
                             }
                           }
                         },
@@ -377,7 +378,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 textAlign: TextAlign.start,
                 customTextStyle: BoldStyle(
                     fontSize: widget.isCartProduct ? 16.sp : 14.sp,
-                    color: darkSecondaryColor)),
+                    color: secondaryColor)),
           ),
           SizedBox(
             width: widget.productMapper.hasDiscount ? 10.w : 0,
@@ -435,8 +436,8 @@ class _ProductWidgetState extends State<ProductWidget> {
           onConfirm: () {
             qtyValueNotifier.value = 0;
             widget.onDeleteClicked!(widget.productMapper);
-            FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.remove_from_cart);
-
+            FirebaseAnalyticsUtil()
+                .logEvent(FirebaseAnalyticsEventsNames.remove_from_cart);
           },
         );
       },
@@ -491,9 +492,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                       qtyValueNotifier.value.toDouble();
                   widget.onIncrementClicked!(widget.productMapper);
 
-                  FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.update_cart_quantity);
-
-
+                  FirebaseAnalyticsUtil().logEvent(
+                      FirebaseAnalyticsEventsNames.update_cart_quantity);
                 } else {
                   _showMaximumAlertDialog(
                       S.of(context).cartMaximumProductsReached,
@@ -539,10 +539,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                       qtyValueNotifier.value.toDouble();
 
                   widget.onDecrementClicked!(widget.productMapper);
-                  FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.update_cart_quantity);
-
-                }
-                else {
+                  FirebaseAnalyticsUtil().logEvent(
+                      FirebaseAnalyticsEventsNames.update_cart_quantity);
+                } else {
                   _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
                 }
               },
@@ -591,7 +590,8 @@ class _ProductWidgetState extends State<ProductWidget> {
               if (widget.cartBloc != null) {
                 widget.cartBloc!.getMyCart();
               }
-              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.add_to_cart);
+              FirebaseAnalyticsUtil()
+                  .logEvent(FirebaseAnalyticsEventsNames.add_to_cart);
             }
           }
         },
@@ -614,7 +614,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     color: (SharedPrefModule().userId == null)
                         ? disabledButtonTextColorLightMode
                         : widget.productMapper.canAddToCart()
-                            ? darkSecondaryColor
+                            ? secondaryColor
                             : disabledButtonTextColorLightMode,
                     fontSize: 12.sp)),
           ),

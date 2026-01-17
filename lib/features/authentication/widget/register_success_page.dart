@@ -50,7 +50,7 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
             CustomText(
                 text: S.of(context).welcomeToDokkan,
                 customTextStyle:
-                    MediumStyle(fontSize: 28.sp, color: darkSecondaryColor)),
+                    MediumStyle(fontSize: 28.sp, color: secondaryColor)),
             SizedBox(
               height: 15.h,
             ),
