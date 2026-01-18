@@ -49,10 +49,12 @@ class _HomeWidgetState extends BaseState<HomePage> {
   void initState() {
     super.initState();
     customBackgroundColor = Colors.white;
-    widget.cartBloc.getMyCart();
+    widget.cartBloc.getMyCart(onGettingCart: () {
+      getIt<MostSellingBloc>().getMostSelling();
+    },);
     widget.homeBloc.loadData();
 
-    getIt<MostSellingBloc>().getMostSelling();
+
 
     widget.updateProfileBloc.loadDeliveryAddress(
       SharedPrefModule().userId ?? '0',
@@ -146,16 +148,17 @@ class _HomeWidgetState extends BaseState<HomePage> {
 
         return Container(
           color: mostSellingBackgroundColor,
-          padding: EdgeInsetsDirectional.only(
-            start: 16,
-            end: 16,
-            top: 20,
-            bottom: 90,
-          ),
           child: Column(
             children: [
-              _buildMostSellingHeader(),
-              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsetsDirectional.only(
+                  start: 16,
+                  end: 16,
+                  top: 20,
+                ),
+                child: _buildMostSellingHeader(),
+              ),
+              SizedBox(height: 10),
               checkResponseStateWithLoadingWidget(
                 onSuccessFunction: () {},
                 snapshot.data ?? LoadingState<List<ProductMapper>>(),
@@ -167,52 +170,12 @@ class _HomeWidgetState extends BaseState<HomePage> {
                   emptyFavouriteScreen: Assets.svg.emptyFavourite,
                   cartBloc: widget.cartBloc,
                   productCategoryBloc: getIt<ProductCategoryBloc>(),
-                  productList: snapshot.data?.response?.sublist(0, 2) ?? [],
+                  productList: snapshot.data?.response ?? [],
                   favouriteIcon: Assets.svg.icFavourite,
                   favouriteIconFilled: Assets.svg.icFavouriteFilled,
-                  onAddToCart: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onAddToCart(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
-                  onDeleteClicked: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onDeleteFromCart(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
-                  onDecrementClicked: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onDecrementIncrement(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
-                  onIncrementClicked: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onDecrementIncrement(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
                   onTapFavourite: (favourite, productMapper) {},
                   loadMore: (Function func) {
-                    _loadProducts(false, func);
+                    // _loadProducts(false, func);
                   },
                 ),
               ),
@@ -231,25 +194,32 @@ class _HomeWidgetState extends BaseState<HomePage> {
           text: "الأكثر طلباً",
           customTextStyle: BoldStyle(color: secondaryColor, fontSize: 22),
         ),
-        Row(
-          children: [
-            CustomText(
-              text: "عرض الكل",
-              customTextStyle: BoldStyle(color: secondaryColor, fontSize: 12),
-            ),
-            SizedBox(width: 12),
-            Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Transform.rotate(
-                angle: 45 * (3.141592653589793 / 2),
-                child: ImageHelper(
-                  image: Assets.svg.icDropDownArrow,
-                  imageType: ImageType.svg,
+        InkWell(
+          onTap: () {
+            Routes.navigateToScreen(
+                Routes.mostSellingPage, NavigationType.goNamed, context,
+                setBottomNavigationTab: true);
+          },
+          child: Row(
+            children: [
+              CustomText(
+                text: "عرض الكل",
+                customTextStyle: BoldStyle(color: secondaryColor, fontSize: 12),
+              ),
+              SizedBox(width: 12),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Transform.rotate(
+                  angle: 45 * (3.141592653589793 / 2),
+                  child: ImageHelper(
+                    image: Assets.svg.icDropDownArrow,
+                    imageType: ImageType.svg,
+                  ),
                 ),
               ),
-            ),
-            // Icon(Icons.arrow_forward_ios, size: 10, weight: 100),
-          ],
+              // Icon(Icons.arrow_forward_ios, size: 10, weight: 100),
+            ],
+          ),
         ),
       ],
     );
@@ -295,14 +265,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
     ),
   );
 
-  void _loadProducts(bool isFirstTime, Function? onGettingProducts) {
-    widget.showOverlayLoading.value = isFirstTime;
-    widget.productCategoryBloc.getProductWithSubcategoryBrand(
-      widget.productCategoryBloc.subcategoryId,
-      widget.productCategoryBloc.brandId,
-      onGettingProducts,
-    );
-  }
+
 
   @override
   void dispose() {

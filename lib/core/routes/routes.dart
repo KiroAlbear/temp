@@ -6,6 +6,7 @@ import 'package:deel/features/authentication/ui/resetPassword/reset_password_pag
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navigation_bar.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
+import 'package:deel/features/most_selling/ui/most_selling_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const String splashScreen = '/splash';
   static const String homePage = '/home';
   static const String favouritePage = '/favorite';
+  static const String mostSellingPage = '/mostSelling';
   static const String offersPage = '/offers';
   static const String cartPage = '/cart';
   static const String morePage = '/more';
@@ -303,6 +305,19 @@ class Routes {
                 context,
                 state,
                 favouriteWidget,
+              );
+            },
+          ),
+
+          GoRoute(
+            path: mostSellingPage,
+            name: mostSellingPage,
+            parentNavigatorKey: navigationBarKey,
+            pageBuilder: (context, state) {
+              return _fadeTransitionScreenWrapper(
+                context,
+                state,
+                MostSellingPage(),
               );
             },
           ),
