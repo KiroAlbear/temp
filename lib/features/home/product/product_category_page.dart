@@ -1,5 +1,6 @@
 import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/most_selling/bloc/most_selling_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -54,6 +55,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
     widget.productCategoryBloc.categoryId = 1;
     widget.productCategoryBloc.isNavigatingFromMore = false;
     widget.homeBloc.selectedOffer = null;
+    getIt<MostSellingBloc>().getMostSelling();
     changeSystemNavigationBarColor(secondaryColor);
     super.onPopInvoked(didPop);
   }

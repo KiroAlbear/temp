@@ -47,7 +47,7 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
 
   @override
   void initState() {
-    getIt<AnnouncementsBloc>().getAnnouncements();
+    // getIt<MostSellingBloc>().getMostSelling();
     super.initState();
   }
 
@@ -55,7 +55,6 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
   void dispose() {
     super.dispose();
   }
-
 
 
   @override
@@ -78,7 +77,7 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
                   true,
               title: "الأكثر طلبا",
             ),
-
+            _mostSellingProducts()
           ],
         );
 
@@ -93,39 +92,30 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
           return SizedBox(height: 90.h);
         }
 
-        return Container(
-          color: mostSellingBackgroundColor,
-          padding: EdgeInsetsDirectional.only(
-            start: 16,
-            end: 16,
-            top: 20,
-            bottom: 90,
-          ),
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              checkResponseStateWithLoadingWidget(
-                onSuccessFunction: () {},
-                snapshot.data ?? LoadingState<List<ProductMapper>>(),
-                context,
-                onSuccess: ProductListWidget(
-                  scrollPhysics: NeverScrollableScrollPhysics(),
-                  isForFavourite: false,
-                  deleteIcon: Assets.svg.icDelete,
-                  emptyFavouriteScreen: Assets.svg.emptyFavourite,
-                  cartBloc: getIt(),
-                  productCategoryBloc: getIt<ProductCategoryBloc>(),
-                  productList: snapshot.data?.response ?? [],
-                  favouriteIcon: Assets.svg.icFavourite,
-                  favouriteIconFilled: Assets.svg.icFavouriteFilled,
-                  onTapFavourite: (favourite, productMapper) {},
-                  loadMore: (Function func) {
-                    // _loadProducts(false, func);
-                  },
-                ),
+        return Column(
+          children: [
+            SizedBox(height: 20),
+            checkResponseStateWithLoadingWidget(
+              onSuccessFunction: () {},
+              snapshot.data ?? LoadingState<List<ProductMapper>>(),
+              context,
+              onSuccess: ProductListWidget(
+                scrollPhysics: NeverScrollableScrollPhysics(),
+                isForFavourite: false,
+                deleteIcon: Assets.svg.icDelete,
+                emptyFavouriteScreen: Assets.svg.emptyFavourite,
+                cartBloc: getIt(),
+                productCategoryBloc: getIt<ProductCategoryBloc>(),
+                productList: snapshot.data?.response ?? [],
+                favouriteIcon: Assets.svg.icFavourite,
+                favouriteIconFilled: Assets.svg.icFavouriteFilled,
+                onTapFavourite: (favourite, productMapper) {},
+                loadMore: (Function func) {
+                  // _loadProducts(false, func);
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

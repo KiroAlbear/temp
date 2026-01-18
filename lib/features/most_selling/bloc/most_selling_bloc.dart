@@ -10,7 +10,7 @@ class MostSellingBloc extends BlocBase with ResponseHandlerModule {
   final BehaviorSubject<ApiState<List<ProductMapper>>> mostSellingBehaviour =
       BehaviorSubject()..sink.add(LoadingState());
 
-  void getAnnouncements() {
+  void getMostSelling() {
     MostSellingRemote(
       MostSellingRequestModel(
         pageIndex: 1,
@@ -19,6 +19,7 @@ class MostSellingBloc extends BlocBase with ResponseHandlerModule {
         sortDirection: "asc",
       ),
     ).callApiAsStream().listen((event) {
+      getIt<CartBloc>().addCartInfoToProducts(event.response??[]);
       mostSellingBehaviour.sink.add(event);
     });
   }

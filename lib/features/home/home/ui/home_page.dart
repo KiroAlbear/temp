@@ -49,10 +49,12 @@ class _HomeWidgetState extends BaseState<HomePage> {
   void initState() {
     super.initState();
     customBackgroundColor = Colors.white;
-    widget.cartBloc.getMyCart();
+    widget.cartBloc.getMyCart(onGettingCart: () {
+      getIt<MostSellingBloc>().getMostSelling();
+    },);
     widget.homeBloc.loadData();
 
-    getIt<MostSellingBloc>().getAnnouncements();
+
 
     widget.updateProfileBloc.loadDeliveryAddress(
       SharedPrefModule().userId ?? '0',
@@ -146,7 +148,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
 
         return Container(
           color: mostSellingBackgroundColor,
-
           child: Column(
             children: [
               Padding(
@@ -193,25 +194,32 @@ class _HomeWidgetState extends BaseState<HomePage> {
           text: "الأكثر طلباً",
           customTextStyle: BoldStyle(color: secondaryColor, fontSize: 22),
         ),
-        Row(
-          children: [
-            CustomText(
-              text: "عرض الكل",
-              customTextStyle: BoldStyle(color: secondaryColor, fontSize: 12),
-            ),
-            SizedBox(width: 12),
-            Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Transform.rotate(
-                angle: 45 * (3.141592653589793 / 2),
-                child: ImageHelper(
-                  image: Assets.svg.icDropDownArrow,
-                  imageType: ImageType.svg,
+        InkWell(
+          onTap: () {
+            Routes.navigateToScreen(
+                Routes.mostSellingPage, NavigationType.goNamed, context,
+                setBottomNavigationTab: true);
+          },
+          child: Row(
+            children: [
+              CustomText(
+                text: "عرض الكل",
+                customTextStyle: BoldStyle(color: secondaryColor, fontSize: 12),
+              ),
+              SizedBox(width: 12),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Transform.rotate(
+                  angle: 45 * (3.141592653589793 / 2),
+                  child: ImageHelper(
+                    image: Assets.svg.icDropDownArrow,
+                    imageType: ImageType.svg,
+                  ),
                 ),
               ),
-            ),
-            // Icon(Icons.arrow_forward_ios, size: 10, weight: 100),
-          ],
+              // Icon(Icons.arrow_forward_ios, size: 10, weight: 100),
+            ],
+          ),
         ),
       ],
     );
