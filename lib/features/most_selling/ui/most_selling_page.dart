@@ -111,7 +111,7 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
                 favouriteIconFilled: Assets.svg.icFavouriteFilled,
                 onTapFavourite: (favourite, productMapper) {},
                 loadMore: (Function func) {
-                  // _loadProducts(false, func);
+                  _loadProducts();
                 },
               ),
             ),
@@ -119,5 +119,8 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
         );
       },
     );
+  }
+  void _loadProducts() {
+    getIt<MostSellingBloc>().loadMoreMostSelling();
   }
 }

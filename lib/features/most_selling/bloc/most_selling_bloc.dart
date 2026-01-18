@@ -10,11 +10,25 @@ class MostSellingBloc extends BlocBase with ResponseHandlerModule {
   final BehaviorSubject<ApiState<List<ProductMapper>>> mostSellingBehaviour =
       BehaviorSubject()..sink.add(LoadingState());
 
+  int pageNumber = 1;
+  final pageSize = 10;
+
   void getMostSelling() {
+    pageNumber = 1;
+    _callMostSellingApi(pageNumber);
+  }
+
+  void loadMoreMostSelling(){
+    pageNumber++;
+    _callMostSellingApi(pageNumber);
+  }
+
+
+  void _callMostSellingApi(int pageNumber){
     MostSellingRemote(
       MostSellingRequestModel(
-        pageIndex: 1,
-        pageSize: 10,
+        pageIndex: pageNumber,
+        pageSize: pageSize,
         sortBy: "OrderNo",
         sortDirection: "asc",
       ),

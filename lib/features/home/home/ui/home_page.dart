@@ -175,7 +175,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
                   favouriteIconFilled: Assets.svg.icFavouriteFilled,
                   onTapFavourite: (favourite, productMapper) {},
                   loadMore: (Function func) {
-                    _loadProducts(false, func);
+                    // _loadProducts(false, func);
                   },
                 ),
               ),
@@ -265,14 +265,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
     ),
   );
 
-  void _loadProducts(bool isFirstTime, Function? onGettingProducts) {
-    widget.showOverlayLoading.value = isFirstTime;
-    widget.productCategoryBloc.getProductWithSubcategoryBrand(
-      widget.productCategoryBloc.subcategoryId,
-      widget.productCategoryBloc.brandId,
-      onGettingProducts,
-    );
-  }
+
 
   @override
   void dispose() {
