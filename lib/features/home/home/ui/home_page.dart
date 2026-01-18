@@ -52,7 +52,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
     widget.cartBloc.getMyCart();
     widget.homeBloc.loadData();
 
-    getIt<MostSellingBloc>().getAnnouncements();
+    getIt<MostSellingBloc>().getMostSelling();
 
     widget.updateProfileBloc.loadDeliveryAddress(
       SharedPrefModule().userId ?? '0',
@@ -167,7 +167,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
                   emptyFavouriteScreen: Assets.svg.emptyFavourite,
                   cartBloc: widget.cartBloc,
                   productCategoryBloc: getIt<ProductCategoryBloc>(),
-                  productList: snapshot.data?.response ?? [],
+                  productList: snapshot.data?.response?.sublist(0, 2) ?? [],
                   favouriteIcon: Assets.svg.icFavourite,
                   favouriteIconFilled: Assets.svg.icFavouriteFilled,
                   onAddToCart: (productMapper) {
