@@ -36,8 +36,12 @@ const Color greyBorderColorDarkMode = Color.fromRGBO(238, 238, 238, 1);
 const Color greyOrderGreyTextColorLightMode = Color.fromRGBO(132, 132, 132, 1);
 const Color greyOrderGreyTextColorDarkMode = Color.fromRGBO(132, 132, 132, 1);
 
-const Color greyTextFieldBorderColorLightMode =
-    Color.fromRGBO(225, 225, 225, 1);
+const Color greyTextFieldBorderColorLightMode = Color.fromRGBO(
+  225,
+  225,
+  225,
+  1,
+);
 const Color greyTextFieldBorderColorDarkMode = Color.fromRGBO(225, 225, 225, 1);
 
 /// green color
@@ -76,6 +80,20 @@ const Color yellowSwitchColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
 /// yellow switch color
 const Color yellowSwitchColorBorderLightMode = Color.fromRGBO(255, 194, 0, 1);
 const Color yellowSwitchColorBorderDarkMode = Color.fromRGBO(255, 194, 0, 1);
+
+/// yellow switch color
+const Color yellowMostSellingBackgroundLightMode = Color.fromRGBO(
+  255,
+  194,
+  0,
+  0.18,
+);
+const Color yellowMostSellingBackgroundDarkMode = Color.fromRGBO(
+  255,
+  194,
+  0,
+  0.18,
+);
 
 /// green card color
 const Color greenCardColorLightMode = Color.fromRGBO(239, 255, 240, 1);
@@ -125,8 +143,9 @@ Color paleBlueColor = _isDark ? paleBlueDarkMode : paleBlueLightMode;
 
 Color greyColor = _isDark ? greyColorDarkMode : greyColorLightMode;
 
-Color borderGreyColor =
-    _isDark ? greyBorderColorDarkMode : greyBorderColorLightMode;
+Color borderGreyColor = _isDark
+    ? greyBorderColorDarkMode
+    : greyBorderColorLightMode;
 
 Color textFieldBorderGreyColor = _isDark
     ? greyTextFieldBorderColorDarkMode
@@ -144,42 +163,57 @@ Color whiteColor = _isDark ? black : white;
 
 Color offWhiteColor = _isDark ? offWhiteColorDarkMore : offWhiteColorLightMode;
 
-Color yellowCardColor =
-    _isDark ? yellowCardColorDarkMode : yellowCardColorLightMode;
+Color yellowCardColor = _isDark
+    ? yellowCardColorDarkMode
+    : yellowCardColorLightMode;
 
-Color greenCardColor =
-    _isDark ? greenCardColorDarkMode : greenCardColorLightMode;
+Color greenCardColor = _isDark
+    ? greenCardColorDarkMode
+    : greenCardColorLightMode;
 
 Color redCardColor = _isDark ? redCardColorDarkMode : redCardColorLightMode;
 
-Color promotionCardColor =
-    _isDark ? promotionCardColorDarkMode : promotionCardColorLightMode;
+Color promotionCardColor = _isDark
+    ? promotionCardColorDarkMode
+    : promotionCardColorLightMode;
 
-Color categoryCardColor =
-    _isDark ? categoryCardColorDarkMode : categoryCardColorLightMode;
+Color categoryCardColor = _isDark
+    ? categoryCardColorDarkMode
+    : categoryCardColorLightMode;
 
-Color menuOrderCardColor =
-    _isDark ? menuOrderCardColorDarkMode : menuOrderCardColorLightMode;
+Color menuOrderCardColor = _isDark
+    ? menuOrderCardColorDarkMode
+    : menuOrderCardColorLightMode;
 
-Color productCardColor =
-    _isDark ? productCardColorDarkMode : productCardColorLightMode;
+Color productCardColor = _isDark
+    ? productCardColorDarkMode
+    : productCardColorLightMode;
 
 Color faqCardColor = _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
 Color yellowColor = _isDark ? yellowColorDarkMode : yellowColorLightMode;
-Color bottomSheetBarrierColor =
-    _isDark ? bottomSheetBarrierDarkMode : bottomSheetBarrierLightMode;
-Color myOrdersCardColor =
-    _isDark ? faqCardColorDarkMode : faqCardColorLightMode;
+Color bottomSheetBarrierColor = _isDark
+    ? bottomSheetBarrierDarkMode
+    : bottomSheetBarrierLightMode;
+Color myOrdersCardColor = _isDark
+    ? faqCardColorDarkMode
+    : faqCardColorLightMode;
 
-Color switchColor =
-    _isDark ? yellowSwitchColorDarkMode : yellowSwitchColorLightMode;
+Color switchColor = _isDark
+    ? yellowSwitchColorDarkMode
+    : yellowSwitchColorLightMode;
 
 Color switchBorderColor = _isDark
     ? yellowSwitchColorBorderDarkMode
     : yellowSwitchColorBorderLightMode;
 
-Color filterItemColor =
-    _isDark ? filterItemColorDarkMode : filterItemColorLightMode;
+Color mostSellingBackgroundColor = _isDark
+    ? yellowMostSellingBackgroundDarkMode
+    : yellowMostSellingBackgroundLightMode;
 
-Color cartSuccessBlueColor =
-    _isDark ? cartSuccessBlueDarkMode : cartSuccessBlueLightMode;
+Color filterItemColor = _isDark
+    ? filterItemColorDarkMode
+    : filterItemColorLightMode;
+
+Color cartSuccessBlueColor = _isDark
+    ? cartSuccessBlueDarkMode
+    : cartSuccessBlueLightMode;

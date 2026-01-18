@@ -10,8 +10,11 @@ class CartPage extends BaseStatefulWidget {
 
   final ProductCategoryBloc productCategoryBloc;
 
-  CartPage(
-      {required this.cartBloc, required this.productCategoryBloc, super.key});
+  CartPage({
+    required this.cartBloc,
+    required this.productCategoryBloc,
+    super.key,
+  });
 
   @override
   State<CartPage> createState() => _CartScreenState();
@@ -69,18 +72,18 @@ class _CartScreenState extends BaseState<CartPage> {
                             context,
                             onSuccess:
                                 snapshot.data!.response?.getFirst.isEmpty ??
-                                        true
-                                    ? CartEmptyWidget()
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          _cartHeader(context),
-                                          16.verticalSpace,
-                                          _productList(),
-                                          _bottomWidget(context)
-                                        ],
-                                      ),
+                                    true
+                                ? CartEmptyWidget()
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _cartHeader(context),
+                                      16.verticalSpace,
+                                      _productList(),
+                                      _bottomWidget(context),
+                                    ],
+                                  ),
                           );
                       },
                     ),
@@ -112,16 +115,22 @@ class _CartScreenState extends BaseState<CartPage> {
           Expanded(
             flex: 20,
             child: CustomText(
-                text: title,
-                customTextStyle: MediumStyle(
-                    color: greyOrderGreyTextColorLightMode, fontSize: 14.sp)),
+              text: title,
+              customTextStyle: MediumStyle(
+                color: greyOrderGreyTextColorLightMode,
+                fontSize: 14.sp,
+              ),
+            ),
           ),
           Expanded(
             flex: 7,
             child: CustomText(
-                text: value,
-                customTextStyle:
-                    RegularStyle(color: color ?? black, fontSize: 14.sp)),
+              text: value,
+              customTextStyle: RegularStyle(
+                color: color ?? black,
+                fontSize: 14.sp,
+              ),
+            ),
           ),
         ],
       ),
@@ -137,16 +146,22 @@ class _CartScreenState extends BaseState<CartPage> {
           Expanded(
             flex: 20,
             child: CustomText(
-                text: title,
-                customTextStyle:
-                    BoldStyle(color: secondaryColor, fontSize: 16.sp)),
+              text: title,
+              customTextStyle: BoldStyle(
+                color: secondaryColor,
+                fontSize: 16.sp,
+              ),
+            ),
           ),
           Expanded(
             flex: 7,
             child: CustomText(
-                text: value,
-                customTextStyle:
-                    BoldStyle(color: secondaryColor, fontSize: 16.sp)),
+              text: value,
+              customTextStyle: BoldStyle(
+                color: secondaryColor,
+                fontSize: 16.sp,
+              ),
+            ),
           ),
         ],
       ),
@@ -158,7 +173,11 @@ class _CartScreenState extends BaseState<CartPage> {
       color: whiteColor,
       child: Padding(
         padding: EdgeInsetsDirectional.only(
-            start: 16.w, end: 16.w, top: 4.h, bottom: 26.h),
+          start: 16.w,
+          end: 16.w,
+          top: 4.h,
+          bottom: 26.h,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -167,12 +186,17 @@ class _CartScreenState extends BaseState<CartPage> {
               stream: widget.cartBloc.cartTotalBeforeDiscountBehaviour.stream,
               builder: (context, snapshot) {
                 return _bottomCalculationsWidget(
-                    "إجمالي قبل الخصم", snapshot.data ?? '');
+                  "إجمالي قبل الخصم",
+                  snapshot.data ?? '',
+                );
                 CustomText(
-                    text: snapshot.data ?? '',
-                    textAlign: TextAlign.start,
-                    customTextStyle:
-                        BoldStyle(color: secondaryColor, fontSize: 14.sp));
+                  text: snapshot.data ?? '',
+                  textAlign: TextAlign.start,
+                  customTextStyle: BoldStyle(
+                    color: secondaryColor,
+                    fontSize: 14.sp,
+                  ),
+                );
               },
             ),
             StreamBuilder(
@@ -181,25 +205,35 @@ class _CartScreenState extends BaseState<CartPage> {
                 return (snapshot.hasData == false || snapshot.data == "")
                     ? SizedBox()
                     : _bottomCalculationsWidget(
-                        "إجمالي الخصم", snapshot.data ?? '',
-                        color: redColor);
+                        "إجمالي الخصم",
+                        snapshot.data ?? '',
+                        color: redColor,
+                      );
                 CustomText(
-                    text: snapshot.data.toString() ?? '',
-                    textAlign: TextAlign.start,
-                    customTextStyle:
-                        BoldStyle(color: secondaryColor, fontSize: 14.sp));
+                  text: snapshot.data.toString() ?? '',
+                  textAlign: TextAlign.start,
+                  customTextStyle: BoldStyle(
+                    color: secondaryColor,
+                    fontSize: 14.sp,
+                  ),
+                );
               },
             ),
             StreamBuilder(
               stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
               builder: (context, snapshot) {
                 return _bottomCalculationsWidget(
-                    "مصاريف التوصيل", snapshot.data ?? '');
+                  "مصاريف التوصيل",
+                  snapshot.data ?? '',
+                );
                 CustomText(
-                    text: snapshot.data ?? '',
-                    textAlign: TextAlign.start,
-                    customTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 14.sp));
+                  text: snapshot.data ?? '',
+                  textAlign: TextAlign.start,
+                  customTextStyle: RegularStyle(
+                    color: lightBlackColor,
+                    fontSize: 14.sp,
+                  ),
+                );
               },
             ),
             _seperator(),
@@ -208,55 +242,62 @@ class _CartScreenState extends BaseState<CartPage> {
               builder: (context, snapshot) {
                 return _bottomTotalWidget("إجمالي", snapshot.data ?? '');
                 CustomText(
-                    text: snapshot.data ?? '',
-                    textAlign: TextAlign.start,
-                    customTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 14.sp));
+                  text: snapshot.data ?? '',
+                  textAlign: TextAlign.start,
+                  customTextStyle: RegularStyle(
+                    color: lightBlackColor,
+                    fontSize: 14.sp,
+                  ),
+                );
               },
             ),
             SizedBox(height: 12.h),
             CustomButtonWidget(
-                width: 200.w,
-                height: 48.h,
-                borderRadius: 8,
-                idleText: S.of(context).next,
-                textStyle: MediumStyle(color: secondaryColor, fontSize: 16.sp)
-                    .getStyle(),
-                onTap: () async {
-                  if (widget.cartBloc.totalSum <=
-                      widget.cartBloc.cartMinimumOrderBehaviour.value) {
-                    AlertModule().showMessage(
-                      context: context,
-                      message:
-                          "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
-                    );
-                  } else if (widget.cartBloc.isAnyProductOutOfStock) {
-                    AlertModule().showMessage(
-                      context: context,
-                      message: S.of(context).cartProductsNotAvailable,
-                    );
-                  } else if (widget
-                      .cartBloc.productsOfMoreThanAvailable.isNotEmpty) {
-                    AlertModule().showMessage(
-                      context: context,
-                      message:
-                          "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
-                    );
-                  } else {
-                    showModalBottomSheet(
-                        barrierColor: bottomSheetBarrierColor,
-                        backgroundColor: whiteColor,
-                        useRootNavigator: true,
-                        isScrollControlled: false,
-                        useSafeArea: true,
-                        context: context,
-                        builder: (context) {
-                          return CartBottomSheet(
-                            cartBloc: widget.cartBloc,
-                          );
-                        });
-                  }
-                }),
+              width: 200.w,
+              height: 48.h,
+              borderRadius: 8,
+              idleText: S.of(context).next,
+              textStyle: MediumStyle(
+                color: secondaryColor,
+                fontSize: 16.sp,
+              ).getStyle(),
+              onTap: () async {
+                if (widget.cartBloc.totalSum <=
+                    widget.cartBloc.cartMinimumOrderBehaviour.value) {
+                  AlertModule().showMessage(
+                    context: context,
+                    message:
+                        "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
+                  );
+                } else if (widget.cartBloc.isAnyProductOutOfStock) {
+                  AlertModule().showMessage(
+                    context: context,
+                    message: S.of(context).cartProductsNotAvailable,
+                  );
+                } else if (widget
+                    .cartBloc
+                    .productsOfMoreThanAvailable
+                    .isNotEmpty) {
+                  AlertModule().showMessage(
+                    context: context,
+                    message:
+                        "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
+                  );
+                } else {
+                  showModalBottomSheet(
+                    barrierColor: bottomSheetBarrierColor,
+                    backgroundColor: whiteColor,
+                    useRootNavigator: true,
+                    isScrollControlled: false,
+                    useSafeArea: true,
+                    context: context,
+                    builder: (context) {
+                      return CartBottomSheet(cartBloc: widget.cartBloc);
+                    },
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -282,69 +323,89 @@ class _CartScreenState extends BaseState<CartPage> {
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {
                         isLoading.value = true;
-                        CartCommonFunctions()
+                        widget.cartBloc
                             .editCart(
-                          cartBloc: widget.cartBloc,
-                          cartItemId:
-                              snapshot.data!.response!.getFirst[index].id,
-                          productId: snapshot
-                              .data!.response!.getFirst[index].productId,
-                          quantity: snapshot
-                              .data!.response!.getFirst[index].cartUserQuantity,
-                          price: snapshot
-                              .data!.response!.getFirst[index].finalPrice,
-                          state: CartState.decrement,
-                        )
+                              cartItemId:
+                                  snapshot.data!.response!.getFirst[index].id,
+                              productId: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .productId,
+                              quantity: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .cartUserQuantity
+                                  .toInt(),
+                              price: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .finalPrice,
+                            )
                             .listen((event) {
-                          if (event is SuccessState) {
-                            // widget.cartBloc.getMyCart();
-                            isLoading.value = false;
-                          }
-                        });
+                              if (event is SuccessState) {
+                                // widget.cartBloc.getMyCart();
+                                isLoading.value = false;
+                              }
+                            });
                       },
                       onIncrementClicked: (productMapper) {
                         isLoading.value = true;
-                        CartCommonFunctions()
+                        widget.cartBloc
                             .editCart(
-                          cartBloc: widget.cartBloc,
-                          cartItemId:
-                              snapshot.data!.response!.getFirst[index].id,
-                          productId: snapshot
-                              .data!.response!.getFirst[index].productId,
-                          quantity: snapshot
-                              .data!.response!.getFirst[index].cartUserQuantity,
-                          price: snapshot
-                              .data!.response!.getFirst[index].finalPrice,
-                          state: CartState.increment,
-                        )
+                              cartItemId:
+                                  snapshot.data!.response!.getFirst[index].id,
+                              productId: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .productId,
+                              quantity: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .cartUserQuantity
+                                  .toInt(),
+                              price: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .finalPrice,
+                            )
                             .listen((event) {
-                          if (event is SuccessState) {
-                            // widget.cartBloc.getMyCart();
-                            isLoading.value = false;
-                          }
-                        });
+                              if (event is SuccessState) {
+                                // widget.cartBloc.getMyCart();
+                                isLoading.value = false;
+                              }
+                            });
                         ;
                       },
                       onDeleteClicked: (productMapper) {
                         isLoading.value = true;
-                        CartCommonFunctions()
+                        widget.cartBloc
                             .editCart(
-                          cartBloc: widget.cartBloc,
-                          cartItemId:
-                              snapshot.data!.response!.getFirst[index].id,
-                          productId: snapshot
-                              .data!.response!.getFirst[index].productId,
-                          quantity: 0,
-                          price: snapshot
-                              .data!.response!.getFirst[index].finalPrice,
-                          state: CartState.decrement,
-                        )
+                              cartItemId:
+                                  snapshot.data!.response!.getFirst[index].id,
+                              productId: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .productId,
+                              quantity: 0,
+                              price: snapshot
+                                  .data!
+                                  .response!
+                                  .getFirst[index]
+                                  .finalPrice,
+                            )
                             .listen((event) {
-                          if (event is SuccessState) {
-                            // widget.cartBloc.getMyCart();
-                            isLoading.value = false;
-                          }
-                        });
+                              if (event is SuccessState) {
+                                // widget.cartBloc.getMyCart();
+                                isLoading.value = false;
+                              }
+                            });
                       },
                     );
                   },
@@ -362,9 +423,9 @@ class _CartScreenState extends BaseState<CartPage> {
         children: [
           // 14.verticalSpace,
           CustomText(
-              text: S.of(context).cartProductDetails,
-              customTextStyle:
-                  BoldStyle(color: secondaryColor, fontSize: 18.sp)),
+            text: S.of(context).cartProductDetails,
+            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 18.sp),
+          ),
           10.verticalSpace,
           StreamBuilder(
             stream: widget.cartBloc.cartMinimumOrderBehaviour.stream,
@@ -385,14 +446,18 @@ class _CartScreenState extends BaseState<CartPage> {
                               text: "${S.of(context).cartMinimumOrder} ",
                               textAlign: TextAlign.center,
                               customTextStyle: RegularStyle(
-                                  color: whiteColor, fontSize: 12.sp),
+                                color: whiteColor,
+                                fontSize: 12.sp,
+                              ),
                             ),
                             CustomText(
                               text:
                                   "${snapshot.data.toString()} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                               textAlign: TextAlign.center,
-                              customTextStyle:
-                                  BoldStyle(color: whiteColor, fontSize: 12.sp),
+                              customTextStyle: BoldStyle(
+                                color: whiteColor,
+                                fontSize: 12.sp,
+                              ),
                             ),
                           ],
                         ),

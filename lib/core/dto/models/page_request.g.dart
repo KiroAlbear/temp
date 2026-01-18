@@ -7,12 +7,12 @@ part of 'page_request.dart';
 // **************************************************************************
 
 PageRequest _$PageRequestFromJson(Map<String, dynamic> json) => PageRequest(
-      (json['limit'] as num).toInt(),
-      (json['page'] as num).toInt(),
-      (json['category_id'] as num?)?.toInt(),
-      (json['client_id'] as num?)?.toInt(),
-      main_category: json['main_category'] as String? ?? 'True',
-    );
+  (json['limit'] as num).toInt(),
+  (json['page'] as num).toInt(),
+  (json['category_id'] as num?)?.toInt(),
+  (json['client_id'] as num?)?.toInt(),
+  main_category: json['main_category'] as String? ?? 'True',
+);
 
 Map<String, dynamic> _$PageRequestToJson(PageRequest instance) =>
     <String, dynamic>{

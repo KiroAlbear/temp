@@ -6,11 +6,8 @@ part of 'phone_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PhoneRequest _$PhoneRequestFromJson(Map<String, dynamic> json) => PhoneRequest(
-      json['phone'] as String,
-    );
+PhoneRequest _$PhoneRequestFromJson(Map<String, dynamic> json) =>
+    PhoneRequest(json['phone'] as String);
 
 Map<String, dynamic> _$PhoneRequestToJson(PhoneRequest instance) =>
-    <String, dynamic>{
-      'phone': instance.phone,
-    };
+    <String, dynamic>{'phone': instance.phone};
