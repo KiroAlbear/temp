@@ -32,6 +32,6 @@ class MostSellingRemote
 
   @override
   Future<bool> refreshToken() async {
-    return false;
+    return true;
   }
 }

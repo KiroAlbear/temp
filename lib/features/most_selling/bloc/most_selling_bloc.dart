@@ -15,35 +15,34 @@ class MostSellingBloc extends BlocBase with ResponseHandlerModule {
 
   void getMostSelling() {
     pageNumber = 1;
-    _callMostSellingApi(pageNumber,false);
+    _callMostSellingApi(pageNumber, false);
   }
 
-  void loadMoreMostSelling(){
+  void loadMoreMostSelling() {
     pageNumber++;
-    _callMostSellingApi(pageNumber,true);
+    _callMostSellingApi(pageNumber, true);
   }
 
-
-  void _callMostSellingApi(int pageNumber, bool loadMore){
+  void _callMostSellingApi(int pageNumber, bool loadMore) {
     MostSellingRemote(
       MostSellingRequestModel(
         pageIndex: pageNumber,
         pageSize: pageSize,
         sortBy: "OrderNo",
         sortDirection: "asc",
+        token: SharedPrefModule().bearerToken,
       ),
     ).callApiAsStream().listen((event) {
+      getIt<CartBloc>().addCartInfoToProducts(event.response ?? []);
 
-
-      getIt<CartBloc>().addCartInfoToProducts(event.response??[]);
-
-      if(loadMore){
-        if (event is SuccessState){
-          List<ProductMapper> oldList =  mostSellingBehaviour.value.response??[];
+      if (loadMore) {
+        if (event is SuccessState) {
+          List<ProductMapper> oldList =
+              mostSellingBehaviour.value.response ?? [];
           event.response?.addAll(oldList);
           mostSellingBehaviour.sink.add(event);
         }
-      }else{
+      } else {
         mostSellingBehaviour.sink.add(event);
       }
     });
