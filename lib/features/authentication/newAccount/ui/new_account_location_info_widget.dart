@@ -206,6 +206,7 @@ class _NewAccountLocationInfoWidgetState
       dropDownList: list,
       hasImage: false,
       onSelect: (value) {
+        widget.newAccountBloc.getDistricts(int.tryParse(value.id) ?? -1);
         widget.newAccountBloc.selectedState = value;
         widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink.add(
           TextEditingController(text: value.name),
@@ -218,42 +219,56 @@ class _NewAccountLocationInfoWidgetState
     enableDrag: false,
   );
 
+  Widget get _districtTextFormFiled =>
+      StreamBuilder<ApiState<List<DropDownMapper>>>(
+        stream: widget.newAccountBloc.districtStream,
+        initialData: LoadingState(),
+        builder: (context, snapshot) {
+          return checkResponseStateWithLoadingWidget(
+            snapshot.data!,
+            context,
+            onSuccess: CustomTextFormFiled(
+              labelText: S.of(context).enterNeighborhood,
+              textFiledControllerStream:
+                  widget.newAccountBloc.districtBloc.textFormFiledStream,
+              onChanged: (value) => widget.newAccountBloc.districtBloc
+                  .updateStringBehaviour(value),
+              validator: (value) =>
+                  ValidatorModule().emptyValidator(context).call(value),
+              textInputType: TextInputType.text,
+              inputFormatter: [
+                FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
+              ],
+              isDropDownMenu: true,
+              readOnly: true,
+              onTap: () {
+                _showDistrictDropDown(snapshot.data?.response ?? []);
+              },
+              defaultTextStyle: MediumStyle(
+                color: lightBlackColor,
+                fontSize: 16.sp,
+              ).getStyle(),
+              textInputAction: TextInputAction.next,
+            ),
+          );
+        },
+      );
+
   void _showDistrictDropDown(List<DropDownMapper> list) => showModalBottomSheet(
     context: context,
     builder: (context) => CustomDropDownWidget(
       dropDownList: list,
       hasImage: false,
       onSelect: (value) {
-        widget.newAccountBloc.selectedState = value;
-        widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink.add(
+        widget.newAccountBloc.selectedDistrict = value;
+        widget.newAccountBloc.districtBloc.textFormFiledBehaviour.sink.add(
           TextEditingController(text: value.name),
         );
-        widget.newAccountBloc.cityBloc.updateStringBehaviour(value.name);
+        widget.newAccountBloc.districtBloc.updateStringBehaviour(value.name);
       },
       headerText: "اختر الحي",
     ),
     backgroundColor: Colors.transparent,
     enableDrag: false,
-  );
-
-  Widget get _districtTextFormFiled => CustomTextFormFiled(
-    labelText: S.of(context).enterNeighborhood,
-    textFiledControllerStream:
-        widget.newAccountBloc.neighborhoodBloc.textFormFiledStream,
-    onChanged: (value) =>
-        widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(value),
-    validator: (value) => ValidatorModule().emptyValidator(context).call(value),
-    textInputType: TextInputType.text,
-    inputFormatter: [FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$'))],
-    isDropDownMenu: true,
-    readOnly: true,
-    onTap: () {
-      _showDistrictDropDown([]);
-    },
-    defaultTextStyle: MediumStyle(
-      color: lightBlackColor,
-      fontSize: 16.sp,
-    ).getStyle(),
-    textInputAction: TextInputAction.next,
   );
 }

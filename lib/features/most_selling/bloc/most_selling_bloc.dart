@@ -1,5 +1,3 @@
-import 'package:deel/features/announcements/remote/announcements_remote.dart';
-import 'package:deel/features/most_selling/models/most_selling_response_model.dart';
 import 'package:deel/features/most_selling/remote/most_selling_remote.dart';
 import 'package:rxdart/rxdart.dart';
 
