@@ -77,7 +77,13 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
                   true,
               title: "الأكثر طلبا",
             ),
-            _mostSellingProducts()
+            Expanded(
+              child: CustomScrollView(slivers: [
+                SliverFillRemaining(
+                    hasScrollBody: true,
+                    child: _mostSellingProducts())
+              ]),
+            )
           ],
         );
 
@@ -92,30 +98,24 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
           return SizedBox(height: 90.h);
         }
 
-        return Column(
-          children: [
-            SizedBox(height: 20),
-            checkResponseStateWithLoadingWidget(
-              onSuccessFunction: () {},
-              snapshot.data ?? LoadingState<List<ProductMapper>>(),
-              context,
-              onSuccess: ProductListWidget(
-                scrollPhysics: NeverScrollableScrollPhysics(),
-                isForFavourite: false,
-                deleteIcon: Assets.svg.icDelete,
-                emptyFavouriteScreen: Assets.svg.emptyFavourite,
-                cartBloc: getIt(),
-                productCategoryBloc: getIt<ProductCategoryBloc>(),
-                productList: snapshot.data?.response ?? [],
-                favouriteIcon: Assets.svg.icFavourite,
-                favouriteIconFilled: Assets.svg.icFavouriteFilled,
-                onTapFavourite: (favourite, productMapper) {},
-                loadMore: (Function func) {
-                  _loadProducts();
-                },
-              ),
-            ),
-          ],
+        return checkResponseStateWithLoadingWidget(
+          onSuccessFunction: () {},
+          snapshot.data ?? LoadingState<List<ProductMapper>>(),
+          context,
+          onSuccess: ProductListWidget(
+            isForFavourite: false,
+            deleteIcon: Assets.svg.icDelete,
+            emptyFavouriteScreen: Assets.svg.emptyFavourite,
+            cartBloc: getIt(),
+            productCategoryBloc: getIt<ProductCategoryBloc>(),
+            productList: snapshot.data?.response ?? [],
+            favouriteIcon: Assets.svg.icFavourite,
+            favouriteIconFilled: Assets.svg.icFavouriteFilled,
+            onTapFavourite: (favourite, productMapper) {},
+            loadMore: (Function func) {
+              _loadProducts();
+            },
+          ),
         );
       },
     );

@@ -170,7 +170,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
                   emptyFavouriteScreen: Assets.svg.emptyFavourite,
                   cartBloc: widget.cartBloc,
                   productCategoryBloc: getIt<ProductCategoryBloc>(),
-                  productList: snapshot.data?.response ?? [],
+                  productList: snapshot.data?.response?.sublist(0, 2) ?? [],
                   favouriteIcon: Assets.svg.icFavourite,
                   favouriteIconFilled: Assets.svg.icFavouriteFilled,
                   onTapFavourite: (favourite, productMapper) {},
