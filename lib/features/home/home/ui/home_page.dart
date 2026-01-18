@@ -146,16 +146,18 @@ class _HomeWidgetState extends BaseState<HomePage> {
 
         return Container(
           color: mostSellingBackgroundColor,
-          padding: EdgeInsetsDirectional.only(
-            start: 16,
-            end: 16,
-            top: 20,
-            bottom: 90,
-          ),
+
           child: Column(
             children: [
-              _buildMostSellingHeader(),
-              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsetsDirectional.only(
+                  start: 16,
+                  end: 16,
+                  top: 20,
+                ),
+                child: _buildMostSellingHeader(),
+              ),
+              SizedBox(height: 10),
               checkResponseStateWithLoadingWidget(
                 onSuccessFunction: () {},
                 snapshot.data ?? LoadingState<List<ProductMapper>>(),
@@ -170,46 +172,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
                   productList: snapshot.data?.response ?? [],
                   favouriteIcon: Assets.svg.icFavourite,
                   favouriteIconFilled: Assets.svg.icFavouriteFilled,
-                  onAddToCart: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onAddToCart(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
-                  onDeleteClicked: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onDeleteFromCart(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
-                  onDecrementClicked: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onDecrementIncrement(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
-                  onIncrementClicked: (productMapper) {
-                    widget.showOverlayLoading.value = true;
-                    widget.cartBloc.onDecrementIncrement(
-                      productMapper,
-                      snapshot.data?.response,
-                      () {
-                        widget.showOverlayLoading.value = false;
-                      },
-                    );
-                  },
                   onTapFavourite: (favourite, productMapper) {},
                   loadMore: (Function func) {
                     _loadProducts(false, func);

@@ -484,150 +484,68 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                             ),
                             SliverFillRemaining(
                               hasScrollBody: true,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 16.w,
-                                  vertical: widget.isForFavourite ? 0 : 18.h,
-                                ),
-                                child: StreamBuilder<ApiState<List<ProductMapper>>>(
-                                  stream: widget
-                                      .productCategoryBloc
-                                      .loadedListStream,
-                                  initialData: LoadingState(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      if (snapshot.data!.response != null &&
-                                          snapshot.data!.response!.isEmpty) {
-                                        if (widget.isForFavourite) {
-                                          return EmptyFavouriteProducts(
-                                            emptyFavouriteScreen:
-                                                Assets.svg.emptyFavourite,
-                                          );
-                                        } else {
-                                          return Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              ImageHelper(
-                                                image: Assets.svg.icNotFound,
-                                                imageType: ImageType.svg,
-                                              ),
-                                            ],
-                                          );
-                                        }
+                              child: StreamBuilder<ApiState<List<ProductMapper>>>(
+                                stream: widget
+                                    .productCategoryBloc
+                                    .loadedListStream,
+                                initialData: LoadingState(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data!.response != null &&
+                                        snapshot.data!.response!.isEmpty) {
+                                      if (widget.isForFavourite) {
+                                        return EmptyFavouriteProducts(
+                                          emptyFavouriteScreen:
+                                              Assets.svg.emptyFavourite,
+                                        );
+                                      } else {
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            ImageHelper(
+                                              image: Assets.svg.icNotFound,
+                                              imageType: ImageType.svg,
+                                            ),
+                                          ],
+                                        );
                                       }
                                     }
-                                    return checkResponseStateWithLoadingWidget(
-                                      onSuccessFunction: () {},
-                                      snapshot.data ??
-                                          LoadingState<List<ProductMapper>>(),
-                                      context,
-                                      onSuccess: ProductListWidget(
-                                        isForFavourite: widget.isForFavourite,
-                                        deleteIcon: Assets.svg.icDelete,
-                                        emptyFavouriteScreen:
-                                            Assets.svg.emptyFavourite,
-                                        cartBloc: widget.cartBloc,
-                                        productCategoryBloc:
-                                            widget.productCategoryBloc,
-                                        productList:
-                                            snapshot.data?.response ?? [],
-                                        favouriteIcon: Assets.svg.icFavourite,
-                                        favouriteIconFilled:
-                                            Assets.svg.icFavouriteFilled,
-                                        onAddToCart: (productMapper) {
-                                          widget.showOverlayLoading.value =
-                                              true;
-                                          widget.cartBloc.onAddToCart(
-                                            productMapper,
-                                            snapshot.data?.response,
-                                            () {
-                                              widget.showOverlayLoading.value =
-                                                  false;
-                                            },
+                                  }
+                                  return checkResponseStateWithLoadingWidget(
+                                    onSuccessFunction: () {},
+                                    snapshot.data ??
+                                        LoadingState<List<ProductMapper>>(),
+                                    context,
+                                    onSuccess: ProductListWidget(
+                                      isForFavourite: widget.isForFavourite,
+                                      deleteIcon: Assets.svg.icDelete,
+                                      emptyFavouriteScreen:
+                                          Assets.svg.emptyFavourite,
+                                      cartBloc: widget.cartBloc,
+                                      productCategoryBloc:
+                                          widget.productCategoryBloc,
+                                      productList:
+                                          snapshot.data?.response ?? [],
+                                      favouriteIcon: Assets.svg.icFavourite,
+                                      favouriteIconFilled:
+                                          Assets.svg.icFavouriteFilled,
+                                      onTapFavourite:
+                                          (favourite, productMapper) {},
+                                      loadMore: (Function func) {
+                                        if (widget.isForFavourite)
+                                          widget.productCategoryBloc.loadMore(
+                                            true,
+                                            func,
                                           );
-                                          // widget.cartBloc
-                                          //     .saveToCart(
-                                          //         productMapper.id,
-                                          //         productMapper.minQuantity ==
-                                          //                 0
-                                          //             ? 1
-                                          //             : productMapper
-                                          //                 .minQuantity
-                                          //                 .toInt())
-                                          //     .listen((event) {
-                                          //   if (event is SuccessState) {
-                                          //     widget.cartBloc.orderId =
-                                          //         event.response!;
-                                          //     SharedPrefModule().orderId =
-                                          //         event.response!;
-                                          //     widget.cartBloc.getMyCart(
-                                          //       onGettingCart: () {
-                                          //         widget.showOverlayLoading
-                                          //             .value = false;
-                                          //         widget.cartBloc
-                                          //             .addCartInfoToProducts(
-                                          //                 snapshot.data
-                                          //                         ?.response ??
-                                          //                     []);
-                                          //       },
-                                          //     );
-                                          //   }
-                                          // });
-                                        },
-                                        onDeleteClicked: (productMapper) {
-                                          widget.showOverlayLoading.value =
-                                              true;
-                                          widget.cartBloc.onDeleteFromCart(
-                                            productMapper,
-                                            snapshot.data?.response,
-                                            () {
-                                              widget.showOverlayLoading.value =
-                                                  false;
-                                            },
-                                          );
-                                        },
-                                        onDecrementClicked: (productMapper) {
-                                          widget.showOverlayLoading.value =
-                                              true;
-                                          widget.cartBloc.onDecrementIncrement(
-                                            productMapper,
-                                            snapshot.data?.response,
-                                            () {
-                                              widget.showOverlayLoading.value =
-                                                  false;
-                                            },
-                                          );
-                                        },
-                                        onIncrementClicked: (productMapper) {
-                                          widget.showOverlayLoading.value =
-                                              true;
-                                          widget.cartBloc.onDecrementIncrement(
-                                            productMapper,
-                                            snapshot.data?.response,
-                                            () {
-                                              widget.showOverlayLoading.value =
-                                                  false;
-                                            },
-                                          );
-                                        },
-                                        onTapFavourite:
-                                            (favourite, productMapper) {},
-                                        loadMore: (Function func) {
-                                          if (widget.isForFavourite)
-                                            widget.productCategoryBloc.loadMore(
-                                              true,
-                                              func,
-                                            );
-                                          else
-                                            _loadProducts(false, func);
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
+                                        else
+                                          _loadProducts(false, func);
+                                      },
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ],
