@@ -4,7 +4,7 @@ description: "A new Flutter project."
 version: 1.0.16+38
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: 3.8.0
 
 dependencies:
   flutter:
@@ -41,7 +41,7 @@ dependencies:
   google_fonts: 6.2.1
   rxdart: ^0.27.7
   form_field_validator: ^1.1.0
-  retrofit: ^4.6.0
+  retrofit: ^4.9.0
   logger: any
   json_annotation: ^4.9.0
   custom_progress_button: ^2.0.1
@@ -69,7 +69,7 @@ dependencies:
   http: ^1.5.0
   index_generator: ^3.4.1
   mockito: ^5.4.4
-  retrofit_generator: ^9.7.0
+  retrofit_generator: ^10.2.1
   timelines:
     git:
       url: https://github.com/KiroAlbear/timelines_pubdev.git

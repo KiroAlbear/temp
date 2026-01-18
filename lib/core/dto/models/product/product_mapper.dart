@@ -53,8 +53,6 @@ class ProductMapper {
     isFavourite = false;
     discountPercentage = orderItem.discount ?? 0;
     hasDiscount = discountPercentage > 0;
-    minQuantity = 1; //TODO: get this number from server
-    maxQuantity = 100; //TODO: get this number from server
     isAvailable = false;
     isAddedToCart = false;
     minQuantity = orderItem.min_qty ?? 0;
