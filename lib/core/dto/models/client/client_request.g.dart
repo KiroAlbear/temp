@@ -7,11 +7,7 @@ part of 'client_request.dart';
 // **************************************************************************
 
 ClientRequest _$ClientRequestFromJson(Map<String, dynamic> json) =>
-    ClientRequest(
-      (json['client_id'] as num).toInt(),
-    );
+    ClientRequest((json['client_id'] as num).toInt());
 
 Map<String, dynamic> _$ClientRequestToJson(ClientRequest instance) =>
-    <String, dynamic>{
-      'client_id': instance.clientId,
-    };
+    <String, dynamic>{'client_id': instance.clientId};

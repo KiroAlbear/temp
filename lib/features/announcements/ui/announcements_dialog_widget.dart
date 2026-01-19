@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:deel/core/dto/models/announcement/announcement_response_model.dart';
 import 'package:deel/core/ui/cutom_page_indicator.dart';
 import 'package:deel/features/announcements/ui/announcements_hero_banner_item.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
                     curve: Curves.easeInOut);
               },
               initialPage: 0,
-              enableInfiniteScroll:items.length >1,
+              enableInfiniteScroll: items.length > 1,
               viewportFraction: 1.0,
               height: 450.h,
               reverse: false,
@@ -77,7 +76,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
               Icons.close,
               weight: 500,
               opticalSize: 20,
-              color: darkSecondaryColor,
+              color: secondaryColor,
             ),
             onPressed: () {
               Navigator.pop(context);

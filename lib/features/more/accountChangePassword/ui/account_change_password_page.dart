@@ -7,12 +7,11 @@ import '../../../../../core/generated/l10n.dart';
 import 'account_change_password_bloc.dart';
 
 class AccountChangePasswordPage extends BaseStatefulWidget {
-
-
   const AccountChangePasswordPage({super.key});
 
   @override
-  State<AccountChangePasswordPage> createState() => _AccountChangePasswordState();
+  State<AccountChangePasswordPage> createState() =>
+      _AccountChangePasswordState();
 }
 
 class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
@@ -28,7 +27,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
   bool isSafeArea() => true;
 
   @override
-  bool isBottomSafeArea() =>false;
+  bool isBottomSafeArea() => false;
 
   @override
   Color? systemNavigationBarColor() => Colors.white;
@@ -52,75 +51,74 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
       BlocProvider(bloc: _bloc, child: _screenDesign);
 
   Widget get _screenDesign => Column(
-    children: [
-      AppTopWidget(
-        isHavingBack: true,
-        title: S.of(context).changePassword,
-      ),
-      
-      Expanded(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 22.h,
-                ),
-                CustomText(
-                    text: S.of(context).currentPassword,
-                    customTextStyle: MediumStyle(
-                        color: darkSecondaryColor, fontSize: 16.sp)),
-                SizedBox(
-                  height: 16.h,
-                ),
-                _currentPasswordFiled,
-                SizedBox(
-                  height: 24.h,
-                ),
-                CustomText(
-                    text: S.of(context).newPassword,
-                    customTextStyle: MediumStyle(
-                        fontSize: 16.sp, color: darkSecondaryColor)),
-                SizedBox(
-                  height: 12.h,
-                ),
-                _passwordFiled,
-                SizedBox(
-                  height: 24.h,
-                ),
-                CustomText(
-                    text: S.of(context).confirmPassword,
-                    customTextStyle: MediumStyle(
-                        color: darkSecondaryColor, fontSize: 16.sp)),
-                SizedBox(
-                  height: 12.h,
-                ),
-                _confirmPasswordFiled,
-                SizedBox(
-                  height: 8.h,
-                ),
-                PasswordValidationWidget(
-                  passwordValidationBloc: PasswordValidationBloc(
-                      _bloc.passwordBloc.textFormFiledBehaviour.value),
-                  passwordController:
-                      _bloc.passwordBloc.textFormFiledBehaviour.value,
-                ),
-                SizedBox(
-                  height: 160.h,
-                ),
-                Center(child: _button),
-                SizedBox(
-                  height: 50.h,
-                ),
-              ],
-            ),
+        children: [
+          AppTopWidget(
+            isHavingBack: true,
+            title: S.of(context).changePassword,
           ),
-        ),
-      )
-    ],
-  );
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 22.h,
+                    ),
+                    CustomText(
+                        text: S.of(context).currentPassword,
+                        customTextStyle: MediumStyle(
+                            color: secondaryColor, fontSize: 16.sp)),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    _currentPasswordFiled,
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    CustomText(
+                        text: S.of(context).newPassword,
+                        customTextStyle: MediumStyle(
+                            fontSize: 16.sp, color: secondaryColor)),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    _passwordFiled,
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    CustomText(
+                        text: S.of(context).confirmPassword,
+                        customTextStyle: MediumStyle(
+                            color: secondaryColor, fontSize: 16.sp)),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    _confirmPasswordFiled,
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    PasswordValidationWidget(
+                      passwordValidationBloc: PasswordValidationBloc(
+                          _bloc.passwordBloc.textFormFiledBehaviour.value),
+                      passwordController:
+                          _bloc.passwordBloc.textFormFiledBehaviour.value,
+                    ),
+                    SizedBox(
+                      height: 160.h,
+                    ),
+                    Center(child: _button),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      );
 
   Widget get _currentPasswordFiled => CustomTextFormFiled(
         onChanged: (value) =>
@@ -174,9 +172,8 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
         );
       });
 /////////////////////////////
-  void onlyForTestingCode(){
-    Future.delayed(const Duration(milliseconds: 600))
-        .then((value) {
+  void onlyForTestingCode() {
+    Future.delayed(const Duration(milliseconds: 600)).then((value) {
       AppProviderModule().logout(context);
     });
   }
@@ -197,10 +194,10 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
                       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
                       headerErrorMessage: S.of(context).changePasswordError,
                       onSuccess: () async {
-                        await SharedPrefModule().setPassword(_bloc.passwordBloc.textFormFiledBehaviour.value.text);
-                        await AppProviderModule().logout(context);
-
-                      });
+                    await SharedPrefModule().setPassword(
+                        _bloc.passwordBloc.textFormFiledBehaviour.value.text);
+                    await AppProviderModule().logout(context);
+                  });
                 }
               },
             );

@@ -44,12 +44,16 @@ class ProductWidget extends StatefulWidget {
     if (!isCartProduct &&
         (favouriteIcon == null ||
             onTapFavourite == null && onAddToCart == null)) {
-      assert(false,
-          'isCartProduct is false, favouriteIcon, onTapFavourite and addToCart should be provided');
+      assert(
+        false,
+        'isCartProduct is false, favouriteIcon, onTapFavourite and addToCart should be provided',
+      );
     }
     if (isCartProduct && (icDelete == null || onDeleteClicked == null)) {
-      assert(false,
-          'isCartProduct is true, icDelete and onDeleteClicked should be provided');
+      assert(
+        false,
+        'isCartProduct is true, icDelete and onDeleteClicked should be provided',
+      );
     }
   }
 
@@ -86,19 +90,19 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: widget.isCartProduct
-            ? EdgeInsets.symmetric(horizontal: 16.w)
-            : EdgeInsets.zero,
-        child: Container(
-          decoration: BoxDecoration(
-            color: productCardColor,
-            borderRadius: BorderRadius.circular(16.w),
-          ),
-          child: widget.isCartProduct
-              ? _getCartProductWidget()
-              : _getProductWidget(),
-        ),
-      );
+    padding: widget.isCartProduct
+        ? EdgeInsets.symmetric(horizontal: 16.w)
+        : EdgeInsets.zero,
+    child: Container(
+      decoration: BoxDecoration(
+        color: productCardColor,
+        borderRadius: BorderRadius.circular(16.w),
+      ),
+      child: widget.isCartProduct
+          ? _getCartProductWidget()
+          : _getProductWidget(),
+    ),
+  );
 
   Widget _getProductWidget() {
     return Padding(
@@ -113,38 +117,29 @@ class _ProductWidgetState extends State<ProductWidget> {
           Stack(
             children: [
               _favouriteRow,
-              SizedBox(
-                height: 4.h,
-              ),
+              SizedBox(height: 4.h),
               _productImage,
             ],
           ),
-          SizedBox(
-            height: 5.h,
-          ),
+          SizedBox(height: 5.h),
           ImageFiltered(
-              imageFilter: SharedPrefModule().userId == null
-                  ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
-                  : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-              child: _priceRow),
-          SizedBox(
-            height: 2.h,
+            imageFilter: SharedPrefModule().userId == null
+                ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
+                : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+            child: _priceRow,
           ),
+          SizedBox(height: 2.h),
           _productName,
 
           widget.productMapper.description.isEmpty
               ? SizedBox()
-              : SizedBox(
-                  height: 4.h,
-                ),
+              : SizedBox(height: 4.h),
           widget.productMapper.description.isEmpty
               ? SizedBox()
               : _productDescription,
-          SizedBox(
-            height: 0.h,
-          ),
-          // Center(child: _addCartButton),
+          SizedBox(height: 0.h),
 
+          // Center(child: _addCartButton),
           Padding(
             padding: const EdgeInsets.only(top: 5.0),
             child: ValueListenableBuilder(
@@ -152,9 +147,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               builder: (context, value, child) {
                 return value == 0
                     ? Center(child: _addCartButton)
-                    : Center(
-                        child: _incrementDecrementButton(),
-                      );
+                    : Center(child: _incrementDecrementButton());
               },
             ),
           ),
@@ -170,7 +163,11 @@ class _ProductWidgetState extends State<ProductWidget> {
   _getCartProductWidget() {
     return Padding(
       padding: EdgeInsetsDirectional.only(
-          top: 8.h, bottom: 8.h, end: 16.w, start: 16.w),
+        top: 8.h,
+        bottom: 8.h,
+        end: 16.w,
+        start: 16.w,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,13 +185,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(child: _productName),
-                        ],
+                        children: [Expanded(child: _productName)],
                       ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
+                      SizedBox(height: 8.h),
                       widget.productMapper.isAvailable
                           ? SizedBox()
                           : _notAvailableProduct(),
@@ -208,12 +201,10 @@ class _ProductWidgetState extends State<ProductWidget> {
           Column(
             children: [
               _productImage,
-              SizedBox(
-                height: 8.h,
-              ),
+              SizedBox(height: 8.h),
               _incrementDecrementButton(),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -231,8 +222,10 @@ class _ProductWidgetState extends State<ProductWidget> {
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
           child: CustomText(
             text: S.of(context).productIsNotAvailable,
-            customTextStyle:
-                RegularStyle(color: lightBlackColor, fontSize: 8.sp),
+            customTextStyle: RegularStyle(
+              color: lightBlackColor,
+              fontSize: 8.sp,
+            ),
           ),
         ),
       ),
@@ -240,66 +233,74 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   Widget get _favouriteRow => Row(
-        children: [
-          if (SharedPrefModule().bearerToken?.isNotEmpty ?? false)
-            ValueListenableBuilder(
-              valueListenable: isAddingToFavSucess,
-              builder: (context, value, child) {
-                return !value
-                    ? SizedBox(
-                        height: 18,
-                        width: 18,
-                        child: CircularProgressIndicator())
-                    : InkWell(
-                        onTap: () {
-                          if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
-                            Apputils.showNeedToLoginBottomSheet(context);
-                          } else {
-                            widget.onTapFavourite!(
-                                !widget.productMapper.isFavourite,
-                                widget.productMapper);
+    children: [
+      if (SharedPrefModule().bearerToken?.isNotEmpty ?? false)
+        ValueListenableBuilder(
+          valueListenable: isAddingToFavSucess,
+          builder: (context, value, child) {
+            return !value
+                ? SizedBox(
+                    height: 18,
+                    width: 18,
+                    child: CircularProgressIndicator(),
+                  )
+                : InkWell(
+                    onTap: () {
+                      if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
+                        Apputils.showNeedToLoginBottomSheet(context);
+                      } else {
+                        widget.onTapFavourite!(
+                          !widget.productMapper.isFavourite,
+                          widget.productMapper,
+                        );
 
-                            if (widget.productMapper.isFavourite) {
-                              widget.productCategoryBloc
-                                  .removeProductFromFavourite(
+                        if (widget.productMapper.isFavourite) {
+                          widget.productCategoryBloc
+                              .removeProductFromFavourite(
                                 productId: widget.productMapper.id,
-                                clientId:
-                                    int.parse(SharedPrefModule().userId ?? '0'),
+                                clientId: int.parse(
+                                  SharedPrefModule().userId ?? '0',
+                                ),
                               )
-                                  .listen((event) {
+                              .listen((event) {
                                 if (widget.onProductRemoved != null &&
                                     event.response != null &&
                                     event.response!) {
                                   widget.onProductRemoved!(
-                                      widget.productMapper.id);
+                                    widget.productMapper.id,
+                                  );
                                 }
                                 _handleFavouriteIcon(event, false);
-                                FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.remove_from_wishlist);
-
+                                FirebaseAnalyticsUtil().logEvent(
+                                  FirebaseAnalyticsEventsNames
+                                      .remove_from_wishlist,
+                                );
                               });
-                            } else {
-                              widget.productCategoryBloc
-                                  .addProductToFavourite(
+                        } else {
+                          widget.productCategoryBloc
+                              .addProductToFavourite(
                                 productId: widget.productMapper.id,
-                                clientId:
-                                    int.parse(SharedPrefModule().userId ?? '0'),
+                                clientId: int.parse(
+                                  SharedPrefModule().userId ?? '0',
+                                ),
                               )
-                                  .listen((event) {
+                              .listen((event) {
                                 _handleFavouriteIcon(event, true);
                               });
-                              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.add_to_wishlist);
-
-                            }
-                          }
-                        },
-                        child: _favouriteIcon,
-                      );
-              },
-            ),
-          const Spacer(),
-          if (widget.productMapper.discountPercentage > 0) _discountWidget,
-        ],
-      );
+                          FirebaseAnalyticsUtil().logEvent(
+                            FirebaseAnalyticsEventsNames.add_to_wishlist,
+                          );
+                        }
+                      }
+                    },
+                    child: _favouriteIcon,
+                  );
+          },
+        ),
+      const Spacer(),
+      if (widget.productMapper.discountPercentage > 0) _discountWidget,
+    ],
+  );
 
   void _handleFavouriteIcon(ApiState<bool> event, bool isAdded) {
     if (event is SuccessState) {
@@ -313,92 +314,95 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   Widget get _discountWidget => Container(
-        padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 7.w),
-        decoration: BoxDecoration(
-            color: redColor,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                    AppProviderModule().locale == 'ar' ? 4.w : 0),
-                bottomLeft: Radius.circular(
-                    AppProviderModule().locale == 'ar' ? 4.w : 0),
-                bottomRight: Radius.circular(
-                    AppProviderModule().locale == 'ar' ? 0 : 4.w),
-                topRight: Radius.circular(
-                    AppProviderModule().locale == 'ar' ? 0 : 4.w))),
-        child: CustomText(
-          text: S
-              .of(context)
-              .discount('${widget.productMapper.discountPercentage}%'),
-          customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp),
+    padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 7.w),
+    decoration: BoxDecoration(
+      color: redColor,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(AppProviderModule().locale == 'ar' ? 4.w : 0),
+        bottomLeft: Radius.circular(
+          AppProviderModule().locale == 'ar' ? 4.w : 0,
         ),
-      );
+        bottomRight: Radius.circular(
+          AppProviderModule().locale == 'ar' ? 0 : 4.w,
+        ),
+        topRight: Radius.circular(AppProviderModule().locale == 'ar' ? 0 : 4.w),
+      ),
+    ),
+    child: CustomText(
+      text: S
+          .of(context)
+          .discount('${widget.productMapper.discountPercentage}%'),
+      customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp),
+    ),
+  );
 
   Widget get _favouriteIcon => ImageHelper(
-        image: widget.productMapper.isFavourite
-            ? widget.favouriteIconFilled!
-            : widget.favouriteIcon!,
-        imageType: ImageType.svg,
-        width: 24.w,
-        height: 24.h,
-        color: widget.productMapper.isFavourite ? null : secondaryColor,
-      );
+    image: widget.productMapper.isFavourite
+        ? widget.favouriteIconFilled!
+        : widget.favouriteIcon!,
+    imageType: ImageType.svg,
+    width: 24.w,
+    height: 24.h,
+    color: widget.productMapper.isFavourite ? null : secondaryColor,
+  );
 
   Widget get _productImage => Center(
-        child: widget.productMapper.image.isEmpty
-            ? SizedBox()
-            : ImageHelper(
-                image: widget.productMapper.image,
-                imageType: ImageType.network,
-                height: widget.isCartProduct ? 50.h : 90.h,
-                width: widget.isCartProduct ? 50.w : 90.w,
-              ),
-      );
+    child: widget.productMapper.image.isEmpty
+        ? SizedBox()
+        : ImageHelper(
+            image: widget.productMapper.image,
+            imageType: ImageType.network,
+            height: widget.isCartProduct ? 50.h : 90.h,
+            width: widget.isCartProduct ? 50.w : 90.w,
+          ),
+  );
 
   Widget get _productName => SizedBox(
-        height: 40,
-        child: CustomText(
-          text: widget.productMapper.name,
-          textAlign: TextAlign.start,
-          customTextStyle: widget.isCartProduct
-              ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
-              : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-          maxLines: 2,
-        ),
-      );
+    height: 40,
+    child: CustomText(
+      text: widget.productMapper.name,
+      textAlign: TextAlign.start,
+      customTextStyle: widget.isCartProduct
+          ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
+          : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+      maxLines: 2,
+    ),
+  );
 
   Widget get _priceRow => Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: widget.isCartProduct ? 0 : 1,
-            child: CustomText(
-                text: priceTextToShow,
-                textAlign: TextAlign.start,
-                customTextStyle: BoldStyle(
-                    fontSize: widget.isCartProduct ? 16.sp : 14.sp,
-                    color: darkSecondaryColor)),
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Expanded(
+        flex: widget.isCartProduct ? 0 : 1,
+        child: CustomText(
+          text: priceTextToShow,
+          textAlign: TextAlign.start,
+          customTextStyle: BoldStyle(
+            fontSize: widget.isCartProduct ? 16.sp : 14.sp,
+            color: secondaryColor,
           ),
-          SizedBox(
-            width: widget.productMapper.hasDiscount ? 10.w : 0,
+        ),
+      ),
+      SizedBox(width: widget.productMapper.hasDiscount ? 10.w : 0),
+      if (widget.productMapper.hasDiscount)
+        CustomText(
+          text:
+              '${widget.isCartProduct ? widget.productMapper.cartOriginalUnitPrice.toString() : widget.productMapper.productOriginalPrice.toString()} ${widget.productMapper.currency}',
+          customTextStyle: BoldStyle(
+            color: redColor,
+            fontSize: 10.sp,
+            textDecoration: TextDecoration.lineThrough,
           ),
-          if (widget.productMapper.hasDiscount)
-            CustomText(
-              text:
-                  '${widget.isCartProduct ? widget.productMapper.cartOriginalUnitPrice.toString() : widget.productMapper.productOriginalPrice.toString()} ${widget.productMapper.currency}',
-              customTextStyle: BoldStyle(
-                  color: redColor,
-                  fontSize: 10.sp,
-                  textDecoration: TextDecoration.lineThrough),
-            )
-        ],
-      );
+        ),
+    ],
+  );
 
   Widget get _productDescription => CustomText(
-        text: widget.productMapper.description,
-        customTextStyle: RegularStyle(fontSize: 12.sp, color: greyColor),
-        maxLines: 2,
-      );
+    text: widget.productMapper.description,
+    customTextStyle: RegularStyle(fontSize: 12.sp, color: greyColor),
+    maxLines: 2,
+  );
 
   void _showMaximumAlertDialog(String message, String qty) {
     showModalBottomSheet(
@@ -435,8 +439,9 @@ class _ProductWidgetState extends State<ProductWidget> {
           onConfirm: () {
             qtyValueNotifier.value = 0;
             widget.onDeleteClicked!(widget.productMapper);
-            FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.remove_from_cart);
-
+            FirebaseAnalyticsUtil().logEvent(
+              FirebaseAnalyticsEventsNames.remove_from_cart,
+            );
           },
         );
       },
@@ -475,8 +480,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                     widget.productMapper.maxQuantity ==
                         widget.productMapper.minQuantity &&
                     widget.productMapper.maxQuantity == 0) {
-                  widget.productMapper.maxQuantity =
-                      widget.productMapper.availableQuantity.toDouble();
+                  widget.productMapper.maxQuantity = widget
+                      .productMapper
+                      .availableQuantity
+                      .toDouble();
                 } else if (widget.isCartProduct == false &&
                     widget.productMapper.maxQuantity ==
                         widget.productMapper.minQuantity &&
@@ -487,17 +494,18 @@ class _ProductWidgetState extends State<ProductWidget> {
 
                 if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
                   qtyValueNotifier.value++;
-                  widget.productMapper.cartUserQuantity =
-                      qtyValueNotifier.value.toDouble();
+                  widget.productMapper.cartUserQuantity = qtyValueNotifier.value
+                      .toDouble();
                   widget.onIncrementClicked!(widget.productMapper);
 
-                  FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.update_cart_quantity);
-
-
+                  FirebaseAnalyticsUtil().logEvent(
+                    FirebaseAnalyticsEventsNames.update_cart_quantity,
+                  );
                 } else {
                   _showMaximumAlertDialog(
-                      S.of(context).cartMaximumProductsReached,
-                      widget.productMapper.maxQuantity.round().toString());
+                    S.of(context).cartMaximumProductsReached,
+                    widget.productMapper.maxQuantity.round().toString(),
+                  );
                 }
               },
               child: Icon(
@@ -519,9 +527,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                     text: value.toString(),
                     textAlign: TextAlign.center,
                     customTextStyle: MediumStyle(
-                        color: cartSuccessBlueColor,
-                        fontSize: 14.sp,
-                        lineHeight: 0.7),
+                      color: cartSuccessBlueColor,
+                      fontSize: 14.sp,
+                      lineHeight: 0.7,
+                    ),
                   ),
                 );
               },
@@ -535,14 +544,14 @@ class _ProductWidgetState extends State<ProductWidget> {
                 if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
                     qtyValueNotifier.value > 1) {
                   qtyValueNotifier.value--;
-                  widget.productMapper.cartUserQuantity =
-                      qtyValueNotifier.value.toDouble();
+                  widget.productMapper.cartUserQuantity = qtyValueNotifier.value
+                      .toDouble();
 
                   widget.onDecrementClicked!(widget.productMapper);
-                  FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.update_cart_quantity);
-
-                }
-                else {
+                  FirebaseAnalyticsUtil().logEvent(
+                    FirebaseAnalyticsEventsNames.update_cart_quantity,
+                  );
+                } else {
                   _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
                 }
               },
@@ -558,8 +567,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                               height: 24.h,
                               width: 24.w,
                               child: ImageHelper(
-                                  image: widget.icDelete!,
-                                  imageType: ImageType.svg),
+                                image: widget.icDelete!,
+                                imageType: ImageType.svg,
+                              ),
                             )
                           : Icon(
                               Icons.remove,
@@ -578,46 +588,50 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   Widget get _addCartButton => InkWell(
-        onTap: () async {
-          if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
-            await Apputils.showNeedToLoginBottomSheet(context);
-          } else {
-            if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
-            {
-              widget.onAddToCart!(widget.productMapper);
-              qtyValueNotifier.value = widget.productMapper.minQuantity == 0
-                  ? 1
-                  : widget.productMapper.minQuantity.toInt();
-              if (widget.cartBloc != null) {
-                widget.cartBloc!.getMyCart();
-              }
-              FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.add_to_cart);
-            }
+    onTap: () async {
+      if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
+        await Apputils.showNeedToLoginBottomSheet(context);
+      } else {
+        if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
+        {
+          widget.onAddToCart!(widget.productMapper);
+          qtyValueNotifier.value = widget.productMapper.minQuantity == 0
+              ? 1
+              : widget.productMapper.minQuantity.toInt();
+          if (widget.cartBloc != null) {
+            widget.cartBloc!.getMyCart();
           }
-        },
-        child: Container(
-          alignment: Alignment.center,
-          width: buttonWidth,
-          height: buttonHeight,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.r),
+          FirebaseAnalyticsUtil().logEvent(
+            FirebaseAnalyticsEventsNames.add_to_cart,
+          );
+        }
+      }
+    },
+    child: Container(
+      alignment: Alignment.center,
+      width: buttonWidth,
+      height: buttonHeight,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.r),
+        color: (SharedPrefModule().userId == null)
+            ? disabledButtonColorLightMode
+            : widget.productMapper.canAddToCart()
+            ? primaryColor
+            : disabledButtonColorLightMode,
+      ),
+      child: Center(
+        child: CustomText(
+          text: S.of(context).addToCart,
+          customTextStyle: RegularStyle(
             color: (SharedPrefModule().userId == null)
-                ? disabledButtonColorLightMode
+                ? disabledButtonTextColorLightMode
                 : widget.productMapper.canAddToCart()
-                    ? primaryColor
-                    : disabledButtonColorLightMode,
-          ),
-          child: Center(
-            child: CustomText(
-                text: S.of(context).addToCart,
-                customTextStyle: RegularStyle(
-                    color: (SharedPrefModule().userId == null)
-                        ? disabledButtonTextColorLightMode
-                        : widget.productMapper.canAddToCart()
-                            ? darkSecondaryColor
-                            : disabledButtonTextColorLightMode,
-                    fontSize: 12.sp)),
+                ? secondaryColor
+                : disabledButtonTextColorLightMode,
+            fontSize: 12.sp,
           ),
         ),
-      );
+      ),
+    ),
+  );
 }

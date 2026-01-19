@@ -12,8 +12,5 @@ UsagePolicyResponse _$UsagePolicyResponseFromJson(Map<String, dynamic> json) =>
       ..policy = json['policy'] as String?;
 
 Map<String, dynamic> _$UsagePolicyResponseToJson(
-        UsagePolicyResponse instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'policy': instance.policy,
-    };
+  UsagePolicyResponse instance,
+) => <String, dynamic>{'id': instance.id, 'policy': instance.policy};

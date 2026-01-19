@@ -128,7 +128,8 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       ignoring: isIgnoring,
       child: CustomProgressButton(
         stateWidgets: {
-          ButtonState.idle: _idleText(enable ?? true,idleTextColor: widget.idleTextColor),
+          ButtonState.idle:
+              _idleText(enable ?? true, idleTextColor: widget.idleTextColor),
           ButtonState.fail: _failText(failedText),
           ButtonState.loading: _loadingText,
           ButtonState.success: widget.useSuccessState
@@ -136,8 +137,9 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
               : _idleText(enable ?? true),
         },
         stateColors: {
-          ButtonState.idle:
-              enable ?? true ? (widget.buttonColor ?? primaryColor) : disabledButtonColorLightMode,
+          ButtonState.idle: enable ?? true
+              ? (widget.buttonColor ?? primaryColor)
+              : disabledButtonColorLightMode,
           ButtonState.fail: redColor,
           ButtonState.loading: widget.buttonColor ?? primaryColor,
           ButtonState.success:
@@ -213,11 +215,14 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         padding: EdgeInsets.only(top: 8.h),
       );
 
-  Widget _idleText(bool enable,{Color? idleTextColor}) => Text(
+  Widget _idleText(bool enable, {Color? idleTextColor}) => Text(
         widget.isAllCaps
             ? (widget.idleText ?? '').toUpperCase()
             : (widget.idleText ?? ''),
-        style:enable? widget.textStyle ??_successTextStyle.copyWith(color: idleTextColor): widget.textStyle ?? _textStyle,
+        style: enable
+            ? widget.textStyle ??
+                _successTextStyle.copyWith(color: idleTextColor)
+            : widget.textStyle ?? _textStyle,
       );
 
   Widget _failText(String text) => Text(
@@ -245,8 +250,8 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       style: widget.textStyle ?? _successTextStyle);
 
   TextStyle get _successTextStyle => MediumStyle(
-      color: widget.textColor ?? darkSecondaryColor,
-      fontSize: widget.textSize == null ? 16.sp : widget.textSize!)
+          color: widget.textColor ?? secondaryColor,
+          fontSize: widget.textSize == null ? 16.sp : widget.textSize!)
       .getStyle();
 
   TextStyle get _textStyle => MediumStyle(

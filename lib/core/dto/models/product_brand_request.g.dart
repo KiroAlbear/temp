@@ -14,9 +14,9 @@ ProductBrandRequest _$ProductBrandRequestFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ProductBrandRequestToJson(
-        ProductBrandRequest instance) =>
-    <String, dynamic>{
-      'brand_id': instance.brand_id,
-      'page': instance.page,
-      'limit': instance.limit,
-    };
+  ProductBrandRequest instance,
+) => <String, dynamic>{
+  'brand_id': instance.brand_id,
+  'page': instance.page,
+  'limit': instance.limit,
+};

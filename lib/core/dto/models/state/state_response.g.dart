@@ -12,7 +12,4 @@ StateResponse _$StateResponseFromJson(Map<String, dynamic> json) =>
       ..id = (json['id'] as num?)?.toInt();
 
 Map<String, dynamic> _$StateResponseToJson(StateResponse instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'id': instance.id,
-    };
+    <String, dynamic>{'name': instance.name, 'id': instance.id};

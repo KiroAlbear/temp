@@ -7,19 +7,19 @@ part of 'language_response_model.dart';
 // **************************************************************************
 
 LanguageResponseModel _$LanguageResponseModelFromJson(
-        Map<String, dynamic> json) =>
-    LanguageResponseModel(
-      json['lang'] as String,
-      (json['id'] as num).toInt(),
-      json['name'] as String,
-      json['code'] as String,
-    );
+  Map<String, dynamic> json,
+) => LanguageResponseModel(
+  json['lang'] as String,
+  (json['id'] as num).toInt(),
+  json['name'] as String,
+  json['code'] as String,
+);
 
 Map<String, dynamic> _$LanguageResponseModelToJson(
-        LanguageResponseModel instance) =>
-    <String, dynamic>{
-      'lang': instance.lang,
-      'id': instance.id,
-      'name': instance.name,
-      'code': instance.code,
-    };
+  LanguageResponseModel instance,
+) => <String, dynamic>{
+  'lang': instance.lang,
+  'id': instance.id,
+  'name': instance.name,
+  'code': instance.code,
+};

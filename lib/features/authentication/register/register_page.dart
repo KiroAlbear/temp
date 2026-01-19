@@ -68,7 +68,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
                 child: CustomText(
                     text: S.of(context).registerNewAccount,
                     customTextStyle:
-                        BoldStyle(color: darkSecondaryColor, fontSize: 28.sp)),
+                        BoldStyle(color: secondaryColor, fontSize: 28.sp)),
               ),
               SizedBox(
                 height: 30.h,
@@ -76,7 +76,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
               CustomText(
                   text: S.of(context).yourMobile,
                   customTextStyle:
-                      MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                      MediumStyle(fontSize: 16.sp, color: secondaryColor)),
               SizedBox(
                 height: 12.h,
               ),
@@ -187,14 +187,14 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
               CustomText(
                   text: S.of(context).haveAccount,
                   customTextStyle:
-                      RegularStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                      RegularStyle(fontSize: 16.sp, color: secondaryColor)),
               SizedBox(
                 width: 5.w,
               ),
               CustomText(
                   text: S.of(context).login,
                   customTextStyle:
-                      BoldStyle(color: darkSecondaryColor, fontSize: 16.sp)),
+                      BoldStyle(color: secondaryColor, fontSize: 16.sp)),
             ],
           ),
         ),

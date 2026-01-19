@@ -6,6 +6,7 @@ import 'package:deel/features/authentication/ui/resetPassword/reset_password_pag
 import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navigation_bar.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
+import 'package:deel/features/most_selling/ui/most_selling_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const String splashScreen = '/splash';
   static const String homePage = '/home';
   static const String favouritePage = '/favorite';
+  static const String mostSellingPage = '/mostSelling';
   static const String offersPage = '/offers';
   static const String cartPage = '/cart';
   static const String morePage = '/more';
@@ -68,11 +70,8 @@ class Routes {
         path: splashScreen,
         name: splashScreen,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context,
-          state,
-          SplashScreen(),
-        ),
+        pageBuilder: (context, state) =>
+            _fadeTransitionScreenWrapper(context, state, SplashScreen()),
       ),
       GoRoute(
         path: barcodePage,
@@ -88,11 +87,8 @@ class Routes {
         path: registerSuccessPage,
         name: registerSuccessPage,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context,
-          state,
-          RegisterSuccessPage(),
-        ),
+        pageBuilder: (context, state) =>
+            _fadeTransitionScreenWrapper(context, state, RegisterSuccessPage()),
       ),
       GoRoute(
         path: loginPage,
@@ -101,9 +97,7 @@ class Routes {
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context,
           state,
-          LoginPage(
-            enableSkip: true,
-          ),
+          LoginPage(enableSkip: true),
         ),
       ),
       GoRoute(
@@ -123,11 +117,8 @@ class Routes {
         path: newAccountPage,
         name: newAccountPage,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context,
-          state,
-          NewAccountPage(),
-        ),
+        pageBuilder: (context, state) =>
+            _fadeTransitionScreenWrapper(context, state, NewAccountPage()),
       ),
       GoRoute(
         path: resetPasswordPage,
@@ -137,7 +128,9 @@ class Routes {
           context,
           state,
           ResetPasswordPage(
-              authenticationSharedBloc: getIt(), forgetPasswordBloc: getIt()),
+            authenticationSharedBloc: getIt(),
+            forgetPasswordBloc: getIt(),
+          ),
         ),
       ),
       GoRoute(
@@ -150,10 +143,7 @@ class Routes {
           return _fadeTransitionScreenWrapper(
             context,
             state,
-            OtpPage(
-              authenticationSharedBloc: getIt(),
-              nextPage: nextPage,
-            ),
+            OtpPage(authenticationSharedBloc: getIt(), nextPage: nextPage),
           );
         },
       ),
@@ -164,24 +154,22 @@ class Routes {
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context,
           state,
-          RegisterPage(
-            authenticationSharedBloc: getIt(),
-          ),
+          RegisterPage(authenticationSharedBloc: getIt()),
         ),
       ),
       GoRoute(
-          path: editLocationPage,
-          name: editLocationPage,
-          parentNavigatorKey: rootNavigatorKey,
-          pageBuilder: (context, state) {
-            final NewAccountBloc _bloc = state.extra as NewAccountBloc;
-            return _fadeTransitionScreenWrapper(
-                context,
-                state,
-                EditLocationPage(
-                  newAccountBloc: _bloc,
-                ));
-          }),
+        path: editLocationPage,
+        name: editLocationPage,
+        parentNavigatorKey: rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final NewAccountBloc _bloc = state.extra as NewAccountBloc;
+          return _fadeTransitionScreenWrapper(
+            context,
+            state,
+            EditLocationPage(newAccountBloc: _bloc),
+          );
+        },
+      ),
       GoRoute(
         path: updateProfilePage,
         name: updateProfilePage,
@@ -189,9 +177,7 @@ class Routes {
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context,
           state,
-          UpdateProfilePage(
-            moreBloc: getIt(),
-          ),
+          UpdateProfilePage(moreBloc: getIt()),
         ),
       ),
       GoRoute(
@@ -228,11 +214,8 @@ class Routes {
         path: faqPage,
         name: faqPage,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context,
-          state,
-          FaqPage(),
-        ),
+        pageBuilder: (context, state) =>
+            _fadeTransitionScreenWrapper(context, state, FaqPage()),
       ),
       GoRoute(
         path: cartOrderDetailsPage,
@@ -256,152 +239,187 @@ class Routes {
         path: cartSuccessPage,
         name: cartSuccessPage,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-          context,
-          state,
-          CartSuccessPage(),
-        ),
+        pageBuilder: (context, state) =>
+            _fadeTransitionScreenWrapper(context, state, CartSuccessPage()),
       ),
       ShellRoute(
-          navigatorKey: navigationBarKey,
-          parentNavigatorKey: rootNavigatorKey,
-          routes: [
-            GoRoute(
-              parentNavigatorKey: navigationBarKey,
-              path: homePage,
-              name: homePage,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                  context,
-                  state,
-                  HomePage(
-                    cartBloc: getIt(),
-                    contactUsBloc: getIt(),
-                    homeBloc: getIt(),
-                    updateProfileBloc: getIt(),
-                  )),
-            ),
-            GoRoute(
-              parentNavigatorKey: navigationBarKey,
-              path: offersPage,
-              name: offersPage,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                  context,
-                  state,
-                  OffersPage(
-                    homeBloc: getIt(),
-                  )),
-            ),
-            GoRoute(
-              parentNavigatorKey: navigationBarKey,
-              path: cartPage,
-              name: cartPage,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                  context,
-                  state,
-                  CartPage(cartBloc: getIt(), productCategoryBloc: getIt())),
-            ),
-            GoRoute(
-              parentNavigatorKey: navigationBarKey,
-              path: morePage,
-              name: morePage,
-              pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
-                  context,
-                  state,
-                  MorePage(
-                    contactUsBloc: getIt(),
-                    moreBloc: getIt(),
-                    productCategoryBloc: getIt(),
-                  )),
-            ),
-            GoRoute(
-                path: favouritePage,
-                name: favouritePage,
-                parentNavigatorKey: navigationBarKey,
-                pageBuilder: (context, state) {
-                  return _fadeTransitionScreenWrapper(
-                    context,
-                    state,
-                    favouriteWidget,
-                  );
-                }),
-            GoRoute(
-              path: productCategoryPage,
-              name: productCategoryPage,
-              parentNavigatorKey: navigationBarKey,
-              pageBuilder: (context, state) {
-                return _fadeTransitionScreenWrapper(
-                    context,
-                    state,
-                    ProductCategoryPage(
-                      homeBloc: getIt(),
-                      contactUsBloc: getIt(),
-                      productCategoryBloc: getIt(),
-                      cartBloc: getIt(),
-                      isForFavourite: false,
-                    ));
-              },
-            ),
-          ],
-          builder: (context, state, child) {
-            return PopScope(
-              canPop: false,
-              child: Scaffold(
-                body: child,
-                bottomNavigationBar: CustomNavigationBar(
-                  onTap: (index) async {
-                    if (index == 0 &&
-                        currentNavigationPage != Routes.homePage) {
-                      currentNavigationPage = Routes.homePage;
-                      FirebaseAnalyticsUtil().logEvent(
-                          FirebaseAnalyticsEventsNames.view_home_screen,
-                          parameters: {});
-
-                      await Routes.navigateToScreen(
-                          Routes.homePage, NavigationType.goNamed, context);
-                    } else if (index == 1 &&
-                        currentNavigationPage != Routes.favouritePage) {
-                      currentNavigationPage = Routes.favouritePage;
-
-                      FirebaseAnalyticsUtil().logEvent(
-                          FirebaseAnalyticsEventsNames.view_favourite_screen,
-                          parameters: {});
-
-                      getIt<HomeBloc>().reset();
-                      getIt<ProductCategoryBloc>().disposeReset();
-
-                      await Routes.navigateToScreen(Routes.favouritePage,
-                          NavigationType.goNamed, context);
-                    } else if (index == 2) {
-                      currentNavigationPage = Routes.offersPage;
-                      FirebaseAnalyticsUtil().logEvent(
-                          FirebaseAnalyticsEventsNames.view_offers_screen,
-                          parameters: {});
-
-                      await Routes.navigateToScreen(
-                          Routes.offersPage, NavigationType.goNamed, context);
-                    } else if (index == 3) {
-                      currentNavigationPage = Routes.cartPage;
-                      FirebaseAnalyticsUtil().logEvent(
-                          FirebaseAnalyticsEventsNames.view_cart_screen,
-                          parameters: {});
-
-                      await Routes.navigateToScreen(
-                          Routes.cartPage, NavigationType.goNamed, context);
-                    } else if (index == 4) {
-                      currentNavigationPage = Routes.morePage;
-
-                      FirebaseAnalyticsUtil().logEvent(
-                          FirebaseAnalyticsEventsNames.view_more_screen,
-                          parameters: {});
-
-                      await Routes.navigateToScreen(
-                          Routes.morePage, NavigationType.goNamed, context);
-                    }
-                  },
-                ),
+        navigatorKey: navigationBarKey,
+        parentNavigatorKey: rootNavigatorKey,
+        routes: [
+          GoRoute(
+            parentNavigatorKey: navigationBarKey,
+            path: homePage,
+            name: homePage,
+            pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+              context,
+              state,
+              HomePage(
+                cartBloc: getIt(),
+                contactUsBloc: getIt(),
+                homeBloc: getIt(),
+                updateProfileBloc: getIt(),
+                productCategoryBloc: getIt(),
               ),
-            );
-          }),
+            ),
+          ),
+          GoRoute(
+            parentNavigatorKey: navigationBarKey,
+            path: offersPage,
+            name: offersPage,
+            pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+              context,
+              state,
+              OffersPage(homeBloc: getIt()),
+            ),
+          ),
+          GoRoute(
+            parentNavigatorKey: navigationBarKey,
+            path: cartPage,
+            name: cartPage,
+            pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+              context,
+              state,
+              CartPage(cartBloc: getIt(), productCategoryBloc: getIt()),
+            ),
+          ),
+          GoRoute(
+            parentNavigatorKey: navigationBarKey,
+            path: morePage,
+            name: morePage,
+            pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+              context,
+              state,
+              MorePage(
+                contactUsBloc: getIt(),
+                moreBloc: getIt(),
+                productCategoryBloc: getIt(),
+              ),
+            ),
+          ),
+          GoRoute(
+            path: favouritePage,
+            name: favouritePage,
+            parentNavigatorKey: navigationBarKey,
+            pageBuilder: (context, state) {
+              return _fadeTransitionScreenWrapper(
+                context,
+                state,
+                favouriteWidget,
+              );
+            },
+          ),
+
+          GoRoute(
+            path: mostSellingPage,
+            name: mostSellingPage,
+            parentNavigatorKey: navigationBarKey,
+            pageBuilder: (context, state) {
+              return _fadeTransitionScreenWrapper(
+                context,
+                state,
+                MostSellingPage(),
+              );
+            },
+          ),
+          GoRoute(
+            path: productCategoryPage,
+            name: productCategoryPage,
+            parentNavigatorKey: navigationBarKey,
+            pageBuilder: (context, state) {
+              return _fadeTransitionScreenWrapper(
+                context,
+                state,
+                ProductCategoryPage(
+                  homeBloc: getIt(),
+                  contactUsBloc: getIt(),
+                  productCategoryBloc: getIt(),
+                  cartBloc: getIt(),
+                  isForFavourite: false,
+                ),
+              );
+            },
+          ),
+        ],
+        builder: (context, state, child) {
+          return PopScope(
+            canPop: false,
+            child: Scaffold(
+              body: child,
+              bottomNavigationBar: CustomNavigationBar(
+                onTap: (index) async {
+                  if (index == 0 && currentNavigationPage != Routes.homePage) {
+                    currentNavigationPage = Routes.homePage;
+                    FirebaseAnalyticsUtil().logEvent(
+                      FirebaseAnalyticsEventsNames.view_home_screen,
+                      parameters: {},
+                    );
+
+                    await Routes.navigateToScreen(
+                      Routes.homePage,
+                      NavigationType.goNamed,
+                      context,
+                    );
+                  } else if (index == 1 &&
+                      currentNavigationPage != Routes.favouritePage) {
+                    currentNavigationPage = Routes.favouritePage;
+
+                    FirebaseAnalyticsUtil().logEvent(
+                      FirebaseAnalyticsEventsNames.view_favourite_screen,
+                      parameters: {},
+                    );
+
+                    getIt<HomeBloc>().reset();
+                    getIt<ProductCategoryBloc>().disposeReset();
+
+                    await Routes.navigateToScreen(
+                      Routes.favouritePage,
+                      NavigationType.goNamed,
+                      context,
+                    );
+                  } else if (index == 2) {
+                    currentNavigationPage = Routes.offersPage;
+                    FirebaseAnalyticsUtil().logEvent(
+                      FirebaseAnalyticsEventsNames.view_offers_screen,
+                      parameters: {},
+                    );
+
+                    await Routes.navigateToScreen(
+                      Routes.offersPage,
+                      NavigationType.goNamed,
+                      context,
+                    );
+                  } else if (index == 3) {
+                    currentNavigationPage = Routes.cartPage;
+                    FirebaseAnalyticsUtil().logEvent(
+                      FirebaseAnalyticsEventsNames.view_cart_screen,
+                      parameters: {},
+                    );
+
+                    await Routes.navigateToScreen(
+                      Routes.cartPage,
+                      NavigationType.goNamed,
+                      context,
+                    );
+                  } else if (index == 4) {
+                    currentNavigationPage = Routes.morePage;
+
+                    FirebaseAnalyticsUtil().logEvent(
+                      FirebaseAnalyticsEventsNames.view_more_screen,
+                      parameters: {},
+                    );
+
+                    await Routes.navigateToScreen(
+                      Routes.morePage,
+                      NavigationType.goNamed,
+                      context,
+                    );
+                  }
+                },
+              ),
+            ),
+          );
+        },
+      ),
     ],
   );
 
@@ -437,23 +455,33 @@ class Routes {
 
     switch (navigationType) {
       case NavigationType.pushNamed:
-        await GoRouter.of(context).pushNamed(screenName,
-            queryParameters: queryParameters ?? {}, extra: extra);
+        await GoRouter.of(context).pushNamed(
+          screenName,
+          queryParameters: queryParameters ?? {},
+          extra: extra,
+        );
         break;
 
       case NavigationType.goNamed:
-        GoRouter.of(context).goNamed(screenName,
-            queryParameters: queryParameters ?? {}, extra: extra);
+        GoRouter.of(context).goNamed(
+          screenName,
+          queryParameters: queryParameters ?? {},
+          extra: extra,
+        );
         break;
 
       case NavigationType.pushReplacementNamed:
-        await GoRouter.of(context).pushReplacementNamed(screenName,
-            queryParameters: queryParameters ?? {}, extra: extra);
+        await GoRouter.of(context).pushReplacementNamed(
+          screenName,
+          queryParameters: queryParameters ?? {},
+          extra: extra,
+        );
         break;
 
       default:
-        GoRouter.of(context)
-            .goNamed(screenName, queryParameters: queryParameters ?? {});
+        GoRouter.of(
+          context,
+        ).goNamed(screenName, queryParameters: queryParameters ?? {});
         break;
     }
   }
@@ -469,16 +497,24 @@ class Routes {
   }
 
   static CustomTransitionPage<dynamic> _fadeTransitionScreenWrapper(
-      BuildContext context, dynamic state, Widget screen) {
+    BuildContext context,
+    dynamic state,
+    Widget screen,
+  ) {
     return CustomTransitionPage(
       transitionDuration: const Duration(milliseconds: 500),
-      transitionsBuilder: (BuildContext context, Animation<double> animation,
-          Animation<double> secondaryAnimation, Widget child) {
-        return FadeTransition(
-          opacity: CurveTween(curve: Curves.linear).animate(animation),
-          child: child,
-        );
-      },
+      transitionsBuilder:
+          (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            return FadeTransition(
+              opacity: CurveTween(curve: Curves.linear).animate(animation),
+              child: child,
+            );
+          },
       key: state.pageKey,
       child: screen,
     );

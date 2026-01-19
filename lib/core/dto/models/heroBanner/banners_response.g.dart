@@ -14,7 +14,4 @@ BannersResponse _$BannersResponseFromJson(Map<String, dynamic> json) =>
           .toList();
 
 Map<String, dynamic> _$BannersResponseToJson(BannersResponse instance) =>
-    <String, dynamic>{
-      'count': instance.count,
-      'banners': instance.bannerList,
-    };
+    <String, dynamic>{'count': instance.count, 'banners': instance.bannerList};

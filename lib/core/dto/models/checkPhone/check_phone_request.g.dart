@@ -7,11 +7,7 @@ part of 'check_phone_request.dart';
 // **************************************************************************
 
 CheckPhoneRequest _$CheckPhoneRequestFromJson(Map<String, dynamic> json) =>
-    CheckPhoneRequest(
-      json['phone'] as String,
-    );
+    CheckPhoneRequest(json['phone'] as String);
 
 Map<String, dynamic> _$CheckPhoneRequestToJson(CheckPhoneRequest instance) =>
-    <String, dynamic>{
-      'phone': instance.phone,
-    };
+    <String, dynamic>{'phone': instance.phone};

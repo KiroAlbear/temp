@@ -44,7 +44,7 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
           CustomText(
               text: S.of(context).password,
               customTextStyle:
-                  MediumStyle(fontSize: 16.sp, color: darkSecondaryColor)),
+                  MediumStyle(fontSize: 16.sp, color: secondaryColor)),
           SizedBox(
             height: 12.h,
           ),
@@ -59,8 +59,8 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
                   ),
                   CustomText(
                       text: S.of(context).confirmPassword,
-                      customTextStyle: MediumStyle(
-                          color: darkSecondaryColor, fontSize: 16.sp)),
+                      customTextStyle:
+                          MediumStyle(color: secondaryColor, fontSize: 16.sp)),
                   SizedBox(
                     height: 12.h,
                   ),

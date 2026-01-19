@@ -12,8 +12,9 @@ CartEditRequest _$CartEditRequestFromJson(Map<String, dynamic> json) =>
       company_id: (json['company_id'] as num?)?.toInt(),
       apply_auto_promo: json['apply_auto_promo'] as String?,
       order_line: (json['order_line'] as List<dynamic>?)
-          ?.map((e) =>
-              CartOrderLineEditRequest.fromJson(e as Map<String, dynamic>))
+          ?.map(
+            (e) => CartOrderLineEditRequest.fromJson(e as Map<String, dynamic>),
+          )
           .toList(),
     );
 
