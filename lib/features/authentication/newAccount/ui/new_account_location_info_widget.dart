@@ -149,6 +149,7 @@ class _NewAccountLocationInfoWidgetState
           ],
         ),
       ),
+
       SizedBox(width: 9.w),
       Expanded(
         child: Column(
