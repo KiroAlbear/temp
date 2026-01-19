@@ -49,9 +49,16 @@ class _HomeWidgetState extends BaseState<HomePage> {
   void initState() {
     super.initState();
     customBackgroundColor = Colors.white;
-    widget.cartBloc.getMyCart(onGettingCart: () {
+
+    if(SharedPrefModule().bearerToken != null &&
+        SharedPrefModule().bearerToken!.isNotEmpty){
+      widget.cartBloc.getMyCart(onGettingCart: () {
+        getIt<MostSellingBloc>().getMostSelling();
+      },);
+    }else {
       getIt<MostSellingBloc>().getMostSelling();
-    },);
+    }
+
     widget.homeBloc.loadData();
 
 

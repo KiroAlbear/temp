@@ -138,14 +138,14 @@ class _NewAccountLocationInfoWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              text: S.of(context).neighborhood,
+              text: S.of(context).city,
               customTextStyle: MediumStyle(
                 color: secondaryColor,
                 fontSize: 16.sp,
               ),
             ),
             SizedBox(height: 12.h),
-            _districtTextFormFiled,
+            _cityTextFormFiled,
           ],
         ),
       ),
@@ -156,14 +156,14 @@ class _NewAccountLocationInfoWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              text: S.of(context).city,
+              text: S.of(context).neighborhood,
               customTextStyle: MediumStyle(
                 color: secondaryColor,
                 fontSize: 16.sp,
               ),
             ),
             SizedBox(height: 12.h),
-            _cityTextFormFiled,
+            _districtTextFormFiled,
           ],
         ),
       ),
