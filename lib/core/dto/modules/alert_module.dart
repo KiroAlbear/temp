@@ -60,12 +60,12 @@ class AlertModule {
     showModalBottomSheet(
       useRootNavigator: true,
       isScrollControlled: false,
-
-
-
       context: context, builder: (context) {
-      return ContactUsWidget(
-        contactUsBloc: contactUsBloc,
+      return Padding(
+        padding:AppConstants.isHavingBottomPadding? const EdgeInsets.only(bottom: 32.0):EdgeInsets.zero,
+        child: ContactUsWidget(
+          contactUsBloc: contactUsBloc,
+        ),
       );
     },);
 

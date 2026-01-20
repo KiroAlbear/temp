@@ -18,9 +18,16 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-    top: false,
-    child: ScreenUtilInit(
+  Widget build(BuildContext context) {
+
+    final padding = MediaQuery.of(context).padding;
+    AppConstants.isHavingBottomPadding = padding.bottom > 20;
+
+
+        return SafeArea(
+        top: false,
+        bottom: false,
+        child: ScreenUtilInit(
           minTextAdapt: true,
           splitScreenMode: true,
           designSize: const Size(393, 852),
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
             return _materialApp(context);
           },
         ),
-  );
+      );}
 
   Widget _materialApp(BuildContext context) => MaterialApp.router(
 

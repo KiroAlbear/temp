@@ -56,6 +56,12 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   }
 
   @override
+  void onPopInvoked(didPop) {
+    changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
+  }
+
+  @override
   void dispose() {
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.idle);
     _fawryCallbackResultStream?.cancel();
@@ -141,6 +147,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           }
                         }),
                     49.verticalSpace,
+                    AppConstants.isHavingBottomPadding?18.verticalSpace:0.verticalSpace,
                   ],
                 ),
               ),

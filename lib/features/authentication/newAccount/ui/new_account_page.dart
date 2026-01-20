@@ -143,8 +143,11 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                       },
                     ),
                   ),
+                  AppConstants.isHavingBottomPadding?SizedBox(height: 32,):SizedBox(),
                 ],
               ),
+
+
               OverlayLoadingWidget(
                 showOverlayLoading: _loadingNotifier,
               ),

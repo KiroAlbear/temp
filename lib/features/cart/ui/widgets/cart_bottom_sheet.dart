@@ -140,7 +140,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   }
                 }),
           ),
-          18.verticalSpace,
+          AppConstants.isHavingBottomPadding?43.verticalSpace:18.verticalSpace,
         ],
       ),
     );
