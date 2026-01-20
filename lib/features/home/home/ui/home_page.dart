@@ -43,7 +43,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
   bool canPop() => false;
 
   @override
-  bool isSafeArea() => true;
+  bool isSafeArea() => false;
 
   @override
   void initState() {
