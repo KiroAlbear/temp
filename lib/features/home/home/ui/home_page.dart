@@ -10,6 +10,8 @@ import '../../../../core/Utils/firebase_analytics_events_names.dart';
 import '../../../../core/Utils/firebase_analytics_utl.dart';
 import 'dart:math' as math;
 
+import '../../../../core/ui/new_section_widget.dart';
+
 class HomePage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
   final CartBloc cartBloc;
@@ -153,57 +155,30 @@ class _HomeWidgetState extends BaseState<HomePage> {
           return SizedBox(height: 90.h);
         }
 
-        return Container(
-          color: mostSellingBackgroundColor,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.only(
-                  start: 16,
-                  end: 16,
-                  top: 20,
-                ),
-                child: _buildMostSellingHeader(),
-              ),
-              SizedBox(height: 10),
-              checkResponseStateWithLoadingWidget(
-                onSuccessFunction: () {},
-                snapshot.data ?? LoadingState<List<ProductMapper>>(),
-                context,
-                onSuccess: ProductListWidget(
-                  scrollPhysics: NeverScrollableScrollPhysics(),
-                  isForFavourite: false,
-                  deleteIcon: Assets.svg.icDelete,
-                  emptyFavouriteScreen: Assets.svg.emptyFavourite,
-                  cartBloc: widget.cartBloc,
-                  productCategoryBloc: getIt<ProductCategoryBloc>(),
-                  productList: snapshot.data?.response ?? [],
-                  isHorizontalListView: true,
-                  favouriteIcon: Assets.svg.icFavourite,
-                  favouriteIconFilled: Assets.svg.icFavouriteFilled,
-                  onTapFavourite: (favourite, productMapper) {},
-                  loadMore: (Function func) {
-                    // _loadProducts(false, func);
-                  },
-                ),
-              ),
-            ],
+        return NewSectionWidget(
+          title: "الأكثر طلباً",
+          child: checkResponseStateWithLoadingWidget(
+            onSuccessFunction: () {},
+            snapshot.data ?? LoadingState<List<ProductMapper>>(),
+            context,
+            onSuccess: ProductListWidget(
+              scrollPhysics: NeverScrollableScrollPhysics(),
+              isForFavourite: false,
+              deleteIcon: Assets.svg.icDelete,
+              emptyFavouriteScreen: Assets.svg.emptyFavourite,
+              cartBloc: widget.cartBloc,
+              productCategoryBloc: getIt<ProductCategoryBloc>(),
+              productList: snapshot.data?.response ?? [],
+              isHorizontalListView: true,
+              favouriteIcon: Assets.svg.icFavourite,
+              favouriteIconFilled: Assets.svg.icFavouriteFilled,
+              onTapFavourite: (favourite, productMapper) {},
+              loadMore: (Function func) {
+                // _loadProducts(false, func);
+              },
+            ),
           ),
-        );
-      },
-    );
-  }
-
-  Row _buildMostSellingHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CustomText(
-          text: "الأكثر طلباً",
-          customTextStyle: BoldStyle(color: secondaryColor, fontSize: 22),
-        ),
-        InkWell(
-          onTap: () {
+          onViewAllTapped: () {
             Routes.navigateToScreen(
               Routes.mostSellingPage,
               NavigationType.goNamed,
@@ -211,28 +186,8 @@ class _HomeWidgetState extends BaseState<HomePage> {
               setBottomNavigationTab: true,
             );
           },
-          child: Row(
-            children: [
-              CustomText(
-                text: "عرض الكل",
-                customTextStyle: BoldStyle(color: secondaryColor, fontSize: 12),
-              ),
-              SizedBox(width: 12),
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: Transform.rotate(
-                  angle: 45 * (3.141592653589793 / 2),
-                  child: ImageHelper(
-                    image: Assets.svg.icDropDownArrow,
-                    imageType: ImageType.svg,
-                  ),
-                ),
-              ),
-              // Icon(Icons.arrow_forward_ios, size: 10, weight: 100),
-            ],
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 
