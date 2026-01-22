@@ -57,7 +57,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
     widget.homeBloc.selectedOffer = null;
     getIt<MostSellingBloc>().getMostSelling();
     changeSystemNavigationBarColor(secondaryColor);
-    super.onPopInvoked(didPop);
+
+    if (widget.isForFavourite) {
+      Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+    } else {
+      super.onPopInvoked(didPop);
+    }
   }
 
   @override
@@ -486,69 +491,68 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                             ),
                             SliverFillRemaining(
                               hasScrollBody: true,
-                              child: StreamBuilder<ApiState<List<ProductMapper>>>(
-                                stream: widget
-                                    .productCategoryBloc
-                                    .loadedListStream,
-                                initialData: LoadingState(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    if (snapshot.data!.response != null &&
-                                        snapshot.data!.response!.isEmpty) {
-                                      if (widget.isForFavourite) {
-                                        return EmptyFavouriteProducts(
+                              child:
+                                  StreamBuilder<ApiState<List<ProductMapper>>>(
+                                    stream: widget
+                                        .productCategoryBloc
+                                        .loadedListStream,
+                                    initialData: LoadingState(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        if (snapshot.data!.response != null &&
+                                            snapshot.data!.response!.isEmpty) {
+                                          if (widget.isForFavourite) {
+                                            return EmptyFavouriteProducts(
+                                              emptyFavouriteScreen:
+                                                  Assets.svg.emptyFavourite,
+                                            );
+                                          } else {
+                                            return Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                ImageHelper(
+                                                  image: Assets.svg.icNotFound,
+                                                  imageType: ImageType.svg,
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                        }
+                                      }
+                                      return checkResponseStateWithLoadingWidget(
+                                        onSuccessFunction: () {},
+                                        snapshot.data ??
+                                            LoadingState<List<ProductMapper>>(),
+                                        context,
+                                        onSuccess: ProductListWidget(
+                                          isForFavourite: widget.isForFavourite,
+                                          deleteIcon: Assets.svg.icDelete,
                                           emptyFavouriteScreen:
                                               Assets.svg.emptyFavourite,
-                                        );
-                                      } else {
-                                        return Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          children: [
-                                            ImageHelper(
-                                              image: Assets.svg.icNotFound,
-                                              imageType: ImageType.svg,
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                    }
-                                  }
-                                  return checkResponseStateWithLoadingWidget(
-                                    onSuccessFunction: () {},
-                                    snapshot.data ??
-                                        LoadingState<List<ProductMapper>>(),
-                                    context,
-                                    onSuccess: ProductListWidget(
-                                      isForFavourite: widget.isForFavourite,
-                                      deleteIcon: Assets.svg.icDelete,
-                                      emptyFavouriteScreen:
-                                          Assets.svg.emptyFavourite,
-                                      cartBloc: widget.cartBloc,
-                                      productCategoryBloc:
-                                          widget.productCategoryBloc,
-                                      productList:
-                                          snapshot.data?.response ?? [],
-                                      favouriteIcon: Assets.svg.icFavourite,
-                                      favouriteIconFilled:
-                                          Assets.svg.icFavouriteFilled,
-                                      onTapFavourite:
-                                          (favourite, productMapper) {},
-                                      loadMore: (Function func) {
-                                        if (widget.isForFavourite)
-                                          widget.productCategoryBloc.loadMore(
-                                            true,
-                                            func,
-                                          );
-                                        else
-                                          _loadProducts(false, func);
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                                          cartBloc: widget.cartBloc,
+                                          productCategoryBloc:
+                                              widget.productCategoryBloc,
+                                          productList:
+                                              snapshot.data?.response ?? [],
+                                          favouriteIcon: Assets.svg.icFavourite,
+                                          favouriteIconFilled:
+                                              Assets.svg.icFavouriteFilled,
+                                          onTapFavourite:
+                                              (favourite, productMapper) {},
+                                          loadMore: (Function func) {
+                                            if (widget.isForFavourite)
+                                              widget.productCategoryBloc
+                                                  .loadMore(true, func);
+                                            else
+                                              _loadProducts(false, func);
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
                             ),
                           ],
                         ),

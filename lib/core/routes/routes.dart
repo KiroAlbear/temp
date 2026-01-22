@@ -73,7 +73,7 @@ class Routes {
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context,
           state,
-          F.appFlavor == Flavor.app_stage ? NewAccountPage() : SplashScreen(),
+          F.appFlavor == Flavor.app_stage ? SplashScreen() : SplashScreen(),
         ),
       ),
       GoRoute(
