@@ -50,18 +50,18 @@ class _HomeWidgetState extends BaseState<HomePage> {
     super.initState();
     customBackgroundColor = Colors.white;
 
-    if(SharedPrefModule().bearerToken != null &&
-        SharedPrefModule().bearerToken!.isNotEmpty){
-      widget.cartBloc.getMyCart(onGettingCart: () {
-        getIt<MostSellingBloc>().getMostSelling();
-      },);
-    }else {
+    if (SharedPrefModule().bearerToken != null &&
+        SharedPrefModule().bearerToken!.isNotEmpty) {
+      widget.cartBloc.getMyCart(
+        onGettingCart: () {
+          getIt<MostSellingBloc>().getMostSelling();
+        },
+      );
+    } else {
       getIt<MostSellingBloc>().getMostSelling();
     }
 
     widget.homeBloc.loadData();
-
-
 
     widget.updateProfileBloc.loadDeliveryAddress(
       SharedPrefModule().userId ?? '0',
@@ -177,7 +177,8 @@ class _HomeWidgetState extends BaseState<HomePage> {
                   emptyFavouriteScreen: Assets.svg.emptyFavourite,
                   cartBloc: widget.cartBloc,
                   productCategoryBloc: getIt<ProductCategoryBloc>(),
-                  productList: snapshot.data?.response?.sublist(0, 2) ?? [],
+                  productList: snapshot.data?.response ?? [],
+                  isHorizontalListView: true,
                   favouriteIcon: Assets.svg.icFavourite,
                   favouriteIconFilled: Assets.svg.icFavouriteFilled,
                   onTapFavourite: (favourite, productMapper) {},
@@ -204,8 +205,11 @@ class _HomeWidgetState extends BaseState<HomePage> {
         InkWell(
           onTap: () {
             Routes.navigateToScreen(
-                Routes.mostSellingPage, NavigationType.goNamed, context,
-                setBottomNavigationTab: true);
+              Routes.mostSellingPage,
+              NavigationType.goNamed,
+              context,
+              setBottomNavigationTab: true,
+            );
           },
           child: Row(
             children: [
@@ -271,8 +275,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
       height: 26.h,
     ),
   );
-
-
 
   @override
   void dispose() {

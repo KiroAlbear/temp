@@ -14,6 +14,7 @@ class ProductListWidget extends StatefulWidget {
   final String emptyFavouriteScreen;
   final bool isForFavourite;
   final ScrollPhysics? scrollPhysics;
+  final bool isHorizontalListView;
 
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
 
@@ -40,6 +41,7 @@ class ProductListWidget extends StatefulWidget {
     required this.emptyFavouriteScreen,
     // required this.onDeleteClicked,
     required this.isForFavourite,
+    this.isHorizontalListView = false,
     this.scrollPhysics,
     // this.onDecrementClicked,
     // this.onIncrementClicked,
@@ -104,80 +106,11 @@ class _ProductListWidgetState extends State<ProductListWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 16.w,
                   vertical: widget.isForFavourite ? 0 : 18.h,
                 ),
-                child: GridView.builder(
-                  padding: EdgeInsets.zero,
-                  physics: widget.scrollPhysics,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 11.w,
-                    mainAxisSpacing: 11.h,
-                    mainAxisExtent: 220.h,
-                  ),
-                  itemBuilder: (context, index) => ProductWidget(
-                    key: ValueKey(index),
-                    icDelete: widget.deleteIcon,
-                    onProductRemoved: (int productId) {
-                      resetFavouriteList(productId);
-                      refreshNotifier.value = !refreshNotifier.value;
-                    },
-                    cartBloc: widget.cartBloc,
-                    productCategoryBloc: widget.productCategoryBloc,
-                    productMapper: widget.isForFavourite
-                        ? favouriteList[index]
-                        : widget.productList[index],
-                    onAddToCart: (productMapper) {
-                      widget.showOverlayLoading.value = true;
-                      widget.cartBloc.onAddToCart(
-                        productMapper,
-                        widget.productList,
-                        () {
-                          widget.showOverlayLoading.value = false;
-                        },
-                      );
-                    },
-                    favouriteIcon: widget.favouriteIcon,
-                    onTapFavourite: widget.onTapFavourite,
-                    onDeleteClicked: (productMapper) {
-                      widget.showOverlayLoading.value = true;
-                      widget.cartBloc.onDeleteFromCart(
-                        productMapper,
-                        widget.productList,
-                        () {
-                          widget.showOverlayLoading.value = false;
-                        },
-                      );
-                    },
-                    onIncrementClicked: (productMapper) {
-                      widget.showOverlayLoading.value = true;
-                      widget.cartBloc.onDecrementIncrement(
-                        productMapper,
-                        widget.productList,
-                        () {
-                          widget.showOverlayLoading.value = false;
-                        },
-                      );
-                    },
-                    onDecrementClicked: (productMapper) {
-                      widget.showOverlayLoading.value = true;
-                      widget.cartBloc.onDecrementIncrement(
-                        productMapper,
-                        widget.productList,
-                        () {
-                          widget.showOverlayLoading.value = false;
-                        },
-                      );
-                    },
-                    favouriteIconFilled: widget.favouriteIconFilled,
-                  ),
-                  itemCount: widget.isForFavourite
-                      ? favouriteList.length
-                      : widget.productList.length,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                ),
+                child: widget.isHorizontalListView
+                    ? _buildHorizontalListView()
+                    : _buildGridView(),
               ),
               Positioned(
                 top: 0,
@@ -194,4 +127,101 @@ class _ProductListWidgetState extends State<ProductListWidget> {
       },
     ),
   );
+
+  GridView _buildGridView() {
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      physics: widget.scrollPhysics,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 11.w,
+        mainAxisSpacing: 11.h,
+        mainAxisExtent: 220.h,
+      ),
+      itemBuilder: (context, index) => _buildProductWidget(index),
+      itemCount: widget.isForFavourite
+          ? favouriteList.length
+          : widget.productList.length,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+    );
+  }
+
+  Widget _buildHorizontalListView() {
+    return SizedBox(
+      height: 220,
+      child: ListView.separated(
+        separatorBuilder: (context, index) {
+          return SizedBox(width: 12.w);
+        },
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.productList.length <= 16
+            ? widget.productList.length
+            : 16,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Row(
+            children: [
+              index == 0 ? SizedBox(width: 16.w) : SizedBox(),
+              SizedBox(width: 165, child: _buildProductWidget(index)),
+              index == widget.productList.length - 1
+                  ? SizedBox(width: 16.w)
+                  : SizedBox(),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  ProductWidget _buildProductWidget(int index) {
+    return ProductWidget(
+      key: ValueKey(index),
+      icDelete: widget.deleteIcon,
+      onProductRemoved: (int productId) {
+        resetFavouriteList(productId);
+        refreshNotifier.value = !refreshNotifier.value;
+      },
+      cartBloc: widget.cartBloc,
+      productCategoryBloc: widget.productCategoryBloc,
+      productMapper: widget.isForFavourite
+          ? favouriteList[index]
+          : widget.productList[index],
+      onAddToCart: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onAddToCart(productMapper, widget.productList, () {
+          widget.showOverlayLoading.value = false;
+        });
+      },
+      favouriteIcon: widget.favouriteIcon,
+      onTapFavourite: widget.onTapFavourite,
+      onDeleteClicked: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onDeleteFromCart(productMapper, widget.productList, () {
+          widget.showOverlayLoading.value = false;
+        });
+      },
+      onIncrementClicked: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onDecrementIncrement(
+          productMapper,
+          widget.productList,
+          () {
+            widget.showOverlayLoading.value = false;
+          },
+        );
+      },
+      onDecrementClicked: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onDecrementIncrement(
+          productMapper,
+          widget.productList,
+          () {
+            widget.showOverlayLoading.value = false;
+          },
+        );
+      },
+      favouriteIconFilled: widget.favouriteIconFilled,
+    );
+  }
 }

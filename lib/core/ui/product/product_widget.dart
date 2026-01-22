@@ -343,7 +343,6 @@ class _ProductWidgetState extends State<ProductWidget> {
     imageType: ImageType.svg,
     width: 24.w,
     height: 24.h,
-    color: widget.productMapper.isFavourite ? null : secondaryColor,
   );
 
   Widget get _productImage => Center(
