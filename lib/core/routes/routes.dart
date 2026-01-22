@@ -70,8 +70,11 @@ class Routes {
         path: splashScreen,
         name: splashScreen,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) =>
-            _fadeTransitionScreenWrapper(context, state, SplashScreen()),
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          F.appFlavor == Flavor.app_stage ? NewAccountPage() : SplashScreen(),
+        ),
       ),
       GoRoute(
         path: barcodePage,

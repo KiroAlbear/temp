@@ -96,7 +96,7 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
     String city,
     String area,
     String address,
-  ) {
+  ) async {
     // ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     widget.newAccountBloc.longitude = longitude;
     widget.newAccountBloc.latitude = latitude;
@@ -121,6 +121,8 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
         break;
       }
     }
+
+    await widget.newAccountBloc.pickLocationInfo();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.pop(context);

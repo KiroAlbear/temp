@@ -207,7 +207,7 @@ class _NewAccountLocationInfoWidgetState
       dropDownList: list,
       hasImage: false,
       onSelect: (value) {
-        widget.newAccountBloc.getDistricts(int.tryParse(value.id) ?? -1);
+        widget.newAccountBloc.getDistricts(int.tryParse(value.id) ?? -1, []);
         widget.newAccountBloc.selectedState = value;
         widget.newAccountBloc.cityBloc.textFormFiledBehaviour.sink.add(
           TextEditingController(text: value.name),
