@@ -6,8 +6,8 @@ import '../models/recommended_items_request_model.dart';
 import '../remote/recommended_items_remote.dart';
 
 class RecommendedItemsBloc extends BlocBase with ResponseHandlerModule {
-  final BehaviorSubject<ApiState<List<ProductMapper>>> mostSellingBehaviour =
-      BehaviorSubject()..sink.add(LoadingState());
+  final BehaviorSubject<ApiState<List<ProductMapper>>>
+  recommendedItemsBehaviour = BehaviorSubject()..sink.add(LoadingState());
 
   int pageNumber = 1;
   final pageSize = 16;
@@ -37,13 +37,13 @@ class RecommendedItemsBloc extends BlocBase with ResponseHandlerModule {
       if (loadMore) {
         if (event is SuccessState) {
           List<ProductMapper> oldList =
-              mostSellingBehaviour.value.response ?? [];
+              recommendedItemsBehaviour.value.response ?? [];
           oldList.addAll(event.response ?? []);
           event.response = oldList;
-          mostSellingBehaviour.sink.add(event);
+          recommendedItemsBehaviour.sink.add(event);
         }
       } else {
-        mostSellingBehaviour.sink.add(event);
+        recommendedItemsBehaviour.sink.add(event);
       }
     });
   }

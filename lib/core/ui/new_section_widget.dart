@@ -19,16 +19,12 @@ class NewSectionWidget extends StatelessWidget {
     return Container(
       color: mostSellingBackgroundColor,
       child: Column(
-        children: [
-          _buildMostSellingHeader(context),
-          SizedBox(height: 10),
-          child,
-        ],
+        children: [_buildSectionHeader(context), SizedBox(height: 10), child],
       ),
     );
   }
 
-  Widget _buildMostSellingHeader(BuildContext context) {
+  Widget _buildSectionHeader(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 16, end: 16, top: 20),
       child: Row(

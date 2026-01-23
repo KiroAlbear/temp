@@ -341,6 +341,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         ? widget.favouriteIconFilled!
         : widget.favouriteIcon!,
     imageType: ImageType.svg,
+    color: redColor,
     width: 24.w,
     height: 24.h,
   );

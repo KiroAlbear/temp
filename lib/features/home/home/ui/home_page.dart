@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:deel/deel.dart';
 import 'package:deel/features/most_selling/bloc/most_selling_bloc.dart';
+import 'package:deel/features/recommended_items/bloc/recommended_items_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -11,6 +12,7 @@ import '../../../../core/Utils/firebase_analytics_utl.dart';
 import 'dart:math' as math;
 
 import '../../../../core/ui/new_section_widget.dart';
+import '../../../recommended_items/ui/widget/recommended_item_widget.dart';
 
 class HomePage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
@@ -57,10 +59,12 @@ class _HomeWidgetState extends BaseState<HomePage> {
       widget.cartBloc.getMyCart(
         onGettingCart: () {
           getIt<MostSellingBloc>().getMostSelling();
+          getIt<RecommendedItemsBloc>().getRecommendedItems();
         },
       );
     } else {
       getIt<MostSellingBloc>().getMostSelling();
+      getIt<RecommendedItemsBloc>().getRecommendedItems();
     }
 
     widget.homeBloc.loadData();
@@ -88,6 +92,8 @@ class _HomeWidgetState extends BaseState<HomePage> {
         ),
       ),
       SliverToBoxAdapter(child: HeroBannersWidget(homeBloc: widget.homeBloc)),
+      SliverToBoxAdapter(child: SizedBox(height: 16.h)),
+      SliverToBoxAdapter(child: _recommendedProducts()),
       SliverToBoxAdapter(child: SizedBox(height: 20.h)),
       SliverToBoxAdapter(
         child: Padding(
@@ -98,6 +104,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
           ),
         ),
       ),
+
       SliverToBoxAdapter(
         child: StreamBuilder<ApiState<List<OfferMapper>>>(
           stream: widget.homeBloc.offersStream,
@@ -182,6 +189,58 @@ class _HomeWidgetState extends BaseState<HomePage> {
             Routes.navigateToScreen(
               Routes.mostSellingPage,
               NavigationType.goNamed,
+              context,
+              setBottomNavigationTab: true,
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _recommendedProducts() {
+    return StreamBuilder<ApiState<List<ProductMapper>>>(
+      stream: getIt<RecommendedItemsBloc>().recommendedItemsBehaviour.stream,
+      initialData: LoadingState(),
+      builder: (context, snapshot) {
+        if ((snapshot.hasData &&
+            snapshot.data!.response != null &&
+            snapshot.data!.response!.isEmpty)) {
+          return SizedBox(height: 90.h);
+        }
+
+        return NewSectionWidget(
+          title: "خصيصاً لمتجرك",
+          child: checkResponseStateWithLoadingWidget(
+            onSuccessFunction: () {},
+            snapshot.data ?? LoadingState<List<ProductMapper>>(),
+            context,
+            onSuccess: Padding(
+              padding: const EdgeInsets.only(bottom: 28.0),
+              child: SizedBox(
+                height: 75.h,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return SizedBox(width: 10.w);
+                  },
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: snapshot.data?.response?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return RecommendedItemWidget(
+                      product: snapshot.data!.response![index],
+                      isFirstItem: index == 0,
+                      isLastItem: index == snapshot.data!.response!.length - 1,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          onViewAllTapped: () {
+            Routes.navigateToScreen(
+              Routes.recommendedItemsPage,
+              NavigationType.pushNamed,
               context,
               setBottomNavigationTab: true,
             );

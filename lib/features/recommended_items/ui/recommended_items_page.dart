@@ -1,21 +1,16 @@
-import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/announcements/bloc/announcements_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
-
-import '../../../../core/generated/l10n.dart';
 import '../bloc/recommended_items_bloc.dart';
 
 class RecommendedItemsPage extends BaseStatefulWidget {
   RecommendedItemsPage({super.key});
 
   @override
-  State<RecommendedItemsPage> createState() => _ProductCategoryWidgetState();
+  State<RecommendedItemsPage> createState() => _RecommendedItemsPageState();
 }
 
-class _ProductCategoryWidgetState extends BaseState<RecommendedItemsPage> {
+class _RecommendedItemsPageState extends BaseState<RecommendedItemsPage> {
   final double filterHorizontalPadding = 15.h;
 
   @override
@@ -59,26 +54,16 @@ class _ProductCategoryWidgetState extends BaseState<RecommendedItemsPage> {
     children: [
       AppTopWidget(
         isHavingSupport: true,
-        onBackPressed: () {
-          if (Navigator.canPop(context)) {
-            Navigator.pop(context);
-          } else {
-            Routes.navigateToScreen(
-              Routes.homePage,
-              NavigationType.goNamed,
-              context,
-            );
-          }
-        },
+
         isHavingBack: true,
-        title: "الأكثر طلبا",
+        title: "خصيصاً لمتجرك",
       ),
       Expanded(
         child: CustomScrollView(
           slivers: [
             SliverFillRemaining(
               hasScrollBody: true,
-              child: _mostSellingProducts(),
+              child: _recommendedItemsProducts(),
             ),
           ],
         ),
@@ -86,9 +71,9 @@ class _ProductCategoryWidgetState extends BaseState<RecommendedItemsPage> {
     ],
   );
 
-  Widget _mostSellingProducts() {
+  Widget _recommendedItemsProducts() {
     return StreamBuilder<ApiState<List<ProductMapper>>>(
-      stream: getIt<RecommendedItemsBloc>().mostSellingBehaviour.stream,
+      stream: getIt<RecommendedItemsBloc>().recommendedItemsBehaviour.stream,
       initialData: LoadingState(),
       builder: (context, snapshot) {
         if ((snapshot.hasData &&
