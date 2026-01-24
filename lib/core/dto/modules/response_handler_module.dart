@@ -57,6 +57,7 @@ mixin ResponseHandlerModule {
     required Widget onSuccess,
     Function? onSuccessFunction,
     Widget? idleWidget,
+    Widget? loadingWidget,
     bool showError = true,
   }) {
     if (apiState is IdleState) {
@@ -78,7 +79,9 @@ mixin ResponseHandlerModule {
         );
       } else {
         return _getAnimWidget(
-          child: _getLoadingWidget(loaderColor, loaderSize, context),
+          child:
+              loadingWidget ??
+              _getLoadingWidget(loaderColor, loaderSize, context),
         );
       }
     } else if (apiState is SuccessState) {

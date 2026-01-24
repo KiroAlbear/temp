@@ -90,6 +90,7 @@ dependencies:
   shorebird_code_push: ^2.0.5
   flutter_phoenix: ^1.1.1
   fawry_sdk: ^2.0.18
+  skeletonizer: ^2.1.2
 
 
 dev_dependencies:
