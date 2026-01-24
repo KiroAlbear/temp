@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:deel/deel.dart';
+import 'package:deel/features/home/home/ui/skeletons/product_skeleton.dart';
 import 'package:deel/features/most_selling/bloc/most_selling_bloc.dart';
 import 'package:deel/features/recommended_items/bloc/recommended_items_bloc.dart';
 import 'package:flutter/material.dart';
