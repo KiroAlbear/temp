@@ -8,25 +8,27 @@ class RecommendedItemsSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
-      child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(width: 10.w),
-        itemCount: 4,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Skeletonizer.zone(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
+      height: 100,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 28.0),
+        child: ListView.separated(
+          separatorBuilder: (context, index) => SizedBox(width: 10.w),
+          itemCount: 4,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return Skeletonizer.zone(
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Bone(
+                  borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                  width: 170.w,
+                ),
               ),
-              child: Bone(
-                borderRadius: BorderRadius.all(Radius.circular(12.r)),
-                width: 280,
-                height: 200,
-              ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

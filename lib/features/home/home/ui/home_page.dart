@@ -13,6 +13,7 @@ import 'dart:math' as math;
 
 import '../../../../core/ui/new_section_widget.dart';
 import '../../../recommended_items/ui/widget/recommended_item_widget.dart';
+import 'skeletons/recommended_items_skeleton.dart';
 
 class HomePage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
@@ -206,14 +207,14 @@ class _HomeWidgetState extends BaseState<HomePage> {
       stream: getIt<RecommendedItemsBloc>().recommendedItemsBehaviour.stream,
       initialData: LoadingState(),
       builder: (context, snapshot) {
-        if ((snapshot.hasData &&
-            snapshot.data!.response != null &&
-            snapshot.data!.response!.isEmpty)) {
-          return SizedBox(height: 90.h);
-        }
-        if (snapshot.data is FailedState) {
-          return SizedBox();
-        }
+        // if ((snapshot.hasData &&
+        //     snapshot.data!.response != null &&
+        //     snapshot.data!.response!.isEmpty)) {
+        //   return SizedBox(height: 0.h);
+        // }
+        // if (snapshot.data is FailedState) {
+        //   return SizedBox();
+        // }
 
         return NewSectionWidget(
           title: "خصيصاً لمتجرك",
@@ -221,24 +222,33 @@ class _HomeWidgetState extends BaseState<HomePage> {
             onSuccessFunction: () {},
             snapshot.data ?? LoadingState<List<ProductMapper>>(),
             context,
+            loadingWidget: RecommendedItemsSkeleton(),
             onSuccess: Padding(
               padding: const EdgeInsets.only(bottom: 28.0),
               child: SizedBox(
                 height: 75.h,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return SizedBox(width: 10.w);
-                  },
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data?.response?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    return RecommendedItemWidget(
-                      product: snapshot.data!.response![index],
-                      isFirstItem: index == 0,
-                      isLastItem: index == snapshot.data!.response!.length - 1,
-                    );
-                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return SizedBox(width: 10.w);
+                        },
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data?.response?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return RecommendedItemWidget(
+                            product: snapshot.data!.response![index],
+                            isFirstItem: index == 0,
+                            isLastItem:
+                                index == snapshot.data!.response!.length - 1,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
