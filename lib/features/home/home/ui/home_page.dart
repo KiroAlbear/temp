@@ -207,14 +207,14 @@ class _HomeWidgetState extends BaseState<HomePage> {
       stream: getIt<RecommendedItemsBloc>().recommendedItemsBehaviour.stream,
       initialData: LoadingState(),
       builder: (context, snapshot) {
-        // if ((snapshot.hasData &&
-        //     snapshot.data!.response != null &&
-        //     snapshot.data!.response!.isEmpty)) {
-        //   return SizedBox(height: 0.h);
-        // }
-        // if (snapshot.data is FailedState) {
-        //   return SizedBox();
-        // }
+        if ((snapshot.hasData &&
+            snapshot.data!.response != null &&
+            snapshot.data!.response!.isEmpty)) {
+          return SizedBox(height: 0.h);
+        }
+        if (snapshot.data is FailedState) {
+          return SizedBox();
+        }
 
         return NewSectionWidget(
           title: "خصيصاً لمتجرك",
