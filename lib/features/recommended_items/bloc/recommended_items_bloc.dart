@@ -29,7 +29,8 @@ class RecommendedItemsBloc extends BlocBase with ResponseHandlerModule {
         pageSize: pageSize,
         sortBy: "OrderNo",
         sortDirection: "asc",
-        companyTypeId: 35,
+        companyTypeId: SharedPrefModule().companyId,
+        token: SharedPrefModule().bearerToken,
       ),
     ).callApiAsStream().listen((event) {
       getIt<CartBloc>().addCartInfoToProducts(event.response ?? []);

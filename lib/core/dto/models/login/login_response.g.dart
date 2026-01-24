@@ -17,7 +17,10 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       ..shop_name = json['shop_name'] as String?
       ..latitude = (json['partner_latitude'] as num?)?.toDouble()
       ..longitude = (json['partner_longitude'] as num?)?.toDouble()
-      ..country_phone_code = (json['country_phone_code'] as num?)?.toInt();
+      ..country_phone_code = (json['country_phone_code'] as num?)?.toInt()
+      ..companyTypeId = json['company_type_id'] == null
+          ? null
+          : CompanyTypeId.fromJson(json['company_type_id'] as List<dynamic>);
 
 Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
     <String, dynamic>{
@@ -31,4 +34,11 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'partner_latitude': instance.latitude,
       'partner_longitude': instance.longitude,
       'country_phone_code': instance.country_phone_code,
+      'company_type_id': instance.companyTypeId,
     };
+
+CompanyTypeId _$CompanyTypeIdFromJson(Map<String, dynamic> json) =>
+    CompanyTypeId(companyId: (json['companyId'] as num?)?.toInt());
+
+Map<String, dynamic> _$CompanyTypeIdToJson(CompanyTypeId instance) =>
+    <String, dynamic>{'companyId': instance.companyId};
