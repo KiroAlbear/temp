@@ -1,4 +1,3 @@
-
 import 'package:deel/core/dto/modules/odoo_dio_module.dart';
 
 import '../../modules/shared_pref_module.dart';
@@ -12,6 +11,7 @@ class LoginMapper {
   late final double lat;
   late final double long;
   late final String shopName;
+  late final int companyId;
 
   String image = '';
 
@@ -24,6 +24,7 @@ class LoginMapper {
       lat = response.latitude ?? 0;
       long = response.longitude ?? 0;
       shopName = response.shop_name ?? '';
+      companyId = response.companyTypeId?.companyId ?? 0;
       if (token.isNotEmpty) {
         SharedPrefModule().bearerToken = token;
         OdooDioModule().setAppHeaders();
@@ -32,6 +33,7 @@ class LoginMapper {
       SharedPrefModule().userLat = lat;
       SharedPrefModule().userLong = long;
       SharedPrefModule().userId = userId.toString();
+      SharedPrefModule().companyId = companyId;
     }
   }
 }

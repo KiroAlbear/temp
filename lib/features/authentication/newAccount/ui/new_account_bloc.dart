@@ -199,13 +199,26 @@ class NewAccountBloc extends BlocBase {
   List<DropDownMapper> get districtList =>
       _districtBehaviour.valueOrNull?.response ?? [];
 
-  void getDistricts(int stateId) {
+  void getDistricts(int stateId, List<String> initialDistrictNames) {
     DistrictRemote(stateId).callApiAsStream().listen((event) {
       _districtBehaviour.sink.add(event);
+      for (var element in event.response ?? []) {
+        for (var initialName in initialDistrictNames) {
+          if (element.name.toLowerCase().contains(initialName.toLowerCase())) {
+            districtBloc.textFormFiledBehaviour.sink.add(
+              TextEditingController(text: element.name),
+            );
+            districtBloc.updateStringBehaviour(element.name);
+            selectedDistrict = element;
+            return;
+          }
+        }
+      }
       districtBloc.textFormFiledBehaviour.sink.add(
-        TextEditingController(text: event.response?.first.name),
+        TextEditingController(text: ""),
       );
-      districtBloc.updateStringBehaviour(event.response?.first.name ?? "");
+      selectedDistrict = null;
+      districtBloc.updateStringBehaviour("");
     });
   }
 
@@ -255,7 +268,10 @@ class NewAccountBloc extends BlocBase {
           cityBloc.updateStringBehaviour(element.name);
 
           selectedState = element;
-          getDistricts(int.tryParse(selectedState!.id) ?? 0);
+          getDistricts(int.tryParse(selectedState!.id) ?? 0, [
+            address['neighbourhood'] ?? '',
+            address['suburb'] ?? '',
+          ]);
 
           break;
         }

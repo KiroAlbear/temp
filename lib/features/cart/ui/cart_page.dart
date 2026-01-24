@@ -39,6 +39,12 @@ class _CartScreenState extends BaseState<CartPage> {
   Color? systemNavigationBarColor() => secondaryColor;
 
   @override
+  void onPopInvoked(didPop) {
+    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+    // super.onPopInvoked(didPop);
+  }
+
+  @override
   void initState() {
     widget.cartBloc.getMyCart();
     super.initState();

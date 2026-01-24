@@ -11,6 +11,7 @@ class _AdminApiKey {
   static const _verifyOtp = 'Sms/VerifyOTP';
   static const _getAnnouncements = 'Announcement/GetListForPublic';
   static const _getMostSelling = 'MostSeller/GetListForPublic';
+  static const _getRecommendedItems = 'RecommendedItem/GetListForPublic';
 
   // static const _sendOtp = 'OTP/SendOTP';
   // static const _verifyOtp = 'OTP/VerifyOTP';

@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:deel/deel.dart';
+import 'package:deel/features/home/home/ui/skeletons/product_skeleton.dart';
 import 'package:deel/features/most_selling/bloc/most_selling_bloc.dart';
+import 'package:deel/features/recommended_items/bloc/recommended_items_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -9,6 +11,10 @@ import '../../../../../core/generated/l10n.dart';
 import '../../../../core/Utils/firebase_analytics_events_names.dart';
 import '../../../../core/Utils/firebase_analytics_utl.dart';
 import 'dart:math' as math;
+
+import '../../../../core/ui/new_section_widget.dart';
+import '../../../recommended_items/ui/widget/recommended_item_widget.dart';
+import 'skeletons/recommended_items_skeleton.dart';
 
 class HomePage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
@@ -50,18 +56,18 @@ class _HomeWidgetState extends BaseState<HomePage> {
     super.initState();
     customBackgroundColor = Colors.white;
 
-    if(SharedPrefModule().bearerToken != null &&
-        SharedPrefModule().bearerToken!.isNotEmpty){
-      widget.cartBloc.getMyCart(onGettingCart: () {
-        getIt<MostSellingBloc>().getMostSelling();
-      },);
-    }else {
+    if (SharedPrefModule().isLoggedIn) {
+      widget.cartBloc.getMyCart(
+        onGettingCart: () {
+          getIt<MostSellingBloc>().getMostSelling();
+          getIt<RecommendedItemsBloc>().getRecommendedItems();
+        },
+      );
+    } else {
       getIt<MostSellingBloc>().getMostSelling();
     }
 
     widget.homeBloc.loadData();
-
-
 
     widget.updateProfileBloc.loadDeliveryAddress(
       SharedPrefModule().userId ?? '0',
@@ -86,6 +92,10 @@ class _HomeWidgetState extends BaseState<HomePage> {
         ),
       ),
       SliverToBoxAdapter(child: HeroBannersWidget(homeBloc: widget.homeBloc)),
+      SliverToBoxAdapter(child: SizedBox(height: 16.h)),
+      SharedPrefModule().isLoggedIn
+          ? SliverToBoxAdapter(child: _recommendedProducts())
+          : SliverToBoxAdapter(child: SizedBox()),
       SliverToBoxAdapter(child: SizedBox(height: 20.h)),
       SliverToBoxAdapter(
         child: Padding(
@@ -96,6 +106,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
           ),
         ),
       ),
+
       SliverToBoxAdapter(
         child: StreamBuilder<ApiState<List<OfferMapper>>>(
           stream: widget.homeBloc.offersStream,
@@ -152,83 +163,107 @@ class _HomeWidgetState extends BaseState<HomePage> {
             snapshot.data!.response!.isEmpty)) {
           return SizedBox(height: 90.h);
         }
+        if (snapshot.data is FailedState) {
+          return SizedBox();
+        }
 
-        return Container(
-          color: mostSellingBackgroundColor,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.only(
-                  start: 16,
-                  end: 16,
-                  top: 20,
-                ),
-                child: _buildMostSellingHeader(),
-              ),
-              SizedBox(height: 10),
-              checkResponseStateWithLoadingWidget(
-                onSuccessFunction: () {},
-                snapshot.data ?? LoadingState<List<ProductMapper>>(),
-                context,
-                onSuccess: ProductListWidget(
-                  scrollPhysics: NeverScrollableScrollPhysics(),
-                  isForFavourite: false,
-                  deleteIcon: Assets.svg.icDelete,
-                  emptyFavouriteScreen: Assets.svg.emptyFavourite,
-                  cartBloc: widget.cartBloc,
-                  productCategoryBloc: getIt<ProductCategoryBloc>(),
-                  productList: snapshot.data?.response?.sublist(0, 2) ?? [],
-                  favouriteIcon: Assets.svg.icFavourite,
-                  favouriteIconFilled: Assets.svg.icFavouriteFilled,
-                  onTapFavourite: (favourite, productMapper) {},
-                  loadMore: (Function func) {
-                    // _loadProducts(false, func);
-                  },
-                ),
-              ),
-            ],
+        return NewSectionWidget(
+          title: "الأكثر طلباً",
+          child: checkResponseStateWithLoadingWidget(
+            onSuccessFunction: () {},
+            snapshot.data ?? LoadingState<List<ProductMapper>>(),
+            context,
+            onSuccess: ProductListWidget(
+              scrollPhysics: NeverScrollableScrollPhysics(),
+              isForFavourite: false,
+              deleteIcon: Assets.svg.icDelete,
+              emptyFavouriteScreen: Assets.svg.emptyFavourite,
+              cartBloc: widget.cartBloc,
+              productCategoryBloc: getIt<ProductCategoryBloc>(),
+              productList: snapshot.data?.response ?? [],
+              isHorizontalListView: true,
+              favouriteIcon: Assets.svg.icFavourite,
+              favouriteIconFilled: Assets.svg.icFavouriteFilled,
+              onTapFavourite: (favourite, productMapper) {},
+              loadMore: (Function func) {
+                // _loadProducts(false, func);
+              },
+            ),
           ),
+          onViewAllTapped: () {
+            Routes.navigateToScreen(
+              Routes.mostSellingPage,
+              NavigationType.goNamed,
+              context,
+              setBottomNavigationTab: true,
+            );
+          },
         );
       },
     );
   }
 
-  Row _buildMostSellingHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CustomText(
-          text: "الأكثر طلباً",
-          customTextStyle: BoldStyle(color: secondaryColor, fontSize: 22),
-        ),
-        InkWell(
-          onTap: () {
-            Routes.navigateToScreen(
-                Routes.mostSellingPage, NavigationType.goNamed, context,
-                setBottomNavigationTab: true);
-          },
-          child: Row(
-            children: [
-              CustomText(
-                text: "عرض الكل",
-                customTextStyle: BoldStyle(color: secondaryColor, fontSize: 12),
-              ),
-              SizedBox(width: 12),
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: Transform.rotate(
-                  angle: 45 * (3.141592653589793 / 2),
-                  child: ImageHelper(
-                    image: Assets.svg.icDropDownArrow,
-                    imageType: ImageType.svg,
-                  ),
+  Widget _recommendedProducts() {
+    return StreamBuilder<ApiState<List<ProductMapper>>>(
+      stream: getIt<RecommendedItemsBloc>().recommendedItemsBehaviour.stream,
+      initialData: LoadingState(),
+      builder: (context, snapshot) {
+        if ((snapshot.hasData &&
+            snapshot.data!.response != null &&
+            snapshot.data!.response!.isEmpty)) {
+          return SizedBox(height: 0.h);
+        }
+        if (snapshot.data is FailedState) {
+          return SizedBox();
+        }
+
+        return NewSectionWidget(
+          title: "خصيصاً لمتجرك",
+          child: checkResponseStateWithLoadingWidget(
+            onSuccessFunction: () {},
+            snapshot.data ?? LoadingState<List<ProductMapper>>(),
+            context,
+            loadingWidget: RecommendedItemsSkeleton(),
+            onSuccess: Padding(
+              padding: const EdgeInsets.only(bottom: 28.0),
+              child: SizedBox(
+                height: 75.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return SizedBox(width: 10.w);
+                        },
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data?.response?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return RecommendedItemWidget(
+                            product: snapshot.data!.response![index],
+                            isFirstItem: index == 0,
+                            isLastItem:
+                                index == snapshot.data!.response!.length - 1,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              // Icon(Icons.arrow_forward_ios, size: 10, weight: 100),
-            ],
+            ),
           ),
-        ),
-      ],
+          onViewAllTapped: () {
+            Routes.navigateToScreen(
+              Routes.recommendedItemsPage,
+              NavigationType.pushNamed,
+              context,
+              setBottomNavigationTab: true,
+            );
+          },
+        );
+      },
     );
   }
 
@@ -271,8 +306,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
       height: 26.h,
     ),
   );
-
-
 
   @override
   void dispose() {

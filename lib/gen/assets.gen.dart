@@ -18,6 +18,10 @@ class $AssetsPngGen {
   AssetGenImage get icGuestCart =>
       const AssetGenImage('assets/png/ic_guest_cart.png');
 
+  /// File path: assets/png/ic_not_found.png
+  AssetGenImage get icNotFound =>
+      const AssetGenImage('assets/png/ic_not_found.png');
+
   /// File path: assets/png/order_cancel.png
   AssetGenImage get orderCancel =>
       const AssetGenImage('assets/png/order_cancel.png');
@@ -27,7 +31,12 @@ class $AssetsPngGen {
       const AssetGenImage('assets/png/order_success.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [icGuestCart, orderCancel, orderSuccess];
+  List<AssetGenImage> get values => [
+    icGuestCart,
+    icNotFound,
+    orderCancel,
+    orderSuccess,
+  ];
 }
 
 class $AssetsSvgGen {
@@ -208,9 +217,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_shipping_order_green.svg
   String get icShippingOrderGreen => 'assets/svg/ic_shipping_order_green.svg';
 
-  /// File path: assets/svg/ic_success_register.svg
-  String get icSuccessRegister => 'assets/svg/ic_success_register.svg';
-
   /// File path: assets/svg/ic_total.svg
   String get icTotal => 'assets/svg/ic_total.svg';
 
@@ -283,7 +289,6 @@ class $AssetsSvgGen {
     icSendingOrderGreen,
     icShippingOrderGray,
     icShippingOrderGreen,
-    icSuccessRegister,
     icTotal,
     icWhatsApp,
     imgGuestFavourite,

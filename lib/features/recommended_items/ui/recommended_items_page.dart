@@ -1,21 +1,16 @@
-import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/announcements/bloc/announcements_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
+import '../bloc/recommended_items_bloc.dart';
 
-import '../../../../core/generated/l10n.dart';
-import '../bloc/most_selling_bloc.dart';
-
-class MostSellingPage extends BaseStatefulWidget {
-  MostSellingPage({super.key});
+class RecommendedItemsPage extends BaseStatefulWidget {
+  RecommendedItemsPage({super.key});
 
   @override
-  State<MostSellingPage> createState() => _MostSellingPageState();
+  State<RecommendedItemsPage> createState() => _RecommendedItemsPageState();
 }
 
-class _MostSellingPageState extends BaseState<MostSellingPage> {
+class _RecommendedItemsPageState extends BaseState<RecommendedItemsPage> {
   final double filterHorizontalPadding = 15.h;
 
   @override
@@ -45,7 +40,7 @@ class _MostSellingPageState extends BaseState<MostSellingPage> {
 
   @override
   void initState() {
-    // getIt<MostSellingBloc>().getMostSelling();
+    // getIt<RecommendedItemsBloc>().getRecommendedItems();
     super.initState();
   }
 
@@ -59,26 +54,16 @@ class _MostSellingPageState extends BaseState<MostSellingPage> {
     children: [
       AppTopWidget(
         isHavingSupport: true,
-        onBackPressed: () {
-          if (Navigator.canPop(context)) {
-            Navigator.pop(context);
-          } else {
-            Routes.navigateToScreen(
-              Routes.homePage,
-              NavigationType.goNamed,
-              context,
-            );
-          }
-        },
+
         isHavingBack: true,
-        title: "الأكثر طلبا",
+        title: "خصيصاً لمتجرك",
       ),
       Expanded(
         child: CustomScrollView(
           slivers: [
             SliverFillRemaining(
               hasScrollBody: true,
-              child: _mostSellingProducts(),
+              child: _recommendedItemsProducts(),
             ),
           ],
         ),
@@ -86,9 +71,9 @@ class _MostSellingPageState extends BaseState<MostSellingPage> {
     ],
   );
 
-  Widget _mostSellingProducts() {
+  Widget _recommendedItemsProducts() {
     return StreamBuilder<ApiState<List<ProductMapper>>>(
-      stream: getIt<MostSellingBloc>().mostSellingBehaviour.stream,
+      stream: getIt<RecommendedItemsBloc>().recommendedItemsBehaviour.stream,
       initialData: LoadingState(),
       builder: (context, snapshot) {
         if ((snapshot.hasData &&
@@ -121,6 +106,6 @@ class _MostSellingPageState extends BaseState<MostSellingPage> {
   }
 
   void _loadProducts() {
-    getIt<MostSellingBloc>().loadMoreMostSelling();
+    getIt<RecommendedItemsBloc>().loadMoreRecommendedItems();
   }
 }

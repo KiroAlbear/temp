@@ -34,10 +34,24 @@ class LoginResponse {
   @JsonKey(name: 'country_phone_code')
   int? country_phone_code;
 
+  @JsonKey(name: 'company_type_id')
+  CompanyTypeId? companyTypeId;
+
   LoginResponse();
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
+}
+
+@JsonSerializable()
+class CompanyTypeId {
+  int? companyId;
+
+  CompanyTypeId({this.companyId});
+
+  CompanyTypeId.fromJson(List<dynamic> json) {
+    companyId = json[0];
+  }
 }

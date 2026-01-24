@@ -84,26 +84,26 @@ class Apputils {
       try {
         await shorebirdCodePush.update();
 
-        await showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('التحديث جاهز'),
-              content: const Text(
-                "تم تنزيل التحديث وسيتم تطبيقه عند إعادة تشغيل التطبيق. يرجى إعادة تشغيل التطبيق لتطبيق التحديث.",
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('موافق'),
-                ),
-              ],
-            );
-          },
-        );
+        // await showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (context) {
+        //     return AlertDialog(
+        //       title: const Text('التحديث جاهز'),
+        //       content: const Text(
+        //         "تم تنزيل التحديث وسيتم تطبيقه عند إعادة تشغيل التطبيق. يرجى إعادة تشغيل التطبيق لتطبيق التحديث.",
+        //       ),
+        //       actions: [
+        //         TextButton(
+        //           onPressed: () async {
+        //             Navigator.of(context).pop();
+        //           },
+        //           child: const Text('موافق'),
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // );
       } catch (e) {
         LoggerModule.log(message: "${e.toString()}", name: "Update Error");
         await showDialog(
