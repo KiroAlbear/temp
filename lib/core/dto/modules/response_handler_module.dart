@@ -10,20 +10,26 @@ import 'alert_module.dart';
 
 mixin ResponseHandlerModule {
   /// Checks the API response state and updates the button and UI accordingly.
-  void checkResponseStateWithButton(ApiState apiState, BuildContext context,
-      {VoidCallback? onSuccess,
-      required BehaviorSubject<String> failedBehaviour,
-      required BehaviorSubject<ButtonState> buttonBehaviour,
-      String? headerErrorMessage,
-      VoidCallback? customFailedCallBack}) {
+  void checkResponseStateWithButton(
+    ApiState apiState,
+    BuildContext context, {
+    VoidCallback? onSuccess,
+    required BehaviorSubject<String> failedBehaviour,
+    required BehaviorSubject<ButtonState> buttonBehaviour,
+    String? headerErrorMessage,
+    VoidCallback? customFailedCallBack,
+  }) {
     if (apiState is LoadingState) {
       buttonBehaviour.sink.add(ButtonState.loading);
     } else if (apiState is SuccessState) {
       buttonBehaviour.sink.add(ButtonState.success);
       onSuccess?.call();
     } else if (apiState is NoInternetState) {
-      showErrorDialog(S.of(context).noInternetConnection, context,
-          headerMessage: headerErrorMessage);
+      showErrorDialog(
+        S.of(context).noInternetConnection,
+        context,
+        headerMessage: headerErrorMessage,
+      );
       failedBehaviour.sink.add(S.of(context).noInternetConnection);
       buttonBehaviour.sink.add(ButtonState.idle);
     } else {
@@ -31,8 +37,11 @@ mixin ResponseHandlerModule {
       if (customFailedCallBack != null) {
         customFailedCallBack();
       } else {
-        showErrorDialog(apiState.message, context,
-            headerMessage: headerErrorMessage);
+        showErrorDialog(
+          apiState.message,
+          context,
+          headerMessage: headerErrorMessage,
+        );
         failedBehaviour.sink.add(apiState.message);
       }
     }
@@ -63,11 +72,14 @@ mixin ResponseHandlerModule {
 
       if (useExpanded) {
         return Expanded(
-            child: _getAnimWidget(
-                child: _getLoadingWidget(loaderColor, loaderSize, context)));
+          child: _getAnimWidget(
+            child: _getLoadingWidget(loaderColor, loaderSize, context),
+          ),
+        );
       } else {
         return _getAnimWidget(
-            child: _getLoadingWidget(loaderColor, loaderSize, context));
+          child: _getLoadingWidget(loaderColor, loaderSize, context),
+        );
       }
     } else if (apiState is SuccessState) {
       onSuccessFunction?.call();
@@ -77,9 +89,12 @@ mixin ResponseHandlerModule {
       } else {
         return _getAnimWidget(child: onSuccess);
       }
-    } else if (apiState is ErrorState || apiState is FailedState && showError) {
-      showErrorDialog(apiState.message, context,
-          headerMessage: apiState.message);
+    } else if (apiState is FailedState && showError) {
+      showErrorDialog(
+        apiState.message,
+        context,
+        headerMessage: apiState.message,
+      );
       if (useExpanded) {
         return Expanded(child: idleWidget ?? Container());
       } else {
@@ -114,9 +129,15 @@ mixin ResponseHandlerModule {
         size: size ?? 30.r,
       );
 
-  void showErrorDialog(String message, BuildContext context,
-      {String? headerMessage, Color? headerColor}) {
-    AlertModule()
-        .showMessage(context: context, message: headerMessage ?? message);
+  void showErrorDialog(
+    String message,
+    BuildContext context, {
+    String? headerMessage,
+    Color? headerColor,
+  }) {
+    AlertModule().showMessage(
+      context: context,
+      message: headerMessage ?? message,
+    );
   }
 }

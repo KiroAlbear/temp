@@ -161,6 +161,9 @@ class _HomeWidgetState extends BaseState<HomePage> {
             snapshot.data!.response!.isEmpty)) {
           return SizedBox(height: 90.h);
         }
+        if (snapshot.data is FailedState) {
+          return SizedBox();
+        }
 
         return NewSectionWidget(
           title: "الأكثر طلباً",
@@ -207,6 +210,9 @@ class _HomeWidgetState extends BaseState<HomePage> {
             snapshot.data!.response != null &&
             snapshot.data!.response!.isEmpty)) {
           return SizedBox(height: 90.h);
+        }
+        if (snapshot.data is FailedState) {
+          return SizedBox();
         }
 
         return NewSectionWidget(
