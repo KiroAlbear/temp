@@ -54,8 +54,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
     super.initState();
     customBackgroundColor = Colors.white;
 
-    if (SharedPrefModule().bearerToken != null &&
-        SharedPrefModule().bearerToken!.isNotEmpty) {
+    if (SharedPrefModule().isLoggedIn) {
       widget.cartBloc.getMyCart(
         onGettingCart: () {
           getIt<MostSellingBloc>().getMostSelling();
@@ -64,7 +63,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
       );
     } else {
       getIt<MostSellingBloc>().getMostSelling();
-      getIt<RecommendedItemsBloc>().getRecommendedItems();
     }
 
     widget.homeBloc.loadData();
@@ -93,7 +91,9 @@ class _HomeWidgetState extends BaseState<HomePage> {
       ),
       SliverToBoxAdapter(child: HeroBannersWidget(homeBloc: widget.homeBloc)),
       SliverToBoxAdapter(child: SizedBox(height: 16.h)),
-      SliverToBoxAdapter(child: _recommendedProducts()),
+      SharedPrefModule().isLoggedIn
+          ? SliverToBoxAdapter(child: _recommendedProducts())
+          : SliverToBoxAdapter(child: SizedBox()),
       SliverToBoxAdapter(child: SizedBox(height: 20.h)),
       SliverToBoxAdapter(
         child: Padding(
