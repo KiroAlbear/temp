@@ -514,8 +514,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                   CrossAxisAlignment.stretch,
                                               children: [
                                                 ImageHelper(
-                                                  image: Assets.svg.icNotFound,
-                                                  imageType: ImageType.svg,
+                                                  image: Assets
+                                                      .png
+                                                      .icNotFound
+                                                      .path,
+                                                  imageType: ImageType.asset,
                                                 ),
                                               ],
                                             );
