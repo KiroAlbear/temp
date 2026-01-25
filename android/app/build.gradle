@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 android {
 
     namespace 'com.icons.deelexpress'
-    ndkVersion = "27.0.12077973"
+    ndkVersion "29.0.13113456 rc1"
     compileSdkVersion flutter.compileSdkVersion
 
 
