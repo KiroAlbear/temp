@@ -1,16 +1,17 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:deel/core/dto/models/notifications/notification_response_model.dart';
 import 'package:deel/deel.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:shorebird_code_push/shorebird_code_push.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:simple_shared_pref/simple_shared_pref.dart';
 
 import 'core/dto/modules/admin_dio_module.dart';
@@ -20,185 +21,171 @@ import 'core/dto/modules/odoo_dio_module.dart';
 import 'core/dto/network/app_http_overrides.dart';
 import 'core/services/dependency_injection_service.dart';
 import 'flavor_config.dart';
-import 'flavors.dart';
-import 'my_app.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'my_app.dart';
 
-// late ObjectBox objectBox;
-FutureOr<void> main() async {
-  /// ensure widget init
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await _init();
+
+  runApp(MultiProvider(providers: _buildProviders(), child: const MyApp()));
+}
+
+Future<void> _init() async {
+  await _initPaymob();
+  await _initFirebase();
+  _installCrashHandlers();
+
+  await _initNotifications();
+  await _initSharedPrefs();
+
+  _initNetworkModules();
+
+  HttpOverrides.global = AppHttpOverrides();
+  await DependencyInjectionService().init();
+}
+
+Future<void> _initPaymob() async {
   await FlutterPaymob.instance.initialize(
-    userTokenExpiration: 3600, // optional, default is 30 days
+    userTokenExpiration: 3600,
     apiKey:
-        "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==", //  // from dashboard Select Settings -> Account Info -> API Key
+        "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==",
     integrationID: 5106629,
     walletIntegrationId: 5106875,
     iFrameID: 926227,
   );
+}
 
-  ///
+Future<void> _initFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+}
 
-  await FirebaseMessaging.instance.setAutoInitEnabled(true);
-  // You may set the permission requests to "provisional" which allows the user to choose what type
-  // of notifications they would like to receive once the user receives a notification.
+void _installCrashHandlers() {
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+}
+
+Future<void> _initNotifications() async {
+  final messaging = FirebaseMessaging.instance;
+  await messaging.setAutoInitEnabled(true);
+
+  // 1) Ask via Firebase Messaging (iOS-focused)
+  final settings = await messaging.requestPermission(
+    provisional: true,
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  _logNotificationAuth(settings.authorizationStatus);
+
+  // 2) Ask via permission_handler (Android 13+ and some OEM behaviors)
+  await _requestOsNotificationPermission();
+
+  // 3) Get FCM token (works on iOS & Android)
   if (Platform.isIOS) {
     // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
     await FirebaseMessaging.instance.getAPNSToken().then((apnsToken) async {
       if (apnsToken != null) {
         print("********* apnToken $apnsToken **********");
-
-        AppConstants.fcmToken = apnsToken;
-        MoreBloc().updateNotificationsDeviceData(
-          SharedPrefModule().userId ?? "",
-          apnsToken,
-        );
+        _updateDeviceTokenOnBackend(apnsToken);
       }
     });
   } else {
     await FirebaseMessaging.instance.getToken().then((tok) async {
       if (tok != null) {
         print("********* fcmToken $tok **********");
-        AppConstants.fcmToken = tok;
-
-        MoreBloc().updateNotificationsDeviceData(
-          SharedPrefModule().userId ?? "",
-          tok,
-        );
+        _updateDeviceTokenOnBackend(tok);
       }
     });
   }
 
-  final notificationSettings = await FirebaseMessaging.instance
-      .requestPermission(
-        provisional: true,
-        alert: true,
-        badge: true,
-        sound: true,
-      );
+  // Token refresh
+  messaging.onTokenRefresh
+      .listen((newToken) {
+        LoggerModule.log(
+          message: "FCM token refreshed: $newToken",
+          name: "fcm_token",
+        );
+        AppConstants.fcmToken = newToken;
+        _updateDeviceTokenOnBackend(newToken);
+      })
+      .onError((err) {
+        LoggerModule.log(
+          message: "Error getting refreshed FCM token: $err",
+          name: "fcm_token",
+        );
+      });
 
+  // Notification open handling
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print(message.category);
-
     getIt<ProductCategoryBloc>().handleNotificationNavigation(
       NotificationResponseModel.fromJson(message.data),
     );
   });
+}
 
-  await requestNotificationPermissions();
+Future<void> _requestOsNotificationPermission() async {
+  await Permission.notification.request();
+}
 
-  FirebaseMessaging.instance.onTokenRefresh
-      .listen((fcmToken) {
-        // print("********* fcm Token $fcmToken **********");
-        LoggerModule.log(
-          message: "********* fcm Token $fcmToken **********",
-          name: "fcm Token",
-        );
-      })
-      .onError((err) {
-        // print("********* error getting device fcm Token **********");
-        LoggerModule.log(
-          message: "********* error getting device fcm Token **********",
-          name: "fcm Token",
-        );
-      });
+void _updateDeviceTokenOnBackend(String token) {
+  // Ideally inject these instead of newing them up here.
+  AppConstants.fcmToken = token;
+  final userId = SharedPrefModule().userId ?? "";
+  if (userId.isEmpty) return;
 
-  if (notificationSettings.authorizationStatus ==
-      AuthorizationStatus.authorized) {
-    debugPrint('✅ Notifications authorized');
-  } else if (notificationSettings.authorizationStatus ==
-      AuthorizationStatus.provisional) {
-    debugPrint('⚠️ Notifications provisionally authorized');
-  } else {
-    debugPrint('❌ Notifications denied');
+  MoreBloc().updateNotificationsDeviceData(userId, token);
+}
+
+void _logNotificationAuth(AuthorizationStatus status) {
+  switch (status) {
+    case AuthorizationStatus.authorized:
+      debugPrint('✅ Notifications authorized');
+      break;
+    case AuthorizationStatus.provisional:
+      debugPrint('⚠️ Notifications provisionally authorized');
+      break;
+    default:
+      debugPrint('❌ Notifications denied or not determined');
+      break;
   }
+}
 
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  // Handle Crashlytics enabled status when not in Debug,
-  // e.g. allow your users to opt-in to crash reporting.
-
-  /// init shared preferences as simple shared pref plugin
+Future<void> _initSharedPrefs() async {
   await SimpleSharedPref().init(allowEncryptAndDecrypt: false);
+}
 
-  /// set base url for dioModule
-  _initOdooDio();
-  _initAdminDio();
-  LoggerModule.log(message: AdminDioModule().baseUrl, name: 'admin dio module');
-  LoggerModule.log(message: OdooDioModule().baseUrl, name: 'odoo dio module');
-
-  /// allow Chucker to show in release mode
-  // ChuckerFlutter.showOnRelease = true;
-  HttpOverrides.global = AppHttpOverrides();
-  await DependencyInjectionService().init();
-
-  /// run app and use provider for app config
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<AppProviderModule>(
-          create: (_) {
-            AppProviderModule appProviderModule = AppProviderModule();
-            appProviderModule.initAppThemeAndLanguage();
-            return appProviderModule;
-          },
-        ),
-      ],
-      child: const MyApp(),
-    ),
+void _initNetworkModules() {
+  _initDioModule(
+    AdminDioModule(),
+    FlavorConfig.adminApiUrl,
+    'admin dio module',
   );
+  _initDioModule(OdooDioModule(), FlavorConfig.apiUrl, 'odoo dio module');
 }
 
-Future<void> requestNotificationPermissions() async {
-  final PermissionStatus status = await Permission.notification.request();
-  if (status.isGranted) {
-    // Notification permissions granted
-  } else if (status.isDenied) {
-    // Notification permissions denied
-  } else if (status.isPermanentlyDenied) {
-    // Notification permissions permanently denied, open app settings
-    await openAppSettings();
-  }
+void _initDioModule(DioModule module, String baseUrl, String logName) {
+  module.baseUrl = baseUrl;
+  module.init();
+  module.setAppHeaders();
+  LoggerModule.log(message: baseUrl, name: logName);
 }
 
-void _initAdminDio() {
-  AdminDioModule().baseUrl = FlavorConfig.adminApiUrl;
-  AdminDioModule().init();
-  AdminDioModule().setAppHeaders();
-}
-
-void _initOdooDio() {
-  OdooDioModule().baseUrl = FlavorConfig.apiUrl;
-  OdooDioModule().init();
-  OdooDioModule().setAppHeaders();
-}
-
-// void addFireBaseCrashReporting() {
-//   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-//   PlatformDispatcher.instance.onError = (error, stack) {
-//     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-//     return true;
-//   };
-// }
-
-void _runAppWithSentry() async {
-  // await SentryFlutter.init(
-  //   (options) {
-  //     options.dsn =
-  //         'https://b3a964f4ec88da9c00d953c418f89192@o4506076199845888.ingest.sentry.io/4506076200894464';
-  //     options.tracesSampleRate = 1.0;
-  //     options.anrEnabled = true;
-  //   },
-  //   appRunner: () => runApp(MultiProvider(providers: [
-  //     ChangeNotifierProvider<AppProviderModule>(
-  //         create: (_) {
-  //           AppProviderModule appProviderModule = AppProviderModule();
-  //           appProviderModule.initAppThemeAndLanguage();
-  //           return appProviderModule;
-  //         }),
-  //   ], child: MyApp())),
-  // );
+List<SingleChildWidget> _buildProviders() {
+  return [
+    ChangeNotifierProvider<AppProviderModule>(
+      create: (_) {
+        final appProvider = AppProviderModule();
+        appProvider.initAppThemeAndLanguage();
+        return appProvider;
+      },
+    ),
+  ];
 }
