@@ -30,6 +30,7 @@ class _ApiClientKey {
   static const String _getCountry = 'get/country?lang_code=ar_001';
   static const String _checkPhone = 'app/checkphone';
   static const String _getState = 'get/state';
+  static const String _getDistrict = 'get/city';
   static const String _deliveryAddress = 'get/delivery_address/';
   static const String _updateProfile = 'update/profile';
   static const String _myOrders = 'get/all_order';

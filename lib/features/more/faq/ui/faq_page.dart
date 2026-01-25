@@ -54,6 +54,7 @@ class _FaqWidgetState extends BaseState<FaqPage> {
           SizedBox(
             height: 20.h,
           ),
+          AppConstants.isHavingBottomPadding?SizedBox(height: 32,):SizedBox()
         ],
       );
 

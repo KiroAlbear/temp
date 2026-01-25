@@ -7,11 +7,7 @@ part of 'subcategory_request.dart';
 // **************************************************************************
 
 SubcategoryRequest _$SubcategoryRequestFromJson(Map<String, dynamic> json) =>
-    SubcategoryRequest(
-      (json['client_id'] as num).toInt(),
-    );
+    SubcategoryRequest((json['client_id'] as num).toInt());
 
 Map<String, dynamic> _$SubcategoryRequestToJson(SubcategoryRequest instance) =>
-    <String, dynamic>{
-      'client_id': instance.client_id,
-    };
+    <String, dynamic>{'client_id': instance.client_id};

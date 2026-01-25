@@ -10,6 +10,4 @@ BalanceResponse _$BalanceResponseFromJson(Map<String, dynamic> json) =>
     BalanceResponse()..balance = (json['balance'] as num?)?.toDouble();
 
 Map<String, dynamic> _$BalanceResponseToJson(BalanceResponse instance) =>
-    <String, dynamic>{
-      'balance': instance.balance,
-    };
+    <String, dynamic>{'balance': instance.balance};

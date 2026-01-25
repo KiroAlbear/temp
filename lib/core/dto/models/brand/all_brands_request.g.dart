@@ -13,7 +13,4 @@ AllBrandsRequest _$AllBrandsRequestFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$AllBrandsRequestToJson(AllBrandsRequest instance) =>
-    <String, dynamic>{
-      'page': instance.page,
-      'limit': instance.limit,
-    };
+    <String, dynamic>{'page': instance.page, 'limit': instance.limit};

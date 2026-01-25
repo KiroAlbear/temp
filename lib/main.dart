@@ -19,6 +19,7 @@ import 'core/dto/modules/logger_module.dart';
 import 'core/dto/modules/odoo_dio_module.dart';
 import 'core/dto/network/app_http_overrides.dart';
 import 'core/services/dependency_injection_service.dart';
+import 'flavor_config.dart';
 import 'flavors.dart';
 import 'my_app.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,17 +31,16 @@ FutureOr<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await FlutterPaymob.instance.initialize(
-      userTokenExpiration: 3600, // optional, default is 30 days
-      apiKey:
-          "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==", //  // from dashboard Select Settings -> Account Info -> API Key
-      integrationID: 5106629,
-      walletIntegrationId: 5106875,
-      iFrameID: 926227);
+    userTokenExpiration: 3600, // optional, default is 30 days
+    apiKey:
+        "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==", //  // from dashboard Select Settings -> Account Info -> API Key
+    integrationID: 5106629,
+    walletIntegrationId: 5106875,
+    iFrameID: 926227,
+  );
 
   ///
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   // You may set the permission requests to "provisional" which allows the user to choose what type
@@ -48,66 +48,64 @@ FutureOr<void> main() async {
 
   if (Platform.isIOS) {
     // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
-    await FirebaseMessaging.instance.getAPNSToken().then(
-      (apnsToken) async {
-        if (apnsToken != null) {
-          print("********* apnToken $apnsToken **********");
+    await FirebaseMessaging.instance.getAPNSToken().then((apnsToken) async {
+      if (apnsToken != null) {
+        print("********* apnToken $apnsToken **********");
 
-          AppConstants.fcmToken = apnsToken;
-          MoreBloc().updateNotificationsDeviceData(
-              SharedPrefModule().userId ?? "", apnsToken);
-        }
-      },
-    );
+        AppConstants.fcmToken = apnsToken;
+        MoreBloc().updateNotificationsDeviceData(
+          SharedPrefModule().userId ?? "",
+          apnsToken,
+        );
+      }
+    });
   } else {
-    await FirebaseMessaging.instance.getToken().then(
-      (tok) async {
-        if (tok != null) {
-          print("********* fcmToken $tok **********");
-          AppConstants.fcmToken = tok;
+    await FirebaseMessaging.instance.getToken().then((tok) async {
+      if (tok != null) {
+        print("********* fcmToken $tok **********");
+        AppConstants.fcmToken = tok;
 
-          MoreBloc().updateNotificationsDeviceData(
-              SharedPrefModule().userId ?? "", tok);
-        }
-      },
-    );
+        MoreBloc().updateNotificationsDeviceData(
+          SharedPrefModule().userId ?? "",
+          tok,
+        );
+      }
+    });
   }
 
-  final notificationSettings =
-      await FirebaseMessaging.instance.requestPermission(
-    provisional: true,
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  final notificationSettings = await FirebaseMessaging.instance
+      .requestPermission(
+        provisional: true,
+        alert: true,
+        badge: true,
+        sound: true,
+      );
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     print(message.category);
 
     getIt<ProductCategoryBloc>().handleNotificationNavigation(
-        NotificationResponseModel.fromJson(message.data));
+      NotificationResponseModel.fromJson(message.data),
+    );
   });
-
-  // Android 13+: Request permission
-  // if (defaultTargetPlatform == TargetPlatform.android) {
-  //   if (await Permission.notification.isDenied ||
-  //       await Permission.notification.isPermanentlyDenied) {
-  //     await Permission.notification.request();
-  //   }
-  // }
 
   await requestNotificationPermissions();
 
-  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-    // print("********* fcm Token $fcmToken **********");
-    LoggerModule.log(
-        message: "********* fcm Token $fcmToken **********", name: "fcm Token");
-  }).onError((err) {
-    // print("********* error getting device fcm Token **********");
-    LoggerModule.log(
-        message: "********* error getting device fcm Token **********",
-        name: "fcm Token");
-  });
+  FirebaseMessaging.instance.onTokenRefresh
+      .listen((fcmToken) {
+        // print("********* fcm Token $fcmToken **********");
+        LoggerModule.log(
+          message: "********* fcm Token $fcmToken **********",
+          name: "fcm Token",
+        );
+      })
+      .onError((err) {
+        // print("********* error getting device fcm Token **********");
+        LoggerModule.log(
+          message: "********* error getting device fcm Token **********",
+          name: "fcm Token",
+        );
+      });
 
   if (notificationSettings.authorizationStatus ==
       AuthorizationStatus.authorized) {
@@ -119,32 +117,12 @@ FutureOr<void> main() async {
     debugPrint('❌ Notifications denied');
   }
 
-  F.appFlavor ??= Flavor.app_stage;
-
-  if (F.apiUrl.isEmpty) {
-    F.apiUrl = 'https://deel-demo.odoo.com/';
-  }
-
-  if (F.adminApiUrl.isEmpty) {
-    F.adminApiUrl = 'https://adminapi.deel-app.com/api/';
-  }
-
-  // if (kDebugMode) {
-  //   // Force disable Crashlytics collection while doing every day development.
-  //   // Temporarily toggle this to true if you want to test crash reporting in your app.
-  //   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-  // } else
-  {
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    // Handle Crashlytics enabled status when not in Debug,
-    // e.g. allow your users to opt-in to crash reporting.
-  }
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  // Handle Crashlytics enabled status when not in Debug,
+  // e.g. allow your users to opt-in to crash reporting.
 
   /// init shared preferences as simple shared pref plugin
   await SimpleSharedPref().init(allowEncryptAndDecrypt: false);
-
-  /// add logger with all fatal errors to crashlytics
-  // addFireBaseCrashReporting();
 
   /// set base url for dioModule
   _initOdooDio();
@@ -158,14 +136,20 @@ FutureOr<void> main() async {
   await DependencyInjectionService().init();
 
   /// run app and use provider for app config
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<AppProviderModule>(create: (_) {
-      AppProviderModule appProviderModule = AppProviderModule();
-      appProviderModule.initAppThemeAndLanguage();
-      return appProviderModule;
-    }),
-  ], child: const MyApp()));
-  // _runAppWithSentry();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppProviderModule>(
+          create: (_) {
+            AppProviderModule appProviderModule = AppProviderModule();
+            appProviderModule.initAppThemeAndLanguage();
+            return appProviderModule;
+          },
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 Future<void> requestNotificationPermissions() async {
@@ -181,13 +165,13 @@ Future<void> requestNotificationPermissions() async {
 }
 
 void _initAdminDio() {
-  AdminDioModule().baseUrl = F.adminApiUrl;
+  AdminDioModule().baseUrl = FlavorConfig.adminApiUrl;
   AdminDioModule().init();
   AdminDioModule().setAppHeaders();
 }
 
 void _initOdooDio() {
-  OdooDioModule().baseUrl = F.apiUrl;
+  OdooDioModule().baseUrl = FlavorConfig.apiUrl;
   OdooDioModule().init();
   OdooDioModule().setAppHeaders();
 }

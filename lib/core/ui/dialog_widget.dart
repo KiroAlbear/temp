@@ -85,6 +85,8 @@ class _DialogWidgetState extends State<DialogWidget> {
                         height: 28.h,
                       )
                     : SizedBox(),
+
+                AppConstants.isHavingBottomPadding?SizedBox(height: 32,):SizedBox()
               ],
             ),
             widget.hasCloseButton

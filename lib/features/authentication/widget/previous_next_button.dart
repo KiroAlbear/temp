@@ -27,7 +27,7 @@ class PreviousNextButton extends StatelessWidget {
           builder: (context, snapshot2) {
             return snapshot2.data == ButtonState.loading
                 ? CustomProgress(
-                    color: darkSecondaryColor,
+                    color: secondaryColor,
                     size: 30,
                   )
                 : InkWell(
@@ -44,9 +44,9 @@ class PreviousNextButton extends StatelessWidget {
                                 : Assets.svg.icForwardGrey,
                             imageType: ImageType.svg,
                             color: isPrevious
-                                ? darkSecondaryColor
+                                ? secondaryColor
                                 : snapshot.data == true
-                                    ? darkSecondaryColor
+                                    ? secondaryColor
                                     : greyColor,
                             width: 22.w,
                             height: 22.h,
@@ -63,9 +63,9 @@ class PreviousNextButton extends StatelessWidget {
                               customTextStyle: RegularStyle(
                                 fontSize: 16.sp,
                                 color: isPrevious
-                                    ? darkSecondaryColor
+                                    ? secondaryColor
                                     : snapshot.data == true
-                                        ? darkSecondaryColor
+                                        ? secondaryColor
                                         : greyColor, // Use your desired color
                               ),
                             ),

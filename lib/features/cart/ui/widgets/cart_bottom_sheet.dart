@@ -40,11 +40,11 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
             ignoring: true,
             child: Radio<int>(
               value: value,
-              activeColor: darkSecondaryColor,
+              activeColor: secondaryColor,
               fillColor: WidgetStateProperty.resolveWith<Color>(
                 (Set<WidgetState> states) {
                   if (states.contains(WidgetState.selected)) {
-                    return darkSecondaryColor;
+                    return secondaryColor;
                   }
                   return disabledButtonColorLightMode;
                 },
@@ -78,7 +78,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 text: S.of(context).cartPaymentOptions,
                 textAlign: TextAlign.start,
                 customTextStyle:
-                    BoldStyle(color: darkSecondaryColor, fontSize: 18.sp)),
+                    BoldStyle(color: secondaryColor, fontSize: 18.sp)),
           ),
           8.verticalSpace,
           _paymentRow(
@@ -87,17 +87,17 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               ImageHelper(
                 image: Assets.svg.icCash,
                 imageType: ImageType.svg,
-                color: darkSecondaryColor,
+                color: secondaryColor,
               )),
           _paymentRow(_groupeVisaValue, S.of(context).cartBankCard,
-              Icon(Icons.credit_card_rounded, color: darkSecondaryColor)),
+              Icon(Icons.credit_card_rounded, color: secondaryColor)),
           _paymentRow(
               _groupeWalletValue,
               S.of(context).cartDokkanWallet,
               Icon(Icons.account_balance_wallet_outlined,
-                  color: darkSecondaryColor)),
+                  color: secondaryColor)),
           _paymentRow(_groupeFawryValue, "فوري",
-              Icon(Icons.credit_card_rounded, color: darkSecondaryColor)),
+              Icon(Icons.credit_card_rounded, color: secondaryColor)),
           18.verticalSpace,
           IgnorePointer(
             ignoring: _groupeValue == -1,
@@ -108,7 +108,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 idleText: S.of(context).next,
                 textColor: _groupeValue == -1
                     ? disabledButtonTextColorLightMode
-                    : darkSecondaryColor,
+                    : secondaryColor,
                 onTap: () async {
                   // pop the bottom sheet
                   Navigator.pop(context);
@@ -140,7 +140,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   }
                 }),
           ),
-          18.verticalSpace,
+          AppConstants.isHavingBottomPadding?43.verticalSpace:18.verticalSpace,
         ],
       ),
     );
@@ -198,7 +198,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                         idleText: S.of(context).next,
                         textColor: _groupeValue == -1
                             ? disabledButtonTextColorLightMode
-                            : darkSecondaryColor,
+                            : secondaryColor,
                         onTap: () async {
                           // pop the bottom sheet
                           if (_formKey.currentState!.validate()) {

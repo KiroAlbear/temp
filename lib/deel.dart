@@ -199,7 +199,6 @@ export 'features/cart/ui/widgets/cart_order_details_page.dart';
 export 'features/cart/ui/widgets/cart_order_details_Icon_item.dart';
 export 'features/cart/ui/widgets/cart_product_summary_item.dart';
 export 'features/cart/ui/widgets/cart_success_page.dart';
-export 'features/cart/utilities/cart_common_functions.dart';
 export 'features/home/home/remote/category_remote.dart';
 export 'features/home/home/remote/hero_banner_remote.dart';
 export 'features/home/home/remote/offer_remote.dart';

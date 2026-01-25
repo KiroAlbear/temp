@@ -6,11 +6,8 @@ part of 'cart_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CartRequest _$CartRequestFromJson(Map<String, dynamic> json) => CartRequest(
-      (json['client_id'] as num).toInt(),
-    );
+CartRequest _$CartRequestFromJson(Map<String, dynamic> json) =>
+    CartRequest((json['client_id'] as num).toInt());
 
 Map<String, dynamic> _$CartRequestToJson(CartRequest instance) =>
-    <String, dynamic>{
-      'client_id': instance.client_id,
-    };
+    <String, dynamic>{'client_id': instance.client_id};

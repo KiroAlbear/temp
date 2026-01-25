@@ -56,6 +56,12 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   }
 
   @override
+  void onPopInvoked(didPop) {
+    changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
+  }
+
+  @override
   void dispose() {
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.idle);
     _fawryCallbackResultStream?.cancel();
@@ -141,6 +147,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           }
                         }),
                     49.verticalSpace,
+                    AppConstants.isHavingBottomPadding?18.verticalSpace:0.verticalSpace,
                   ],
                 ),
               ),
@@ -386,7 +393,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           text: snapshot.data!,
                           textAlign: TextAlign.start,
                           customTextStyle: BoldStyle(
-                              color: darkSecondaryColor, fontSize: 14.sp)),
+                              color: secondaryColor, fontSize: 14.sp)),
                       // deliveryFees(),
                     ],
                   ),
@@ -429,12 +436,11 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         ImageHelper(
           image: icon,
           imageType: ImageType.svg,
-          color: darkSecondaryColor,
+          color: secondaryColor,
         ),
         CustomText(
             text: title,
-            customTextStyle:
-                BoldStyle(color: darkSecondaryColor, fontSize: 14.sp)),
+            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 14.sp)),
       ],
     );
   }

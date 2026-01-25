@@ -13,32 +13,39 @@ class ProductListWidget extends StatefulWidget {
   final ProductCategoryBloc productCategoryBloc;
   final String emptyFavouriteScreen;
   final bool isForFavourite;
-
+  final ScrollPhysics? scrollPhysics;
+  final bool isHorizontalListView;
 
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
-  final Function(ProductMapper productMapper) onAddToCart;
-  final Function(ProductMapper productMapper)? onDecrementClicked;
-  final Function(ProductMapper productMapper)? onIncrementClicked;
-  final Function(ProductMapper productMapper)? onDeleteClicked;
+
+  // final Function(ProductMapper productMapper) onAddToCart;
+  // final Function(ProductMapper productMapper)? onDecrementClicked;
+  // final Function(ProductMapper productMapper)? onIncrementClicked;
+  // final Function(ProductMapper productMapper)? onDeleteClicked;
 
   final Function(Function())? loadMore;
 
-  ProductListWidget(
-      {super.key,
-      required this.cartBloc,
-      required this.productCategoryBloc,
-      required this.productList,
-      required this.favouriteIcon,
-      required this.deleteIcon,
-      required this.favouriteIconFilled,
-      required this.onTapFavourite,
-      required this.onAddToCart,
-      required this.loadMore,
-      required this.emptyFavouriteScreen,
-      required this.onDeleteClicked,
-      required this.isForFavourite,
-      this.onDecrementClicked,
-      this.onIncrementClicked});
+  ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
+
+  ProductListWidget({
+    super.key,
+    required this.cartBloc,
+    required this.productCategoryBloc,
+    required this.productList,
+    required this.favouriteIcon,
+    required this.deleteIcon,
+    required this.favouriteIconFilled,
+    required this.onTapFavourite,
+    // required this.onAddToCart,
+    required this.loadMore,
+    required this.emptyFavouriteScreen,
+    // required this.onDeleteClicked,
+    required this.isForFavourite,
+    this.isHorizontalListView = false,
+    this.scrollPhysics,
+    // this.onDecrementClicked,
+    // this.onIncrementClicked,
+  });
 
   @override
   State<ProductListWidget> createState() => _ProductListWidgetState();
@@ -76,64 +83,145 @@ class _ProductListWidgetState extends State<ProductListWidget> {
 
   @override
   Widget build(BuildContext context) => LazyLoadScrollView(
-        onEndOfPage: () {
-          if (widget.loadMore != null) {
-            widget.loadMore!(
-              () {
-                widget.cartBloc.addCartInfoToProducts(widget.productList);
-                if(widget.isForFavourite)
-                addAllProductToFavourite();
-              },
-            );
-          }
-        },
-        child: ValueListenableBuilder(
-          valueListenable: refreshNotifier,
-          builder: (context, value, child) {
-            if (widget.isForFavourite &&
-                widget.productList
-                    .where(
-                      (element) => element.isFavourite == true,
-                    )
-                    .isEmpty) {
-              return EmptyFavouriteProducts(
-                emptyFavouriteScreen: widget.emptyFavouriteScreen,
-              );
-            } else {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 11.w,
-                    mainAxisSpacing: 11.h,
-                    mainAxisExtent: 220.h),
-                itemBuilder: (context, index) => ProductWidget(
-                  key: ValueKey(index),
-                  icDelete: widget.deleteIcon,
-                  onProductRemoved: (int productId) {
-                    resetFavouriteList(productId);
-                    refreshNotifier.value = !refreshNotifier.value;
-                  },
-                  cartBloc: widget.cartBloc,
-                  productCategoryBloc: widget.productCategoryBloc,
-                  productMapper: widget.isForFavourite
-                      ? favouriteList[index]
-                      : widget.productList[index],
-                  onAddToCart: widget.onAddToCart,
-                  favouriteIcon: widget.favouriteIcon,
-                  onTapFavourite: widget.onTapFavourite,
-                  onDeleteClicked: widget.onDeleteClicked,
-                  onIncrementClicked: widget.onIncrementClicked,
-                  onDecrementClicked: widget.onDecrementClicked,
-                  favouriteIconFilled: widget.favouriteIconFilled,
+    onEndOfPage: () {
+      if (widget.loadMore != null) {
+        widget.loadMore!(() {
+          widget.cartBloc.addCartInfoToProducts(widget.productList);
+          if (widget.isForFavourite) addAllProductToFavourite();
+        });
+      }
+    },
+    child: ValueListenableBuilder(
+      valueListenable: refreshNotifier,
+      builder: (context, value, child) {
+        if (widget.isForFavourite &&
+            widget.productList
+                .where((element) => element.isFavourite == true)
+                .isEmpty) {
+          return EmptyFavouriteProducts(
+            emptyFavouriteScreen: widget.emptyFavouriteScreen,
+          );
+        } else {
+          return Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: widget.isForFavourite ? 0 : 18.h,
                 ),
-                itemCount: widget.isForFavourite
-                    ? favouriteList.length
-                    : widget.productList.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-              );
-            }
+                child: widget.isHorizontalListView
+                    ? _buildHorizontalListView()
+                    : _buildGridView(),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: OverlayLoadingWidget(
+                  showOverlayLoading: widget.showOverlayLoading,
+                ),
+              ),
+            ],
+          );
+        }
+      },
+    ),
+  );
+
+  GridView _buildGridView() {
+    return GridView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      physics: widget.scrollPhysics,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 11.w,
+        mainAxisSpacing: 11.h,
+        mainAxisExtent: 220.h,
+      ),
+      itemBuilder: (context, index) => _buildProductWidget(index),
+      itemCount: widget.isForFavourite
+          ? favouriteList.length
+          : widget.productList.length,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+    );
+  }
+
+  Widget _buildHorizontalListView() {
+    return SizedBox(
+      height: 220,
+      child: ListView.separated(
+        separatorBuilder: (context, index) {
+          return SizedBox(width: 12.w);
+        },
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.productList.length <= 16
+            ? widget.productList.length
+            : 16,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Row(
+            children: [
+              index == 0 ? SizedBox(width: 16.w) : SizedBox(),
+              SizedBox(width: 165, child: _buildProductWidget(index)),
+              index == widget.productList.length - 1
+                  ? SizedBox(width: 16.w)
+                  : SizedBox(),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  ProductWidget _buildProductWidget(int index) {
+    return ProductWidget(
+      key: ValueKey(index),
+      icDelete: widget.deleteIcon,
+      onProductRemoved: (int productId) {
+        resetFavouriteList(productId);
+        refreshNotifier.value = !refreshNotifier.value;
+      },
+      cartBloc: widget.cartBloc,
+      productCategoryBloc: widget.productCategoryBloc,
+      productMapper: widget.isForFavourite
+          ? favouriteList[index]
+          : widget.productList[index],
+      onAddToCart: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onAddToCart(productMapper, widget.productList, () {
+          widget.showOverlayLoading.value = false;
+        });
+      },
+      favouriteIcon: widget.favouriteIcon,
+      onTapFavourite: widget.onTapFavourite,
+      onDeleteClicked: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onDeleteFromCart(productMapper, widget.productList, () {
+          widget.showOverlayLoading.value = false;
+        });
+      },
+      onIncrementClicked: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onDecrementIncrement(
+          productMapper,
+          widget.productList,
+          () {
+            widget.showOverlayLoading.value = false;
           },
-        ),
-      );
+        );
+      },
+      onDecrementClicked: (productMapper) {
+        widget.showOverlayLoading.value = true;
+        widget.cartBloc.onDecrementIncrement(
+          productMapper,
+          widget.productList,
+          () {
+            widget.showOverlayLoading.value = false;
+          },
+        );
+      },
+      favouriteIconFilled: widget.favouriteIconFilled,
+    );
+  }
 }

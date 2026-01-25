@@ -1,9 +1,4 @@
-// enum OfferDetailsEnum{
-//
-// }
-
-import 'package:deel/core/dto/models/announcement/announcement_response_model.dart';
-
+import '../../../../features/announcements/models/announcement_response_model.dart';
 import '../heroBanner/banner_response.dart';
 
 class OfferMapper {

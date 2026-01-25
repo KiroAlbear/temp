@@ -2,7 +2,7 @@ class ConstantModule {
   static const String appTitle = "Dokkan";
 
   /// debug, live or stage versioning
-  static bool isLive = false;
+  // static bool isLive = false;
   static const String baseLiveUrl = 'https://availo-mobileApi.t2.sa/api/';
   static const String baseStageUrl = 'https://stg2availo-mobileapi.t2.sa/api/';
   static const String baseTestUrl = 'https://devmobileapi-availo.t2.sa/Api/';

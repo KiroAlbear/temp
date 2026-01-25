@@ -21,7 +21,10 @@ class Apputils {
           sameButtonsColor: false,
           onConfirm: () {
             Routes.navigateToScreen(
-                Routes.loginPage, NavigationType.goNamed, context);
+              Routes.loginPage,
+              NavigationType.goNamed,
+              context,
+            );
           },
           cancelMessage: S.of(context).cancel,
         );
@@ -30,31 +33,31 @@ class Apputils {
   }
 
   static void showAnnouncementsDialog() {
-    getIt<AnnouncementsBloc>().announcementsStream.listen(
-      (event) async {
-        if (event is SuccessState) {
-          WidgetsBinding.instance.addPostFrameCallback(
-              (timeStamp) async {
-                if(event.response?.isEmpty ?? true){
-                  return;
-                }else{
-                  showDialog(
-                    context: Routes.rootNavigatorKey.currentContext!,
-                    builder: (context) {
-                      return AnnouncementsDialogWidget(items: event.response!);
-                    },
-                  );
-                }
-
-            },
-          );
-        }
-      },
-    );
+    getIt<AnnouncementsBloc>().getAnnouncements();
+    getIt<AnnouncementsBloc>().announcementsBehaviour.stream.listen((
+      event,
+    ) async {
+      if (event is SuccessState) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+          if (event.response?.isEmpty ?? true) {
+            return;
+          } else {
+            showDialog(
+              context: Routes.rootNavigatorKey.currentContext!,
+              builder: (context) {
+                return AnnouncementsDialogWidget(items: event.response!);
+              },
+            );
+          }
+        });
+      }
+    });
   }
 
-  static bool icCurrentVersionValid(
-      {required String currentVersion, required String latestVersion}) {
+  static bool icCurrentVersionValid({
+    required String currentVersion,
+    required String latestVersion,
+  }) {
     List<int> a = currentVersion.split('.').map(int.parse).toList();
     List<int> b = latestVersion.split('.').map(int.parse).toList();
 
@@ -81,25 +84,26 @@ class Apputils {
       try {
         await shorebirdCodePush.update();
 
-        await showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('التحديث جاهز'),
-              content: const Text(
-                  "تم تنزيل التحديث وسيتم تطبيقه عند إعادة تشغيل التطبيق. يرجى إعادة تشغيل التطبيق لتطبيق التحديث."),
-              actions: [
-                TextButton(
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('موافق'),
-                ),
-              ],
-            );
-          },
-        );
+        // await showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (context) {
+        //     return AlertDialog(
+        //       title: const Text('التحديث جاهز'),
+        //       content: const Text(
+        //         "تم تنزيل التحديث وسيتم تطبيقه عند إعادة تشغيل التطبيق. يرجى إعادة تشغيل التطبيق لتطبيق التحديث.",
+        //       ),
+        //       actions: [
+        //         TextButton(
+        //           onPressed: () async {
+        //             Navigator.of(context).pop();
+        //           },
+        //           child: const Text('موافق'),
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // );
       } catch (e) {
         LoggerModule.log(message: "${e.toString()}", name: "Update Error");
         await showDialog(
@@ -153,7 +157,8 @@ class Apputils {
   }
 
   static Map<String, dynamic> convertFlaseToNullJson(
-      Map<String, dynamic> json) {
+    Map<String, dynamic> json,
+  ) {
     json.updateAll((key, value) => value == false ? null : value);
 
     return json;

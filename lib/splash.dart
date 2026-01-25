@@ -34,84 +34,81 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
     Future.delayed(const Duration(seconds: 2)).then((value) async {
       FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);
 
-   if(mounted){
-     await Apputils.updateAndRestartApp(context);
-     LoggerModule.log(
-         name: "*********", message: 'Checking for updates...');
-     MoreBloc().checkAppUpdateStream.listen(
-           (state) async {
-         if (state is SuccessState) {
-           PackageInfo packageInfo = await PackageInfo.fromPlatform();
-           String version = packageInfo.version;
+      if (mounted) {
+        await Apputils.updateAndRestartApp(context);
+        LoggerModule.log(name: "*********", message: 'Checking for updates...');
+        MoreBloc().checkAppUpdateStream.listen((state) async {
+          if (state is SuccessState) {
+            PackageInfo packageInfo = await PackageInfo.fromPlatform();
+            String version = packageInfo.version;
 
-           String latestVersionNumberAndroid = state.response
-               ?.firstWhere((element) => element.type == 0)
-               .versionNum ??
-               "0.0.0";
-           String latestVersionNumberIOS = state.response
-               ?.firstWhere((element) => element.type == 1)
-               .versionNum ??
-               "0.0.0";
+            String latestVersionNumberAndroid =
+                state.response
+                    ?.firstWhere((element) => element.type == 0)
+                    .versionNum ??
+                "0.0.0";
+            String latestVersionNumberIOS =
+                state.response
+                    ?.firstWhere((element) => element.type == 1)
+                    .versionNum ??
+                "0.0.0";
 
-           if (Platform.isAndroid &&
-               Apputils.icCurrentVersionValid(
-                   currentVersion: version,
-                   latestVersion: latestVersionNumberAndroid)) {
-             AppProviderModule().init(context);
-           } else if (Platform.isIOS &&
-               Apputils.icCurrentVersionValid(
-                   currentVersion: version,
-                   latestVersion: latestVersionNumberIOS)) {
-             AppProviderModule().init(context);
-           } else {
-             WidgetsBinding.instance.addPostFrameCallback(
-                   (timeStamp) async {
-                 if (mounted) {
-                   await showDialog(
-                     context: context,
-                     barrierDismissible: false,
-                     builder: (context) {
-                       return PopScope(
-                         canPop: false,
-                         child: AlertDialog(
-                           title: const Text('تحديث'),
-                           content: const Text(
-                               "الرجاء تحديث التطبيق إلى أحدث إصدار للمتابعة"),
-                           actions: [
-                             TextButton(
-                               onPressed: () async {
-                                 String updateUrl = "";
-                                 if (Platform.isIOS) {
-                                   updateUrl = AppConstants.iosUpdateUrl;
-                                 } else {
-                                   updateUrl =
-                                       AppConstants.androidUpdateUrl;
-                                 }
-                                 final uri = Uri.parse(
-                                   updateUrl,
-                                 );
-                                 await launchUrl(uri);
-                               },
-                               child: const Text('تحديث'),
-                             ),
-                           ],
-                         ),
-                       );
-                     },
-                   );
-                 }
-               },
-             );
-           }
+            if (Platform.isAndroid &&
+                Apputils.icCurrentVersionValid(
+                  currentVersion: version,
+                  latestVersion: latestVersionNumberAndroid,
+                )) {
+              AppProviderModule().init(context);
+            } else if (Platform.isIOS &&
+                Apputils.icCurrentVersionValid(
+                  currentVersion: version,
+                  latestVersion: latestVersionNumberIOS,
+                )) {
+              AppProviderModule().init(context);
+            } else {
+              if (mounted) {
+                await showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return PopScope(
+                      canPop: false,
+                      child: AlertDialog(
+                        title: const Text('تحديث'),
+                        content: const Text(
+                          "الرجاء تحديث التطبيق إلى أحدث إصدار للمتابعة",
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () async {
+                              String updateUrl = "";
+                              if (Platform.isIOS) {
+                                updateUrl = AppConstants.iosUpdateUrl;
+                              } else {
+                                updateUrl = AppConstants.androidUpdateUrl;
+                              }
+                              final uri = Uri.parse(updateUrl);
+                              await launchUrl(uri);
+                            },
+                            child: const Text('تحديث'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
+            }
 
-           LoggerModule.log(
-               name: "*********", message: 'Latest app version: $version');
-         } else if (value is ErrorState) {
-           AppProviderModule().init(context);
-         }
-       },
-     );
-   }
+            LoggerModule.log(
+              name: "*********",
+              message: 'Latest app version: $version',
+            );
+          } else if (value is FailedState) {
+            AppProviderModule().init(context);
+          }
+        });
+      }
     });
     super.initState();
   }
@@ -135,9 +132,7 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
   Widget getBody(BuildContext context) {
     return Container(
       color: primaryColor,
-      child: LogoWidget(
-        logo: Assets.svg.icLogo,
-      ),
+      child: LogoWidget(logo: Assets.svg.icLogo),
     );
   }
 
