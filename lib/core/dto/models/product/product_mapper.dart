@@ -85,14 +85,13 @@ class ProductMapper {
 
       if (F.appFlavor == Flavor.app_stage) {
         hasDiscount = true;
-        productOriginalPrice = 125;
+        productOriginalPrice = 500;
       }
 
       if (hasDiscount) {
         // get integer part of discount percentage
-        discountPercentage =
-            ((finalPrice - productOriginalPrice) / productOriginalPrice * 100)
-                .toInt();
+        discountPercentage = ((finalPrice / productOriginalPrice) * 100)
+            .toInt();
       }
     }
   }
