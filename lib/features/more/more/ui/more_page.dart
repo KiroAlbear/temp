@@ -34,7 +34,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final deelVersionNumber = "0.1.52";
+  final deelVersionNumber = "0.1.53";
 
   @override
   void initState() {
