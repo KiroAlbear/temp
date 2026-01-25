@@ -7,7 +7,7 @@ class ProductMapper {
   int productId = 0;
   String name = '';
   String image = '';
-  double discountPercentage = 0;
+  int discountPercentage = 0;
   bool hasDiscount = false;
 
   double finalPrice = 0;
@@ -51,7 +51,7 @@ class ProductMapper {
     quantity = orderItem.count ?? 0;
     currency = orderItem.currency?[1] ?? '';
     isFavourite = false;
-    discountPercentage = orderItem.discount ?? 0;
+    discountPercentage = (orderItem.discount ?? 0).toInt();
     hasDiscount = discountPercentage > 0;
     isAvailable = false;
     isAddedToCart = false;
@@ -86,6 +86,13 @@ class ProductMapper {
       if (F.appFlavor == Flavor.app_stage) {
         hasDiscount = true;
         productOriginalPrice = 125;
+      }
+
+      if (hasDiscount) {
+        // get integer part of discount percentage
+        discountPercentage =
+            ((finalPrice - productOriginalPrice) / productOriginalPrice * 100)
+                .toInt();
       }
     }
   }

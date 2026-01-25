@@ -105,58 +105,65 @@ class _ProductWidgetState extends State<ProductWidget> {
   );
 
   Widget _getProductWidget() {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 14.w, end: 14.w, top: 14.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // SizedBox(
-          //   height: 12.h,
-          // ),
-          Stack(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // SizedBox(
+        //   height: 12.h,
+        // ),
+        Padding(
+          padding: EdgeInsetsDirectional.only(start: 14.w, top: 14.w),
+          child: Stack(
             children: [
-              _favouriteRow,
-              SizedBox(height: 4.h),
               _productImage,
+              SizedBox(height: 4.h),
+              _favouriteRow,
             ],
           ),
-          SizedBox(height: 5.h),
-          ImageFiltered(
-            imageFilter: SharedPrefModule().userId == null
-                ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
-                : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-            child: _priceRow,
+        ),
+        Padding(
+          padding: EdgeInsetsDirectional.only(start: 14.w, end: 14.w),
+          child: Column(
+            children: [
+              SizedBox(height: 5.h),
+              ImageFiltered(
+                imageFilter: SharedPrefModule().userId == null
+                    ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
+                    : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                child: _priceRow,
+              ),
+              SizedBox(height: 2.h),
+              _productName,
+
+              widget.productMapper.description.isEmpty
+                  ? SizedBox()
+                  : SizedBox(height: 4.h),
+              widget.productMapper.description.isEmpty
+                  ? SizedBox()
+                  : _productDescription,
+              SizedBox(height: 0.h),
+
+              // Center(child: _addCartButton),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: ValueListenableBuilder(
+                  valueListenable: qtyValueNotifier,
+                  builder: (context, value, child) {
+                    return value == 0
+                        ? Center(child: _addCartButton)
+                        : Center(child: _incrementDecrementButton());
+                  },
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 2.h),
-          _productName,
+        ),
 
-          widget.productMapper.description.isEmpty
-              ? SizedBox()
-              : SizedBox(height: 4.h),
-          widget.productMapper.description.isEmpty
-              ? SizedBox()
-              : _productDescription,
-          SizedBox(height: 0.h),
-
-          // Center(child: _addCartButton),
-          Padding(
-            padding: const EdgeInsets.only(top: 5.0),
-            child: ValueListenableBuilder(
-              valueListenable: qtyValueNotifier,
-              builder: (context, value, child) {
-                return value == 0
-                    ? Center(child: _addCartButton)
-                    : Center(child: _incrementDecrementButton());
-              },
-            ),
-          ),
-
-          // SizedBox(
-          //   height: 10.h,
-          // )
-        ],
-      ),
+        // SizedBox(
+        //   height: 10.h,
+        // )
+      ],
     );
   }
 
