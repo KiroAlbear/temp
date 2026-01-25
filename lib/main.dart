@@ -160,7 +160,7 @@ Future<void> requestNotificationPermissions() async {
     // Notification permissions denied
   } else if (status.isPermanentlyDenied) {
     // Notification permissions permanently denied, open app settings
-    await openAppSettings();
+    // await openAppSettings();
   }
 }
 
