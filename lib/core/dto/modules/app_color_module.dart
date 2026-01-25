@@ -82,18 +82,8 @@ const Color yellowSwitchColorBorderLightMode = Color.fromRGBO(255, 194, 0, 1);
 const Color yellowSwitchColorBorderDarkMode = Color.fromRGBO(255, 194, 0, 1);
 
 /// yellow switch color
-const Color yellowMostSellingBackgroundLightMode = Color.fromRGBO(
-  255,
-  194,
-  0,
-  0.18,
-);
-const Color yellowMostSellingBackgroundDarkMode = Color.fromRGBO(
-  255,
-  194,
-  0,
-  0.18,
-);
+const Color mostSellingBackgroundLightMode = Color.fromRGBO(250, 250, 250, 1);
+const Color mostSellingBackgroundDarkMode = Color.fromRGBO(250, 250, 250, 1);
 
 /// green card color
 const Color greenCardColorLightMode = Color.fromRGBO(239, 255, 240, 1);
@@ -207,8 +197,8 @@ Color switchBorderColor = _isDark
     : yellowSwitchColorBorderLightMode;
 
 Color mostSellingBackgroundColor = _isDark
-    ? yellowMostSellingBackgroundDarkMode
-    : yellowMostSellingBackgroundLightMode;
+    ? mostSellingBackgroundDarkMode
+    : mostSellingBackgroundLightMode;
 
 Color filterItemColor = _isDark
     ? filterItemColorDarkMode
