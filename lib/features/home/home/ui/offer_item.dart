@@ -39,7 +39,7 @@ class OfferItem extends StatelessWidget {
         },
         child:isMainPage ? _buildItem() : SizedBox(
             child: AspectRatio(
-              aspectRatio: 16/6,
+              aspectRatio: 2.572,
               child: _buildItem()),
         ),
       ),
