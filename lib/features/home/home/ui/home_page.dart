@@ -56,7 +56,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
     super.initState();
     customBackgroundColor = Colors.white;
 
-    if (SharedPrefModule().isLoggedIn) {
+    if (SharedPrefModule().isLoggedIn ?? false) {
       widget.cartBloc.getMyCart(
         onGettingCart: () {
           getIt<MostSellingBloc>().getMostSelling();
@@ -93,7 +93,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
       ),
       SliverToBoxAdapter(child: HeroBannersWidget(homeBloc: widget.homeBloc)),
       SliverToBoxAdapter(child: SizedBox(height: 16.h)),
-      SharedPrefModule().isLoggedIn
+      (SharedPrefModule().isLoggedIn ?? false)
           ? SliverToBoxAdapter(child: _recommendedProducts())
           : SliverToBoxAdapter(child: SizedBox()),
       SliverToBoxAdapter(child: SizedBox(height: 20.h)),
