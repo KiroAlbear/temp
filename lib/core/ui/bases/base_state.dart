@@ -43,7 +43,7 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   Color? statusBarColor() => null;
   Color? systemNavigationBarColor() => null;
 
-  double appTopPadding() => 25;
+  double appTopPadding() => 32;
 
   
 

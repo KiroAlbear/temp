@@ -26,7 +26,7 @@ class OffersSkeleton extends StatelessWidget {
                 child: Bone(
                   borderRadius: BorderRadius.all(Radius.circular(12.r)),
                   width: isMainPage ? double.infinity : 250,
-                  height: isMainPage ? 150 : 110,
+                  height: isMainPage ? 150 : 140,
                 ),
               ),
             ),

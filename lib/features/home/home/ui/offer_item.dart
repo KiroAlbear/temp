@@ -10,14 +10,12 @@ class OfferItem extends StatelessWidget {
   final bool isClickable;
   final OfferMapper item;
   final HomeBloc homeBloc;
-  final bool isMainPage;
   final bool isInProductPage;
   OfferItem(
       {required this.isClickable,
       required this.item,
       required this.homeBloc,
       // required this.index,
-      required this.isMainPage,
       required this.isInProductPage,
       super.key});
 
@@ -37,28 +35,24 @@ class OfferItem extends StatelessWidget {
             //     .pushNamed(AppScreenEnum.product.name);
           }
         },
-        child:isMainPage ? _buildItem() : SizedBox(
-            height: 110,
-            child: AspectRatio(
-              aspectRatio: 16/8,
-              child: _buildItem()),
-        ),
+        child: _buildItem()
       ),
     );
   }
 
-  Container _buildItem() {
-    return Container(
-        height:  160.h,
-        width:  double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.w),
-            color: isInProductPage ? productCardColor : Colors.transparent),
-        child: ImageHelper(
-          image: item.image,
-          imageType: ImageType.network,
-          boxFit: BoxFit.fill,
+  Widget _buildItem() {
+    return AspectRatio(
+      aspectRatio: 2.572,
+      child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.w),
+              color: isInProductPage ? productCardColor : Colors.transparent),
+          child: ImageHelper(
+            image: item.image,
+            imageType: ImageType.network,
+            boxFit: BoxFit.fill,
+          ),
         ),
-      );
+    );
   }
 }
