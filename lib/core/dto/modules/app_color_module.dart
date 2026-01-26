@@ -22,6 +22,9 @@ const Color secondaryDarkMode = Color.fromRGBO(0, 69, 122, 1);
 const Color lightBlackLightMode = Color.fromRGBO(58, 58, 58, 1);
 const Color lightBlackDarkMode = Color.fromRGBO(58, 58, 58, 1);
 
+const Color lighterBlackLightMode = Color.fromRGBO(210, 210, 210, 1);
+const Color lighterBlackDarkMode = Color.fromRGBO(210, 210, 210, 1);
+
 /// pale blue color
 const Color paleBlueLightMode = Color.fromRGBO(181, 238, 236, 1);
 const Color paleBlueDarkMode = Color.fromRGBO(39, 170, 165, 1);
@@ -147,7 +150,11 @@ Color redColor = _isDark ? redColorDarkMode : redColorLightMode;
 
 Color blackColor = _isDark ? white : black;
 
-Color lightBlackColor = _isDark ? lightBlackDarkMode : lightBlackDarkMode;
+Color lightBlackColor = _isDark ? lightBlackDarkMode : lightBlackLightMode;
+
+Color lighterBlackColor = _isDark
+    ? lighterBlackDarkMode
+    : lighterBlackLightMode;
 
 Color whiteColor = _isDark ? black : white;
 

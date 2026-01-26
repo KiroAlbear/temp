@@ -1,4 +1,3 @@
-
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,20 +23,28 @@ class CurrentOrderItemState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ImageHelper(
-              image: icon, imageType: ImageType.svg, width: 32, height: 32),
+            image: icon,
+            imageType: ImageType.svg,
+            width: 32,
+            height: 32,
+          ),
           SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
                 text: title,
-                customTextStyle:
-                    MediumStyle(color:isEnabled?greenColorLightMode: lightBlackColor, fontSize: 14.sp),
+                customTextStyle: MediumStyle(
+                  color: isEnabled ? greenColorLightMode : lighterBlackColor,
+                  fontSize: 14.sp,
+                ),
               ),
               CustomText(
                 text: date,
-                customTextStyle:
-                    RegularStyle(color: greyColor, fontSize: 12.sp),
+                customTextStyle: RegularStyle(
+                  color: greyColor,
+                  fontSize: 12.sp,
+                ),
               ),
             ],
           ),

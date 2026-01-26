@@ -34,6 +34,9 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
   void onPopInvoked(didPop) {}
 
   @override
+  double appTopPadding() => 0;
+
+  @override
   Widget getBody(BuildContext context) {
     return Column(
       children: [
