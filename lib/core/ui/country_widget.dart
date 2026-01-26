@@ -64,7 +64,7 @@ class _CountryWidgetState extends State<CountryWidget> {
         enableDrag: false,
       ),
       child: Container(
-        height: 58.h,
+        height: 52.h,
         width: 90.w,
         decoration: grayRectangleBorder,
         padding: EdgeInsets.symmetric( horizontal: 0.w),

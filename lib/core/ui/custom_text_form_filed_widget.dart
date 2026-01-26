@@ -218,7 +218,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
         errorMaxLines: 4,
         contentPadding: widget.hasContentPadding
             ? widget.customContentPadding ??
-                EdgeInsets.symmetric(vertical: 17.h, horizontal: 15.w)
+                EdgeInsets.symmetric(vertical: 14.h, horizontal: 15.w)
             : null,
         errorText: widget.errorText,
         enabled: widget.enable,
@@ -327,7 +327,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
   }
 
   TextStyle get _counterTextStyle =>
-      MediumStyle(color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
+      MediumStyle(color: widget.textLabelColor ?? primaryColor, fontSize: 14.sp)
           .getStyle();
 
   TextStyle get _suffixTextStyle =>
@@ -335,7 +335,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
           .getStyle();
 
   TextStyle get _errorTextStyle =>
-      MediumStyle(color: widget.errorTextColor ?? redColor, fontSize: 16.sp)
+      MediumStyle(color: widget.errorTextColor ?? redColor, fontSize: 14.sp)
           .getStyle();
 
   // TextStyle get _hintTextStyle => RegularStyle(
@@ -343,11 +343,11 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
   //     .getStyle();
 
   TextStyle get _defaultFloatingLabelStyle => RegularStyle(
-          color: widget.textLabelColor ?? primaryColor, fontSize: 16.sp)
+          color: widget.textLabelColor ?? primaryColor, fontSize: 14.sp)
       .getStyle();
 
   TextStyle get _defaultTextStyle =>
-      MediumStyle(color: greyColor, fontSize: 17.sp).getStyle();
+      MediumStyle(color: greyColor, fontSize: 14.sp).getStyle();
 
   InputBorder? _getBorder(Color color) => getOutLineBorder(color);
 
