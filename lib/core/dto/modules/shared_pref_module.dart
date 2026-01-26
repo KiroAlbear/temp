@@ -5,10 +5,11 @@ import '../enums/shared_pref_enum.dart';
 class SharedPrefModule {
   final SimpleSharedPref _sharedPref = SimpleSharedPref();
 
-  bool get isLoggedIn =>
-      (_sharedPref.getValue<String>(
-        key: _sharedKey(SharedPRefEnum.bearerToken),
-      ) !=
+  bool? get isLoggedIn =>
+      ((_sharedPref.getValue<String?>(
+            key: _sharedKey(SharedPRefEnum.bearerToken),
+          ) ??
+          '') !=
       '');
 
   double get userLat =>
@@ -195,6 +196,6 @@ class SharedPrefModule {
   }
 
   String _sharedKey(SharedPRefEnum enumKey) {
-    return enumKey.name.toString().split('.').last;
+    return enumKey.name.toString().split('.').last ?? '';
   }
 }
