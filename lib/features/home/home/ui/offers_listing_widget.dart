@@ -53,7 +53,6 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             itemBuilder: (context, index) => OfferItem(
               isInProductPage: false,
-              isMainPage: widget.isMainPage,
               isClickable: list[index].link.toLowerCase().trim() != "nolink",
               item: list[index],
               homeBloc: widget.homeBloc,
