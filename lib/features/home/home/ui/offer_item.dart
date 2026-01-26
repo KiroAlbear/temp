@@ -38,9 +38,8 @@ class OfferItem extends StatelessWidget {
           }
         },
         child:isMainPage ? _buildItem() : SizedBox(
-            height: 110,
             child: AspectRatio(
-              aspectRatio: 16/8,
+              aspectRatio: 16/6,
               child: _buildItem()),
         ),
       ),
@@ -49,8 +48,6 @@ class OfferItem extends StatelessWidget {
 
   Container _buildItem() {
     return Container(
-        height:  160.h,
-        width:  double.infinity,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
             color: isInProductPage ? productCardColor : Colors.transparent),
