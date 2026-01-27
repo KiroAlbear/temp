@@ -105,24 +105,24 @@ class Apputils {
         //   },
         // );
       } catch (e) {
-        LoggerModule.log(message: "${e.toString()}", name: "Update Error");
-        await showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Update Error'),
-              content: Text('${e.toString()}'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
+        // LoggerModule.log(message: "${e.toString()}", name: "Update Error");
+        // await showDialog(
+        //   context: context,
+        //   builder: (context) {
+        //     return AlertDialog(
+        //       title: Text('Update Error'),
+        //       content: Text('${e.toString()}'),
+        //       actions: [
+        //         TextButton(
+        //           onPressed: () {
+        //             Navigator.of(context).pop();
+        //           },
+        //           child: const Text('OK'),
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // );
       }
 
       // Optionally, notify the user that an update is ready and they should restart.

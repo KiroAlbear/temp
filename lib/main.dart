@@ -8,10 +8,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:simple_shared_pref/simple_shared_pref.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'core/dto/modules/admin_dio_module.dart';
 import 'core/dto/modules/app_provider_module.dart';
@@ -30,25 +32,46 @@ FutureOr<void> main() async {
   /// ensure widget init
   WidgetsFlutterBinding.ensureInitialized();
 
-  await FlutterPaymob.instance.initialize(
-    userTokenExpiration: 3600, // optional, default is 30 days
-    apiKey:
-        "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==", //  // from dashboard Select Settings -> Account Info -> API Key
-    integrationID: 5106629,
-    walletIntegrationId: 5106875,
-    iFrameID: 926227,
-  );
 
-  ///
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
+
+
+
+
+  await FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print(message.category);
+
+    getIt<ProductCategoryBloc>().handleNotificationNavigation(
+      NotificationResponseModel.fromJson(message.data),
+    );
+  });
+
+  FirebaseMessaging.instance.onTokenRefresh
+      .listen((fcmToken) {
+    // print("********* fcm Token $fcmToken **********");
+    LoggerModule.log(
+      message: "********* fcm Token $fcmToken **********",
+      name: "fcm Token",
+    );
+  })
+      .onError((err) {
+    // print("********* error getting device fcm Token **********");
+    LoggerModule.log(
+      message: "********* error getting device fcm Token **********",
+      name: "fcm Token",
+    );
+  });
+
+
+
   // You may set the permission requests to "provisional" which allows the user to choose what type
   // of notifications they would like to receive once the user receives a notification.
 
   if (Platform.isIOS) {
     // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
-    await FirebaseMessaging.instance.getAPNSToken().then((apnsToken) async {
+     await FirebaseMessaging.instance.getAPNSToken().then((apnsToken) async {
       if (apnsToken != null) {
         print("********* apnToken $apnsToken **********");
 
@@ -73,67 +96,19 @@ FutureOr<void> main() async {
     });
   }
 
-  final notificationSettings = await FirebaseMessaging.instance
-      .requestPermission(
-        provisional: true,
-        alert: true,
-        badge: true,
-        sound: true,
-      );
-
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print(message.category);
-
-    getIt<ProductCategoryBloc>().handleNotificationNavigation(
-      NotificationResponseModel.fromJson(message.data),
-    );
-  });
-
-  await requestNotificationPermissions();
-
-  FirebaseMessaging.instance.onTokenRefresh
-      .listen((fcmToken) {
-        // print("********* fcm Token $fcmToken **********");
-        LoggerModule.log(
-          message: "********* fcm Token $fcmToken **********",
-          name: "fcm Token",
-        );
-      })
-      .onError((err) {
-        // print("********* error getting device fcm Token **********");
-        LoggerModule.log(
-          message: "********* error getting device fcm Token **********",
-          name: "fcm Token",
-        );
-      });
-
-  if (notificationSettings.authorizationStatus ==
-      AuthorizationStatus.authorized) {
-    debugPrint('✅ Notifications authorized');
-  } else if (notificationSettings.authorizationStatus ==
-      AuthorizationStatus.provisional) {
-    debugPrint('⚠️ Notifications provisionally authorized');
-  } else {
-    debugPrint('❌ Notifications denied');
-  }
-
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  // Handle Crashlytics enabled status when not in Debug,
-  // e.g. allow your users to opt-in to crash reporting.
-
-  /// init shared preferences as simple shared pref plugin
   await SimpleSharedPref().init(allowEncryptAndDecrypt: false);
 
-  /// set base url for dioModule
+  HttpOverrides.global = AppHttpOverrides();
   _initOdooDio();
   _initAdminDio();
-  LoggerModule.log(message: AdminDioModule().baseUrl, name: 'admin dio module');
-  LoggerModule.log(message: OdooDioModule().baseUrl, name: 'odoo dio module');
 
-  /// allow Chucker to show in release mode
-  // ChuckerFlutter.showOnRelease = true;
-  HttpOverrides.global = AppHttpOverrides();
+
   await DependencyInjectionService().init();
+
+  Future.microtask(() {
+    _checkInstantUpdate();
+    _checkAppUpdate();
+  },);
 
   /// run app and use provider for app config
   runApp(
@@ -152,16 +127,88 @@ FutureOr<void> main() async {
   );
 }
 
-Future<void> requestNotificationPermissions() async {
-  final PermissionStatus status = await Permission.notification.request();
-  if (status.isGranted) {
-    // Notification permissions granted
-  } else if (status.isDenied) {
-    // Notification permissions denied
-  } else if (status.isPermanentlyDenied) {
-    // Notification permissions permanently denied, open app settings
-    // await openAppSettings();
-  }
+
+void _checkInstantUpdate(){
+  LoggerModule.log(name: "*********", message: 'Checking for instant updates...');
+  Apputils.updateAndRestartApp(Routes.rootNavigatorKey.currentContext!);
+}
+
+void _checkAppUpdate(){
+  LoggerModule.log(name: "*********", message: 'Checking for App updates...');
+  MoreBloc().checkAppUpdateStream.listen((state) async {
+    if (state is SuccessState) {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String version = packageInfo.version;
+
+      String latestVersionNumberAndroid =
+          state.response
+              ?.firstWhere((element) => element.type == 0)
+              .versionNum ??
+              "0.0.0";
+      String latestVersionNumberIOS =
+          state.response
+              ?.firstWhere((element) => element.type == 1)
+              .versionNum ??
+              "0.0.0";
+
+      if (Platform.isAndroid &&
+          Apputils.icCurrentVersionValid(
+            currentVersion: version,
+            latestVersion: latestVersionNumberAndroid,
+          )) {
+        // AppProviderModule().init(context);
+      } else if (Platform.isIOS &&
+          Apputils.icCurrentVersionValid(
+            currentVersion: version,
+            latestVersion: latestVersionNumberIOS,
+          )) {
+        // AppProviderModule().init(context);
+      } else {
+        {
+          await showDialog(
+            context: Routes.rootNavigatorKey.currentContext!,
+            barrierDismissible: false,
+            builder: (context) {
+              return PopScope(
+                canPop: false,
+                child: AlertDialog(
+                  title: const Text('تحديث'),
+                  content: const Text(
+                    "الرجاء تحديث التطبيق إلى أحدث إصدار للمتابعة",
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () async {
+                        String updateUrl = "";
+                        if (Platform.isIOS) {
+                          updateUrl = AppConstants.iosUpdateUrl;
+                        } else {
+                          updateUrl = AppConstants.androidUpdateUrl;
+                        }
+                        final uri = Uri.parse(updateUrl);
+                        await launchUrl(uri);
+                      },
+                      child: const Text('تحديث'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+      }
+
+      LoggerModule.log(
+        name: "*********",
+        message: 'Latest app version: $version',
+      );
+    } else if (state is FailedState) {
+      LoggerModule.log(
+        name: "*********",
+        message: 'Failed to get app version',
+      );
+    }
+  });
 }
 
 void _initAdminDio() {
@@ -174,31 +221,4 @@ void _initOdooDio() {
   OdooDioModule().baseUrl = FlavorConfig.apiUrl;
   OdooDioModule().init();
   OdooDioModule().setAppHeaders();
-}
-
-// void addFireBaseCrashReporting() {
-//   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-//   PlatformDispatcher.instance.onError = (error, stack) {
-//     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-//     return true;
-//   };
-// }
-
-void _runAppWithSentry() async {
-  // await SentryFlutter.init(
-  //   (options) {
-  //     options.dsn =
-  //         'https://b3a964f4ec88da9c00d953c418f89192@o4506076199845888.ingest.sentry.io/4506076200894464';
-  //     options.tracesSampleRate = 1.0;
-  //     options.anrEnabled = true;
-  //   },
-  //   appRunner: () => runApp(MultiProvider(providers: [
-  //     ChangeNotifierProvider<AppProviderModule>(
-  //         create: (_) {
-  //           AppProviderModule appProviderModule = AppProviderModule();
-  //           appProviderModule.initAppThemeAndLanguage();
-  //           return appProviderModule;
-  //         }),
-  //   ], child: MyApp())),
-  // );
 }
