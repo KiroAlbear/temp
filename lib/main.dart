@@ -105,10 +105,9 @@ FutureOr<void> main() async {
 
   await DependencyInjectionService().init();
 
-  Future.microtask(() {
-    _checkInstantUpdate();
-    _checkAppUpdate();
-  },);
+
+
+
 
   /// run app and use provider for app config
   runApp(
@@ -128,88 +127,7 @@ FutureOr<void> main() async {
 }
 
 
-void _checkInstantUpdate(){
-  LoggerModule.log(name: "*********", message: 'Checking for instant updates...');
-  Apputils.updateAndRestartApp(Routes.rootNavigatorKey.currentContext!);
-}
 
-void _checkAppUpdate(){
-  LoggerModule.log(name: "*********", message: 'Checking for App updates...');
-  MoreBloc().checkAppUpdateStream.listen((state) async {
-    if (state is SuccessState) {
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      String version = packageInfo.version;
-
-      String latestVersionNumberAndroid =
-          state.response
-              ?.firstWhere((element) => element.type == 0)
-              .versionNum ??
-              "0.0.0";
-      String latestVersionNumberIOS =
-          state.response
-              ?.firstWhere((element) => element.type == 1)
-              .versionNum ??
-              "0.0.0";
-
-      if (Platform.isAndroid &&
-          Apputils.icCurrentVersionValid(
-            currentVersion: version,
-            latestVersion: latestVersionNumberAndroid,
-          )) {
-        // AppProviderModule().init(context);
-      } else if (Platform.isIOS &&
-          Apputils.icCurrentVersionValid(
-            currentVersion: version,
-            latestVersion: latestVersionNumberIOS,
-          )) {
-        // AppProviderModule().init(context);
-      } else {
-        {
-          await showDialog(
-            context: Routes.rootNavigatorKey.currentContext!,
-            barrierDismissible: false,
-            builder: (context) {
-              return PopScope(
-                canPop: false,
-                child: AlertDialog(
-                  title: const Text('تحديث'),
-                  content: const Text(
-                    "الرجاء تحديث التطبيق إلى أحدث إصدار للمتابعة",
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () async {
-                        String updateUrl = "";
-                        if (Platform.isIOS) {
-                          updateUrl = AppConstants.iosUpdateUrl;
-                        } else {
-                          updateUrl = AppConstants.androidUpdateUrl;
-                        }
-                        final uri = Uri.parse(updateUrl);
-                        await launchUrl(uri);
-                      },
-                      child: const Text('تحديث'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-      }
-
-      LoggerModule.log(
-        name: "*********",
-        message: 'Latest app version: $version',
-      );
-    } else if (state is FailedState) {
-      LoggerModule.log(
-        name: "*********",
-        message: 'Failed to get app version',
-      );
-    }
-  });
-}
 
 void _initAdminDio() {
   AdminDioModule().baseUrl = FlavorConfig.adminApiUrl;

@@ -17,8 +17,6 @@ import '../../features/cart/models/cart_order_details_args.dart';
 import '../Utils/firebase_analytics_utl.dart';
 
 class Routes {
-  static BuildContext? buildContext;
-
   Routes._();
 
   static final GlobalKey<NavigatorState> rootNavigatorKey =

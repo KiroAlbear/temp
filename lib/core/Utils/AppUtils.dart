@@ -4,7 +4,9 @@ import 'package:deel/features/announcements/bloc/announcements_bloc.dart'
 import 'package:deel/features/announcements/ui/announcements_dialog_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../dto/enums/app_screen_enum.dart';
 import '../dto/modules/alert_module.dart';
 import '../generated/l10n.dart';
@@ -72,7 +74,7 @@ class Apputils {
     return true; // equal
   }
 
-  static Future<void> updateAndRestartApp(BuildContext context) async {
+  static Future<void> updateAndRestartApp() async {
     final shorebirdCodePush = ShorebirdUpdater();
     // Check for updates and prompt the user to restart if one is available.
     final UpdateStatus status = await shorebirdCodePush.checkForUpdate();
