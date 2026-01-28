@@ -167,7 +167,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
       ((SharedPrefModule().userId ?? '').isEmpty && widget.isForFavourite)
       ? NotLoggedInWidget(
           title: S.of(context).favourite,
-          image: Assets.svg.imgGuestFavourite,
+          image: Assets.svg.emptyFavourite,
           imageType: ImageType.svg,
         )
       : Column(
@@ -513,7 +513,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                   CrossAxisAlignment.stretch,
                                               children: [
                                                 ImageHelper(
-                                                  image: Assets.svg.icNotFound,
+                                                  image: Assets.svg.emptyOffers,
                                                   imageType: ImageType.svg,
                                                 ),
                                               ],

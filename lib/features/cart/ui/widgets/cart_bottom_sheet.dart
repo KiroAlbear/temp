@@ -35,6 +35,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
         });
       },
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IgnorePointer(
             ignoring: true,
@@ -97,7 +98,10 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               Icon(Icons.account_balance_wallet_outlined,
                   color: secondaryColor)),
           _paymentRow(_groupeFawryValue, "فوري",
-              Icon(Icons.credit_card_rounded, color: secondaryColor)),
+              SizedBox(
+                  width: 60,
+                  height: 50,
+                  child: ImageHelper(image: Assets.png.fawry.path, imageType: ImageType.asset))),
           18.verticalSpace,
           IgnorePointer(
             ignoring: _groupeValue == -1,

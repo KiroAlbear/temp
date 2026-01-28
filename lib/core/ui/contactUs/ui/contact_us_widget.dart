@@ -18,96 +18,117 @@ class ContactUsWidget extends StatefulWidget {
 class _ContactUsWidgetState extends State<ContactUsWidget>
     with ResponseHandlerModule {
   @override
-  Widget build(BuildContext context) => StreamBuilder<ApiState<ContactUsMapper>>(
-    stream: widget.contactUsBloc.contactUsStream,
-    builder: (context, snapshot) {
-      if (snapshot.data == null || snapshot.data?.response == null) {
-        return const SizedBox();
-      } else
-        return checkResponseStateWithLoadingWidget(
-            snapshot.data!, context,
-            onSuccess: _buildScreenDesign(snapshot.data!.response!));
-    },
-  );
+  Widget build(BuildContext context) =>
+      StreamBuilder<ApiState<ContactUsMapper>>(
+        stream: widget.contactUsBloc.contactUsStream,
+        builder: (context, snapshot) {
+          if (snapshot.data == null || snapshot.data?.response == null) {
+            return const SizedBox();
+          } else
+            return checkResponseStateWithLoadingWidget(
+              snapshot.data!,
+              context,
+              onSuccess: _buildScreenDesign(snapshot.data!.response!),
+            );
+        },
+      );
 
   Widget _buildScreenDesign(ContactUsMapper contactUsMapper) => Column(
     mainAxisSize: MainAxisSize.min,
+    children: [
+      SizedBox(height: 39.h),
+      Row(
         children: [
-          SizedBox(
-            height: 39.h,
+          SizedBox(width: 90.w),
+          CustomText(
+            text: S.of(context).howCanWeHelp,
+            customTextStyle: BoldStyle(fontSize: 18.sp, color: lightBlackColor),
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: 90.w,
-              ),
-              CustomText(
-                  text: S.of(context).howCanWeHelp,
-                  customTextStyle:
-                      BoldStyle(fontSize: 18.sp, color: lightBlackColor)),
-              const Spacer(),
-              InkWell(
-                onTap: () => Navigator.pop(context),
-                child: ImageHelper(
-                  image:  Assets.svg.icClose,
-                  imageType: ImageType.svg,
-                  width: 24.w,
-                  height: 24.h,
-                ),
-              ),
-              SizedBox(
-                width: 16.w,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 17.h,
-          ),
-          InkWell(
-            onTap: () => EasyLauncher.call(number: contactUsMapper.hotLine),
-            child: _buildContactUsItem(contactUsMapper.hotLine, Assets.svg.icPhone, S.of(context).hotline),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          InkWell(
-            onTap: () async {
-              await launchUrl(Uri.parse(contactUsMapper.whatsApp));
-              // EasyLauncher.sendToWhatsApp(
-              //     phone: contactUsMapper.whatsApp, message: 'Hi')
-            },
-            child: _buildContactUsItem(contactUsMapper.whatsApp,
-                Assets.svg.icWhatsApp, S.of(context).whatsApp),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          InkWell(
-            onTap: () => EasyLauncher.url(
-                url: contactUsMapper.facebook, mode: Mode.externalApp),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7.w),
-              child: _buildContactUsItem(contactUsMapper.facebook,
-                  Assets.svg.icFaceBook, S.of(context).faceBook),
-            ),
-          ),
-          // SizedBox(
-          //   height: 50.h,
+          const Spacer(),
+          // InkWell(
+          //   onTap: () => Navigator.pop(context),
+          //   child: ImageHelper(
+          //     image:  Assets.svg.icClose,
+          //     imageType: ImageType.svg,
+          //     width: 24.w,
+          //     height: 24.h,
+          //   ),
           // ),
-          SizedBox(
-            height: 25.h,
-          ),
+          SizedBox(width: 16.w),
         ],
-      );
+      ),
+      SizedBox(height: 17.h),
+      InkWell(
+        onTap: () => EasyLauncher.call(number: contactUsMapper.hotLine),
+        child: _buildContactUsItem(
+          contactUsMapper.hotLine,
+          Assets.svg.icPhone,
+          S.of(context).hotline,
+        ),
+      ),
+      SizedBox(height: 20.h),
+      InkWell(
+        onTap: () async {
+          await launchUrl(Uri.parse(contactUsMapper.whatsApp));
+          // EasyLauncher.sendToWhatsApp(
+          //     phone: contactUsMapper.whatsApp, message: 'Hi')
+        },
+        child: _buildContactUsItem(
+          contactUsMapper.whatsApp,
+          Assets.svg.icWhatsApp,
+          S.of(context).whatsApp,
+        ),
+      ),
+      SizedBox(height: 20.h),
+      InkWell(
+        onTap: () => EasyLauncher.url(
+          url: contactUsMapper.facebook,
+          mode: Mode.externalApp,
+        ),
+        child: _buildContactUsItem(
+          contactUsMapper.facebook,
+          Assets.svg.icFacebook,
+          S.of(context).faceBook,
+        ),
+      ),
+
+      SizedBox(height: 20.h),
+      InkWell(
+        onTap: () => EasyLauncher.url(
+          url: contactUsMapper.instagram,
+          mode: Mode.externalApp,
+        ),
+        child: _buildContactUsItem(
+          contactUsMapper.instagram,
+          Assets.svg.instagram,
+          "انستجرام",
+        ),
+      ),
+      SizedBox(height: 20.h),
+      InkWell(
+        onTap: () => EasyLauncher.url(
+          url: contactUsMapper.tiktok,
+          mode: Mode.externalApp,
+        ),
+        child: _buildContactUsItem(
+          contactUsMapper.tiktok,
+          Assets.svg.tiktok,
+          "تيكتوك",
+        ),
+      ),
+      // SizedBox(
+      //   height: 50.h,
+      // ),
+      SizedBox(height: 25.h),
+    ],
+  );
 
   Widget _buildContactUsItem(String linkTo, String imagePath, String text) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 47.w,
-          ),
+          SizedBox(width: 47.w),
           ImageHelper(
             image: imagePath,
             imageType: ImageType.svg,
@@ -115,13 +136,14 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
             height: 24.h,
             boxFit: BoxFit.contain,
           ),
-          SizedBox(
-            width: 35.w,
-          ),
+          SizedBox(width: 35.w),
           CustomText(
-              text: text,
-              customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 18.sp))
+            text: text,
+            customTextStyle: RegularStyle(
+              color: lightBlackColor,
+              fontSize: 18.sp,
+            ),
+          ),
         ],
       );
 }

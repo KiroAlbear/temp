@@ -14,29 +14,19 @@ import 'package:flutter/widgets.dart';
 class $AssetsPngGen {
   const $AssetsPngGen();
 
+  /// File path: assets/png/fawry.png
+  AssetGenImage get fawry => const AssetGenImage('assets/png/fawry.png');
+
   /// File path: assets/png/ic_guest_cart.png
   AssetGenImage get icGuestCart =>
       const AssetGenImage('assets/png/ic_guest_cart.png');
-
-  /// File path: assets/png/ic_not_found.png
-  AssetGenImage get icNotFound =>
-      const AssetGenImage('assets/png/ic_not_found.png');
 
   /// File path: assets/png/order_cancel.png
   AssetGenImage get orderCancel =>
       const AssetGenImage('assets/png/order_cancel.png');
 
-  /// File path: assets/png/order_success.png
-  AssetGenImage get orderSuccess =>
-      const AssetGenImage('assets/png/order_success.png');
-
   /// List of all assets
-  List<AssetGenImage> get values => [
-    icGuestCart,
-    icNotFound,
-    orderCancel,
-    orderSuccess,
-  ];
+  List<AssetGenImage> get values => [fawry, icGuestCart, orderCancel];
 }
 
 class $AssetsSvgGen {
@@ -59,9 +49,6 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/ic_accepted_order_green.svg
   String get icAcceptedOrderGreen => 'assets/svg/ic_accepted_order_green.svg';
-
-  /// File path: assets/svg/ic_alert.svg
-  String get icAlert => 'assets/svg/ic_alert.svg';
 
   /// File path: assets/svg/ic_arrow_down.svg
   String get icArrowDown => 'assets/svg/ic_arrow_down.svg';
@@ -120,8 +107,8 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_empty_shop.svg
   String get icEmptyShop => 'assets/svg/ic_empty_shop.svg';
 
-  /// File path: assets/svg/ic_face_book.svg
-  String get icFaceBook => 'assets/svg/ic_face_book.svg';
+  /// File path: assets/svg/ic_facebook.svg
+  String get icFacebook => 'assets/svg/ic_facebook.svg';
 
   /// File path: assets/svg/ic_faq.svg
   String get icFaq => 'assets/svg/ic_faq.svg';
@@ -172,9 +159,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_normal_order.svg
   String get icNormalOrder => 'assets/svg/ic_normal_order.svg';
 
-  /// File path: assets/svg/ic_not_found.svg
-  String get icNotFound => 'assets/svg/ic_not_found.svg';
-
   /// File path: assets/svg/ic_notification.svg
   String get icNotification => 'assets/svg/ic_notification.svg';
 
@@ -223,11 +207,17 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_whats_app.svg
   String get icWhatsApp => 'assets/svg/ic_whats_app.svg';
 
-  /// File path: assets/svg/img_guest_favourite.svg
-  String get imgGuestFavourite => 'assets/svg/img_guest_favourite.svg';
+  /// File path: assets/svg/instagram.svg
+  String get instagram => 'assets/svg/instagram.svg';
 
   /// File path: assets/svg/logo_yellow.svg
   String get logoYellow => 'assets/svg/logo_yellow.svg';
+
+  /// File path: assets/svg/order_success.svg
+  String get orderSuccess => 'assets/svg/order_success.svg';
+
+  /// File path: assets/svg/tiktok.svg
+  String get tiktok => 'assets/svg/tiktok.svg';
 
   /// List of all assets
   List<dynamic> get values => [
@@ -237,7 +227,6 @@ class $AssetsSvgGen {
     emptyOffers,
     icAcceptedOrderGray,
     icAcceptedOrderGreen,
-    icAlert,
     icArrowDown,
     icArrowDownBlue,
     icArrowDownGrey,
@@ -257,7 +246,7 @@ class $AssetsSvgGen {
     icDeliveredOrderGreen,
     icDropDownArrow,
     icEmptyShop,
-    icFaceBook,
+    icFacebook,
     icFaq,
     icFavourite,
     icFavouriteFilled,
@@ -274,7 +263,6 @@ class $AssetsSvgGen {
     icMore,
     icMyOrders,
     icNormalOrder,
-    icNotFound,
     icNotification,
     icOpenEye,
     icOutsideOrderGray,
@@ -291,8 +279,10 @@ class $AssetsSvgGen {
     icShippingOrderGreen,
     icTotal,
     icWhatsApp,
-    imgGuestFavourite,
+    instagram,
     logoYellow,
+    orderSuccess,
+    tiktok,
   ];
 }
 

@@ -597,7 +597,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
           cancelMessage: S.of(context).cancel,
           confirmMessage: S.of(context).yes,
           headerMessage: S.of(context).logout,
-          headerSvg: Assets.svg.icAlert,
           errorColorInConfirm: true,
           onConfirm: () {
             Future.delayed(const Duration(milliseconds: 600)).then((value) {
@@ -642,7 +641,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
           cancelMessage: S.of(context).cancel,
           confirmMessage: S.of(context).deleteAccount,
           headerMessage: S.of(context).deleteAccount,
-          headerSvg: Assets.svg.icAlert,
           errorColorInConfirm: true,
           hasCloseButton: true,
           sameButtonsColor: false,
