@@ -46,15 +46,15 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
                   customTextStyle:
                       BoldStyle(fontSize: 18.sp, color: lightBlackColor)),
               const Spacer(),
-              InkWell(
-                onTap: () => Navigator.pop(context),
-                child: ImageHelper(
-                  image:  Assets.svg.icClose,
-                  imageType: ImageType.svg,
-                  width: 24.w,
-                  height: 24.h,
-                ),
-              ),
+              // InkWell(
+              //   onTap: () => Navigator.pop(context),
+              //   child: ImageHelper(
+              //     image:  Assets.svg.icClose,
+              //     imageType: ImageType.svg,
+              //     width: 24.w,
+              //     height: 24.h,
+              //   ),
+              // ),
               SizedBox(
                 width: 16.w,
               )
@@ -88,7 +88,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: _buildContactUsItem(contactUsMapper.facebook,
-                  Assets.svg.icFaceBook, S.of(context).faceBook),
+                  Assets.svg.icFacebook, S.of(context).faceBook),
             ),
           ),
           // SizedBox(
