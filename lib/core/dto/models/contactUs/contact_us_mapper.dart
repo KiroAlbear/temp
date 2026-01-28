@@ -1,9 +1,11 @@
 import 'contact_us_response.dart';
 
 class ContactUsMapper {
-  late final String whatsApp;
-  late final String hotLine;
-  late final String facebook;
+  String whatsApp = "";
+  String hotLine = "";
+  String facebook = "";
+  String instagram = "";
+  String tiktok = "";
 
   static const int HotlineType = 1;
   static const int WhatsAppType = 2;
@@ -21,6 +23,13 @@ class ContactUsMapper {
         break;
       case FacebookType:
         facebook = response.contact ?? '';
+        break;
+      case InstagramType:
+        instagram = response.contact ?? '';
+        break;
+
+      case TiktokType:
+        tiktok = response.contact ?? '';
         break;
     }
   }

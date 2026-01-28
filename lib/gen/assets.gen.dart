@@ -21,21 +21,12 @@ class $AssetsPngGen {
   AssetGenImage get icGuestCart =>
       const AssetGenImage('assets/png/ic_guest_cart.png');
 
-  /// File path: assets/png/ic_not_found.png
-  AssetGenImage get icNotFound =>
-      const AssetGenImage('assets/png/ic_not_found.png');
-
   /// File path: assets/png/order_cancel.png
   AssetGenImage get orderCancel =>
       const AssetGenImage('assets/png/order_cancel.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
-    fawry,
-    icGuestCart,
-    icNotFound,
-    orderCancel,
-  ];
+  List<AssetGenImage> get values => [fawry, icGuestCart, orderCancel];
 }
 
 class $AssetsSvgGen {
@@ -58,9 +49,6 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/ic_accepted_order_green.svg
   String get icAcceptedOrderGreen => 'assets/svg/ic_accepted_order_green.svg';
-
-  /// File path: assets/svg/ic_alert.svg
-  String get icAlert => 'assets/svg/ic_alert.svg';
 
   /// File path: assets/svg/ic_arrow_down.svg
   String get icArrowDown => 'assets/svg/ic_arrow_down.svg';
@@ -219,9 +207,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_whats_app.svg
   String get icWhatsApp => 'assets/svg/ic_whats_app.svg';
 
-  /// File path: assets/svg/img_guest_favourite.svg
-  String get imgGuestFavourite => 'assets/svg/img_guest_favourite.svg';
-
   /// File path: assets/svg/instagram.svg
   String get instagram => 'assets/svg/instagram.svg';
 
@@ -242,7 +227,6 @@ class $AssetsSvgGen {
     emptyOffers,
     icAcceptedOrderGray,
     icAcceptedOrderGreen,
-    icAlert,
     icArrowDown,
     icArrowDownBlue,
     icArrowDownGrey,
@@ -295,7 +279,6 @@ class $AssetsSvgGen {
     icShippingOrderGreen,
     icTotal,
     icWhatsApp,
-    imgGuestFavourite,
     instagram,
     logoYellow,
     orderSuccess,

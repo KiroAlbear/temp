@@ -8,7 +8,6 @@ import 'custom_text.dart';
 import 'dialog_header_widget.dart';
 
 class DialogWidget extends StatefulWidget {
-  final String? headerSvg;
   final String? headerMessage;
   final String message;
   final String confirmMessage;
@@ -19,18 +18,18 @@ class DialogWidget extends StatefulWidget {
   final bool hasCloseButton;
   final bool sameButtonsColor;
 
-  const DialogWidget(
-      {super.key,
-      required this.message,
-      required this.confirmMessage,
-      this.headerSvg,
-      this.headerMessage,
-      this.cancelMessage,
-      this.onCancel,
-      this.onConfirm,
-      this.hasCloseButton = false,
-      required this.sameButtonsColor,
-      this.errorColorInConfirm = false});
+  const DialogWidget({
+    super.key,
+    required this.message,
+    required this.confirmMessage,
+    this.headerMessage,
+    this.cancelMessage,
+    this.onCancel,
+    this.onConfirm,
+    this.hasCloseButton = false,
+    required this.sameButtonsColor,
+    this.errorColorInConfirm = false,
+  });
 
   @override
   State<DialogWidget> createState() => _DialogWidgetState();
@@ -38,110 +37,81 @@ class DialogWidget extends StatefulWidget {
 
 class _DialogWidgetState extends State<DialogWidget> {
   @override
-  Widget build(BuildContext context) =>  _column;
+  Widget build(BuildContext context) => _column;
 
   // Widget _getContainer({required Widget child}) =>
   //     DialogHeaderWidget(child: child);
 
   Widget get _column => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 17.w),
-        child: Stack(
+    padding: EdgeInsets.symmetric(horizontal: 17.w),
+    child: Stack(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 10.h,
-                ),
-                if (widget.headerMessage != null) _headerMessage,
-                if (widget.headerSvg != null) ...[
-                  SizedBox(
-                    height: 21.h,
-                  ),
-                  _headerSvg,
-                ],
-                if (widget.headerSvg != null && widget.headerMessage != null)
-                  SizedBox(
-                    height: 14.h,
-                  ),
-                _message,
-                SizedBox(
-                  height: 20.h,
-                ),
-                _confirmButton,
-                if (widget.cancelMessage != null) ...[
-                  SizedBox(
-                    height: 17.h,
-                  ),
-                  _cancelButton,
-                  SizedBox(
-                    height: 28.h,
-                  ),
-                ],
-                widget.cancelMessage == null
-                    ? SizedBox(
-                        height: 28.h,
-                      )
-                    : SizedBox(),
+            SizedBox(height: 10.h),
+            if (widget.headerMessage != null) _headerMessage,
+            SizedBox(height: 21.h),
+            _message,
+            SizedBox(height: 20.h),
+            _confirmButton,
+            if (widget.cancelMessage != null) ...[
+              SizedBox(height: 17.h),
+              _cancelButton,
+              SizedBox(height: 28.h),
+            ],
+            widget.cancelMessage == null ? SizedBox(height: 28.h) : SizedBox(),
 
-                AppConstants.isHavingBottomPadding?SizedBox(height: 32,):SizedBox()
-              ],
-            ),
-            widget.hasCloseButton
-                ? Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 22.h, 5.w, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: ImageHelper(
-                              image: Assets.svg.icClose,
-                              imageType: ImageType.svg),
-                        )
-                      ],
-                    ),
-                  )
+            AppConstants.isHavingBottomPadding
+                ? SizedBox(height: 32)
                 : SizedBox(),
           ],
         ),
-      );
+        // widget.hasCloseButton
+        //     ? Padding(
+        //         padding: EdgeInsetsDirectional.fromSTEB(0, 22.h, 5.w, 0),
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.end,
+        //           crossAxisAlignment: CrossAxisAlignment.end,
+        //           mainAxisSize: MainAxisSize.max,
+        //           children: [
+        //             InkWell(
+        //               onTap: () {
+        //                 Navigator.pop(context);
+        //               },
+        //               child: ImageHelper(
+        //                 image: Assets.svg.icClose,
+        //                 imageType: ImageType.svg,
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       )
+        //     : SizedBox(),
+      ],
+    ),
+  );
 
   Widget get _headerMessage => CustomText(
-        text: widget.headerMessage ?? '',
-        customTextStyle: BoldStyle(
-          color: widget.errorColorInConfirm ? redColor : secondaryColor,
-          fontSize: 26.sp,
-        ),
-        textAlign: TextAlign.center,
-      );
-
-  Widget get _headerSvg => ImageHelper(
-        image: widget.headerSvg ?? '',
-        imageType: ImageType.svg,
-        width: 88.w,
-        height: 88.h,
-        boxFit: BoxFit.contain,
-      );
+    text: widget.headerMessage ?? '',
+    customTextStyle: BoldStyle(
+      color: widget.errorColorInConfirm ? redColor : secondaryColor,
+      fontSize: 26.sp,
+    ),
+    textAlign: TextAlign.center,
+  );
 
   Widget get _message => CustomText(
-        text: widget.message,
-        customTextStyle: MediumStyle(
-          color: lightBlackColor,
-          fontSize: 18.sp,
-        ),
-        softWrap: true,
-        maxLines: 4,
-        textAlign: TextAlign.center,
-      );
+    text: widget.message,
+    customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 18.sp),
+    softWrap: true,
+    maxLines: 4,
+    textAlign: TextAlign.center,
+  );
 
-/*  Widget get _rowButton => Row(
+  /*  Widget get _rowButton => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -159,32 +129,34 @@ class _DialogWidgetState extends State<DialogWidget> {
       );*/
 
   Widget get _confirmButton => CustomButtonWidget(
-      idleText: widget.confirmMessage,
-      textSize: 20.sp,
-      height: 38.h,
-      buttonColor: widget.errorColorInConfirm ? redColor : primaryColor,
-      textColor: widget.errorColorInConfirm ? whiteColor : lightBlackColor,
-      onTap: () {
-        if (widget.onConfirm != null) {
-          widget.onConfirm!();
-        }
-        Navigator.pop(context);
-      });
+    idleText: widget.confirmMessage,
+    textSize: 20.sp,
+    height: 38.h,
+    buttonColor: widget.errorColorInConfirm ? redColor : primaryColor,
+    textColor: widget.errorColorInConfirm ? whiteColor : lightBlackColor,
+    onTap: () {
+      if (widget.onConfirm != null) {
+        widget.onConfirm!();
+      }
+      Navigator.pop(context);
+    },
+  );
 
   Widget get _cancelButton => CustomButtonWidget(
-      idleText: widget.cancelMessage ?? '',
-      textSize: 20.sp,
-      height: 38.h,
-      buttonColor: widget.sameButtonsColor ? primaryColor : greyColor,
-      textColor: widget.sameButtonsColor ? lightBlackColor : whiteColor,
-      validateStream: Stream.value(true),
-      buttonShapeEnum: ButtonShapeEnum.flat,
-      onTap: () {
-        if (widget.onCancel != null) {
-          widget.onCancel!();
-        }
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pop(context);
-        });
+    idleText: widget.cancelMessage ?? '',
+    textSize: 20.sp,
+    height: 38.h,
+    buttonColor: widget.sameButtonsColor ? primaryColor : greyColor,
+    textColor: widget.sameButtonsColor ? lightBlackColor : whiteColor,
+    validateStream: Stream.value(true),
+    buttonShapeEnum: ButtonShapeEnum.flat,
+    onTap: () {
+      if (widget.onCancel != null) {
+        widget.onCancel!();
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pop(context);
       });
+    },
+  );
 }
