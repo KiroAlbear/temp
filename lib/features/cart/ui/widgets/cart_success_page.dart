@@ -42,8 +42,8 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
           200.verticalSpace,
           SizedBox(
             child: ImageHelper(
-                image: Assets.png.orderSuccess.path,
-                imageType: ImageType.asset),
+                image: Assets.svg.orderSuccess,
+                imageType: ImageType.svg),
           ),
           10.verticalSpace,
           CustomText(
