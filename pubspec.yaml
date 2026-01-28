@@ -1,7 +1,7 @@
 name: deel
 description: "A new Flutter project."
 
-version: 1.0.19+42
+version: 1.0.22+45
 
 environment:
   sdk: 3.8.0
