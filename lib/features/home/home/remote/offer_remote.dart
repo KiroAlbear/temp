@@ -27,5 +27,6 @@ class OfferRemote
   OfferRemote() {
     apiFuture = AdminClient(AdminDioModule().build())
         .getOfferBanner(AdminHeaderRequest(pageIndex: 0, pageSize: 0));
+
   }
 }

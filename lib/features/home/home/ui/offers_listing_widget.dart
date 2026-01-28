@@ -2,6 +2,7 @@ import 'package:deel/deel.dart';
 import 'package:deel/features/home/home/ui/skeletons/offers_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/generated/l10n.dart';
 import 'home_bloc.dart';
 import 'offer_item.dart';
 
@@ -34,6 +35,7 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
             checkResponseStateWithLoadingWidget(
               snapshot.data ?? LoadingState<List<OfferMapper>>(),
               context,
+              showError: false,
               loadingWidget: OffersSkeleton(isMainPage: widget.isMainPage),
               onSuccess: _buildWidget(snapshot.data?.response ?? []),
             ),
@@ -41,28 +43,41 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
 
   Widget _buildWidget(List<OfferMapper> list) => list.isEmpty
       ? SizedBox()
-      : SizedBox(
-          height: widget.isMainPage ? 100.h : 120.h,
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: widget.isMainPage
-                ? Axis.vertical
-                : Axis.horizontal,
-            // physics: const PageScrollPhysics(),
-            // controller: _pageScrollController,
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            itemBuilder: (context, index) => OfferItem(
-              isInProductPage: false,
-              isClickable: list[index].link.toLowerCase().trim() != "nolink",
-              item: list[index],
-              homeBloc: widget.homeBloc,
-              // index: index
+      : Column(
+        children: [
+          SizedBox(height: 20.h),
+           Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: CustomText(
+                text: S.of(context).lastOffers,
+                customTextStyle: BoldStyle(color: secondaryColor, fontSize: 20.sp),
+              ),
             ),
-            separatorBuilder: (context, index) => SizedBox(
-              width: widget.isMainPage == false ? 12.w : null,
-              height: widget.isMainPage == true ? 20.h : null,
+
+          SizedBox(
+              height: widget.isMainPage ? 100.h : 120.h,
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: widget.isMainPage
+                    ? Axis.vertical
+                    : Axis.horizontal,
+                // physics: const PageScrollPhysics(),
+                // controller: _pageScrollController,
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                itemBuilder: (context, index) => OfferItem(
+                  isInProductPage: false,
+                  isClickable: list[index].link.toLowerCase().trim() != "nolink",
+                  item: list[index],
+                  homeBloc: widget.homeBloc,
+                  // index: index
+                ),
+                separatorBuilder: (context, index) => SizedBox(
+                  width: widget.isMainPage == false ? 12.w : null,
+                  height: widget.isMainPage == true ? 20.h : null,
+                ),
+                itemCount: list.length,
+              ),
             ),
-            itemCount: list.length,
-          ),
-        );
+        ],
+      );
 }

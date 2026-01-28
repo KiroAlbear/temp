@@ -80,58 +80,22 @@ class _HomeWidgetState extends BaseState<HomePage> {
     shrinkWrap: true,
     slivers: [
       SliverToBoxAdapter(child: _topWidget),
-      SliverToBoxAdapter(
-        child: StreamBuilder<ApiState<List<OfferMapper>>>(
-          stream: widget.homeBloc.heroBannersStream,
-          builder: (context, snapshot) =>
-              (snapshot.hasData &&
-                  snapshot.data!.response != null &&
-                  snapshot.data!.response!.isEmpty)
-              ? SizedBox(height: 0)
-              : SizedBox(height: 10.h),
-        ),
-      ),
+      _buildHeroBannerSpace(),
       SliverToBoxAdapter(child: HeroBannersWidget(homeBloc: widget.homeBloc)),
-      SliverToBoxAdapter(child: SizedBox(height: 16.h)),
+      _buildHeroBannerSpace(),
       (SharedPrefModule().isLoggedIn ?? false)
           ? SliverToBoxAdapter(child: _recommendedProducts())
           : SliverToBoxAdapter(child: SizedBox()),
-      SliverToBoxAdapter(child: SizedBox(height: 20.h)),
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: CustomText(
-            text: S.of(context).lastOffers,
-            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 20.sp),
-          ),
-        ),
-      ),
 
-      SliverToBoxAdapter(
-        child: StreamBuilder<ApiState<List<OfferMapper>>>(
-          stream: widget.homeBloc.offersStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData &&
-                snapshot.data != null &&
-                snapshot.data!.response != null) {
-              if (snapshot.data!.response!.isNotEmpty) {
-                return SizedBox(height: 11.h);
-              } else {
-                return SizedBox();
-              }
-            } else {
-              return SizedBox();
-            }
-          },
-        ),
-      ),
+      _buildOfferSpace(),
+
       SliverToBoxAdapter(
         child: OffersListingWidget(
           homeBloc: widget.homeBloc,
           isMainPage: false,
         ),
       ),
-      SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+      _buildOfferSpace(),
       SliverToBoxAdapter(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -152,6 +116,38 @@ class _HomeWidgetState extends BaseState<HomePage> {
       SliverToBoxAdapter(child: _mostSellingProducts()),
     ],
   );
+
+  SliverToBoxAdapter _buildOfferSpace() {
+    return SliverToBoxAdapter(
+      child: StreamBuilder<ApiState<List<OfferMapper>>>(
+        stream: widget.homeBloc.offersStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData &&
+              snapshot.data != null &&
+              snapshot.data!.response != null) {
+            if (snapshot.data!.response!.isNotEmpty) {
+              return SizedBox(height: 11.h);
+            } else {
+              return SizedBox();
+            }
+          } else {
+            return SizedBox();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildHeroBannerSpace(){
+    return SliverToBoxAdapter(
+      child: StreamBuilder<ApiState<List<OfferMapper>>>(
+        stream: widget.homeBloc.heroBannersStream,
+        builder: (context, snapshot) => (snapshot.hasData &&
+            snapshot.data!.response != null &&
+            snapshot.data!.response!.isEmpty) ? SizedBox(height: 0) : SizedBox(height: 10.h),
+      ),
+    );
+  }
 
   Widget _mostSellingProducts() {
     return StreamBuilder<ApiState<List<ProductMapper>>>(
