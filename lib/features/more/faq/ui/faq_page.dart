@@ -63,6 +63,7 @@ class _FaqWidgetState extends BaseState<FaqPage> {
         stream: _bloc.faqStream,
         builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
             snapshot.data!, context,
+            showError: false,
             onSuccess: Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index) => Padding(

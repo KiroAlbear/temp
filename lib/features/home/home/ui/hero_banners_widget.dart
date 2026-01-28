@@ -30,6 +30,7 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
             checkResponseStateWithLoadingWidget(
               snapshot.data ?? LoadingState<List<OfferMapper>>(),
               context,
+              showError: false,
               loadingWidget: BannersSkeleton(),
               onSuccess: _loadList(snapshot.data?.response ?? []),
             ),

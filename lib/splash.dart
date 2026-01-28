@@ -125,7 +125,7 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
                   name: "*********",
                   message: 'Latest app version: $version',
                 );
-              } else if (value is FailedState) {
+              } else if (state is FailedState) {
                 AppProviderModule().init(context);
               }
             });
