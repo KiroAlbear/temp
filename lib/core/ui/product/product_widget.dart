@@ -168,52 +168,70 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   _getCartProductWidget() {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(
-        top: 8.h,
-        bottom: 8.h,
-        end: 16.w,
-        start: 16.w,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [Expanded(child: _productName)],
-                      ),
-                      SizedBox(height: 8.h),
-                      widget.productMapper.isAvailable
-                          ? SizedBox()
-                          : _notAvailableProduct(),
-                    ],
-                  ),
-                  _priceRow,
-                ],
-              ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Padding(
+            padding: EdgeInsetsDirectional.only(
+              top: 8.h,
+              start: 16.w,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [Expanded(child: _productName)],
+                    ),
+                    SizedBox(height: 8.h),
+                    widget.productMapper.isAvailable
+                        ? SizedBox()
+                        : _notAvailableProduct(),
+                  ],
+                ),
+                _priceRow,
+              ],
             ),
           ),
-          Column(
-            children: [
-              _productImage,
-              SizedBox(height: 8.h),
-              _incrementDecrementButton(),
-            ],
-          ),
-        ],
-      ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.only(
+                    top: 10.h,
+                    end: 29.w,
+                    start: 16.w,
+                  ),
+                  child: _productImage,
+                ),
+                // SizedBox(height: 19.h),
+                if (widget.productMapper.discountPercentage > 0) Positioned(
+                    top: 0,
+                    left: 0,
+                    child: _discountWidget),
+              ],
+            ),
+            SizedBox(height: 8.h),
+            Padding(
+              padding: EdgeInsetsDirectional.only(
+                bottom: 8.h,
+                end: 16.w,
+              ),
+              child: _incrementDecrementButton(),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -325,14 +343,12 @@ class _ProductWidgetState extends State<ProductWidget> {
     decoration: BoxDecoration(
       color: redColor,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(AppProviderModule().locale == 'ar' ? 4.w : 0),
-        bottomLeft: Radius.circular(
-          AppProviderModule().locale == 'ar' ? 4.w : 0,
-        ),
+        topLeft: Radius.circular( 4.w ),
+
         bottomRight: Radius.circular(
-          AppProviderModule().locale == 'ar' ? 0 : 4.w,
+           4.w,
         ),
-        topRight: Radius.circular(AppProviderModule().locale == 'ar' ? 0 : 4.w),
+        topRight: Radius.circular( 4.w),
       ),
     ),
     child: CustomText(
@@ -354,9 +370,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   );
 
   Widget get _productImage => Center(
-    child: widget.productMapper.image.isEmpty
-        ? SizedBox()
-        : ImageHelper(
+    child: ImageHelper(
             image: widget.productMapper.image,
             imageType: ImageType.network,
             height: widget.isCartProduct ? 50.h : 90.h,

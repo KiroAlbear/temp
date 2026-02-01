@@ -59,6 +59,17 @@ class ProductMapper {
     maxQuantity = orderItem.max_qty ?? 0;
     productId = orderItem.product_id?[0] ?? 0;
     orderId = orderItem.orderId!.first as int;
+
+    if (F.appFlavor == Flavor.app_stage) {
+      hasDiscount = true;
+      cartOriginalUnitPrice = 1500;
+      image = "https://deel-demo.odoo.com/web/image?model=product.product&id=9408&field=image_1920";
+    }
+    if (hasDiscount) {
+      // get integer part of discount percentage
+      discountPercentage = ((finalPrice / cartOriginalUnitPrice.toDouble()) * 100)
+          .toInt();
+    }
   }
   ProductMapper.fromProduct(ProductResponse? productResponse) {
     if (productResponse != null) {
@@ -85,7 +96,7 @@ class ProductMapper {
 
       if (F.appFlavor == Flavor.app_stage) {
         hasDiscount = true;
-        productOriginalPrice = 500;
+        productOriginalPrice = 1500;
       }
 
       if (hasDiscount) {
