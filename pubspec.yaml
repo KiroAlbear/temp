@@ -1,7 +1,7 @@
 name: deel
 description: "A new Flutter project."
 
-version: 1.0.22+45
+version: 1.0.23+46
 
 environment:
   sdk: 3.8.0
@@ -90,7 +90,7 @@ dependencies:
   otp_autofill: ^4.1.0
   shorebird_code_push: ^2.0.5
   flutter_phoenix: ^1.1.1
-  fawry_sdk: ^2.0.18
+#  fawry_sdk: ^2.0.18
   skeletonizer: ^2.1.2
 
 

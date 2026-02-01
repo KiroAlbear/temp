@@ -97,11 +97,11 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
               S.of(context).cartDokkanWallet,
               Icon(Icons.account_balance_wallet_outlined,
                   color: secondaryColor)),
-          _paymentRow(_groupeFawryValue, "فوري",
-              SizedBox(
-                  width: 60,
-                  height: 50,
-                  child: ImageHelper(image: Assets.png.fawry.path, imageType: ImageType.asset))),
+          // _paymentRow(_groupeFawryValue, "فوري",
+          //     SizedBox(
+          //         width: 60,
+          //         height: 50,
+          //         child: ImageHelper(image: Assets.png.fawry.path, imageType: ImageType.asset))),
           18.verticalSpace,
           IgnorePointer(
             ignoring: _groupeValue == -1,
