@@ -8,5 +8,5 @@ class AppConstants {
   static const String androidUpdateUrl =
       "https://play.google.com/store/apps/details?id=com.icons.deelexpress&hl=en";
 
-  static String iosUpdateUrl = "";
+  static String iosUpdateUrl = "https://apps.apple.com/eg/app/deel-express/id6741027933";
 }
