@@ -97,8 +97,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "product") {
-          widget.productCategoryBloc.getProductById(
-            widget.homeBloc.selectedOffer!.relatedItemId[0],
+          widget.productCategoryBloc.getProductByIdList(
+            widget.homeBloc.selectedOffer!.relatedItemId,
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "brand") {
