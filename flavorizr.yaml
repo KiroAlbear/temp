@@ -20,6 +20,14 @@ flavors:
     ios:
       bundleId: "com.icons.deelexpress"
 
+  app_test:
+    app:
+      name: "Deely test"
+    android:
+      applicationId: "com.icons.deelexpress"
+    ios:
+      bundleId: "com.icons.deelexpress"
+
 
 
 

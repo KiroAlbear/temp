@@ -1,6 +1,7 @@
 enum Flavor {
   app_live,
   app_stage,
+  app_test,
 }
 
 class F {
@@ -14,6 +15,8 @@ class F {
         return 'Deely';
       case Flavor.app_stage:
         return 'Deely stage';
+      case Flavor.app_test:
+        return 'Deely test';
     }
   }
 

@@ -115,10 +115,9 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
       if (widget.forgetPasswordBloc.isMobileValid) {
         widget.forgetPasswordBloc.checkPhone.listen((event) {
           // only for testing
-          // if (F.appFlavor == Flavor.app_stage) {
-          //   onlyForTestingCode();
-          // } else
-          {
+          if (F.appFlavor == Flavor.app_test) {
+            onlyForTestingCode();
+          } else {
             checkResponseStateWithButton(
               event,
               context,

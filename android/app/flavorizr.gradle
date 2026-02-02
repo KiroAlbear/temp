@@ -12,5 +12,10 @@ android {
             applicationId "com.icons.deelexpress"
             resValue "string", "app_name", "Deely stage"
         }
+        app_test {
+            dimension "flavor-type"
+            applicationId "com.icons.deelexpress"
+            resValue "string", "app_name", "Deely test"
+        }
     }
 }
