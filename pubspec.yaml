@@ -6,12 +6,14 @@ version: 1.0.24+47
 environment:
   sdk: 3.8.0
 
+
 dependencies:
   flutter:
     sdk: flutter
 
   flutter_localizations:
     sdk: flutter
+
 
 #  camera_avfoundation: ^0.9.21+1
   image_picker: ^1.2.0
@@ -131,6 +133,7 @@ flutter_gen:
   line_length: 80
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - shorebird.yaml

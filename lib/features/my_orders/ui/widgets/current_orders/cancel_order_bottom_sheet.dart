@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../../core/generated/l10n.dart';
-
 class CancelOrderBottomSheet extends StatelessWidget {
   final MyOrdersBloc myOrdersBloc;
   final int orderId;
   final TextEditingController _cancelReasonController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  CancelOrderBottomSheet(
-      {super.key, required this.myOrdersBloc, required this.orderId});
+  CancelOrderBottomSheet({
+    super.key,
+    required this.myOrdersBloc,
+    required this.orderId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,9 @@ class CancelOrderBottomSheet extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 17, vertical: 20),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height - 130, // <-- Fill remaining space
+              minHeight:
+                  MediaQuery.of(context).size.height -
+                  130, // <-- Fill remaining space
             ),
             child: IntrinsicHeight(
               child: Column(
@@ -32,32 +35,32 @@ class CancelOrderBottomSheet extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       ImageHelper(
-                          image: Assets.png.orderCancel.path,
-                          imageType: ImageType.asset,
-                          width: 150,
-                          height: 150),
-                      SizedBox(
-                        height: 5,
+                        image: Assets.png.orderCancel.path,
+                        imageType: ImageType.asset,
+                        width: 150,
+                        height: 150,
                       ),
+                      SizedBox(height: 5),
                       CustomText(
-                          textAlign: TextAlign.center,
-                          text: S.of(context).orderCancelReasonTitle,
-                          customTextStyle:
-                              BoldStyle(color: secondaryColor, fontSize: 18.sp)),
-                      SizedBox(
-                        height: 25,
+                        textAlign: TextAlign.center,
+                        text: Loc.of(context)!.orderCancelReasonTitle,
+                        customTextStyle: BoldStyle(
+                          color: secondaryColor,
+                          fontSize: 18.sp,
+                        ),
                       ),
+                      SizedBox(height: 25),
                       CustomText(
-                          textAlign: TextAlign.start,
-                          text: S.of(context).orderCancelReason,
-                          customTextStyle: RegularStyle(color: black, fontSize: 15.sp)),
-                      SizedBox(
-                        height: 10,
+                        textAlign: TextAlign.start,
+                        text: Loc.of(context)!.orderCancelReason,
+                        customTextStyle: RegularStyle(
+                          color: black,
+                          fontSize: 15.sp,
+                        ),
                       ),
+                      SizedBox(height: 10),
                       SizedBox(
                         height: 260.h,
                         child: Form(
@@ -68,34 +71,44 @@ class CancelOrderBottomSheet extends StatelessWidget {
                             textAlign: TextAlign.justify,
                             onChanged: (value) {
                               myOrdersBloc.cancelOrderReason.add(value);
-              
-                              if (value.trim().isEmpty) {
-                                myOrdersBloc.buttonBloc.buttonBehavior.sink
-                                    .add(ButtonState.idle);
-                                myOrdersBloc.buttonBloc.buttonBehavior.add(ButtonState.idle);
-                              } else {
-                                myOrdersBloc.buttonBloc.buttonBehavior.sink
-                                    .add(ButtonState.success);
-                                myOrdersBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
 
+                              if (value.trim().isEmpty) {
+                                myOrdersBloc.buttonBloc.buttonBehavior.sink.add(
+                                  ButtonState.idle,
+                                );
+                                myOrdersBloc.buttonBloc.buttonBehavior.add(
+                                  ButtonState.idle,
+                                );
+                              } else {
+                                myOrdersBloc.buttonBloc.buttonBehavior.sink.add(
+                                  ButtonState.success,
+                                );
+                                myOrdersBloc.buttonBloc.buttonBehavior.add(
+                                  ButtonState.success,
+                                );
                               }
                             },
                             validator: (value) {
                               if (value == null ||
                                   value.isEmpty ||
                                   value.trim().isEmpty) {
-                                return S.of(context).orderCancelReasonValidation;
+                                return Loc.of(
+                                  context,
+                                )!.orderCancelReasonValidation;
                               }
                               return null;
                             },
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(10),
-                              hintText: S.of(context).orderCancelReasonHint,
-                              errorStyle: RegularStyle(color: redColor, fontSize: 14.sp)
-                                  .getStyle(),
+                              hintText: Loc.of(context)!.orderCancelReasonHint,
+                              errorStyle: RegularStyle(
+                                color: redColor,
+                                fontSize: 14.sp,
+                              ).getStyle(),
                               hintStyle: RegularStyle(
-                                      color: lightGreyColorLightMode, fontSize: 14.sp)
-                                  .getStyle(),
+                                color: lightGreyColorLightMode,
+                                fontSize: 14.sp,
+                              ).getStyle(),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -107,34 +120,36 @@ class CancelOrderBottomSheet extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: 15),
                     ],
                   ),
                   Spacer(),
                   CustomButtonWidget(
-                    idleText: S.of(context).next,
+                    idleText: Loc.of(context)!.next,
                     buttonBehaviour: myOrdersBloc.buttonBloc.buttonBehavior,
                     buttonColor: disabledButtonColorLightMode,
                     successColor: primaryColor,
                     idleTextColor: disabledButtonTextColorLightMode,
-                    // textColor: disabledButtonTextColorLightMode,
 
+                    // textColor: disabledButtonTextColorLightMode,
                     onTap: () {
                       if (!_formKey.currentState!.validate()) return;
 
                       final int clientId =
                           int.tryParse(SharedPrefModule().userId ?? "0") ?? 0;
-                      myOrdersBloc.cancelOrder(OrderCancelRequest(
+                      myOrdersBloc.cancelOrder(
+                        OrderCancelRequest(
                           customer_id: clientId,
                           order_id: orderId,
-                          cancellation_reason: _cancelReasonController.text));
+                          cancellation_reason: _cancelReasonController.text,
+                        ),
+                      );
                       Navigator.of(context).pop();
                       myOrdersBloc.cancelOrderBehavior.listen((event) {
                         if (event is SuccessState) {
                           myOrdersBloc.getMyOrders(
-                              MyOrdersRequest(clientId.toString(), '1', '100'));
+                            MyOrdersRequest(clientId.toString(), '1', '100'),
+                          );
                         }
                       });
                     },

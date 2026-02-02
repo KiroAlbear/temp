@@ -3,10 +3,7 @@ import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../dto/modules/app_color_module.dart';
-import '../dto/modules/custom_text_style_module.dart';
-import '../generated/l10n.dart';
+import '../../deel.dart';
 import 'custom_progress_widget.dart';
 
 class CustomButtonWidget extends StatefulWidget {
@@ -37,34 +34,35 @@ class CustomButtonWidget extends StatefulWidget {
   final Color? successColor;
   final double? width;
 
-  const CustomButtonWidget(
-      {super.key,
-      required this.idleText,
-      this.buttonBehaviour,
-      this.failedBehaviour,
-      required this.onTap,
-      this.validateStream,
-      this.isAllCaps = false,
-      this.enableClick = true,
-      this.useGradient = false,
-      this.buttonColor,
-      this.idleTextColor,
-      this.loadingText,
-      this.textSize,
-      this.elevation = 0.0,
-      this.inLineBackgroundColor,
-      this.buttonShapeEnum = ButtonShapeEnum.flat,
-      this.textColor,
-      this.borderRadius,
-      this.progressColor,
-      this.height,
-      this.iconButton = false,
-      this.idleIconButton,
-      this.textStyle,
-      this.useSuccessState = false,
-      this.successText,
-      this.successColor,
-      this.width});
+  const CustomButtonWidget({
+    super.key,
+    required this.idleText,
+    this.buttonBehaviour,
+    this.failedBehaviour,
+    required this.onTap,
+    this.validateStream,
+    this.isAllCaps = false,
+    this.enableClick = true,
+    this.useGradient = false,
+    this.buttonColor,
+    this.idleTextColor,
+    this.loadingText,
+    this.textSize,
+    this.elevation = 0.0,
+    this.inLineBackgroundColor,
+    this.buttonShapeEnum = ButtonShapeEnum.flat,
+    this.textColor,
+    this.borderRadius,
+    this.progressColor,
+    this.height,
+    this.iconButton = false,
+    this.idleIconButton,
+    this.textStyle,
+    this.useSuccessState = false,
+    this.successText,
+    this.successColor,
+    this.width,
+  });
 
   @override
   State<CustomButtonWidget> createState() => _CustomButtonWidgetState();
@@ -86,8 +84,8 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       StreamBuilder<ButtonState>(
         builder: (context, snapshot) => widget.failedBehaviour == null
             ? widget.iconButton
-                ? _iconButton(snapshot.data!)
-                : _button(snapshot.data!)
+                  ? _iconButton(snapshot.data!)
+                  : _button(snapshot.data!)
             : failedStream(snapshot.data!),
         stream: widget.buttonBehaviour!,
         initialData: ButtonState.idle,
@@ -97,27 +95,37 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       StreamBuilder<String>(
         builder: (context, snapshot) => widget.validateStream == null
             ? widget.iconButton
-                ? _iconButton(buttonState, failedText: snapshot.data!)
-                : _button(buttonState, failedText: snapshot.data!)
+                  ? _iconButton(buttonState, failedText: snapshot.data!)
+                  : _button(buttonState, failedText: snapshot.data!)
             : enableButton(buttonState, snapshot.data!),
         stream: widget.failedBehaviour!.stream.asBroadcastStream(),
-        initialData: S.of(context).failed,
+        initialData: Loc.of(context)!.failed,
       );
 
   StreamBuilder<bool> enableButton(
-          ButtonState buttonState, String failedText) =>
-      StreamBuilder<bool>(
-        builder: (context, snapshot) => widget.iconButton
-            ? _iconButton(buttonState,
-                enable: snapshot.data, failedText: failedText)
-            : _button(buttonState,
-                enable: snapshot.data ?? false, failedText: failedText),
-        initialData: false,
-        stream: widget.validateStream!,
-      );
+    ButtonState buttonState,
+    String failedText,
+  ) => StreamBuilder<bool>(
+    builder: (context, snapshot) => widget.iconButton
+        ? _iconButton(
+            buttonState,
+            enable: snapshot.data,
+            failedText: failedText,
+          )
+        : _button(
+            buttonState,
+            enable: snapshot.data ?? false,
+            failedText: failedText,
+          ),
+    initialData: false,
+    stream: widget.validateStream!,
+  );
 
-  Widget _button(ButtonState buttonState,
-      {String failedText = '', bool? enable}) {
+  Widget _button(
+    ButtonState buttonState, {
+    String failedText = '',
+    bool? enable,
+  }) {
     bool isIgnoring = false;
     if (enable == null)
       isIgnoring = false;
@@ -128,8 +136,10 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
       ignoring: isIgnoring,
       child: CustomProgressButton(
         stateWidgets: {
-          ButtonState.idle:
-              _idleText(enable ?? true, idleTextColor: widget.idleTextColor),
+          ButtonState.idle: _idleText(
+            enable ?? true,
+            idleTextColor: widget.idleTextColor,
+          ),
           ButtonState.fail: _failText(failedText),
           ButtonState.loading: _loadingText,
           ButtonState.success: widget.useSuccessState
@@ -153,8 +163,8 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
         },
         elevation: widget.elevation == null ? 0.r : widget.elevation!,
         progressWidget: FittedBox(
-            child:
-                CustomProgress(color: widget.progressColor ?? secondaryColor)),
+          child: CustomProgress(color: widget.progressColor ?? secondaryColor),
+        ),
         progressIndicatorSize: 30.r,
         padding: EdgeInsets.zero,
         height: widget.height ?? 50.h,
@@ -170,92 +180,96 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
     );
   }
 
-  Widget _iconButton(ButtonState buttonState,
-          {String failedText = '', bool? enable}) =>
-      CustomProgressButton.icon(
-        minWidth: widget.width ?? MediaQuery.of(context).size.width / 2,
-        maxWidth: widget.width ?? MediaQuery.of(context).size.width,
-        iconButtons: {
-          ButtonState.idle: CustomIconButton(
-              icon: widget.idleIconButton,
-              color: widget.buttonColor ?? primaryColor,
-              text: widget.idleText),
-          ButtonState.loading: CustomIconButton(
-              icon: CustomProgress(
-                color: widget.buttonColor ?? primaryColor,
-              ),
-              color: widget.buttonColor ?? primaryColor,
-              text: widget.idleText),
-          ButtonState.success: CustomIconButton(
-              icon: widget.idleIconButton,
-              color: widget.buttonColor ?? primaryColor,
-              text: widget.idleText),
-          ButtonState.fail: CustomIconButton(
-              icon: widget.idleIconButton,
-              color: redColor,
-              text: widget.idleText)
-        },
-        onPressed: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-          widget.onTap();
-        },
-        elevation: widget.elevation == null ? 8.r : widget.elevation!,
-        progressWidget: FittedBox(
-            child: CustomProgress(color: widget.progressColor ?? primaryColor)),
-        progressIndicatorSize: 30.r,
-        height: widget.height == null ? 45.h : widget.height!,
-        enable: widget.enableClick,
-        buttonShapeEnum: widget.buttonShapeEnum,
-        radius: widget.borderRadius ?? 8,
-        state: buttonState,
-        inLineBackgroundColor: widget.inLineBackgroundColor ?? whiteColor,
-        textStyle: widget.textStyle ?? _textStyle,
-        progressIndicatorAlignment: MainAxisAlignment.center,
-        iconPadding: 4.w,
-        padding: EdgeInsets.only(top: 8.h),
-      );
+  Widget _iconButton(
+    ButtonState buttonState, {
+    String failedText = '',
+    bool? enable,
+  }) => CustomProgressButton.icon(
+    minWidth: widget.width ?? MediaQuery.of(context).size.width / 2,
+    maxWidth: widget.width ?? MediaQuery.of(context).size.width,
+    iconButtons: {
+      ButtonState.idle: CustomIconButton(
+        icon: widget.idleIconButton,
+        color: widget.buttonColor ?? primaryColor,
+        text: widget.idleText,
+      ),
+      ButtonState.loading: CustomIconButton(
+        icon: CustomProgress(color: widget.buttonColor ?? primaryColor),
+        color: widget.buttonColor ?? primaryColor,
+        text: widget.idleText,
+      ),
+      ButtonState.success: CustomIconButton(
+        icon: widget.idleIconButton,
+        color: widget.buttonColor ?? primaryColor,
+        text: widget.idleText,
+      ),
+      ButtonState.fail: CustomIconButton(
+        icon: widget.idleIconButton,
+        color: redColor,
+        text: widget.idleText,
+      ),
+    },
+    onPressed: () {
+      FocusScope.of(context).requestFocus(FocusNode());
+      widget.onTap();
+    },
+    elevation: widget.elevation == null ? 8.r : widget.elevation!,
+    progressWidget: FittedBox(
+      child: CustomProgress(color: widget.progressColor ?? primaryColor),
+    ),
+    progressIndicatorSize: 30.r,
+    height: widget.height == null ? 45.h : widget.height!,
+    enable: widget.enableClick,
+    buttonShapeEnum: widget.buttonShapeEnum,
+    radius: widget.borderRadius ?? 8,
+    state: buttonState,
+    inLineBackgroundColor: widget.inLineBackgroundColor ?? whiteColor,
+    textStyle: widget.textStyle ?? _textStyle,
+    progressIndicatorAlignment: MainAxisAlignment.center,
+    iconPadding: 4.w,
+    padding: EdgeInsets.only(top: 8.h),
+  );
 
   Widget _idleText(bool enable, {Color? idleTextColor}) => Text(
-        widget.isAllCaps
-            ? (widget.idleText ?? '').toUpperCase()
-            : (widget.idleText ?? ''),
-        style: enable
-            ? widget.textStyle ??
-                _successTextStyle.copyWith(color: idleTextColor)
-            : widget.textStyle ?? _textStyle,
-      );
+    widget.isAllCaps
+        ? (widget.idleText ?? '').toUpperCase()
+        : (widget.idleText ?? ''),
+    style: enable
+        ? widget.textStyle ?? _successTextStyle.copyWith(color: idleTextColor)
+        : widget.textStyle ?? _textStyle,
+  );
 
   Widget _failText(String text) => Text(
-        widget.isAllCaps
-            ? _failedString(text).toUpperCase()
-            : _failedString(text),
-        style: widget.textStyle ?? _textStyle,
-      );
+    widget.isAllCaps ? _failedString(text).toUpperCase() : _failedString(text),
+    style: widget.textStyle ?? _textStyle,
+  );
 
   String _failedString(String failedText) {
-    if (failedText.isEmpty) return S.of(context).failed;
+    if (failedText.isEmpty) return Loc.of(context)!.failed;
     return failedText;
   }
 
   Widget get _loadingText => Text('', style: widget.textStyle ?? _textStyle);
 
-  String get loadingString =>
-      widget.loadingText == null ? S.of(context).loading : widget.loadingText!;
+  String get loadingString => widget.loadingText == null
+      ? Loc.of(context)!.loading
+      : widget.loadingText!;
 
   Widget successText(String? text) => Text(
-      text ??
-          (widget.isAllCaps
-              ? S.of(context).success.toUpperCase()
-              : S.of(context).success),
-      style: widget.textStyle ?? _successTextStyle);
+    text ??
+        (widget.isAllCaps
+            ? Loc.of(context)!.success.toUpperCase()
+            : Loc.of(context)!.success),
+    style: widget.textStyle ?? _successTextStyle,
+  );
 
   TextStyle get _successTextStyle => MediumStyle(
-          color: widget.textColor ?? secondaryColor,
-          fontSize: widget.textSize == null ? 16.sp : widget.textSize!)
-      .getStyle();
+    color: widget.textColor ?? secondaryColor,
+    fontSize: widget.textSize == null ? 16.sp : widget.textSize!,
+  ).getStyle();
 
   TextStyle get _textStyle => MediumStyle(
-          color: widget.textColor ?? disabledButtonTextColorLightMode,
-          fontSize: widget.textSize == null ? 16.sp : widget.textSize!)
-      .getStyle();
+    color: widget.textColor ?? disabledButtonTextColorLightMode,
+    fontSize: widget.textSize == null ? 16.sp : widget.textSize!,
+  ).getStyle();
 }

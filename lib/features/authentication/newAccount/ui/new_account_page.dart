@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../../../../core/Utils/firebase_analytics_key_names.dart';
 import '../../../../core/Utils/firebase_analytics_utl.dart';
 
@@ -357,12 +356,12 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   Widget _whichStep(NewAccountStepEnum step) {
     switch (step) {
       case NewAccountStepEnum.info:
-        return _titleText(S.of(context).firstStep);
+        return _titleText(Loc.of(context)!.firstStep);
       case NewAccountStepEnum.locationInfo:
-        return _titleText(S.of(context).secondStep);
+        return _titleText(Loc.of(context)!.secondStep);
 
       case NewAccountStepEnum.password:
-        return _titleText(S.of(context).thirdStep);
+        return _titleText(Loc.of(context)!.thirdStep);
     }
   }
 

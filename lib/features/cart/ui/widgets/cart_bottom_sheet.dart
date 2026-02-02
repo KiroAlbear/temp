@@ -1,10 +1,7 @@
-import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_order_details_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_paymob/billing_data.dart';
-import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
@@ -42,14 +39,14 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
             child: Radio<int>(
               value: value,
               activeColor: secondaryColor,
-              fillColor: WidgetStateProperty.resolveWith<Color>(
-                (Set<WidgetState> states) {
-                  if (states.contains(WidgetState.selected)) {
-                    return secondaryColor;
-                  }
-                  return disabledButtonColorLightMode;
-                },
-              ),
+              fillColor: WidgetStateProperty.resolveWith<Color>((
+                Set<WidgetState> states,
+              ) {
+                if (states.contains(WidgetState.selected)) {
+                  return secondaryColor;
+                }
+                return disabledButtonColorLightMode;
+              }),
               groupValue: _groupeValue,
               onChanged: (value) {},
             ),
@@ -57,10 +54,13 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           icon,
           _spacing.horizontalSpace,
           CustomText(
-              text: title,
-              textAlign: TextAlign.start,
-              customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 16.sp)),
+            text: title,
+            textAlign: TextAlign.start,
+            customTextStyle: RegularStyle(
+              color: lightBlackColor,
+              fontSize: 16.sp,
+            ),
+          ),
         ],
       ),
     );
@@ -76,27 +76,34 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
         children: [
           Center(
             child: CustomText(
-                text: S.of(context).cartPaymentOptions,
-                textAlign: TextAlign.start,
-                customTextStyle:
-                    BoldStyle(color: secondaryColor, fontSize: 18.sp)),
+              text: Loc.of(context)!.cartPaymentOptions,
+              textAlign: TextAlign.start,
+              customTextStyle: BoldStyle(
+                color: secondaryColor,
+                fontSize: 18.sp,
+              ),
+            ),
           ),
           8.verticalSpace,
           _paymentRow(
-              _groupeCashValue,
-              S.of(context).cartCashOnDelivery,
-              ImageHelper(
-                image: Assets.svg.icCash,
-                imageType: ImageType.svg,
-                color: secondaryColor,
-              )),
-          _paymentRow(_groupeVisaValue, S.of(context).cartBankCard,
-              Icon(Icons.credit_card_rounded, color: secondaryColor)),
+            _groupeCashValue,
+            Loc.of(context)!.cartCashOnDelivery,
+            ImageHelper(
+              image: Assets.svg.icCash,
+              imageType: ImageType.svg,
+              color: secondaryColor,
+            ),
+          ),
           _paymentRow(
-              _groupeWalletValue,
-              S.of(context).cartDokkanWallet,
-              Icon(Icons.account_balance_wallet_outlined,
-                  color: secondaryColor)),
+            _groupeVisaValue,
+            Loc.of(context)!.cartDokkanBankCard,
+            Icon(Icons.credit_card_rounded, color: secondaryColor),
+          ),
+          _paymentRow(
+            _groupeWalletValue,
+            Loc.of(context)!.cartDokkanWallet,
+            Icon(Icons.account_balance_wallet_outlined, color: secondaryColor),
+          ),
           // _paymentRow(_groupeFawryValue, "فوري",
           //     SizedBox(
           //         width: 60,
@@ -106,45 +113,60 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           IgnorePointer(
             ignoring: _groupeValue == -1,
             child: CustomButtonWidget(
-                buttonColor: _groupeValue == -1
-                    ? disabledButtonColorLightMode
-                    : primaryColor,
-                idleText: S.of(context).next,
-                textColor: _groupeValue == -1
-                    ? disabledButtonTextColorLightMode
-                    : secondaryColor,
-                onTap: () async {
-                  // pop the bottom sheet
-                  Navigator.pop(context);
-                  if (_groupeValue == _groupeCashValue) {
-                    Routes.navigateToScreen(Routes.cartOrderDetailsPage,
-                        NavigationType.pushNamed, context,
-                        extra: CartOrderDetailsArgs(
-                            isItVisa: false,
-                            isItWallet: false,
-                            isItFawry: false));
-                    // CustomNavigatorModule.navigatorKey.currentState!
-                    //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
-                  } else if (_groupeValue == _groupeVisaValue) {
-                    Routes.navigateToScreen(Routes.cartOrderDetailsPage,
-                        NavigationType.pushNamed, context,
-                        extra: CartOrderDetailsArgs(
-                            isItVisa: true,
-                            isItWallet: false,
-                            isItFawry: false));
-                  } else if (_groupeValue == _groupeWalletValue) {
-                    showWalletDialog();
-                  } else if (_groupeValue == _groupeFawryValue) {
-                    Routes.navigateToScreen(Routes.cartOrderDetailsPage,
-                        NavigationType.pushNamed, context,
-                        extra: CartOrderDetailsArgs(
-                            isItVisa: false,
-                            isItWallet: false,
-                            isItFawry: true));
-                  }
-                }),
+              buttonColor: _groupeValue == -1
+                  ? disabledButtonColorLightMode
+                  : primaryColor,
+              idleText: Loc.of(context)!.next,
+              textColor: _groupeValue == -1
+                  ? disabledButtonTextColorLightMode
+                  : secondaryColor,
+              onTap: () async {
+                // pop the bottom sheet
+                Navigator.pop(context);
+                if (_groupeValue == _groupeCashValue) {
+                  Routes.navigateToScreen(
+                    Routes.cartOrderDetailsPage,
+                    NavigationType.pushNamed,
+                    context,
+                    extra: CartOrderDetailsArgs(
+                      isItVisa: false,
+                      isItWallet: false,
+                      isItFawry: false,
+                    ),
+                  );
+                  // CustomNavigatorModule.navigatorKey.currentState!
+                  //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
+                } else if (_groupeValue == _groupeVisaValue) {
+                  Routes.navigateToScreen(
+                    Routes.cartOrderDetailsPage,
+                    NavigationType.pushNamed,
+                    context,
+                    extra: CartOrderDetailsArgs(
+                      isItVisa: true,
+                      isItWallet: false,
+                      isItFawry: false,
+                    ),
+                  );
+                } else if (_groupeValue == _groupeWalletValue) {
+                  showWalletDialog();
+                } else if (_groupeValue == _groupeFawryValue) {
+                  Routes.navigateToScreen(
+                    Routes.cartOrderDetailsPage,
+                    NavigationType.pushNamed,
+                    context,
+                    extra: CartOrderDetailsArgs(
+                      isItVisa: false,
+                      isItWallet: false,
+                      isItFawry: true,
+                    ),
+                  );
+                }
+              },
+            ),
           ),
-          AppConstants.isHavingBottomPadding?43.verticalSpace:18.verticalSpace,
+          AppConstants.isHavingBottomPadding
+              ? 43.verticalSpace
+              : 18.verticalSpace,
         ],
       ),
     );
@@ -175,18 +197,18 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                         textInputType: TextInputType.number,
                         textInputAction: TextInputAction.done,
                         inputFormatter: [
-                          FilteringTextInputFormatter.digitsOnly
+                          FilteringTextInputFormatter.digitsOnly,
                         ],
-                        labelText: S.of(context).cartDokkanWalletNumber,
+                        labelText: Loc.of(context)!.cartDokkanWalletNumber,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return S.of(context).required;
+                            return Loc.of(context)!.required;
                           }
 
                           if (value.length == 11) {
                             return null;
                           } else {
-                            return S.of(context).invalidWallet;
+                            return Loc.of(context)!.invalidWallet;
                           }
                         },
                         textFiledControllerStream:
@@ -198,32 +220,35 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                     ),
                     16.verticalSpace,
                     CustomButtonWidget(
-                        buttonColor: primaryColor,
-                        idleText: S.of(context).next,
-                        textColor: _groupeValue == -1
-                            ? disabledButtonTextColorLightMode
-                            : secondaryColor,
-                        onTap: () async {
-                          // pop the bottom sheet
-                          if (_formKey.currentState!.validate()) {
-                            Navigator.pop(context);
-                            await Routes.navigateToScreen(
-                                Routes.cartOrderDetailsPage,
-                                NavigationType.pushNamed,
-                                context,
-                                extra: CartOrderDetailsArgs(
-                                    isItVisa: false,
-                                    isItWallet: true,
-                                    isItFawry: false,
-                                    walletNumber: widget
-                                        .cartBloc
-                                        .walletNumberBehaviour
-                                        .valueOrNull
-                                        ?.text));
+                      buttonColor: primaryColor,
+                      idleText: Loc.of(context)!.next,
+                      textColor: _groupeValue == -1
+                          ? disabledButtonTextColorLightMode
+                          : secondaryColor,
+                      onTap: () async {
+                        // pop the bottom sheet
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pop(context);
+                          await Routes.navigateToScreen(
+                            Routes.cartOrderDetailsPage,
+                            NavigationType.pushNamed,
+                            context,
+                            extra: CartOrderDetailsArgs(
+                              isItVisa: false,
+                              isItWallet: true,
+                              isItFawry: false,
+                              walletNumber: widget
+                                  .cartBloc
+                                  .walletNumberBehaviour
+                                  .valueOrNull
+                                  ?.text,
+                            ),
+                          );
 
-                            widget.cartBloc.walletNumberBehaviour.value.clear();
-                          }
-                        })
+                          widget.cartBloc.walletNumberBehaviour.value.clear();
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -231,10 +256,8 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           ),
         );
       },
-    ).then(
-      (value) {
-        widget.cartBloc.walletNumberBehaviour.value.clear();
-      },
-    );
+    ).then((value) {
+      widget.cartBloc.walletNumberBehaviour.value.clear();
+    });
   }
 }

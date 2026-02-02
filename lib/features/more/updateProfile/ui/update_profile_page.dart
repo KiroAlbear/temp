@@ -1,7 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/generated/l10n.dart';
 
 class UpdateProfilePage extends BaseStatefulWidget {
   final MoreBloc moreBloc;
@@ -74,16 +73,19 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
         widget.moreBloc.profileBehaviour.value.response?.countryId ?? 0;
     int stateId = widget.moreBloc.profileBehaviour.value.response?.stateId ?? 0;
 
-    _bloc.fullNameBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: userName));
+    _bloc.fullNameBloc.textFormFiledBehaviour.sink.add(
+      TextEditingController(text: userName),
+    );
     _bloc.fullNameBloc.updateStringBehaviour(userName);
 
-    _bloc.phoneBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: Apputils.formatMobilePhone(email)));
+    _bloc.phoneBloc.textFormFiledBehaviour.sink.add(
+      TextEditingController(text: Apputils.formatMobilePhone(email)),
+    );
     _bloc.phoneBloc.updateStringBehaviour(email);
 
-    _bloc.buildingNameBloc.textFormFiledBehaviour.sink
-        .add(TextEditingController(text: buildingName));
+    _bloc.buildingNameBloc.textFormFiledBehaviour.sink.add(
+      TextEditingController(text: buildingName),
+    );
     _bloc.buildingNameBloc.updateStringBehaviour(buildingName);
 
     _bloc.clientIDBehaviour.sink.add(int.parse(userId));
@@ -95,21 +97,22 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
 
   @override
   Widget getBody(BuildContext context) {
-    return Column(children: [
-      AppTopWidget(
-        title: S.of(context).updateProfileTitle,
-        isHavingBack: true,
-      ),
-      SizedBox(
-        height: 15,
-      ),
-      StreamBuilder(
-        stream: _bloc.deliveryAddressBehaviour.stream,
-        builder: (context, snapshot) {
-          if (snapshot.data == null) {
-            return const SizedBox();
-          } else
-            return checkResponseStateWithLoadingWidget(snapshot.data!, context,
+    return Column(
+      children: [
+        AppTopWidget(
+          title: Loc.of(context)!.updateProfileTitle,
+          isHavingBack: true,
+        ),
+        SizedBox(height: 15),
+        StreamBuilder(
+          stream: _bloc.deliveryAddressBehaviour.stream,
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return const SizedBox();
+            } else
+              return checkResponseStateWithLoadingWidget(
+                snapshot.data!,
+                context,
                 onSuccess: Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -118,95 +121,90 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
-                              text: S.of(context).updateProfilePersonalData,
-                              customTextStyle: BoldStyle(
-                                  fontSize: 18.sp, color: secondaryColor)),
-                          SizedBox(
-                            height: _headerSpacing,
+                            text: Loc.of(context)!.updateProfilePersonalData,
+                            customTextStyle: BoldStyle(
+                              fontSize: 18.sp,
+                              color: secondaryColor,
+                            ),
                           ),
+                          SizedBox(height: _headerSpacing),
                           _nameTextField(context),
-                          SizedBox(
-                            height: _textfieldsSpacing,
-                          ),
+                          SizedBox(height: _textfieldsSpacing),
                           _phoneTextField(context),
-                          SizedBox(
-                            height: _textfieldsSpacing,
-                          ),
+                          SizedBox(height: _textfieldsSpacing),
                           CustomText(
-                              text: S.of(context).updateProfileBuildingData,
-                              customTextStyle: BoldStyle(
-                                  fontSize: 18.sp, color: secondaryColor)),
-                          SizedBox(
-                            height: _headerSpacing,
+                            text: Loc.of(context)!.updateProfileBuildingData,
+                            customTextStyle: BoldStyle(
+                              fontSize: 18.sp,
+                              color: secondaryColor,
+                            ),
                           ),
+                          SizedBox(height: _headerSpacing),
                           _buildingNameTextField(context),
-                          SizedBox(
-                            height: _textfieldsSpacing,
-                          ),
+                          SizedBox(height: _textfieldsSpacing),
                           _locationView(context),
-                          SizedBox(
-                            height: _textfieldsSpacing,
-                          ),
+                          SizedBox(height: _textfieldsSpacing),
                           _buildingNumberTextField(context),
-                          SizedBox(
-                            height: _textfieldsSpacing,
-                          ),
+                          SizedBox(height: _textfieldsSpacing),
                           Row(
                             children: [
                               Expanded(child: _districtTextField(context)),
-                              SizedBox(
-                                width: 16.w,
-                              ),
+                              SizedBox(width: 16.w),
                               Expanded(child: _governorateTextField(context)),
                             ],
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 50.0, top: 33.0),
+                            padding: const EdgeInsets.only(
+                              bottom: 50.0,
+                              top: 33.0,
+                            ),
                             child: CustomButtonWidget(
-                                idleText: S.of(context).editData,
-                                onTap: () {
-                                  _bloc.updateProfile().listen(
-                                    (event) {
-                                      checkResponseStateWithButton(
-                                          event, context,
-                                          failedBehaviour:
-                                              _bloc.buttonBloc.failedBehaviour,
-                                          buttonBehaviour: _bloc.buttonBloc
-                                              .buttonBehavior, onSuccess: () {
-                                        widget.moreBloc.getProfileData();
-                                        Navigator.pop(context);
-                                      });
+                              idleText: Loc.of(context)!.editData,
+                              onTap: () {
+                                _bloc.updateProfile().listen((event) {
+                                  checkResponseStateWithButton(
+                                    event,
+                                    context,
+                                    failedBehaviour:
+                                        _bloc.buttonBloc.failedBehaviour,
+                                    buttonBehaviour:
+                                        _bloc.buttonBloc.buttonBehavior,
+                                    onSuccess: () {
+                                      widget.moreBloc.getProfileData();
+                                      Navigator.pop(context);
                                     },
                                   );
-                                }),
-                          )
+                                });
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                ));
-        },
-      )
-    ]);
+                ),
+              );
+          },
+        ),
+      ],
+    );
   }
 
   CustomText _label(String text) {
     return CustomText(
-        text: text,
-        customTextStyle: MediumStyle(fontSize: 16.sp, color: secondaryColor));
+      text: text,
+      customTextStyle: MediumStyle(fontSize: 16.sp, color: secondaryColor),
+    );
   }
 
   Column _nameTextField(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).threeFullName),
-        SizedBox(
-          height: _textfieldsLabelSpacing,
-        ),
+        _label(Loc.of(context)!.threeFullName),
+        SizedBox(height: _textfieldsLabelSpacing),
         CustomTextFormFiled(
-          labelText: S.of(context).threeFullName,
+          labelText: Loc.of(context)!.threeFullName,
           defaultTextStyle: _getTextStyle(isEnabled: true),
           textFiledControllerStream: _bloc.fullNameBloc.textFormFiledBehaviour,
           onChanged: (value) => _bloc.fullNameBloc.updateStringBehaviour(value),
@@ -222,10 +220,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).yourMobile),
-        SizedBox(
-          height: _textfieldsLabelSpacing,
-        ),
+        _label(Loc.of(context)!.yourMobile),
+        SizedBox(height: _textfieldsLabelSpacing),
         Directionality(
           textDirection: TextDirection.ltr,
           child: CustomTextFormFiled(
@@ -233,7 +229,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
             readOnly: true,
             defaultTextStyle: _getTextStyle(),
             textAlign: TextAlign.end,
-            labelText: S.of(context).yourMobile,
+            labelText: Loc.of(context)!.yourMobile,
             textFiledControllerStream: _bloc.phoneBloc.textFormFiledBehaviour,
             onChanged: (value) {},
             textInputAction: TextInputAction.next,
@@ -247,10 +243,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).updateProfileLocation),
-        SizedBox(
-          height: _textfieldsLabelSpacing,
-        ),
+        _label(Loc.of(context)!.updateProfileLocation),
+        SizedBox(height: _textfieldsLabelSpacing),
         StreamBuilder(
           stream: _bloc.latLongBloc.latitudeBehaviour.stream,
           builder: (context, snapshot) {
@@ -264,7 +258,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
                     clickOnChangeLocation: () {},
                   );
           },
-        )
+        ),
       ],
     );
   }
@@ -273,12 +267,10 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).updateProfileBuildingName),
-        SizedBox(
-          height: _textfieldsLabelSpacing,
-        ),
+        _label(Loc.of(context)!.updateProfileBuildingName),
+        SizedBox(height: _textfieldsLabelSpacing),
         CustomTextFormFiled(
-          labelText: S.of(context).updateProfileBuildingName,
+          labelText: Loc.of(context)!.updateProfileBuildingName,
           defaultTextStyle: _getTextStyle(isEnabled: true),
           textFiledControllerStream:
               _bloc.buildingNameBloc.textFormFiledBehaviour,
@@ -296,13 +288,11 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).updateProfileBuildingNumber),
-        SizedBox(
-          height: _textfieldsLabelSpacing,
-        ),
+        _label(Loc.of(context)!.updateProfileBuildingNumber),
+        SizedBox(height: _textfieldsLabelSpacing),
         CustomTextFormFiled(
           readOnly: true,
-          labelText: S.of(context).updateProfileBuildingNumber,
+          labelText: Loc.of(context)!.updateProfileBuildingNumber,
           defaultTextStyle: _getTextStyle(),
           textFiledControllerStream:
               _bloc.buildingNumberBloc.textFormFiledBehaviour,
@@ -317,13 +307,11 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).updateProfileDistrict),
-        SizedBox(
-          height: _textfieldsLabelSpacing,
-        ),
+        _label(Loc.of(context)!.updateProfileDistrict),
+        SizedBox(height: _textfieldsLabelSpacing),
         CustomTextFormFiled(
           readOnly: true,
-          labelText: S.of(context).updateProfileDistrict,
+          labelText: Loc.of(context)!.updateProfileDistrict,
           defaultTextStyle: _getTextStyle(),
           textFiledControllerStream: _bloc.districtBloc.textFormFiledBehaviour,
           onChanged: (value) => (),
@@ -337,13 +325,11 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label(S.of(context).updateProfileGovernorate),
-        SizedBox(
-          height: _textfieldsLabelSpacing,
-        ),
+        _label(Loc.of(context)!.updateProfileGovernorate),
+        SizedBox(height: _textfieldsLabelSpacing),
         CustomTextFormFiled(
           readOnly: true,
-          labelText: S.of(context).updateProfileGovernorate,
+          labelText: Loc.of(context)!.updateProfileGovernorate,
           defaultTextStyle: _getTextStyle(),
           textFiledControllerStream:
               _bloc.governorateBloc.textFormFiledBehaviour,
@@ -356,7 +342,8 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
 
   TextStyle _getTextStyle({bool isEnabled = false}) {
     return RegularStyle(
-            fontSize: 14.sp, color: isEnabled ? black : lightGreyColorDarkMode)
-        .getStyle();
+      fontSize: 14.sp,
+      color: isEnabled ? black : lightGreyColorDarkMode,
+    ).getStyle();
   }
 }

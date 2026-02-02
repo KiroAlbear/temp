@@ -1,4 +1,3 @@
-import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:easy_url_launcher/easy_url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
         children: [
           SizedBox(width: 90.w),
           CustomText(
-            text: S.of(context).howCanWeHelp,
+            text: Loc.of(context)!.howCanWeHelp,
             customTextStyle: BoldStyle(fontSize: 18.sp, color: lightBlackColor),
           ),
           const Spacer(),
@@ -63,7 +62,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
         child: _buildContactUsItem(
           contactUsMapper.hotLine,
           Assets.svg.icPhone,
-          S.of(context).hotline,
+          Loc.of(context)!.hotline,
         ),
       ),
       SizedBox(height: 20.h),
@@ -76,7 +75,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
         child: _buildContactUsItem(
           contactUsMapper.whatsApp,
           Assets.svg.icWhatsApp,
-          S.of(context).whatsApp,
+          Loc.of(context)!.whatsApp,
         ),
       ),
       SizedBox(height: 20.h),

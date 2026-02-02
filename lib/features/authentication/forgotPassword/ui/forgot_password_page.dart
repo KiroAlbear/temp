@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/generated/l10n.dart';
 
 class ForgotPasswordPage extends BaseStatefulWidget {
   final ForgotPasswordBloc forgetPasswordBloc;
@@ -56,7 +55,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
         children: [
           Center(
             child: CustomText(
-              text: S.of(context).resetPasswordSetting,
+              text: Loc.of(context)!.resetPasswordSetting,
               customTextStyle: BoldStyle(
                 color: secondaryColor,
                 fontSize: 28.sp,
@@ -65,7 +64,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
           ),
           SizedBox(height: 30.h),
           CustomText(
-            text: S.of(context).enterYouRegisteredMobile,
+            text: Loc.of(context)!.enterYouRegisteredMobile,
             customTextStyle: MediumStyle(
               color: secondaryColor,
               fontSize: 16.sp,
@@ -110,15 +109,14 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
   }
 
   Widget get _button => CustomButtonWidget(
-    idleText: S.of(context).sendOTP,
+    idleText: Loc.of(context)!.sendOTP,
     onTap: () {
       if (widget.forgetPasswordBloc.isMobileValid) {
         widget.forgetPasswordBloc.checkPhone.listen((event) {
           // only for testing
-          // if (F.appFlavor == Flavor.app_stage) {
-          //   onlyForTestingCode();
-          // } else
-          {
+          if (F.appFlavor == Flavor.app_stage) {
+            onlyForTestingCode();
+          } else {
             checkResponseStateWithButton(
               event,
               context,

@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../../../../core/Utils/firebase_analytics_key_names.dart';
 import '../../widget/logo_top_widget.dart';
 import 'login_bloc.dart';
@@ -52,7 +51,8 @@ class _LoginWidgetState extends BaseState<LoginPage> {
     customBackgroundColor = Colors.white;
 
     WidgetsBinding.instance.addPostFrameCallback(
-        (_) => changeSystemNavigationBarAndStatusColor(whiteColor));
+      (_) => changeSystemNavigationBarAndStatusColor(whiteColor),
+    );
 
     Timer(Duration(milliseconds: 200), () {
       changeSystemNavigationBarAndStatusColor(whiteColor);
@@ -65,147 +65,155 @@ class _LoginWidgetState extends BaseState<LoginPage> {
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
-        logo: Assets.svg.logoYellow,
-        blocBase: _bloc,
-        canSkip: widget.enableSkip,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: CustomText(
-                    key: const Key('login'),
-                    text: S.of(context).login,
-                    customTextStyle:
-                        BoldStyle(color: secondaryColor, fontSize: 28.sp)),
+    logo: Assets.svg.logoYellow,
+    blocBase: _bloc,
+    canSkip: widget.enableSkip,
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: CustomText(
+              key: const Key('login'),
+              text: Loc.of(context)!.login,
+              customTextStyle: BoldStyle(
+                color: secondaryColor,
+                fontSize: 28.sp,
               ),
-              SizedBox(
-                height: 30.h,
-              ),
-              CustomText(
-                  text: S.of(context).yourMobile,
-                  customTextStyle:
-                      MediumStyle(fontSize: 16.sp, color: secondaryColor)),
-              SizedBox(
-                height: 12.h,
-              ),
-              _countryStream,
-              SizedBox(
-                height: 24.h,
-              ),
-              CustomText(
-                  text: S.of(context).password,
-                  customTextStyle:
-                      MediumStyle(fontSize: 16.sp, color: secondaryColor)),
-              SizedBox(
-                height: 12.h,
-              ),
-              _passwordTextFormFiled,
-              SizedBox(
-                height: 8.h,
-              ),
-              _forgetPassword,
-              SizedBox(
-                height: 80.h,
-              ),
-              _buttonRow,
-              SizedBox(
-                height: 25.h,
-              ),
-              _registerWidget,
-            ],
+            ),
           ),
-        ),
-      );
+          SizedBox(height: 30.h),
+          CustomText(
+            text: Loc.of(context)!.yourMobile,
+            customTextStyle: MediumStyle(
+              fontSize: 16.sp,
+              color: secondaryColor,
+            ),
+          ),
+          SizedBox(height: 12.h),
+          _countryStream,
+          SizedBox(height: 24.h),
+          CustomText(
+            text: Loc.of(context)!.password,
+            customTextStyle: MediumStyle(
+              fontSize: 16.sp,
+              color: secondaryColor,
+            ),
+          ),
+          SizedBox(height: 12.h),
+          _passwordTextFormFiled,
+          SizedBox(height: 8.h),
+          _forgetPassword,
+          SizedBox(height: 80.h),
+          _buttonRow,
+          SizedBox(height: 25.h),
+          _registerWidget,
+        ],
+      ),
+    ),
+  );
 
   Widget get _countryStream => StreamBuilder(
-        stream: _bloc.countryStream,
-        builder: (context, snapshot) {
-          if (snapshot.data == null)
-            return Container();
-          else
-            return checkResponseStateWithLoadingWidget(snapshot.data!, context,
-                onSuccess: MobileCountryWidget(
-                    key: const Key('MobileCountryWidget'),
-                    enableValidator: false,
-                    mobileBloc: _bloc.mobileBloc,
-                    countryList: snapshot.data?.response ?? [],
-                    countryBloc: _bloc.countryBloc));
-        },
-      );
+    stream: _bloc.countryStream,
+    builder: (context, snapshot) {
+      if (snapshot.data == null)
+        return Container();
+      else
+        return checkResponseStateWithLoadingWidget(
+          snapshot.data!,
+          context,
+          onSuccess: MobileCountryWidget(
+            key: const Key('MobileCountryWidget'),
+            enableValidator: false,
+            mobileBloc: _bloc.mobileBloc,
+            countryList: snapshot.data?.response ?? [],
+            countryBloc: _bloc.countryBloc,
+          ),
+        );
+    },
+  );
 
   Widget get _passwordTextFormFiled => CustomTextFormFiled(
-        key: Key("PasswordWidget"),
-        labelText: S.of(context).enterYourPassword,
-        textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
-        onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
-        validator: (value) =>
-            ValidatorModule().emptyValidator(context).call(value),
-        textInputAction: TextInputAction.done,
-        defaultTextStyle:
-            RegularStyle(color: lightBlackColor, fontSize: 16.w).getStyle(),
-        isPassword: true,
-      );
+    key: Key("PasswordWidget"),
+    labelText: Loc.of(context)!.enterYourPassword,
+    textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
+    onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),
+    validator: (value) => ValidatorModule().emptyValidator(context).call(value),
+    textInputAction: TextInputAction.done,
+    defaultTextStyle: RegularStyle(
+      color: lightBlackColor,
+      fontSize: 16.w,
+    ).getStyle(),
+    isPassword: true,
+  );
 
   Widget get _forgetPassword => Container(
-        alignment: Alignment.centerLeft,
-        child: InkWell(
-          onTap: () => Routes.navigateToScreen(
-              Routes.forgotPasswordPage, NavigationType.pushNamed, context),
-          child: CustomText(
-              text: S.of(context).forgotPassword,
-              customTextStyle:
-                  RegularStyle(color: secondaryColor, fontSize: 16.sp)),
-        ),
-      );
+    alignment: Alignment.centerLeft,
+    child: InkWell(
+      onTap: () => Routes.navigateToScreen(
+        Routes.forgotPasswordPage,
+        NavigationType.pushNamed,
+        context,
+      ),
+      child: CustomText(
+        text: Loc.of(context)!.forgotPassword,
+        customTextStyle: RegularStyle(color: secondaryColor, fontSize: 16.sp),
+      ),
+    ),
+  );
 
   Widget get _buttonRow => StreamBuilder(
-        stream: _bloc.biometricSupportedStream,
-        builder: (context, snapshot) => Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(child: _button(snapshot.data ?? false)),
-            if (snapshot.data ?? false)
-              SizedBox(
-                width: 12.w,
-              ),
-            if (snapshot.data ?? false) _biometricButton,
-          ],
-        ),
-        initialData: false,
-      );
+    stream: _bloc.biometricSupportedStream,
+    builder: (context, snapshot) => Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(child: _button(snapshot.data ?? false)),
+        if (snapshot.data ?? false) SizedBox(width: 12.w),
+        if (snapshot.data ?? false) _biometricButton,
+      ],
+    ),
+    initialData: false,
+  );
 
   Widget get _biometricButton => InkWell(
-        onTap: () {
-          _bloc
-              .authenticateWithBiometric(S.of(context).biometricLoginMessage)
-              .then((value) async {
+    onTap: () {
+      _bloc
+          .authenticateWithBiometric(Loc.of(context)!.biometricLoginMessage)
+          .then((value) async {
             isLoggingWithBiometric = true;
             if (value) {
               _bloc.mobileBloc.textFormFiledBehaviour.sink.add(
-                  TextEditingController(
-                      text: SharedPrefModule().userPhoneWithoutCountry));
+                TextEditingController(
+                  text: SharedPrefModule().userPhoneWithoutCountry,
+                ),
+              );
 
               _bloc.passwordBloc.textFormFiledBehaviour.sink.add(
-                  TextEditingController(text: SharedPrefModule().password));
+                TextEditingController(text: SharedPrefModule().password),
+              );
 
               _bloc.mobileBloc.updateStringBehaviour(
-                  SharedPrefModule().userPhoneWithoutCountry ?? '');
+                SharedPrefModule().userPhoneWithoutCountry ?? '',
+              );
 
-              _bloc.passwordBloc
-                  .updateStringBehaviour(SharedPrefModule().password ?? '');
+              _bloc.passwordBloc.updateStringBehaviour(
+                SharedPrefModule().password ?? '',
+              );
 
               String countryCode = SharedPrefModule().getCountryCode() ?? "";
 
               _bloc.countryStream.listen((event) {
                 if (event is SuccessState) {
-                  _bloc.countryBloc.updateValue(event.response!.firstWhere(
-                    (element) =>
-                        element.description == countryCode.replaceAll("+", ""),
-                    orElse: () => event.response!.first,
-                  ));
+                  _bloc.countryBloc.updateValue(
+                    event.response!.firstWhere(
+                      (element) =>
+                          element.description ==
+                          countryCode.replaceAll("+", ""),
+                      orElse: () => event.response!.first,
+                    ),
+                  );
                   _bloc.login.listen((event) {
                     checkResponseStateWithButton(
                       event,
@@ -235,66 +243,69 @@ class _LoginWidgetState extends BaseState<LoginPage> {
               // });
             }
           });
-        },
-        child: ImageHelper(
-          image: Assets.svg.icBiometric,
-          imageType: ImageType.svg,
-          width: 50.w,
-          height: 50.h,
-        ),
-      );
+    },
+    child: ImageHelper(
+      image: Assets.svg.icBiometric,
+      imageType: ImageType.svg,
+      width: 50.w,
+      height: 50.h,
+    ),
+  );
 
   Widget _button(bool hasBiometric) => CustomButtonWidget(
-        idleText: S.of(context).loginEnter,
-        borderRadius: 8,
-        width: hasBiometric
-            ? (MediaQuery.of(context).size.width - 156.w)
-            : (MediaQuery.of(context).size.width - 32.w),
-        onTap: () {
-          isLoggingWithBiometric = false;
-          _bloc.login.listen((event) {
-            checkResponseStateWithButton(
-              event,
-              context,
-              failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-              buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-              headerErrorMessage: "خطأ في رقم الهاتف او كلمة المرور",
-              onSuccess: () {
-                FirebaseAnalyticsUtil()
-                    .logEvent(FirebaseAnalyticsEventsNames.login, parameters: {
-                  FirebaseAnalyticsKeyNames.org_id: event.response?.userId ?? 0,
-                });
-                _navigateHome();
+    idleText: Loc.of(context)!.loginEnter,
+    borderRadius: 8,
+    width: hasBiometric
+        ? (MediaQuery.of(context).size.width - 156.w)
+        : (MediaQuery.of(context).size.width - 32.w),
+    onTap: () {
+      isLoggingWithBiometric = false;
+      _bloc.login.listen((event) {
+        checkResponseStateWithButton(
+          event,
+          context,
+          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+          headerErrorMessage: "خطأ في رقم الهاتف او كلمة المرور",
+          onSuccess: () {
+            FirebaseAnalyticsUtil().logEvent(
+              FirebaseAnalyticsEventsNames.login,
+              parameters: {
+                FirebaseAnalyticsKeyNames.org_id: event.response?.userId ?? 0,
               },
             );
-          });
-        },
-        buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-        failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-        validateStream: _bloc.validate,
-      );
+            _navigateHome();
+          },
+        );
+      });
+    },
+    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+    validateStream: _bloc.validate,
+  );
 
   Widget get _registerWidget => InkWell(
-        onTap: () => Routes.navigateToScreen(
-            Routes.registerPage, NavigationType.pushNamed, context),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CustomText(
-                text: S.of(context).doNotHaveAccount,
-                customTextStyle:
-                    RegularStyle(fontSize: 16.sp, color: secondaryColor)),
-            SizedBox(
-              width: 5.w,
-            ),
-            CustomText(
-                text: S.of(context).registerNow,
-                customTextStyle:
-                    BoldStyle(color: secondaryColor, fontSize: 16.sp))
-          ],
+    onTap: () => Routes.navigateToScreen(
+      Routes.registerPage,
+      NavigationType.pushNamed,
+      context,
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomText(
+          text: Loc.of(context)!.doNotHaveAccount,
+          customTextStyle: RegularStyle(fontSize: 16.sp, color: secondaryColor),
         ),
-      );
+        SizedBox(width: 5.w),
+        CustomText(
+          text: Loc.of(context)!.registerNow,
+          customTextStyle: BoldStyle(color: secondaryColor, fontSize: 16.sp),
+        ),
+      ],
+    ),
+  );
 
   void _navigateHome() async {
     if (isLoggingWithBiometric == false) {
@@ -303,15 +314,20 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       //
       SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
 
-      await SharedPrefModule()
-          .setCountryCode(_bloc.countryBloc.value!.description);
+      await SharedPrefModule().setCountryCode(
+        _bloc.countryBloc.value!.description,
+      );
 
       await SharedPrefModule().setPassword(_bloc.passwordBloc.value);
     }
 
     Apputils.showAnnouncementsDialog();
-    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context,
-        setBottomNavigationTab: true);
+    Routes.navigateToScreen(
+      Routes.homePage,
+      NavigationType.goNamed,
+      context,
+      setBottomNavigationTab: true,
+    );
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.home.name);
     // getIt<BottomNavigationBloc>().setSelectedTab(0, context);

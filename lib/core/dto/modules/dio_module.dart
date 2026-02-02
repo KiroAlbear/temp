@@ -1,8 +1,6 @@
 import 'package:deel/core/dto/modules/shared_pref_module.dart';
 import 'package:deel/deel.dart';
 
-import '../../generated/l10n.dart';
-
 abstract class DioModule extends DioBuilder {
   late RequestOptions _options;
 
@@ -120,7 +118,9 @@ abstract class DioModule extends DioBuilder {
               requestOptions: _options,
               message: CustomDioException().toString(),
               type: DioExceptionType.badResponse,
-              error: dioException.error ?? S.current.generalError,
+              error:
+                  dioException.error ??
+                  Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
             ),
           );
         }

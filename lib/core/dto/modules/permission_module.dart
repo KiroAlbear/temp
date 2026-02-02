@@ -1,12 +1,12 @@
 import 'dart:developer' as logger;
 
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../generated/l10n.dart';
 import '../../ui/custom_material_banner.dart';
 import '../../ui/custom_text.dart';
 import 'alert_module.dart';
@@ -45,12 +45,13 @@ class PermissionModule {
   /// - [context]: The BuildContext to show dialogs.
   /// - [messageOnPermissionDeniedForever]: Custom message to show when permission is denied forever.
   /// - [messageBeforeRequestPermission]: Custom message to show before requesting permission.
-  Future<void> handlePermission(
-      {required Permission permission,
-      required bool isRequired,
-      required BuildContext context,
-      String? messageOnPermissionDeniedForever,
-      final String? messageBeforeRequestPermission}) async {
+  Future<void> handlePermission({
+    required Permission permission,
+    required bool isRequired,
+    required BuildContext context,
+    String? messageOnPermissionDeniedForever,
+    final String? messageBeforeRequestPermission,
+  }) async {
     _permission = permission;
     _isRequired = isRequired;
     _context = context;
@@ -129,7 +130,8 @@ class PermissionModule {
   }
 
   Future<PermissionStatus> _handleRequestPermissionForLocation(
-      PermissionStatus status) async {
+    PermissionStatus status,
+  ) async {
     final locationStatus = await _location.requestPermission();
     switch (locationStatus) {
       case loc.PermissionStatus.granted:
@@ -155,8 +157,10 @@ class PermissionModule {
     } else {
       state = _currentState == PermissionStatus.denied;
     }
-    logger.log('${_permission.toString()}: permissionDenied: $state',
-        name: runtimeType.toString());
+    logger.log(
+      '${_permission.toString()}: permissionDenied: $state',
+      name: runtimeType.toString(),
+    );
     return state;
   }
 
@@ -169,8 +173,10 @@ class PermissionModule {
     } else {
       state = _currentState == PermissionStatus.granted;
     }
-    logger.log('${_permission.toString()}: permissionGranted: $state',
-        name: runtimeType.toString());
+    logger.log(
+      '${_permission.toString()}: permissionGranted: $state',
+      name: runtimeType.toString(),
+    );
     return state;
   }
 
@@ -183,8 +189,10 @@ class PermissionModule {
     } else {
       state = _currentState == PermissionStatus.limited;
     }
-    logger.log('${_permission.toString()}: permissionLimited: $state',
-        name: runtimeType.toString());
+    logger.log(
+      '${_permission.toString()}: permissionLimited: $state',
+      name: runtimeType.toString(),
+    );
     return state;
   }
 
@@ -197,8 +205,10 @@ class PermissionModule {
     } else {
       state = _currentState == PermissionStatus.permanentlyDenied;
     }
-    logger.log('${_permission.toString()}: deniedForEver: $state',
-        name: runtimeType.toString());
+    logger.log(
+      '${_permission.toString()}: deniedForEver: $state',
+      name: runtimeType.toString(),
+    );
     return state;
   }
 
@@ -218,7 +228,8 @@ class PermissionModule {
   void get _showDescriptionMessage {
     AlertModule().showMessage(
       context: _context,
-      message: '${_messageBeforeRequestPermission ?? ''}'
+      message:
+          '${_messageBeforeRequestPermission ?? ''}'
           '\n${_messageBeforeRequestPermission ?? ''}',
       leadingCallBack: () => requestPermission,
     );
@@ -226,27 +237,29 @@ class PermissionModule {
 
   Future<bool> _showMessageOnPermissionDeniedForEver() async {
     await AlertModule().showMessage(
-        context: _context,
-        materialBannerType: MaterialBannerType.info,
-        message: S
-            .of(_context)
-            .openSetting('${_permission.toString().split('.').last}'),
-        actions: [
-          InkWell(
-            onTap: () {
-              ScaffoldMessenger.maybeOf(_context)?.hideCurrentMaterialBanner();
-              _isOpenSettingsBehaviour.sink.add(true);
-              openAppSettings();
-            },
-            child: Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 24.sp,
-            ),
-          )
-        ]);
+      context: _context,
+      materialBannerType: MaterialBannerType.info,
+      message: openSetting(
+        '${_permission.toString().split('.').last}',
+        _context,
+      ),
+      actions: [
+        InkWell(
+          onTap: () {
+            ScaffoldMessenger.maybeOf(_context)?.hideCurrentMaterialBanner();
+            _isOpenSettingsBehaviour.sink.add(true);
+            openAppSettings();
+          },
+          child: Icon(Icons.settings, color: Colors.white, size: 24.sp),
+        ),
+      ],
+    );
 
     return false;
+  }
+
+  String openSetting(Object PermissionName, BuildContext context) {
+    return '$PermissionName ${Loc.of(context)!.deniedPermission}';
   }
 
   void dispose() {

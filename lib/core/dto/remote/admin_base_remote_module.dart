@@ -5,7 +5,6 @@ import 'package:deel/deel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../generated/l10n.dart';
 import '../models/baseModules/admin_header_response.dart';
 import '../models/baseModules/api_state.dart';
 import '../modules/constants_module.dart';
@@ -168,7 +167,9 @@ abstract class AdminBaseRemoteModule<T, K> {
           return LoadingState();
         } else {
           return FailedState(
-            message: e.response?.data['errors'][0] ?? S.current.generalError,
+            message:
+                e.response?.data['errors'][0] ??
+                Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
             loggerName: runtimeType.toString(),
           );
         }
@@ -201,12 +202,12 @@ abstract class AdminBaseRemoteModule<T, K> {
         stackTrace: e.innerStack,
       );
       return FailedState(
-        message: S.current.generalError,
+        message: Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
         loggerName: runtimeType.toString(),
       );
     } else {
       return FailedState(
-        message: S.current.generalError,
+        message: Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
         loggerName: runtimeType.toString(),
       );
     }

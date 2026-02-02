@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../core/generated/l10n.dart';
-
 class CartSuccessPage extends BaseStatefulWidget {
   const CartSuccessPage({super.key});
 
@@ -40,21 +38,22 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
       child: Column(
         children: [
           200.verticalSpace,
-          // SizedBox(
-          //   child: ImageHelper(
-          //       image: Assets.svg.orderSuccess,
-          //       imageType: ImageType.svg),
-          // ),
+          SizedBox(
+            child: ImageHelper(
+              image: Assets.svg.orderSuccess,
+              imageType: ImageType.svg,
+            ),
+          ),
           10.verticalSpace,
           CustomText(
-            text: S.of(context).cartSuccessConfirmation,
+            text: Loc.of(context)!.cartSuccessConfirmation,
             textAlign: TextAlign.center,
             maxLines: 2,
             customTextStyle: BoldStyle(color: secondaryColor, fontSize: 28.sp),
           ),
           5.verticalSpace,
           CustomText(
-            text: S.of(context).cartSuccessIsDelivering,
+            text: Loc.of(context)!.cartSuccessIsDelivering,
             textAlign: TextAlign.center,
             maxLines: 2,
             customTextStyle: RegularStyle(
@@ -66,7 +65,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: CustomButtonWidget(
-              idleText: S.of(context).cartSuccessTrackButton,
+              idleText: Loc.of(context)!.cartSuccessTrackButton,
               borderRadius: 8,
               textColor: secondaryColor,
               onTap: () async {
@@ -106,7 +105,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
               );
             },
             child: CustomText(
-              text: S.of(context).goToMainPage,
+              text: Loc.of(context)!.goToMainPage,
               customTextStyle: MediumStyle(
                 fontSize: 14.sp,
                 color: secondaryColor,

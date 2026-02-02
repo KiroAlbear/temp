@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../generated/l10n.dart';
+import '../../../deel.dart';
 import '../../ui/custom_progress_widget.dart';
 import '../models/baseModules/api_state.dart';
 import 'alert_module.dart';
@@ -26,11 +26,11 @@ mixin ResponseHandlerModule {
       onSuccess?.call();
     } else if (apiState is NoInternetState) {
       showErrorDialog(
-        S.of(context).noInternetConnection,
+        Loc.of(context)!.noInternetConnection,
         context,
         headerMessage: headerErrorMessage,
       );
-      failedBehaviour.sink.add(S.of(context).noInternetConnection);
+      failedBehaviour.sink.add(Loc.of(context)!.noInternetConnection);
       buttonBehaviour.sink.add(ButtonState.idle);
     } else {
       buttonBehaviour.sink.add(ButtonState.idle);
@@ -104,7 +104,7 @@ mixin ResponseHandlerModule {
         return idleWidget ?? Container();
       }
     } else if (apiState is NoInternetState) {
-      showErrorDialog(S.of(context).noInternetConnection, context);
+      showErrorDialog(Loc.of(context)!.noInternetConnection, context);
       if (useExpanded) {
         return Expanded(child: idleWidget ?? Container());
       } else {

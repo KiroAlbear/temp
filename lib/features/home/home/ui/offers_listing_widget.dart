@@ -2,7 +2,6 @@ import 'package:deel/deel.dart';
 import 'package:deel/features/home/home/ui/skeletons/offers_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/generated/l10n.dart';
 import 'home_bloc.dart';
 import 'offer_item.dart';
 
@@ -52,7 +51,7 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: CustomText(
-                      text: S.of(context).lastOffers,
+                      text: Loc.of(context)!.lastOffers,
                       customTextStyle: BoldStyle(
                         color: secondaryColor,
                         fontSize: 20.sp,

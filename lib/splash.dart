@@ -36,10 +36,10 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
     FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
-    // if (F.appFlavor == Flavor.app_stage) {
-    //   AppProviderModule().init(context);
-    //   return;
-    // }
+    if (F.appFlavor == Flavor.app_stage) {
+      AppProviderModule().init(context);
+      return;
+    }
 
     FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);
     // if (mounted)

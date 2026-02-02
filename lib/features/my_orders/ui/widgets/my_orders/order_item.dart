@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../current_orders/cancel_order_bottom_sheet.dart';
 import '../current_orders/current_orders_states.dart';
 import '../past_orders/past_orders_states.dart';
@@ -18,23 +17,27 @@ class OrderItem extends StatelessWidget {
   final List<String?> orderStatuses;
   final MyOrdersBloc myOrdersBloc;
 
-  OrderItem(
-      {required this.orderItemType,
-      required this.currentOrder,
-      required this.items,
-      required this.myOrdersBloc,
-      required this.orderStatuses});
+  OrderItem({
+    required this.orderItemType,
+    required this.currentOrder,
+    required this.items,
+    required this.myOrdersBloc,
+    required this.orderStatuses,
+  });
 
-  final CustomTextStyleModule titleTextStyle =
-      MediumStyle(color: secondaryColor, fontSize: 14.sp);
+  final CustomTextStyleModule titleTextStyle = MediumStyle(
+    color: secondaryColor,
+    fontSize: 14.sp,
+  );
 
   final double borderRadious = 10;
 
   final ImageHelper icDelete = ImageHelper(
-      image: Assets.svg.icDeleteOrder,
-      width: 40,
-      height: 40,
-      imageType: ImageType.svg);
+    image: Assets.svg.icDeleteOrder,
+    width: 40,
+    height: 40,
+    imageType: ImageType.svg,
+  );
 
   final ValueNotifier<bool> isExpanded = ValueNotifier<bool>(false);
 
@@ -72,7 +75,9 @@ class OrderItem extends StatelessWidget {
           // trailing: _getCurrentOrdersTrailingWidget(),
           trailing: orderItemType == OrderType.pastOrder
               ? _getPastOrdersTrailingWidget(
-                  context, currentOrder.state != "cancel")
+                  context,
+                  currentOrder.state != "cancel",
+                )
               : _getCurrentOrdersTrailingWidget(),
           onExpansionChanged: (value) {
             isExpanded.value = value;
@@ -98,35 +103,33 @@ class OrderItem extends StatelessWidget {
                       children: [
                         CustomText(
                           text:
-                              "${S.of(context).orderNumber} #${currentOrder!.id}",
+                              "${Loc.of(context)!.orderNumber} #${currentOrder!.id}",
                           customTextStyle: titleTextStyle,
                         ),
                         OrderItemGreyText(
                           text:
-                              "${S.of(context).orderTotal} ${currentOrder!.totalPrice}",
+                              "${Loc.of(context)!.orderTotal} ${currentOrder!.totalPrice}",
                         ),
                         OrderItemGreyText(
                           text:
-                              "${S.of(context).orderItemCount} ${currentOrder!.itemsCount} ${S.of(context).orderItem}",
+                              "${Loc.of(context)!.orderItemCount} ${currentOrder!.itemsCount} ${Loc.of(context)!.orderItem}",
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 4,
-              ),
+              SizedBox(height: 4),
               Row(
                 children: [
                   CustomText(
-                    text: "${S.of(context).orderDetails}",
-                    customTextStyle:
-                        RegularStyle(color: secondaryColor, fontSize: 14.sp),
+                    text: "${Loc.of(context)!.orderDetails}",
+                    customTextStyle: RegularStyle(
+                      color: secondaryColor,
+                      fontSize: 14.sp,
+                    ),
                   ),
-                  SizedBox(
-                    width: 2,
-                  ),
+                  SizedBox(width: 2),
                   ValueListenableBuilder(
                     valueListenable: isExpanded,
                     builder: (context, value, child) {
@@ -140,7 +143,7 @@ class OrderItem extends StatelessWidget {
                         ),
                       );
                     },
-                  )
+                  ),
                 ],
               ),
             ],
@@ -155,36 +158,28 @@ class OrderItem extends StatelessWidget {
                     width: double.infinity,
                     height: 1,
                   ),
-                  SizedBox(
-                    height: 12,
-                  ),
+                  SizedBox(height: 12),
                   orderItemType == OrderType.currentOrder
-                      ? CurrentOrdersStates(
-                          statuses: orderStatuses,
-                        )
+                      ? CurrentOrdersStates(statuses: orderStatuses)
                       : SizedBox(),
                   currentOrder.state == "cancel"
                       ? SizedBox()
                       : orderItemType == OrderType.pastOrder
-                          ? PastOrdersStates(
-                              orderStatuses: orderStatuses,
-                            )
-                          : SizedBox(),
+                      ? PastOrdersStates(orderStatuses: orderStatuses)
+                      : SizedBox(),
                   CustomButtonWidget(
-                      buttonColor: secondaryColor,
-                      textColor: Colors.white,
-                      idleText: S.of(context).orderDetails,
-                      onTap: () {
-                        UtilityModule().showBottomSheetDialog(
-                            useFixedHeight: true,
-                            child: OrderDetailsBottomSheet(
-                              items: items,
-                            ),
-                            context: context);
-                      }),
-                  SizedBox(
-                    height: 12,
+                    buttonColor: secondaryColor,
+                    textColor: Colors.white,
+                    idleText: Loc.of(context)!.orderDetails,
+                    onTap: () {
+                      UtilityModule().showBottomSheetDialog(
+                        useFixedHeight: true,
+                        child: OrderDetailsBottomSheet(items: items),
+                        context: context,
+                      );
+                    },
                   ),
+                  SizedBox(height: 12),
                 ],
               ),
             ),
@@ -209,7 +204,9 @@ class OrderItem extends StatelessWidget {
   }
 
   Widget _getPastOrdersTrailingWidget(
-      BuildContext context, bool isOrderReceived) {
+    BuildContext context,
+    bool isOrderReceived,
+  ) {
     return Container(
       padding: EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 4),
       decoration: BoxDecoration(
@@ -217,10 +214,10 @@ class OrderItem extends StatelessWidget {
         color: isOrderReceived ? greenColor : Colors.red,
       ),
       child: CustomText(
-        // text: S.of(context).orderNotRecieved,
+        // text: Loc.of(context)!.orderNotRecieved,
         text: isOrderReceived
-            ? S.of(context).orderRecieved
-            : S.of(context).orderNotRecieved,
+            ? Loc.of(context)!.orderRecieved
+            : Loc.of(context)!.orderNotRecieved,
 
         customTextStyle: SemiBoldStyle(color: Colors.white, fontSize: 12.sp),
       ),
@@ -239,30 +236,31 @@ class OrderItem extends StatelessWidget {
             opacity: value ? 1.0 : 0.0,
             duration: Duration(milliseconds: 500),
             child: InkWell(
-                onTap: () async {
-                  _showCancelBottomSheet(context);
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.red,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 8,
-                    ),
-                    child: CustomText(
-                        text: S.of(context).cancelOrder,
-                        customTextStyle:
-                            RegularStyle(color: Colors.white, fontSize: 14.sp)))
-
-                // ImageHelper(
-                //   image: Assets.svg.icDeleteOrder,
-                //   width: 40,
-                //   height: 40,
-                //   imageType: ImageType.svg,
-                // ),
+              onTap: () async {
+                _showCancelBottomSheet(context);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.red,
                 ),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: CustomText(
+                  text: Loc.of(context)!.cancelOrder,
+                  customTextStyle: RegularStyle(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ),
+
+              // ImageHelper(
+              //   image: Assets.svg.icDeleteOrder,
+              //   width: 40,
+              //   height: 40,
+              //   imageType: ImageType.svg,
+              // ),
+            ),
           ),
         );
       },

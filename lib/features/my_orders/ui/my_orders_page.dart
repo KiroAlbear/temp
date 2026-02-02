@@ -3,7 +3,6 @@ import 'package:deel/features/my_orders/ui/widgets/my_orders/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/generated/l10n.dart';
 import 'my_orders_bloc.dart';
 
 class MyOrdersPage extends BaseStatefulWidget {
@@ -52,8 +51,13 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
     // get client id from shared prefrences
     //
 
-    widget.myOrdersBloc.getMyOrders(MyOrdersRequest(
-        int.parse(SharedPrefModule().userId ?? '0').toString(), '1', '100'));
+    widget.myOrdersBloc.getMyOrders(
+      MyOrdersRequest(
+        int.parse(SharedPrefModule().userId ?? '0').toString(),
+        '1',
+        '100',
+      ),
+    );
     _toggleXAlign.value = ToggleButton.rightToggleAlign;
     _tabController.addListener(() {
       if (_tabController.index == 1) {
@@ -69,13 +73,8 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
   Widget getBody(BuildContext context) {
     return Column(
       children: [
-        AppTopWidget(
-          title: S.of(context).myOrders,
-          isHavingBack: true,
-        ),
-        SizedBox(
-          height: 20,
-        ),
+        AppTopWidget(title: Loc.of(context)!.myOrders, isHavingBack: true),
+        SizedBox(height: 20),
         ToggleButton(
           height: 40,
           width: ScreenUtil.defaultSize.width,
@@ -84,8 +83,8 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
           toggleColor: secondaryColor,
           activeTextColor: lightBlackColor,
           inactiveTextColor: Colors.white,
-          leftDescription: S.of(context).pastOrders,
-          rightDescription: S.of(context).currentOrders,
+          leftDescription: Loc.of(context)!.pastOrders,
+          rightDescription: Loc.of(context)!.currentOrders,
           onLeftToggleActive: () {
             _tabController.animateTo(0);
           },
@@ -94,22 +93,23 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
           },
           toggleXAlign: _toggleXAlign,
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20),
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            child: TabBarView(controller: _tabController, children: [
-              OrdersPage(
-                myOrdersBloc: widget.myOrdersBloc,
-                orderType: OrderType.currentOrder,
-              ),
-              OrdersPage(
-                myOrdersBloc: widget.myOrdersBloc,
-                orderType: OrderType.pastOrder,
-              ),
-            ]),
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                OrdersPage(
+                  myOrdersBloc: widget.myOrdersBloc,
+                  orderType: OrderType.currentOrder,
+                ),
+                OrdersPage(
+                  myOrdersBloc: widget.myOrdersBloc,
+                  orderType: OrderType.pastOrder,
+                ),
+              ],
+            ),
           ),
         ),
       ],
