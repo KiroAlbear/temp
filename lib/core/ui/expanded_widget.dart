@@ -1,3 +1,4 @@
+import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
@@ -12,13 +13,11 @@ import 'custom_text.dart';
 class ExpandedWidget extends StatefulWidget {
   final String question;
   final String answer;
-  final String arrow;
 
   const ExpandedWidget(
       {super.key,
       required this.answer,
-      required this.question,
-      required this.arrow});
+      required this.question});
 
   @override
   State<ExpandedWidget> createState() => _ExpandedWidgetState();
@@ -150,7 +149,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
   Widget get _arrow => Padding(
         padding: EdgeInsets.only(top: 7.h),
         child: ImageHelper(
-          image: widget.arrow,
+          image: Assets.svg.icArrowDownBlue,
           imageType: ImageType.svg,
           width: 17.w,
           height: 8.h,

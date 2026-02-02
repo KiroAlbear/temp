@@ -196,7 +196,7 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
   Widget getBody(BuildContext context) {
     return Container(
       color: primaryColor,
-      child: LogoWidget(logo: Assets.svg.icLogo),
+      child: LogoWidget(variant: LogoVariant.splash),
     );
   }
 

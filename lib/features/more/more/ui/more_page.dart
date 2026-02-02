@@ -371,9 +371,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
     required String name,
     required String image,
   }) => ShopLogoCameraWidget(
-    placeHolder: Assets.svg.icEmptyShop,
     shopLogo: image,
-    cameraIcon: Assets.svg.icCamera,
     moreBloc: widget.moreBloc,
     openCameraOrGallery: () => handleCameraOrGallery(),
     mobile: Apputils.formatMobilePhone(mobile),

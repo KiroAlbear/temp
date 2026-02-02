@@ -6,14 +6,37 @@ import 'package:image_loader/image_helper.dart';
 class CurrentOrderItemState extends StatelessWidget {
   final String date;
   final String title;
-  final String icon;
   final bool isEnabled;
+  final CurrentOrderStep step;
   const CurrentOrderItemState({
     required this.isEnabled,
     required this.date,
     required this.title,
-    required this.icon,
+    required this.step,
   });
+
+  String get _icon {
+    switch (step) {
+      case CurrentOrderStep.sending:
+        return Assets.svg.icSendingOrderGreen;
+      case CurrentOrderStep.accepted:
+        return isEnabled
+            ? Assets.svg.icAcceptedOrderGreen
+            : Assets.svg.icAcceptedOrderGray;
+      case CurrentOrderStep.shipping:
+        return isEnabled
+            ? Assets.svg.icShippingOrderGreen
+            : Assets.svg.icShippingOrderGray;
+      case CurrentOrderStep.outside:
+        return isEnabled
+            ? Assets.svg.icOutsideOrderGreen
+            : Assets.svg.icOutsideOrderGray;
+      case CurrentOrderStep.delivered:
+        return isEnabled
+            ? Assets.svg.icDeliveredOrderGreen
+            : Assets.svg.icDeliveredOrderGray;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +46,7 @@ class CurrentOrderItemState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ImageHelper(
-            image: icon,
+            image: _icon,
             imageType: ImageType.svg,
             width: 32,
             height: 32,
@@ -53,3 +76,5 @@ class CurrentOrderItemState extends StatelessWidget {
     );
   }
 }
+
+enum CurrentOrderStep { sending, accepted, shipping, outside, delivered }

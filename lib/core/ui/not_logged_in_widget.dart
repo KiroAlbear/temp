@@ -6,13 +6,11 @@ import 'package:image_loader/image_helper.dart';
 
 class NotLoggedInWidget extends BaseStatefulWidget {
   final String title;
-  final String image;
-  final ImageType imageType;
+  final NotLoggedInImageVariant imageVariant;
   const NotLoggedInWidget({
     super.key,
     required this.title,
-    required this.image,
-    required this.imageType,
+    required this.imageVariant,
   });
 
   @override
@@ -37,6 +35,7 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
 
   @override
   Widget getBody(BuildContext context) {
+    final imageConfig = _imageConfig;
     return Column(
       children: [
         AppTopWidget(isHavingBack: false, title: widget.title),
@@ -44,7 +43,10 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ImageHelper(image: widget.image, imageType: widget.imageType),
+              ImageHelper(
+                image: imageConfig.path,
+                imageType: imageConfig.type,
+              ),
               SizedBox(height: 18.h),
               Padding(
                 padding: EdgeInsetsDirectional.symmetric(horizontal: 40.w),
@@ -98,4 +100,28 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
       ],
     );
   }
+
+  _NotLoggedInImageConfig get _imageConfig {
+    switch (widget.imageVariant) {
+      case NotLoggedInImageVariant.favourites:
+        return _NotLoggedInImageConfig(
+          path: Assets.svg.emptyFavourite,
+          type: ImageType.svg,
+        );
+      case NotLoggedInImageVariant.cart:
+        return _NotLoggedInImageConfig(
+          path: Assets.png.icGuestCart.path,
+          type: ImageType.asset,
+        );
+    }
+  }
 }
+
+class _NotLoggedInImageConfig {
+  final String path;
+  final ImageType type;
+
+  const _NotLoggedInImageConfig({required this.path, required this.type});
+}
+
+enum NotLoggedInImageVariant { favourites, cart }

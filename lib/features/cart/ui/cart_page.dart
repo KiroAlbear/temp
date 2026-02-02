@@ -54,8 +54,7 @@ class _CartScreenState extends BaseState<CartPage> {
     return (SharedPrefModule().userId ?? '').isEmpty
         ? NotLoggedInWidget(
             title: Loc.of(context)!.cartTitle,
-            image: Assets.png.icGuestCart.path,
-            imageType: ImageType.asset,
+            imageVariant: NotLoggedInImageVariant.cart,
           )
         : Column(
             children: [
@@ -326,7 +325,6 @@ class _CartScreenState extends BaseState<CartPage> {
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
-                      icDelete: Assets.svg.icDelete,
                       productMapper: snapshot.data!.response!.getFirst[index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {

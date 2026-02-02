@@ -65,7 +65,6 @@ class _FaqWidgetState extends BaseState<FaqPage> {
                 child: ExpandedWidget(
                   answer: snapshot.data?.response?[index].answer ?? '',
                   question: snapshot.data?.response?[index].question ?? '',
-                  arrow: Assets.svg.icArrowDownBlue,
                 ),
               ),
               separatorBuilder: (context, index) => SizedBox(height: 16.h),

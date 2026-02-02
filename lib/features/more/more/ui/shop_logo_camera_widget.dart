@@ -6,8 +6,6 @@ import 'package:image_loader/image_helper.dart';
 
 class ShopLogoCameraWidget extends StatefulWidget {
   final String shopLogo;
-  final String placeHolder;
-  final String cameraIcon;
   final String name;
   final String mobile;
   final MoreBloc moreBloc;
@@ -15,9 +13,7 @@ class ShopLogoCameraWidget extends StatefulWidget {
 
   const ShopLogoCameraWidget(
       {super.key,
-      required this.placeHolder,
       required this.shopLogo,
-      required this.cameraIcon,
       required this.moreBloc,
       required this.openCameraOrGallery,
       required this.name,
@@ -124,7 +120,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                         padding: const EdgeInsets.all(12.0),
                         child: ImageHelper(
                           imageType: ImageType.svg,
-                          image: widget.placeHolder,
+                          image: Assets.svg.icEmptyShop,
                         ),
                       ),
                     ),
@@ -147,7 +143,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
               borderRadius: BorderRadius.circular(6.w),
             ),
             child: ImageHelper(
-              image: widget.cameraIcon,
+              image: Assets.svg.icCamera,
               imageType: ImageType.svg,
               color: whiteColor,
               width: 20.w,

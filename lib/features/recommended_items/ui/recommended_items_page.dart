@@ -88,13 +88,9 @@ class _RecommendedItemsPageState extends BaseState<RecommendedItemsPage> {
           context,
           onSuccess: ProductListWidget(
             isForFavourite: false,
-            deleteIcon: Assets.svg.icDelete,
-            emptyFavouriteScreen: Assets.svg.emptyFavourite,
             cartBloc: getIt(),
             productCategoryBloc: getIt<ProductCategoryBloc>(),
             productList: snapshot.data?.response ?? [],
-            favouriteIcon: Assets.svg.icFavourite,
-            favouriteIconFilled: Assets.svg.icFavouriteFilled,
             onTapFavourite: (favourite, productMapper) {},
             loadMore: (Function func) {
               _loadProducts();

@@ -15,20 +15,20 @@ import '../../../../core/ui/logo_widget.dart';
 
 class LogoTopWidget extends StatefulWidget {
   final Widget child;
-  final String? logo;
   final BlocBase blocBase;
   final bool canSkip;
   final bool isHavingBackArrow;
   final bool pressingBackTwice;
+  final bool showLogo;
 
   const LogoTopWidget({
     super.key,
     required this.child,
-    this.logo,
     required this.blocBase,
     this.isHavingBackArrow = false,
     this.pressingBackTwice = false,
     this.canSkip = false,
+    this.showLogo = true,
   });
 
   @override
@@ -85,13 +85,12 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                   ),
                 ),
           SizedBox(height: widget.isHavingBackArrow ? 20.h : 30.h),
-          widget.logo == null
+          !widget.showLogo
               ? SizedBox(height: 78.h, width: 234.w)
               : Center(
                   child: LogoWidget(
                     height: 78.h,
                     width: 234.w,
-                    logo: widget.logo!,
                   ),
                 ),
           SizedBox(height: 30.h),

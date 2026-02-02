@@ -4,8 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 class EmptyFavouriteProducts extends StatelessWidget {
-  final String emptyFavouriteScreen;
-  const EmptyFavouriteProducts({required this.emptyFavouriteScreen, super.key});
+  const EmptyFavouriteProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,10 @@ class EmptyFavouriteProducts extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ImageHelper(image: emptyFavouriteScreen, imageType: ImageType.svg),
+        ImageHelper(
+          image: Assets.svg.emptyFavourite,
+          imageType: ImageType.svg,
+        ),
         SizedBox(height: 37.h),
         CustomText(
           text: Loc.of(context)!.emptyFavourite,
@@ -25,6 +27,5 @@ class EmptyFavouriteProducts extends StatelessWidget {
         ),
       ],
     );
-    ;
   }
 }

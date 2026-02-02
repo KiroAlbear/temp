@@ -65,7 +65,6 @@ class _LoginWidgetState extends BaseState<LoginPage> {
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
-    logo: Assets.svg.logoYellow,
     blocBase: _bloc,
     canSkip: widget.enableSkip,
     child: Padding(

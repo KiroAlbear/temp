@@ -107,7 +107,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           return !snapshot.hasData
                               ? SizedBox()
                               : CartOrderDetailsIconItem(
-                                  icon: Assets.svg.icDate,
+                                  iconType: CartOrderDetailsIconType.date,
                                   title: snapshot.data!,
                                 );
                         },
@@ -116,7 +116,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                       _getSeperator(),
                       15.verticalSpace,
                       CartOrderDetailsIconItem(
-                        icon: Assets.svg.icTotal,
+                        iconType: CartOrderDetailsIconType.total,
                         title: widget.cartOrderDetailsArgs.isItVisa
                             ? Loc.of(context)!.cartDokkanBankCard
                             : widget.cartOrderDetailsArgs.isItWallet

@@ -13,9 +13,6 @@ class AppTopWidget extends StatefulWidget {
   final bool isHavingHomeLogo;
   final bool isHavingSearch;
   final bool isHavingSupport;
-  final String? notificationIcon;
-  final String? scanIcon;
-  final String? searchIcon;
 
   final String title;
   final bool isHavingBack;
@@ -31,9 +28,6 @@ class AppTopWidget extends StatefulWidget {
 
   const AppTopWidget({
     super.key,
-    this.notificationIcon,
-    this.scanIcon,
-    this.searchIcon,
     this.title = '',
     this.isHavingBack = false,
     this.isHavingHomeLogo = false,
@@ -93,22 +87,6 @@ class _AppTopWidgetState extends State<AppTopWidget> {
     ),
   );
 
-  Widget get _favouriteWidget => Positioned(
-    top: 18.w,
-    left: 16.w,
-    child: widget.notificationIcon == null
-        ? SizedBox()
-        : InkWell(
-            onTap: () => _clickOnFavourite(),
-            child: ImageHelper(
-              image: widget.notificationIcon!,
-              imageType: ImageType.svg,
-              width: 40.w,
-              height: 40.h,
-            ),
-          ),
-  );
-
   Widget get _supportWidget => widget.isHavingSupport == false
       ? SizedBox()
       : InkWell(
@@ -130,10 +108,6 @@ class _AppTopWidgetState extends State<AppTopWidget> {
           width: 30.w,
           height: 30.h,
         );
-
-  _clickOnFavourite() {
-    /// TODO missing click on favourite
-  }
 
   _clickOnSupport() {
     AlertModule().showContactUsBottomSheet(
@@ -162,37 +136,33 @@ class _AppTopWidgetState extends State<AppTopWidget> {
     ),
   );
 
-  Widget get _scanIconWidget => widget.scanIcon == null
-      ? SizedBox()
-      : InkWell(
-          onTap: () => Routes.navigateToScreen(
-            Routes.barcodePage,
-            NavigationType.pushNamed,
-            context,
-          ),
-          child: ImageHelper(
-            image: widget.scanIcon!,
-            imageType: ImageType.svg,
-            color: secondaryColor,
-            width: 19.w,
-            height: 19.h,
-            boxFit: BoxFit.scaleDown,
-          ),
-        );
+  Widget get _scanIconWidget => InkWell(
+    onTap: () => Routes.navigateToScreen(
+      Routes.barcodePage,
+      NavigationType.pushNamed,
+      context,
+    ),
+    child: ImageHelper(
+      image: Assets.svg.icScan,
+      imageType: ImageType.svg,
+      color: secondaryColor,
+      width: 19.w,
+      height: 19.h,
+      boxFit: BoxFit.scaleDown,
+    ),
+  );
 
-  Widget get _searchProductWidget => widget.searchIcon == null
-      ? SizedBox()
-      : InkWell(
-          onTap: () => widget.doSearch!(),
-          child: Padding(
-            padding: EdgeInsetsDirectional.only(start: 15.0, end: 5.0),
-            child: ImageHelper(
-              image: widget.searchIcon!,
-              imageType: ImageType.svg,
-              boxFit: BoxFit.scaleDown,
-            ),
-          ),
-        );
+  Widget get _searchProductWidget => InkWell(
+    onTap: () => widget.doSearch!(),
+    child: Padding(
+      padding: EdgeInsetsDirectional.only(start: 15.0, end: 5.0),
+      child: ImageHelper(
+        image: Assets.svg.icSearch,
+        imageType: ImageType.svg,
+        boxFit: BoxFit.scaleDown,
+      ),
+    ),
+  );
 
   Widget get _titleRow => Expanded(
     // color: Colors.red,

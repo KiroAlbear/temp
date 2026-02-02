@@ -165,15 +165,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
       ((SharedPrefModule().userId ?? '').isEmpty && widget.isForFavourite)
       ? NotLoggedInWidget(
           title: Loc.of(context)!.favourite,
-          image: Assets.svg.emptyFavourite,
-          imageType: ImageType.svg,
+          imageVariant: NotLoggedInImageVariant.favourites,
         )
       : Column(
           children: [
             AppTopWidget(
-              notificationIcon: Assets.svg.icNotification,
-              scanIcon: Assets.svg.icScan,
-              searchIcon: Assets.svg.icSearch,
               isHavingSupport: true,
               onBackPressed: () {
                 if (Navigator.canPop(context)) {
@@ -497,10 +493,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         if (snapshot.data!.response != null &&
                                             snapshot.data!.response!.isEmpty) {
                                           if (widget.isForFavourite) {
-                                            return EmptyFavouriteProducts(
-                                              emptyFavouriteScreen:
-                                                  Assets.svg.emptyFavourite,
-                                            );
+                                            return EmptyFavouriteProducts();
                                           } else {
                                             return Column(
                                               mainAxisAlignment:
@@ -524,17 +517,11 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         context,
                                         onSuccess: ProductListWidget(
                                           isForFavourite: widget.isForFavourite,
-                                          deleteIcon: Assets.svg.icDelete,
-                                          emptyFavouriteScreen:
-                                              Assets.svg.emptyFavourite,
                                           cartBloc: widget.cartBloc,
                                           productCategoryBloc:
                                               widget.productCategoryBloc,
                                           productList:
                                               snapshot.data?.response ?? [],
-                                          favouriteIcon: Assets.svg.icFavourite,
-                                          favouriteIconFilled:
-                                              Assets.svg.icFavouriteFilled,
                                           onTapFavourite:
                                               (favourite, productMapper) {},
                                           loadMore: (Function func) {

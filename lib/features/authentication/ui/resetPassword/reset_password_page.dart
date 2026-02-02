@@ -43,7 +43,7 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
     isHavingBackArrow: true,
-    logo: null,
+    showLogo: false,
     blocBase: widget.forgetPasswordBloc,
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),

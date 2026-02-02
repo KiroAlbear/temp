@@ -80,7 +80,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
           body: LogoTopWidget(
             isHavingBackArrow: true,
             pressingBackTwice: false,
-            logo: null,
+            showLogo: false,
             blocBase: _bloc,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),

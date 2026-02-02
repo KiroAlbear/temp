@@ -12,9 +12,6 @@ import 'package:intl/intl.dart';
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
   final ProductCategoryBloc productCategoryBloc;
-  final String? favouriteIcon;
-  final String? favouriteIconFilled;
-  final String? icDelete;
   final CartBloc? cartBloc;
   final Function(int)? onProductRemoved;
 
@@ -29,10 +26,7 @@ class ProductWidget extends StatefulWidget {
     required this.productMapper,
     required this.productCategoryBloc,
     this.cartBloc,
-    this.icDelete,
     this.onAddToCart,
-    this.favouriteIconFilled,
-    this.favouriteIcon,
     this.onTapFavourite,
     this.onProductRemoved,
     this.onDeleteClicked,
@@ -41,17 +35,16 @@ class ProductWidget extends StatefulWidget {
     this.onDecrementClicked,
   }) : super(key: key) {
     if (!isCartProduct &&
-        (favouriteIcon == null ||
-            onTapFavourite == null && onAddToCart == null)) {
+        (onTapFavourite == null || onAddToCart == null)) {
       assert(
         false,
-        'isCartProduct is false, favouriteIcon, onTapFavourite and addToCart should be provided',
+        'isCartProduct is false, onTapFavourite and addToCart should be provided',
       );
     }
-    if (isCartProduct && (icDelete == null || onDeleteClicked == null)) {
+    if (isCartProduct && onDeleteClicked == null) {
       assert(
         false,
-        'isCartProduct is true, icDelete and onDeleteClicked should be provided',
+        'isCartProduct is true, onDeleteClicked should be provided',
       );
     }
   }
@@ -352,8 +345,8 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _favouriteIcon => ImageHelper(
     image: widget.productMapper.isFavourite
-        ? widget.favouriteIconFilled!
-        : widget.favouriteIcon!,
+        ? Assets.svg.icFavouriteFilled
+        : Assets.svg.icFavourite,
     imageType: ImageType.svg,
     color: redColor,
     width: 24.w,
@@ -582,7 +575,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               height: 24.h,
                               width: 24.w,
                               child: ImageHelper(
-                                image: widget.icDelete!,
+                                image: Assets.svg.icDelete,
                                 imageType: ImageType.svg,
                               ),
                             )

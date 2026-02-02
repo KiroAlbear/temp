@@ -6,12 +6,8 @@ import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class ProductListWidget extends StatefulWidget {
   final List<ProductMapper> productList;
-  final String favouriteIcon;
-  final String favouriteIconFilled;
-  final String deleteIcon;
   final CartBloc cartBloc;
   final ProductCategoryBloc productCategoryBloc;
-  final String emptyFavouriteScreen;
   final bool isForFavourite;
   final ScrollPhysics? scrollPhysics;
   final bool isHorizontalListView;
@@ -32,13 +28,9 @@ class ProductListWidget extends StatefulWidget {
     required this.cartBloc,
     required this.productCategoryBloc,
     required this.productList,
-    required this.favouriteIcon,
-    required this.deleteIcon,
-    required this.favouriteIconFilled,
     required this.onTapFavourite,
     // required this.onAddToCart,
     required this.loadMore,
-    required this.emptyFavouriteScreen,
     // required this.onDeleteClicked,
     required this.isForFavourite,
     this.isHorizontalListView = false,
@@ -98,9 +90,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
             widget.productList
                 .where((element) => element.isFavourite == true)
                 .isEmpty) {
-          return EmptyFavouriteProducts(
-            emptyFavouriteScreen: widget.emptyFavouriteScreen,
-          );
+          return EmptyFavouriteProducts();
         } else {
           return Stack(
             children: [
@@ -177,7 +167,6 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   ProductWidget _buildProductWidget(int index) {
     return ProductWidget(
       key: ValueKey(index),
-      icDelete: widget.deleteIcon,
       onProductRemoved: (int productId) {
         resetFavouriteList(productId);
         refreshNotifier.value = !refreshNotifier.value;
@@ -193,7 +182,6 @@ class _ProductListWidgetState extends State<ProductListWidget> {
           widget.showOverlayLoading.value = false;
         });
       },
-      favouriteIcon: widget.favouriteIcon,
       onTapFavourite: widget.onTapFavourite,
       onDeleteClicked: (productMapper) {
         widget.showOverlayLoading.value = true;
@@ -221,7 +209,6 @@ class _ProductListWidgetState extends State<ProductListWidget> {
           },
         );
       },
-      favouriteIconFilled: widget.favouriteIconFilled,
     );
   }
 }

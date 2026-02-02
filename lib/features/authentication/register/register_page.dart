@@ -56,7 +56,6 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
     isHavingBackArrow: true,
-    logo: Assets.svg.logoYellow,
     blocBase: _bloc,
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),

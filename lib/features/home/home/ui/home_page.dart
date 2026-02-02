@@ -174,14 +174,10 @@ class _HomeWidgetState extends BaseState<HomePage> {
             onSuccess: ProductListWidget(
               scrollPhysics: NeverScrollableScrollPhysics(),
               isForFavourite: false,
-              deleteIcon: Assets.svg.icDelete,
-              emptyFavouriteScreen: Assets.svg.emptyFavourite,
               cartBloc: widget.cartBloc,
               productCategoryBloc: getIt<ProductCategoryBloc>(),
               productList: snapshot.data?.response ?? [],
               isHorizontalListView: true,
-              favouriteIcon: Assets.svg.icFavourite,
-              favouriteIconFilled: Assets.svg.icFavouriteFilled,
               onTapFavourite: (favourite, productMapper) {},
               loadMore: (Function func) {
                 // _loadProducts(false, func);
@@ -266,13 +262,10 @@ class _HomeWidgetState extends BaseState<HomePage> {
   }
 
   Widget get _topWidget => AppTopWidget(
-    notificationIcon: Assets.svg.icNotification,
     isHavingHomeLogo: true,
     isHavingSearch: true,
     isHavingSupport: true,
-    scanIcon: Assets.svg.icScan,
     focusNode: _focusNode,
-    searchIcon: Assets.svg.icSearch,
     onChanged: (value) {
       widget.homeBloc.searchBloc.updateStringBehaviour(value);
     },

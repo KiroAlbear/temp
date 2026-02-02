@@ -11,7 +11,7 @@ class CurrentOrdersStates extends StatelessWidget {
       children: [
         CurrentOrderItemState(
           isEnabled: statuses[0] == null ? false : true,
-          icon: Assets.svg.icSendingOrderGreen,
+          step: CurrentOrderStep.sending,
           title: Loc.of(context)!.orderSending,
           date: statuses[0] == null
               ? Loc.of(context)!.orderInProgress
@@ -19,9 +19,7 @@ class CurrentOrdersStates extends StatelessWidget {
         ),
         CurrentOrderItemState(
           isEnabled: statuses[1] == null ? false : true,
-          icon: statuses[1] == null
-              ? Assets.svg.icAcceptedOrderGray
-              : Assets.svg.icAcceptedOrderGreen,
+          step: CurrentOrderStep.accepted,
           title: Loc.of(context)!.orderAccepting,
           date: statuses[1] == null
               ? Loc.of(context)!.orderInProgress
@@ -29,9 +27,7 @@ class CurrentOrdersStates extends StatelessWidget {
         ),
         CurrentOrderItemState(
           isEnabled: statuses[2] == null ? false : true,
-          icon: statuses[2] == null
-              ? Assets.svg.icShippingOrderGray
-              : Assets.svg.icShippingOrderGreen,
+          step: CurrentOrderStep.shipping,
           title: Loc.of(context)!.orderShipping,
           date: statuses[2] == null
               ? Loc.of(context)!.orderInProgress
@@ -39,9 +35,7 @@ class CurrentOrdersStates extends StatelessWidget {
         ),
         CurrentOrderItemState(
           isEnabled: statuses[3] == null ? false : true,
-          icon: statuses[3] == null
-              ? Assets.svg.icOutsideOrderGray
-              : Assets.svg.icOutsideOrderGreen,
+          step: CurrentOrderStep.outside,
           title: Loc.of(context)!.orderOutside,
           date: statuses[3] == null
               ? Loc.of(context)!.orderInProgress
@@ -49,9 +43,7 @@ class CurrentOrdersStates extends StatelessWidget {
         ),
         CurrentOrderItemState(
           isEnabled: statuses[4] == null ? false : true,
-          icon: statuses[4] == null
-              ? Assets.svg.icDeliveredOrderGray
-              : Assets.svg.icDeliveredOrderGreen,
+          step: CurrentOrderStep.delivered,
           title: Loc.of(context)!.orderDelivered,
           date: statuses[4] == null
               ? Loc.of(context)!.orderInProgress

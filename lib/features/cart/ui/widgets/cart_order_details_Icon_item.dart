@@ -4,18 +4,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 class CartOrderDetailsIconItem extends StatelessWidget {
-  final String? icon;
   final String title;
   final double iconSize;
   final double space;
+  final CartOrderDetailsIconType iconType;
 
   const CartOrderDetailsIconItem(
-      {this.icon,
+      {required this.iconType,
       required this.title,
       this.iconSize = 30,
       this.space = 3,
       Key? key})
       : super(key: key);
+
+  String get _icon {
+    switch (iconType) {
+      case CartOrderDetailsIconType.date:
+        return Assets.svg.icDate;
+      case CartOrderDetailsIconType.total:
+        return Assets.svg.icTotal;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +40,15 @@ class CartOrderDetailsIconItem extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    icon == null
-                        ? SizedBox(
-                            width: iconSize,
-                            height: iconSize,
-                          )
-                        : SizedBox(
-                            width: iconSize,
-                            height: iconSize,
-                            child: ImageHelper(
-                              image: icon!,
-                              color: secondaryColor,
-                              imageType: ImageType.svg,
-                            )),
+                    SizedBox(
+                      width: iconSize,
+                      height: iconSize,
+                      child: ImageHelper(
+                        image: _icon,
+                        color: secondaryColor,
+                        imageType: ImageType.svg,
+                      ),
+                    ),
                     space.horizontalSpace,
                     Flexible(
                       child: CustomText(
@@ -62,3 +67,5 @@ class CartOrderDetailsIconItem extends StatelessWidget {
     );
   }
 }
+
+enum CartOrderDetailsIconType { date, total }
