@@ -13,7 +13,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../../../../core/Utils/firebase_analytics_events_names.dart';
 import '../../../../core/Utils/firebase_analytics_utl.dart';
 
@@ -34,7 +33,7 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final deelVersionNumber = "0.1.59";
+  final deelVersionNumber = "0.1.60";
 
   @override
   void initState() {
@@ -112,7 +111,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 SizedBox(height: 17.h),
                 Center(
                   child: CustomText(
-                    text: S.of(context).startOrderNow,
+                    text: Loc.of(context)!.startOrderNow,
                     customTextStyle: RegularStyle(
                       fontSize: 14.sp,
                       color: lightBlackColor,
@@ -123,7 +122,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
                   child: CustomButtonWidget(
-                    idleText: S.of(context).createAccount,
+                    idleText: Loc.of(context)!.createAccount,
                     onTap: () async {
                       await Routes.navigateToScreen(
                         Routes.loginPage,
@@ -149,7 +148,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   child: CustomButtonWidget(
                     buttonShapeEnum: ButtonShapeEnum.outline,
                     buttonColor: secondaryColor,
-                    idleText: S.of(context).login,
+                    idleText: Loc.of(context)!.login,
                     onTap: () {
                       AppProviderModule().logout(context);
                     },
@@ -161,7 +160,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: CustomText(
-                    text: S.of(context).settings,
+                    text: Loc.of(context)!.settings,
                     customTextStyle: BoldStyle(
                       fontSize: 18.sp,
                       color: secondaryColor,
@@ -170,7 +169,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 ),
                 SizedBox(height: 10.h),
                 _menuItem(
-                  S.of(context).accountInfo,
+                  Loc.of(context)!.accountInfo,
                   Assets.svg.icPerson,
                   () async {
                     Routes.navigateToScreen(
@@ -183,18 +182,22 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   },
                 ),
                 SizedBox(height: 10.h),
-                _menuItem(S.of(context).changePassword, Assets.svg.icLock, () {
-                  Routes.navigateToScreen(
-                    Routes.accountChangePasswordPage,
-                    NavigationType.pushNamed,
-                    context,
-                  );
-                  // CustomNavigatorModule.navigatorKey.currentState
-                  //     ?.pushNamed(AppScreenEnum.accountChangePassword.name);
-                }),
+                _menuItem(
+                  Loc.of(context)!.changePassword,
+                  Assets.svg.icLock,
+                  () {
+                    Routes.navigateToScreen(
+                      Routes.accountChangePasswordPage,
+                      NavigationType.pushNamed,
+                      context,
+                    );
+                    // CustomNavigatorModule.navigatorKey.currentState
+                    //     ?.pushNamed(AppScreenEnum.accountChangePassword.name);
+                  },
+                ),
                 SizedBox(height: 10.h),
                 _menuItem(
-                  S.of(context).myOrders,
+                  Loc.of(context)!.myOrders,
                   Assets.svg.icMyOrders,
                   () {
                     Routes.navigateToScreen(
@@ -211,7 +214,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 ),
                 SizedBox(height: 10.h),
                 _menuItem(
-                  S.of(context).favourite,
+                  Loc.of(context)!.favourite,
                   Assets.svg.icFavourite,
                   () {
                     widget.productCategoryBloc.isNavigatingFromMore = true;
@@ -249,7 +252,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: CustomText(
-                  text: S.of(context).supportAndAssistance,
+                  text: Loc.of(context)!.supportAndAssistance,
                   customTextStyle: BoldStyle(
                     fontSize: 18.sp,
                     color: secondaryColor,
@@ -258,7 +261,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
               ),
               SizedBox(height: 8.h),
               _menuItem(
-                S.of(context).contactUs,
+                Loc.of(context)!.contactUs,
                 Assets.svg.icContactUsMore,
                 () {
                   AlertModule().showContactUsBottomSheet(
@@ -268,7 +271,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 },
               ),
               SizedBox(height: 10.h),
-              _menuItem(S.of(context).faq, Assets.svg.icFaq, () {
+              _menuItem(Loc.of(context)!.faq, Assets.svg.icFaq, () {
                 Routes.navigateToScreen(
                   Routes.faqPage,
                   NavigationType.pushNamed,
@@ -279,7 +282,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
               }),
               SizedBox(height: 10.h),
               _menuItem(
-                S.of(context).usagePolicy,
+                Loc.of(context)!.usagePolicy,
                 Assets.svg.icHealthCheck,
                 () {
                   Routes.navigateToScreen(
@@ -300,12 +303,16 @@ class _MoreWidgetState extends BaseState<MorePage> {
                 ),
               if ((SharedPrefModule().userId ?? '').isNotEmpty) ...[
                 SizedBox(height: 10.h),
-                _menuItem(S.of(context).deleteAccount, Assets.svg.icDelete, () {
-                  _deleteAccount();
-                }),
+                _menuItem(
+                  Loc.of(context)!.deleteAccount,
+                  Assets.svg.icDelete,
+                  () {
+                    _deleteAccount();
+                  },
+                ),
                 SizedBox(height: 20.h),
                 _menuItem(
-                  S.of(context).logout,
+                  Loc.of(context)!.logout,
                   Assets.svg.icLogout,
                   color: Colors.red,
                   () {
@@ -368,9 +375,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
       //     BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.24),
       builder: (context) {
         return DialogWidget(
-          message: S.of(context).selectPhotoFromCameraOrGallery,
-          cancelMessage: S.of(context).gallery,
-          confirmMessage: S.of(context).camera,
+          message: Loc.of(context)!.selectPhotoFromCameraOrGallery,
+          cancelMessage: Loc.of(context)!.gallery,
+          confirmMessage: Loc.of(context)!.camera,
           sameButtonsColor: true,
           onCancel: () {
             _requestGalleryPermission();
@@ -386,9 +393,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
 
     // AlertModule().showDialog(
     //   context: context,
-    //   message: S.of(context).selectPhotoFromCameraOrGallery,
-    //   cancelMessage: S.of(context).gallery,
-    //   confirmMessage: S.of(context).camera,
+    //   message: Loc.of(context)!.selectPhotoFromCameraOrGallery,
+    //   cancelMessage: Loc.of(context)!.gallery,
+    //   confirmMessage: Loc.of(context)!.camera,
     //   sameButtonsColor: true,
     //   onCancel: () {
     //     _requestGalleryPermission();
@@ -471,7 +478,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
 
   Widget get _logoWidget => AppTopWidget(
     isHavingSupport: (SharedPrefModule().userId ?? '').isNotEmpty,
-    title: S.of(context).more,
+    title: Loc.of(context)!.more,
   );
 
   Widget _menuItem(
@@ -523,7 +530,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
   Widget get _favouriteItem => InkWell(
     onTap: () {},
     child: CustomText(
-      text: S.of(context).favourites,
+      text: Loc.of(context)!.favourites,
       customTextStyle: BoldStyle(fontSize: 20.sp, color: secondaryColor),
     ),
   );
@@ -546,7 +553,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5.0),
                     child: CustomText(
-                      text: S.of(context).accountBalance,
+                      text: Loc.of(context)!.accountBalance,
                       textAlign: TextAlign.center,
                       customTextStyle: BoldStyle(
                         fontSize: 18.sp,
@@ -593,10 +600,10 @@ class _MoreWidgetState extends BaseState<MorePage> {
       useSafeArea: true,
       builder: (context2) {
         return DialogWidget(
-          message: S.of(context).logoutMessage,
-          cancelMessage: S.of(context).cancel,
-          confirmMessage: S.of(context).yes,
-          headerMessage: S.of(context).logout,
+          message: Loc.of(context)!.logoutMessage,
+          cancelMessage: Loc.of(context)!.cancel,
+          confirmMessage: Loc.of(context)!.yes,
+          headerMessage: Loc.of(context)!.logout,
           errorColorInConfirm: true,
           onConfirm: () {
             Future.delayed(const Duration(milliseconds: 600)).then((value) {
@@ -616,10 +623,10 @@ class _MoreWidgetState extends BaseState<MorePage> {
 
     // AlertModule().showDialog(
     //   context: context,
-    //   message: S.of(context).logoutMessage,
-    //   cancelMessage: S.of(context).cancel,
-    //   confirmMessage: S.of(context).yes,
-    //   headerMessage: S.of(context).logout,
+    //   message: Loc.of(context)!.logoutMessage,
+    //   cancelMessage: Loc.of(context)!.cancel,
+    //   confirmMessage: Loc.of(context)!.yes,
+    //   headerMessage: Loc.of(context)!.logout,
     //   headerSvg: Assets.svg.icAlert,
     //   errorColorInConfirm: true,
     //   onConfirm: () {
@@ -637,10 +644,10 @@ class _MoreWidgetState extends BaseState<MorePage> {
       useRootNavigator: true,
       builder: (context) {
         return DialogWidget(
-          message: S.of(context).deleteAccountMessage,
-          cancelMessage: S.of(context).cancel,
-          confirmMessage: S.of(context).deleteAccount,
-          headerMessage: S.of(context).deleteAccount,
+          message: Loc.of(context)!.deleteAccountMessage,
+          cancelMessage: Loc.of(context)!.cancel,
+          confirmMessage: Loc.of(context)!.deleteAccount,
+          headerMessage: Loc.of(context)!.deleteAccount,
           errorColorInConfirm: true,
           hasCloseButton: true,
           sameButtonsColor: false,
@@ -666,10 +673,10 @@ class _MoreWidgetState extends BaseState<MorePage> {
     );
     // AlertModule().showDialog(
     //   context: context,
-    //   message: S.of(context).deleteAccountMessage,
-    //   cancelMessage: S.of(context).cancel,
-    //   confirmMessage: S.of(context).deleteAccount,
-    //   headerMessage: S.of(context).deleteAccount,
+    //   message: Loc.of(context)!.deleteAccountMessage,
+    //   cancelMessage: Loc.of(context)!.cancel,
+    //   confirmMessage: Loc.of(context)!.deleteAccount,
+    //   headerMessage: Loc.of(context)!.deleteAccount,
     //   headerSvg: Assets.svg.icAlert,
     //   errorColorInConfirm: true,
     //   onConfirm: () {

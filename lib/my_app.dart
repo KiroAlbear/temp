@@ -1,81 +1,57 @@
-import 'package:deel/core/services/dependency_injection_service.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:transition_easy/custom_transition_module.dart';
-import 'package:transition_easy/easy_fade_in_transition.dart';
-import 'package:transition_easy/easy_transition.dart';
-import 'core/generated/l10n.dart';
-import 'core/routes/routes.dart';
-import 'flavors.dart';
-import 'package:deel/gen/assets.gen.dart';
+import 'l10n/loc.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final padding = MediaQuery.of(context).padding;
     AppConstants.isHavingBottomPadding = padding.bottom > 20;
 
-
-        return SafeArea(
-        top: false,
-        bottom: false,
-        child: ScreenUtilInit(
-          minTextAdapt: true,
-          splitScreenMode: true,
-          designSize: const Size(393, 852),
-          ensureScreenSize: true,
-          useInheritedMediaQuery: true,
-          builder: (BuildContext context, Widget? child) {
-            AppProviderModule().updateSystemUIOverLayDependOnThemeModeSystem();
-            return _materialApp(context);
-          },
-        ),
-      );}
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: ScreenUtilInit(
+        minTextAdapt: true,
+        splitScreenMode: true,
+        designSize: const Size(393, 852),
+        ensureScreenSize: true,
+        useInheritedMediaQuery: true,
+        builder: (BuildContext context, Widget? child) {
+          AppProviderModule().updateSystemUIOverLayDependOnThemeModeSystem();
+          return _materialApp(context);
+        },
+      ),
+    );
+  }
 
   Widget _materialApp(BuildContext context) => MaterialApp.router(
+    title: F.name,
 
+    /// default theme here
+    theme: CustomTheme().lightTheme,
 
+    /// dark theme here
+    darkTheme: CustomTheme().darkTheme,
 
-        title: F.name,
+    /// theme changer notifier
+    themeMode: Provider.of<AppProviderModule>(context).themeMode,
 
-        /// default theme here
-        theme: CustomTheme().lightTheme,
+    /// debug banner
+    debugShowCheckedModeBanner: kDebugMode,
 
-        /// dark theme here
-        darkTheme: CustomTheme().darkTheme,
+    /// localizations support using flutter intl
+    localizationsDelegates: Loc.localizationsDelegates,
+    // locale: Locale(Provider.of<AppProviderModule>(context).locale, ''),
+    locale: const Locale('ar'),
 
-        /// theme changer notifier
-        themeMode: Provider.of<AppProviderModule>(context).themeMode,
+    supportedLocales: Loc.supportedLocales,
 
-        /// debug banner
-        debugShowCheckedModeBanner: kDebugMode,
-
-        /// localizations support using flutter intl
-        localizationsDelegates: _localizationsDelegates,
-        // locale: Locale(Provider.of<AppProviderModule>(context).locale, ''),
-        locale: const Locale('ar'),
-        supportedLocales: S.delegate.supportedLocales,
-        
-
-
-        routerConfig: Routes.goRouter,
-
-      );
-
-  List<LocalizationsDelegate<dynamic>> get _localizationsDelegates {
-    return const [
-      S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate
-    ];
-  }
+    routerConfig: Routes.goRouter,
+  );
 }

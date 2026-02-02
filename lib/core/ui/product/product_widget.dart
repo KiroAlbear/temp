@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:intl/intl.dart';
-import '../../generated/l10n.dart';
 
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
@@ -174,10 +173,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       children: [
         Expanded(
           child: Padding(
-            padding: EdgeInsetsDirectional.only(
-              top: 8.h,
-              start: 16.w,
-            ),
+            padding: EdgeInsetsDirectional.only(top: 8.h, start: 16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,18 +211,13 @@ class _ProductWidgetState extends State<ProductWidget> {
                   child: _productImage,
                 ),
                 // SizedBox(height: 19.h),
-                if (widget.productMapper.discountPercentage > 0) Positioned(
-                    top: 0,
-                    left: 0,
-                    child: _discountWidget),
+                if (widget.productMapper.discountPercentage > 0)
+                  Positioned(top: 0, left: 0, child: _discountWidget),
               ],
             ),
             SizedBox(height: 8.h),
             Padding(
-              padding: EdgeInsetsDirectional.only(
-                bottom: 8.h,
-                end: 16.w,
-              ),
+              padding: EdgeInsetsDirectional.only(bottom: 8.h, end: 16.w),
               child: _incrementDecrementButton(),
             ),
           ],
@@ -246,7 +237,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
           child: CustomText(
-            text: S.of(context).productIsNotAvailable,
+            text: Loc.of(context)!.productIsNotAvailable,
             customTextStyle: RegularStyle(
               color: lightBlackColor,
               fontSize: 8.sp,
@@ -343,21 +334,21 @@ class _ProductWidgetState extends State<ProductWidget> {
     decoration: BoxDecoration(
       color: redColor,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular( 4.w ),
+        topLeft: Radius.circular(4.w),
 
-        bottomRight: Radius.circular(
-           4.w,
-        ),
-        topRight: Radius.circular( 4.w),
+        bottomRight: Radius.circular(4.w),
+        topRight: Radius.circular(4.w),
       ),
     ),
     child: CustomText(
-      text: S
-          .of(context)
-          .discount('${widget.productMapper.discountPercentage}%'),
+      text: discount('${widget.productMapper.discountPercentage}%'),
       customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp),
     ),
   );
+
+  String discount(Object percent) {
+    return '${Loc.of(context)!.discount} $percent';
+  }
 
   Widget get _favouriteIcon => ImageHelper(
     image: widget.productMapper.isFavourite
@@ -371,11 +362,11 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _productImage => Center(
     child: ImageHelper(
-            image: widget.productMapper.image,
-            imageType: ImageType.network,
-            height: widget.isCartProduct ? 50.h : 90.h,
-            width: widget.isCartProduct ? 50.w : 90.w,
-          ),
+      image: widget.productMapper.image,
+      imageType: ImageType.network,
+      height: widget.isCartProduct ? 50.h : 90.h,
+      width: widget.isCartProduct ? 50.w : 90.w,
+    ),
   );
 
   Widget get _productName => SizedBox(
@@ -433,7 +424,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         return DialogWidget(
           sameButtonsColor: false,
           message: "$message $qty",
-          confirmMessage: S.of(context).ok,
+          confirmMessage: Loc.of(context)!.ok,
           onConfirm: () {},
         );
       },
@@ -441,7 +432,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     // AlertModule().showDialog(
     //   context: context,
     //   message: "$message $qty",
-    //   confirmMessage: S.of(context).ok,
+    //   confirmMessage: Loc.of(context)!.ok,
     //   onConfirm: () {},
     // );
   }
@@ -453,8 +444,8 @@ class _ProductWidgetState extends State<ProductWidget> {
       builder: (context) {
         return DialogWidget(
           message: "$message $qty",
-          confirmMessage: S.of(context).ok,
-          cancelMessage: S.of(context).cancel,
+          confirmMessage: Loc.of(context)!.ok,
+          cancelMessage: Loc.of(context)!.cancel,
           sameButtonsColor: false,
           onCancel: () {},
           onConfirm: () {
@@ -470,8 +461,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     // AlertModule().showDialog(
     //   context: context,
     //   message: "$message $qty",
-    //   confirmMessage: S.of(context).ok,
-    //   cancelMessage: S.of(context).cancel,
+    //   confirmMessage: Loc.of(context)!.ok,
+    //   cancelMessage: Loc.of(context)!.cancel,
     //   onCancel: () {},
     //   onConfirm: () {
     //     qtyValueNotifier.value=0;
@@ -524,7 +515,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   );
                 } else {
                   _showMaximumAlertDialog(
-                    S.of(context).cartMaximumProductsReached,
+                    Loc.of(context)!.cartMaximumProductsReached,
                     widget.productMapper.maxQuantity.round().toString(),
                   );
                 }
@@ -573,7 +564,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                     FirebaseAnalyticsEventsNames.update_cart_quantity,
                   );
                 } else {
-                  _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
+                  _showDeleteAlertDialog(
+                    Loc.of(context)!.cartDeleteMessage,
+                    "",
+                  );
                 }
               },
               child: Container(
@@ -642,7 +636,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       ),
       child: Center(
         child: CustomText(
-          text: S.of(context).addToCart,
+          text: Loc.of(context)!.addToCart,
           customTextStyle: RegularStyle(
             color: (SharedPrefModule().userId == null)
                 ? disabledButtonTextColorLightMode

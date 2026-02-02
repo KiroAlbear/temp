@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import 'new_account_bloc.dart';
 
 class NewAccountLocationInfoWidget extends BaseStatefulWidget {
@@ -49,14 +48,14 @@ class _NewAccountLocationInfoWidgetState
     children: [
       SizedBox(height: 30.h),
       CustomText(
-        text: S.of(context).selectLocation,
+        text: Loc.of(context)!.selectLocation,
         customTextStyle: MediumStyle(color: secondaryColor, fontSize: 16.sp),
       ),
       SizedBox(height: 12.h),
       _mapPreviewStream,
       SizedBox(height: 12.h),
       CustomText(
-        text: S.of(context).streetName,
+        text: Loc.of(context)!.streetName,
         customTextStyle: MediumStyle(color: secondaryColor, fontSize: 16.sp),
       ),
       SizedBox(height: 12.h),
@@ -115,7 +114,7 @@ class _NewAccountLocationInfoWidgetState
   );
 
   Widget get _streetNameTextFormFiled => CustomTextFormFiled(
-    labelText: S.of(context).enterStreetName,
+    labelText: Loc.of(context)!.enterStreetName,
     textFiledControllerStream:
         widget.newAccountBloc.streetNameBloc.textFormFiledStream,
     onChanged: (value) =>
@@ -138,7 +137,7 @@ class _NewAccountLocationInfoWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              text: S.of(context).city,
+              text: Loc.of(context)!.city,
               customTextStyle: MediumStyle(
                 color: secondaryColor,
                 fontSize: 16.sp,
@@ -157,7 +156,7 @@ class _NewAccountLocationInfoWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              text: S.of(context).neighborhood,
+              text: Loc.of(context)!.neighborhood,
               customTextStyle: MediumStyle(
                 color: secondaryColor,
                 fontSize: 16.sp,
@@ -179,7 +178,7 @@ class _NewAccountLocationInfoWidgetState
           snapshot.data!,
           context,
           onSuccess: CustomTextFormFiled(
-            labelText: S.of(context).enterCity,
+            labelText: Loc.of(context)!.enterCity,
             defaultTextStyle: RegularStyle(
               color: lightBlackColor,
               fontSize: 16.w,
@@ -214,7 +213,7 @@ class _NewAccountLocationInfoWidgetState
         );
         widget.newAccountBloc.cityBloc.updateStringBehaviour(value.name);
       },
-      headerText: S.of(context).chooseCity,
+      headerText: Loc.of(context)!.chooseCity,
     ),
     backgroundColor: Colors.transparent,
     enableDrag: false,
@@ -229,7 +228,7 @@ class _NewAccountLocationInfoWidgetState
             snapshot.data!,
             context,
             onSuccess: CustomTextFormFiled(
-              labelText: S.of(context).enterNeighborhood,
+              labelText: Loc.of(context)!.enterNeighborhood,
               textFiledControllerStream:
                   widget.newAccountBloc.districtBloc.textFormFiledStream,
               onChanged: (value) => widget.newAccountBloc.districtBloc

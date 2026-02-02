@@ -1,10 +1,12 @@
-import '../../../../core/generated/l10n.dart';
+import 'package:deel/l10n/loc.dart';
+
 import '../../../../core/dto/models/baseModules/api_state.dart';
 import '../../../../core/dto/models/checkPhone/check_phone_request.dart';
 import '../../../../core/dto/models/checkPhone/check_phone_response.dart';
 import '../../../../core/dto/modules/odoo_dio_module.dart';
 import '../../../../core/dto/network/api_client.dart';
 import '../../../../core/dto/remote/base_remote_module.dart';
+import '../../../../deel.dart';
 
 class CheckPhoneRemote
     extends BaseRemoteModule<bool, List<CheckPhoneResponse>> {
@@ -17,14 +19,20 @@ class CheckPhoneRemote
         return SuccessState(true);
       } else {
         return FailedState(
-            message: S.current.mobileExistBefore,
-            loggerName: runtimeType.toString());
+          message: Loc.of(
+            Routes.rootNavigatorKey.currentContext!,
+          )!.mobileExistBefore,
+          loggerName: runtimeType.toString(),
+        );
       }
     } else {
       if (isForgetPassword) {
         return FailedState(
-            message: S.current.mobileIsNotExist,
-            loggerName: runtimeType.toString());
+          message: Loc.of(
+            Routes.rootNavigatorKey.currentContext!,
+          )!.mobileIsNotExist,
+          loggerName: runtimeType.toString(),
+        );
       } else {
         return SuccessState(true);
       }
@@ -37,7 +45,8 @@ class CheckPhoneRemote
   }
 
   CheckPhoneRemote(String phone, {this.isForgetPassword = false}) {
-    apiFuture =
-        ApiClient(OdooDioModule().build()).checkPhone(CheckPhoneRequest(phone));
+    apiFuture = ApiClient(
+      OdooDioModule().build(),
+    ).checkPhone(CheckPhoneRequest(phone));
   }
 }

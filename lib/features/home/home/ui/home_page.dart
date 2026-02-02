@@ -7,7 +7,6 @@ import 'package:deel/features/recommended_items/bloc/recommended_items_bloc.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
-import '../../../../../core/generated/l10n.dart';
 import '../../../../core/Utils/firebase_analytics_events_names.dart';
 import '../../../../core/Utils/firebase_analytics_utl.dart';
 import 'dart:math' as math;
@@ -100,7 +99,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: CustomText(
-            text: S.of(context).browseSections,
+            text: Loc.of(context)!.browseSections,
             customTextStyle: BoldStyle(color: secondaryColor, fontSize: 20.sp),
           ),
         ),
@@ -138,13 +137,16 @@ class _HomeWidgetState extends BaseState<HomePage> {
     );
   }
 
-  Widget _buildHeroBannerSpace(){
+  Widget _buildHeroBannerSpace() {
     return SliverToBoxAdapter(
       child: StreamBuilder<ApiState<List<OfferMapper>>>(
         stream: widget.homeBloc.heroBannersStream,
-        builder: (context, snapshot) => (snapshot.hasData &&
-            snapshot.data!.response != null &&
-            snapshot.data!.response!.isEmpty) ? SizedBox(height: 0) : SizedBox(height: 10.h),
+        builder: (context, snapshot) =>
+            (snapshot.hasData &&
+                snapshot.data!.response != null &&
+                snapshot.data!.response!.isEmpty)
+            ? SizedBox(height: 0)
+            : SizedBox(height: 10.h),
       ),
     );
   }

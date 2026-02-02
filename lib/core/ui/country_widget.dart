@@ -9,7 +9,6 @@ import '../dto/models/baseModules/drop_down_mapper.dart';
 import '../dto/modules/app_color_module.dart';
 import '../dto/modules/app_default_style.dart';
 import '../dto/modules/odoo_dio_module.dart';
-import '../generated/l10n.dart';
 import 'custom_drop_down_widget.dart';
 
 class CountryWidget extends StatefulWidget {
@@ -17,8 +16,11 @@ class CountryWidget extends StatefulWidget {
 
   final List<DropDownMapper> countryList;
 
-  const CountryWidget(
-      {super.key, required this.countryBloc, required this.countryList});
+  const CountryWidget({
+    super.key,
+    required this.countryBloc,
+    required this.countryList,
+  });
 
   @override
   State<CountryWidget> createState() => _CountryWidgetState();
@@ -39,10 +41,12 @@ class _CountryWidgetState extends State<CountryWidget> {
     String pickedCountryId = details.dialCode ?? '';
     if (pickedCountryId.isNotEmpty && widget.countryList.isNotEmpty) {
       pickedCountryId = pickedCountryId.replaceAll('+', '');
-      widget.countryBloc.updateValue(widget.countryList.firstWhere(
-        (element) => element.description == pickedCountryId,
-        orElse: () => widget.countryList.first,
-      ));
+      widget.countryBloc.updateValue(
+        widget.countryList.firstWhere(
+          (element) => element.description == pickedCountryId,
+          orElse: () => widget.countryList.first,
+        ),
+      );
     }
   }
 
@@ -52,14 +56,15 @@ class _CountryWidgetState extends State<CountryWidget> {
       onTap: () => showModalBottomSheet(
         context: context,
         builder: (context) => CustomDropDownWidget(
-            dropDownList: widget.countryList,
-            onSelect: (value) {
-              // if(widget.newAccountBloc !=null){
-              //   widget.newAccountBloc!.countryCodeBehaviour.sink.add("+${value.description}");
-              // }
-              widget.countryBloc.updateValue(value);
-            },
-            headerText: S.of(context).chooseYourCountry),
+          dropDownList: widget.countryList,
+          onSelect: (value) {
+            // if(widget.newAccountBloc !=null){
+            //   widget.newAccountBloc!.countryCodeBehaviour.sink.add("+${value.description}");
+            // }
+            widget.countryBloc.updateValue(value);
+          },
+          headerText: Loc.of(context)!.chooseYourCountry,
+        ),
         backgroundColor: Colors.transparent,
         enableDrag: false,
       ),
@@ -67,35 +72,35 @@ class _CountryWidgetState extends State<CountryWidget> {
         height: 52.h,
         width: 90.w,
         decoration: grayRectangleBorder,
-        padding: EdgeInsets.symmetric( horizontal: 0.w),
+        padding: EdgeInsets.symmetric(horizontal: 0.w),
         child: StreamBuilder<DropDownMapper?>(
-            stream: widget.countryBloc.selectedDropDownStream,
-            builder: (context, snapshot) => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    snapshot.data != null
-                        ? ImageHelper(
-                            image: OdooDioModule().baseUrl +
-                                (snapshot.data?.image ?? ''),
-                            imageType: ImageType.network,
-                            width: 39.w,
-                            height: 26.h,
-                            boxFit: BoxFit.fill,
-                          )
-                        : Container(),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    ImageHelper(
-                      image: Assets.svg.icArrowDownGrey,
-                      imageType: ImageType.svg,
-                      // width: 15.w,
-                      // height: 9.h,
-                      color: greyTextFieldBorderColorLightMode,
-                    ),
-                  ],
-                )),
+          stream: widget.countryBloc.selectedDropDownStream,
+          builder: (context, snapshot) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              snapshot.data != null
+                  ? ImageHelper(
+                      image:
+                          OdooDioModule().baseUrl +
+                          (snapshot.data?.image ?? ''),
+                      imageType: ImageType.network,
+                      width: 39.w,
+                      height: 26.h,
+                      boxFit: BoxFit.fill,
+                    )
+                  : Container(),
+              SizedBox(width: 12.w),
+              ImageHelper(
+                image: Assets.svg.icArrowDownGrey,
+                imageType: ImageType.svg,
+                // width: 15.w,
+                // height: 9.h,
+                color: greyTextFieldBorderColorLightMode,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../core/generated/l10n.dart';
 import '../bloc/most_selling_bloc.dart';
 
 class MostSellingPage extends BaseStatefulWidget {

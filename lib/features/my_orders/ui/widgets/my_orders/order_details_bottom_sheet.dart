@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../current_orders/current_order_details_item.dart';
 
 class OrderDetailsBottomSheet extends StatelessWidget {
@@ -26,7 +25,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomText(
-                text: S.of(context).itemsDetails,
+                text: Loc.of(context)!.itemsDetails,
                 customTextStyle: MediumStyle(
                   color: lightBlackColor,
                   fontSize: 20.sp,

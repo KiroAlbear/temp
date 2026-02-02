@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../core/generated/l10n.dart';
-
 class ProductCategoryPage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
   final ContactUsBloc contactUsBloc;
@@ -166,7 +164,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   Widget getBody(BuildContext context) =>
       ((SharedPrefModule().userId ?? '').isEmpty && widget.isForFavourite)
       ? NotLoggedInWidget(
-          title: S.of(context).favourite,
+          title: Loc.of(context)!.favourite,
           image: Assets.svg.emptyFavourite,
           imageType: ImageType.svg,
         )
@@ -204,7 +202,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
               title: isNavigatedFromBannersOrOffers()
                   ? " "
                   : widget.isForFavourite
-                  ? S.of(context).favourites
+                  ? Loc.of(context)!.favourites
                   : widget.homeBloc.selectedCategoryText,
             ),
             Expanded(
@@ -268,11 +266,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                             .name ==
                                                                         ProductCategoryPage
                                                                             .filterAllText
-                                                                    ? S
-                                                                          .of(
-                                                                            context,
-                                                                          )
-                                                                          .productsFilterAll
+                                                                    ? Loc.of(
+                                                                        context,
+                                                                      )!.productsFilterAll
                                                                     : snapshot
                                                                           .data!
                                                                           .response![index]
@@ -388,9 +384,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                       .name ==
                                                                   ProductCategoryPage
                                                                       .filterAllText
-                                                              ? S
-                                                                    .of(context)
-                                                                    .productsFilterAll
+                                                              ? Loc.of(
+                                                                  context,
+                                                                )!.productsFilterAll
                                                               : snapshot
                                                                     .data!
                                                                     .response![index]
@@ -478,7 +474,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         top: 5,
                                       ),
                                       child: CustomText(
-                                        text: S.of(context).promoItems,
+                                        text: Loc.of(context)!.promoItems,
                                         textAlign: TextAlign.start,
                                         customTextStyle: BoldStyle(
                                           color: secondaryColor,

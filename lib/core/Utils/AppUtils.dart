@@ -9,7 +9,6 @@ import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../dto/enums/app_screen_enum.dart';
 import '../dto/modules/alert_module.dart';
-import '../generated/l10n.dart';
 
 class Apputils {
   static Future<void> showNeedToLoginBottomSheet(BuildContext context) async {
@@ -18,8 +17,8 @@ class Apputils {
       useRootNavigator: true,
       builder: (context) {
         return DialogWidget(
-          message: S.of(context).youNeedToLoginToUseApp,
-          confirmMessage: S.of(context).ok,
+          message: Loc.of(context)!.youNeedToLoginToUseApp,
+          confirmMessage: Loc.of(context)!.ok,
           sameButtonsColor: false,
           onConfirm: () {
             Routes.navigateToScreen(
@@ -28,7 +27,7 @@ class Apputils {
               context,
             );
           },
-          cancelMessage: S.of(context).cancel,
+          cancelMessage: Loc.of(context)!.cancel,
         );
       },
     );
