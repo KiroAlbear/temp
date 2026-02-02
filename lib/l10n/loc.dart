@@ -1291,6 +1291,12 @@ abstract class Loc {
   /// **'the'**
   String get the;
 
+  /// No description provided for @numberSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'The 6 numbers sent to number'**
+  String get numberSentTo;
+
   /// No description provided for @viewAll.
   ///
   /// In en, this message translates to:
@@ -1362,12 +1368,6 @@ abstract class Loc {
   /// In en, this message translates to:
   /// **'Version'**
   String get version;
-
-  /// No description provided for @numberSentTo.
-  ///
-  /// In en, this message translates to:
-  /// **'The 6 numbers sent to number'**
-  String get numberSentTo;
 }
 
 class _LocDelegate extends LocalizationsDelegate<Loc> {

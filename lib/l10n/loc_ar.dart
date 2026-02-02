@@ -618,6 +618,9 @@ class LocAr extends Loc {
   String get the => 'ال';
 
   @override
+  String get numberSentTo => 'ارقام المرسلة الي رقم';
+
+  @override
   String get viewAll => 'عرض الكل';
 
   @override
@@ -652,7 +655,4 @@ class LocAr extends Loc {
 
   @override
   String get version => 'الإصدار';
-
-  @override
-  String get numberSentTo => 'ارقام المرسلة الي رقم';
 }

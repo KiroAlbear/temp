@@ -10,8 +10,10 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shorebird_code_push/shorebird_code_push.dart';
 
 import '../../../../core/Utils/firebase_analytics_events_names.dart';
 import '../../../../core/Utils/firebase_analytics_utl.dart';
@@ -33,15 +35,28 @@ class MorePage extends BaseStatefulWidget {
 }
 
 class _MoreWidgetState extends BaseState<MorePage> {
-  final deelVersionNumber = "0.1.60";
+  String _deelVersionNumber = '';
 
   @override
   void initState() {
     super.initState();
+    _loadVersionNumber();
     customBackgroundColor = Colors.white;
     widget.moreBloc.getProfileData();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       widget.moreBloc.listenForFileSelection(context);
+    });
+  }
+
+  Future<void> _loadVersionNumber() async {
+    final info = await PackageInfo.fromPlatform();
+    final patch = await ShorebirdUpdater().readCurrentPatch();
+    if (!mounted) return;
+    setState(() {
+      final String version = info.version;
+      _deelVersionNumber = patch?.number == null
+          ? version
+          : '${version}-P${patch!.number}';
     });
   }
 
@@ -339,7 +354,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CustomText(
-              text: "${Loc.of(context)!.version} $deelVersionNumber",
+              text: "${Loc.of(context)!.version} $_deelVersionNumber",
               customTextStyle: RegularStyle(
                 fontSize: 12.sp,
                 color: lightBlackColor,

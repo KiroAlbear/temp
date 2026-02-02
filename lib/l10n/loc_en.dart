@@ -619,6 +619,9 @@ class LocEn extends Loc {
   String get the => 'the';
 
   @override
+  String get numberSentTo => 'The 6 numbers sent to number';
+
+  @override
   String get viewAll => 'View all';
 
   @override
@@ -653,7 +656,4 @@ class LocEn extends Loc {
 
   @override
   String get version => 'Version';
-
-  @override
-  String get numberSentTo => 'The 6 numbers sent to number';
 }
