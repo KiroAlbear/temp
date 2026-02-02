@@ -39,7 +39,7 @@ class NewSectionWidget extends StatelessWidget {
             child: Row(
               children: [
                 CustomText(
-                  text: "عرض الكل",
+                  text: Loc.of(context)!.viewAll,
                   customTextStyle: BoldStyle(
                     color: secondaryColor,
                     fontSize: 12,

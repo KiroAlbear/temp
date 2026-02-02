@@ -198,5 +198,17 @@
   "deniedPermission": "has been denied. our app required this permission in order to continue.",
   "enter": "Enter",
   "the": "the",
-  "numberSentTo": "The 6 numbers sent to number"
+  "numberSentTo": "The 6 numbers sent to number",
+  "viewAll": "View all",
+  "mostSelling": "Most selling",
+  "recommendedForYourStore": "Recommended for your store",
+  "totalBeforeDiscount": "Total before discount",
+  "totalDiscount": "Total discount",
+  "deliveryFees": "Delivery fees",
+  "total": "Total",
+  "timeSlotMorning": "8 - 9 AM",
+  "fawry": "Fawry",
+  "chooseDistrict": "Choose district",
+  "invalidPhoneOrPassword": "Wrong phone number or password",
+  "version": "Version"
 }

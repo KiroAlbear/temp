@@ -266,7 +266,7 @@ class _NewAccountLocationInfoWidgetState
         );
         widget.newAccountBloc.districtBloc.updateStringBehaviour(value.name);
       },
-      headerText: "اختر الحي",
+      headerText: Loc.of(context)!.chooseDistrict,
     ),
     backgroundColor: Colors.transparent,
     enableDrag: false,

@@ -70,7 +70,7 @@ class _MostSellingPageState extends BaseState<MostSellingPage> {
           }
         },
         isHavingBack: true,
-        title: "الأكثر طلبا",
+        title: Loc.of(context)!.mostSelling,
       ),
       Expanded(
         child: CustomScrollView(

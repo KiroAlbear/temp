@@ -56,7 +56,7 @@ class _RecommendedItemsPageState extends BaseState<RecommendedItemsPage> {
         isHavingSupport: true,
 
         isHavingBack: true,
-        title: "خصيصاً لمتجرك",
+        title: Loc.of(context)!.recommendedForYourStore,
       ),
       Expanded(
         child: CustomScrollView(

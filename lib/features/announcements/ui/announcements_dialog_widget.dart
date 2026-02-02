@@ -62,7 +62,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsetsDirectional.symmetric(horizontal: 30),
             child: CustomButtonWidget(
-              idleText: "عرض الكل",
+              idleText: Loc.of(context)!.viewAll,
               onTap: () {
                 Navigator.pop(context);
                 Routes.navigateToScreen(

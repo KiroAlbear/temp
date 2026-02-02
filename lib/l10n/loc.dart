@@ -1291,6 +1291,78 @@ abstract class Loc {
   /// **'the'**
   String get the;
 
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View all'**
+  String get viewAll;
+
+  /// No description provided for @mostSelling.
+  ///
+  /// In en, this message translates to:
+  /// **'Most selling'**
+  String get mostSelling;
+
+  /// No description provided for @recommendedForYourStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended for your store'**
+  String get recommendedForYourStore;
+
+  /// No description provided for @totalBeforeDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total before discount'**
+  String get totalBeforeDiscount;
+
+  /// No description provided for @totalDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total discount'**
+  String get totalDiscount;
+
+  /// No description provided for @deliveryFees.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery fees'**
+  String get deliveryFees;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @timeSlotMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'8 - 9 AM'**
+  String get timeSlotMorning;
+
+  /// No description provided for @fawry.
+  ///
+  /// In en, this message translates to:
+  /// **'Fawry'**
+  String get fawry;
+
+  /// No description provided for @chooseDistrict.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose district'**
+  String get chooseDistrict;
+
+  /// No description provided for @invalidPhoneOrPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong phone number or password'**
+  String get invalidPhoneOrPassword;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
   /// No description provided for @numberSentTo.
   ///
   /// In en, this message translates to:

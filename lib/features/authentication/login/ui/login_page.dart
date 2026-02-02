@@ -266,7 +266,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
           context,
           failedBehaviour: _bloc.buttonBloc.failedBehaviour,
           buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-          headerErrorMessage: "خطأ في رقم الهاتف او كلمة المرور",
+          headerErrorMessage: Loc.of(context)!.invalidPhoneOrPassword,
           onSuccess: () {
             FirebaseAnalyticsUtil().logEvent(
               FirebaseAnalyticsEventsNames.login,

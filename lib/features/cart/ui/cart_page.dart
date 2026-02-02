@@ -191,7 +191,7 @@ class _CartScreenState extends BaseState<CartPage> {
               stream: widget.cartBloc.cartTotalBeforeDiscountBehaviour.stream,
               builder: (context, snapshot) {
                 return _bottomCalculationsWidget(
-                  "إجمالي قبل الخصم",
+                  Loc.of(context)!.totalBeforeDiscount,
                   snapshot.data ?? '',
                 );
                 CustomText(
@@ -210,7 +210,7 @@ class _CartScreenState extends BaseState<CartPage> {
                 return (snapshot.hasData == false || snapshot.data == "")
                     ? SizedBox()
                     : _bottomCalculationsWidget(
-                        "إجمالي الخصم",
+                        Loc.of(context)!.totalDiscount,
                         snapshot.data ?? '',
                         color: redColor,
                       );
@@ -228,7 +228,7 @@ class _CartScreenState extends BaseState<CartPage> {
               stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
               builder: (context, snapshot) {
                 return _bottomCalculationsWidget(
-                  "مصاريف التوصيل",
+                  Loc.of(context)!.deliveryFees,
                   snapshot.data ?? '',
                 );
                 CustomText(
@@ -245,7 +245,10 @@ class _CartScreenState extends BaseState<CartPage> {
             StreamBuilder(
               stream: widget.cartBloc.cartTotalAfterDiscountBehaviour.stream,
               builder: (context, snapshot) {
-                return _bottomTotalWidget("إجمالي", snapshot.data ?? '');
+                return _bottomTotalWidget(
+                  Loc.of(context)!.total,
+                  snapshot.data ?? '',
+                );
                 CustomText(
                   text: snapshot.data ?? '',
                   textAlign: TextAlign.start,

@@ -166,7 +166,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
         }
 
         return NewSectionWidget(
-          title: "الأكثر طلباً",
+          title: Loc.of(context)!.mostSelling,
           child: checkResponseStateWithLoadingWidget(
             onSuccessFunction: () {},
             snapshot.data ?? LoadingState<List<ProductMapper>>(),
@@ -216,7 +216,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
         }
 
         return NewSectionWidget(
-          title: "خصيصاً لمتجرك",
+          title: Loc.of(context)!.recommendedForYourStore,
           child: checkResponseStateWithLoadingWidget(
             onSuccessFunction: () {},
             snapshot.data ?? LoadingState<List<ProductMapper>>(),

@@ -121,9 +121,9 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                             ? Loc.of(context)!.cartDokkanBankCard
                             : widget.cartOrderDetailsArgs.isItWallet
                             ? Loc.of(context)!.cartDokkanWallet
-                            : widget.cartOrderDetailsArgs.isItFawry
-                            ? "فوري"
-                            : Loc.of(context)!.payCashOnDelivery,
+                              : widget.cartOrderDetailsArgs.isItFawry
+                                  ? Loc.of(context)!.fawry
+                                  : Loc.of(context)!.payCashOnDelivery,
                         iconSize: 18,
                         space: 8,
                       ),

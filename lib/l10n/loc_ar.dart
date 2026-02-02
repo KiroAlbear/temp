@@ -618,5 +618,41 @@ class LocAr extends Loc {
   String get the => 'ال';
 
   @override
+  String get viewAll => 'عرض الكل';
+
+  @override
+  String get mostSelling => 'الأكثر طلباً';
+
+  @override
+  String get recommendedForYourStore => 'خصيصاً لمتجرك';
+
+  @override
+  String get totalBeforeDiscount => 'إجمالي قبل الخصم';
+
+  @override
+  String get totalDiscount => 'إجمالي الخصم';
+
+  @override
+  String get deliveryFees => 'مصاريف التوصيل';
+
+  @override
+  String get total => 'إجمالي';
+
+  @override
+  String get timeSlotMorning => '8 - 9 صباحاً';
+
+  @override
+  String get fawry => 'فوري';
+
+  @override
+  String get chooseDistrict => 'اختر الحي';
+
+  @override
+  String get invalidPhoneOrPassword => 'خطأ في رقم الهاتف او كلمة المرور';
+
+  @override
+  String get version => 'الإصدار';
+
+  @override
   String get numberSentTo => 'ارقام المرسلة الي رقم';
 }

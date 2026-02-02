@@ -339,7 +339,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CustomText(
-              text: "Version $deelVersionNumber",
+              text: "${Loc.of(context)!.version} $deelVersionNumber",
               customTextStyle: RegularStyle(
                 fontSize: 12.sp,
                 color: lightBlackColor,

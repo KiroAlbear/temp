@@ -102,12 +102,7 @@ FutureOr<void> main() async {
   _initOdooDio();
   _initAdminDio();
 
-
   await DependencyInjectionService().init();
-
-
-
-
 
   /// run app and use provider for app config
   runApp(

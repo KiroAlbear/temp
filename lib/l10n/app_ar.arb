@@ -198,5 +198,17 @@
   "deniedPermission" : "تم رفض هذه الصلاحية. يتطلب تطبيقنا هذه الصلاحية للمتابعة",
   "enter": "ادخل",
   "the": "ال",
-  "numberSentTo": "ارقام المرسلة الي رقم"
+  "numberSentTo": "ارقام المرسلة الي رقم",
+  "viewAll": "عرض الكل",
+  "mostSelling": "الأكثر طلباً",
+  "recommendedForYourStore": "خصيصاً لمتجرك",
+  "totalBeforeDiscount": "إجمالي قبل الخصم",
+  "totalDiscount": "إجمالي الخصم",
+  "deliveryFees": "مصاريف التوصيل",
+  "total": "إجمالي",
+  "timeSlotMorning": "8 - 9 صباحاً",
+  "fawry": "فوري",
+  "chooseDistrict": "اختر الحي",
+  "invalidPhoneOrPassword": "خطأ في رقم الهاتف او كلمة المرور",
+  "version": "الإصدار"
 }

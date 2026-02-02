@@ -81,7 +81,8 @@ class CartBloc extends BlocBase {
   }
 
   void _getTime() {
-    timeBehaviour.sink.add("8 - 9 صباحاً");
+    final timeLabel = Loc.of(Routes.rootNavigatorKey.currentContext!)!.timeSlotMorning;
+    timeBehaviour.sink.add(timeLabel);
   }
 
   void getTotalCartSum(List<ProductMapper>? myOrderResponse, String currency) {

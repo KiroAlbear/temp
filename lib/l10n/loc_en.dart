@@ -619,5 +619,41 @@ class LocEn extends Loc {
   String get the => 'the';
 
   @override
+  String get viewAll => 'View all';
+
+  @override
+  String get mostSelling => 'Most selling';
+
+  @override
+  String get recommendedForYourStore => 'Recommended for your store';
+
+  @override
+  String get totalBeforeDiscount => 'Total before discount';
+
+  @override
+  String get totalDiscount => 'Total discount';
+
+  @override
+  String get deliveryFees => 'Delivery fees';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get timeSlotMorning => '8 - 9 AM';
+
+  @override
+  String get fawry => 'Fawry';
+
+  @override
+  String get chooseDistrict => 'Choose district';
+
+  @override
+  String get invalidPhoneOrPassword => 'Wrong phone number or password';
+
+  @override
+  String get version => 'Version';
+
+  @override
   String get numberSentTo => 'The 6 numbers sent to number';
 }
