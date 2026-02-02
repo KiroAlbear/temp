@@ -80,42 +80,42 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
         ),
       ),
       SizedBox(height: 20.h),
-      InkWell(
-        onTap: () => EasyLauncher.url(
-          url: contactUsMapper.facebook,
-          mode: Mode.externalApp,
-        ),
-        child: _buildContactUsItem(
-          contactUsMapper.facebook,
-          Assets.svg.icFacebook,
-          S.of(context).faceBook,
-        ),
-      ),
-
-      SizedBox(height: 20.h),
-      InkWell(
-        onTap: () => EasyLauncher.url(
-          url: contactUsMapper.instagram,
-          mode: Mode.externalApp,
-        ),
-        child: _buildContactUsItem(
-          contactUsMapper.instagram,
-          Assets.svg.instagram,
-          "انستجرام",
-        ),
-      ),
-      SizedBox(height: 20.h),
-      InkWell(
-        onTap: () => EasyLauncher.url(
-          url: contactUsMapper.tiktok,
-          mode: Mode.externalApp,
-        ),
-        child: _buildContactUsItem(
-          contactUsMapper.tiktok,
-          Assets.svg.tiktok,
-          "تيكتوك",
-        ),
-      ),
+      // InkWell(
+      //   onTap: () => EasyLauncher.url(
+      //     url: contactUsMapper.facebook,
+      //     mode: Mode.externalApp,
+      //   ),
+      //   child: _buildContactUsItem(
+      //     contactUsMapper.facebook,
+      //     Assets.svg.icFacebook,
+      //     S.of(context).faceBook,
+      //   ),
+      // ),
+      //
+      // SizedBox(height: 20.h),
+      // InkWell(
+      //   onTap: () => EasyLauncher.url(
+      //     url: contactUsMapper.instagram,
+      //     mode: Mode.externalApp,
+      //   ),
+      //   child: _buildContactUsItem(
+      //     contactUsMapper.instagram,
+      //     Assets.svg.instagram,
+      //     "انستجرام",
+      //   ),
+      // ),
+      // SizedBox(height: 20.h),
+      // InkWell(
+      //   onTap: () => EasyLauncher.url(
+      //     url: contactUsMapper.tiktok,
+      //     mode: Mode.externalApp,
+      //   ),
+      //   child: _buildContactUsItem(
+      //     contactUsMapper.tiktok,
+      //     Assets.svg.tiktok,
+      //     "تيكتوك",
+      //   ),
+      // ),
       // SizedBox(
       //   height: 50.h,
       // ),
