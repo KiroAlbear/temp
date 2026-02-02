@@ -9,10 +9,11 @@ class ForgotPasswordPage extends BaseStatefulWidget {
   final ForgotPasswordBloc forgetPasswordBloc;
   final AuthenticationSharedBloc authenticationSharedBloc;
 
-  const ForgotPasswordPage(
-      {super.key,
-      required this.authenticationSharedBloc,
-      required this.forgetPasswordBloc});
+  const ForgotPasswordPage({
+    super.key,
+    required this.authenticationSharedBloc,
+    required this.forgetPasswordBloc,
+  });
 
   @override
   State<ForgotPasswordPage> createState() => _ForgotPasswordWidgetState();
@@ -45,101 +46,111 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
-        isHavingBackArrow: true,
-        logo: null,
-        blocBase: widget.forgetPasswordBloc,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: CustomText(
-                    text: S.of(context).resetPasswordSetting,
-                    customTextStyle:
-                        BoldStyle(color: secondaryColor, fontSize: 28.sp)),
+    isHavingBackArrow: true,
+    logo: null,
+    blocBase: widget.forgetPasswordBloc,
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: CustomText(
+              text: S.of(context).resetPasswordSetting,
+              customTextStyle: BoldStyle(
+                color: secondaryColor,
+                fontSize: 28.sp,
               ),
-              SizedBox(
-                height: 30.h,
-              ),
-              CustomText(
-                  text: S.of(context).enterYouRegisteredMobile,
-                  customTextStyle:
-                      MediumStyle(color: secondaryColor, fontSize: 16.sp)),
-              SizedBox(
-                height: 12.h,
-              ),
-              _countryStream,
-              SizedBox(
-                height: 145.h,
-              ),
-              Center(child: _button),
-            ],
+            ),
           ),
-        ),
-      );
+          SizedBox(height: 30.h),
+          CustomText(
+            text: S.of(context).enterYouRegisteredMobile,
+            customTextStyle: MediumStyle(
+              color: secondaryColor,
+              fontSize: 16.sp,
+            ),
+          ),
+          SizedBox(height: 12.h),
+          _countryStream,
+          SizedBox(height: 145.h),
+          Center(child: _button),
+        ],
+      ),
+    ),
+  );
 
   Widget get _countryStream => StreamBuilder(
-        stream: widget.forgetPasswordBloc.countryStream,
-        builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
-            snapshot.data!, context,
-            onSuccess: MobileCountryWidget(
-                mobileBloc: widget.forgetPasswordBloc.mobileBloc,
-                countryList: snapshot.data?.response ?? [],
-                countryBloc: widget.forgetPasswordBloc.countryBloc)),
-      );
+    stream: widget.forgetPasswordBloc.countryStream,
+    builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
+      snapshot.data!,
+      context,
+      onSuccess: MobileCountryWidget(
+        mobileBloc: widget.forgetPasswordBloc.mobileBloc,
+        countryList: snapshot.data?.response ?? [],
+        countryBloc: widget.forgetPasswordBloc.countryBloc,
+      ),
+    ),
+  );
   void onlyForTestingCode() {
     widget.authenticationSharedBloc.setDataToAuth(
-        widget.forgetPasswordBloc.countryBloc.value!,
-        widget.forgetPasswordBloc.mobileBloc.value,
-        AppScreenEnum.accountChangePassword.name);
+      widget.forgetPasswordBloc.countryBloc.value!,
+      widget.forgetPasswordBloc.mobileBloc.value,
+      AppScreenEnum.accountChangePassword.name,
+    );
     Routes.navigateToScreen(
-        Routes.otpPage, NavigationType.pushReplacementNamed, context,
-        queryParameters: {OtpPage.nextPageKey: Routes.resetPasswordPage});
+      Routes.otpPage,
+      NavigationType.pushReplacementNamed,
+      context,
+      queryParameters: {OtpPage.nextPageKey: Routes.resetPasswordPage},
+    );
 
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
   }
 
   Widget get _button => CustomButtonWidget(
-        idleText: S.of(context).sendOTP,
-        onTap: () {
-          if (widget.forgetPasswordBloc.isMobileValid) {
-            widget.forgetPasswordBloc.checkPhone.listen(
-              (event) {
-                // only for testing
-                if (F.appFlavor == Flavor.app_stage) {
-                  onlyForTestingCode();
-                } else {
-                  checkResponseStateWithButton(
-                    event,
-                    context,
-                    failedBehaviour:
-                        widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
-                    buttonBehaviour:
-                        widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
-                    onSuccess: () {
-                      widget.authenticationSharedBloc.setDataToAuth(
-                          widget.forgetPasswordBloc.countryBloc.value!,
-                          widget.forgetPasswordBloc.mobileBloc.value,
-                          AppScreenEnum.accountChangePassword.name);
-                      Routes.navigateToScreen(Routes.otpPage,
-                          NavigationType.pushReplacementNamed, context,
-                          queryParameters: {
-                            OtpPage.nextPageKey: Routes.resetPasswordPage
-                          });
+    idleText: S.of(context).sendOTP,
+    onTap: () {
+      if (widget.forgetPasswordBloc.isMobileValid) {
+        widget.forgetPasswordBloc.checkPhone.listen((event) {
+          // only for testing
+          // if (F.appFlavor == Flavor.app_stage) {
+          //   onlyForTestingCode();
+          // } else
+          {
+            checkResponseStateWithButton(
+              event,
+              context,
+              failedBehaviour:
+                  widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
+              buttonBehaviour:
+                  widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
+              onSuccess: () {
+                widget.authenticationSharedBloc.setDataToAuth(
+                  widget.forgetPasswordBloc.countryBloc.value!,
+                  widget.forgetPasswordBloc.mobileBloc.value,
+                  AppScreenEnum.accountChangePassword.name,
+                );
+                Routes.navigateToScreen(
+                  Routes.otpPage,
+                  NavigationType.pushReplacementNamed,
+                  context,
+                  queryParameters: {
+                    OtpPage.nextPageKey: Routes.resetPasswordPage,
+                  },
+                );
 
-                      // CustomNavigatorModule.navigatorKey.currentState
-                      //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
-                    },
-                  );
-                }
+                // CustomNavigatorModule.navigatorKey.currentState
+                //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
               },
             );
           }
-        },
-        buttonBehaviour: widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
-        failedBehaviour: widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
-        validateStream: widget.forgetPasswordBloc.validate,
-      );
+        });
+      }
+    },
+    buttonBehaviour: widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
+    failedBehaviour: widget.forgetPasswordBloc.buttonBloc.failedBehaviour,
+    validateStream: widget.forgetPasswordBloc.validate,
+  );
 }

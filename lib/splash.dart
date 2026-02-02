@@ -31,136 +31,130 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
   void initState() {
     customBackgroundColor = primaryColor;
 
-
-
-
     _initPaymob();
 
     FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
-
-    if (F.appFlavor == Flavor.app_stage) {
-      AppProviderModule().init(context);
-      return;
-    }
-
+    // if (F.appFlavor == Flavor.app_stage) {
+    //   AppProviderModule().init(context);
+    //   return;
+    // }
 
     FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);
-      // if (mounted)
-      {
-        Apputils.updateAndRestartApp();
-        Future.delayed(const Duration(seconds: 1)).then((value) async {
-          requestNotificationPermissions();
+    // if (mounted)
+    {
+      Apputils.updateAndRestartApp();
+      Future.delayed(const Duration(seconds: 1)).then((value) async {
+        requestNotificationPermissions();
 
-          FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.app_start);
+        FirebaseAnalyticsUtil().logEvent(
+          FirebaseAnalyticsEventsNames.app_start,
+        );
 
-          // if (mounted)
-          {
-            LoggerModule.log(name: "*********", message: 'Checking for updates...');
-            MoreBloc().checkAppUpdateStream.listen((state) async {
-              if (state is SuccessState) {
-                PackageInfo packageInfo = await PackageInfo.fromPlatform();
-                String version = packageInfo.version;
+        // if (mounted)
+        {
+          LoggerModule.log(
+            name: "*********",
+            message: 'Checking for updates...',
+          );
+          MoreBloc().checkAppUpdateStream.listen((state) async {
+            if (state is SuccessState) {
+              PackageInfo packageInfo = await PackageInfo.fromPlatform();
+              String version = packageInfo.version;
 
-                String latestVersionNumberAndroid =
-                    state.response
-                        ?.firstWhere((element) => element.type == 0)
-                        .versionNum ??
-                        "0.0.0";
-                String latestVersionNumberIOS =
-                    state.response
-                        ?.firstWhere((element) => element.type == 1)
-                        .versionNum ??
-                        "0.0.0";
+              String latestVersionNumberAndroid =
+                  state.response
+                      ?.firstWhere((element) => element.type == 0)
+                      .versionNum ??
+                  "0.0.0";
+              String latestVersionNumberIOS =
+                  state.response
+                      ?.firstWhere((element) => element.type == 1)
+                      .versionNum ??
+                  "0.0.0";
 
-                if (Platform.isAndroid &&
-                    Apputils.icCurrentVersionValid(
-                      currentVersion: version,
-                      latestVersion: latestVersionNumberAndroid,
-                    )) {
-                  AppProviderModule().init(context);
-                } else if (Platform.isIOS &&
-                    Apputils.icCurrentVersionValid(
-                      currentVersion: version,
-                      latestVersion: latestVersionNumberIOS,
-                    )) {
-                  AppProviderModule().init(context);
-                } else {
-                  if (mounted) {
-                    await showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return PopScope(
-                          canPop: false,
-                          child: AlertDialog(
-                            title: const Text('تحديث'),
-                            content: const Text(
-                              "الرجاء تحديث التطبيق إلى أحدث إصدار للمتابعة",
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () async {
-                                  String updateUrl = "";
-                                  if (Platform.isIOS) {
-                                    updateUrl = AppConstants.iosUpdateUrl;
-                                  } else {
-                                    updateUrl = AppConstants.androidUpdateUrl;
-                                  }
-                                  final uri = Uri.parse(updateUrl);
-                                  await launchUrl(uri);
-                                },
-                                child: const Text('تحديث'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  }
-                }
-
-                LoggerModule.log(
-                  name: "*********",
-                  message: 'Latest app version: $version',
-                );
-              } else if (state is FailedState) {
+              if (Platform.isAndroid &&
+                  Apputils.icCurrentVersionValid(
+                    currentVersion: version,
+                    latestVersion: latestVersionNumberAndroid,
+                  )) {
                 AppProviderModule().init(context);
+              } else if (Platform.isIOS &&
+                  Apputils.icCurrentVersionValid(
+                    currentVersion: version,
+                    latestVersion: latestVersionNumberIOS,
+                  )) {
+                AppProviderModule().init(context);
+              } else {
+                if (mounted) {
+                  await showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return PopScope(
+                        canPop: false,
+                        child: AlertDialog(
+                          title: const Text('تحديث'),
+                          content: const Text(
+                            "الرجاء تحديث التطبيق إلى أحدث إصدار للمتابعة",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () async {
+                                String updateUrl = "";
+                                if (Platform.isIOS) {
+                                  updateUrl = AppConstants.iosUpdateUrl;
+                                } else {
+                                  updateUrl = AppConstants.androidUpdateUrl;
+                                }
+                                final uri = Uri.parse(updateUrl);
+                                await launchUrl(uri);
+                              },
+                              child: const Text('تحديث'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }
               }
-            });
-          }
-        });
-      }
+
+              LoggerModule.log(
+                name: "*********",
+                message: 'Latest app version: $version',
+              );
+            } else if (state is FailedState) {
+              AppProviderModule().init(context);
+            }
+          });
+        }
+      });
+    }
 
     super.initState();
   }
 
-
-
-  Future<void> _initPaymob()async {
-    await FlutterPaymob
-        .instance.initialize(
+  Future<void> _initPaymob() async {
+    await FlutterPaymob.instance.initialize(
       userTokenExpiration: 3600, // optional, default is 30 days
       apiKey:
-      "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==", //  // from dashboard Select Settings -> Account Info -> API Key
+          "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBME9ETTJNaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5nNnIyd09hek1naVM2RUQxQWxITWRmbl9zOFUwOEowRmtDZTdnRndfMGlGb3F1TERDRVJVNThBd0l5dWZJZ1B3QVd5aVlVYlQtcG9nVjVlQU8wSmxBUQ==", //  // from dashboard Select Settings -> Account Info -> API Key
       integrationID: 5106629,
       walletIntegrationId: 5106875,
       iFrameID: 926227,
     );
   }
 
-
-
   Future<void> requestNotificationPermissions() async {
-
     final notificationSettings = await FirebaseMessaging.instance
         .requestPermission(
-      provisional: true,
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+          provisional: true,
+          alert: true,
+          badge: true,
+          sound: true,
+        );
 
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
@@ -182,6 +176,7 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
     //   // await openAppSettings();
     // }
   }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
