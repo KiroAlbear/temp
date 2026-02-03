@@ -5,9 +5,11 @@ import 'package:deel/core/Utils/firebase_analytics_utl.dart';
 import 'package:deel/deel.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_popup_card/flutter_popup_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:intl/intl.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
@@ -66,6 +68,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   final double buttonHeight = 30.h;
   final double plusMinusIconSize = 18.sp;
   final double plusMinusIconHeight = 30.h;
+  final tooltipController = JustTheController();
 
   String priceTextToShow = "";
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
@@ -371,13 +374,41 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _productName => SizedBox(
     height: 40,
-    child: CustomText(
-      text: widget.productMapper.name,
-      textAlign: TextAlign.start,
-      customTextStyle: widget.isCartProduct
-          ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
-          : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-      maxLines: 2,
+    child: Stack(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: CustomText(
+                text: widget.productMapper.name,
+                textAlign: TextAlign.start,
+                customTextStyle: widget.isCartProduct
+                    ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
+                    : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
+                maxLines: 2,
+              ),
+            ),
+            JustTheTooltip(
+              offset: -40,
+              tailBaseWidth: 0,
+              isModal: true,
+              child: Material(
+                color: Colors.transparent,
+                child: ImageHelper(
+                  image: Assets.svg.icEye,
+                  imageType: ImageType.svg,
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+              content: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(widget.productMapper.name),
+              ),
+            ),
+          ],
+        ),
+      ],
     ),
   );
 
