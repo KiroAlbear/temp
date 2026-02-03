@@ -39,33 +39,31 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
 
   Widget _loadList(List<OfferMapper> list) => Column(
     children: [
-      SizedBox(
-        height: list.isEmpty ? 0 : 220.h,
-        child: CarouselSlider(
-          carouselController: CarouselSliderController(),
-          items: list
-              .map(
-                (item) => HeroBannerItem(
-                  isMainPage: true,
-                  item: item,
-                  homeBloc: widget.homeBloc,
-                  isClickable: item.link.toLowerCase().trim() != "nolink",
-                ),
-              )
-              .toList(),
-          options: CarouselOptions(
-            viewportFraction: 0.85,
-            initialPage: 0,
-            enableInfiniteScroll: true,
-            reverse: false,
-            autoPlay: true,
-            autoPlayInterval: Duration(seconds: 7),
-            autoPlayAnimationDuration: Duration(milliseconds: 800),
-            autoPlayCurve: Curves.fastOutSlowIn,
-            enlargeCenterPage: true,
-            enlargeFactor: 0.2,
-            scrollDirection: Axis.horizontal,
-          ),
+      CarouselSlider(
+        carouselController: CarouselSliderController(),
+        items: list
+            .map(
+              (item) => HeroBannerItem(
+                isMainPage: true,
+                item: item,
+                homeBloc: widget.homeBloc,
+                isClickable: item.link.toLowerCase().trim() != "nolink",
+              ),
+            )
+            .toList(),
+        options: CarouselOptions(
+          initialPage: 0,
+          enableInfiniteScroll: true,
+          reverse: false,
+          autoPlay: true,
+          height: 210.h,
+          viewportFraction: 0.89,
+          autoPlayInterval: Duration(seconds: 7),
+          autoPlayAnimationDuration: Duration(milliseconds: 800),
+          autoPlayCurve: Curves.fastOutSlowIn,
+          enlargeCenterPage: true,
+          enlargeFactor: 0.2,
+          scrollDirection: Axis.horizontal,
         ),
       ),
 
