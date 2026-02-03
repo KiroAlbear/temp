@@ -25,13 +25,7 @@ class CustomMaterialBanner extends MaterialBanner {
           actions: actions.isEmpty
               ? [
                   InkWell(
-                    child: ImageHelper(
-                      image: 'assets/svg/ic_alert.svg',
-                      imageType: ImageType.svg,
-                      color: whiteColor,
-                      width: 25.w,
-                      height: 25.h,
-                    ),
+                    child: Icon(Icons.close, color: whiteColor),
                     onTap: () => leadingCallBack != null
                         ? {
                             ScaffoldMessenger.of(context)
