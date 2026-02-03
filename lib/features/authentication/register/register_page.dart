@@ -137,9 +137,9 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
         if (_bloc.isValid) {
           _bloc.checkPhone.listen((event) {
             //TODO: this code is commented only for temp use, revert it when go to production
-            // if (kDebugMode) {
-            //   if (event is SuccessState) onlyForTestingCode();
-            // } else
+            if (F.appFlavor == Flavor.app_test) {
+              if (event is SuccessState) onlyForTestingCode();
+            } else
             {
               checkResponseStateWithButton(
                 event,
