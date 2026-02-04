@@ -1,4 +1,3 @@
-import 'package:deel/core/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timelines/timelines.dart';
@@ -19,11 +18,11 @@ class _PastOrdersStatesState extends State<PastOrdersStates> {
 
   List<String> _getOrderStates(BuildContext context) {
     final List<String> orderStates = [
-      S.of(context).orderSending,
-      S.of(context).orderAccepting,
-      S.of(context).orderShipping,
-      S.of(context).orderOutside,
-      S.of(context).orderDelivered,
+      Loc.of(context)!.orderSending,
+      Loc.of(context)!.orderAccepting,
+      Loc.of(context)!.orderShipping,
+      Loc.of(context)!.orderOutside,
+      Loc.of(context)!.orderDelivered,
     ];
     return orderStates;
   }
@@ -36,49 +35,52 @@ class _PastOrdersStatesState extends State<PastOrdersStates> {
   @override
   Widget build(BuildContext context) {
     return FixedTimeline.tileBuilder(
-        theme: TimelineTheme.of(context).copyWith(
-          nodePosition: 0,
-          indicatorPosition: 0,
-          connectorTheme: ConnectorThemeData(color: greenColor),
-          indicatorTheme: IndicatorThemeData(color: greenColor),
-        ),
-        builder: TimelineTileBuilder.connectedFromStyle(
-          itemCount: orderStates.length,
-          contentsAlign: ContentsAlign.basic,
-          connectorStyleBuilder: (context, index) => ConnectorStyle.solidLine,
-          indicatorStyleBuilder: (context, index) => IndicatorStyle.dot,
-          firstConnectorStyle: ConnectorStyle.transparent,
-          lastConnectorStyle: ConnectorStyle.transparent,
-          contentsBuilder: (context, index) => Container(
-            // color: Colors.red,
-            height: 30,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.only(start: 5.0),
-                  child: CustomText(
-                    text: orderStates[index],
-                    textAlign: TextAlign.center,
-                    customTextStyle:
-                        RegularStyle(color: secondaryColor, fontSize: 12.sp),
+      theme: TimelineTheme.of(context).copyWith(
+        nodePosition: 0,
+        indicatorPosition: 0,
+        connectorTheme: ConnectorThemeData(color: greenColor),
+        indicatorTheme: IndicatorThemeData(color: greenColor),
+      ),
+      builder: TimelineTileBuilder.connectedFromStyle(
+        itemCount: orderStates.length,
+        contentsAlign: ContentsAlign.basic,
+        connectorStyleBuilder: (context, index) => ConnectorStyle.solidLine,
+        indicatorStyleBuilder: (context, index) => IndicatorStyle.dot,
+        firstConnectorStyle: ConnectorStyle.transparent,
+        lastConnectorStyle: ConnectorStyle.transparent,
+        contentsBuilder: (context, index) => Container(
+          // color: Colors.red,
+          height: 30,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.only(start: 5.0),
+                child: CustomText(
+                  text: orderStates[index],
+                  textAlign: TextAlign.center,
+                  customTextStyle: RegularStyle(
+                    color: secondaryColor,
+                    fontSize: 12.sp,
                   ),
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 8.0),
-                    child: OrderItemGreyText(
-                      text: widget.orderStatuses[index] == null
-                          ? S.of(context).orderInProgress
-                          : widget.orderStatuses[index]!,
-                    ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 8.0),
+                  child: OrderItemGreyText(
+                    text: widget.orderStatuses[index] == null
+                        ? Loc.of(context)!.orderInProgress
+                        : widget.orderStatuses[index]!,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

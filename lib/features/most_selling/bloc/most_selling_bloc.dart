@@ -9,7 +9,7 @@ class MostSellingBloc extends BlocBase with ResponseHandlerModule {
       BehaviorSubject()..sink.add(LoadingState());
 
   int pageNumber = 1;
-  final pageSize = 10;
+  final pageSize = 16;
 
   void getMostSelling() {
     pageNumber = 1;
@@ -37,7 +37,8 @@ class MostSellingBloc extends BlocBase with ResponseHandlerModule {
         if (event is SuccessState) {
           List<ProductMapper> oldList =
               mostSellingBehaviour.value.response ?? [];
-          event.response?.addAll(oldList);
+          oldList.addAll(event.response ?? []);
+          event.response = oldList;
           mostSellingBehaviour.sink.add(event);
         }
       } else {

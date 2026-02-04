@@ -22,6 +22,9 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
       BehaviorSubject();
   BehaviorSubject<ApiState<List<BrandMapper>>> brandBySubcategoryStream =
       BehaviorSubject();
+
+  List<ProductMapper> loadedProductsList = [];
+
   // BehaviorSubject<ApiState<List<ProductMapper>>>
   //     productBySubCategoryBrandStream = BehaviorSubject();
 
@@ -208,6 +211,19 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     });
   }
 
+
+  void getProductByIdList(List<int> productsIds){
+    loadedProductsList.clear();
+
+    for (int i = 0; i < productsIds.length; i++) {
+      ProductRemote().loadProductById(productsIds[i]).listen((event) {
+        if (event is SuccessState) {
+          _handleProductResponse(event.response ?? []);
+        }
+      });
+    }
+  }
+
   void getProductWithSubcategoryBrand(
       int? subCategory, int? brand, Function? onGettingMoreProducts) {
     if ((subCategory == null)) {
@@ -327,6 +343,12 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   void _handleProductResponse(List<ProductMapper>? response) {
     isLoading?.value = false;
     setLoaded((response) ?? []);
+  }
+
+  void _handleProductListResponse(List<ProductMapper>? response) {
+    isLoading?.value = false;
+    loadedProductsList.addAll(response??[]);
+    setLoaded((loadedProductsList) ?? []);
   }
 
   void doSearch(String value) {

@@ -4,7 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../generated/l10n.dart';
+import '../../../deel.dart';
 import '../models/baseModules/api_state.dart';
 import '../models/baseModules/header_response.dart';
 import '../modules/constants_module.dart';
@@ -50,7 +50,9 @@ abstract class BaseRemoteModule<T, K> {
       //     isIosSimulator = !iosInfo.isPhysicalDevice;
       //   }
       // }
-      final isConnect = Platform.isIOS?true:  await _checkIfConnectToAnySourceType();
+      final isConnect = Platform.isIOS
+          ? true
+          : await _checkIfConnectToAnySourceType();
       if (isConnect) {
         final result = await InternetAddress.lookup(ConstantModule.lookUpUrl);
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -63,10 +65,11 @@ abstract class BaseRemoteModule<T, K> {
       }
     } on SocketException catch (e, stackTrace) {
       LoggerModule.log(
-          message: e.toString(),
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: stackTrace);
+        message: e.toString(),
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -103,24 +106,28 @@ abstract class BaseRemoteModule<T, K> {
         yield await _apiFuture.then((value) {
           // Handle the API response
           LoggerModule.log(
-              message: 'callApiAsStream', name: runtimeType.toString());
+            message: 'callApiAsStream',
+            name: runtimeType.toString(),
+          );
 
           if ((value.status ?? 400) == 200) {
             headerResponse = value;
             return onSuccessHandle(value.data); // Handle success
           } else {
             return FailedState(
-                message: value.message ?? value.error?.first ?? '',
-                loggerName: runtimeType.toString());
+              message: value.message ?? value.error?.first ?? '',
+              loggerName: runtimeType.toString(),
+            );
           }
         });
       }
     } catch (e, stackTrace) {
       LoggerModule.log(
-          message: 'error in api:',
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: stackTrace);
+        message: 'error in api:',
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: stackTrace,
+      );
       yield (await _handleOnError(e));
     }
   }
@@ -143,17 +150,19 @@ abstract class BaseRemoteModule<T, K> {
             return onSuccessHandle(value.data); // Handle success
           } else {
             return FailedState(
-                message: value.message ?? '',
-                loggerName: runtimeType.toString());
+              message: value.message ?? '',
+              loggerName: runtimeType.toString(),
+            );
           }
         });
       }
     } catch (e, stackTrace) {
       LoggerModule.log(
-          message: 'error in api:',
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: stackTrace);
+        message: 'error in api:',
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: stackTrace,
+      );
       return (await _handleOnError(e));
     }
   }
@@ -169,7 +178,9 @@ abstract class BaseRemoteModule<T, K> {
           return LoadingState();
         } else {
           return FailedState(
-            message: e.response?.data['errors'][0] ?? S.current.generalError,
+            message:
+                e.response?.data['errors'][0] ??
+                Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
             loggerName: runtimeType.toString(),
           );
         }
@@ -177,32 +188,37 @@ abstract class BaseRemoteModule<T, K> {
         return NoInternetState(); // No internet connectivity
       } else if (e.message == CustomDioException().toString()) {
         return FailedState(
-            message: e.error.toString(),
-            loggerName: runtimeType.toString()); // Custom Dio exception
+          message: e.error.toString(),
+          loggerName: runtimeType.toString(),
+        ); // Custom Dio exception
       } else {
         // Other exceptions
         LoggerModule.log(
-            message: e.message ?? '',
-            name: runtimeType.toString(),
-            error: e,
-            stackTrace: e.stackTrace);
-        return ErrorState(
-            message: e.message ?? '', loggerName: runtimeType.toString());
+          message: e.message ?? '',
+          name: runtimeType.toString(),
+          error: e,
+          stackTrace: e.stackTrace,
+        );
+        return FailedState(
+          message: e.message ?? '',
+          loggerName: runtimeType.toString(),
+        );
       }
     } else if (e is CheckedFromJsonException) {
       // Exception related to JSON deserialization
       LoggerModule.log(
-          message: e.message ?? '',
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: e.innerStack);
+        message: e.message ?? '',
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: e.innerStack,
+      );
       return FailedState(
-        message: S.current.generalError,
+        message: Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
         loggerName: runtimeType.toString(),
       );
     } else {
       return FailedState(
-        message: S.current.generalError,
+        message: Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
         loggerName: runtimeType.toString(),
       );
     }

@@ -15,15 +15,6 @@ class MostSellingResponseModel {
       });
     }
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['count'] = this.count;
-    if (this.mostSeller != null) {
-      data['mostSeller'] = this.mostSeller!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
 }
 
 class MostSeller {
@@ -49,8 +40,9 @@ class MostSeller {
     data['relatedItemId'] = this.relatedItemId;
     data['orderNo'] = this.orderNo;
     if (this.productResponse != null) {
-      data['productResponse'] =
-          this.productResponse!.map((v) => v.toJson()).toList();
+      data['productResponse'] = this.productResponse!
+          .map((v) => v.toJson())
+          .toList();
     }
     return data;
   }

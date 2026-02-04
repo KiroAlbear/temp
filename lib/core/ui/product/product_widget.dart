@@ -3,12 +3,11 @@ import 'dart:ui';
 import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
 import 'package:deel/core/Utils/firebase_analytics_utl.dart';
 import 'package:deel/deel.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
-import 'package:intl/intl.dart';
-import '../../generated/l10n.dart';
+import 'package:intl/intl.dart' show NumberFormat;
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
@@ -18,13 +17,14 @@ class ProductWidget extends StatefulWidget {
   final String? icDelete;
   final CartBloc? cartBloc;
   final Function(int)? onProductRemoved;
-
+  final int index;
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
   final Function(ProductMapper productMapper)? onAddToCart;
   final bool isCartProduct;
   final Function(ProductMapper productMapper)? onDeleteClicked;
   final Function(ProductMapper productMapper)? onIncrementClicked;
   final Function(ProductMapper productMapper)? onDecrementClicked;
+
   ProductWidget({
     Key? key,
     required this.productMapper,
@@ -40,6 +40,7 @@ class ProductWidget extends StatefulWidget {
     this.isCartProduct = false,
     this.onIncrementClicked,
     this.onDecrementClicked,
+    required this.index,
   }) : super(key: key) {
     if (!isCartProduct &&
         (favouriteIcon == null ||
@@ -70,6 +71,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   String priceTextToShow = "";
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
+  ValueNotifier<bool> toolTipVisibility = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -86,6 +88,36 @@ class _ProductWidgetState extends State<ProductWidget> {
     priceTextToShow = '$FormatedPrice ${widget.productMapper.currency}';
 
     super.initState();
+  }
+
+  bool isTwoLinesOrMore({
+    required String text,
+    required TextStyle style,
+    required double maxWidth,
+    required TextOverflow overflow,
+    required bool isCartProduct,
+    required int maxLines, // optional if you already limit it
+    TextDirection textDirection = TextDirection.ltr,
+    double textScaleFactor = 1.0,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: textDirection,
+      maxLines: maxLines,
+      ellipsis: overflow == TextOverflow.ellipsis ? '…' : null,
+      textScaleFactor: textScaleFactor,
+    )..layout(maxWidth: maxWidth +(isCartProduct?180:80));
+
+
+    bool isOverflowed = tp.didExceedMaxLines;
+
+
+    // If you DON'T set maxLines, estimate the line count from height.
+    final lineCount = (tp.size.height / tp.preferredLineHeight).ceil();
+
+
+
+    return lineCount >= 2 || isOverflowed;
   }
 
   @override
@@ -105,108 +137,125 @@ class _ProductWidgetState extends State<ProductWidget> {
   );
 
   Widget _getProductWidget() {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 14.w, end: 14.w, top: 14.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // SizedBox(
-          //   height: 12.h,
-          // ),
-          Stack(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // SizedBox(
+        //   height: 12.h,
+        // ),
+        Padding(
+          padding: EdgeInsetsDirectional.only(start: 14.w, top: 14.w),
+          child: Stack(
             children: [
-              _favouriteRow,
-              SizedBox(height: 4.h),
               _productImage,
+              SizedBox(height: 4.h),
+              _favouriteRow,
             ],
           ),
-          SizedBox(height: 5.h),
-          ImageFiltered(
-            imageFilter: SharedPrefModule().userId == null
-                ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
-                : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-            child: _priceRow,
+        ),
+        Padding(
+          padding: EdgeInsetsDirectional.only(start: 14.w, end: 14.w),
+          child: Column(
+            children: [
+              SizedBox(height: 5.h),
+              ImageFiltered(
+                imageFilter: SharedPrefModule().userId == null
+                    ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
+                    : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                child: _priceRow,
+              ),
+              SizedBox(height: 2.h),
+              _productName,
+
+              widget.productMapper.description.isEmpty
+                  ? SizedBox()
+                  : SizedBox(height: 4.h),
+              widget.productMapper.description.isEmpty
+                  ? SizedBox()
+                  : _productDescription,
+              SizedBox(height: 0.h),
+
+              // Center(child: _addCartButton),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: ValueListenableBuilder(
+                  valueListenable: qtyValueNotifier,
+                  builder: (context, value, child) {
+                    return value == 0
+                        ? Center(child: _addCartButton)
+                        : Center(child: _incrementDecrementButton());
+                  },
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 2.h),
-          _productName,
+        ),
 
-          widget.productMapper.description.isEmpty
-              ? SizedBox()
-              : SizedBox(height: 4.h),
-          widget.productMapper.description.isEmpty
-              ? SizedBox()
-              : _productDescription,
-          SizedBox(height: 0.h),
-
-          // Center(child: _addCartButton),
-          Padding(
-            padding: const EdgeInsets.only(top: 5.0),
-            child: ValueListenableBuilder(
-              valueListenable: qtyValueNotifier,
-              builder: (context, value, child) {
-                return value == 0
-                    ? Center(child: _addCartButton)
-                    : Center(child: _incrementDecrementButton());
-              },
-            ),
-          ),
-
-          // SizedBox(
-          //   height: 10.h,
-          // )
-        ],
-      ),
+        // SizedBox(
+        //   height: 10.h,
+        // )
+      ],
     );
   }
 
   _getCartProductWidget() {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(
-        top: 8.h,
-        bottom: 8.h,
-        end: 16.w,
-        start: 16.w,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [Expanded(child: _productName)],
-                      ),
-                      SizedBox(height: 8.h),
-                      widget.productMapper.isAvailable
-                          ? SizedBox()
-                          : _notAvailableProduct(),
-                    ],
-                  ),
-                  _priceRow,
-                ],
-              ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Padding(
+            padding: EdgeInsetsDirectional.only(top: 8.h, start: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [Expanded(child: _productName)],
+                    ),
+                    SizedBox(height: 8.h),
+                    widget.productMapper.isAvailable
+                        ? SizedBox()
+                        : _notAvailableProduct(),
+                  ],
+                ),
+                _priceRow,
+              ],
             ),
           ),
-          Column(
-            children: [
-              _productImage,
-              SizedBox(height: 8.h),
-              _incrementDecrementButton(),
-            ],
-          ),
-        ],
-      ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.only(
+                    top: 10.h,
+                    end: 29.w,
+                    start: 16.w,
+                  ),
+                  child: _productImage,
+                ),
+                // SizedBox(height: 19.h),
+                if (widget.productMapper.discountPercentage > 0)
+                  Positioned(top: 0, left: 0, child: _discountWidget),
+              ],
+            ),
+            SizedBox(height: 8.h),
+            Padding(
+              padding: EdgeInsetsDirectional.only(bottom: 8.h, end: 16.w),
+              child: _incrementDecrementButton(),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -221,7 +270,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
           child: CustomText(
-            text: S.of(context).productIsNotAvailable,
+            text: Loc.of(context)!.productIsNotAvailable,
             customTextStyle: RegularStyle(
               color: lightBlackColor,
               fontSize: 8.sp,
@@ -318,54 +367,122 @@ class _ProductWidgetState extends State<ProductWidget> {
     decoration: BoxDecoration(
       color: redColor,
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(AppProviderModule().locale == 'ar' ? 4.w : 0),
-        bottomLeft: Radius.circular(
-          AppProviderModule().locale == 'ar' ? 4.w : 0,
-        ),
-        bottomRight: Radius.circular(
-          AppProviderModule().locale == 'ar' ? 0 : 4.w,
-        ),
-        topRight: Radius.circular(AppProviderModule().locale == 'ar' ? 0 : 4.w),
+        topLeft: Radius.circular(4.w),
+
+        bottomRight: Radius.circular(4.w),
+        topRight: Radius.circular(4.w),
       ),
     ),
     child: CustomText(
-      text: S
-          .of(context)
-          .discount('${widget.productMapper.discountPercentage}%'),
+      text: discount('${widget.productMapper.discountPercentage}%'),
       customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp),
     ),
   );
+
+  String discount(Object percent) {
+    return '${Loc.of(context)!.discount} $percent';
+  }
 
   Widget get _favouriteIcon => ImageHelper(
     image: widget.productMapper.isFavourite
         ? widget.favouriteIconFilled!
         : widget.favouriteIcon!,
     imageType: ImageType.svg,
+    color: redColor,
     width: 24.w,
     height: 24.h,
-    color: widget.productMapper.isFavourite ? null : secondaryColor,
   );
 
   Widget get _productImage => Center(
-    child: widget.productMapper.image.isEmpty
-        ? SizedBox()
-        : ImageHelper(
-            image: widget.productMapper.image,
-            imageType: ImageType.network,
-            height: widget.isCartProduct ? 50.h : 90.h,
-            width: widget.isCartProduct ? 50.w : 90.w,
-          ),
+    child: ImageHelper(
+      image: widget.productMapper.image,
+      imageType: ImageType.network,
+      height: widget.isCartProduct ? 50.h : 90.h,
+      width: widget.isCartProduct ? 50.w : 90.w,
+    ),
   );
 
   Widget get _productName => SizedBox(
     height: 40,
-    child: CustomText(
-      text: widget.productMapper.name,
-      textAlign: TextAlign.start,
-      customTextStyle: widget.isCartProduct
-          ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
-          : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-      maxLines: 2,
+    child: Row(
+      children: [
+        Expanded(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final String text = widget.productMapper.name;
+              final CustomTextStyleModule style = widget.isCartProduct
+                  ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
+                  : MediumStyle(color: lightBlackColor, fontSize: 12.sp);
+              final double scale = MediaQuery.textScaleFactorOf(context);
+              final int maxLines = 2;
+              final twoOrMore = isTwoLinesOrMore(
+                text: text,
+                style: style.getStyle(),
+                maxWidth: constraints.maxWidth,
+                textScaleFactor: scale,
+                overflow: TextOverflow.ellipsis,
+                maxLines: maxLines,
+                isCartProduct: widget.isCartProduct
+              );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (twoOrMore) {
+                  toolTipVisibility.value = true;
+                } else {
+                  toolTipVisibility.value = false;
+                }
+              });
+
+              return CustomText(
+                text: text,
+                textAlign: TextAlign.start,
+                customTextStyle: style,
+                maxLines: maxLines,
+              );
+            },
+          ),
+        ),
+        SizedBox(width: 5,),
+        ValueListenableBuilder(
+          valueListenable: toolTipVisibility,
+          builder: (context, value, child) {
+            return JustTheTooltip(
+              offset: -40,
+              tailBaseWidth: 0,
+              isModal: true,
+              margin: EdgeInsetsDirectional.fromSTEB(
+                (widget.index % 2 > 0 && widget.isCartProduct == false) ? 10 : 200,
+                0,
+                0,
+                0,
+              ),
+              child: value
+                  ? Material(
+                      color: Color(0xff00457A).withAlpha(25),
+                      shape: CircleBorder(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon
+                          (Icons.remove_red_eye_outlined,
+                          size: 15,
+                          color: Color(0xff00457A),
+                        ),
+                      ),
+                    )
+                  : SizedBox(),
+              content: Container(
+                color: tooltipColor,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 150,
+                    child: Text(widget.productMapper.name),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     ),
   );
 
@@ -412,7 +529,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         return DialogWidget(
           sameButtonsColor: false,
           message: "$message $qty",
-          confirmMessage: S.of(context).ok,
+          confirmMessage: Loc.of(context)!.ok,
           onConfirm: () {},
         );
       },
@@ -420,7 +537,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     // AlertModule().showDialog(
     //   context: context,
     //   message: "$message $qty",
-    //   confirmMessage: S.of(context).ok,
+    //   confirmMessage: Loc.of(context)!.ok,
     //   onConfirm: () {},
     // );
   }
@@ -432,8 +549,8 @@ class _ProductWidgetState extends State<ProductWidget> {
       builder: (context) {
         return DialogWidget(
           message: "$message $qty",
-          confirmMessage: S.of(context).ok,
-          cancelMessage: S.of(context).cancel,
+          confirmMessage: Loc.of(context)!.ok,
+          cancelMessage: Loc.of(context)!.cancel,
           sameButtonsColor: false,
           onCancel: () {},
           onConfirm: () {
@@ -449,8 +566,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     // AlertModule().showDialog(
     //   context: context,
     //   message: "$message $qty",
-    //   confirmMessage: S.of(context).ok,
-    //   cancelMessage: S.of(context).cancel,
+    //   confirmMessage: Loc.of(context)!.ok,
+    //   cancelMessage: Loc.of(context)!.cancel,
     //   onCancel: () {},
     //   onConfirm: () {
     //     qtyValueNotifier.value=0;
@@ -503,7 +620,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   );
                 } else {
                   _showMaximumAlertDialog(
-                    S.of(context).cartMaximumProductsReached,
+                    Loc.of(context)!.cartMaximumProductsReached,
                     widget.productMapper.maxQuantity.round().toString(),
                   );
                 }
@@ -552,7 +669,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                     FirebaseAnalyticsEventsNames.update_cart_quantity,
                   );
                 } else {
-                  _showDeleteAlertDialog(S.of(context).cartDeleteMessage, "");
+                  _showDeleteAlertDialog(
+                    Loc.of(context)!.cartDeleteMessage,
+                    "",
+                  );
                 }
               },
               child: Container(
@@ -621,7 +741,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       ),
       child: Center(
         child: CustomText(
-          text: S.of(context).addToCart,
+          text: Loc.of(context)!.addToCart,
           customTextStyle: RegularStyle(
             color: (SharedPrefModule().userId == null)
                 ? disabledButtonTextColorLightMode

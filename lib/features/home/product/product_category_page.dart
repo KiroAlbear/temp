@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../core/generated/l10n.dart';
-
 class ProductCategoryPage extends BaseStatefulWidget {
   final HomeBloc homeBloc;
   final ContactUsBloc contactUsBloc;
@@ -57,7 +55,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
     widget.homeBloc.selectedOffer = null;
     getIt<MostSellingBloc>().getMostSelling();
     changeSystemNavigationBarColor(secondaryColor);
-    super.onPopInvoked(didPop);
+
+    if (widget.isForFavourite) {
+      Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+    } else {
+      super.onPopInvoked(didPop);
+    }
   }
 
   @override
@@ -92,8 +95,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "product") {
-          widget.productCategoryBloc.getProductById(
-            widget.homeBloc.selectedOffer!.relatedItemId[0],
+          widget.productCategoryBloc.getProductByIdList(
+            widget.homeBloc.selectedOffer!.relatedItemId,
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "brand") {
@@ -161,8 +164,8 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   Widget getBody(BuildContext context) =>
       ((SharedPrefModule().userId ?? '').isEmpty && widget.isForFavourite)
       ? NotLoggedInWidget(
-          title: S.of(context).favourite,
-          image: Assets.svg.imgGuestFavourite,
+          title: Loc.of(context)!.favourite,
+          image: Assets.svg.emptyFavourite,
           imageType: ImageType.svg,
         )
       : Column(
@@ -199,7 +202,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
               title: isNavigatedFromBannersOrOffers()
                   ? " "
                   : widget.isForFavourite
-                  ? S.of(context).favourites
+                  ? Loc.of(context)!.favourites
                   : widget.homeBloc.selectedCategoryText,
             ),
             Expanded(
@@ -263,11 +266,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                             .name ==
                                                                         ProductCategoryPage
                                                                             .filterAllText
-                                                                    ? S
-                                                                          .of(
-                                                                            context,
-                                                                          )
-                                                                          .productsFilterAll
+                                                                    ? Loc.of(
+                                                                        context,
+                                                                      )!.productsFilterAll
                                                                     : snapshot
                                                                           .data!
                                                                           .response![index]
@@ -383,9 +384,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                                                       .name ==
                                                                   ProductCategoryPage
                                                                       .filterAllText
-                                                              ? S
-                                                                    .of(context)
-                                                                    .productsFilterAll
+                                                              ? Loc.of(
+                                                                  context,
+                                                                )!.productsFilterAll
                                                               : snapshot
                                                                     .data!
                                                                     .response![index]
@@ -458,7 +459,6 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                       padding: const EdgeInsets.all(15.0),
                                       child: OfferItem(
                                         isInProductPage: true,
-                                        isMainPage: true,
                                         item: widget.homeBloc.selectedOffer!,
                                         homeBloc: widget.homeBloc,
                                         isClickable: false,
@@ -474,7 +474,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         top: 5,
                                       ),
                                       child: CustomText(
-                                        text: S.of(context).promoItems,
+                                        text: Loc.of(context)!.promoItems,
                                         textAlign: TextAlign.start,
                                         customTextStyle: BoldStyle(
                                           color: secondaryColor,
@@ -486,69 +486,68 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                             ),
                             SliverFillRemaining(
                               hasScrollBody: true,
-                              child: StreamBuilder<ApiState<List<ProductMapper>>>(
-                                stream: widget
-                                    .productCategoryBloc
-                                    .loadedListStream,
-                                initialData: LoadingState(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    if (snapshot.data!.response != null &&
-                                        snapshot.data!.response!.isEmpty) {
-                                      if (widget.isForFavourite) {
-                                        return EmptyFavouriteProducts(
+                              child:
+                                  StreamBuilder<ApiState<List<ProductMapper>>>(
+                                    stream: widget
+                                        .productCategoryBloc
+                                        .loadedListStream,
+                                    initialData: LoadingState(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        if (snapshot.data!.response != null &&
+                                            snapshot.data!.response!.isEmpty) {
+                                          if (widget.isForFavourite) {
+                                            return EmptyFavouriteProducts(
+                                              emptyFavouriteScreen:
+                                                  Assets.svg.emptyFavourite,
+                                            );
+                                          } else {
+                                            return Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                ImageHelper(
+                                                  image: Assets.svg.emptyOffers,
+                                                  imageType: ImageType.svg,
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                        }
+                                      }
+                                      return checkResponseStateWithLoadingWidget(
+                                        onSuccessFunction: () {},
+                                        snapshot.data ??
+                                            LoadingState<List<ProductMapper>>(),
+                                        context,
+                                        onSuccess: ProductListWidget(
+                                          isForFavourite: widget.isForFavourite,
+                                          deleteIcon: Assets.svg.icDelete,
                                           emptyFavouriteScreen:
                                               Assets.svg.emptyFavourite,
-                                        );
-                                      } else {
-                                        return Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          children: [
-                                            ImageHelper(
-                                              image: Assets.svg.icNotFound,
-                                              imageType: ImageType.svg,
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                    }
-                                  }
-                                  return checkResponseStateWithLoadingWidget(
-                                    onSuccessFunction: () {},
-                                    snapshot.data ??
-                                        LoadingState<List<ProductMapper>>(),
-                                    context,
-                                    onSuccess: ProductListWidget(
-                                      isForFavourite: widget.isForFavourite,
-                                      deleteIcon: Assets.svg.icDelete,
-                                      emptyFavouriteScreen:
-                                          Assets.svg.emptyFavourite,
-                                      cartBloc: widget.cartBloc,
-                                      productCategoryBloc:
-                                          widget.productCategoryBloc,
-                                      productList:
-                                          snapshot.data?.response ?? [],
-                                      favouriteIcon: Assets.svg.icFavourite,
-                                      favouriteIconFilled:
-                                          Assets.svg.icFavouriteFilled,
-                                      onTapFavourite:
-                                          (favourite, productMapper) {},
-                                      loadMore: (Function func) {
-                                        if (widget.isForFavourite)
-                                          widget.productCategoryBloc.loadMore(
-                                            true,
-                                            func,
-                                          );
-                                        else
-                                          _loadProducts(false, func);
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
+                                          cartBloc: widget.cartBloc,
+                                          productCategoryBloc:
+                                              widget.productCategoryBloc,
+                                          productList:
+                                              snapshot.data?.response ?? [],
+                                          favouriteIcon: Assets.svg.icFavourite,
+                                          favouriteIconFilled:
+                                              Assets.svg.icFavouriteFilled,
+                                          onTapFavourite:
+                                              (favourite, productMapper) {},
+                                          loadMore: (Function func) {
+                                            if (widget.isForFavourite)
+                                              widget.productCategoryBloc
+                                                  .loadMore(true, func);
+                                            else
+                                              _loadProducts(false, func);
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
                             ),
                           ],
                         ),

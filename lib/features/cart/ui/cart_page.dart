@@ -3,7 +3,6 @@ import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
-import '../../../core/generated/l10n.dart';
 
 class CartPage extends BaseStatefulWidget {
   final CartBloc cartBloc;
@@ -39,6 +38,12 @@ class _CartScreenState extends BaseState<CartPage> {
   Color? systemNavigationBarColor() => secondaryColor;
 
   @override
+  void onPopInvoked(didPop) {
+    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+    // super.onPopInvoked(didPop);
+  }
+
+  @override
   void initState() {
     widget.cartBloc.getMyCart();
     super.initState();
@@ -48,14 +53,14 @@ class _CartScreenState extends BaseState<CartPage> {
   Widget getBody(BuildContext context) {
     return (SharedPrefModule().userId ?? '').isEmpty
         ? NotLoggedInWidget(
-            title: S.of(context).cartTitle,
+            title: Loc.of(context)!.cartTitle,
             image: Assets.png.icGuestCart.path,
             imageType: ImageType.asset,
           )
         : Column(
             children: [
               AppTopWidget(
-                title: S.of(context).cartTitle,
+                title: Loc.of(context)!.cartTitle,
                 isHavingSupport: true,
               ),
               Expanded(
@@ -186,7 +191,7 @@ class _CartScreenState extends BaseState<CartPage> {
               stream: widget.cartBloc.cartTotalBeforeDiscountBehaviour.stream,
               builder: (context, snapshot) {
                 return _bottomCalculationsWidget(
-                  "إجمالي قبل الخصم",
+                  Loc.of(context)!.totalBeforeDiscount,
                   snapshot.data ?? '',
                 );
                 CustomText(
@@ -205,7 +210,7 @@ class _CartScreenState extends BaseState<CartPage> {
                 return (snapshot.hasData == false || snapshot.data == "")
                     ? SizedBox()
                     : _bottomCalculationsWidget(
-                        "إجمالي الخصم",
+                        Loc.of(context)!.totalDiscount,
                         snapshot.data ?? '',
                         color: redColor,
                       );
@@ -223,7 +228,7 @@ class _CartScreenState extends BaseState<CartPage> {
               stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
               builder: (context, snapshot) {
                 return _bottomCalculationsWidget(
-                  "مصاريف التوصيل",
+                  Loc.of(context)!.deliveryFees,
                   snapshot.data ?? '',
                 );
                 CustomText(
@@ -240,7 +245,10 @@ class _CartScreenState extends BaseState<CartPage> {
             StreamBuilder(
               stream: widget.cartBloc.cartTotalAfterDiscountBehaviour.stream,
               builder: (context, snapshot) {
-                return _bottomTotalWidget("إجمالي", snapshot.data ?? '');
+                return _bottomTotalWidget(
+                  Loc.of(context)!.total,
+                  snapshot.data ?? '',
+                );
                 CustomText(
                   text: snapshot.data ?? '',
                   textAlign: TextAlign.start,
@@ -256,7 +264,7 @@ class _CartScreenState extends BaseState<CartPage> {
               width: 200.w,
               height: 48.h,
               borderRadius: 8,
-              idleText: S.of(context).next,
+              idleText: Loc.of(context)!.next,
               textStyle: MediumStyle(
                 color: secondaryColor,
                 fontSize: 16.sp,
@@ -267,12 +275,12 @@ class _CartScreenState extends BaseState<CartPage> {
                   AlertModule().showMessage(
                     context: context,
                     message:
-                        "${S.of(context).cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
+                        "${Loc.of(context)!.cartMinimumOrder} ${widget.cartBloc.cartMinimumOrderBehaviour.value} ${widget.cartBloc.cartMinimumOrderCurrencyBehaviour.value}.",
                   );
                 } else if (widget.cartBloc.isAnyProductOutOfStock) {
                   AlertModule().showMessage(
                     context: context,
-                    message: S.of(context).cartProductsNotAvailable,
+                    message: Loc.of(context)!.cartProductsNotAvailable,
                   );
                 } else if (widget
                     .cartBloc
@@ -281,7 +289,7 @@ class _CartScreenState extends BaseState<CartPage> {
                   AlertModule().showMessage(
                     context: context,
                     message:
-                        "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${S.of(context).cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
+                        "${widget.cartBloc.productsOfMoreThanAvailable.first.name} ${Loc.of(context)!.cartProductQuantityNotAvailable} ${widget.cartBloc.productsOfMoreThanAvailable.first.quantity}.",
                   );
                 } else {
                   showModalBottomSheet(
@@ -318,6 +326,7 @@ class _CartScreenState extends BaseState<CartPage> {
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
+                      index: index,
                       icDelete: Assets.svg.icDelete,
                       productMapper: snapshot.data!.response!.getFirst[index],
                       productCategoryBloc: widget.productCategoryBloc,
@@ -423,7 +432,7 @@ class _CartScreenState extends BaseState<CartPage> {
         children: [
           // 14.verticalSpace,
           CustomText(
-            text: S.of(context).cartProductDetails,
+            text: Loc.of(context)!.cartProductDetails,
             customTextStyle: BoldStyle(color: secondaryColor, fontSize: 18.sp),
           ),
           10.verticalSpace,
@@ -443,7 +452,7 @@ class _CartScreenState extends BaseState<CartPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomText(
-                              text: "${S.of(context).cartMinimumOrder} ",
+                              text: "${Loc.of(context)!.cartMinimumOrder} ",
                               textAlign: TextAlign.center,
                               customTextStyle: RegularStyle(
                                 color: whiteColor,

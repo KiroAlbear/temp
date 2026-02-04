@@ -1,0 +1,21 @@
+android {
+    flavorDimensions += "flavor-type"
+
+    productFlavors {
+        app_live {
+            dimension "flavor-type"
+            applicationId "com.icons.deelexpress"
+            resValue "string", "app_name", "Deely"
+        }
+        app_stage {
+            dimension "flavor-type"
+            applicationId "com.icons.deelexpress"
+            resValue "string", "app_name", "Deely stage"
+        }
+        app_test {
+            dimension "flavor-type"
+            applicationId "com.icons.deelexpress"
+            resValue "string", "app_name", "Deely test"
+        }
+    }
+}

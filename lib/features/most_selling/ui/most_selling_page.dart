@@ -5,19 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../core/generated/l10n.dart';
 import '../bloc/most_selling_bloc.dart';
 
 class MostSellingPage extends BaseStatefulWidget {
-  MostSellingPage({
-    super.key,
-  });
+  MostSellingPage({super.key});
 
   @override
-  State<MostSellingPage> createState() => _ProductCategoryWidgetState();
+  State<MostSellingPage> createState() => _MostSellingPageState();
 }
 
-class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
+class _MostSellingPageState extends BaseState<MostSellingPage> {
   final double filterHorizontalPadding = 15.h;
 
   @override
@@ -56,36 +53,37 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
     super.dispose();
   }
 
-
   @override
   Widget getBody(BuildContext context) => Column(
-          children: [
-            AppTopWidget(
-              isHavingSupport: true,
-              onBackPressed: () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                } else {
-                  Routes.navigateToScreen(
-                    Routes.homePage,
-                    NavigationType.goNamed,
-                    context,
-                  );
-                }
-              },
-              isHavingBack:
-                  true,
-              title: "الأكثر طلبا",
+    children: [
+      AppTopWidget(
+        isHavingSupport: true,
+        onBackPressed: () {
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          } else {
+            Routes.navigateToScreen(
+              Routes.homePage,
+              NavigationType.goNamed,
+              context,
+            );
+          }
+        },
+        isHavingBack: true,
+        title: Loc.of(context)!.mostSelling,
+      ),
+      Expanded(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: true,
+              child: _mostSellingProducts(),
             ),
-            Expanded(
-              child: CustomScrollView(slivers: [
-                SliverFillRemaining(
-                    hasScrollBody: true,
-                    child: _mostSellingProducts())
-              ]),
-            )
           ],
-        );
+        ),
+      ),
+    ],
+  );
 
   Widget _mostSellingProducts() {
     return StreamBuilder<ApiState<List<ProductMapper>>>(
@@ -120,6 +118,7 @@ class _ProductCategoryWidgetState extends BaseState<MostSellingPage> {
       },
     );
   }
+
   void _loadProducts() {
     getIt<MostSellingBloc>().loadMoreMostSelling();
   }

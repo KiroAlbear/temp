@@ -1,11 +1,7 @@
 import 'package:deel/core/dto/modules/shared_pref_module.dart';
 import 'package:deel/deel.dart';
 
-import '../../generated/l10n.dart';
-
-
 abstract class DioModule extends DioBuilder {
-
   late RequestOptions _options;
 
   void init() {
@@ -15,7 +11,7 @@ abstract class DioModule extends DioBuilder {
     setMaxRedirects(0);
     setDefaultTimeOut(30);
     // Configure logging based on the environment
-    if (ConstantModule.isLive) {
+    if (F.name == Flavor.app_live) {
       addLogger(allowChucker: true, printLog: false);
     } else {
       addLogger(allowChucker: true, printLog: true);
@@ -23,7 +19,9 @@ abstract class DioModule extends DioBuilder {
 
     initialize();
     LoggerModule.log(
-        message: 'DioModule.internal', name: runtimeType.toString());
+      message: 'DioModule.internal',
+      name: runtimeType.toString(),
+    );
   }
 
   // Remove custom headers from Dio instance
@@ -37,8 +35,7 @@ abstract class DioModule extends DioBuilder {
   void setAppHeaders({String? customToken}) {
     Map<String, dynamic> header = {};
     if (SharedPrefModule().bearerToken != null || customToken != null) {
-      header.putIfAbsent(
-          'token', () => _getBearerToken(customToken));
+      header.putIfAbsent('token', () => _getBearerToken(customToken));
     }
     setHeaders(header);
     initialize();
@@ -52,51 +49,80 @@ abstract class DioModule extends DioBuilder {
   @override
   handleOnError(DioException dioException, ErrorInterceptorHandler handler) {
     LoggerModule.log(
-        message: 'error in api:',
-        name: runtimeType.toString(),
-        error: dioException,
-        stackTrace: dioException.stackTrace);
+      message: 'error in api:',
+      name: runtimeType.toString(),
+      error: dioException,
+      stackTrace: dioException.stackTrace,
+    );
     switch (dioException.response?.statusCode) {
       case 401:
-        handler.next(DioException(
+        handler.next(
+          DioException(
             requestOptions: _options,
             message: UnAuthorizedException().toString(),
-            response: dioException.response));
+            response: dioException.response,
+          ),
+        );
       case -1:
-        handler.next(DioException(
+        handler.next(
+          DioException(
             requestOptions: _options,
-            message: NoInternetDioException().toString()));
+            message: NoInternetDioException().toString(),
+          ),
+        );
       case 0:
-        handler.next(DioException(
+        handler.next(
+          DioException(
             requestOptions: _options,
-            message: NoInternetDioException().toString()));
+            message: NoInternetDioException().toString(),
+          ),
+        );
       case 3:
-        handler.next(DioException(
+        handler.next(
+          DioException(
             requestOptions: _options,
-            message: NoInternetDioException().toString()));
+            message: NoInternetDioException().toString(),
+          ),
+        );
       case -6:
-        handler.next(DioException(
+        handler.next(
+          DioException(
             requestOptions: _options,
-            error: NoInternetDioException().toString()));
+            error: NoInternetDioException().toString(),
+          ),
+        );
       case -3:
-        handler.next(DioException(
+        handler.next(
+          DioException(
             requestOptions: _options,
-            message: NoInternetDioException().toString()));
+            message: NoInternetDioException().toString(),
+          ),
+        );
       default:
         try {
           final HeaderResponse headerResponse = HeaderResponse.fromJson(
-              dioException.response?.data, (json) => null);
-          handler.next(DioException(
+            dioException.response?.data,
+            (json) => null,
+          );
+          handler.next(
+            DioException(
               requestOptions: _options,
               message: CustomDioException().toString(),
               type: DioExceptionType.badResponse,
-              error: headerResponse.message ?? ''));
+              error: headerResponse.message ?? '',
+            ),
+          );
         } catch (e, stackTrace) {
-          handler.next(DioException(
+          handler.next(
+            DioException(
               requestOptions: _options,
               message: CustomDioException().toString(),
               type: DioExceptionType.badResponse,
-              error: dioException.error ?? S.current.generalError));
+              error:
+                  dioException.error ??
+                  Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
+            ),
+          );
         }
     }
   }
@@ -112,29 +138,44 @@ abstract class DioModule extends DioBuilder {
   // Intercept the response and handle success and failure scenarios
   @override
   handleOnResponse(
-      Response<dynamic> response, ResponseInterceptorHandler handler) {
+    Response<dynamic> response,
+    ResponseInterceptorHandler handler,
+  ) {
     _logApiRequestAndResponse(response);
     if (response.data == null) {
       throw DioException.badResponse(
-          statusCode: 500, requestOptions: _options, response: response);
+        statusCode: 500,
+        requestOptions: _options,
+        response: response,
+      );
     } else {
-      try{
-        final HeaderResponse headerResponse =
-        HeaderResponse.fromJson(response.data, (json) => null);
+      try {
+        final HeaderResponse headerResponse = HeaderResponse.fromJson(
+          response.data,
+          (json) => null,
+        );
         if (headerResponse.status! == 200) {
           return handler.next(response);
         } else {
           throw DioException.badResponse(
-              statusCode: 405, requestOptions: _options, response: response);
+            statusCode: 405,
+            requestOptions: _options,
+            response: response,
+          );
         }
-      }catch(e){
-        final AdminHeaderResponse headerResponse =
-        AdminHeaderResponse.fromJson(response.data, (json) => null);
-        if ((headerResponse.isSuccess?? false) == true) {
+      } catch (e) {
+        final AdminHeaderResponse headerResponse = AdminHeaderResponse.fromJson(
+          response.data,
+          (json) => null,
+        );
+        if ((headerResponse.isSuccess ?? false) == true) {
           return handler.next(response);
         } else {
           throw DioException.badResponse(
-              statusCode: 405, requestOptions: _options, response: response);
+            statusCode: 405,
+            requestOptions: _options,
+            response: response,
+          );
         }
       }
     }
@@ -142,13 +183,15 @@ abstract class DioModule extends DioBuilder {
 
   void _logApiRequestAndResponse(Response<dynamic> response) {
     LoggerModule.log(
-        message: 'api log:'
-            'api url: ${_options.path}\n'
-            'body: ${_options.data.toString()}\n'
-            'header: ${_options.headers.toString()}\n'
-            'query: ${_options.queryParameters.toString()}'
-            'response: ${response.toString()}',
-        name: runtimeType.toString());
+      message:
+          'api log:'
+          'api url: ${_options.path}\n'
+          'body: ${_options.data.toString()}\n'
+          'header: ${_options.headers.toString()}\n'
+          'query: ${_options.queryParameters.toString()}'
+          'response: ${response.toString()}',
+      name: runtimeType.toString(),
+    );
   }
 }
 

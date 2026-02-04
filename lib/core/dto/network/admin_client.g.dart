@@ -20,6 +20,43 @@ class _AdminClient implements AdminClient {
   final ParseErrorLogger? errorLogger;
 
   @override
+  Future<AdminHeaderResponse<RecommendedItemsResponseModel>>
+  getRecommendedItems(RecommendedItemsRequestModel requestModel) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestModel.toJson());
+    final _options =
+        _setStreamType<AdminHeaderResponse<RecommendedItemsResponseModel>>(
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'RecommendedItem/GetListForPublic',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late AdminHeaderResponse<RecommendedItemsResponseModel> _value;
+    try {
+      _value = AdminHeaderResponse<RecommendedItemsResponseModel>.fromJson(
+        _result.data!,
+        (json) => RecommendedItemsResponseModel.fromJson(
+          json as Map<String, dynamic>,
+        ),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<AdminHeaderResponse<MostSellingResponseModel>> getMostSelling(
     MostSellingRequestModel requestModel,
   ) async {

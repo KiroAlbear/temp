@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../../../core/Utils/firebase_analytics_utl.dart';
 
 class RegisterPage extends BaseStatefulWidget {
@@ -56,147 +55,168 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
-      isHavingBackArrow: true,
-      logo: Assets.svg.logoYellow,
-      blocBase: _bloc,
-      child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: CustomText(
-                    text: S.of(context).registerNewAccount,
-                    customTextStyle:
-                        BoldStyle(color: secondaryColor, fontSize: 28.sp)),
+    isHavingBackArrow: true,
+    logo: Assets.svg.logoYellow,
+    blocBase: _bloc,
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: CustomText(
+              text: Loc.of(context)!.registerNewAccount,
+              customTextStyle: BoldStyle(
+                color: secondaryColor,
+                fontSize: 28.sp,
               ),
-              SizedBox(
-                height: 30.h,
+            ),
+          ),
+          SizedBox(height: 30.h),
+          CustomText(
+            text: Loc.of(context)!.yourMobile,
+            customTextStyle: MediumStyle(
+              fontSize: 16.sp,
+              color: secondaryColor,
+            ),
+          ),
+          SizedBox(height: 12.h),
+          _countryStream,
+          SizedBox(height: 200.h),
+          Center(
+            child: CustomText(
+              text: Loc.of(context)!.registerMessageOtp,
+              customTextStyle: RegularStyle(
+                color: lightBlackColor,
+                fontSize: 14.sp,
               ),
-              CustomText(
-                  text: S.of(context).yourMobile,
-                  customTextStyle:
-                      MediumStyle(fontSize: 16.sp, color: secondaryColor)),
-              SizedBox(
-                height: 12.h,
-              ),
-              _countryStream,
-              SizedBox(
-                height: 200.h,
-              ),
-              Center(
-                child: CustomText(
-                    text: S.of(context).registerMessageOtp,
-                    customTextStyle:
-                        RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              _button,
-              SizedBox(
-                height: 20.h,
-              ),
-              _loginWidget,
-            ],
-          )));
+            ),
+          ),
+          SizedBox(height: 20.h),
+          _button,
+          SizedBox(height: 20.h),
+          _loginWidget,
+        ],
+      ),
+    ),
+  );
 
   Widget get _countryStream => StreamBuilder(
-        stream: _bloc.countryStream,
-        builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
-            snapshot.data!, context,
-            onSuccess: MobileCountryWidget(
-                mobileBloc: _bloc.mobileBloc,
-                countryList: snapshot.data?.response ?? [],
-                countryBloc: _bloc.countryBloc)),
-      );
+    stream: _bloc.countryStream,
+    builder: (context, snapshot) => checkResponseStateWithLoadingWidget(
+      snapshot.data!,
+      context,
+      onSuccess: MobileCountryWidget(
+        mobileBloc: _bloc.mobileBloc,
+        countryList: snapshot.data?.response ?? [],
+        countryBloc: _bloc.countryBloc,
+      ),
+    ),
+  );
 
   void onlyForTestingCode() {
-    widget.authenticationSharedBloc.setDataToAuth(_bloc.countryBloc.value!,
-        _bloc.mobileBloc.value, AppScreenEnum.newAccount.name);
-    Routes.navigateToScreen(Routes.otpPage, NavigationType.pushNamed, context,
-        queryParameters: {OtpPage.nextPageKey: Routes.newAccountPage});
+    widget.authenticationSharedBloc.setDataToAuth(
+      _bloc.countryBloc.value!,
+      _bloc.mobileBloc.value,
+      AppScreenEnum.newAccount.name,
+    );
+    Routes.navigateToScreen(
+      Routes.otpPage,
+      NavigationType.pushNamed,
+      context,
+      queryParameters: {OtpPage.nextPageKey: Routes.newAccountPage},
+    );
     // CustomNavigatorModule.navigatorKey.currentState
     //     ?.pushNamed(AppScreenEnum.otp.name);
   }
 
   Widget get _button => Center(
-        child: CustomButtonWidget(
-          idleText: S.of(context).next,
-          onTap: () {
-            if (_bloc.isValid) {
-              _bloc.checkPhone.listen((event) {
-                //TODO: this code is commented only for temp use, revert it when go to production
-                // if (kDebugMode) {
-                //   if (event is SuccessState) onlyForTestingCode();
-                // } else
-                {
-                  checkResponseStateWithButton(
-                    event,
-                    context,
-                    failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                    buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                    onSuccess: () {
-                      _otpBloc
-                          .sendOtp(
-                              "${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value.replaceRange(0, 1, "")}",
-                              S.of(context).otpPhoneIsNotValid)
-                          .then(
-                        (value) {
-                          checkResponseStateWithButton(value, context,
-                              failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                              buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                              headerErrorMessage: S
-                                  .of(context)
-                                  .otpPhoneIsNotValid, onSuccess: () {
+    child: CustomButtonWidget(
+      idleText: Loc.of(context)!.next,
+      onTap: () {
+        if (_bloc.isValid) {
+          _bloc.checkPhone.listen((event) {
+            if (F.appFlavor == Flavor.app_test) {
+              if (event is SuccessState) onlyForTestingCode();
+            } else
+            {
+              checkResponseStateWithButton(
+                event,
+                context,
+                failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                onSuccess: () {
+                  _otpBloc
+                      .sendOtp(
+                        "${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value.replaceRange(0, 1, "")}",
+                        Loc.of(context)!.otpPhoneIsNotValid,
+                      )
+                      .then((value) {
+                        checkResponseStateWithButton(
+                          value,
+                          context,
+                          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                          headerErrorMessage: Loc.of(
+                            context,
+                          )!.otpPhoneIsNotValid,
+                          onSuccess: () {
                             widget.authenticationSharedBloc.setDataToAuth(
-                                _bloc.countryBloc.value!,
-                                _bloc.mobileBloc.value,
-                                AppScreenEnum.newAccount.name);
-                            Routes.navigateToScreen(Routes.otpPage,
-                                NavigationType.pushNamed, context,
-                                queryParameters: {
-                                  OtpPage.nextPageKey: Routes.newAccountPage
-                                });
+                              _bloc.countryBloc.value!,
+                              _bloc.mobileBloc.value,
+                              AppScreenEnum.newAccount.name,
+                            );
+                            Routes.navigateToScreen(
+                              Routes.otpPage,
+                              NavigationType.pushNamed,
+                              context,
+                              queryParameters: {
+                                OtpPage.nextPageKey: Routes.newAccountPage,
+                              },
+                            );
                             // CustomNavigatorModule.navigatorKey.currentState
                             //     ?.pushNamed(AppScreenEnum.otp.name);
-                          });
-                        },
-                      );
-                    },
-                  );
-                }
-              });
+                          },
+                        );
+                      });
+                },
+              );
             }
-          },
-          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-          validateStream: _bloc.validate,
-        ),
-      );
+          });
+        }
+      },
+      buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+      failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+      validateStream: _bloc.validate,
+    ),
+  );
 
   Widget get _loginWidget => InkWell(
-        onTap: () => Routes.navigateToScreen(
-            Routes.loginPage, NavigationType.pushNamed, context),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomText(
-                  text: S.of(context).haveAccount,
-                  customTextStyle:
-                      RegularStyle(fontSize: 16.sp, color: secondaryColor)),
-              SizedBox(
-                width: 5.w,
-              ),
-              CustomText(
-                  text: S.of(context).login,
-                  customTextStyle:
-                      BoldStyle(color: secondaryColor, fontSize: 16.sp)),
-            ],
+    onTap: () => Routes.navigateToScreen(
+      Routes.loginPage,
+      NavigationType.pushNamed,
+      context,
+    ),
+    child: Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomText(
+            text: Loc.of(context)!.haveAccount,
+            customTextStyle: RegularStyle(
+              fontSize: 16.sp,
+              color: secondaryColor,
+            ),
           ),
-        ),
-      );
+          SizedBox(width: 5.w),
+          CustomText(
+            text: Loc.of(context)!.login,
+            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 16.sp),
+          ),
+        ],
+      ),
+    ),
+  );
 }

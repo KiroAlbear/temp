@@ -36,7 +36,7 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
               // selectedFileBehaviour.sink.add(selectedFileBehaviour.value);
               // getProfileData();
             } else if (event is FailedState) {
-              showErrorDialog("failed", context);
+              showErrorDialog(Loc.of(context)!.failed, context);
               selectedFileBehaviour.sink.add('');
               print("********* Failed to upload image");
             }

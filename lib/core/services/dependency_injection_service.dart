@@ -1,6 +1,7 @@
 import 'package:deel/deel.dart';
 import 'package:deel/features/announcements/bloc/announcements_bloc.dart';
 import 'package:deel/features/most_selling/bloc/most_selling_bloc.dart';
+import 'package:deel/features/recommended_items/bloc/recommended_items_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -26,6 +27,7 @@ class DependencyInjectionService {
     getIt.registerSingleton<BottomNavigationBloc>(BottomNavigationBloc());
     getIt.registerSingleton<NewAccountBloc>(NewAccountBloc());
     getIt.registerSingleton<MostSellingBloc>(MostSellingBloc());
+    getIt.registerSingleton<RecommendedItemsBloc>(RecommendedItemsBloc());
 
     getIt.registerSingleton<HomeBloc>(
       HomeBloc(

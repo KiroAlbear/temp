@@ -4,10 +4,11 @@ import 'package:deel/features/announcements/bloc/announcements_bloc.dart'
 import 'package:deel/features/announcements/ui/announcements_dialog_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../dto/enums/app_screen_enum.dart';
 import '../dto/modules/alert_module.dart';
-import '../generated/l10n.dart';
 
 class Apputils {
   static Future<void> showNeedToLoginBottomSheet(BuildContext context) async {
@@ -16,8 +17,8 @@ class Apputils {
       useRootNavigator: true,
       builder: (context) {
         return DialogWidget(
-          message: S.of(context).youNeedToLoginToUseApp,
-          confirmMessage: S.of(context).ok,
+          message: Loc.of(context)!.youNeedToLoginToUseApp,
+          confirmMessage: Loc.of(context)!.ok,
           sameButtonsColor: false,
           onConfirm: () {
             Routes.navigateToScreen(
@@ -26,7 +27,7 @@ class Apputils {
               context,
             );
           },
-          cancelMessage: S.of(context).cancel,
+          cancelMessage: Loc.of(context)!.cancel,
         );
       },
     );
@@ -72,7 +73,7 @@ class Apputils {
     return true; // equal
   }
 
-  static Future<void> updateAndRestartApp(BuildContext context) async {
+  static Future<void> updateAndRestartApp() async {
     final shorebirdCodePush = ShorebirdUpdater();
     // Check for updates and prompt the user to restart if one is available.
     final UpdateStatus status = await shorebirdCodePush.checkForUpdate();
@@ -84,45 +85,45 @@ class Apputils {
       try {
         await shorebirdCodePush.update();
 
-        await showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('التحديث جاهز'),
-              content: const Text(
-                "تم تنزيل التحديث وسيتم تطبيقه عند إعادة تشغيل التطبيق. يرجى إعادة تشغيل التطبيق لتطبيق التحديث.",
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('موافق'),
-                ),
-              ],
-            );
-          },
-        );
+        // await showDialog(
+        //   context: context,
+        //   barrierDismissible: false,
+        //   builder: (context) {
+        //     return AlertDialog(
+        //       title: const Text('التحديث جاهز'),
+        //       content: const Text(
+        //         "تم تنزيل التحديث وسيتم تطبيقه عند إعادة تشغيل التطبيق. يرجى إعادة تشغيل التطبيق لتطبيق التحديث.",
+        //       ),
+        //       actions: [
+        //         TextButton(
+        //           onPressed: () async {
+        //             Navigator.of(context).pop();
+        //           },
+        //           child: const Text('موافق'),
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // );
       } catch (e) {
-        LoggerModule.log(message: "${e.toString()}", name: "Update Error");
-        await showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Update Error'),
-              content: Text('${e.toString()}'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
+        // LoggerModule.log(message: "${e.toString()}", name: "Update Error");
+        // await showDialog(
+        //   context: context,
+        //   builder: (context) {
+        //     return AlertDialog(
+        //       title: Text('Update Error'),
+        //       content: Text('${e.toString()}'),
+        //       actions: [
+        //         TextButton(
+        //           onPressed: () {
+        //             Navigator.of(context).pop();
+        //           },
+        //           child: const Text('OK'),
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // );
       }
 
       // Optionally, notify the user that an update is ready and they should restart.

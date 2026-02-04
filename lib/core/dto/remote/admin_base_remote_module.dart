@@ -5,7 +5,6 @@ import 'package:deel/deel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../generated/l10n.dart';
 import '../models/baseModules/admin_header_response.dart';
 import '../models/baseModules/api_state.dart';
 import '../modules/constants_module.dart';
@@ -55,10 +54,11 @@ abstract class AdminBaseRemoteModule<T, K> {
       }
     } on SocketException catch (e, stackTrace) {
       LoggerModule.log(
-          message: e.toString(),
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: stackTrace);
+        message: e.toString(),
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -95,24 +95,28 @@ abstract class AdminBaseRemoteModule<T, K> {
         yield await _apiFuture.then((value) {
           // Handle the API response
           LoggerModule.log(
-              message: 'callApiAsStream', name: runtimeType.toString());
+            message: 'callApiAsStream',
+            name: runtimeType.toString(),
+          );
 
-          if ((value.isSuccess?? false) == true) {
+          if ((value.isSuccess ?? false) == true) {
             headerResponse = value;
             return onSuccessHandle(value.data); // Handle success
           } else {
             return FailedState(
-                message: value.message ?? '',
-                loggerName: runtimeType.toString());
+              message: value.message ?? '',
+              loggerName: runtimeType.toString(),
+            );
           }
         });
       }
     } catch (e, stackTrace) {
       LoggerModule.log(
-          message: 'error in api:',
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: stackTrace);
+        message: 'error in api:',
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: stackTrace,
+      );
       yield (await _handleOnError(e));
     }
   }
@@ -131,21 +135,23 @@ abstract class AdminBaseRemoteModule<T, K> {
         return NoInternetState();
       } else {
         return await _apiFuture.then((value) {
-          if ((value.isSuccess?? false) == true) {
+          if ((value.isSuccess ?? false) == true) {
             return onSuccessHandle(value.data); // Handle success
           } else {
             return FailedState(
-                message: value.message ?? '',
-                loggerName: runtimeType.toString());
+              message: value.message ?? '',
+              loggerName: runtimeType.toString(),
+            );
           }
         });
       }
     } catch (e, stackTrace) {
       LoggerModule.log(
-          message: 'error in api:',
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: stackTrace);
+        message: 'error in api:',
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: stackTrace,
+      );
       return (await _handleOnError(e));
     }
   }
@@ -161,7 +167,9 @@ abstract class AdminBaseRemoteModule<T, K> {
           return LoadingState();
         } else {
           return FailedState(
-            message: e.response?.data['errors'][0] ?? S.current.generalError,
+            message:
+                e.response?.data['errors'][0] ??
+                Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
             loggerName: runtimeType.toString(),
           );
         }
@@ -169,32 +177,37 @@ abstract class AdminBaseRemoteModule<T, K> {
         return NoInternetState(); // No internet connectivity
       } else if (e.message == CustomDioException().toString()) {
         return FailedState(
-            message: e.error.toString(),
-            loggerName: runtimeType.toString()); // Custom Dio exception
+          message: e.error.toString(),
+          loggerName: runtimeType.toString(),
+        ); // Custom Dio exception
       } else {
         // Other exceptions
         LoggerModule.log(
-            message: e.message ?? '',
-            name: runtimeType.toString(),
-            error: e,
-            stackTrace: e.stackTrace);
-        return ErrorState(
-            message: e.message ?? '', loggerName: runtimeType.toString());
+          message: e.message ?? '',
+          name: runtimeType.toString(),
+          error: e,
+          stackTrace: e.stackTrace,
+        );
+        return FailedState(
+          message: e.message ?? '',
+          loggerName: runtimeType.toString(),
+        );
       }
     } else if (e is CheckedFromJsonException) {
       // Exception related to JSON deserialization
       LoggerModule.log(
-          message: e.message ?? '',
-          name: runtimeType.toString(),
-          error: e,
-          stackTrace: e.innerStack);
+        message: e.message ?? '',
+        name: runtimeType.toString(),
+        error: e,
+        stackTrace: e.innerStack,
+      );
       return FailedState(
-        message: S.current.generalError,
+        message: Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
         loggerName: runtimeType.toString(),
       );
     } else {
       return FailedState(
-        message: S.current.generalError,
+        message: Loc.of(Routes.rootNavigatorKey.currentContext!)!.generalError,
         loggerName: runtimeType.toString(),
       );
     }

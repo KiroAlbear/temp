@@ -5,43 +5,63 @@ import '../enums/shared_pref_enum.dart';
 class SharedPrefModule {
   final SimpleSharedPref _sharedPref = SimpleSharedPref();
 
+  bool? get isLoggedIn =>
+      ((_sharedPref.getValue<String?>(
+            key: _sharedKey(SharedPRefEnum.bearerToken),
+          ) ??
+          '') !=
+      '');
+
   double get userLat =>
       _sharedPref.getValue<double>(key: _sharedKey(SharedPRefEnum.userLat)) ??
       0;
 
   set userLat(double value) => _sharedPref.setValue<double>(
-      key: _sharedKey(SharedPRefEnum.userLat), value: value);
+    key: _sharedKey(SharedPRefEnum.userLat),
+    value: value,
+  );
 
   double get userLong =>
       _sharedPref.getValue<double>(key: _sharedKey(SharedPRefEnum.userLong)) ??
       0;
 
   set userLong(double value) => _sharedPref.setValue<double>(
-      key: _sharedKey(SharedPRefEnum.userLong), value: value);
+    key: _sharedKey(SharedPRefEnum.userLong),
+    value: value,
+  );
 
   String get apiSelectedLanguageCode =>
       _sharedPref.getValue<String>(
-          key: _sharedKey(SharedPRefEnum.apiSelectedLanguage)) ??
+        key: _sharedKey(SharedPRefEnum.apiSelectedLanguage),
+      ) ??
       'ar';
 
   set apiSelectedLanguageCode(String value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.apiSelectedLanguage), value: value);
+    key: _sharedKey(SharedPRefEnum.apiSelectedLanguage),
+    value: value,
+  );
 
   String get apiARLanguageCode =>
       _sharedPref.getValue<String>(
-          key: _sharedKey(SharedPRefEnum.apiARLanguage)) ??
+        key: _sharedKey(SharedPRefEnum.apiARLanguage),
+      ) ??
       'ar';
 
   set apiARLanguageCode(String value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.apiARLanguage), value: value);
+    key: _sharedKey(SharedPRefEnum.apiARLanguage),
+    value: value,
+  );
 
   String get apiENLanguageCode =>
       _sharedPref.getValue<String>(
-          key: _sharedKey(SharedPRefEnum.apiENLanguage)) ??
+        key: _sharedKey(SharedPRefEnum.apiENLanguage),
+      ) ??
       'en';
 
   set apiENLanguageCode(String value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.apiENLanguage), value: value);
+    key: _sharedKey(SharedPRefEnum.apiENLanguage),
+    value: value,
+  );
 
   /// locale
   String get locale =>
@@ -49,7 +69,9 @@ class SharedPrefModule {
       'en';
 
   set locale(String value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.locale), value: value);
+    key: _sharedKey(SharedPRefEnum.locale),
+    value: value,
+  );
 
   /// language
   String get language =>
@@ -57,73 +79,103 @@ class SharedPrefModule {
       'ar';
 
   set language(String value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.language), value: value);
+    key: _sharedKey(SharedPRefEnum.language),
+    value: value,
+  );
 
   String get userAddressText =>
       _sharedPref.getValue<String>(
-          key: _sharedKey(SharedPRefEnum.userAddress)) ??
+        key: _sharedKey(SharedPRefEnum.userAddress),
+      ) ??
       '';
 
   set userAddressText(String value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.userAddress), value: value);
+    key: _sharedKey(SharedPRefEnum.userAddress),
+    value: value,
+  );
 
   String get shopName =>
       _sharedPref.getValue<String>(
-          key: _sharedKey(SharedPRefEnum.userShopName)) ??
+        key: _sharedKey(SharedPRefEnum.userShopName),
+      ) ??
       '';
 
   set shopName(String value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.userShopName), value: value);
+    key: _sharedKey(SharedPRefEnum.userShopName),
+    value: value,
+  );
 
   int get orderId =>
       _sharedPref.getValue<int>(key: _sharedKey(SharedPRefEnum.orderId)) ?? 0;
 
   set orderId(int value) => _sharedPref.setValue<int>(
-      key: _sharedKey(SharedPRefEnum.orderId), value: value);
+    key: _sharedKey(SharedPRefEnum.orderId),
+    value: value,
+  );
 
   /// dark or light mode
   bool? get isDarkMode =>
       _sharedPref.getValue<bool>(key: _sharedKey(SharedPRefEnum.isDarkMode));
 
   set isDarkMode(bool? value) => _sharedPref.setValue<bool>(
-      key: _sharedKey(SharedPRefEnum.isDarkMode), value: value ?? false);
+    key: _sharedKey(SharedPRefEnum.isDarkMode),
+    value: value ?? false,
+  );
 
   /// user id
   String? get userId =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.userId));
 
   set userId(String? value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.userId), value: value ?? '');
+    key: _sharedKey(SharedPRefEnum.userId),
+    value: value ?? '',
+  );
+
+  /// company
+  int? get companyId =>
+      _sharedPref.getValue<int>(key: _sharedKey(SharedPRefEnum.companyId));
+
+  set companyId(int? value) => _sharedPref.setValue<int>(
+    key: _sharedKey(SharedPRefEnum.companyId),
+    value: value ?? 0,
+  );
 
   /// bearer token
   String? get bearerToken =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.bearerToken));
 
   set bearerToken(String? value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.bearerToken), value: value ?? '');
+    key: _sharedKey(SharedPRefEnum.bearerToken),
+    value: value ?? '',
+  );
 
   /// userName
   String? get userPhone =>
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.userPhone));
 
   set userPhone(String? value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.userPhone), value: value ?? '');
+    key: _sharedKey(SharedPRefEnum.userPhone),
+    value: value ?? '',
+  );
 
   String? get userPhoneWithoutCountry => _sharedPref.getValue<String>(
-      key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry));
+    key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry),
+  );
 
   set userPhoneWithoutCountry(String? value) => _sharedPref.setValue<String>(
-      key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry),
-      value: value ?? '');
+    key: _sharedKey(SharedPRefEnum.userPhoneWithoutCountry),
+    value: value ?? '',
+  );
 
-  String? getCountryCode()  {
-    return  _sharedPref.getValue<String>(key: SharedPRefEnum.countryCode);
+  String? getCountryCode() {
+    return _sharedPref.getValue<String>(key: SharedPRefEnum.countryCode);
   }
-
 
   Future<void> setCountryCode(String? countryCode) async {
     await _sharedPref.setValue<String>(
-        key: SharedPRefEnum.countryCode, value: countryCode??'' );
+      key: SharedPRefEnum.countryCode,
+      value: countryCode ?? '',
+    );
   }
 
   /// password
@@ -131,8 +183,11 @@ class SharedPrefModule {
       _sharedPref.getValue<String>(key: _sharedKey(SharedPRefEnum.password));
 
   Future<void> setPassword(String? value) async {
-   await _sharedPref.setValue<String>(key: _sharedKey(SharedPRefEnum.password), value: value ?? '');
-}
+    await _sharedPref.setValue<String>(
+      key: _sharedKey(SharedPRefEnum.password),
+      value: value ?? '',
+    );
+  }
 
   void get clear => _sharedPref.clear();
 
@@ -141,6 +196,6 @@ class SharedPrefModule {
   }
 
   String _sharedKey(SharedPRefEnum enumKey) {
-    return enumKey.name.toString().split('.').last;
+    return enumKey.name.toString().split('.').last ?? '';
   }
 }

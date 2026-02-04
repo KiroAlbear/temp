@@ -10,6 +10,7 @@ flavors:
       applicationId: "com.icons.deelexpress"
     ios:
       bundleId: "com.icons.deelexpress"
+    variables:
 
   app_stage:
     app:
@@ -26,5 +27,8 @@ flavors:
       applicationId: "com.icons.deelexpress"
     ios:
       bundleId: "com.icons.deelexpress"
+
+
+
 
 ide: idea

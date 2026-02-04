@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.10.2)
   - camera_avfoundation (0.0.1):
     - Flutter
   - connectivity_plus (0.0.1):
@@ -7,6 +8,14 @@ PODS:
     - Flutter
   - device_info_plus (0.0.1):
     - Flutter
+  - fawry_sdk (2.0.18):
+    - Alamofire (= 5.10.2)
+    - FawryPaySDK (>= 2.0.5)
+    - Flutter
+    - IQKeyboardManagerSwift (= 6.5.16)
+  - FawryPaySDK (2.0.5):
+    - Alamofire (~> 5.10.2)
+    - IQKeyboardManagerSwift (~> 6.5.16)
   - Firebase/Analytics (11.15.0):
     - Firebase/Core
   - Firebase/Core (11.15.0):
@@ -167,6 +176,7 @@ PODS:
     - Flutter
   - integration_test (0.0.1):
     - Flutter
+  - IQKeyboardManagerSwift (6.5.16)
   - local_auth_darwin (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -178,6 +188,8 @@ PODS:
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
   - OrderedSet (6.0.3)
+  - otp_autofill (0.0.1):
+    - Flutter
   - "otp_pin_field (1.2.0+2)":
     - Flutter
   - package_info_plus (0.4.5):
@@ -206,6 +218,7 @@ DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - country_codes (from `.symlinks/plugins/country_codes/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - fawry_sdk (from `.symlinks/plugins/fawry_sdk/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
@@ -218,6 +231,7 @@ DEPENDENCIES:
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - local_auth_darwin (from `.symlinks/plugins/local_auth_darwin/darwin`)
   - location (from `.symlinks/plugins/location/ios`)
+  - otp_autofill (from `.symlinks/plugins/otp_autofill/ios`)
   - otp_pin_field (from `.symlinks/plugins/otp_pin_field/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -229,6 +243,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
+    - FawryPaySDK
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -243,6 +259,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - IQKeyboardManagerSwift
     - nanopb
     - OrderedSet
     - PromisesObjC
@@ -257,6 +274,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/country_codes/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
+  fawry_sdk:
+    :path: ".symlinks/plugins/fawry_sdk/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
@@ -281,6 +300,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/local_auth_darwin/darwin"
   location:
     :path: ".symlinks/plugins/location/ios"
+  otp_autofill:
+    :path: ".symlinks/plugins/otp_autofill/ios"
   otp_pin_field:
     :path: ".symlinks/plugins/otp_pin_field/ios"
   package_info_plus:
@@ -299,10 +320,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
+  Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   camera_avfoundation: adb0207d868b2d873e895371d88448399ab78d87
   connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   country_codes: b0900f46ad686281d5dab438e354e44ad10f5941
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
+  fawry_sdk: ec64319fc67e63b6fb8b8e705f22b4f482ee269e
+  FawryPaySDK: c8670149abcb737984e342f000bf09b08807fd3a
   Firebase: d99ac19b909cd2c548339c2241ecd0d1599ab02e
   firebase_analytics: bf93e20703c95030404d6ddbb1adf05bf5c3885b
   firebase_core: 99a37263b3c27536063a7b601d9e2a49400a433c
@@ -327,10 +351,12 @@ SPEC CHECKSUMS:
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
+  IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
   local_auth_darwin: fa4b06454df7df8e97c18d7ee55151c57e7af0de
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
+  otp_autofill: 93bcc21475705d35445927cb9aef24e818bbf083
   otp_pin_field: 0f0935fafc56252e6a48a5a045ac689b6bad3857
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
@@ -342,6 +368,6 @@ SPEC CHECKSUMS:
   transition_easy: eac2eba744ff802917facacbc991afa7432f9233
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
 
-PODFILE CHECKSUM: f6193acb6d36be4e6f419fa926f2f7956233f181
+PODFILE CHECKSUM: 84ff7dd3e7bbc9e2c46b5aa6376bc6db1dbe1c10
 
 COCOAPODS: 1.16.2

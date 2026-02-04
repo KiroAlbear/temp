@@ -2,18 +2,17 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:custom_progress_button/custom_progress_button.dart';
-import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_order_details_args.dart';
 import 'package:deel/features/cart/ui/widgets/cart_product_summary_item.dart';
-import 'package:fawry_sdk/fawry_sdk.dart';
-import 'package:fawry_sdk/fawry_utils.dart';
-import 'package:fawry_sdk/model/bill_item.dart';
-import 'package:fawry_sdk/model/fawry_launch_model.dart';
-import 'package:fawry_sdk/model/launch_customer_model.dart';
-import 'package:fawry_sdk/model/launch_merchant_model.dart';
-import 'package:fawry_sdk/model/payment_methods.dart';
-import 'package:fawry_sdk/model/response.dart';
+// import 'package:fawry_sdk/fawry_sdk.dart';
+// import 'package:fawry_sdk/fawry_utils.dart';
+// import 'package:fawry_sdk/model/bill_item.dart';
+// import 'package:fawry_sdk/model/fawry_launch_model.dart';
+// import 'package:fawry_sdk/model/launch_customer_model.dart';
+// import 'package:fawry_sdk/model/launch_merchant_model.dart';
+// import 'package:fawry_sdk/model/payment_methods.dart';
+// import 'package:fawry_sdk/model/response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,8 +26,11 @@ import 'cart_order_details_Icon_item.dart';
 class CartOrderDetailsPage extends BaseStatefulWidget {
   final CartBloc cartBloc;
   final CartOrderDetailsArgs cartOrderDetailsArgs;
-  const CartOrderDetailsPage(
-      {required this.cartBloc, required this.cartOrderDetailsArgs, super.key});
+  const CartOrderDetailsPage({
+    required this.cartBloc,
+    required this.cartOrderDetailsArgs,
+    super.key,
+  });
 
   @override
   State<CartOrderDetailsPage> createState() => _CartOrderDetailsState();
@@ -52,7 +54,13 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   @override
   void initState() {
     super.initState();
-    initSDKCallback();
+    // initSDKCallback();
+  }
+
+  @override
+  void onPopInvoked(didPop) {
+    changeSystemNavigationBarColor(secondaryColor);
+    super.onPopInvoked(didPop);
   }
 
   @override
@@ -64,187 +72,203 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
 
   @override
   Widget getBody(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      AppTopWidget(
-        title: S.of(context).cartOrderOrderDetails,
-        isHavingBack: true,
-      ),
-      Expanded(
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildOrderSummary(context),
-                    20.verticalSpace,
-                    _getSeperator(),
-                    20.verticalSpace,
-                    _buildIconItem(
-                        S.of(context).address, Assets.svg.icLocation),
-                    5.verticalSpace,
-                    _buildAddress(),
-                    25.verticalSpace,
-                    _getSeperator(),
-                    12.verticalSpace,
-                    StreamBuilder(
-                      stream: widget.cartBloc.dateBehaviour.stream,
-                      builder: (context, snapshot) {
-                        return !snapshot.hasData
-                            ? SizedBox()
-                            : CartOrderDetailsIconItem(
-                                icon: Assets.svg.icDate,
-                                title: snapshot.data!,
-                              );
-                      },
-                    ),
-                    12.verticalSpace,
-                    _getSeperator(),
-                    15.verticalSpace,
-                    CartOrderDetailsIconItem(
-                      icon: Assets.svg.icTotal,
-                      title: widget.cartOrderDetailsArgs.isItVisa
-                          ? S.of(context).cartBankCard
-                          : widget.cartOrderDetailsArgs.isItWallet
-                              ? S.of(context).cartDokkanWallet
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTopWidget(
+          title: Loc.of(context)!.cartOrderOrderDetails,
+          isHavingBack: true,
+        ),
+        Expanded(
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildOrderSummary(context),
+                      20.verticalSpace,
+                      _getSeperator(),
+                      20.verticalSpace,
+                      _buildIconItem(
+                        Loc.of(context)!.address,
+                        Assets.svg.icLocation,
+                      ),
+                      5.verticalSpace,
+                      _buildAddress(),
+                      25.verticalSpace,
+                      _getSeperator(),
+                      12.verticalSpace,
+                      StreamBuilder(
+                        stream: widget.cartBloc.dateBehaviour.stream,
+                        builder: (context, snapshot) {
+                          return !snapshot.hasData
+                              ? SizedBox()
+                              : CartOrderDetailsIconItem(
+                                  icon: Assets.svg.icDate,
+                                  title: snapshot.data!,
+                                );
+                        },
+                      ),
+                      12.verticalSpace,
+                      _getSeperator(),
+                      15.verticalSpace,
+                      CartOrderDetailsIconItem(
+                        icon: Assets.svg.icTotal,
+                        title: widget.cartOrderDetailsArgs.isItVisa
+                            ? Loc.of(context)!.cartDokkanBankCard
+                            : widget.cartOrderDetailsArgs.isItWallet
+                            ? Loc.of(context)!.cartDokkanWallet
                               : widget.cartOrderDetailsArgs.isItFawry
-                                  ? "فوري"
-                                  : S.of(context).payCashOnDelivery,
-                      iconSize: 18,
-                      space: 8,
-                    ),
-                    10.verticalSpace,
-                    _buildTotalPayment(),
-                    62.verticalSpace,
-                    CustomButtonWidget(
-                        idleText: S.of(context).cartConfirmOrder,
+                                  ? Loc.of(context)!.fawry
+                                  : Loc.of(context)!.payCashOnDelivery,
+                        iconSize: 18,
+                        space: 8,
+                      ),
+                      10.verticalSpace,
+                      _buildTotalPayment(),
+                      62.verticalSpace,
+                      CustomButtonWidget(
+                        idleText: Loc.of(context)!.cartConfirmOrder,
                         buttonBehaviour:
                             widget.cartBloc.buttonBloc.buttonBehavior,
                         onTap: () async {
-                          widget.cartBloc.buttonBloc.buttonBehavior
-                              .add(ButtonState.loading);
+                          widget.cartBloc.buttonBloc.buttonBehavior.add(
+                            ButtonState.loading,
+                          );
 
                           showOverlayLoading.value = true;
 
                           if (widget.cartOrderDetailsArgs.isItVisa) {
                             _payWithCard();
                             // _payWithWallet();
-                          } else if (widget.cartOrderDetailsArgs.isItFawry) {
-                            _payWithFawry();
-                          } else if (widget.cartOrderDetailsArgs.isItWallet) {
+                          }
+                          // else if (widget.cartOrderDetailsArgs.isItFawry) {
+                          //   _payWithFawry();
+                          // }
+                          else if (widget.cartOrderDetailsArgs.isItWallet) {
                             _payWithWallet(
-                                widget.cartOrderDetailsArgs.walletNumber!);
+                              widget.cartOrderDetailsArgs.walletNumber!,
+                            );
                           } else {
                             _ConfirmOder();
                           }
-                        }),
-                    49.verticalSpace,
-                  ],
+                        },
+                      ),
+                      49.verticalSpace,
+                      AppConstants.isHavingBottomPadding
+                          ? 18.verticalSpace
+                          : 0.verticalSpace,
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: OverlayLoadingWidget(
-                showOverlayLoading: showOverlayLoading,
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: OverlayLoadingWidget(
+                  showOverlayLoading: showOverlayLoading,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      )
-    ]);
-  }
-
-  Future<void> initSDKCallback() async {
-    try {
-      _fawryCallbackResultStream =
-          FawrySDK.instance.callbackResultStream().listen((event) {
-        ResponseStatus response = ResponseStatus.fromJson(jsonDecode(event));
-        handleResponse(response);
-      });
-    } catch (ex) {
-      debugPrint(ex.toString());
-    }
-  }
-
-  Future<void> _payWithFawry() async {
-    BillItem item = BillItem(
-      itemId: widget.cartBloc.orderId.toString() ?? '',
-      description: 'Mobile Order',
-      quantity: 1,
-      price:
-          widget.cartBloc.cartTotalBeforeDiscountDoubleBehaviour.stream.value,
-    );
-
-    List<BillItem> chargeItems = [item];
-
-    // LaunchCustomerModel customerModel = LaunchCustomerModel(
-    //   customerProfileId: '533518',
-    //   customerName: 'John Doe',
-    //   customerEmail: 'john.doe@xyz.com',
-    //   customerMobile: '+201000000000',
-    // );
-
-    LaunchMerchantModel merchantModel = LaunchMerchantModel(
-      merchantCode: '770000021910',
-      merchantRefNum: FawryUtils.randomAlphaNumeric(10),
-      secureKey: '24e41c09e82d41c695926ca8cb003d5b',
-    );
-
-    FawryLaunchModel model = FawryLaunchModel(
-      allow3DPayment: true,
-      chargeItems: chargeItems,
-      launchMerchantModel: merchantModel,
-      skipLogin: true,
-      skipReceipt: true,
-      payWithCardToken: false,
-      paymentMethods: PaymentMethods.ALL,
-    );
-    String baseUrl = "https://atfawry.fawrystaging.com/";
-    await FawrySDK.instance.startPayment(
-      launchModel: model,
-      baseURL: baseUrl,
-      lang: FawrySDK.LANGUAGE_ENGLISH,
+      ],
     );
   }
 
-  void handleResponse(ResponseStatus response) {
-    switch (response.status) {
-      case FawrySDK.RESPONSE_SUCCESS:
-        {
-          debugPrint('Message: ${response.message}');
-          debugPrint('Json Response: ${response.data}');
-          _ConfirmOder();
-        }
-        break;
-      case FawrySDK.RESPONSE_ERROR:
-        {
-          debugPrint('Error: ${response.message}');
-          widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
-          showInvalidPaymentBottomSheet();
-          showOverlayLoading.value = false;
-        }
-        break;
-      case FawrySDK.RESPONSE_PAYMENT_COMPLETED:
-        {
-          debugPrint(
-              'Payment Completed: ${response.message}, ${response.data}');
-        }
-        break;
-    }
-  }
+  // Future<void> initSDKCallback() async {
+  //   try {
+  //     _fawryCallbackResultStream =
+  //         FawrySDK.instance.callbackResultStream().listen((event) {
+  //       ResponseStatus response = ResponseStatus.fromJson(jsonDecode(event));
+  //       handleResponse(response);
+  //     });
+  //   } catch (ex) {
+  //     debugPrint(ex.toString());
+  //   }
+  // }
+
+  // Future<void> _payWithFawry() async {
+  //   BillItem item = BillItem(
+  //     itemId: widget.cartBloc.orderId.toString() ?? '',
+  //     description: 'Mobile Order',
+  //     quantity: 1,
+  //     price:
+  //         widget.cartBloc.cartTotalBeforeDiscountDoubleBehaviour.stream.value,
+  //   );
+  //
+  //   List<BillItem> chargeItems = [item];
+  //
+  //   // LaunchCustomerModel customerModel = LaunchCustomerModel(
+  //   //   customerProfileId: '533518',
+  //   //   customerName: 'John Doe',
+  //   //   customerEmail: 'john.doe@xyz.com',
+  //   //   customerMobile: '+201000000000',
+  //   // );
+  //
+  //   LaunchMerchantModel merchantModel = LaunchMerchantModel(
+  //     merchantCode: '770000021910',
+  //     merchantRefNum: FawryUtils.randomAlphaNumeric(10),
+  //     secureKey: '24e41c09e82d41c695926ca8cb003d5b',
+  //   );
+  //
+  //   FawryLaunchModel model = FawryLaunchModel(
+  //     allow3DPayment: true,
+  //     chargeItems: chargeItems,
+  //     launchMerchantModel: merchantModel,
+  //     skipLogin: true,
+  //     skipReceipt: true,
+  //     payWithCardToken: false,
+  //     paymentMethods: PaymentMethods.ALL,
+  //   );
+  //   String baseUrl = "https://atfawry.fawrystaging.com/";
+  //   await FawrySDK.instance.startPayment(
+  //     launchModel: model,
+  //     baseURL: baseUrl,
+  //     lang: FawrySDK.LANGUAGE_ENGLISH,
+  //   );
+  // }
+
+  // void handleResponse(ResponseStatus response) {
+  //   switch (response.status) {
+  //     case FawrySDK.RESPONSE_SUCCESS:
+  //       {
+  //         debugPrint('Message: ${response.message}');
+  //         debugPrint('Json Response: ${response.data}');
+  //         _ConfirmOder();
+  //       }
+  //       break;
+  //     case FawrySDK.RESPONSE_ERROR:
+  //       {
+  //         debugPrint('Error: ${response.message}');
+  //         widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
+  //         showInvalidPaymentBottomSheet();
+  //         showOverlayLoading.value = false;
+  //       }
+  //       break;
+  //     case FawrySDK.RESPONSE_PAYMENT_COMPLETED:
+  //       {
+  //         debugPrint(
+  //             'Payment Completed: ${response.message}, ${response.data}');
+  //       }
+  //       break;
+  //   }
+  // }
 
   void _payWithCard() async {
     await FlutterPaymob.instance.payWithCard(
       context: context, // Passes the BuildContext required for UI interactions
       currency:
           "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-      amount: widget.cartBloc.cartTotalBeforeDiscountDoubleBehaviour.stream
+      amount: widget
+          .cartBloc
+          .cartTotalBeforeDiscountDoubleBehaviour
+          .stream
           .value, // Sets the amount of money to be paid (100 EGP)
       // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
@@ -268,7 +292,10 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       context: context, // Passes the BuildContext required for UI interactions
       currency:
           "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-      amount: widget.cartBloc.cartTotalBeforeDiscountDoubleBehaviour.stream
+      amount: widget
+          .cartBloc
+          .cartTotalBeforeDiscountDoubleBehaviour
+          .stream
           .value, // Sets the amount of money to be paid (100 EGP)
       // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
@@ -295,8 +322,8 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       builder: (context) {
         return DialogWidget(
           sameButtonsColor: false,
-          message: S.of(context).invalidPayment,
-          confirmMessage: S.of(context).ok,
+          message: Loc.of(context)!.invalidPayment,
+          confirmMessage: Loc.of(context)!.ok,
           onConfirm: () {},
         );
       },
@@ -312,8 +339,11 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         showOverlayLoading.value = false;
         FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.purchase);
 
-        Routes.navigateToScreen(Routes.cartSuccessPage,
-            NavigationType.pushReplacementNamed, context);
+        Routes.navigateToScreen(
+          Routes.cartSuccessPage,
+          NavigationType.pushReplacementNamed,
+          context,
+        );
         // CustomNavigatorModule
         //     .navigatorKey.currentState!
         //     .pushReplacementNamed(
@@ -354,10 +384,13 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                 : Padding(
                     padding: EdgeInsetsDirectional.only(start: 5.0),
                     child: CustomText(
-                        text: snapshot.data!,
-                        textAlign: TextAlign.start,
-                        customTextStyle: RegularStyle(
-                            color: lightBlackColor, fontSize: 14.sp)),
+                      text: snapshot.data!,
+                      textAlign: TextAlign.start,
+                      customTextStyle: RegularStyle(
+                        color: lightBlackColor,
+                        fontSize: 14.sp,
+                      ),
+                    ),
                   );
           },
         ),
@@ -375,18 +408,24 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                      text: S.of(context).cartDetailsTotal,
-                      textAlign: TextAlign.start,
-                      customTextStyle: RegularStyle(
-                          color: lightBlackColor, fontSize: 14.sp)),
+                    text: Loc.of(context)!.cartDetailsTotal,
+                    textAlign: TextAlign.start,
+                    customTextStyle: RegularStyle(
+                      color: lightBlackColor,
+                      fontSize: 14.sp,
+                    ),
+                  ),
                   11.horizontalSpace,
                   Column(
                     children: [
                       CustomText(
-                          text: snapshot.data!,
-                          textAlign: TextAlign.start,
-                          customTextStyle: BoldStyle(
-                              color: secondaryColor, fontSize: 14.sp)),
+                        text: snapshot.data!,
+                        textAlign: TextAlign.start,
+                        customTextStyle: BoldStyle(
+                          color: secondaryColor,
+                          fontSize: 14.sp,
+                        ),
+                      ),
                       // deliveryFees(),
                     ],
                   ),
@@ -399,7 +438,10 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   Column _buildOrderSummary(BuildContext context) {
     return Column(
       children: [
-        _buildIconItem(S.of(context).cartProductsSummary, Assets.svg.icItems),
+        _buildIconItem(
+          Loc.of(context)!.cartProductsSummary,
+          Assets.svg.icItems,
+        ),
         StreamBuilder(
           stream: widget.cartBloc.itemsBehaviour.stream,
           builder: (context, snapshot) {
@@ -432,24 +474,29 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           color: secondaryColor,
         ),
         CustomText(
-            text: title,
-            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 14.sp)),
+          text: title,
+          customTextStyle: BoldStyle(color: secondaryColor, fontSize: 14.sp),
+        ),
       ],
     );
   }
 
   Widget deliveryFees() {
     return StreamBuilder(
-        stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
-        builder: (context, snapshot) {
-          return !snapshot.hasData
-              ? SizedBox()
-              : CustomText(
-                  text: snapshot.data!,
-                  textAlign: TextAlign.start,
-                  customTextStyle:
-                      RegularStyle(color: lightBlackColor, fontSize: 14.sp));
-        });
+      stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
+      builder: (context, snapshot) {
+        return !snapshot.hasData
+            ? SizedBox()
+            : CustomText(
+                text: snapshot.data!,
+                textAlign: TextAlign.start,
+                customTextStyle: RegularStyle(
+                  color: lightBlackColor,
+                  fontSize: 14.sp,
+                ),
+              );
+      },
+    );
   }
 
   Widget _getSeperator() {

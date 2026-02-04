@@ -1,10 +1,8 @@
-
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../current_orders/current_order_details_item.dart';
 
 class OrderDetailsBottomSheet extends StatelessWidget {
@@ -18,34 +16,39 @@ class OrderDetailsBottomSheet extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsetsDirectional.only(
-              start: 30, end: 30, top: 20, bottom: 0),
+            start: 30,
+            end: 30,
+            top: 20,
+            bottom: 0,
+          ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomText(
-                  text: S.of(context).itemsDetails,
-                  customTextStyle:
-                      MediumStyle(color: lightBlackColor, fontSize: 20.sp)),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: ImageHelper(
-                    image: Assets.svg.icClose,
-                    width: 20,
-                    height: 20,
-                    imageType: ImageType.svg,
-                  ),
+                text: Loc.of(context)!.itemsDetails,
+                customTextStyle: MediumStyle(
+                  color: lightBlackColor,
+                  fontSize: 20.sp,
                 ),
               ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.of(context).pop();
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(0.0),
+              //     child: ImageHelper(
+              //       image: Assets.svg.icClose,
+              //       width: 20,
+              //       height: 20,
+              //       imageType: ImageType.svg,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20),
         Expanded(
           child: ListView.separated(
             shrinkWrap: true,
@@ -70,9 +73,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
         //   orderImage: Assets.svg.icClose,
         //   quantity: 5,
         // ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20),
       ],
     );
   }

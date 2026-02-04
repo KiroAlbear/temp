@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../../core/generated/l10n.dart';
 import '../../../../../core/ui/app_top_widget.dart';
 import 'home_bloc.dart';
 import 'offers_listing_widget.dart';
@@ -13,19 +12,21 @@ import 'offers_listing_widget.dart';
 class OffersPage extends BaseStatefulWidget {
   HomeBloc homeBloc;
 
-  OffersPage({
-    super.key,
-    required this.homeBloc,
-  });
+  OffersPage({super.key, required this.homeBloc});
 
   @override
   State<OffersPage> createState() => _OffersPageState();
 }
 
 class _OffersPageState extends BaseState<OffersPage> {
-
   @override
   Color? systemNavigationBarColor() => secondaryColor;
+
+  @override
+  void onPopInvoked(didPop) {
+    Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
+    // super.onPopInvoked(didPop);
+  }
 
   @override
   Widget getBody(BuildContext context) {
@@ -33,7 +34,7 @@ class _OffersPageState extends BaseState<OffersPage> {
       children: [
         AppTopWidget(
           isHavingSupport: true,
-          title: S.of(context).offersTitle,
+          title: Loc.of(context)!.offersTitle,
         ),
         // SizedBox(
         //   height: 30.h,
@@ -56,12 +57,13 @@ class _OffersPageState extends BaseState<OffersPage> {
                   )
                 : Expanded(
                     child: ImageHelper(
-                        image: Assets.svg.emptyOffers, imageType: ImageType.svg));
+                      image: Assets.svg.emptyOffers,
+                      imageType: ImageType.svg,
+                    ),
+                  );
           },
         ),
-        SizedBox(
-          height: 30.h,
-        ),
+        SizedBox(height: 30.h),
       ],
     );
   }

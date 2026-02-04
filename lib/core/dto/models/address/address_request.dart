@@ -14,8 +14,8 @@ class AddressRequest {
   @JsonKey(name: 'street2')
   String street2;
 
-  @JsonKey(name: 'city')
-  String city;
+  @JsonKey(name: 'city_id')
+  int city_id;
 
   @JsonKey(name: 'country_id')
   int countryId;
@@ -35,7 +35,7 @@ class AddressRequest {
     required this.clientId,
     required this.street,
     required this.street2,
-    required this.city,
+    required this.city_id,
     required this.longitude,
     required this.latitude,
     required this.countryId,

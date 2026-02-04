@@ -1,13 +1,7 @@
-import 'package:deel/core/ui/mapPreview/map_preview_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../dto/modules/app_color_module.dart';
-import '../../dto/modules/custom_text_style_module.dart';
-import '../../generated/l10n.dart';
-import '../bases/bloc_base.dart';
-import '../custom_text.dart';
+import '../../../deel.dart';
 
 class MapPreviewWidget extends StatefulWidget {
   final double? latitude;
@@ -19,15 +13,16 @@ class MapPreviewWidget extends StatefulWidget {
 
   final Function(double latitude, double longitude)? onLocationDetection;
 
-  const MapPreviewWidget(
-      {super.key,
-      this.latitude,
-      this.longitude,
-      this.height,
-      this.width,
-      this.showEditLocation = true,
-      required this.clickOnChangeLocation,
-      this.onLocationDetection});
+  const MapPreviewWidget({
+    super.key,
+    this.latitude,
+    this.longitude,
+    this.height,
+    this.width,
+    this.showEditLocation = true,
+    required this.clickOnChangeLocation,
+    this.onLocationDetection,
+  });
 
   @override
   State<MapPreviewWidget> createState() => _MapPreviewWidgetState();
@@ -39,17 +34,19 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   final List<String> _mapSubDomains = ['a', 'b', 'c'];
   late final MapOptions _mapOptions = MapOptions(
-      onMapReady: () {
-        _bloc.mapReady(true);
-      },
-      interactionOptions:
-          const InteractionOptions(flags: InteractiveFlag.none));
+    onMapReady: () {
+      _bloc.mapReady(true);
+    },
+    interactionOptions: const InteractionOptions(flags: InteractiveFlag.none),
+  );
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _bloc.initPermissionAndLocation(context,
-          onLocationDetection: widget.onLocationDetection);
+      _bloc.initPermissionAndLocation(
+        context,
+        onLocationDetection: widget.onLocationDetection,
+      );
     });
     super.initState();
   }
@@ -69,65 +66,65 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
   Widget get _screenDesign => _mapContainer;
 
   Widget get _mapContainer => SizedBox(
-        height: widget.height ?? 200.h,
-        width: widget.width ?? MediaQuery.of(context).size.width,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.w),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned.fill(child: _mapWidget),
-              widget.showEditLocation ? _editLocationWidget : SizedBox(),
-            ],
-          ),
-        ),
-      );
+    height: widget.height ?? 200.h,
+    width: widget.width ?? MediaQuery.of(context).size.width,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(20.w),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned.fill(child: _mapWidget),
+          widget.showEditLocation ? _editLocationWidget : SizedBox(),
+        ],
+      ),
+    ),
+  );
 
   Widget get _mapWidget => FlutterMap(
-        options: _mapOptions,
-        mapController: _bloc.mapController,
-        children: [
-          TileLayer(
-            urlTemplate: _mapUrlTemplate,
-            // subdomains: _mapSubDomains,
-          ),
-          _markerStreamBuilder
-        ],
-      );
+    options: _mapOptions,
+    mapController: _bloc.mapController,
+    children: [
+      TileLayer(
+        urlTemplate: _mapUrlTemplate,
+        // subdomains: _mapSubDomains,
+      ),
+      _markerStreamBuilder,
+    ],
+  );
 
   Widget get _editLocationWidget => Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: InkWell(
-        onTap: () => widget.clickOnChangeLocation(),
-        child: Container(
-          alignment: Alignment.center,
-          color: switchBorderColor,
-          padding: EdgeInsets.symmetric(vertical: 6.h),
-          child: CustomText(
-            text: S.of(context).editLocation,
-            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 16.w),
-          ),
+    bottom: 0,
+    left: 0,
+    right: 0,
+    child: InkWell(
+      onTap: () => widget.clickOnChangeLocation(),
+      child: Container(
+        alignment: Alignment.center,
+        color: switchBorderColor,
+        padding: EdgeInsets.symmetric(vertical: 6.h),
+        child: CustomText(
+          text: Loc.of(context)!.editLocation,
+          customTextStyle: BoldStyle(color: secondaryColor, fontSize: 16.w),
         ),
-      ));
+      ),
+    ),
+  );
 
   Widget get _markerStreamBuilder => StreamBuilder(
-        stream: _bloc.latLngStream,
-        builder: (context, snapshot) => snapshot.data == null
-            ? Container()
-            : MarkerLayer(markers: [
-                Marker(
-                    alignment: Alignment.center,
-                    width: 50.w,
-                    height: 50.h,
-                    point: snapshot.data!,
-                    child: Icon(
-                      Icons.location_pin,
-                      color: redColor,
-                      size: 35.r,
-                    ))
-              ]),
-        initialData: null,
-      );
+    stream: _bloc.latLngStream,
+    builder: (context, snapshot) => snapshot.data == null
+        ? Container()
+        : MarkerLayer(
+            markers: [
+              Marker(
+                alignment: Alignment.center,
+                width: 50.w,
+                height: 50.h,
+                point: snapshot.data!,
+                child: Icon(Icons.location_pin, color: redColor, size: 35.r),
+              ),
+            ],
+          ),
+    initialData: null,
+  );
 }

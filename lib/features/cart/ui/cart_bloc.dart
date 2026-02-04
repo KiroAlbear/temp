@@ -44,7 +44,7 @@ class CartBloc extends BlocBase {
   double totalSum = 0;
   int orderId = 0;
   String userAddressText = "";
-  String currency = "";
+  String cartCurrency = "";
   int deliveryFees = 0;
   bool isAnyProductOutOfStock = false;
   List<CartAvailableModel> productsOfMoreThanAvailable = [];
@@ -81,14 +81,15 @@ class CartBloc extends BlocBase {
   }
 
   void _getTime() {
-    timeBehaviour.sink.add("8 - 9 صباحاً");
+    final timeLabel = Loc.of(Routes.rootNavigatorKey.currentContext!)!.timeSlotMorning;
+    timeBehaviour.sink.add(timeLabel);
   }
 
   void getTotalCartSum(List<ProductMapper>? myOrderResponse, String currency) {
     totalSum = 0;
     //getting the currency from the first element of items
 
-    currency = currency;
+    cartCurrency = currency;
 
     myOrderResponse?.forEach((element) {
       totalSum += element.finalPrice ?? 0;
@@ -109,8 +110,10 @@ class CartBloc extends BlocBase {
 
     cartTotalBeforeDiscountDoubleBehaviour.sink.add(totalWithDelivery);
 
-    cartTotalBeforeDiscountBehaviour.sink.add("$parsedTotalSum $currency");
-    cartTotalAfterDiscountBehaviour.sink.add("${totalAfterDiscount} $currency");
+    cartTotalBeforeDiscountBehaviour.sink.add("$parsedTotalSum $cartCurrency");
+    cartTotalAfterDiscountBehaviour.sink.add(
+      "${totalAfterDiscount} $cartCurrency",
+    );
   }
 
   void onAddToCart(
@@ -163,6 +166,7 @@ class CartBloc extends BlocBase {
     void Function() onEditingCart,
   ) {
     true;
+    LoggerModule.log(message: "${productMapper.cartUserQuantity.toInt()} Cart items", name: "Editing cart");
     editCart(
       cartItemId: productMapper.productId,
       productId: productMapper.id,
@@ -179,13 +183,13 @@ class CartBloc extends BlocBase {
   }
 
   void _getTotalCartDeliverySum() {
-    cartTotalDeliveryStringBehaviour.sink.add('$deliveryFees ج.م');
+    cartTotalDeliveryStringBehaviour.sink.add('$deliveryFees $cartCurrency');
   }
 
   void _getTotalCartDiscountSum(double discount) {
     if (discount < 0) {
       cartTotaDiscountBehaviour.sink.add(discount);
-      cartTotaDiscountStringBehaviour.sink.add('$discount  ج.م ');
+      cartTotaDiscountStringBehaviour.sink.add('$discount $cartCurrency ');
     } else {
       cartTotaDiscountBehaviour.sink.add(0);
       cartTotaDiscountStringBehaviour.sink.add('');
@@ -400,8 +404,14 @@ class CartBloc extends BlocBase {
                 if (getCartEvent.response != null &&
                     getCartEvent.response!.second.isNotEmpty &&
                     getCartEvent.response?.second.first != null) {
+
+                  double discountSum = 0;
+                  for (var element in getCartEvent.response!.second) {
+                    discountSum+= element.finalPrice;
+                  }
+
                   _getTotalCartDiscountSum(
-                    getCartEvent.response?.second.first.finalPrice ?? 0,
+                    discountSum ,
                   );
                 } else {
                   _getTotalCartDiscountSum(0);
@@ -409,7 +419,7 @@ class CartBloc extends BlocBase {
 
                 getTotalCartSum(
                   getCartEvent.response!.getFirst! as List<ProductMapper>,
-                  cartRemote.myOrderResponse![0].currency![1] ?? '',
+                  cartRemote.myOrderResponse?[0].currency?[1] ?? '',
                 );
 
                 cartProductsBehavior.sink.add(

@@ -1,4 +1,3 @@
-import 'package:deel/core/generated/l10n.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,9 +44,9 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
           _confirmPickLocation(longitude, latitude, city, area, address);
           // AlertModule().showDialog(
           //   context: context,
-          //   message: S.of(context).pickLocationEnsureMessage,
-          //   cancelMessage: S.of(context).cancel,
-          //   confirmMessage: S.of(context).ok,
+          //   message: Loc.of(context)!.pickLocationEnsureMessage,
+          //   cancelMessage: Loc.of(context)!.cancel,
+          //   confirmMessage: Loc.of(context)!.ok,
           //   headerMessage: '',
           //   onConfirm: () {
           //     _confirmPickLocation(
@@ -60,8 +59,8 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
         },
         latitude: widget.newAccountBloc.latitude,
         longitude: widget.newAccountBloc.longitude,
-        hintText: S.of(context).locationYourLocation,
-        buttonText: S.of(context).confirmLocation,
+        hintText: Loc.of(context)!.locationYourLocation,
+        buttonText: Loc.of(context)!.confirmLocation,
       ),
     ),
   );
@@ -96,7 +95,7 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
     String city,
     String area,
     String address,
-  ) {
+  ) async {
     // ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     widget.newAccountBloc.longitude = longitude;
     widget.newAccountBloc.latitude = latitude;
@@ -121,6 +120,8 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
         break;
       }
     }
+
+    await widget.newAccountBloc.pickLocationInfo();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.pop(context);

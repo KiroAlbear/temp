@@ -7,6 +7,8 @@ import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navig
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
 import 'package:deel/features/most_selling/ui/most_selling_page.dart';
+import 'package:deel/features/recommended_items/ui/recommended_items_page.dart'
+    show RecommendedItemsPage;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
@@ -15,8 +17,6 @@ import '../../features/cart/models/cart_order_details_args.dart';
 import '../Utils/firebase_analytics_utl.dart';
 
 class Routes {
-  static BuildContext? buildContext;
-
   Routes._();
 
   static final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -29,6 +29,7 @@ class Routes {
   static const String homePage = '/home';
   static const String favouritePage = '/favorite';
   static const String mostSellingPage = '/mostSelling';
+  static const String recommendedItemsPage = '/recommendedItems';
   static const String offersPage = '/offers';
   static const String cartPage = '/cart';
   static const String morePage = '/more';
@@ -70,8 +71,11 @@ class Routes {
         path: splashScreen,
         name: splashScreen,
         parentNavigatorKey: rootNavigatorKey,
-        pageBuilder: (context, state) =>
-            _fadeTransitionScreenWrapper(context, state, SplashScreen()),
+        pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
+          context,
+          state,
+          SplashScreen(),
+        ),
       ),
       GoRoute(
         path: barcodePage,
@@ -318,6 +322,18 @@ class Routes {
                 context,
                 state,
                 MostSellingPage(),
+              );
+            },
+          ),
+          GoRoute(
+            path: recommendedItemsPage,
+            name: recommendedItemsPage,
+            parentNavigatorKey: navigationBarKey,
+            pageBuilder: (context, state) {
+              return _fadeTransitionScreenWrapper(
+                context,
+                state,
+                RecommendedItemsPage(),
               );
             },
           ),

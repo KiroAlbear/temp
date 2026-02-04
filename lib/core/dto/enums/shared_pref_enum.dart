@@ -15,5 +15,6 @@ enum SharedPRefEnum {
   userLong,
   userAddress,
   userShopName,
-  orderId
+  orderId,
+  companyId,
 }

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../core/generated/l10n.dart';
-
 class CartSuccessPage extends BaseStatefulWidget {
   const CartSuccessPage({super.key});
 
@@ -42,60 +40,78 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
           200.verticalSpace,
           SizedBox(
             child: ImageHelper(
-                image: Assets.png.orderSuccess.path,
-                imageType: ImageType.asset),
+              image: Assets.svg.orderSuccess,
+              imageType: ImageType.svg,
+            ),
           ),
           10.verticalSpace,
           CustomText(
-              text: S.of(context).cartSuccessConfirmation,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              customTextStyle:
-                  BoldStyle(color: secondaryColor, fontSize: 28.sp)),
+            text: Loc.of(context)!.cartSuccessConfirmation,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            customTextStyle: BoldStyle(color: secondaryColor, fontSize: 28.sp),
+          ),
           5.verticalSpace,
           CustomText(
-              text: S.of(context).cartSuccessIsDelivering,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              customTextStyle:
-                  RegularStyle(color: lightBlackColor, fontSize: 14.sp)),
+            text: Loc.of(context)!.cartSuccessIsDelivering,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            customTextStyle: RegularStyle(
+              color: lightBlackColor,
+              fontSize: 14.sp,
+            ),
+          ),
           30.verticalSpace,
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: CustomButtonWidget(
-                idleText: S.of(context).cartSuccessTrackButton,
-                borderRadius: 8,
-                textColor: secondaryColor,
-                onTap: () async {
-                  // await CustomNavigatorModule.navigatorKey.currentState!
-                  //     .pushReplacementNamed(AppScreenEnum.home.name);
+              idleText: Loc.of(context)!.cartSuccessTrackButton,
+              borderRadius: 8,
+              textColor: secondaryColor,
+              onTap: () async {
+                // await CustomNavigatorModule.navigatorKey.currentState!
+                //     .pushReplacementNamed(AppScreenEnum.home.name);
 
-                  // CustomNavigatorModule.navigatorKey.currentState!.pop();
-                  // Navigator.pop(context);
-                  // getIt<BottomNavigationBloc>().setSelectedTab(4, context);
-                  // widget.bottomNavigationBloc.setSelectedTab(4, context);
-                  Routes.navigateToScreen(
-                      Routes.morePage, NavigationType.goNamed, context);
-                  Routes.navigateToScreen(
-                      Routes.myOrdersPage, NavigationType.pushNamed, context);
-                  // CustomNavigatorModule.navigatorKey.currentState!
-                  //     .pushNamed(AppScreenEnum.myOrders.name);
+                // CustomNavigatorModule.navigatorKey.currentState!.pop();
+                // Navigator.pop(context);
+                // getIt<BottomNavigationBloc>().setSelectedTab(4, context);
+                // widget.bottomNavigationBloc.setSelectedTab(4, context);
+                Routes.navigateToScreen(
+                  Routes.morePage,
+                  NavigationType.goNamed,
+                  context,
+                );
+                Routes.navigateToScreen(
+                  Routes.myOrdersPage,
+                  NavigationType.pushNamed,
+                  context,
+                );
+                // CustomNavigatorModule.navigatorKey.currentState!
+                //     .pushNamed(AppScreenEnum.myOrders.name);
 
-                  // CustomNavigatorModule.navigatorKey.currentState!
-                  //     .pushNamed();
-                  // CustomNavigatorModule.navigatorKey.currentState!.pop();
-                }),
+                // CustomNavigatorModule.navigatorKey.currentState!
+                //     .pushNamed();
+                // CustomNavigatorModule.navigatorKey.currentState!.pop();
+              },
+            ),
           ),
           InkWell(
-              onTap: () {
-                Routes.navigateToFirstScreen(context);
-                Routes.navigateToScreen(
-                    Routes.homePage, NavigationType.goNamed, context);
-              },
-              child: CustomText(
-                  text: S.of(context).goToMainPage,
-                  customTextStyle:
-                      MediumStyle(fontSize: 14.sp, color: secondaryColor)))
+            onTap: () {
+              Routes.navigateToFirstScreen(context);
+              Routes.navigateToScreen(
+                Routes.homePage,
+                NavigationType.goNamed,
+                context,
+              );
+            },
+            child: CustomText(
+              text: Loc.of(context)!.goToMainPage,
+              customTextStyle: MediumStyle(
+                fontSize: 14.sp,
+                color: secondaryColor,
+              ),
+            ),
+          ),
         ],
       ),
     );

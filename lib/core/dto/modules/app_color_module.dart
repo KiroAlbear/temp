@@ -15,12 +15,19 @@ const Color filterItemColorDarkMode = Color.fromRGBO(249, 243, 147, 1);
 const Color secondaryLightMode = Color.fromRGBO(0, 69, 122, 1);
 const Color secondaryDarkMode = Color.fromRGBO(0, 69, 122, 1);
 
+const Color tooltipLightMode = Color.fromRGBO(230, 244, 255, 1);
+const Color tooltipDarkMode = Color.fromRGBO(230, 244, 255, 1);
+
+
 // const Color darkSecondaryLightMode = Color.fromRGBO(0, 69, 122, 1);
 // const Color darkSecondaryDarkMode = Color.fromRGBO(0, 69, 122, 1);
 
 /// light black color
 const Color lightBlackLightMode = Color.fromRGBO(58, 58, 58, 1);
 const Color lightBlackDarkMode = Color.fromRGBO(58, 58, 58, 1);
+
+const Color lighterBlackLightMode = Color.fromRGBO(210, 210, 210, 1);
+const Color lighterBlackDarkMode = Color.fromRGBO(210, 210, 210, 1);
 
 /// pale blue color
 const Color paleBlueLightMode = Color.fromRGBO(181, 238, 236, 1);
@@ -82,18 +89,8 @@ const Color yellowSwitchColorBorderLightMode = Color.fromRGBO(255, 194, 0, 1);
 const Color yellowSwitchColorBorderDarkMode = Color.fromRGBO(255, 194, 0, 1);
 
 /// yellow switch color
-const Color yellowMostSellingBackgroundLightMode = Color.fromRGBO(
-  255,
-  194,
-  0,
-  0.18,
-);
-const Color yellowMostSellingBackgroundDarkMode = Color.fromRGBO(
-  255,
-  194,
-  0,
-  0.18,
-);
+const Color mostSellingBackgroundLightMode = Color.fromRGBO(250, 250, 250, 1);
+const Color mostSellingBackgroundDarkMode = Color.fromRGBO(250, 250, 250, 1);
 
 /// green card color
 const Color greenCardColorLightMode = Color.fromRGBO(239, 255, 240, 1);
@@ -137,6 +134,8 @@ Color primaryColor = _isDark ? primaryColorDarkMode : primaryColorLightMode;
 
 Color secondaryColor = _isDark ? secondaryDarkMode : secondaryLightMode;
 
+Color tooltipColor = _isDark ? tooltipDarkMode : tooltipLightMode;
+
 // Color darkSecondaryColor = _isDark ? darkSecondaryDarkMode : darkSecondaryLightMode;
 
 Color paleBlueColor = _isDark ? paleBlueDarkMode : paleBlueLightMode;
@@ -157,7 +156,11 @@ Color redColor = _isDark ? redColorDarkMode : redColorLightMode;
 
 Color blackColor = _isDark ? white : black;
 
-Color lightBlackColor = _isDark ? lightBlackDarkMode : lightBlackDarkMode;
+Color lightBlackColor = _isDark ? lightBlackDarkMode : lightBlackLightMode;
+
+Color lighterBlackColor = _isDark
+    ? lighterBlackDarkMode
+    : lighterBlackLightMode;
 
 Color whiteColor = _isDark ? black : white;
 
@@ -207,8 +210,8 @@ Color switchBorderColor = _isDark
     : yellowSwitchColorBorderLightMode;
 
 Color mostSellingBackgroundColor = _isDark
-    ? yellowMostSellingBackgroundDarkMode
-    : yellowMostSellingBackgroundLightMode;
+    ? mostSellingBackgroundDarkMode
+    : mostSellingBackgroundLightMode;
 
 Color filterItemColor = _isDark
     ? filterItemColorDarkMode
