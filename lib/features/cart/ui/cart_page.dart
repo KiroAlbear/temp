@@ -193,14 +193,6 @@ class _CartScreenState extends BaseState<CartPage> {
                   Loc.of(context)!.totalBeforeDiscount,
                   snapshot.data ?? '',
                 );
-                CustomText(
-                  text: snapshot.data ?? '',
-                  textAlign: TextAlign.start,
-                  customTextStyle: BoldStyle(
-                    color: secondaryColor,
-                    fontSize: 14.sp,
-                  ),
-                );
               },
             ),
             StreamBuilder(
@@ -213,14 +205,6 @@ class _CartScreenState extends BaseState<CartPage> {
                         snapshot.data ?? '',
                         color: redColor,
                       );
-                CustomText(
-                  text: snapshot.data.toString() ?? '',
-                  textAlign: TextAlign.start,
-                  customTextStyle: BoldStyle(
-                    color: secondaryColor,
-                    fontSize: 14.sp,
-                  ),
-                );
               },
             ),
             StreamBuilder(
@@ -229,14 +213,6 @@ class _CartScreenState extends BaseState<CartPage> {
                 return _bottomCalculationsWidget(
                   Loc.of(context)!.deliveryFees,
                   snapshot.data ?? '',
-                );
-                CustomText(
-                  text: snapshot.data ?? '',
-                  textAlign: TextAlign.start,
-                  customTextStyle: RegularStyle(
-                    color: lightBlackColor,
-                    fontSize: 14.sp,
-                  ),
                 );
               },
             ),
@@ -247,14 +223,6 @@ class _CartScreenState extends BaseState<CartPage> {
                 return _bottomTotalWidget(
                   Loc.of(context)!.total,
                   snapshot.data ?? '',
-                );
-                CustomText(
-                  text: snapshot.data ?? '',
-                  textAlign: TextAlign.start,
-                  customTextStyle: RegularStyle(
-                    color: lightBlackColor,
-                    fontSize: 14.sp,
-                  ),
                 );
               },
             ),
@@ -326,7 +294,6 @@ class _CartScreenState extends BaseState<CartPage> {
                     return ProductWidget(
                       isCartProduct: true,
                       index: index,
-                      icDelete: Assets.svg.icDelete,
                       productMapper: snapshot.data!.response!.getFirst[index],
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {

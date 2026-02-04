@@ -358,7 +358,7 @@ abstract class Loc {
   /// No description provided for @closeApplicationMessage.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to exit Deel?'**
+  /// **'Are you sure you want to exit Deely?'**
   String get closeApplicationMessage;
 
   /// No description provided for @confirm.
