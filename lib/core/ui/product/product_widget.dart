@@ -3,24 +3,25 @@ import 'dart:ui';
 import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
 import 'package:deel/core/Utils/firebase_analytics_utl.dart';
 import 'package:deel/deel.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' show NumberFormat;
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
   final ProductCategoryBloc productCategoryBloc;
   final CartBloc? cartBloc;
   final Function(int)? onProductRemoved;
-
+  final int index;
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
   final Function(ProductMapper productMapper)? onAddToCart;
   final bool isCartProduct;
   final Function(ProductMapper productMapper)? onDeleteClicked;
   final Function(ProductMapper productMapper)? onIncrementClicked;
   final Function(ProductMapper productMapper)? onDecrementClicked;
+
   ProductWidget({
     Key? key,
     required this.productMapper,
@@ -33,6 +34,7 @@ class ProductWidget extends StatefulWidget {
     this.isCartProduct = false,
     this.onIncrementClicked,
     this.onDecrementClicked,
+    required this.index,
   }) : super(key: key) {
     if (!isCartProduct &&
         (onTapFavourite == null || onAddToCart == null)) {
@@ -62,6 +64,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   String priceTextToShow = "";
   ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
+  ValueNotifier<bool> toolTipVisibility = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -78,6 +81,36 @@ class _ProductWidgetState extends State<ProductWidget> {
     priceTextToShow = '$FormatedPrice ${widget.productMapper.currency}';
 
     super.initState();
+  }
+
+  bool isTwoLinesOrMore({
+    required String text,
+    required TextStyle style,
+    required double maxWidth,
+    required TextOverflow overflow,
+    required bool isCartProduct,
+    required int maxLines, // optional if you already limit it
+    TextDirection textDirection = TextDirection.ltr,
+    double textScaleFactor = 1.0,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: textDirection,
+      maxLines: maxLines,
+      ellipsis: overflow == TextOverflow.ellipsis ? '…' : null,
+      textScaleFactor: textScaleFactor,
+    )..layout(maxWidth: maxWidth +(isCartProduct?180:80));
+
+
+    bool isOverflowed = tp.didExceedMaxLines;
+
+
+    // If you DON'T set maxLines, estimate the line count from height.
+    final lineCount = (tp.size.height / tp.preferredLineHeight).ceil();
+
+
+
+    return lineCount >= 2 || isOverflowed;
   }
 
   @override
@@ -364,13 +397,85 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget get _productName => SizedBox(
     height: 40,
-    child: CustomText(
-      text: widget.productMapper.name,
-      textAlign: TextAlign.start,
-      customTextStyle: widget.isCartProduct
-          ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
-          : MediumStyle(color: lightBlackColor, fontSize: 12.sp),
-      maxLines: 2,
+    child: Row(
+      children: [
+        Expanded(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final String text = widget.productMapper.name;
+              final CustomTextStyleModule style = widget.isCartProduct
+                  ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
+                  : MediumStyle(color: lightBlackColor, fontSize: 12.sp);
+              final double scale = MediaQuery.textScaleFactorOf(context);
+              final int maxLines = 2;
+              final twoOrMore = isTwoLinesOrMore(
+                text: text,
+                style: style.getStyle(),
+                maxWidth: constraints.maxWidth,
+                textScaleFactor: scale,
+                overflow: TextOverflow.ellipsis,
+                maxLines: maxLines,
+                isCartProduct: widget.isCartProduct
+              );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (twoOrMore) {
+                  toolTipVisibility.value = true;
+                } else {
+                  toolTipVisibility.value = false;
+                }
+              });
+
+              return CustomText(
+                text: text,
+                textAlign: TextAlign.start,
+                customTextStyle: style,
+                maxLines: maxLines,
+              );
+            },
+          ),
+        ),
+        SizedBox(width: 5,),
+        ValueListenableBuilder(
+          valueListenable: toolTipVisibility,
+          builder: (context, value, child) {
+            return JustTheTooltip(
+              offset: -40,
+              tailBaseWidth: 0,
+              isModal: true,
+              margin: EdgeInsetsDirectional.fromSTEB(
+                (widget.index % 2 > 0 && widget.isCartProduct == false) ? 10 : 200,
+                0,
+                0,
+                0,
+              ),
+              child: value
+                  ? Material(
+                      color: Color(0xff00457A).withAlpha(25),
+                      shape: CircleBorder(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon
+                          (Icons.remove_red_eye_outlined,
+                          size: 15,
+                          color: Color(0xff00457A),
+                        ),
+                      ),
+                    )
+                  : SizedBox(),
+              content: Container(
+                color: tooltipColor,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 150,
+                    child: Text(widget.productMapper.name),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     ),
   );
 

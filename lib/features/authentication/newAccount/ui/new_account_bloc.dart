@@ -181,7 +181,7 @@ class NewAccountBloc extends BlocBase {
         street: streetNameBloc.value,
         street2: districtBloc.value,
         countryId: _countryId,
-        city: cityBloc.value,
+        city_id: int.tryParse(selectedDistrict!.id) ?? 0,
         stateId: selectedState != null ? int.parse(selectedState!.id) : 0,
         latitude: _latitudeBehaviour.valueOrNull ?? 0.0,
         longitude: _longitudeBehaviour.valueOrNull ?? 0.0,

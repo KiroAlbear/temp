@@ -167,6 +167,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   ProductWidget _buildProductWidget(int index) {
     return ProductWidget(
       key: ValueKey(index),
+      index: index,
       onProductRemoved: (int productId) {
         resetFavouriteList(productId);
         refreshNotifier.value = !refreshNotifier.value;

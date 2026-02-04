@@ -107,6 +107,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/ic_empty_shop.svg
   String get icEmptyShop => 'assets/svg/ic_empty_shop.svg';
 
+  /// File path: assets/svg/ic_eye.svg
+  String get icEye => 'assets/svg/ic_eye.svg';
+
   /// File path: assets/svg/ic_facebook.svg
   String get icFacebook => 'assets/svg/ic_facebook.svg';
 
@@ -246,6 +249,7 @@ class $AssetsSvgGen {
     icDeliveredOrderGreen,
     icDropDownArrow,
     icEmptyShop,
+    icEye,
     icFacebook,
     icFaq,
     icFavourite,

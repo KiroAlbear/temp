@@ -166,6 +166,7 @@ class CartBloc extends BlocBase {
     void Function() onEditingCart,
   ) {
     true;
+    LoggerModule.log(message: "${productMapper.cartUserQuantity.toInt()} Cart items", name: "Editing cart");
     editCart(
       cartItemId: productMapper.productId,
       productId: productMapper.id,
@@ -403,8 +404,14 @@ class CartBloc extends BlocBase {
                 if (getCartEvent.response != null &&
                     getCartEvent.response!.second.isNotEmpty &&
                     getCartEvent.response?.second.first != null) {
+
+                  double discountSum = 0;
+                  for (var element in getCartEvent.response!.second) {
+                    discountSum+= element.finalPrice;
+                  }
+
                   _getTotalCartDiscountSum(
-                    getCartEvent.response?.second.first.finalPrice ?? 0,
+                    discountSum ,
                   );
                 } else {
                   _getTotalCartDiscountSum(0);
