@@ -177,6 +177,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   ProductWidget _buildProductWidget(int index) {
     return ProductWidget(
       key: ValueKey(index),
+      index: index,
       icDelete: widget.deleteIcon,
       onProductRemoved: (int productId) {
         resetFavouriteList(productId);

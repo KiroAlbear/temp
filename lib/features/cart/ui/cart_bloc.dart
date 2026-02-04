@@ -166,6 +166,7 @@ class CartBloc extends BlocBase {
     void Function() onEditingCart,
   ) {
     true;
+    LoggerModule.log(message: "${productMapper.cartUserQuantity.toInt()} Cart items", name: "Editing cart");
     editCart(
       cartItemId: productMapper.productId,
       productId: productMapper.id,

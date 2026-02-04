@@ -326,6 +326,7 @@ class _CartScreenState extends BaseState<CartPage> {
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
+                      index: index,
                       icDelete: Assets.svg.icDelete,
                       productMapper: snapshot.data!.response!.getFirst[index],
                       productCategoryBloc: widget.productCategoryBloc,
