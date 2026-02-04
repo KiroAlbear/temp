@@ -94,7 +94,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     required String text,
     required TextStyle style,
     required double maxWidth,
-    required TextOverflow overflow ,
+    required TextOverflow overflow,
+    required bool isCartProduct,
     required int maxLines, // optional if you already limit it
     TextDirection textDirection = TextDirection.ltr,
     double textScaleFactor = 1.0,
@@ -105,7 +106,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       maxLines: maxLines,
       ellipsis: overflow == TextOverflow.ellipsis ? '…' : null,
       textScaleFactor: textScaleFactor,
-    )..layout(maxWidth: maxWidth +80);
+    )..layout(maxWidth: maxWidth +(isCartProduct?180:80));
 
 
     bool isOverflowed = tp.didExceedMaxLines;
@@ -421,6 +422,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 textScaleFactor: scale,
                 overflow: TextOverflow.ellipsis,
                 maxLines: maxLines,
+                isCartProduct: widget.isCartProduct
               );
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (twoOrMore) {
@@ -448,7 +450,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               tailBaseWidth: 0,
               isModal: true,
               margin: EdgeInsetsDirectional.fromSTEB(
-                widget.index % 2 > 0 ? 10 : 200,
+                (widget.index % 2 > 0 && widget.isCartProduct == false) ? 10 : 200,
                 0,
                 0,
                 0,
