@@ -3,6 +3,7 @@ import 'package:deel/features/cart/models/cart_available_model.dart';
 import 'package:deel/features/cart/models/cart_product_qty.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../core/dto/modules/pair.dart';
@@ -42,7 +43,7 @@ class CartBloc extends BlocBase {
   double clientLat = 0;
   double clientLong = 0;
   double totalSum = 0;
-  int orderId = 0;
+
   String userAddressText = "";
   String cartCurrency = "";
   int deliveryFees = 0;
@@ -65,7 +66,6 @@ class CartBloc extends BlocBase {
     clientId = int.parse(SharedPrefModule().userId ?? '0');
     clientLat = SharedPrefModule().userLat;
     clientLong = SharedPrefModule().userLong;
-    orderId = SharedPrefModule().orderId;
   }
 
   void _getDate() {
@@ -81,7 +81,9 @@ class CartBloc extends BlocBase {
   }
 
   void _getTime() {
-    final timeLabel = Loc.of(Routes.rootNavigatorKey.currentContext!)!.timeSlotMorning;
+    final timeLabel = Loc.of(
+      Routes.rootNavigatorKey.currentContext!,
+    )!.timeSlotMorning;
     timeBehaviour.sink.add(timeLabel);
   }
 
@@ -126,7 +128,6 @@ class CartBloc extends BlocBase {
       productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
     ).listen((event) {
       if (event is SuccessState) {
-        orderId = event.response!;
         SharedPrefModule().orderId = event.response!;
         getMyCart(
           onGettingCart: () {
@@ -166,10 +167,10 @@ class CartBloc extends BlocBase {
     void Function() onEditingCart,
   ) {
     true;
-    LoggerModule.log(message: "${productMapper.cartUserQuantity.toInt()} Cart items", name: "Editing cart");
+
     editCart(
-      cartItemId: productMapper.productId,
-      productId: productMapper.id,
+      cartItemId: productMapper.id,
+      productId: productMapper.productId,
       quantity: productMapper.cartUserQuantity.toInt(),
       price: productMapper.finalPrice,
     ).listen((event) {
@@ -290,8 +291,10 @@ class CartBloc extends BlocBase {
             productsList[i].cartUserQuantity =
                 cartProductsBehavior.value.response!.getFirst[j].quantity;
 
-            productsList[i].productId =
+            productsList[i].id =
                 cartProductsBehavior.value.response!.getFirst[j].id;
+            productsList[i].productId =
+                cartProductsBehavior.value.response!.getFirst[j].productId;
           }
         }
       }
@@ -326,7 +329,7 @@ class CartBloc extends BlocBase {
   Stream<ApiState<int>> confirmOrderCart() {
     final CartConfirmOrderRequest request = CartConfirmOrderRequest(
       client_id: clientId,
-      order_id: orderId,
+      order_id: SharedPrefModule().orderId,
     );
     return cartConfirmOrderRemote.confirmOrderCart(request);
   }
@@ -399,20 +402,18 @@ class CartBloc extends BlocBase {
             .listen((checkAvailabilityEvent) async {
               if (checkAvailabilityEvent is SuccessState) {
                 // stream.sink.add(getCartEvent);
-                orderId = getCartEvent.response?.getFirst.first.orderId ?? 0;
+                SharedPrefModule().orderId =
+                    getCartEvent.response?.getFirst.first.orderId ?? 0;
                 getcartProductQtyList(getCartEvent.response!.getFirst);
                 if (getCartEvent.response != null &&
                     getCartEvent.response!.second.isNotEmpty &&
                     getCartEvent.response?.second.first != null) {
-
                   double discountSum = 0;
                   for (var element in getCartEvent.response!.second) {
-                    discountSum+= element.finalPrice;
+                    discountSum += element.finalPrice;
                   }
 
-                  _getTotalCartDiscountSum(
-                    discountSum ,
-                  );
+                  _getTotalCartDiscountSum(discountSum);
                 } else {
                   _getTotalCartDiscountSum(0);
                 }
