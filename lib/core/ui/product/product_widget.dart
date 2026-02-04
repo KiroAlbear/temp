@@ -457,12 +457,15 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
               child: value
                   ? Material(
-                      color: Colors.transparent,
-                      child: ImageHelper(
-                        image: Assets.svg.icEye,
-                        imageType: ImageType.svg,
-                        height: 20,
-                        width: 20,
+                      color: Color(0xff00457A).withAlpha(25),
+                      shape: CircleBorder(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon
+                          (Icons.remove_red_eye_outlined,
+                          size: 15,
+                          color: Color(0xff00457A),
+                        ),
                       ),
                     )
                   : SizedBox(),
