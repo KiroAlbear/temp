@@ -141,7 +141,7 @@ class LocAr extends Loc {
   String get city => 'المحافظة';
 
   @override
-  String get closeApplicationMessage => 'هل أنت متأكد أنك تريد الخروج من ديل؟';
+  String get closeApplicationMessage => 'هل أنت متأكد أنك تريد الخروج من ديلي؟';
 
   @override
   String get confirm => 'تأكيد';

@@ -142,7 +142,7 @@ class LocEn extends Loc {
   String get city => 'Governorate';
 
   @override
-  String get closeApplicationMessage => 'Are you sure you want to exit Deel?';
+  String get closeApplicationMessage => 'Are you sure you want to exit Deely?';
 
   @override
   String get confirm => 'Confirm';
