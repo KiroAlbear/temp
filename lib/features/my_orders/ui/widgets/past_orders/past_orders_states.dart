@@ -49,7 +49,6 @@ class _PastOrdersStatesState extends State<PastOrdersStates> {
         firstConnectorStyle: ConnectorStyle.transparent,
         lastConnectorStyle: ConnectorStyle.transparent,
         contentsBuilder: (context, index) => Container(
-          // color: Colors.red,
           height: 30,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,

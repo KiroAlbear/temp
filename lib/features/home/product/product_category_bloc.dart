@@ -9,7 +9,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   int? subcategoryId;
   int? brandId;
 
-  // bool isForFavourite = false;
   bool isNavigatingFromMore = false;
   bool isNavigationFromNotifications = false;
 
@@ -25,11 +24,8 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   List<ProductMapper> loadedProductsList = [];
 
-  // BehaviorSubject<ApiState<List<ProductMapper>>>
-  //     productBySubCategoryBrandStream = BehaviorSubject();
 
   void loadMore(bool isForFavourite, Function? onGettingMoreProducts) {
-    // await loadedListStream.drain();
     Stream<ApiState<List<ProductMapper>>> stream = Stream.empty();
     if (isForFavourite) {
       _loadWithFavourites(onGettingMoreProducts);
@@ -39,11 +35,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
       _getSubcategoryBy(categoryId);
     }
 
-    // stream.listen((event) {
-    //   if (event is SuccessState) {
-    //     setLoaded(event.response ?? []);
-    //   }
-    // });
   }
 
   void disposeReset() {
@@ -66,10 +57,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     brandId = null;
     isLoading?.value = false;
 
-    // loadedListBehaviour.close();
-    // loadedListBehaviour.stream.drain();
 
-    // loadedListBehaviour = BehaviorSubject()..sink.add(LoadingState());
 
     super.reset();
   }
@@ -140,9 +128,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         }
       });
 
-  // Stream<ApiState<List<ProductMapper>>> get getAllProducts =>
-  //     ProductRemote()
-  //         .loadProduct(ProductRequest(pageSize, pageNumber, categoryId));
 
   void _getSubcategoryBy(int categoryId) {
     SubcategoryRemote()
@@ -151,7 +136,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         .listen(
       (event) {
         if (event is SuccessState) {
-          // print("Subcategory: ${event.response}");
           if (event.response != null && event.response!.isNotEmpty) {
             event.response!.insert(
                 0,
@@ -164,10 +148,8 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
                 )));
             subCategoryByCategoryStream.sink
                 .add(SuccessState(event.response ?? []));
-            // int selectedSubCategoryId = 12; // this is for testing
             int? selectedSubCategoryId = event.response!.first.id;
             subcategoryId = selectedSubCategoryId;
-            // _getBrandBySubcategoryId(event.response!.first.id);
             getBrandBy(selectedSubCategoryId ?? categoryId);
           } else {
             subCategoryByCategoryStream.sink.add(SuccessState([]));
@@ -181,15 +163,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
   void getBrandBy(int subCategory) {
     isLoading?.value = false;
-    // if (subCategory == null) {
-    //   BrandRemote().loadAllBrands(AllBrandsRequest(1, 1000)).listen(
-    //     (event) {
-    //       if (event is SuccessState) {
-    //         _handleBrandResponse(event.response, subCategory);
-    //       }
-    //     },
-    //   );
-    // } else
     {
       BrandRemote()
           .loadBrandBySubCategoryId(BrandRequest(subCategory!, true, 1, 100))
@@ -251,26 +224,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         },
       );
     }
-    // else if (subCategory == null && brand != null) {
-    //   ProductRemote()
-    //       .loadProductByBrand(ProductBrandRequest(
-    //           brand_id: brand, page: pageNumber, limit: pageSize))
-    //       .listen(
-    //     (event) {
-    //       if (event is SuccessState &&
-    //           event.response != null &&
-    //           event.response!.isNotEmpty) {
-    //         _handleProductResponse(event.response);
-    //
-    //         if (onGettingMoreProducts != null) {
-    //           onGettingMoreProducts();
-    //         }
-    //       } else if (event.response != null && event.response!.isEmpty) {
-    //         _handleProductResponse(null);
-    //       }
-    //     },
-    //   );
-    // }
 
     else {
       ProductRemote()

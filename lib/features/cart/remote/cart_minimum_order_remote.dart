@@ -8,7 +8,6 @@ import '../../../core/dto/remote/base_remote_module.dart';
 
 class CartMinimumOrderRemote extends BaseRemoteModule<CartMinimumOrderResponse,
     List<CartMinimumOrderResponse>> {
-  // List<CartSaveResponse>? myOrderResponse;
 
   CartMinimumOrderRemote();
 

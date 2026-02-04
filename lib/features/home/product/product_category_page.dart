@@ -115,7 +115,6 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
       } else {
         widget.productCategoryBloc.categoryId = ProductCategoryPage.cateogryId;
         widget.productCategoryBloc.isLoading = widget.showOverlayLoading;
-        // widget.productCategoryBloc.reset();
 
         widget.productCategoryBloc.loadMore(widget.isForFavourite, null);
       }

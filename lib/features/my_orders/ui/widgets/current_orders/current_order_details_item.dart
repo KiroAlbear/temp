@@ -70,9 +70,6 @@ class CurrentOrderDetailsItem extends StatelessWidget {
                           child: ImageHelper(
                               image: orderImage!, imageType: ImageType.network),
                         ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
                   CustomText(
                       text: "X $quantity",
                       customTextStyle: SemiBoldStyle(

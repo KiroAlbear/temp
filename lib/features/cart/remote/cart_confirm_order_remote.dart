@@ -7,7 +7,6 @@ import '../../../core/dto/remote/base_remote_module.dart';
 
 class CartConfirmOrderRemote
     extends BaseRemoteModule<int, List<CartConfirmOrderResponse>> {
-  // List<CartSaveResponse>? myOrderResponse;
 
   CartConfirmOrderRemote();
 
@@ -18,7 +17,6 @@ class CartConfirmOrderRemote
 
   @override
   ApiState<int> onSuccessHandle(List<CartConfirmOrderResponse>? response) {
-    // myOrderResponse = response;
     return SuccessState(response![0].id!, message: 'Success');
   }
 

@@ -30,7 +30,6 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
       StreamBuilder<ApiState<List<OfferMapper>>>(
         stream: widget.homeBloc.offersStream,
         builder: (context, snapshot) =>
-            // OffersSkeleton(isMainPage: widget.isMainPage),
             checkResponseStateWithLoadingWidget(
               snapshot.data ?? LoadingState<List<OfferMapper>>(),
               context,
@@ -69,15 +68,12 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
     return ListView.separated(
       shrinkWrap: true,
       scrollDirection: widget.isMainPage ? Axis.vertical : Axis.horizontal,
-      // physics: const PageScrollPhysics(),
-      // controller: _pageScrollController,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       itemBuilder: (context, index) => OfferItem(
         isInProductPage: false,
         isClickable: list[index].link.toLowerCase().trim() != "nolink",
         item: list[index],
         homeBloc: widget.homeBloc,
-        // index: index
       ),
       separatorBuilder: (context, index) => SizedBox(
         width: widget.isMainPage == false ? 12.w : null,

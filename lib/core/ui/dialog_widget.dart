@@ -2,10 +2,7 @@ import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
-
 import 'custom_text.dart';
-import 'dialog_header_widget.dart';
 
 class DialogWidget extends StatefulWidget {
   final String? headerMessage;
@@ -39,9 +36,6 @@ class _DialogWidgetState extends State<DialogWidget> {
   @override
   Widget build(BuildContext context) => _column;
 
-  // Widget _getContainer({required Widget child}) =>
-  //     DialogHeaderWidget(child: child);
-
   Widget get _column => Padding(
     padding: EdgeInsets.symmetric(horizontal: 17.w),
     child: Stack(
@@ -69,27 +63,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                 : SizedBox(),
           ],
         ),
-        // widget.hasCloseButton
-        //     ? Padding(
-        //         padding: EdgeInsetsDirectional.fromSTEB(0, 22.h, 5.w, 0),
-        //         child: Row(
-        //           mainAxisAlignment: MainAxisAlignment.end,
-        //           crossAxisAlignment: CrossAxisAlignment.end,
-        //           mainAxisSize: MainAxisSize.max,
-        //           children: [
-        //             InkWell(
-        //               onTap: () {
-        //                 Navigator.pop(context);
-        //               },
-        //               child: ImageHelper(
-        //                 image: Assets.svg.icClose,
-        //                 imageType: ImageType.svg,
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       )
-        //     : SizedBox(),
       ],
     ),
   );
@@ -110,23 +83,6 @@ class _DialogWidgetState extends State<DialogWidget> {
     maxLines: 4,
     textAlign: TextAlign.center,
   );
-
-  /*  Widget get _rowButton => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (widget.cancelMessage == null)
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: _confirmButton),
-          if (widget.cancelMessage != null) _confirmButton,
-          if (widget.cancelMessage != null)
-            SizedBox(
-              width: 10.w,
-            ),
-          if (widget.cancelMessage != null) _cancelButton,
-        ],
-      );*/
 
   Widget get _confirmButton => CustomButtonWidget(
     idleText: widget.confirmMessage,

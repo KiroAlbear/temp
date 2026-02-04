@@ -79,23 +79,12 @@ class UpdateProfileBloc extends BlocBase {
   }
 
   void initAddress(DeliveryAddressMapper deliveryAddress) {
-    // String fullAddress = deliveryAddress.street ?? '';
-    // // List<String> spaceSplitting = fullAddress.split(' ');
-    // List<String> dashSplitting = fullAddress.split('-');
-    // List<String> numberAndStreet = dashSplitting[0].split(' ');
 
     String buildingNumber = deliveryAddress.street;
-    // String buildingName = '';
-    // for (int i = 1; i < numberAndStreet.length; i++) {
-    //   buildingName += numberAndStreet[i] + ' ';
-    // }
 
     String district = deliveryAddress.street2;
     String governorate = deliveryAddress.city ?? '';
 
-    // buildingNameBloc.textFormFiledBehaviour.sink
-    //     .add(TextEditingController(text: buildingName));
-    // buildingNameBloc.updateStringBehaviour(buildingName);
 
     buildingNumberBloc.textFormFiledBehaviour.sink
         .add(TextEditingController(text: buildingNumber));

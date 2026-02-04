@@ -5,14 +5,6 @@ import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_order_details_args.dart';
 import 'package:deel/features/cart/ui/widgets/cart_product_summary_item.dart';
-// import 'package:fawry_sdk/fawry_sdk.dart';
-// import 'package:fawry_sdk/fawry_utils.dart';
-// import 'package:fawry_sdk/model/bill_item.dart';
-// import 'package:fawry_sdk/model/fawry_launch_model.dart';
-// import 'package:fawry_sdk/model/launch_customer_model.dart';
-// import 'package:fawry_sdk/model/launch_merchant_model.dart';
-// import 'package:fawry_sdk/model/payment_methods.dart';
-// import 'package:fawry_sdk/model/response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,7 +46,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   @override
   void initState() {
     super.initState();
-    // initSDKCallback();
   }
 
   @override
@@ -143,7 +134,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
 
                           if (widget.cartOrderDetailsArgs.isItVisa) {
                             _payWithCard();
-                            // _payWithWallet();
                           }
                           // else if (widget.cartOrderDetailsArgs.isItFawry) {
                           //   _payWithFawry();
@@ -270,9 +260,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           .cartTotalBeforeDiscountDoubleBehaviour
           .stream
           .value, // Sets the amount of money to be paid (100 EGP)
-      // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
-        // Checks if the payment was successful
         if (response.responseCode == "APPROVED") {
           _ConfirmOder();
         } else {
@@ -297,9 +285,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           .cartTotalBeforeDiscountDoubleBehaviour
           .stream
           .value, // Sets the amount of money to be paid (100 EGP)
-      // Optional callback function invoked when the payment process is completed
       onPayment: (response) {
-        // Checks if the payment was successful
         if (response.responseCode == "200") {
           _ConfirmOder();
         } else {
@@ -344,10 +330,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           NavigationType.pushReplacementNamed,
           context,
         );
-        // CustomNavigatorModule
-        //     .navigatorKey.currentState!
-        //     .pushReplacementNamed(
-        //     AppScreenEnum.cartSuccessScreen.name);
 
         widget.cartBloc.cartProductsBehavior.sink.add(IdleState());
       }
@@ -426,7 +408,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                           fontSize: 14.sp,
                         ),
                       ),
-                      // deliveryFees(),
                     ],
                   ),
                 ],

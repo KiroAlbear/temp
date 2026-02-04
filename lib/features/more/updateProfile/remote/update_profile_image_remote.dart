@@ -20,7 +20,6 @@ class UpdateProfileImageRemote {
       options: Options(
         headers: {
           'token': '${SharedPrefModule().bearerToken}',
-          // 'Content-Type': 'multipart/form-data',
         },
       ),
     );
@@ -28,7 +27,6 @@ class UpdateProfileImageRemote {
       callApiAsStream.sink.add(
         SuccessState(LoginMapper(LoginResponse.fromJson(response.data))),
       );
-      // onSuccessHandle(LoginResponse.fromJson(response.data));
     } else {
       callApiAsStream.sink.add(
         FailedState(
@@ -39,7 +37,4 @@ class UpdateProfileImageRemote {
     }
   }
 
-  // ApiState<LoginMapper> onSuccessHandle(LoginResponse? response) {
-  //   return SuccessState(LoginMapper(response!));
-  // }
 }

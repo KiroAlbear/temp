@@ -1,15 +1,10 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'new_account_bloc.dart';
 
 class EditLocationPage extends BaseStatefulWidget {
   final NewAccountBloc newAccountBloc;
-  // final double latitude;
-  // final double longitude;
   const EditLocationPage({super.key, required this.newAccountBloc});
 
   @override
@@ -42,20 +37,6 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
       child: MapModule().loadMap(
         onPicked: (latitude, longitude, city, area, address) {
           _confirmPickLocation(longitude, latitude, city, area, address);
-          // AlertModule().showDialog(
-          //   context: context,
-          //   message: Loc.of(context)!.pickLocationEnsureMessage,
-          //   cancelMessage: Loc.of(context)!.cancel,
-          //   confirmMessage: Loc.of(context)!.ok,
-          //   headerMessage: '',
-          //   onConfirm: () {
-          //     _confirmPickLocation(
-          //         longitude, latitude, city, area, address);
-          //   },
-          //   onCancel: () {
-          //     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-          //   },
-          // );
         },
         latitude: widget.newAccountBloc.latitude,
         longitude: widget.newAccountBloc.longitude,
@@ -65,30 +46,6 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
     ),
   );
 
-  /* Widget _cancelButton(BuildContext context) =>
-      CustomButtonWidget(
-          idleText: S
-              .of(context)
-              .cancel,
-          height: 30.h,
-          onTap: () {
-
-          },
-          inLineBackgroundColor: whiteColor,
-          textColor: secondaryColor,
-          buttonShapeEnum: ButtonShapeEnum.outline);
-
-  Widget _confirmButton(BuildContext context, double longitude, double latitude,
-      String city, String area, String address) =>
-      CustomButtonWidget(
-        idleText: S
-            .of(context)
-            .ok,
-        height: 30.h,
-        onTap: () =>
-        ,
-      );*/
-
   void _confirmPickLocation(
     double longitude,
     double latitude,
@@ -96,14 +53,8 @@ class _EditLocationPageState extends BaseState<EditLocationPage> {
     String area,
     String address,
   ) async {
-    // ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     widget.newAccountBloc.longitude = longitude;
     widget.newAccountBloc.latitude = latitude;
-    // if (area.isNotEmpty) {
-    //   widget.newAccountBloc.neighborhoodBloc.textFormFiledBehaviour.sink
-    //       .add(TextEditingController(text: area));
-    //   widget.newAccountBloc.neighborhoodBloc.updateStringBehaviour(area);
-    // }
 
     widget.newAccountBloc.streetNameBloc.textFormFiledBehaviour.sink.add(
       TextEditingController(text: address),

@@ -49,10 +49,8 @@ class CartBloc extends BlocBase {
   bool isAnyProductOutOfStock = false;
   List<CartAvailableModel> productsOfMoreThanAvailable = [];
 
-  // bool isAnyQuantityGreaterThanStockQuantity = false;
 
   void _getAddress() {
-    // addressBehaviour.sink.add("5 شارع الحدادين، عدن. ");
     addressBehaviour.sink.add(userAddressText);
   }
 
@@ -77,7 +75,6 @@ class CartBloc extends BlocBase {
     dateBehaviour.sink.add(
       "${dateArabicFormat.format(tomorrow)} ${dateEnglishFormat.format(tomorrow)} ",
     );
-    // dateBehaviour.sink.add("الخميس 20/12/2023");
   }
 
   void _getTime() {
@@ -87,7 +84,6 @@ class CartBloc extends BlocBase {
 
   void getTotalCartSum(List<ProductMapper>? myOrderResponse, String currency) {
     totalSum = 0;
-    //getting the currency from the first element of items
 
     cartCurrency = currency;
 
@@ -95,7 +91,6 @@ class CartBloc extends BlocBase {
       totalSum += element.finalPrice ?? 0;
     });
 
-    // totalSum += deliveryFees;
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
     double totalWithDelivery = double.parse(
       (parsedTotalSum + deliveryFees).toStringAsFixed(2),
@@ -243,25 +238,8 @@ class CartBloc extends BlocBase {
           _getCart(false, event, stream);
         else
           _getCart(true, event, stream);
-        // if (cartState == CartState.decrement) {
-        //   totalSum -= price;
-        // } else {
-        //   totalSum += price;
-        // }
-        // double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));
-        // cartTotalBehaviour.sink.add("$parsedTotalSum  $currency");
 
-        // stream.sink.add(event);
       }
-      // cartFinishCallingApi.listen(
-      //   (value) {
-      //     // if (value != counter)
-      //     {
-      //       counter = value;
-      //       stream.sink.add(event);
-      //     }
-      //   },
-      // );
     });
 
     return stream;
@@ -270,12 +248,8 @@ class CartBloc extends BlocBase {
   void addCartInfoToProducts(List<ProductMapper> productsList) {
     if (cartProductsBehavior.hasValue == true &&
         (cartProductsBehavior.value.response?.getFirst.isEmpty ?? true)) {
-      // return;
       for (int i = 0; i < productsList.length; i++) {
         productsList[i].cartUserQuantity = 0;
-        // productsList[i].maxQuantity = 0;
-        // productsList[i].minQuantity = 0;
-        // productsList[i].productId = 0;
       }
     } else {
       if (cartProductsBehavior.hasValue == false) return;
@@ -348,30 +322,8 @@ class CartBloc extends BlocBase {
     _getTotalCartDeliverySum();
     _getCartMinimumOrder();
 
-    // BehaviorSubject<ApiState<List<ProductMapper>>> cartProductsStream = BehaviorSubject();
     _getCart(false, null, null, onGettingCart: onGettingCart);
-    // cartRemote.getMyCart(CartRequest(clientId)).listen((getCartEvent) {
-    //   // cartProductsBehavior.sink.add((getCartEvent));
-    //   if (getCartEvent is SuccessState && getCartEvent.response!.isNotEmpty) {
-    //     cartCheckAvailabilityRemote
-    //         .checkAvailability(CartCheckAvailabilityRequest(
-    //             client_id: clientId,
-    //             product_ids:
-    //                 getCartEvent.response!.map((e) => e.productId).toList()))
-    //         .listen((checkAvailabilityEvent) {
-    //       if (checkAvailabilityEvent is SuccessState) {
-    //         // stream.sink.add(getCartEvent);
-    //         getcartProductQtyList(getCartEvent.response!);
-    //         getTotalCartSum(cartRemote.myOrderResponse);
-    //
-    //         cartProductsBehavior.sink.add(SuccessState(addAvailabilityToProduct(
-    //             getCartEvent.response!, checkAvailabilityEvent.response!)));
-    //       }
-    //     });
-    //   }
-    // });
 
-    // return cartProductsBehavior;
   }
 
   Future<void> _getCart(
@@ -380,7 +332,6 @@ class CartBloc extends BlocBase {
     BehaviorSubject<ApiState<int>>? stream, {
     Function()? onGettingCart,
   }) async {
-    // cartProductsBehavior.sink.add(LoadingState());
 
     if (clientId == 0) return;
 
@@ -398,7 +349,6 @@ class CartBloc extends BlocBase {
             )
             .listen((checkAvailabilityEvent) async {
               if (checkAvailabilityEvent is SuccessState) {
-                // stream.sink.add(getCartEvent);
                 orderId = getCartEvent.response?.getFirst.first.orderId ?? 0;
                 getcartProductQtyList(getCartEvent.response!.getFirst);
                 if (getCartEvent.response != null &&
@@ -442,7 +392,6 @@ class CartBloc extends BlocBase {
                   stream.sink.add(apiState);
                 }
 
-                // cartFinishCallingApi.sink.add(cartFinishCallingApi.value! + 1);
               }
             });
       } else if (getCartEvent.response?.getFirst.isEmpty ?? true) {
@@ -464,7 +413,6 @@ class CartBloc extends BlocBase {
       }
     });
 
-    // await Future.delayed(Duration(milliseconds: 2000));
   }
 
   List<ProductMapper> addAvailabilityToProduct(
@@ -487,8 +435,6 @@ class CartBloc extends BlocBase {
                 quantity: products[i].availableQuantity.toString(),
               ),
             );
-            // editCart(cartItemId: products[i].id,
-            //      productId:  products[i].id, price:  products[i].finalPrice, quantity: products[i].availableQuantity);
           }
           if (products[i].availableQuantity == 0) {
             isAnyProductOutOfStock = true;
@@ -519,7 +465,5 @@ class CartBloc extends BlocBase {
   @override
   void dispose() {
     buttonBloc.dispose();
-    // cartProductsBehavior.sink.add(IdleState());
-    // cartProductsBehavior.close();
   }
 }

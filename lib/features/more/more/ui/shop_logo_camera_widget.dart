@@ -45,13 +45,11 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
 
   @override
   Widget build(BuildContext context) => Container(
-        // color: Colors.red,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Container(
-                // color: Colors.blue,
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -67,7 +65,6 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
       );
 
   Widget get _nameAndMobileWidget => Container(
-        // color: Colors.red,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,7 +99,6 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
                     width: 70.w,
                     decoration: BoxDecoration(
                         color: productCardColor,
-                        // color: Colors.red,
                         borderRadius: BorderRadius.circular(8.w)),
                     child: ImageHelper(
                       height: imageHeight,

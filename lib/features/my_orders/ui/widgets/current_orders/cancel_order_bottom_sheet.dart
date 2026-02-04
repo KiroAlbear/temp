@@ -131,7 +131,6 @@ class CancelOrderBottomSheet extends StatelessWidget {
                     successColor: primaryColor,
                     idleTextColor: disabledButtonTextColorLightMode,
 
-                    // textColor: disabledButtonTextColorLightMode,
                     onTap: () {
                       if (!_formKey.currentState!.validate()) return;
 

@@ -11,11 +11,6 @@ class MostSellingRemote
       AdminDioModule().build(),
     ).getMostSelling(requestModel);
   }
-  // Stream<ApiState<List<ProductMapper>>> getMostSelling(
-  //     MostSellingRequestModel requestModel) {
-  //
-  //   return callApiAsStream();
-  // }
 
   @override
   ApiState<List<ProductMapper>> onSuccessHandle(

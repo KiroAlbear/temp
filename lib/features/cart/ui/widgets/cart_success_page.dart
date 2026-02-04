@@ -69,13 +69,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
               borderRadius: 8,
               textColor: secondaryColor,
               onTap: () async {
-                // await CustomNavigatorModule.navigatorKey.currentState!
-                //     .pushReplacementNamed(AppScreenEnum.home.name);
 
-                // CustomNavigatorModule.navigatorKey.currentState!.pop();
-                // Navigator.pop(context);
-                // getIt<BottomNavigationBloc>().setSelectedTab(4, context);
-                // widget.bottomNavigationBloc.setSelectedTab(4, context);
                 Routes.navigateToScreen(
                   Routes.morePage,
                   NavigationType.goNamed,
@@ -86,12 +80,7 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
                   NavigationType.pushNamed,
                   context,
                 );
-                // CustomNavigatorModule.navigatorKey.currentState!
-                //     .pushNamed(AppScreenEnum.myOrders.name);
 
-                // CustomNavigatorModule.navigatorKey.currentState!
-                //     .pushNamed();
-                // CustomNavigatorModule.navigatorKey.currentState!.pop();
               },
             ),
           ),

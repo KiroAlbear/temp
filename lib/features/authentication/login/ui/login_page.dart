@@ -60,8 +60,6 @@ class _LoginWidgetState extends BaseState<LoginPage> {
     super.initState();
   }
 
-  // testing Username -> +96771597531
-  // testing password -> Zainab94@
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(
@@ -228,18 +226,6 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                 }
               });
 
-              // _bloc.loginWithBiometrics.listen((event) {
-              //   checkResponseStateWithButton(event, context,
-              //       failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-              //       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-              //       onSuccess: () {
-              //     _bloc.passwordBloc.textFormFiledBehaviour.sink
-              //         .add(TextEditingController(text: ""));
-              //     _bloc.mobileBloc.textFormFiledBehaviour.sink
-              //         .add(TextEditingController(text: ""));
-              //     _navigateHome();
-              //   });
-              // });
             }
           });
     },
@@ -310,7 +296,6 @@ class _LoginWidgetState extends BaseState<LoginPage> {
     if (isLoggingWithBiometric == false) {
       SharedPrefModule().userPhone =
           "+${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value}";
-      //
       SharedPrefModule().userPhoneWithoutCountry = _bloc.mobileBloc.value;
 
       await SharedPrefModule().setCountryCode(
@@ -327,10 +312,5 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       context,
       setBottomNavigationTab: true,
     );
-    // CustomNavigatorModule.navigatorKey.currentState
-    //     ?.pushReplacementNamed(AppScreenEnum.home.name);
-    // getIt<BottomNavigationBloc>().setSelectedTab(0, context);
-    // if (widget.bottomNavigationBloc != null)
-    //   widget.bottomNavigationBloc!.setSelectedTab(0, context);
   }
 }

@@ -9,8 +9,6 @@ class MyOrdersBloc extends BlocBase {
 
   BehaviorSubject<ApiState<int>> cancelOrderBehavior = BehaviorSubject();
   BehaviorSubject<String> cancelOrderReason = BehaviorSubject();
-  // Stream<bool> get validate => Rx.combineLatest2(
-  //     cancelOrderReason, Stream.empty(), (mobile, country) => false);
 
   Stream<ApiState<MyOrdersMapper>> get myOrdersStream =>
       _myOrdersBehavior.stream;

@@ -99,7 +99,6 @@ class _NewAccountInfoWidgetState extends BaseState<NewAccountInfoWidget> {
         RegExp(r'[a-z0-9\A-Z\u0621-\u064a-\u0660-\u0669 ]'),
       ),
       FilteringTextInputFormatter.allow(RegExp(r'^(?!\s).*$')),
-      // FilteringTextInputFormatter.allow(RegExp(r'^[\u0660-\u0669]+$')),
     ],
     textInputAction: TextInputAction.next,
   );

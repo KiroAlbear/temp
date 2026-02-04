@@ -180,7 +180,6 @@ class _HomeWidgetState extends BaseState<HomePage> {
               isHorizontalListView: true,
               onTapFavourite: (favourite, productMapper) {},
               loadMore: (Function func) {
-                // _loadProducts(false, func);
               },
             ),
           ),

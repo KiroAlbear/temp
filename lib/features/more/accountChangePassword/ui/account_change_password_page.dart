@@ -34,13 +34,10 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
   @override
   void onPopInvoked(didPop) async {
     changeSystemNavigationBarColor(secondaryColor);
-    // await Future.delayed(Duration(milliseconds: 100));
-    // super.onPopInvoked(didPop);
   }
 
   @override
   void initState() {
-    // customBackgroundColor = Colors.white;
 
     super.initState();
   }
@@ -164,22 +161,11 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
       );
     },
   );
-  /////////////////////////////
-  void onlyForTestingCode() {
-    Future.delayed(const Duration(milliseconds: 600)).then((value) {
-      AppProviderModule().logout(context);
-    });
-  }
-
   Widget get _button => CustomButtonWidget(
     idleText: Loc.of(context)!.saveChange,
     onTap: () {
       if (_bloc.isValid) {
         _bloc.changePassword.listen((event) {
-          // only for testing
-          // if(kDebugMode){
-          //   onlyForTestingCode();
-          // }else
           {
             checkResponseStateWithButton(
               event,

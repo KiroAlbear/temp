@@ -10,7 +10,6 @@ class AnnouncementsHeroBannerItem extends StatelessWidget {
   final double _borderRadius = 20;
   const AnnouncementsHeroBannerItem(
       {
-      // required this.index,
       required this.item,
       required this.isClickable,
       super.key});

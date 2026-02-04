@@ -35,11 +35,8 @@ class _FaqWidgetState extends BaseState<FaqPage> {
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
-    // super.onPopInvoked(didPop);
   }
 
-  // BlocProvider get _blocProvider =>
-  //     BlocProvider(bloc: _bloc, child: _screenDesign);
 
   Widget get _screenDesign => Column(
     children: [

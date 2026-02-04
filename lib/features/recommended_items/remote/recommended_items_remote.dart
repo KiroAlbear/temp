@@ -15,11 +15,6 @@ class RecommendedItemsRemote
       AdminDioModule().build(),
     ).getRecommendedItems(requestModel);
   }
-  // Stream<ApiState<List<ProductMapper>>> getRecommendedItems(
-  //     RecommendedItemsRequestModel requestModel) {
-  //
-  //   return callApiAsStream();
-  // }
 
   @override
   ApiState<List<ProductMapper>> onSuccessHandle(

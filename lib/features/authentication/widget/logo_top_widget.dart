@@ -36,15 +36,6 @@ class LogoTopWidget extends StatefulWidget {
 }
 
 class _LogoTopWidgetState extends State<LogoTopWidget> {
-  // @override
-  // PreferredSizeWidget? appBar() => null;
-  //
-  //
-  // @override
-  // Color? statusBarColor() => Colors.white;
-  //
-  // @override
-  // Color? systemNavigationBarColor() => Colors.white;
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -67,10 +58,8 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
                       highlightColor: Colors.transparent,
                       onTap: () {
                         if (widget.pressingBackTwice) {
-                          // CustomNavigatorModule.navigatorKey.currentState?.pop();
                           Navigator.pop(context);
                         }
-                        // CustomNavigatorModule.navigatorKey.currentState?.pop();
                         Navigator.pop(context);
                       },
                       child: SizedBox(
@@ -114,10 +103,6 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
             context,
             setBottomNavigationTab: true,
           );
-          // CustomNavigatorModule.navigatorKey.currentState
-          //     ?.pushReplacementNamed(AppScreenEnum.home.name);
-          // getIt<BottomNavigationBloc>().setSelectedTab(0, context);
-          // widget.bottomNavigationBloc!.setSelectedTab(0, context);
         },
         child: Padding(
           padding: EdgeInsetsDirectional.only(
@@ -137,15 +122,4 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
     ],
   );
 
-  // @override
-  // void onPopInvoked(didPop) {
-  //   super.onPopInvoked(didPop);
-  //   // handleCloseApplication();
-  // }
-  //
-  // @override
-  // bool isSafeArea() => Platform.isIOS?false:true;
-  //
-  // @override
-  // bool canPop() => widget.canBack;
 }

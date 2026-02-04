@@ -32,9 +32,6 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
         uploadProfileRemote.callApiAsStream.listen(
           (event) {
             if (event is SuccessState) {
-              // showErrorDialog("Success", context, headerColor: Colors.green);
-              // selectedFileBehaviour.sink.add(selectedFileBehaviour.value);
-              // getProfileData();
             } else if (event is FailedState) {
               showErrorDialog(Loc.of(context)!.failed, context);
               selectedFileBehaviour.sink.add('');
@@ -99,11 +96,6 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
     }
   }
 
-  // void updateProfile(String name, String shopName) {
-  //   ProfileMapper profileMapper = profileBehaviour.valueOrNull!.response!;
-  //   profileMapper.name = '$name-$shopName';
-  //   profileBehaviour.sink.add(SuccessState(profileMapper));
-  // }
 
   @override
   void dispose() {

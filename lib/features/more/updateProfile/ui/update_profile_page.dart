@@ -40,7 +40,6 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
-    // super .onPopInvoked(didPop);
   }
 
   @override
@@ -49,9 +48,6 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
 
     getUserData();
 
-    // _bloc.fullNameBloc.textFormFiledBehaviour.sink
-    //     .add(TextEditingController(text: widget.moreBloc.user.phone));
-    // _bloc.fullNameBloc.updateStringBehaviour(widget.moreBloc.user.phone);
   }
 
   Future<void> getUserData() async {
@@ -59,7 +55,6 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
         widget.moreBloc.profileBehaviour.value.response?.id.toString() ?? '';
     _bloc.loadDeliveryAddress(userId);
 
-    // String name = widget.moreBloc.profileBehaviour.value.response?.name ?? '';
 
     String email = widget.moreBloc.profileBehaviour.value.response?.email ?? '';
     String phone =

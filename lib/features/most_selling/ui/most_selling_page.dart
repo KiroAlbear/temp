@@ -44,7 +44,6 @@ class _MostSellingPageState extends BaseState<MostSellingPage> {
 
   @override
   void initState() {
-    // getIt<MostSellingBloc>().getMostSelling();
     super.initState();
   }
 

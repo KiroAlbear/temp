@@ -68,8 +68,6 @@ class CustomNavigationBar extends StatelessWidget {
                 ),
         ],
       ),
-      // label: label,
-      // labelStyle: TextStyle(color: Colors.white, fontSize: 10.sp),
     );
   }
 

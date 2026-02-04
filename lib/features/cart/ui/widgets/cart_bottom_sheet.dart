@@ -121,7 +121,6 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   ? disabledButtonTextColorLightMode
                   : secondaryColor,
               onTap: () async {
-                // pop the bottom sheet
                 Navigator.pop(context);
                 if (_groupeValue == _groupeCashValue) {
                   Routes.navigateToScreen(
@@ -134,8 +133,6 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                       isItFawry: false,
                     ),
                   );
-                  // CustomNavigatorModule.navigatorKey.currentState!
-                  //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
                 } else if (_groupeValue == _groupeVisaValue) {
                   Routes.navigateToScreen(
                     Routes.cartOrderDetailsPage,
@@ -214,7 +211,6 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                         textFiledControllerStream:
                             widget.cartBloc.walletNumberBehaviour,
                         onChanged: (value) {
-                          // widget.cartBloc.updateWalletNumber(value);
                         },
                       ),
                     ),
@@ -226,7 +222,6 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                           ? disabledButtonTextColorLightMode
                           : secondaryColor,
                       onTap: () async {
-                        // pop the bottom sheet
                         if (_formKey.currentState!.validate()) {
                           Navigator.pop(context);
                           await Routes.navigateToScreen(

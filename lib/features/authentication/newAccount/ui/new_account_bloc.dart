@@ -33,8 +33,6 @@ class NewAccountBloc extends BlocBase {
     streetNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
     streetNameBloc.stringBehaviour.add("");
 
-    // neighborhoodBloc.textFormFiledBehaviour.sink.add(TextEditingController());
-    // neighborhoodBloc.stringBehaviour.add("");
 
     cityBloc.textFormFiledBehaviour.sink.add(TextEditingController());
     cityBloc.stringBehaviour.add("");
@@ -74,7 +72,6 @@ class NewAccountBloc extends BlocBase {
   final TextFormFiledBloc facilityNameBloc = TextFormFiledBloc();
   final TextFormFiledBloc companyBloc = TextFormFiledBloc();
   final TextFormFiledBloc streetNameBloc = TextFormFiledBloc();
-  // final TextFormFiledBloc neighborhoodBloc = TextFormFiledBloc();
   final TextFormFiledBloc cityBloc = TextFormFiledBloc();
   final TextFormFiledBloc districtBloc = TextFormFiledBloc();
   final TextFormFiledBloc passwordBloc = TextFormFiledBloc();
@@ -124,7 +121,6 @@ class NewAccountBloc extends BlocBase {
 
   Stream<bool> get validateLocationStream => Rx.combineLatest3(
     streetNameBloc.stringStream,
-    // neighborhoodBloc.stringStream,
     cityBloc.stringStream,
     districtBloc.stringStream,
     (street, cityBloc, districtBloc) => isLocationValid,
@@ -139,7 +135,6 @@ class NewAccountBloc extends BlocBase {
 
   void nextStep(NewAccountStepEnum stepEnum) {
     _stepBehaviour.sink.add(stepEnum);
-    // check if the step is the last step
   }
 
   bool get isNamesInfoValid =>
@@ -148,7 +143,6 @@ class NewAccountBloc extends BlocBase {
       selectedCompany != null;
 
   bool get isLocationValid =>
-      // _validatorModule.isFiledNotEmpty(neighborhoodBloc.value) &&
       _validatorModule.isFiledNotEmpty(cityBloc.value) &&
       _validatorModule.isFiledNotEmpty(districtBloc.value) &&
       (latitude != 0.0) &&
@@ -235,7 +229,6 @@ class NewAccountBloc extends BlocBase {
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<dynamic, dynamic>;
     Map<dynamic, dynamic> address = decodedResponse['address'];
     _setState(address);
-    // _setNeighborhood(address);
 
     String area = Apputils.getFormattedAddress(address);
 
@@ -249,12 +242,6 @@ class NewAccountBloc extends BlocBase {
     streetNameBloc.updateStringBehaviour(area);
   }
 
-  // void _setNeighborhood(Map<dynamic, dynamic> address) {
-  //   neighborhoodBloc.textFormFiledBehaviour.sink.add(
-  //     TextEditingController(text: address['village'] ?? ''),
-  //   );
-  //   neighborhoodBloc.updateStringBehaviour(address['village'] ?? '');
-  // }
 
   void _setState(Map<dynamic, dynamic> address) {
     if (stateList.isNotEmpty) {
@@ -281,26 +268,6 @@ class NewAccountBloc extends BlocBase {
 
   @override
   void dispose() {
-    // fullNameBloc.dispose();
-    // facilityNameBloc.dispose();
-    // _stepBehaviour.close();
-    // streetNameBloc.dispose();
-    // buttonBloc.dispose();
-    // neighborhoodBloc.dispose();
-    // cityBloc.dispose();
-    // passwordBloc.dispose();
-    // confirmPasswordBloc.dispose();
-    // countryCodeBehaviour.close();
-    // _stateBehaviour.close();
-    // _latitudeBehaviour.close();
-    // _longitudeBehaviour.close();
-    // stepsStream.drain();
-    // latitudeStream.drain();
-    // longitudeStream.drain();
-    // validateInfoStream.drain();
-    // validateLocationStream.drain();
-    // validatePasswordStream.drain();
-    // register.drain();
 
     mobileNumber = "";
     countryCode = "";

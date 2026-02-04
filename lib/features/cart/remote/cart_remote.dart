@@ -34,7 +34,6 @@ class CartRemote
       if ((element.price_total??0) > 0){
         cartProducts.add(ProductMapper.fromOrderResponse(element));
       }
-      // cartProducts.add(ProductMapper.fromOrderResponse(element));
       
     });
     return cartProducts;
@@ -47,7 +46,6 @@ class CartRemote
       if ((element.price_total??0) < 0){
         cartProducts.add(ProductMapper.fromOrderResponse(element));
       }
-      // cartProducts.add(ProductMapper.fromOrderResponse(element));
 
     });
     return cartProducts;

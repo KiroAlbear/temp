@@ -64,7 +64,6 @@ class _NewAccountLocationInfoWidgetState
       _cityAndDistrictRow,
     ],
   );
-  // ValueNotifier<bool> _isLocationDetected = ValueNotifier(true);
 
   Widget get _mapPreviewStream => StreamBuilder(
     stream: widget.newAccountBloc.latitudeStream,
@@ -78,8 +77,6 @@ class _NewAccountLocationInfoWidgetState
               opacity: showMap ? 1 : 0,
               child: MapPreviewWidget(
                 clickOnChangeLocation: () {
-                  // widget.newAccountBloc
-                  //     .nextStep(NewAccountStepEnum.editLocation);
 
                   Routes.navigateToScreen(
                     Routes.editLocationPage,
@@ -95,7 +92,6 @@ class _NewAccountLocationInfoWidgetState
                   widget.newAccountBloc.longitude = longitude;
 
                   await widget.newAccountBloc.pickLocationInfo();
-                  // _isLocationDetected.value = true;
                 },
               ),
             ),

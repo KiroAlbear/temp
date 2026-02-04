@@ -37,8 +37,6 @@ class OtpBloc extends BlocBase {
       otpBloc.value.isNotEmpty && otpBloc.value.length == otpCodeLength;
 
   Future<ApiState<void>> sendOtp(String phone, String errorMessage) {
-    // OtpRemote().sendOtp('+967777902510').then(
-    // return OtpRemote().sendOtp('+201272911658', errorMessage);
     _setTimerToStart();
     return OtpRemote().sendOtp(phone, errorMessage);
   }

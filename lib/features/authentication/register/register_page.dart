@@ -48,7 +48,6 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
   Future<void> requestSmsPermission() async {
     var status = await Permission.sms.status;
     if (status.isDenied) {
-      // Request the permission if it's not granted
       await Permission.sms.request();
     }
   }
@@ -125,8 +124,6 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
       context,
       queryParameters: {OtpPage.nextPageKey: Routes.newAccountPage},
     );
-    // CustomNavigatorModule.navigatorKey.currentState
-    //     ?.pushNamed(AppScreenEnum.otp.name);
   }
 
   Widget get _button => Center(
@@ -173,8 +170,6 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
                                 OtpPage.nextPageKey: Routes.newAccountPage,
                               },
                             );
-                            // CustomNavigatorModule.navigatorKey.currentState
-                            //     ?.pushNamed(AppScreenEnum.otp.name);
                           },
                         );
                       });

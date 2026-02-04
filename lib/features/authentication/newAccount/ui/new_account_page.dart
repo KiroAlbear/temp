@@ -18,7 +18,6 @@ class NewAccountPage extends BaseStatefulWidget {
 
   NewAccountPage({
     super.key,
-    // required this.bl
   });
 
   @override
@@ -43,7 +42,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
 
   @override
   void onPopInvoked(didPop) {
-    // _handleBackPressing();
   }
 
   @override
@@ -303,8 +301,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
     if (widget._bloc.isPasswordValid) {
       widget._bloc.register.listen((event) {
         if (event is LoadingState) {
-          // widget._bloc.buttonBloc.buttonBehavior.sink
-          //     .add(ButtonState.loading);
           _loadingNotifier.value = true;
         } else if (event is SuccessState) {
           widget._bloc.updateAddress(event.response?.userId ?? 0).listen((
@@ -341,8 +337,6 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                   NavigationType.goNamed,
                   context,
                 );
-                // CustomNavigatorModule.navigatorKey.currentState
-                //     ?.pushNamed(AppScreenEnum.successRegister.name);
               },
             );
           });

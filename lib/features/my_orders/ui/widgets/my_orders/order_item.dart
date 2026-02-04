@@ -72,7 +72,6 @@ class OrderItem extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadious),
           ),
-          // trailing: _getCurrentOrdersTrailingWidget(),
           trailing: orderItemType == OrderType.pastOrder
               ? _getPastOrdersTrailingWidget(
                   context,
@@ -214,7 +213,6 @@ class OrderItem extends StatelessWidget {
         color: isOrderReceived ? greenColor : Colors.red,
       ),
       child: CustomText(
-        // text: Loc.of(context)!.orderNotRecieved,
         text: isOrderReceived
             ? Loc.of(context)!.orderRecieved
             : Loc.of(context)!.orderNotRecieved,
@@ -254,12 +252,6 @@ class OrderItem extends StatelessWidget {
                 ),
               ),
 
-              // ImageHelper(
-              //   image: Assets.svg.icDeleteOrder,
-              //   width: 40,
-              //   height: 40,
-              //   imageType: ImageType.svg,
-              // ),
             ),
           ),
         );

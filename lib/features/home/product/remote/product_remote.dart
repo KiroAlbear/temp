@@ -22,12 +22,6 @@ class ProductRemote
     return SuccessState(list);
   }
 
-  // Stream<ApiState<List<ProductMapper>>> loadAllProducts(
-  //     ProductRequest pageRequest) {
-  //   apiFuture = ApiClient(OdooDioModule().build()).getAllProduct(pageRequest);
-  //
-  //   return callApiAsStream();
-  // }
 
   Stream<ApiState<List<ProductMapper>>> loadProductById(int productId) {
     apiFuture =

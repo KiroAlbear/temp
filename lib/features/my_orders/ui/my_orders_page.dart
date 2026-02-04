@@ -36,20 +36,11 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
   @override
   void onPopInvoked(didPop) {
     changeSystemNavigationBarColor(secondaryColor);
-    // super.onPopInvoked(didPop);
   }
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    // _tabController.animateTo(1, duration: Duration(milliseconds: 1));
-    // MyOrdersRemote().callApiAsStream().listen(
-    //   (event) {
-    //     LoggerModule.log(message: "my orders", name: "getting my orders");
-    //   },
-    // );
-    // get client id from shared prefrences
-    //
 
     widget.myOrdersBloc.getMyOrders(
       MyOrdersRequest(

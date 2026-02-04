@@ -8,7 +8,6 @@ import '../../../core/dto/remote/base_remote_module.dart';
 
 class CancelOrderRemote
     extends BaseRemoteModule<int, List<CartConfirmOrderResponse>> {
-  // List<CartSaveResponse>? myOrderResponse;
 
   CancelOrderRemote();
 
@@ -19,7 +18,6 @@ class CancelOrderRemote
 
   @override
   ApiState<int> onSuccessHandle(List<CartConfirmOrderResponse>? response) {
-    // myOrderResponse = response;
     return SuccessState(response![0].id!, message: 'Success');
   }
 

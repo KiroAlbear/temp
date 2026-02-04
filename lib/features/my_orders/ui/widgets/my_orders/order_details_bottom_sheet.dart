@@ -31,20 +31,6 @@ class OrderDetailsBottomSheet extends StatelessWidget {
                   fontSize: 20.sp,
                 ),
               ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.of(context).pop();
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(0.0),
-              //     child: ImageHelper(
-              //       image: Assets.svg.icClose,
-              //       width: 20,
-              //       height: 20,
-              //       imageType: ImageType.svg,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -65,14 +51,6 @@ class OrderDetailsBottomSheet extends StatelessWidget {
             },
           ),
         ),
-        // CurrentOrderDetailsItem(
-        //   title: "ربيع",
-        //   subtitle:
-        //       "شاي أخضر بالليمون - 25 فتلة   (x6 علبة)  شاي أخضر بالليمون - 25 فتلة   (x6 علبة) شاي أخضر بالليمون - 25 فتلة   (x6 علبة)",
-        //   price: "25",
-        //   orderImage: Assets.svg.icClose,
-        //   quantity: 5,
-        // ),
         SizedBox(height: 20),
       ],
     );

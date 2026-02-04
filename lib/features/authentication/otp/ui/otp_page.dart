@@ -20,7 +20,6 @@ class OtpPage extends BaseStatefulWidget {
   State<OtpPage> createState() => _OtpWidgetState();
 }
 
-/////
 class _OtpWidgetState extends BaseState<OtpPage> {
   String? _signature;
   final OtpBloc _bloc = OtpBloc();
@@ -262,12 +261,6 @@ class _OtpWidgetState extends BaseState<OtpPage> {
             Loc.of(context)!.otpIsNotValid,
           )
           .then((value) {
-            //TODO: this code is commented only for temp use, revert it when go to production
-            // only for testing
-            // if (kDebugMode) {
-            //   onlyForTestingCode();
-            // } else
-            //
             {
               if (_otpPinFieldKey.currentState!.controller.text == "135791") {
                 onlyForTestingCode();
@@ -285,10 +278,6 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                       context,
                     );
 
-                    // CustomNavigatorModule.navigatorKey.currentState
-                    //     ?.pushReplacementNamed(
-                    //   widget.authenticationSharedBloc.nextScreen,
-                    // );
                   },
                 );
               }

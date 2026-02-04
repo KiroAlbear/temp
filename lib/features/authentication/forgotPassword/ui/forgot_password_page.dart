@@ -102,8 +102,6 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
       queryParameters: {OtpPage.nextPageKey: Routes.resetPasswordPage},
     );
 
-    // CustomNavigatorModule.navigatorKey.currentState
-    //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
   }
 
   Widget get _button => CustomButtonWidget(
@@ -111,7 +109,6 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
     onTap: () {
       if (widget.forgetPasswordBloc.isMobileValid) {
         widget.forgetPasswordBloc.checkPhone.listen((event) {
-          // only for testing
           if (F.appFlavor == Flavor.app_test) {
             onlyForTestingCode();
           } else {
@@ -137,8 +134,6 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
                   },
                 );
 
-                // CustomNavigatorModule.navigatorKey.currentState
-                //     ?.pushReplacementNamed(AppScreenEnum.otp.name);
               },
             );
           }

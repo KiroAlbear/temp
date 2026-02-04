@@ -32,11 +32,6 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
 
   @override
   void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback(
-    //   (timeStamp) {
-    //     _formKey.currentState!.validate();
-    //   },
-    // );
     super.initState();
   }
 
@@ -183,12 +178,6 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
             onSuccess: () {
               widget.forgetPasswordBloc.resetBloc();
 
-              // widget.forgetPasswordBloc.mobileBloc
-              //     .updateStringBehaviour('');
-              // widget.forgetPasswordBloc.passwordBloc
-              //     .updateStringBehaviour('');
-              // widget.forgetPasswordBloc.confirmPasswordBloc
-              //     .updateStringBehaviour('');
 
               Routes.navigateToScreen(
                 Routes.loginPage,
@@ -196,13 +185,9 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
                 context,
               );
 
-              // CustomNavigatorModule.navigatorKey.currentState
-              //     ?.pushReplacementNamed(AppScreenEnum.login.name);
             },
           );
         });
-        // CustomNavigatorModule.navigatorKey.currentState
-        //     ?.pushReplacementNamed(AppScreenEnum.login.name);
       }
     },
     buttonBehaviour: widget.forgetPasswordBloc.buttonBloc.buttonBehavior,

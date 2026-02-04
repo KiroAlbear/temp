@@ -57,8 +57,6 @@ class _CategoryWidgetState extends State<CategoryWidget>
           ProductCategoryPage.categoryProductsCount = item.productExactCount;
           Routes.navigateToScreen(
               Routes.productCategoryPage, NavigationType.pushNamed, context);
-          // CustomNavigatorModule.navigatorKey.currentState
-          //     ?.pushNamed(AppScreenEnum.product.name);
         },
         child: Container(
           child: Column(

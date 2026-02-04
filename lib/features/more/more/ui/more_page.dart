@@ -78,7 +78,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
   @override
   void onPopInvoked(didPop) {
     Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
-    // super.onPopInvoked(didPop);
   }
 
   @override
@@ -192,8 +191,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
                       NavigationType.pushNamed,
                       Routes.rootNavigatorKey.currentContext!,
                     );
-                    // CustomNavigatorModule.navigatorKey.currentState
-                    //     ?.pushNamed(AppScreenEnum.updateProfileScreen.name);
                   },
                 ),
                 SizedBox(height: 10.h),
@@ -206,8 +203,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
                       NavigationType.pushNamed,
                       context,
                     );
-                    // CustomNavigatorModule.navigatorKey.currentState
-                    //     ?.pushNamed(AppScreenEnum.accountChangePassword.name);
                   },
                 ),
                 SizedBox(height: 10.h),
@@ -220,8 +215,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
                       NavigationType.pushNamed,
                       context,
                     );
-                    // CustomNavigatorModule.navigatorKey.currentState
-                    //     ?.pushNamed(AppScreenEnum.myOrders.name);
                   },
                   disabled: (SharedPrefModule().userId ?? '').isEmpty,
                   width: 17.w,
@@ -243,8 +236,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
                       context,
                       setBottomNavigationTab: true,
                     );
-                    // CustomNavigatorModule.navigatorKey.currentState
-                    //     ?.pushNamed(AppScreenEnum.product.name);
                   },
                   disabled: (SharedPrefModule().userId ?? '').isEmpty,
                   height: 17.h,
@@ -292,8 +283,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   NavigationType.pushNamed,
                   context,
                 );
-                // CustomNavigatorModule.navigatorKey.currentState
-                //     ?.pushNamed(AppScreenEnum.faq.name);
               }),
               SizedBox(height: 10.h),
               _menuItem(
@@ -305,8 +294,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
                     NavigationType.pushNamed,
                     context,
                   );
-                  // CustomNavigatorModule.navigatorKey.currentState
-                  //     ?.pushNamed(AppScreenEnum.usagePolicy.name);
                 },
               ),
               if ((SharedPrefModule().userId ?? '').isEmpty)
@@ -347,7 +334,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
 
   Widget _buildVersionNumber() {
     return Container(
-      // color: Colors.red,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -384,8 +370,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
       useRootNavigator: true,
       useSafeArea: true,
       isScrollControlled: true,
-      // constraints:
-      //     BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.24),
       builder: (context) {
         return DialogWidget(
           message: Loc.of(context)!.selectPhotoFromCameraOrGallery,
@@ -404,21 +388,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
       },
     );
 
-    // AlertModule().showDialog(
-    //   context: context,
-    //   message: Loc.of(context)!.selectPhotoFromCameraOrGallery,
-    //   cancelMessage: Loc.of(context)!.gallery,
-    //   confirmMessage: Loc.of(context)!.camera,
-    //   sameButtonsColor: true,
-    //   onCancel: () {
-    //     _requestGalleryPermission();
-    //     _listenForGalleryPermission();
-    //   },
-    //   onConfirm: () {
-    //     requestCameraPermission();
-    //     _listenForCameraPermissionResult();
-    //   },
-    // );
   }
 
   void requestCameraPermission() {
@@ -558,7 +527,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
           onSuccess: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Container(
-              // color: Colors.red,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -634,21 +602,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
       },
     );
 
-    // AlertModule().showDialog(
-    //   context: context,
-    //   message: Loc.of(context)!.logoutMessage,
-    //   cancelMessage: Loc.of(context)!.cancel,
-    //   confirmMessage: Loc.of(context)!.yes,
-    //   headerMessage: Loc.of(context)!.logout,
-    //   headerSvg: Assets.svg.icAlert,
-    //   errorColorInConfirm: true,
-    //   onConfirm: () {
-    //     Future.delayed(const Duration(milliseconds: 600)).then((value) {
-    //       AppProviderModule().logout(context);
-    //       widget.moreBloc.selectedFileBehaviour.sink.add("");
-    //     });
-    //   },
-    // );
   }
 
   void _deleteAccount() {
@@ -671,8 +624,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
                   Routes.rootNavigatorKey.currentState!.context,
                 );
 
-                // Routes.navigateToScreen(
-                //     Routes.loginPage, NavigationType.goNamed, context);
                 widget.moreBloc.selectedFileBehaviour.sink.add("");
 
                 FirebaseAnalyticsUtil().logEvent(
@@ -684,23 +635,5 @@ class _MoreWidgetState extends BaseState<MorePage> {
         );
       },
     );
-    // AlertModule().showDialog(
-    //   context: context,
-    //   message: Loc.of(context)!.deleteAccountMessage,
-    //   cancelMessage: Loc.of(context)!.cancel,
-    //   confirmMessage: Loc.of(context)!.deleteAccount,
-    //   headerMessage: Loc.of(context)!.deleteAccount,
-    //   headerSvg: Assets.svg.icAlert,
-    //   errorColorInConfirm: true,
-    //   onConfirm: () {
-    //     widget.moreBloc.deactivateAccountStream.listen((event) {
-    //       if (event is SuccessState) {
-    //         AppProviderModule().logout(context);
-    //         widget.moreBloc.selectedFileBehaviour.sink.add("");
-    //       }
-    //     });
-    //   },
-    //   hasCancelButton: true,
-    // );
   }
 }

@@ -40,7 +40,6 @@ class _RecommendedItemsPageState extends BaseState<RecommendedItemsPage> {
 
   @override
   void initState() {
-    // getIt<RecommendedItemsBloc>().getRecommendedItems();
     super.initState();
   }
 

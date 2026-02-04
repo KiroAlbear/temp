@@ -66,7 +66,6 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
         CustomButtonWidget(
           idleText: Loc.of(context)!.start,
           onTap: () {
-            // Navigator.popUntil(context, (route) => route.isFirst);
             Routes.navigateToScreen(
               Routes.homePage,
               NavigationType.goNamed,
@@ -75,12 +74,7 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
             );
             Apputils.showAnnouncementsDialog();
 
-            // getIt<BottomNavigationBloc>().setSelectedTab(0, context);
-            // CustomNavigatorModule.navigatorKey.currentState
-            //     ?.pushNamed(AppScreenEnum.home.name);
 
-            // if (widget.bottomNavigationBloc != null)
-            //   widget.bottomNavigationBloc!.setSelectedTab(0, context);
           },
         ),
       ],

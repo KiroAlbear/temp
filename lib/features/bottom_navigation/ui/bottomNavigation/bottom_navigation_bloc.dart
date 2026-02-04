@@ -18,6 +18,5 @@ class BottomNavigationBloc extends BlocBase {
   @override
   void dispose() {
     /// disabled dispose due work of it as shared bloc
-    // _selectedTabBehaviour.close();
   }
 }

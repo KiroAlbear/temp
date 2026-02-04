@@ -40,7 +40,6 @@ class _CartScreenState extends BaseState<CartPage> {
   @override
   void onPopInvoked(didPop) {
     Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
-    // super.onPopInvoked(didPop);
   }
 
   @override
@@ -321,7 +320,6 @@ class _CartScreenState extends BaseState<CartPage> {
                             )
                             .listen((event) {
                               if (event is SuccessState) {
-                                // widget.cartBloc.getMyCart();
                                 isLoading.value = false;
                               }
                             });
@@ -351,7 +349,6 @@ class _CartScreenState extends BaseState<CartPage> {
                             )
                             .listen((event) {
                               if (event is SuccessState) {
-                                // widget.cartBloc.getMyCart();
                                 isLoading.value = false;
                               }
                             });
@@ -377,7 +374,6 @@ class _CartScreenState extends BaseState<CartPage> {
                             )
                             .listen((event) {
                               if (event is SuccessState) {
-                                // widget.cartBloc.getMyCart();
                                 isLoading.value = false;
                               }
                             });
@@ -396,7 +392,6 @@ class _CartScreenState extends BaseState<CartPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 14.verticalSpace,
           CustomText(
             text: Loc.of(context)!.cartProductDetails,
             customTextStyle: BoldStyle(color: secondaryColor, fontSize: 18.sp),
@@ -442,14 +437,6 @@ class _CartScreenState extends BaseState<CartPage> {
             },
           ),
 
-          // CustomButtonWidget(
-          //     enableClick: false,
-          //     buttonColor: redColor,
-          //     idleText: "الحد الأدنى للطلب !  1500 ر.ي.",
-          //     textStyle: MediumStyle(color: whiteColor, fontSize: 14.sp)
-          //         .getStyle(),
-          //     height: 31,
-          //     onTap: () {}),
         ],
       ),
     );

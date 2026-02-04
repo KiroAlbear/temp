@@ -25,7 +25,6 @@ class _OffersPageState extends BaseState<OffersPage> {
   @override
   void onPopInvoked(didPop) {
     Routes.navigateToScreen(Routes.homePage, NavigationType.goNamed, context);
-    // super.onPopInvoked(didPop);
   }
 
   @override
@@ -36,13 +35,7 @@ class _OffersPageState extends BaseState<OffersPage> {
           isHavingSupport: true,
           title: Loc.of(context)!.offersTitle,
         ),
-        // SizedBox(
-        //   height: 30.h,
-        // ),
 
-        // Expanded(
-        //     child: ImageHelper(
-        //         image: widget.emptyOffers, imageType: ImageType.svg)),
         StreamBuilder(
           stream: widget.homeBloc.offersStream,
           builder: (context, snapshot) {

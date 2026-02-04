@@ -26,14 +26,10 @@ class HomeBloc extends BlocBase {
       _categoryBehaviour.stream;
 
   OfferMapper? selectedOffer;
-  // int? selectedOfferIndex;
   bool isBanner = false;
 
   String selectedCategoryText = "";
 
-  // int? selectedOfferCategoryId;
-  // int? selectedOfferProductId;
-  // int? selectedOfferBrandId;
 
   void loadData() {
     _loadOffers();
@@ -71,9 +67,5 @@ class HomeBloc extends BlocBase {
 
   @override
   void dispose() {
-    // searchBloc.dispose();
-    // _offersBehaviour.close();
-    // _categoryBehaviour.close();
-    // _promotionBehaviour.close();
   }
 }

@@ -26,7 +26,6 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
       StreamBuilder<ApiState<List<OfferMapper>>>(
         stream: widget.homeBloc.heroBannersStream,
         builder: (context, snapshot) =>
-            // BannersSkeleton(),
             checkResponseStateWithLoadingWidget(
               snapshot.data ?? LoadingState<List<OfferMapper>>(),
               context,
@@ -67,27 +66,6 @@ class _HeroBannersWidgetState extends State<HeroBannersWidget>
         ),
       ),
 
-      // SizedBox(
-      //   height: list.isEmpty ? 0 : 220.h,
-      //   child: ListView.separated(
-      //     itemBuilder: (context, index) => HeroBannerItem(
-      //       isMainPage: true,
-      //       // index: index,
-      //       item: list[index],
-      //       homeBloc: widget.homeBloc,
-      //       isClickable: list[index].link.toLowerCase().trim() != "nolink",
-      //     ),
-      //     shrinkWrap: true,
-      //     // physics: const PageScrollPhysics(),
-      //     // controller: _pageScrollController,
-      //     padding: EdgeInsets.symmetric(horizontal: 10.w),
-      //     scrollDirection: Axis.horizontal,
-      //     itemCount: list.length,
-      //     separatorBuilder: (BuildContext context, int index) => SizedBox(
-      //       width: 12.w,
-      //     ),
-      //   ),
-      // ),
     ],
   );
 

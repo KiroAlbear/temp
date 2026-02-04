@@ -21,7 +21,6 @@ class NewAccountPasswordPage extends StatefulWidget {
 
 class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
     with ResponseHandlerModule {
-  // ValueNotifier<bool> isValidated = ValueNotifier(false);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -29,11 +28,6 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
 
   @override
   void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback(
-    //   (timeStamp) {
-    //     _formKey.currentState!.validate();
-    //   },
-    // );
     super.initState();
   }
 

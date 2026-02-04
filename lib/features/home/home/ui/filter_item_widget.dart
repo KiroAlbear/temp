@@ -53,7 +53,6 @@ class FilterItemWidget extends StatelessWidget {
                       imageType: ImageType.network),
               imageUrl == null ? SizedBox() : SizedBox(width: 10),
               Container(
-                // color: Colors.red,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 5.0),
                   child: CustomText(

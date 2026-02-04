@@ -72,8 +72,5 @@ class ForgotPasswordBloc extends BlocBase {
 
   @override
   void dispose() {
-    // buttonBloc.dispose();
-    // mobileBloc.dispose();
-    // countryBloc.dispose();
   }
 }
