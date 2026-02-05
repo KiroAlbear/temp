@@ -1,5 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_order_details_args.dart';
+import 'package:deel/features/cart/models/payment_visibility_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,107 +69,133 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(
-            child: CustomText(
-              text: Loc.of(context)!.cartPaymentOptions,
-              textAlign: TextAlign.start,
-              customTextStyle: BoldStyle(
-                color: secondaryColor,
-                fontSize: 18.sp,
+    return StreamBuilder<ApiState<List<PaymentVisibilityMapper>>>(
+      stream: widget.cartBloc.paymentVisibilityBehaviour.stream,
+      builder: (context, snapshot) {
+        final visibleTypes =
+            widget.cartBloc.getVisiblePaymentTypes(snapshot.data);
+        final showCash = visibleTypes.contains(PaymentType.cash);
+        final showVisa = visibleTypes.contains(PaymentType.bankCard);
+        final showWallet = visibleTypes.contains(PaymentType.wallet);
+        final showFawry = visibleTypes.contains(PaymentType.fawry);
+
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: CustomText(
+                  text: Loc.of(context)!.cartPaymentOptions,
+                  textAlign: TextAlign.start,
+                  customTextStyle: BoldStyle(
+                    color: secondaryColor,
+                    fontSize: 18.sp,
+                  ),
+                ),
               ),
-            ),
-          ),
-          8.verticalSpace,
-          _paymentRow(
-            _groupeCashValue,
-            Loc.of(context)!.cartCashOnDelivery,
-            ImageHelper(
-              image: Assets.svg.icCash,
-              imageType: ImageType.svg,
-              color: secondaryColor,
-            ),
-          ),
-          _paymentRow(
-            _groupeVisaValue,
-            Loc.of(context)!.cartDokkanBankCard,
-            Icon(Icons.credit_card_rounded, color: secondaryColor),
-          ),
-          _paymentRow(
-            _groupeWalletValue,
-            Loc.of(context)!.cartDokkanWallet,
-            Icon(Icons.account_balance_wallet_outlined, color: secondaryColor),
-          ),
-          // _paymentRow(_groupeFawryValue, "فوري",
-          //     SizedBox(
-          //         width: 60,
-          //         height: 50,
-          //         child: ImageHelper(image: Assets.png.fawry.path, imageType: ImageType.asset))),
-          18.verticalSpace,
-          IgnorePointer(
-            ignoring: _groupeValue == -1,
-            child: CustomButtonWidget(
-              buttonColor: _groupeValue == -1
-                  ? disabledButtonColorLightMode
-                  : primaryColor,
-              idleText: Loc.of(context)!.next,
-              textColor: _groupeValue == -1
-                  ? disabledButtonTextColorLightMode
-                  : secondaryColor,
-              onTap: () async {
-                // pop the bottom sheet
-                Navigator.pop(context);
-                if (_groupeValue == _groupeCashValue) {
-                  Routes.navigateToScreen(
-                    Routes.cartOrderDetailsPage,
-                    NavigationType.pushNamed,
-                    context,
-                    extra: CartOrderDetailsArgs(
-                      isItVisa: false,
-                      isItWallet: false,
-                      isItFawry: false,
+              8.verticalSpace,
+              if (showCash)
+                _paymentRow(
+                  _groupeCashValue,
+                  Loc.of(context)!.cartCashOnDelivery,
+                  ImageHelper(
+                    image: Assets.svg.icCash,
+                    imageType: ImageType.svg,
+                    color: secondaryColor,
+                  ),
+                ),
+              if (showVisa)
+                _paymentRow(
+                  _groupeVisaValue,
+                  Loc.of(context)!.cartDokkanBankCard,
+                  Icon(Icons.credit_card_rounded, color: secondaryColor),
+                ),
+              if (showWallet)
+                _paymentRow(
+                  _groupeWalletValue,
+                  Loc.of(context)!.cartDokkanWallet,
+                  Icon(
+                    Icons.account_balance_wallet_outlined,
+                    color: secondaryColor,
+                  ),
+                ),
+              if (showFawry)
+                _paymentRow(
+                  _groupeFawryValue,
+                  Loc.of(context)!.fawry,
+                  SizedBox(
+                    width: 60,
+                    height: 50,
+                    child: ImageHelper(
+                      image: Assets.png.fawry.path,
+                      imageType: ImageType.asset,
                     ),
-                  );
-                  // CustomNavigatorModule.navigatorKey.currentState!
-                  //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
-                } else if (_groupeValue == _groupeVisaValue) {
-                  Routes.navigateToScreen(
-                    Routes.cartOrderDetailsPage,
-                    NavigationType.pushNamed,
-                    context,
-                    extra: CartOrderDetailsArgs(
-                      isItVisa: true,
-                      isItWallet: false,
-                      isItFawry: false,
-                    ),
-                  );
-                } else if (_groupeValue == _groupeWalletValue) {
-                  showWalletDialog();
-                } else if (_groupeValue == _groupeFawryValue) {
-                  Routes.navigateToScreen(
-                    Routes.cartOrderDetailsPage,
-                    NavigationType.pushNamed,
-                    context,
-                    extra: CartOrderDetailsArgs(
-                      isItVisa: false,
-                      isItWallet: false,
-                      isItFawry: true,
-                    ),
-                  );
-                }
-              },
-            ),
+                  ),
+                ),
+              18.verticalSpace,
+              IgnorePointer(
+                ignoring: _groupeValue == -1,
+                child: CustomButtonWidget(
+                  buttonColor: _groupeValue == -1
+                      ? disabledButtonColorLightMode
+                      : primaryColor,
+                  idleText: Loc.of(context)!.next,
+                  textColor: _groupeValue == -1
+                      ? disabledButtonTextColorLightMode
+                      : secondaryColor,
+                  onTap: () async {
+                    // pop the bottom sheet
+                    Navigator.pop(context);
+                    if (_groupeValue == _groupeCashValue) {
+                      Routes.navigateToScreen(
+                        Routes.cartOrderDetailsPage,
+                        NavigationType.pushNamed,
+                        context,
+                        extra: CartOrderDetailsArgs(
+                          isItVisa: false,
+                          isItWallet: false,
+                          isItFawry: false,
+                        ),
+                      );
+                      // CustomNavigatorModule.navigatorKey.currentState!
+                      //     .pushNamed(AppScreenEnum.cartOrderDetailsScreen.name);
+                    } else if (_groupeValue == _groupeVisaValue) {
+                      Routes.navigateToScreen(
+                        Routes.cartOrderDetailsPage,
+                        NavigationType.pushNamed,
+                        context,
+                        extra: CartOrderDetailsArgs(
+                          isItVisa: true,
+                          isItWallet: false,
+                          isItFawry: false,
+                        ),
+                      );
+                    } else if (_groupeValue == _groupeWalletValue) {
+                      showWalletDialog();
+                    } else if (_groupeValue == _groupeFawryValue) {
+                      Routes.navigateToScreen(
+                        Routes.cartOrderDetailsPage,
+                        NavigationType.pushNamed,
+                        context,
+                        extra: CartOrderDetailsArgs(
+                          isItVisa: false,
+                          isItWallet: false,
+                          isItFawry: true,
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+              AppConstants.isHavingBottomPadding
+                  ? 43.verticalSpace
+                  : 18.verticalSpace,
+            ],
           ),
-          AppConstants.isHavingBottomPadding
-              ? 43.verticalSpace
-              : 18.verticalSpace,
-        ],
-      ),
+        );
+      },
     );
   }
 

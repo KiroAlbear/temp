@@ -45,6 +45,7 @@ class _CartScreenState extends BaseState<CartPage> {
 
   @override
   void initState() {
+    widget.cartBloc.getPaymentVisibility();
     widget.cartBloc.getMyCart();
     super.initState();
   }

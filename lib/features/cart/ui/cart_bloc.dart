@@ -1,6 +1,8 @@
 import 'package:deel/deel.dart';
 import 'package:deel/features/cart/models/cart_available_model.dart';
 import 'package:deel/features/cart/models/cart_product_qty.dart';
+import 'package:deel/features/cart/models/payment_visibility_model.dart';
+import 'package:deel/features/cart/remote/payment_visibility_remote.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -28,6 +30,8 @@ class CartBloc extends BlocBase {
       BehaviorSubject();
   BehaviorSubject<double> cartMinimumOrderBehaviour = BehaviorSubject();
   BehaviorSubject<String> cartMinimumOrderCurrencyBehaviour = BehaviorSubject();
+  BehaviorSubject<ApiState<List<PaymentVisibilityMapper>>>
+  paymentVisibilityBehaviour = BehaviorSubject()..sink.add(IdleState());
   final walletNumberBehaviour = BehaviorSubject<TextEditingController>()
     ..sink.add(TextEditingController(text: ''));
 
@@ -38,6 +42,7 @@ class CartBloc extends BlocBase {
   CartConfirmOrderRemote cartConfirmOrderRemote = CartConfirmOrderRemote();
   CartCheckAvailabilityRemote cartCheckAvailabilityRemote =
       CartCheckAvailabilityRemote();
+  PaymentVisibilityRemote paymentVisibilityRemote = PaymentVisibilityRemote();
 
   int clientId = 0;
   double clientLat = 0;
@@ -375,6 +380,28 @@ class CartBloc extends BlocBase {
     // });
 
     // return cartProductsBehavior;
+  }
+
+  void getPaymentVisibility() {
+    paymentVisibilityRemote.callApiAsStream().listen((event) {
+      paymentVisibilityBehaviour.sink.add(event);
+    });
+  }
+
+  Set<PaymentType> getVisiblePaymentTypes(
+    ApiState<List<PaymentVisibilityMapper>>? state,
+  ) {
+    if (state is SuccessState<List<PaymentVisibilityMapper>>) {
+      final visibleTypes =
+          state.response
+              ?.where((element) => element.visible)
+              .map((element) => element.type)
+              .toSet() ??
+          <PaymentType>{};
+      return visibleTypes.isEmpty ? PaymentType.values.toSet() : visibleTypes;
+    }
+
+    return PaymentType.values.toSet();
   }
 
   Future<void> _getCart(

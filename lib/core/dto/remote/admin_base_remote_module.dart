@@ -28,7 +28,7 @@ abstract class AdminBaseRemoteModule<T, K> {
 
   /// The header response received from the API.
   @protected
-  late final AdminHeaderResponse<K> headerResponse;
+  AdminHeaderResponse<K>? headerResponse;
 
   /// Sets the API future to a provided value.
   ///
