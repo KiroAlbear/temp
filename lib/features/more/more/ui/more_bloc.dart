@@ -30,7 +30,10 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
             } else if (event is FailedState) {
               showErrorDialog(Loc.of(context)!.failed, context);
               selectedFileBehaviour.sink.add('');
-              print("********* Failed to upload image");
+              LoggerModule.log(
+                message: "********* Failed to upload image",
+                name: "MoreBloc",
+              );
             }
           },
         );
@@ -52,7 +55,7 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
     );
   }
 
-  Future<ApiState<void>> updateNotificationsDeviceData(
+  Future<ApiState<bool>> updateNotificationsDeviceData(
       String userId, String fcmToken) {
     return NotificationsUpdateDeviceRemote()
         .updateNotificationsDeviceData(userId, fcmToken);

@@ -44,44 +44,38 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Container(
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    _shopLogoWidget,
-                    _cameraWidget,
-                  ],
-                ),
-              ),
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                _shopLogoWidget,
+                _cameraWidget,
+              ],
             ),
-            _nameAndMobileWidget,
-          ],
-        ),
+          ),
+          _nameAndMobileWidget,
+        ],
       );
 
-  Widget get _nameAndMobileWidget => Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CustomText(
-                text: widget.name,
-                customTextStyle:
-                    BoldStyle(color: secondaryColor, fontSize: 18.sp)),
-            Directionality(
-              textDirection: TextDirection.ltr,
-              child: CustomText(
-                  text: widget.mobile,
-                  customTextStyle: MediumStyle(
-                      color: greyOrderGreyTextColorLightMode, fontSize: 16.sp)),
-            )
-          ],
-        ),
+  Widget get _nameAndMobileWidget => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomText(
+              text: widget.name,
+              customTextStyle:
+                  BoldStyle(color: secondaryColor, fontSize: 18.sp)),
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: CustomText(
+                text: widget.mobile,
+                customTextStyle: MediumStyle(
+                    color: greyOrderGreyTextColorLightMode, fontSize: 16.sp)),
+          )
+        ],
       );
 
   Widget get _shopLogoWidget => Positioned(

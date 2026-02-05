@@ -75,8 +75,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     double price = widget.isCartProduct
         ? widget.productMapper.cartFinalUnitPrice ?? 0
         : widget.productMapper.finalPrice;
-    String FormatedPrice = NumberFormat("#,##0.00").format(price);
-    priceTextToShow = '$FormatedPrice ${widget.productMapper.currency}';
+    String formattedPrice = NumberFormat("#,##0.00").format(price);
+    priceTextToShow = '$formattedPrice ${widget.productMapper.currency}';
 
     super.initState();
   }

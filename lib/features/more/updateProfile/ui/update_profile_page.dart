@@ -151,6 +151,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
                               idleText: Loc.of(context)!.editData,
                               onTap: () {
                                 _bloc.updateProfile().listen((event) {
+                                  if (!mounted) return;
                                   checkResponseStateWithButton(
                                     event,
                                     context,
@@ -159,6 +160,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
                                     buttonBehaviour:
                                         _bloc.buttonBloc.buttonBehavior,
                                     onSuccess: () {
+                                      if (!mounted) return;
                                       widget.moreBloc.getProfileData();
                                       Navigator.pop(context);
                                     },

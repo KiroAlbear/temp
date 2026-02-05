@@ -37,6 +37,7 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
     {
       Apputils.updateAndRestartApp();
       Future.delayed(const Duration(seconds: 1)).then((value) async {
+        if (!mounted) return;
         requestNotificationPermissions();
 
         FirebaseAnalyticsUtil().logEvent(
@@ -64,6 +65,8 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
                       ?.firstWhere((element) => element.type == 1)
                       .versionNum ??
                   "0.0.0";
+
+              if (!mounted) return;
 
               if (Platform.isAndroid &&
                   Apputils.icCurrentVersionValid(
@@ -116,9 +119,10 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
                 name: "*********",
                 message: 'Latest app version: $version',
               );
-            } else if (state is FailedState) {
-              AppProviderModule().init(context);
-            }
+              } else if (state is FailedState) {
+                if (!mounted) return;
+                AppProviderModule().init(context);
+              }
           });
         }
       });

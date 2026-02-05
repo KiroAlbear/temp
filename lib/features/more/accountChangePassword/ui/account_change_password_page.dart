@@ -160,6 +160,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
       if (_bloc.isValid) {
         _bloc.changePassword.listen((event) {
           {
+            if (!mounted) return;
             checkResponseStateWithButton(
               event,
               context,
@@ -170,6 +171,7 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
                 await SharedPrefModule().setPassword(
                   _bloc.passwordBloc.textFormFiledBehaviour.value.text,
                 );
+                if (!mounted) return;
                 await AppProviderModule().logout(context);
               },
             );

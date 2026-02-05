@@ -134,11 +134,13 @@ class _MoreWidgetState extends BaseState<MorePage> {
                         NavigationType.goNamed,
                         context,
                       );
+                      if (!mounted) return;
                       await Routes.navigateToScreen(
                         Routes.registerPage,
                         NavigationType.pushNamed,
                         context,
                       );
+                      if (!mounted) return;
                       WidgetsBinding.instance.addPostFrameCallback(
                         (_) => changeSystemNavigationBarAndStatusColor(
                           secondaryColor,
@@ -324,21 +326,19 @@ class _MoreWidgetState extends BaseState<MorePage> {
   }
 
   Widget _buildVersionNumber() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            CustomText(
-              text: "${Loc.of(context)!.version} $_deelVersionNumber",
-              customTextStyle: RegularStyle(
-                fontSize: 12.sp,
-                color: lightBlackColor,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          CustomText(
+            text: "${Loc.of(context)!.version} $_deelVersionNumber",
+            customTextStyle: RegularStyle(
+              fontSize: 12.sp,
+              color: lightBlackColor,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -412,12 +412,14 @@ class _MoreWidgetState extends BaseState<MorePage> {
       if (sdkInt >= 33) {
         await _pickPhotoFromGallery();
       } else {
+        if (!mounted) return;
         await widget.moreBloc.galleryPermissionBloc.requestPermission(
           context,
           Permission.storage,
         );
       }
     } else {
+      if (!mounted) return;
       await widget.moreBloc.galleryPermissionBloc.requestPermission(
         context,
         Permission.storage,
@@ -507,48 +509,46 @@ class _MoreWidgetState extends BaseState<MorePage> {
           context,
           onSuccess: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: CustomText(
-                      text: Loc.of(context)!.accountBalance,
-                      textAlign: TextAlign.center,
-                      customTextStyle: BoldStyle(
-                        fontSize: 18.sp,
-                        color: secondaryColor,
-                      ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: CustomText(
+                    text: Loc.of(context)!.accountBalance,
+                    textAlign: TextAlign.center,
+                    customTextStyle: BoldStyle(
+                      fontSize: 18.sp,
+                      color: secondaryColor,
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: redColor,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      vertical: 4.h,
-                      horizontal: 10.w,
-                    ),
-                    child: Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
-                        child: CustomText(
-                          text: (snapshot.data?.response?.balance ?? 0.0)
-                              .toString(),
-                          customTextStyle: RegularStyle(
-                            color: whiteColor,
-                            fontSize: 18.sp,
-                          ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: redColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 4.h,
+                    horizontal: 10.w,
+                  ),
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: CustomText(
+                        text: (snapshot.data?.response?.balance ?? 0.0)
+                            .toString(),
+                        customTextStyle: RegularStyle(
+                          color: whiteColor,
+                          fontSize: 18.sp,
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -569,6 +569,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
           errorColorInConfirm: true,
           onConfirm: () {
             Future.delayed(const Duration(milliseconds: 600)).then((value) {
+              if (!mounted) return;
               AppProviderModule().logout(context);
               widget.moreBloc.selectedFileBehaviour.sink.add("");
 
@@ -601,9 +602,10 @@ class _MoreWidgetState extends BaseState<MorePage> {
           onConfirm: () {
             widget.moreBloc.deactivateAccountStream.listen((event) async {
               if (event is SuccessState) {
-                await AppProviderModule().logout(
-                  Routes.rootNavigatorKey.currentState!.context,
-                );
+                final rootContext =
+                    Routes.rootNavigatorKey.currentState?.context;
+                if (rootContext == null) return;
+                await AppProviderModule().logout(rootContext);
 
                 widget.moreBloc.selectedFileBehaviour.sink.add("");
 

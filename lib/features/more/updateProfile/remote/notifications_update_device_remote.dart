@@ -1,8 +1,8 @@
 import '../../../../deel.dart';
 
 class NotificationsUpdateDeviceRemote
-    extends AdminBaseRemoteModule<void, void> {
-  Future<ApiState<void>> updateNotificationsDeviceData(
+    extends AdminBaseRemoteModule<bool, void> {
+  Future<ApiState<bool>> updateNotificationsDeviceData(
     String userId,
     String fcmToken,
   ) async {
@@ -21,7 +21,7 @@ class NotificationsUpdateDeviceRemote
   }
 
   @override
-  ApiState<void> onSuccessHandle(void response) {
+  ApiState<bool> onSuccessHandle(void response) {
     return SuccessState(true);
   }
 

@@ -130,7 +130,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                               widget.cartOrderDetailsArgs.walletNumber!,
                             );
                           } else {
-                            _ConfirmOder();
+                            _confirmOrder();
                           }
                         },
                       ),
@@ -217,7 +217,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   //       {
   //         debugPrint('Message: ${response.message}');
   //         debugPrint('Json Response: ${response.data}');
-  //         _ConfirmOder();
+  //         _confirmOrder();
   //       }
   //       break;
   //     case FawrySDK.RESPONSE_ERROR:
@@ -249,7 +249,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           .value, // Sets the amount of money to be paid (100 EGP)
       onPayment: (response) {
         if (response.responseCode == "APPROVED") {
-          _ConfirmOder();
+          _confirmOrder();
         } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
           showInvalidPaymentBottomSheet();
@@ -274,7 +274,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           .value, // Sets the amount of money to be paid (100 EGP)
       onPayment: (response) {
         if (response.responseCode == "200") {
-          _ConfirmOder();
+          _confirmOrder();
         } else {
           widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.success);
           showOverlayLoading.value = false;
@@ -303,7 +303,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
     );
   }
 
-  void _ConfirmOder() {
+  void _confirmOrder() {
     widget.cartBloc.buttonBloc.buttonBehavior.add(ButtonState.loading);
     widget.cartBloc.confirmOrderCart().listen((event) {
       if (event is SuccessState) {
@@ -312,6 +312,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
         showOverlayLoading.value = false;
         FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.purchase);
 
+        if (!mounted) return;
         Routes.navigateToScreen(
           Routes.cartSuccessPage,
           NavigationType.pushReplacementNamed,

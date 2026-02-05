@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class OffersSkeleton extends StatelessWidget {
-  final isMainPage;
+  final bool isMainPage;
   const OffersSkeleton({super.key, required this.isMainPage});
 
   @override

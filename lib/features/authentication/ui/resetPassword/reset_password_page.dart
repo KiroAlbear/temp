@@ -159,6 +159,7 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
             ButtonState.loading,
           );
 
+          if (!mounted) return;
           checkResponseStateWithButton(
             event,
             context,
@@ -174,7 +175,7 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
             onSuccess: () {
               widget.forgetPasswordBloc.resetBloc();
 
-
+              if (!mounted) return;
               Routes.navigateToScreen(
                 Routes.loginPage,
                 NavigationType.pushNamed,

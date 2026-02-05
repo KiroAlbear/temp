@@ -11,7 +11,7 @@ class MobileCountryWidget extends StatelessWidget {
   @override
   final Key? key;
 
-  const MobileCountryWidget({super.key, 
+  const MobileCountryWidget({
     this.key,
     required this.mobileBloc,
     required this.countryBloc,

@@ -36,12 +36,12 @@ class OtpBloc extends BlocBase {
   bool get isValid =>
       otpBloc.value.isNotEmpty && otpBloc.value.length == otpCodeLength;
 
-  Future<ApiState<void>> sendOtp(String phone, String errorMessage) {
+  Future<ApiState<bool>> sendOtp(String phone, String errorMessage) {
     _setTimerToStart();
     return OtpRemote().sendOtp(phone, errorMessage);
   }
 
-  Future<ApiState<void>> verifyOtp(String phone, String errorMessage) {
+  Future<ApiState<bool>> verifyOtp(String phone, String errorMessage) {
     return OtpRemote()
         .verifyOtp(phone, otpBloc.stringBehaviour.value, errorMessage);
   }

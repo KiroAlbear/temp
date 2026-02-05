@@ -71,11 +71,13 @@ class _NotLoggedInWidgetState extends BaseState<NotLoggedInWidget> {
                       NavigationType.goNamed,
                       context,
                     );
+                    if (!mounted) return;
                     await Routes.navigateToScreen(
                       Routes.registerPage,
                       NavigationType.pushNamed,
                       context,
                     );
+                    if (!mounted) return;
                     WidgetsBinding.instance.addPostFrameCallback(
                       (_) => changeSystemNavigationBarAndStatusColor(
                         secondaryColor,

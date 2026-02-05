@@ -84,7 +84,7 @@ class UpdateProfileBloc extends BlocBase {
     String buildingNumber = deliveryAddress.street;
 
     String district = deliveryAddress.street2;
-    String governorate = deliveryAddress.city ?? '';
+    String governorate = deliveryAddress.city;
 
 
     buildingNumberBloc.textFormFiledBehaviour.sink

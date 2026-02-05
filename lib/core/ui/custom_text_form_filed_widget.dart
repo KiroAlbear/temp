@@ -59,7 +59,7 @@ class CustomTextFormFiled extends StatefulWidget {
   final Key? key;
 
   const CustomTextFormFiled(
-      {super.key, this.key,
+      { this.key,
       required this.labelText,
       required this.textFiledControllerStream,
       required this.onChanged,

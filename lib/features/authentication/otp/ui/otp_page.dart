@@ -54,8 +54,10 @@ class _OtpWidgetState extends BaseState<OtpPage> {
   void _listenForSmsCode() {
     OTPTextEditController(
       codeLength: 6,
-      onCodeReceive: (code) =>
-          print('******** Your Application receive code - $code'),
+      onCodeReceive: (code) => LoggerModule.log(
+        message: '******** Your Application receive code - $code',
+        name: 'OTP',
+      ),
     ).startListenUserConsent((code) {
       final exp = RegExp(r'(\d{6})');
       final value = exp.stringMatch(code ?? '') ?? '';
@@ -254,6 +256,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
             Loc.of(context)!.otpIsNotValid,
           )
           .then((value) {
+            if (!mounted) return;
             {
               if (_otpPinFieldKey.currentState!.controller.text == "135791") {
                 onlyForTestingCode();
@@ -264,6 +267,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
                   buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
                   failedBehaviour: _bloc.buttonBloc.failedBehaviour,
                   onSuccess: () {
+                    if (!mounted) return;
                     widget.authenticationSharedBloc.userData = _bloc.userData;
                     Routes.navigateToScreen(
                       widget.nextPage,

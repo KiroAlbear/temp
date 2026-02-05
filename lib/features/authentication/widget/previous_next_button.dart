@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 class PreviousNextButton extends StatelessWidget {
-  final isPrevious;
+  final bool isPrevious;
   final Stream<bool> isButtonEnabledStream;
   final Stream<ButtonState>? buttonStateStream;
   final void Function() onTap;

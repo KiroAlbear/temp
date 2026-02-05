@@ -6,8 +6,8 @@ import '../../../../core/dto/network/admin_client.dart';
 
 import '../../../../core/dto/remote/admin_base_remote_module.dart';
 
-class OtpRemote extends AdminBaseRemoteModule<void, void> {
-  Future<ApiState<void>> sendOtp(String phone, String errorMessage) async {
+class OtpRemote extends AdminBaseRemoteModule<bool, void> {
+  Future<ApiState<bool>> sendOtp(String phone, String errorMessage) async {
     try {
       await AdminClient(
         AdminDioModule().build(),
@@ -18,7 +18,7 @@ class OtpRemote extends AdminBaseRemoteModule<void, void> {
     }
   }
 
-  Future<ApiState<void>> verifyOtp(
+  Future<ApiState<bool>> verifyOtp(
     String phone,
     String code,
     String errorMessage,
@@ -34,7 +34,7 @@ class OtpRemote extends AdminBaseRemoteModule<void, void> {
   }
 
   @override
-  ApiState<void> onSuccessHandle(void response) {
+  ApiState<bool> onSuccessHandle(void response) {
     return SuccessState(true);
   }
 

@@ -40,7 +40,7 @@ class ToggleButton extends StatefulWidget {
       required this.onRightToggleActive});
 
   @override
-  _ToggleButtonState createState() => _ToggleButtonState();
+  State<ToggleButton> createState() => _ToggleButtonState();
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
@@ -52,7 +52,7 @@ class _ToggleButtonState extends State<ToggleButton> {
       ValueNotifier<Color>(Colors.transparent);
 
   final double borderRadious = 10;
-  const Duration animatedContainerDuration = Duration(milliseconds: 400);
+  final Duration animatedContainerDuration = const Duration(milliseconds: 400);
 
   late final double buttonWidth;
 

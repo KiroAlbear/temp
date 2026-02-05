@@ -204,6 +204,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                     ),
                   );
                   _bloc.login.listen((event) {
+                    if (!mounted) return;
                     checkResponseStateWithButton(
                       event,
                       context,
@@ -211,6 +212,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
                       headerErrorMessage: event.message,
                       onSuccess: () {
+                        if (!mounted) return;
                         _navigateHome();
                       },
                     );
@@ -238,6 +240,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
     onTap: () {
       isLoggingWithBiometric = false;
       _bloc.login.listen((event) {
+        if (!mounted) return;
         checkResponseStateWithButton(
           event,
           context,
@@ -251,6 +254,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
                 FirebaseAnalyticsKeyNames.org_id: event.response?.userId ?? 0,
               },
             );
+            if (!mounted) return;
             _navigateHome();
           },
         );
@@ -297,6 +301,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       await SharedPrefModule().setPassword(_bloc.passwordBloc.value);
     }
 
+    if (!mounted) return;
     Apputils.showAnnouncementsDialog();
     Routes.navigateToScreen(
       Routes.homePage,

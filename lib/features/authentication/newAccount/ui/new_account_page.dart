@@ -297,6 +297,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
           widget._bloc.updateAddress(event.response?.userId ?? 0).listen((
             event,
           ) {
+            if (!mounted) return;
             checkResponseStateWithButton(
               event,
               context,

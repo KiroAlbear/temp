@@ -11,7 +11,7 @@ class FilterItemWidget extends StatelessWidget {
   final Function() onTap;
   final double _borderRadious = 5;
   final Color textColor;
-  final withBorders;
+  final bool withBorders;
 
   const FilterItemWidget(
       {super.key, this.imageUrl,
@@ -52,17 +52,15 @@ class FilterItemWidget extends StatelessWidget {
                       image: imageUrl!,
                       imageType: ImageType.network),
               imageUrl == null ? const SizedBox() : const SizedBox(width: 10),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: CustomText(
-                      text: title,
-                      textAlign: TextAlign.center,
-                      customTextStyle: RegularStyle(
-                        color: textColor,
-                        fontSize: 16.sp,
-                      )),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5.0),
+                child: CustomText(
+                    text: title,
+                    textAlign: TextAlign.center,
+                    customTextStyle: RegularStyle(
+                      color: textColor,
+                      fontSize: 16.sp,
+                    )),
               ),
             ],
           ),

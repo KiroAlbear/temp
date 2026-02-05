@@ -84,7 +84,7 @@ class CartBloc extends BlocBase {
     cartCurrency = currency;
 
     myOrderResponse?.forEach((element) {
-      totalSum += element.finalPrice ?? 0;
+      totalSum += element.finalPrice;
     });
 
     double parsedTotalSum = double.parse(totalSum.toStringAsFixed(2));

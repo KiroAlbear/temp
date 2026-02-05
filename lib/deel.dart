@@ -219,7 +219,7 @@ export 'features/cart/ui/cart_bloc.dart';
 export 'features/cart/ui/cart_page.dart';
 export 'features/cart/ui/widgets/cart_bottom_sheet.dart';
 export 'features/cart/ui/widgets/cart_empty_widget.dart';
-export 'features/cart/ui/widgets/cart_order_details_Icon_item.dart';
+export 'features/cart/ui/widgets/cart_order_details_icon_item.dart';
 export 'features/cart/ui/widgets/cart_order_details_page.dart';
 export 'features/cart/ui/widgets/cart_product_summary_item.dart';
 export 'features/cart/ui/widgets/cart_success_page.dart';

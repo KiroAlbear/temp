@@ -112,6 +112,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
           if (F.appFlavor == Flavor.app_test) {
             onlyForTestingCode();
           } else {
+            if (!mounted) return;
             checkResponseStateWithButton(
               event,
               context,
@@ -120,6 +121,7 @@ class _ForgotPasswordWidgetState extends BaseState<ForgotPasswordPage> {
               buttonBehaviour:
                   widget.forgetPasswordBloc.buttonBloc.buttonBehavior,
               onSuccess: () {
+                if (!mounted) return;
                 widget.authenticationSharedBloc.setDataToAuth(
                   widget.forgetPasswordBloc.countryBloc.value!,
                   widget.forgetPasswordBloc.mobileBloc.value,

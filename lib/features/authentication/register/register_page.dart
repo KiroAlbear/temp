@@ -132,6 +132,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
               if (event is SuccessState) onlyForTestingCode();
             } else
             {
+              if (!mounted) return;
               checkResponseStateWithButton(
                 event,
                 context,
@@ -144,6 +145,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
                         Loc.of(context)!.otpPhoneIsNotValid,
                       )
                       .then((value) {
+                        if (!mounted) return;
                         checkResponseStateWithButton(
                           value,
                           context,
@@ -153,6 +155,7 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
                             context,
                           )!.otpPhoneIsNotValid,
                           onSuccess: () {
+                            if (!mounted) return;
                             widget.authenticationSharedBloc.setDataToAuth(
                               _bloc.countryBloc.value!,
                               _bloc.mobileBloc.value,

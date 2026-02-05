@@ -4,6 +4,7 @@ import '../../../../core/dto/models/update_profile/delivery_address_response.dar
 import '../../../../core/dto/modules/odoo_dio_module.dart';
 import '../../../../core/dto/network/api_client.dart';
 import '../../../../core/dto/remote/base_remote_module.dart';
+import 'package:flutter/foundation.dart';
 
 class DeliveryAddressRemote extends BaseRemoteModule<DeliveryAddressMapper,
     List<DeliveryAddressResponse>> {
@@ -12,7 +13,7 @@ class DeliveryAddressRemote extends BaseRemoteModule<DeliveryAddressMapper,
     try{
       apiFuture = ApiClient(OdooDioModule().build()).getDeliveryAddress(userId);
     }catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 

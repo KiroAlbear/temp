@@ -56,35 +56,33 @@ class _CategoryWidgetState extends State<CategoryWidget>
           Routes.navigateToScreen(
               Routes.productCategoryPage, NavigationType.pushNamed, context);
         },
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 112.w,
-                height: 98.h,
-                padding: EdgeInsets.all(10.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6.w),
-                    color: productCardColor),
-                child: ImageHelper(
-                  image: item.image,
-                  imageType: ImageType.network,
-                  boxFit: BoxFit.contain,
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 112.w,
+              height: 98.h,
+              padding: EdgeInsets.all(10.w),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6.w),
+                  color: productCardColor),
+              child: ImageHelper(
+                image: item.image,
+                imageType: ImageType.network,
+                boxFit: BoxFit.contain,
               ),
-              SizedBox(
-                height: 7.h,
-              ),
-              CustomText(
-                  text: item.name,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  customTextStyle:
-                      MediumStyle(fontSize: 13.sp, color: secondaryColor))
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            CustomText(
+                text: item.name,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                customTextStyle:
+                    MediumStyle(fontSize: 13.sp, color: secondaryColor))
+          ],
         ),
       );
 }

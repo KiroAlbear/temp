@@ -21,7 +21,10 @@ FutureOr<void> main() async {
 
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print(message.category);
+    LoggerModule.log(
+      message: "Notification category: ${message.category}",
+      name: "FCM",
+    );
 
     getIt<ProductCategoryBloc>().handleNotificationNavigation(
       NotificationResponseModel.fromJson(message.data),
@@ -53,7 +56,10 @@ FutureOr<void> main() async {
     // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
      await FirebaseMessaging.instance.getAPNSToken().then((apnsToken) async {
       if (apnsToken != null) {
-        print("********* apnToken $apnsToken **********");
+        LoggerModule.log(
+          message: "********* apnToken $apnsToken **********",
+          name: "fcm Token",
+        );
 
         AppConstants.fcmToken = apnsToken;
         MoreBloc().updateNotificationsDeviceData(
@@ -65,7 +71,10 @@ FutureOr<void> main() async {
   } else {
     await FirebaseMessaging.instance.getToken().then((tok) async {
       if (tok != null) {
-        print("********* fcmToken $tok **********");
+        LoggerModule.log(
+          message: "********* fcmToken $tok **********",
+          name: "fcm Token",
+        );
         AppConstants.fcmToken = tok;
 
         MoreBloc().updateNotificationsDeviceData(
