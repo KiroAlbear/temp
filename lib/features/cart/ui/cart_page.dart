@@ -1,8 +1,6 @@
-import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
 
 class CartPage extends BaseStatefulWidget {
   final CartBloc cartBloc;

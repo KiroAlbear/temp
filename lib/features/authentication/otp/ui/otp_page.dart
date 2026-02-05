@@ -21,7 +21,6 @@ class OtpPage extends BaseStatefulWidget {
 }
 
 class _OtpWidgetState extends BaseState<OtpPage> {
-  String? _signature;
   final OtpBloc _bloc = OtpBloc();
   final _otpPinFieldKey = GlobalKey<OtpPinFieldState>();
   final TextEditingController _controller = TextEditingController();

@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:deel/core/dto/models/register/company_type_reeponse_model.dart';
-import 'package:deel/core/dto/remote/district_remote.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/authentication/newAccount/remote/company_type_remote.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';

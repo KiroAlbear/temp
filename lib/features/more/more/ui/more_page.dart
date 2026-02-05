@@ -1,12 +1,7 @@
-import 'dart:io';
-
 import 'package:custom_progress_button/custom_progress_button.dart';
-import 'package:deel/core/routes/navigation_type.dart';
-import 'package:deel/core/routes/routes.dart';
 import 'package:deel/deel.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,9 +9,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
-
-import '../../../../core/Utils/firebase_analytics_events_names.dart';
-import '../../../../core/Utils/firebase_analytics_utl.dart';
 
 class MorePage extends BaseStatefulWidget {
   final MoreBloc moreBloc;
@@ -407,7 +399,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
         .listen((event) async {
           if (event) {
             Directory appDocDir = await getApplicationDocumentsDirectory();
-            String appDocPath = appDocDir.path;
             XFile? file = await widget.moreBloc.takePhoto();
             if (file != null) {
               widget.moreBloc.uploadImage(file.path);
@@ -506,14 +497,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
           SizedBox(width: 16.w),
         ],
       ),
-    ),
-  );
-
-  Widget get _favouriteItem => InkWell(
-    onTap: () {},
-    child: CustomText(
-      text: Loc.of(context)!.favourites,
-      customTextStyle: BoldStyle(fontSize: 20.sp, color: secondaryColor),
     ),
   );
 

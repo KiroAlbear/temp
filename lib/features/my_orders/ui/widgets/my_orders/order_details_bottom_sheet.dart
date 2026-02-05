@@ -1,9 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
-
-import '../current_orders/current_order_details_item.dart';
 
 class OrderDetailsBottomSheet extends StatelessWidget {
   final List<OrderItemMapper> items;

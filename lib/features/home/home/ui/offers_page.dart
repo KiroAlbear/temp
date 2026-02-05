@@ -1,13 +1,7 @@
-import 'package:deel/core/dto/modules/app_color_module.dart';
-import 'package:deel/core/ui/bases/base_state.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
-
-import '../../../../../core/ui/app_top_widget.dart';
-import 'home_bloc.dart';
-import 'offers_listing_widget.dart';
 
 class OffersPage extends BaseStatefulWidget {
   HomeBloc homeBloc;

@@ -527,12 +527,6 @@ class _ProductWidgetState extends State<ProductWidget> {
         );
       },
     );
-    // AlertModule().showDialog(
-    //   context: context,
-    //   message: "$message $qty",
-    //   confirmMessage: Loc.of(context)!.ok,
-    //   onConfirm: () {},
-    // );
   }
 
   void _showDeleteAlertDialog(String message, String qty) {
@@ -556,17 +550,6 @@ class _ProductWidgetState extends State<ProductWidget> {
         );
       },
     );
-    // AlertModule().showDialog(
-    //   context: context,
-    //   message: "$message $qty",
-    //   confirmMessage: Loc.of(context)!.ok,
-    //   cancelMessage: Loc.of(context)!.cancel,
-    //   onCancel: () {},
-    //   onConfirm: () {
-    //     qtyValueNotifier.value=0;
-    //     widget.onDeleteClicked!(widget.productMapper);
-    //   },
-    // );
   }
 
   Widget _incrementDecrementButton() {

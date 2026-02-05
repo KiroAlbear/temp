@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'new_account_bloc.dart';
-
 class NewAccountInfoWidget extends BaseStatefulWidget {
   final NewAccountBloc newAccountBloc;
 

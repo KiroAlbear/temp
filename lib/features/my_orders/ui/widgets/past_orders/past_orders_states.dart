@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../../../../deel.dart';
-import '../my_orders/order_item_grey_text.dart';
 
 class PastOrdersStates extends StatefulWidget {
   final List<String?> orderStatuses;

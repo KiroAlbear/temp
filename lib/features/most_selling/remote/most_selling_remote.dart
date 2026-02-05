@@ -1,7 +1,4 @@
-import 'package:deel/features/most_selling/models/most_selling_request_model.dart';
-
 import '../../../deel.dart';
-import '../models/most_selling_response_model.dart';
 
 class MostSellingRemote
     extends

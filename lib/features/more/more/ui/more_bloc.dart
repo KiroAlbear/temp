@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:deel/features/announcements/remote/announcements_remote.dart';
 import 'package:deel/core/dto/remote/update_app_remote.dart';
 import 'package:deel/deel.dart';
 import 'package:deel/features/more/updateProfile/remote/notifications_update_device_remote.dart';

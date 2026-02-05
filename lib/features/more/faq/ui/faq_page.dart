@@ -2,8 +2,6 @@ import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'faq_bloc.dart';
-
 class FaqPage extends BaseStatefulWidget {
   const FaqPage({super.key});
 

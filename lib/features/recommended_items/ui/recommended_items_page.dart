@@ -1,7 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../bloc/recommended_items_bloc.dart';
 
 class RecommendedItemsPage extends BaseStatefulWidget {
   RecommendedItemsPage({super.key});

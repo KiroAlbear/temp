@@ -1,19 +1,7 @@
-import 'dart:io';
-
 import 'package:deel/deel.dart';
-import 'package:deel/features/home/home/ui/skeletons/product_skeleton.dart';
-import 'package:deel/features/most_selling/bloc/most_selling_bloc.dart';
-import 'package:deel/features/recommended_items/bloc/recommended_items_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
-import '../../../../core/Utils/firebase_analytics_events_names.dart';
-import '../../../../core/Utils/firebase_analytics_utl.dart';
-import 'dart:math' as math;
-
-import '../../../../core/ui/new_section_widget.dart';
-import '../../../recommended_items/ui/widget/recommended_item_widget.dart';
-import 'skeletons/recommended_items_skeleton.dart';
 
 class HomePage extends BaseStatefulWidget {
   final HomeBloc homeBloc;

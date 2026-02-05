@@ -1,11 +1,7 @@
 import 'package:deel/deel.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:otp_autofill/otp_autofill.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import '../../../core/Utils/firebase_analytics_utl.dart';
 
 class RegisterPage extends BaseStatefulWidget {
   final AuthenticationSharedBloc authenticationSharedBloc;

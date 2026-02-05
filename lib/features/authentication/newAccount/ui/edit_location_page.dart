@@ -1,8 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 
-import 'new_account_bloc.dart';
-
 class EditLocationPage extends BaseStatefulWidget {
   final NewAccountBloc newAccountBloc;
   const EditLocationPage({super.key, required this.newAccountBloc});

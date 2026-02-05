@@ -1,8 +1,6 @@
-import 'package:deel/features/most_selling/remote/most_selling_remote.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../deel.dart';
-import '../models/most_selling_request_model.dart';
 
 class MostSellingBloc extends BlocBase with ResponseHandlerModule {
   final BehaviorSubject<ApiState<List<ProductMapper>>> mostSellingBehaviour =

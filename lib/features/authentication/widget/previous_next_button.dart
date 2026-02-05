@@ -76,6 +76,5 @@ class PreviousNextButton extends StatelessWidget {
         );
       },
     );
-    ;
   }
 }

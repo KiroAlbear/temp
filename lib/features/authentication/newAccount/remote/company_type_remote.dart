@@ -1,5 +1,3 @@
-import 'package:deel/core/dto/models/register/company_type_reeponse_model.dart';
-
 import '../../../../deel.dart';
 
 class CompanyTypeRemote

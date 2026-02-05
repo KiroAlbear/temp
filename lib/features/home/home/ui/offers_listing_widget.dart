@@ -1,9 +1,6 @@
 import 'package:deel/deel.dart';
-import 'package:deel/features/home/home/ui/skeletons/offers_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'home_bloc.dart';
-import 'offer_item.dart';
 
 class OffersListingWidget extends StatefulWidget {
   final HomeBloc homeBloc;
@@ -20,11 +17,6 @@ class OffersListingWidget extends StatefulWidget {
 
 class _OffersListingWidgetState extends State<OffersListingWidget>
     with ResponseHandlerModule {
-  final PageController _pageScrollController = PageController(
-    viewportFraction: 0.6,
-    keepPage: true,
-  );
-
   @override
   Widget build(BuildContext context) =>
       StreamBuilder<ApiState<List<OfferMapper>>>(

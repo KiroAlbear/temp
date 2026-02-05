@@ -1,6 +1,4 @@
-import 'package:deel/core/dto/models/notifications/notification_response_model.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/home/product/enums/product_notification_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -26,7 +24,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
 
 
   void loadMore(bool isForFavourite, Function? onGettingMoreProducts) {
-    Stream<ApiState<List<ProductMapper>>> stream = Stream.empty();
     if (isForFavourite) {
       _loadWithFavourites(onGettingMoreProducts);
     } else if (searchValue != null) {
@@ -296,12 +293,6 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   void _handleProductResponse(List<ProductMapper>? response) {
     isLoading?.value = false;
     setLoaded((response) ?? []);
-  }
-
-  void _handleProductListResponse(List<ProductMapper>? response) {
-    isLoading?.value = false;
-    loadedProductsList.addAll(response??[]);
-    setLoaded((loadedProductsList) ?? []);
   }
 
   void doSearch(String value) {

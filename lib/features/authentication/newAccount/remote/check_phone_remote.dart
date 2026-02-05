@@ -1,11 +1,3 @@
-import 'package:deel/l10n/loc.dart';
-
-import '../../../../core/dto/models/baseModules/api_state.dart';
-import '../../../../core/dto/models/checkPhone/check_phone_request.dart';
-import '../../../../core/dto/models/checkPhone/check_phone_response.dart';
-import '../../../../core/dto/modules/odoo_dio_module.dart';
-import '../../../../core/dto/network/api_client.dart';
-import '../../../../core/dto/remote/base_remote_module.dart';
 import '../../../../deel.dart';
 
 class CheckPhoneRemote

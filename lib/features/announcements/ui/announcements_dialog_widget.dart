@@ -1,12 +1,8 @@
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:deel/core/ui/cutom_page_indicator.dart';
-import 'package:deel/features/announcements/ui/announcements_hero_banner_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../deel.dart';
 

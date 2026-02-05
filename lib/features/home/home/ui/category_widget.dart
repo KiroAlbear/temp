@@ -1,5 +1,3 @@
-import 'package:deel/core/routes/navigation_type.dart';
-import 'package:deel/core/routes/routes.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -2,10 +2,6 @@ import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../my_orders_bloc.dart';
-import 'order_item.dart';
-import 'orders_page.dart';
-
 class OrdersList extends StatelessWidget {
   final List<OrdersMapper>? orders;
   final OrderType orderType;

@@ -1,19 +1,11 @@
 import 'dart:async';
 
-import 'package:custom_progress_button/custom_progress_button.dart';
-import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
-import 'package:deel/core/Utils/firebase_analytics_utl.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/bottom_navigation/ui/bottomNavigation/bottom_navigation_bloc.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 import '../../../../core/Utils/firebase_analytics_key_names.dart';
-import '../../widget/logo_top_widget.dart';
-import 'login_bloc.dart';
 
 class LoginPage extends BaseStatefulWidget {
   final bool enableSkip;

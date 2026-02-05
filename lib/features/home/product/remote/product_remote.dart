@@ -1,7 +1,6 @@
 
 import '../../../../../core/dto/models/baseModules/api_state.dart';
 import '../../../../../core/dto/models/product/product_mapper.dart';
-import '../../../../../core/dto/models/product/product_request.dart';
 import '../../../../../core/dto/models/product/product_response.dart';
 import '../../../../../core/dto/models/product_brand_request.dart';
 import '../../../../../core/dto/models/product_subcategory_brand_request.dart';

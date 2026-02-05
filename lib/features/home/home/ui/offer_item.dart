@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import 'home_bloc.dart';
-
 class OfferItem extends StatelessWidget {
   final bool isClickable;
   final OfferMapper item;

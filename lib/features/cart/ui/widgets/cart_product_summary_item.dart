@@ -1,7 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
 
 class CartProductSummaryItem extends StatelessWidget {
   final String title;

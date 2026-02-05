@@ -1,5 +1,4 @@
 import 'package:deel/deel.dart';
-import 'package:deel/features/more/updateProfile/remote/notifications_update_device_remote.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc extends BlocBase {

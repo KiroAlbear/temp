@@ -1,9 +1,6 @@
 import 'package:deel/deel.dart';
-import 'package:deel/features/my_orders/ui/widgets/my_orders/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'my_orders_bloc.dart';
 
 class MyOrdersPage extends BaseStatefulWidget {
   final MyOrdersBloc myOrdersBloc;

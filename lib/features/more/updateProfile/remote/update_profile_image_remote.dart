@@ -1,8 +1,6 @@
 import 'package:deel/deel.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../../flavor_config.dart';
-
 class UpdateProfileImageRemote {
   BehaviorSubject<ApiState<LoginMapper>> callApiAsStream = BehaviorSubject();
   UpdateProfileImageRemote() {}

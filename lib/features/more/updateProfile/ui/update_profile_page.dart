@@ -57,8 +57,6 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
 
 
     String email = widget.moreBloc.profileBehaviour.value.response?.email ?? '';
-    String phone =
-        widget.moreBloc.profileBehaviour.value.response?.mobile ?? '';
     String userName =
         widget.moreBloc.profileBehaviour.value.response?.name ?? '';
     String buildingName =

@@ -1,6 +1,4 @@
 import '../../../deel.dart';
-import '../models/announcement_request_model.dart';
-import '../models/announcement_response_model.dart';
 
 class AnnouncementsRemote
     extends

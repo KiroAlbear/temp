@@ -1,10 +1,6 @@
-import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/authentication/widget/previous_next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'new_account_bloc.dart';
 
 class NewAccountPasswordPage extends StatefulWidget {
   final NewAccountBloc newAccountBloc;

@@ -1,8 +1,4 @@
-import 'package:deel/features/most_selling/models/most_selling_request_model.dart';
-
 import '../../../deel.dart';
-import '../models/recommended_items_request_model.dart';
-import '../models/recommended_items_response_model.dart';
 
 class RecommendedItemsRemote
     extends

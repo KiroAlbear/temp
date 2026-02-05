@@ -3,13 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../current_orders/cancel_order_bottom_sheet.dart';
-import '../current_orders/current_orders_states.dart';
-import '../past_orders/past_orders_states.dart';
-import 'order_details_bottom_sheet.dart';
-import 'order_item_grey_text.dart';
-import 'orders_page.dart';
-
 class OrderItem extends StatelessWidget {
   final OrderType orderItemType;
   final OrdersMapper currentOrder;

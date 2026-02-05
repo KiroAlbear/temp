@@ -1,11 +1,6 @@
-import 'package:deel/core/ui/not_logged_in_widget.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/announcements/bloc/announcements_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
-
-import '../bloc/most_selling_bloc.dart';
 
 class MostSellingPage extends BaseStatefulWidget {
   MostSellingPage({super.key});
