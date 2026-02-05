@@ -31,7 +31,7 @@ class MapPreviewWidget extends StatefulWidget {
 class _MapPreviewWidgetState extends State<MapPreviewWidget> {
   final MapPreviewBloc _bloc = MapPreviewBloc();
   final String _mapUrlTemplate =
-      'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+      'https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
   final List<String> _mapSubDomains = ['a', 'b', 'c'];
   late final MapOptions _mapOptions = MapOptions(
     onMapReady: () {
@@ -86,6 +86,10 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
     children: [
       TileLayer(
         urlTemplate: _mapUrlTemplate,
+        userAgentPackageName: 'com.icons.deelexpress',
+        additionalOptions: {
+          'User-Agent': 'FlutterMapApp/1.0 (flutter.dev)',
+        },
         // subdomains: _mapSubDomains,
       ),
       _markerStreamBuilder,
