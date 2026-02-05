@@ -1,9 +1,4 @@
-enum PaymentType {
-  cash,
-  bankCard,
-  wallet,
-  fawry,
-}
+enum PaymentType { cash, bankCard, wallet, fawry }
 
 extension PaymentTypeX on PaymentType {
   int get id {

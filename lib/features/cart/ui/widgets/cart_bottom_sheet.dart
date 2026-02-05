@@ -72,8 +72,9 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
     return StreamBuilder<ApiState<List<PaymentVisibilityMapper>>>(
       stream: widget.cartBloc.paymentVisibilityBehaviour.stream,
       builder: (context, snapshot) {
-        final visibleTypes =
-            widget.cartBloc.getVisiblePaymentTypes(snapshot.data);
+        final visibleTypes = widget.cartBloc.getVisiblePaymentTypes(
+          snapshot.data,
+        );
         final showCash = visibleTypes.contains(PaymentType.cash);
         final showVisa = visibleTypes.contains(PaymentType.bankCard);
         final showWallet = visibleTypes.contains(PaymentType.wallet);
