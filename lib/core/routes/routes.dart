@@ -61,7 +61,7 @@ class Routes {
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context,
           state,
-          SplashScreen(),
+          const SplashScreen(),
         ),
       ),
       GoRoute(
@@ -79,7 +79,7 @@ class Routes {
         name: registerSuccessPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) =>
-            _fadeTransitionScreenWrapper(context, state, RegisterSuccessPage()),
+            _fadeTransitionScreenWrapper(context, state, const RegisterSuccessPage()),
       ),
       GoRoute(
         path: loginPage,
@@ -88,7 +88,7 @@ class Routes {
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context,
           state,
-          LoginPage(enableSkip: true),
+          const LoginPage(enableSkip: true),
         ),
       ),
       GoRoute(
@@ -153,11 +153,11 @@ class Routes {
         name: editLocationPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) {
-          final NewAccountBloc _bloc = state.extra as NewAccountBloc;
+          final NewAccountBloc bloc = state.extra as NewAccountBloc;
           return _fadeTransitionScreenWrapper(
             context,
             state,
-            EditLocationPage(newAccountBloc: _bloc),
+            EditLocationPage(newAccountBloc: bloc),
           );
         },
       ),
@@ -178,7 +178,7 @@ class Routes {
         pageBuilder: (context, state) => _fadeTransitionScreenWrapper(
           context,
           state,
-          AccountChangePasswordPage(),
+          const AccountChangePasswordPage(),
         ),
       ),
       GoRoute(
@@ -206,7 +206,7 @@ class Routes {
         name: faqPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) =>
-            _fadeTransitionScreenWrapper(context, state, FaqPage()),
+            _fadeTransitionScreenWrapper(context, state, const FaqPage()),
       ),
       GoRoute(
         path: cartOrderDetailsPage,
@@ -231,7 +231,7 @@ class Routes {
         name: cartSuccessPage,
         parentNavigatorKey: rootNavigatorKey,
         pageBuilder: (context, state) =>
-            _fadeTransitionScreenWrapper(context, state, CartSuccessPage()),
+            _fadeTransitionScreenWrapper(context, state, const CartSuccessPage()),
       ),
       ShellRoute(
         navigatorKey: navigationBarKey,
@@ -308,7 +308,7 @@ class Routes {
               return _fadeTransitionScreenWrapper(
                 context,
                 state,
-                MostSellingPage(),
+                const MostSellingPage(),
               );
             },
           ),
@@ -320,7 +320,7 @@ class Routes {
               return _fadeTransitionScreenWrapper(
                 context,
                 state,
-                RecommendedItemsPage(),
+                const RecommendedItemsPage(),
               );
             },
           ),

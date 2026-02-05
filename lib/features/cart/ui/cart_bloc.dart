@@ -66,7 +66,7 @@ class CartBloc extends BlocBase {
     DateFormat dateEnglishFormat = DateFormat("dd/MM/yyyy", "en");
     DateFormat dateArabicFormat = DateFormat("EEEE", "ar");
 
-    DateTime tomorrow = DateTime.now().add(Duration(days: 1));
+    DateTime tomorrow = DateTime.now().add(const Duration(days: 1));
 
     dateBehaviour.sink.add(
       "${dateArabicFormat.format(tomorrow)} ${dateEnglishFormat.format(tomorrow)} ",
@@ -103,7 +103,7 @@ class CartBloc extends BlocBase {
 
     cartTotalBeforeDiscountBehaviour.sink.add("$parsedTotalSum $cartCurrency");
     cartTotalAfterDiscountBehaviour.sink.add(
-      "${totalAfterDiscount} $cartCurrency",
+      "$totalAfterDiscount $cartCurrency",
     );
   }
 
@@ -236,10 +236,11 @@ class CartBloc extends BlocBase {
 
     cartEditRemote.editCart(request).listen((event) async {
       if (event is SuccessState) {
-        if (quantity == 0)
+        if (quantity == 0) {
           _getCart(false, event, stream);
-        else
+        } else {
           _getCart(true, event, stream);
+        }
 
       }
     });
@@ -372,7 +373,7 @@ class CartBloc extends BlocBase {
                 }
 
                 getTotalCartSum(
-                  getCartEvent.response!.getFirst! as List<ProductMapper>,
+                  getCartEvent.response!.getFirst,
                   cartRemote.myOrderResponse?[0].currency?[1] ?? '',
                 );
 
@@ -452,19 +453,19 @@ class CartBloc extends BlocBase {
 
   void getcartProductQtyList(List<ProductMapper> products) {
     List<CartProductQty> cartProductQtyList = [];
-    products.forEach(
-      (elem) => cartProductQtyList.add(
+    for (var elem in products) {
+      cartProductQtyList.add(
         CartProductQty(
           title: elem.name,
           qty: elem.quantity.toInt(),
           price: "${elem.finalPrice} ${elem.currency}",
         ),
-      ),
-    );
+      );
+    }
     itemsBehaviour.sink.add(cartProductQtyList);
   }
 
-  CartBloc() {}
+  CartBloc();
 
   @override
   void dispose() {

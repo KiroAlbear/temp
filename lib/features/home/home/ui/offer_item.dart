@@ -8,7 +8,7 @@ class OfferItem extends StatelessWidget {
   final OfferMapper item;
   final HomeBloc homeBloc;
   final bool isInProductPage;
-  OfferItem(
+  const OfferItem(
       {required this.isClickable,
       required this.item,
       required this.homeBloc,

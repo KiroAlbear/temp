@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RecommendedItemsPage extends BaseStatefulWidget {
-  RecommendedItemsPage({super.key});
+  const RecommendedItemsPage({super.key});
 
   @override
   State<RecommendedItemsPage> createState() => _RecommendedItemsPageState();
@@ -37,15 +37,7 @@ class _RecommendedItemsPageState extends BaseState<RecommendedItemsPage> {
     return secondaryColor;
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget getBody(BuildContext context) => Column(

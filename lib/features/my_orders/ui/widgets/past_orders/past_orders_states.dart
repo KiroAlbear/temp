@@ -6,7 +6,7 @@ import '../../../../../deel.dart';
 
 class PastOrdersStates extends StatefulWidget {
   final List<String?> orderStatuses;
-  const PastOrdersStates({required this.orderStatuses});
+  const PastOrdersStates({super.key, required this.orderStatuses});
 
   @override
   State<PastOrdersStates> createState() => _PastOrdersStatesState();
@@ -47,14 +47,14 @@ class _PastOrdersStatesState extends State<PastOrdersStates> {
         indicatorStyleBuilder: (context, index) => IndicatorStyle.dot,
         firstConnectorStyle: ConnectorStyle.transparent,
         lastConnectorStyle: ConnectorStyle.transparent,
-        contentsBuilder: (context, index) => Container(
+        contentsBuilder: (context, index) => SizedBox(
           height: 30,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.only(start: 5.0),
+                padding: const EdgeInsetsDirectional.only(start: 5.0),
                 child: CustomText(
                   text: orderStates[index],
                   textAlign: TextAlign.center,
@@ -64,7 +64,7 @@ class _PastOrdersStatesState extends State<PastOrdersStates> {
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(end: 8.0),

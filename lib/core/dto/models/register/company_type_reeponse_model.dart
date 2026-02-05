@@ -29,14 +29,14 @@ class CompanyTypeResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['type'] = this.type;
-    data['active'] = this.active;
-    data['display_name'] = this.displayName;
-    data['create_date'] = this.createDate;
-    data['write_date'] = this.writeDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['type'] = type;
+    data['active'] = active;
+    data['display_name'] = displayName;
+    data['create_date'] = createDate;
+    data['write_date'] = writeDate;
     return data;
   }
 }

@@ -31,16 +31,16 @@ class _LogoTopWidgetState extends State<LogoTopWidget> {
   Widget build(BuildContext context) => BlocProvider(
     bloc: widget.blocBase,
     child: Container(
-      padding: EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 30),
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           if (widget.canSkip) _skipText,
-          widget.isHavingBackArrow ? SizedBox(height: 50.h) : SizedBox(),
+          widget.isHavingBackArrow ? SizedBox(height: 50.h) : const SizedBox(),
           !widget.isHavingBackArrow
-              ? SizedBox()
+              ? const SizedBox()
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Material(

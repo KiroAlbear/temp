@@ -19,7 +19,7 @@ class RecommendedItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        isFirstItem ? SizedBox(width: 16.w) : SizedBox(),
+        isFirstItem ? SizedBox(width: 16.w) : const SizedBox(),
         InkWell(
           onTap: () {
             Routes.navigateToScreen(
@@ -65,7 +65,7 @@ class RecommendedItemWidget extends StatelessWidget {
             ),
           ),
         ),
-        isLastItem ? SizedBox(width: 16.w) : SizedBox(),
+        isLastItem ? SizedBox(width: 16.w) : const SizedBox(),
       ],
     );
   }

@@ -25,13 +25,13 @@ class RecommendedItemsRequestModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['pageIndex'] = this.pageIndex;
-    data['pageSize'] = this.pageSize;
-    data['sortBy'] = this.sortBy;
-    data['token'] = this.token;
-    data['sortDirection'] = this.sortDirection;
-    data['companyTypeId'] = this.companyTypeId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['pageIndex'] = pageIndex;
+    data['pageSize'] = pageSize;
+    data['sortBy'] = sortBy;
+    data['token'] = token;
+    data['sortDirection'] = sortDirection;
+    data['companyTypeId'] = companyTypeId;
     return data;
   }
 }

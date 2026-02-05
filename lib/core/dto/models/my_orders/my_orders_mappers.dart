@@ -33,7 +33,7 @@ class MyOrdersMapper {
   String? getFormatedDate(String date) {
     if (date.isEmpty) return null;
 
-    DateTime gmtTime = DateTime.parse(date + 'Z').toUtc();
+    DateTime gmtTime = DateTime.parse('${date}Z').toUtc();
 
     DateTime localTime = gmtTime.toLocal();
 

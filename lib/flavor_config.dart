@@ -2,18 +2,20 @@ import 'flavors.dart';
 
 class FlavorConfig {
   static String get adminApiUrl {
-    if (F.appFlavor == Flavor.app_live)
+    if (F.appFlavor == Flavor.app_live) {
       // return 'https://adminapi.stg.deel-app.com/api/';
       return 'https://adminapi.deel-app.com/api/';
-    else
+    } else {
       return 'https://adminapi.stg.deel-app.com/api/';
+    }
   }
 
   static String get apiUrl {
-    if (F.appFlavor == Flavor.app_live)
+    if (F.appFlavor == Flavor.app_live) {
       // return 'https://deel-demo.odoo.com/';
       return 'https://sl-erp.odoo.com/';
-    else
+    } else {
       return 'https://deel-demo.odoo.com/';
+    }
   }
 }

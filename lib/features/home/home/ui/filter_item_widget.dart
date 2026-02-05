@@ -14,7 +14,7 @@ class FilterItemWidget extends StatelessWidget {
   final withBorders;
 
   const FilterItemWidget(
-      {this.imageUrl,
+      {super.key, this.imageUrl,
       this.isSelected = false,
       this.textColor = lightBlackLightMode,
       this.withBorders = false,
@@ -31,7 +31,7 @@ class FilterItemWidget extends StatelessWidget {
               : productCardColor,
       shape: RoundedRectangleBorder(
         side: withBorders
-            ? BorderSide(color: greyBorderColorLightMode, width: 1)
+            ? const BorderSide(color: greyBorderColorLightMode, width: 1)
             : BorderSide.none,
         borderRadius: BorderRadius.circular(_borderRadious),
       ),
@@ -39,22 +39,22 @@ class FilterItemWidget extends StatelessWidget {
         onTap: () => onTap(),
         borderRadius: BorderRadius.circular(_borderRadious),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               imageUrl == null
-                  ? SizedBox()
+                  ? const SizedBox()
                   : ImageHelper(
                       width: 30,
                       height: 25,
                       image: imageUrl!,
                       imageType: ImageType.network),
-              imageUrl == null ? SizedBox() : SizedBox(width: 10),
+              imageUrl == null ? const SizedBox() : const SizedBox(width: 10),
               Container(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 5.0),
+                  padding: const EdgeInsets.only(bottom: 5.0),
                   child: CustomText(
                       text: title,
                       textAlign: TextAlign.center,

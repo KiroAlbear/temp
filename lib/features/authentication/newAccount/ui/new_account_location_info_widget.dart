@@ -91,8 +91,8 @@ class _NewAccountLocationInfoWidgetState
               ),
             ),
             showMap
-                ? SizedBox()
-                : Center(
+                ? const SizedBox()
+                : const Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 40.0),
                       child: CircularProgressIndicator(),

@@ -45,7 +45,7 @@ class _LoginWidgetState extends BaseState<LoginPage> {
       (_) => changeSystemNavigationBarAndStatusColor(whiteColor),
     );
 
-    Timer(Duration(milliseconds: 200), () {
+    Timer(const Duration(milliseconds: 200), () {
       changeSystemNavigationBarAndStatusColor(whiteColor);
     });
     super.initState();
@@ -105,9 +105,9 @@ class _LoginWidgetState extends BaseState<LoginPage> {
   Widget get _countryStream => StreamBuilder(
     stream: _bloc.countryStream,
     builder: (context, snapshot) {
-      if (snapshot.data == null)
+      if (snapshot.data == null) {
         return Container();
-      else
+      } else {
         return checkResponseStateWithLoadingWidget(
           snapshot.data!,
           context,
@@ -119,11 +119,12 @@ class _LoginWidgetState extends BaseState<LoginPage> {
             countryBloc: _bloc.countryBloc,
           ),
         );
+      }
     },
   );
 
   Widget get _passwordTextFormFiled => CustomTextFormFiled(
-    key: Key("PasswordWidget"),
+    key: const Key("PasswordWidget"),
     labelText: Loc.of(context)!.enterYourPassword,
     textFiledControllerStream: _bloc.passwordBloc.textFormFiledStream,
     onChanged: (value) => _bloc.passwordBloc.updateStringBehaviour(value),

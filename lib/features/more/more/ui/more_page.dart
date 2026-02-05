@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
 
@@ -48,7 +47,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
       final String version = info.version;
       _deelVersionNumber = patch?.number == null
           ? version
-          : '${version}-P${patch!.number}';
+          : '$version-P${patch!.number}';
     });
   }
 

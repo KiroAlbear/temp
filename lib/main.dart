@@ -20,7 +20,7 @@ FutureOr<void> main() async {
 
 
 
-  await FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     print(message.category);
 
     getIt<ProductCategoryBloc>().handleNotificationNavigation(

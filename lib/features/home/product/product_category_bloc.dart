@@ -48,6 +48,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     super.reset();
   }
 
+  @override
   void reset() {
     searchValue = null;
     subcategoryId = null;

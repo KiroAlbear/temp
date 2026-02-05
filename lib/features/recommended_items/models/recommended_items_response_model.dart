@@ -29,17 +29,17 @@ class RecommendedItems {
     if (json['productResponse'] != null) {
       productResponse = <ProductResponse>[];
       json['productResponse'].forEach((v) {
-        productResponse!.add(new ProductResponse.fromJson(v));
+        productResponse!.add(ProductResponse.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['companyTypeId'] = this.companyTypeId;
-    data['companyTypeName'] = this.companyTypeName;
-    if (this.productResponse != null) {
-      data['productResponse'] = this.productResponse!
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['companyTypeId'] = companyTypeId;
+    data['companyTypeName'] = companyTypeName;
+    if (productResponse != null) {
+      data['productResponse'] = productResponse!
           .map((v) => v.toJson())
           .toList();
     }

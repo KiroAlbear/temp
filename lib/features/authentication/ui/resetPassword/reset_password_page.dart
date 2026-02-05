@@ -30,10 +30,6 @@ class _ChangePasswordWidgetState extends BaseState<ResetPasswordPage> {
   @override
   bool isSafeArea() => false;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget getBody(BuildContext context) => LogoTopWidget(

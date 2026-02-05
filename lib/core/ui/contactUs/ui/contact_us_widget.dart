@@ -23,12 +23,13 @@ class _ContactUsWidgetState extends State<ContactUsWidget>
         builder: (context, snapshot) {
           if (snapshot.data == null || snapshot.data?.response == null) {
             return const SizedBox();
-          } else
+          } else {
             return checkResponseStateWithLoadingWidget(
               snapshot.data!,
               context,
               onSuccess: _buildScreenDesign(snapshot.data!.response!),
             );
+          }
         },
       );
 

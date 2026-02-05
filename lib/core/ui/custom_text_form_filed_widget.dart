@@ -55,10 +55,11 @@ class CustomTextFormFiled extends StatefulWidget {
   final Stream<TextEditingController> textFiledControllerStream;
   final ValueChanged<bool>? onFocusChange;
   final FloatingLabelBehavior? floatingLabelBehavior;
+  @override
   final Key? key;
 
   const CustomTextFormFiled(
-      {this.key,
+      {super.key, this.key,
       required this.labelText,
       required this.textFiledControllerStream,
       required this.onChanged,
@@ -267,7 +268,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
                     boxFit: BoxFit.scaleDown,
                     scale: 0.5,
                   )
-                : SizedBox(),
+                : const SizedBox(),
             onTap: () => _passwordToggleBehaviour.sink
                 .add(!_passwordToggleBehaviour.value),
           ));

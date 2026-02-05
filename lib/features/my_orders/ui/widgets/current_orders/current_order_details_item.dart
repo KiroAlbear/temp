@@ -11,7 +11,7 @@ class CurrentOrderDetailsItem extends StatelessWidget {
   final String price;
   final String? orderImage;
   final int quantity;
-  const CurrentOrderDetailsItem({
+  const CurrentOrderDetailsItem({super.key, 
     required this.title,
     required this.subtitle,
     required this.price,
@@ -24,7 +24,7 @@ class CurrentOrderDetailsItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 17),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           color: myOrdersCardColor,
           borderRadius: BorderRadius.circular(10),
@@ -46,22 +46,22 @@ class CurrentOrderDetailsItem extends StatelessWidget {
                       text: subtitle,
                       customTextStyle: SemiBoldStyle(
                           color: lightBlackColor, fontSize: 14.sp)),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   CustomText(
-                      text: "$price",
+                      text: price,
                       customTextStyle: SemiBoldStyle(
                           color: lightBlackColor, fontSize: 18.sp)),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(25, 5, 0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(25, 5, 0, 0),
               child: Column(
                 children: [
                   orderImage == null
-                      ? SizedBox(
+                      ? const SizedBox(
                           height: 20,
                         )
                       : SizedBox(

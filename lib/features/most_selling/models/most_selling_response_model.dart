@@ -11,7 +11,7 @@ class MostSellingResponseModel {
     if (json['mostSeller'] != null) {
       mostSeller = <MostSeller>[];
       json['mostSeller'].forEach((v) {
-        mostSeller!.add(new MostSeller.fromJson(v));
+        mostSeller!.add(MostSeller.fromJson(v));
       });
     }
   }
@@ -30,17 +30,17 @@ class MostSeller {
     if (json['productResponse'] != null) {
       productResponse = <ProductResponse>[];
       json['productResponse'].forEach((v) {
-        productResponse!.add(new ProductResponse.fromJson(v));
+        productResponse!.add(ProductResponse.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['relatedItemId'] = this.relatedItemId;
-    data['orderNo'] = this.orderNo;
-    if (this.productResponse != null) {
-      data['productResponse'] = this.productResponse!
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['relatedItemId'] = relatedItemId;
+    data['orderNo'] = orderNo;
+    if (productResponse != null) {
+      data['productResponse'] = productResponse!
           .map((v) => v.toJson())
           .toList();
     }

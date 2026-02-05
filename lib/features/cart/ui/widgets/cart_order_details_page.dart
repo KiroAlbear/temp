@@ -34,10 +34,6 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void onPopInvoked(didPop) {
@@ -87,7 +83,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
                         stream: widget.cartBloc.dateBehaviour.stream,
                         builder: (context, snapshot) {
                           return !snapshot.hasData
-                              ? SizedBox()
+                              ? const SizedBox()
                               : CartOrderDetailsIconItem(
                                   iconType: CartOrderDetailsIconType.date,
                                   title: snapshot.data!,
@@ -335,7 +331,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           stream: widget.cartBloc.latLongBehaviour.stream,
           builder: (context, snapshot) {
             return !snapshot.hasData
-                ? SizedBox()
+                ? const SizedBox()
                 : Padding(
                     padding: EdgeInsets.only(top: 8.h),
                     child: MapPreviewWidget(
@@ -353,9 +349,9 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           stream: widget.cartBloc.addressBehaviour.stream,
           builder: (context, snapshot) {
             return !snapshot.hasData
-                ? SizedBox()
+                ? const SizedBox()
                 : Padding(
-                    padding: EdgeInsetsDirectional.only(start: 5.0),
+                    padding: const EdgeInsetsDirectional.only(start: 5.0),
                     child: CustomText(
                       text: snapshot.data!,
                       textAlign: TextAlign.start,
@@ -376,7 +372,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       stream: widget.cartBloc.cartTotalAfterDiscountBehaviour.stream,
       builder: (context, snapshot) {
         return !snapshot.hasData
-            ? SizedBox()
+            ? const SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -418,9 +414,9 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
           stream: widget.cartBloc.itemsBehaviour.stream,
           builder: (context, snapshot) {
             return !snapshot.hasData
-                ? SizedBox()
+                ? const SizedBox()
                 : ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -458,7 +454,7 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       stream: widget.cartBloc.cartTotalDeliveryStringBehaviour.stream,
       builder: (context, snapshot) {
         return !snapshot.hasData
-            ? SizedBox()
+            ? const SizedBox()
             : CustomText(
                 text: snapshot.data!,
                 textAlign: TextAlign.start,

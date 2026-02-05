@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderDetailsBottomSheet extends StatelessWidget {
   final List<OrderItemMapper> items;
-  const OrderDetailsBottomSheet({required this.items});
+  const OrderDetailsBottomSheet({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.only(
+          padding: const EdgeInsetsDirectional.only(
             start: 30,
             end: 30,
             top: 20,
@@ -31,11 +31,11 @@ class OrderDetailsBottomSheet extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Expanded(
           child: ListView.separated(
             shrinkWrap: true,
-            separatorBuilder: (context, index) => SizedBox(height: 15),
+            separatorBuilder: (context, index) => const SizedBox(height: 15),
             itemCount: items.length,
             itemBuilder: (context, index) {
               return CurrentOrderDetailsItem(
@@ -48,7 +48,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }

@@ -49,7 +49,7 @@ class PreviousNextButton extends StatelessWidget {
                             width: 22.w,
                             height: 22.h,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ), // Add spacing between the text and the icon
                           Padding(

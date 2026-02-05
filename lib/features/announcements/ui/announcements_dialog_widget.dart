@@ -32,7 +32,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
               onPageChanged: (int index, reason) {
                 _pageController.animateToPage(
                   index,
-                  duration: Duration(milliseconds: 700),
+                  duration: const Duration(milliseconds: 700),
                   curve: Curves.easeInOut,
                 );
               },
@@ -41,8 +41,8 @@ class AnnouncementsDialogWidget extends StatelessWidget {
               viewportFraction: 1.0,
               height: 450.h,
               reverse: false,
-              autoPlayInterval: Duration(seconds: 7),
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayInterval: const Duration(seconds: 7),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               scrollDirection: Axis.horizontal,
             ),
@@ -56,7 +56,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
           Padding(
-            padding: EdgeInsetsDirectional.symmetric(horizontal: 30),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 30),
             child: CustomButtonWidget(
               idleText: Loc.of(context)!.viewAll,
               onTap: () {
@@ -75,7 +75,7 @@ class AnnouncementsDialogWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             color: Colors.white,
             child: IconButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               icon: Icon(
                 Icons.close,
                 weight: 500,

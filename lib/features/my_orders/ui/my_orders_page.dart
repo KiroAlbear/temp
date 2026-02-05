@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyOrdersPage extends BaseStatefulWidget {
   final MyOrdersBloc myOrdersBloc;
-  MyOrdersPage({required this.myOrdersBloc, super.key});
+  const MyOrdersPage({required this.myOrdersBloc, super.key});
 
   @override
   State<MyOrdersPage> createState() => _MyOrdersScreenState();
@@ -12,7 +12,7 @@ class MyOrdersPage extends BaseStatefulWidget {
 
 class _MyOrdersScreenState extends BaseState<MyOrdersPage>
     with SingleTickerProviderStateMixin {
-  ValueNotifier<double> _toggleXAlign = ValueNotifier<double>(-1);
+  final ValueNotifier<double> _toggleXAlign = ValueNotifier<double>(-1);
   late final TabController _tabController;
   final double horizontalPadding = 17;
   @override
@@ -62,7 +62,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
     return Column(
       children: [
         AppTopWidget(title: Loc.of(context)!.myOrders, isHavingBack: true),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         ToggleButton(
           height: 40,
           width: ScreenUtil.defaultSize.width,
@@ -81,7 +81,7 @@ class _MyOrdersScreenState extends BaseState<MyOrdersPage>
           },
           toggleXAlign: _toggleXAlign,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),

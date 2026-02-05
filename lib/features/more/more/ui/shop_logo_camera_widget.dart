@@ -91,7 +91,7 @@ class _ShopLogoCameraWidgetState extends State<ShopLogoCameraWidget>
           stream: widget.moreBloc.selectedFileStream,
           initialData: '',
           builder: (context, snapshot) => !snapshot.hasData
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : InkWell(
                   onTap: () => widget.openCameraOrGallery(),
                   child: Container(

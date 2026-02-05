@@ -32,10 +32,6 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   void onPopInvoked(didPop) {
@@ -96,13 +92,13 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
           title: Loc.of(context)!.updateProfileTitle,
           isHavingBack: true,
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         StreamBuilder(
           stream: _bloc.deliveryAddressBehaviour.stream,
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return const SizedBox();
-            } else
+            } else {
               return checkResponseStateWithLoadingWidget(
                 snapshot.data!,
                 context,
@@ -177,6 +173,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
                   ),
                 ),
               );
+            }
           },
         ),
       ],
@@ -242,7 +239,7 @@ class _UpdateProfileScreenState extends BaseState<UpdateProfilePage> {
           stream: _bloc.latLongBloc.latitudeBehaviour.stream,
           builder: (context, snapshot) {
             return !snapshot.hasData
-                ? SizedBox()
+                ? const SizedBox()
                 : MapPreviewWidget(
                     latitude: _bloc.latLongBloc.latitudeBehaviour.stream.value,
                     longitude:

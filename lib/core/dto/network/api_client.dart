@@ -35,7 +35,7 @@ abstract class ApiClient {
   Future<HeaderResponse<List<CategoryResponse>>> getSubCategoryByCategoryId(
     @http.Path() String categoryId,
     @http.Body() SubcategoryRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 
   @http.POST(
@@ -43,13 +43,13 @@ abstract class ApiClient {
   )
   Future<HeaderResponse<List<BrandResponse>>> getBrandBySubCategory(
     @http.Body() BrandRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 
   @http.POST("${_ApiClientKey._getAllBrands}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<BrandResponse>>> getAllBrands(
     @http.Body() AllBrandsRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 
   @http.POST(_ApiClientKey._allProduct)
@@ -67,13 +67,13 @@ abstract class ApiClient {
   )
   Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
     @http.Body() ProductSubcategoryBrandRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 
   @http.POST("${_ApiClientKey._productByBrand}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<ProductResponse>>> getProductByBrand(
     @http.Body() ProductBrandRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 
   @http.POST(_ApiClientKey._favouriteProduct)
@@ -94,7 +94,7 @@ abstract class ApiClient {
   @http.POST("${_ApiClientKey._searchProduct}${_ApiClientKey.urlLanguageCode}")
   Future<HeaderResponse<List<ProductResponse>>> searchProduct(
     @http.Body() SearchProductRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 
   @http.POST(_ApiClientKey._myOrders)
@@ -199,12 +199,12 @@ abstract class ApiClient {
   @http.POST('${_ApiClientKey._getState}${_ApiClientKey.urlLanguageCode}')
   Future<HeaderResponse<List<StateResponse>>> getState(
     @http.Body() StateRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 
   @http.POST('${_ApiClientKey._getDistrict}${_ApiClientKey.urlLanguageCode}')
   Future<HeaderResponse<List<StateResponse>>> getDistrict(
     @http.Body() DistrictRequest request,
-    @http.Path(_ApiClientKey.languagePath) String lang_code,
+    @http.Path(_ApiClientKey.languagePath) String langCode,
   );
 }

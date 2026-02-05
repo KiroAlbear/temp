@@ -72,7 +72,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
       _buildHeroBannerSpace(),
       (SharedPrefModule().isLoggedIn ?? false)
           ? SliverToBoxAdapter(child: _recommendedProducts())
-          : SliverToBoxAdapter(child: SizedBox()),
+          : const SliverToBoxAdapter(child: SizedBox()),
 
       _buildOfferSpace(),
 
@@ -115,10 +115,10 @@ class _HomeWidgetState extends BaseState<HomePage> {
             if (snapshot.data!.response!.isNotEmpty) {
               return SizedBox(height: 11.h);
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         },
       ),
@@ -133,7 +133,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
             (snapshot.hasData &&
                 snapshot.data!.response != null &&
                 snapshot.data!.response!.isEmpty)
-            ? SizedBox(height: 0)
+            ? const SizedBox(height: 0)
             : SizedBox(height: 10.h),
       ),
     );
@@ -150,7 +150,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
           return SizedBox(height: 90.h);
         }
         if (snapshot.data is FailedState) {
-          return SizedBox();
+          return const SizedBox();
         }
 
         return NewSectionWidget(
@@ -160,7 +160,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
             snapshot.data ?? LoadingState<List<ProductMapper>>(),
             context,
             onSuccess: ProductListWidget(
-              scrollPhysics: NeverScrollableScrollPhysics(),
+              scrollPhysics: const NeverScrollableScrollPhysics(),
               isForFavourite: false,
               cartBloc: widget.cartBloc,
               productCategoryBloc: getIt<ProductCategoryBloc>(),
@@ -195,7 +195,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
           return SizedBox(height: 0.h);
         }
         if (snapshot.data is FailedState) {
-          return SizedBox();
+          return const SizedBox();
         }
 
         return NewSectionWidget(
@@ -204,7 +204,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
             onSuccessFunction: () {},
             snapshot.data ?? LoadingState<List<ProductMapper>>(),
             context,
-            loadingWidget: RecommendedItemsSkeleton(),
+            loadingWidget: const RecommendedItemsSkeleton(),
             onSuccess: Padding(
               padding: const EdgeInsets.only(bottom: 28.0),
               child: SizedBox(
@@ -263,7 +263,7 @@ class _HomeWidgetState extends BaseState<HomePage> {
         TextEditingController(text: ''),
       );
       widget.homeBloc.searchBloc.updateStringBehaviour('');
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
       FirebaseAnalyticsUtil().logEvent(FirebaseAnalyticsEventsNames.search);
     },
   );

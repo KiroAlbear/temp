@@ -126,10 +126,11 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
     bool? enable,
   }) {
     bool isIgnoring = false;
-    if (enable == null)
+    if (enable == null) {
       isIgnoring = false;
-    else
+    } else {
       isIgnoring = !enable;
+    }
 
     return IgnorePointer(
       ignoring: isIgnoring,

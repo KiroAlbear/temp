@@ -73,7 +73,7 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
         clipBehavior: Clip.none,
         children: [
           Positioned.fill(child: _mapWidget),
-          widget.showEditLocation ? _editLocationWidget : SizedBox(),
+          widget.showEditLocation ? _editLocationWidget : const SizedBox(),
         ],
       ),
     ),

@@ -26,10 +26,6 @@ class _CartSuccessWidgetState extends BaseState<CartSuccessPage> {
   @override
   Color? systemNavigationBarColor() => Colors.white;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget getBody(BuildContext context) {

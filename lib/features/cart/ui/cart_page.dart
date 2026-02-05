@@ -7,7 +7,7 @@ class CartPage extends BaseStatefulWidget {
 
   final ProductCategoryBloc productCategoryBloc;
 
-  CartPage({
+  const CartPage({
     required this.cartBloc,
     required this.productCategoryBloc,
     super.key,
@@ -65,16 +65,16 @@ class _CartScreenState extends BaseState<CartPage> {
                     StreamBuilder(
                       stream: widget.cartBloc.cartProductsBehavior.stream,
                       builder: (context, snapshot) {
-                        if (snapshot.data == null)
+                        if (snapshot.data == null) {
                           return Container();
-                        else
+                        } else {
                           return checkResponseStateWithLoadingWidget(
                             snapshot.data!,
                             context,
                             onSuccess:
                                 snapshot.data!.response?.getFirst.isEmpty ??
                                     true
-                                ? CartEmptyWidget()
+                                ? const CartEmptyWidget()
                                 : Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -86,6 +86,7 @@ class _CartScreenState extends BaseState<CartPage> {
                                     ],
                                   ),
                           );
+                        }
                       },
                     ),
                     OverlayLoadingWidget(showOverlayLoading: isLoading),
@@ -98,7 +99,7 @@ class _CartScreenState extends BaseState<CartPage> {
 
   Widget _seperator() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Divider(
         color: lightGreyColorLightMode,
         thickness: 0.5,
@@ -196,7 +197,7 @@ class _CartScreenState extends BaseState<CartPage> {
               stream: widget.cartBloc.cartTotaDiscountStringBehaviour.stream,
               builder: (context, snapshot) {
                 return (snapshot.hasData == false || snapshot.data == "")
-                    ? SizedBox()
+                    ? const SizedBox()
                     : _bottomCalculationsWidget(
                         Loc.of(context)!.totalDiscount,
                         snapshot.data ?? '',
@@ -281,7 +282,7 @@ class _CartScreenState extends BaseState<CartPage> {
       stream: widget.cartBloc.cartProductsBehavior.stream,
       builder: (context, snapshot) {
         return !snapshot.hasData
-            ? SizedBox()
+            ? const SizedBox()
             : Expanded(
                 child: ListView.separated(
                   separatorBuilder: (context, index) => 16.verticalSpace,
@@ -350,7 +351,6 @@ class _CartScreenState extends BaseState<CartPage> {
                                 isLoading.value = false;
                               }
                             });
-                        ;
                       },
                       onDeleteClicked: (productMapper) {
                         isLoading.value = true;
@@ -431,7 +431,7 @@ class _CartScreenState extends BaseState<CartPage> {
                         ),
                       ),
                     )
-                  : SizedBox();
+                  : const SizedBox();
             },
           ),
 

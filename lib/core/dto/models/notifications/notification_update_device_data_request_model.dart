@@ -12,10 +12,10 @@ class NotificationsUpdateDeviceDataRequestModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
-    data['fcm'] = this.fcm;
-    data['topics'] = this.topics;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userId'] = userId;
+    data['fcm'] = fcm;
+    data['topics'] = topics;
     return data;
   }
 }

@@ -6,10 +6,10 @@ abstract class BlocBase {
 
 class BlocProvider<T extends BlocBase> extends StatefulWidget {
   const BlocProvider({
-    Key? key,
+    super.key,
     required this.bloc,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final T bloc;
@@ -42,10 +42,10 @@ class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
 
 class _BlocProviderInherited<T> extends InheritedWidget {
   const _BlocProviderInherited({
-    Key? key,
-    required Widget child,
+    super.key,
+    required super.child,
     required this.bloc,
-  }) : super(key: key, child: child);
+  });
 
   final T bloc;
 

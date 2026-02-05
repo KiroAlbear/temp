@@ -7,7 +7,7 @@ import 'package:otp_pin_field/otp_pin_field.dart';
 
 class OtpPage extends BaseStatefulWidget {
   final String nextPage;
-  static final String nextPageKey = 'nextPage';
+  static const String nextPageKey = 'nextPage';
   final AuthenticationSharedBloc authenticationSharedBloc;
 
   const OtpPage({
@@ -50,17 +50,13 @@ class _OtpWidgetState extends BaseState<OtpPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   void _listenForSmsCode() {
     OTPTextEditController(
       codeLength: 6,
       onCodeReceive: (code) =>
           print('******** Your Application receive code - $code'),
-    )..startListenUserConsent((code) {
+    ).startListenUserConsent((code) {
       final exp = RegExp(r'(\d{6})');
       final value = exp.stringMatch(code ?? '') ?? '';
       _pastCode(value);
@@ -114,7 +110,7 @@ class _OtpWidgetState extends BaseState<OtpPage> {
     );
   }
 
-  double _otpSize = 50.w;
+  final double _otpSize = 50.w;
   Widget _otpWidget() {
     return Directionality(
       textDirection: AppProviderModule().locale == 'en'
@@ -169,11 +165,9 @@ class _OtpWidgetState extends BaseState<OtpPage> {
   Widget get _otpWithMobile => CustomText(
     text: enterVerificationCodeSentTo(
       _bloc.otpCodeLength,
-      (widget.authenticationSharedBloc.countryMapper.description == "20"
+      '${widget.authenticationSharedBloc.countryMapper.description == "20"
               ? "2"
-              : widget.authenticationSharedBloc.countryMapper.description) +
-          widget.authenticationSharedBloc.mobile +
-          '+',
+              : widget.authenticationSharedBloc.countryMapper.description}${widget.authenticationSharedBloc.mobile}+',
     ),
     customTextStyle: RegularStyle(fontSize: 14.sp, color: lightBlackColor),
   );

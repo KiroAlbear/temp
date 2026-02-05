@@ -5,7 +5,7 @@ import 'custom_progress_widget.dart';
 
 class OverlayLoadingWidget extends StatelessWidget {
   final ValueNotifier<bool> showOverlayLoading;
-  OverlayLoadingWidget({super.key, required this.showOverlayLoading});
+  const OverlayLoadingWidget({super.key, required this.showOverlayLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class OverlayLoadingWidget extends StatelessWidget {
       builder: (context, value, child) {
         // widget.isLoadingWidgetBuilt = true;
         return !value
-            ? SizedBox()
+            ? const SizedBox()
             : Container(
                 color: Colors.black.withAlpha((0.3 * 255).round()),
                 child: Center(

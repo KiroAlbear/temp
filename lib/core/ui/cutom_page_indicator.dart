@@ -53,7 +53,7 @@ class CutomPageIndicator extends StatelessWidget {
               ),
             ), // your preferred effect
             onDotClicked: (index) {}),
-        SizedBox(
+        const SizedBox(
           height: 5,
         )
       ],

@@ -21,12 +21,10 @@ class IdleState<T> extends ApiState<T> {
 }
 
 class FailedState<T> extends ApiState<T> {
-  FailedState({required String message, required String loggerName})
+  FailedState({required super.message, required super.loggerName})
     : super(
         response: null,
-        message: message,
         error: null,
-        loggerName: loggerName,
       ) {
     // LoggerModule.log(message: message, name: loggerName, error: error);
   }

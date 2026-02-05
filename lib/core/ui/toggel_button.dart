@@ -18,14 +18,14 @@ class ToggleButton extends StatefulWidget {
   final Color inactiveTextColor;
   final Color activeTextColor;
 
-  static final double leftToggleAlign = -1;
-  static final double rightToggleAlign = 1;
+  static const double leftToggleAlign = -1;
+  static const double rightToggleAlign = 1;
 
   final VoidCallback onLeftToggleActive;
   final VoidCallback onRightToggleActive;
   final ValueNotifier<double> toggleXAlign;
-  ToggleButton(
-      {Key? key,
+  const ToggleButton(
+      {super.key,
       required this.width,
       required this.height,
       required this.toggleBackgroundColor,
@@ -37,8 +37,7 @@ class ToggleButton extends StatefulWidget {
       required this.rightDescription,
       required this.onLeftToggleActive,
       required this.toggleXAlign,
-      required this.onRightToggleActive})
-      : super(key: key);
+      required this.onRightToggleActive});
 
   @override
   _ToggleButtonState createState() => _ToggleButtonState();
@@ -47,13 +46,13 @@ class ToggleButton extends StatefulWidget {
 class _ToggleButtonState extends State<ToggleButton> {
   // double _toggleXAlign = -1;
 
-  ValueNotifier<Color> _leftDescriptionColor =
+  final ValueNotifier<Color> _leftDescriptionColor =
       ValueNotifier<Color>(Colors.transparent);
-  ValueNotifier<Color> _rightDescriptionColor =
+  final ValueNotifier<Color> _rightDescriptionColor =
       ValueNotifier<Color>(Colors.transparent);
 
   final double borderRadious = 10;
-  final Duration animatedContainerDuration = Duration(milliseconds: 400);
+  const Duration animatedContainerDuration = Duration(milliseconds: 400);
 
   late final double buttonWidth;
 
@@ -127,7 +126,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                     ? Colors.transparent
                     : Colors.transparent;
                 return Align(
-                  alignment: Alignment(-1, 0),
+                  alignment: const Alignment(-1, 0),
                   child: AnimatedContainer(
                       duration: animatedContainerDuration,
                       width:buttonWidth,
@@ -170,7 +169,7 @@ class _ToggleButtonState extends State<ToggleButton> {
                       : Colors.transparent;
 
                   return AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     width:buttonWidth,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(

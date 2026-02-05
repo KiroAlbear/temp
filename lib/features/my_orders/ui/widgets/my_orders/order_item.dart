@@ -10,7 +10,7 @@ class OrderItem extends StatelessWidget {
   final List<String?> orderStatuses;
   final MyOrdersBloc myOrdersBloc;
 
-  OrderItem({
+  OrderItem({super.key, 
     required this.orderItemType,
     required this.currentOrder,
     required this.items,
@@ -50,11 +50,11 @@ class OrderItem extends StatelessWidget {
           color: productCardColor,
           borderRadius: BorderRadius.circular(borderRadious),
         ),
+        alignment: Alignment.centerLeft,
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
           child: icDelete,
         ),
-        alignment: Alignment.centerLeft,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -87,46 +87,46 @@ class OrderItem extends StatelessWidget {
                     color: secondaryColor,
                     imageType: ImageType.svg,
                   ),
-                  SizedBox(width: 3),
+                  const SizedBox(width: 3),
                   Padding(
-                    padding: EdgeInsets.only(top: 3.0),
+                    padding: const EdgeInsets.only(top: 3.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
                           text:
-                              "${Loc.of(context)!.orderNumber} #${currentOrder!.id}",
+                              "${Loc.of(context)!.orderNumber} #${currentOrder.id}",
                           customTextStyle: titleTextStyle,
                         ),
                         OrderItemGreyText(
                           text:
-                              "${Loc.of(context)!.orderTotal} ${currentOrder!.totalPrice}",
+                              "${Loc.of(context)!.orderTotal} ${currentOrder.totalPrice}",
                         ),
                         OrderItemGreyText(
                           text:
-                              "${Loc.of(context)!.orderItemCount} ${currentOrder!.itemsCount} ${Loc.of(context)!.orderItem}",
+                              "${Loc.of(context)!.orderItemCount} ${currentOrder.itemsCount} ${Loc.of(context)!.orderItem}",
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Row(
                 children: [
                   CustomText(
-                    text: "${Loc.of(context)!.orderDetails}",
+                    text: Loc.of(context)!.orderDetails,
                     customTextStyle: RegularStyle(
                       color: secondaryColor,
                       fontSize: 14.sp,
                     ),
                   ),
-                  SizedBox(width: 2),
+                  const SizedBox(width: 2),
                   ValueListenableBuilder(
                     valueListenable: isExpanded,
                     builder: (context, value, child) {
                       return Padding(
-                        padding: EdgeInsets.only(top: 5.0),
+                        padding: const EdgeInsets.only(top: 5.0),
                         child: Icon(
                           isExpanded.value
                               ? Icons.keyboard_arrow_up_rounded
@@ -142,7 +142,7 @@ class OrderItem extends StatelessWidget {
           ),
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 17),
+              padding: const EdgeInsets.symmetric(horizontal: 17),
               child: Column(
                 children: [
                   Container(
@@ -150,15 +150,15 @@ class OrderItem extends StatelessWidget {
                     width: double.infinity,
                     height: 1,
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   orderItemType == OrderType.currentOrder
                       ? CurrentOrdersStates(statuses: orderStatuses)
-                      : SizedBox(),
+                      : const SizedBox(),
                   currentOrder.state == "cancel"
-                      ? SizedBox()
+                      ? const SizedBox()
                       : orderItemType == OrderType.pastOrder
                       ? PastOrdersStates(orderStatuses: orderStatuses)
-                      : SizedBox(),
+                      : const SizedBox(),
                   CustomButtonWidget(
                     buttonColor: secondaryColor,
                     textColor: Colors.white,
@@ -171,7 +171,7 @@ class OrderItem extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                 ],
               ),
             ),
@@ -200,7 +200,7 @@ class OrderItem extends StatelessWidget {
     bool isOrderReceived,
   ) {
     return Container(
-      padding: EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 4),
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: isOrderReceived ? greenColor : Colors.red,
@@ -225,7 +225,7 @@ class OrderItem extends StatelessWidget {
           maintainState: true,
           child: AnimatedOpacity(
             opacity: value ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: InkWell(
               onTap: () async {
                 _showCancelBottomSheet(context);
@@ -235,7 +235,7 @@ class OrderItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.red,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: CustomText(
                   text: Loc.of(context)!.cancelOrder,
                   customTextStyle: RegularStyle(

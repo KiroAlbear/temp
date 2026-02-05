@@ -21,7 +21,7 @@ class ProductWidget extends StatefulWidget {
   final Function(ProductMapper productMapper)? onDecrementClicked;
 
   ProductWidget({
-    Key? key,
+    super.key,
     required this.productMapper,
     required this.productCategoryBloc,
     this.cartBloc,
@@ -33,7 +33,7 @@ class ProductWidget extends StatefulWidget {
     this.onIncrementClicked,
     this.onDecrementClicked,
     required this.index,
-  }) : super(key: key) {
+  }) {
     if (!isCartProduct &&
         (onTapFavourite == null || onAddToCart == null)) {
       assert(
@@ -160,10 +160,10 @@ class _ProductWidgetState extends State<ProductWidget> {
               _productName,
 
               widget.productMapper.description.isEmpty
-                  ? SizedBox()
+                  ? const SizedBox()
                   : SizedBox(height: 4.h),
               widget.productMapper.description.isEmpty
-                  ? SizedBox()
+                  ? const SizedBox()
                   : _productDescription,
               SizedBox(height: 0.h),
 
@@ -212,7 +212,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     ),
                     SizedBox(height: 8.h),
                     widget.productMapper.isAvailable
-                        ? SizedBox()
+                        ? const SizedBox()
                         : _notAvailableProduct(),
                   ],
                 ),
@@ -279,7 +279,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           valueListenable: isAddingToFavSucess,
           builder: (context, value, child) {
             return !value
-                ? SizedBox(
+                ? const SizedBox(
                     height: 18,
                     width: 18,
                     child: CircularProgressIndicator(),
@@ -405,7 +405,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
                   : MediumStyle(color: lightBlackColor, fontSize: 12.sp);
               final TextScaler scale = MediaQuery.textScalerOf(context);
-              final int maxLines = 2;
+              const int maxLines = 2;
               final twoOrMore = isTwoLinesOrMore(
                 text: text,
                 style: style.getStyle(),
@@ -432,7 +432,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             },
           ),
         ),
-        SizedBox(width: 5,),
+        const SizedBox(width: 5,),
         ValueListenableBuilder(
           valueListenable: toolTipVisibility,
           builder: (context, value, child) {
@@ -446,12 +446,22 @@ class _ProductWidgetState extends State<ProductWidget> {
                 0,
                 0,
               ),
+              content: Container(
+                color: tooltipColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 150,
+                    child: Text(widget.productMapper.name),
+                  ),
+                ),
+              ),
               child: value
                   ? Material(
-                      color: Color(0xff00457A).withAlpha(25),
-                      shape: CircleBorder(),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
+                      color: const Color(0xff00457A).withAlpha(25),
+                      shape: const CircleBorder(),
+                      child: const Padding(
+                        padding: EdgeInsets.all(4.0),
                         child: Icon
                           (Icons.remove_red_eye_outlined,
                           size: 15,
@@ -459,17 +469,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         ),
                       ),
                     )
-                  : SizedBox(),
-              content: Container(
-                color: tooltipColor,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 150,
-                    child: Text(widget.productMapper.name),
-                  ),
-                ),
-              ),
+                  : const SizedBox(),
             );
           },
         ),
@@ -607,7 +607,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 20.h,
             width: 20.w,
             child: ValueListenableBuilder(
@@ -649,7 +649,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   );
                 }
               },
-              child: Container(
+              child: SizedBox(
                 height: plusMinusIconHeight,
                 child: Center(
                   child: ValueListenableBuilder(

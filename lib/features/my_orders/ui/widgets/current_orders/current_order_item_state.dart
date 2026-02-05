@@ -8,7 +8,7 @@ class CurrentOrderItemState extends StatelessWidget {
   final String title;
   final bool isEnabled;
   final CurrentOrderStep step;
-  const CurrentOrderItemState({
+  const CurrentOrderItemState({super.key, 
     required this.isEnabled,
     required this.date,
     required this.title,
@@ -51,7 +51,7 @@ class CurrentOrderItemState extends StatelessWidget {
             width: 32,
             height: 32,
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

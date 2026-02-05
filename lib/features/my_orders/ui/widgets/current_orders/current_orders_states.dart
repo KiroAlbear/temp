@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CurrentOrdersStates extends StatelessWidget {
   final List<String?> statuses;
-  const CurrentOrdersStates({required this.statuses});
+  const CurrentOrdersStates({super.key, required this.statuses});
 
   @override
   Widget build(BuildContext context) {

@@ -43,7 +43,7 @@ class MapModule {
             Navigator.of(Routes.rootNavigatorKey.currentContext!).pop();
           },
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
             child: ImageHelper(
                 image: Assets.svg.icPreviousBlue, imageType: ImageType.svg),
           ),
@@ -54,7 +54,7 @@ class MapModule {
         buttonLoadingWidget: CustomProgress(color: secondaryColor),
         setLocationButtonBorderRadious: 10,
         searchSuffixIcon:
-            RotatedBox(quarterTurns: 1, child: Icon(Icons.search)),
+            const RotatedBox(quarterTurns: 1, child: Icon(Icons.search)),
         buttonWidth: double.infinity,
         buttonHeight: 70.h,
         hintText: hintText,

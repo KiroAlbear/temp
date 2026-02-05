@@ -31,7 +31,7 @@ class CustomNavigationBar extends StatelessWidget {
                   ).bottomNavigationBarTheme.unselectedItemColor,
           ),
           showBadge == false
-              ? SizedBox()
+              ? const SizedBox()
               : StreamBuilder(
                   stream: getIt<CartBloc>().cartProductsBehavior.stream,
                   builder: (context, snapshot) {
@@ -40,7 +40,7 @@ class CustomNavigationBar extends StatelessWidget {
                             ? snapshot.data!.response!.getFirst.length
                             : 0;
                     return cartCounter == 0
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Container(
                             height: 12.h,
                             width: 12.h,

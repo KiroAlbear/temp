@@ -74,8 +74,8 @@ class UtilityModule {
         useSafeArea: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         builder: (context) => FractionallySizedBox(
-              child: child,
               heightFactor: useFixedHeight ? 0.7 : null,
+              child: child,
             ));
   }
 

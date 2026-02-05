@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MostSellingPage extends BaseStatefulWidget {
-  MostSellingPage({super.key});
+  const MostSellingPage({super.key});
 
   @override
   State<MostSellingPage> createState() => _MostSellingPageState();
@@ -37,15 +37,7 @@ class _MostSellingPageState extends BaseState<MostSellingPage> {
     return secondaryColor;
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget getBody(BuildContext context) => Column(

@@ -44,7 +44,7 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyPage> {
             title: Loc.of(context)!.usagePolicyTitle,
             isHavingBack: true,
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Expanded(
             child: SingleChildScrollView(
               child: StreamBuilder<ApiState<UsagePolicyResponse>>(
@@ -65,7 +65,7 @@ class _UsagePolicyScreenState extends BaseState<UsagePolicyPage> {
                               color: lightBlackColor,
                             ).getStyle(),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                         ],
                       ),
                     );

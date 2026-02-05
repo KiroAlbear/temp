@@ -19,7 +19,7 @@ class NewAccountBloc extends BlocBase {
   }) {
     mobileNumber = mobileNumberValue;
     _countryId = countryId;
-    this.countryCode = "+${countryCode}";
+    this.countryCode = "+$countryCode";
 
     fullNameBloc.textFormFiledBehaviour.sink.add(TextEditingController());
     fullNameBloc.stringBehaviour.add("");
@@ -51,7 +51,7 @@ class NewAccountBloc extends BlocBase {
     confirmPasswordBloc.stringBehaviour.add("");
 
     _stepBehaviour.sink.add(NewAccountStepEnum.info);
-    countryCodeBehaviour.sink.add("+${countryCode}");
+    countryCodeBehaviour.sink.add("+$countryCode");
 
     _latitudeBehaviour.sink.add(null);
     _longitudeBehaviour.sink.add(null);
@@ -155,7 +155,7 @@ class NewAccountBloc extends BlocBase {
   Stream<ApiState<LoginMapper>> get register => RegisterRemote(
     shopName: facilityNameBloc.value,
     name: fullNameBloc.value,
-    phone: "${this.countryCode}${mobileNumber}",
+    phone: "$countryCode$mobileNumber",
     password: passwordBloc.value,
     latitude: _longitudeBehaviour.valueOrNull.toString(),
     longitude: _latitudeBehaviour.valueOrNull.toString(),
@@ -215,13 +215,13 @@ class NewAccountBloc extends BlocBase {
 
   Future<void> pickLocationInfo() async {
     var client = http.Client();
-    final Map<String, String> _headers = const {
+    const Map<String, String> headers = {
       "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
     };
     String url =
         'https://nominatim.openstreetmap.org/reverse?format=json&lat=${_latitudeBehaviour.value}&lon=${_longitudeBehaviour.value}&zoom=18&addressdetails=1';
-    var response = await client.get(Uri.parse(url), headers: _headers);
+    var response = await client.get(Uri.parse(url), headers: headers);
     var decodedResponse =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<dynamic, dynamic>;
     Map<dynamic, dynamic> address = decodedResponse['address'];

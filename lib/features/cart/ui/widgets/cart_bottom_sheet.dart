@@ -16,10 +16,10 @@ class CartBottomSheet extends StatefulWidget {
 class _CartBottomSheetState extends State<CartBottomSheet> {
   final double _spacing = 10.0;
   int _groupeValue = -1;
-  int _groupeCashValue = 0;
-  int _groupeVisaValue = 1;
-  int _groupeWalletValue = 2;
-  int _groupeFawryValue = 3;
+  final int _groupeCashValue = 0;
+  final int _groupeVisaValue = 1;
+  final int _groupeWalletValue = 2;
+  final int _groupeFawryValue = 3;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _paymentRow(int value, String title, Widget icon) {

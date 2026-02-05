@@ -21,7 +21,7 @@ class CancelOrderBottomSheet extends StatelessWidget {
       padding: MediaQuery.of(context).viewInsets,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 17, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 20),
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minHeight:
@@ -35,14 +35,14 @@ class CancelOrderBottomSheet extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       ImageHelper(
                         image: Assets.png.orderCancel.path,
                         imageType: ImageType.asset,
                         width: 150,
                         height: 150,
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       CustomText(
                         textAlign: TextAlign.center,
                         text: Loc.of(context)!.orderCancelReasonTitle,
@@ -51,7 +51,7 @@ class CancelOrderBottomSheet extends StatelessWidget {
                           fontSize: 18.sp,
                         ),
                       ),
-                      SizedBox(height: 25),
+                      const SizedBox(height: 25),
                       CustomText(
                         textAlign: TextAlign.start,
                         text: Loc.of(context)!.orderCancelReason,
@@ -60,7 +60,7 @@ class CancelOrderBottomSheet extends StatelessWidget {
                           fontSize: 15.sp,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       SizedBox(
                         height: 260.h,
                         child: Form(
@@ -99,7 +99,7 @@ class CancelOrderBottomSheet extends StatelessWidget {
                               return null;
                             },
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: const EdgeInsets.all(10),
                               hintText: Loc.of(context)!.orderCancelReasonHint,
                               errorStyle: RegularStyle(
                                 color: redColor,
@@ -120,10 +120,10 @@ class CancelOrderBottomSheet extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   CustomButtonWidget(
                     idleText: Loc.of(context)!.next,
                     buttonBehaviour: myOrdersBloc.buttonBloc.buttonBehavior,

@@ -89,7 +89,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
             widget.productList
                 .where((element) => element.isFavourite == true)
                 .isEmpty) {
-          return EmptyFavouriteProducts();
+          return const EmptyFavouriteProducts();
         } else {
           return Stack(
             children: [
@@ -151,11 +151,11 @@ class _ProductListWidgetState extends State<ProductListWidget> {
         itemBuilder: (context, index) {
           return Row(
             children: [
-              index == 0 ? SizedBox(width: 16.w) : SizedBox(),
+              index == 0 ? SizedBox(width: 16.w) : const SizedBox(),
               SizedBox(width: 165, child: _buildProductWidget(index)),
               index == widget.productList.length - 1
                   ? SizedBox(width: 16.w)
-                  : SizedBox(),
+                  : const SizedBox(),
             ],
           );
         },

@@ -224,7 +224,7 @@ class PermissionModule {
   Future<bool> _showMessageOnPermissionDeniedForEver() async {
     final String message = _messageOnPermissionDeniedForever ??
         openSetting(
-          '${_permission.toString().split('.').last}',
+          _permission.toString().split('.').last,
           _context,
         );
     await AlertModule().showMessage(

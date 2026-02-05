@@ -103,7 +103,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _headerText(expanded),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           _arrowWidget(expanded)

@@ -14,8 +14,7 @@ class CartOrderDetailsIconItem extends StatelessWidget {
       required this.title,
       this.iconSize = 30,
       this.space = 3,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   String get _icon {
     switch (iconType) {

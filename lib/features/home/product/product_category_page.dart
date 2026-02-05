@@ -16,9 +16,9 @@ class ProductCategoryPage extends BaseStatefulWidget {
   final ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
   final ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
 
-  static final String isForFavouriteKey = 'isForFavouriteKey';
-  static final String isFavouriteValue = 'isFavouriteValue';
-  static final String isNotFavouriteValue = 'isNotFavouriteValue';
+  static const String isForFavouriteKey = 'isForFavouriteKey';
+  static const String isFavouriteValue = 'isFavouriteValue';
+  static const String isNotFavouriteValue = 'isNotFavouriteValue';
   final bool isForFavourite;
 
   ProductCategoryPage({
@@ -208,7 +208,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                               widget
                                   .productCategoryBloc
                                   .isNavigationFromNotifications)
-                          ? SizedBox()
+                          ? const SizedBox()
                           : StreamBuilder<ApiState<List<CategoryMapper>>>(
                               stream: widget
                                   .productCategoryBloc
@@ -325,14 +325,14 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                               widget
                                   .productCategoryBloc
                                   .isNavigationFromNotifications)
-                          ? SizedBox()
+                          ? const SizedBox()
                           : SizedBox(height: 14.h),
                       (isFavouriteOrSearchOrCategory() ||
                               widget.homeBloc.selectedOffer != null ||
                               widget
                                   .productCategoryBloc
                                   .isNavigationFromNotifications)
-                          ? SizedBox()
+                          ? const SizedBox()
                           : StreamBuilder<ApiState<List<BrandMapper>>>(
                               stream: widget
                                   .productCategoryBloc
@@ -421,10 +421,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                             ),
                       (isFavouriteOrSearchOrCategory() ||
                               widget.homeBloc.selectedOffer != null)
-                          ? SizedBox()
+                          ? const SizedBox()
                           : SizedBox(height: 10.h),
                       isBannersOrOffersExist()
-                          ? SizedBox()
+                          ? const SizedBox()
                           : SizedBox(height: widget.isForFavourite ? 0 : 10.h),
                       Expanded(
                         child: CustomScrollView(
@@ -442,7 +442,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         isClickable: false,
                                       ),
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             ),
                             SliverToBoxAdapter(
                               child:
@@ -457,12 +457,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         isClickable: false,
                                       ),
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             ),
                             SliverToBoxAdapter(
                               child: isBannersOrOffersExist()
                                   ? Padding(
-                                      padding: EdgeInsetsDirectional.only(
+                                      padding: const EdgeInsetsDirectional.only(
                                         start: 15,
                                         top: 5,
                                       ),
@@ -475,7 +475,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         ),
                                       ),
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             ),
                             SliverFillRemaining(
                               hasScrollBody: true,
@@ -490,7 +490,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                         if (snapshot.data!.response != null &&
                                             snapshot.data!.response!.isEmpty) {
                                           if (widget.isForFavourite) {
-                                            return EmptyFavouriteProducts();
+                                            return const EmptyFavouriteProducts();
                                           } else {
                                             return Column(
                                               mainAxisAlignment:
@@ -522,11 +522,12 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           onTapFavourite:
                                               (favourite, productMapper) {},
                                           loadMore: (Function func) {
-                                            if (widget.isForFavourite)
+                                            if (widget.isForFavourite) {
                                               widget.productCategoryBloc
                                                   .loadMore(true, func);
-                                            else
+                                            } else {
                                               _loadProducts(false, func);
+                                            }
                                           },
                                         ),
                                       );

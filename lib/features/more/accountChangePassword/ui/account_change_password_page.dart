@@ -34,11 +34,6 @@ class _AccountChangePasswordState extends BaseState<AccountChangePasswordPage> {
     changeSystemNavigationBarColor(secondaryColor);
   }
 
-  @override
-  void initState() {
-
-    super.initState();
-  }
 
   @override
   Widget getBody(BuildContext context) =>

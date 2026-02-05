@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 abstract class BaseStatefulWidget extends StatefulWidget {
-  const BaseStatefulWidget({Key? key}) : super(key: key);
+  const BaseStatefulWidget({super.key});
 }
 
 abstract class BaseState<T extends BaseStatefulWidget> extends State<T>

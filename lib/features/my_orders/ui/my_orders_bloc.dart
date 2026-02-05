@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 class MyOrdersBloc extends BlocBase {
   final ButtonBloc buttonBloc = ButtonBloc();
 
-  BehaviorSubject<ApiState<MyOrdersMapper>> _myOrdersBehavior =
+  final BehaviorSubject<ApiState<MyOrdersMapper>> _myOrdersBehavior =
       BehaviorSubject();
 
   BehaviorSubject<ApiState<int>> cancelOrderBehavior = BehaviorSubject();

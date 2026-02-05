@@ -30,24 +30,24 @@ class CartRemote
   List<ProductMapper> getCartProductsFromOrderResponse(
       List<MyOrderItemResponse>? myOrderResponse) {
     List<ProductMapper> cartProducts = [];
-    myOrderResponse!.forEach((element) {
+    for (var element in myOrderResponse!) {
       if ((element.price_total??0) > 0){
         cartProducts.add(ProductMapper.fromOrderResponse(element));
       }
       
-    });
+    }
     return cartProducts;
   }
 
   List<ProductMapper> getCartDiscountProductsFromOrderResponse(
       List<MyOrderItemResponse>? myOrderResponse) {
     List<ProductMapper> cartProducts = [];
-    myOrderResponse!.forEach((element) {
+    for (var element in myOrderResponse!) {
       if ((element.price_total??0) < 0){
         cartProducts.add(ProductMapper.fromOrderResponse(element));
       }
 
-    });
+    }
     return cartProducts;
   }
 

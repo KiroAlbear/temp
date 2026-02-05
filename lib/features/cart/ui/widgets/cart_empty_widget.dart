@@ -18,7 +18,7 @@ class CartEmptyWidget extends StatelessWidget {
           width: 150,
           height: 150,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         CustomText(
           text: Loc.of(context)!.cartEmpty,
           textAlign: TextAlign.center,

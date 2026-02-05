@@ -42,7 +42,7 @@ class _FaqWidgetState extends BaseState<FaqPage> {
       SizedBox(height: 20.h),
       _faqStreamBuilder,
       SizedBox(height: 20.h),
-      AppConstants.isHavingBottomPadding ? SizedBox(height: 32) : SizedBox(),
+      AppConstants.isHavingBottomPadding ? const SizedBox(height: 32) : const SizedBox(),
     ],
   );
 

@@ -22,12 +22,12 @@ class MostSellingRequestModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['pageIndex'] = this.pageIndex;
-    data['pageSize'] = this.pageSize;
-    data['sortBy'] = this.sortBy;
-    data['sortDirection'] = this.sortDirection;
-    data['token'] = this.token;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['pageIndex'] = pageIndex;
+    data['pageSize'] = pageSize;
+    data['sortBy'] = sortBy;
+    data['sortDirection'] = sortDirection;
+    data['token'] = token;
     return data;
   }
 }

@@ -8,7 +8,7 @@ class OrderItemGreyText extends StatelessWidget {
   final CustomTextStyleModule subtitleTextStyle =
       RegularStyle(color: greyOrderGreyTextColorLightMode, fontSize: 12.sp);
 
-  OrderItemGreyText({required this.text});
+  OrderItemGreyText({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

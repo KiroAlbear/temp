@@ -37,8 +37,9 @@ class UpdateProfileBloc extends BlocBase {
           partner_longitude: latLongBloc.longitudeBehaviour.value,
         ),
       ).callApiAsStream();
-    } else
+    } else {
       return Stream.value(IdleState());
+    }
   }
 
   final ButtonBloc buttonBloc = ButtonBloc();
@@ -60,7 +61,7 @@ class UpdateProfileBloc extends BlocBase {
       deliveryAddressBehaviour.sink.add(event);
       if (event.response != null) {
         if (event.response!.street.isNotEmpty) {
-          userAddressText = "${event.response!.street!}, ";
+          userAddressText = "${event.response!.street}, ";
         }
         if (event.response!.street2.isNotEmpty) {
           userAddressText += "${event.response!.street2}, ";
@@ -69,7 +70,7 @@ class UpdateProfileBloc extends BlocBase {
           userAddressText += "${event.response!.city}, ";
         }
         if (event.response!.country.isNotEmpty) {
-          userAddressText += "${event.response!.country}";
+          userAddressText += event.response!.country;
         }
         initAddress(event.response!);
       }

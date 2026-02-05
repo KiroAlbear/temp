@@ -7,7 +7,7 @@ class NewSectionWidget extends StatelessWidget {
   final Widget child;
   final String title;
   final void Function() onViewAllTapped;
-  NewSectionWidget({
+  const NewSectionWidget({
     required this.child,
     required this.onViewAllTapped,
     required this.title,
@@ -19,14 +19,14 @@ class NewSectionWidget extends StatelessWidget {
     return Container(
       color: mostSellingBackgroundColor,
       child: Column(
-        children: [_buildSectionHeader(context), SizedBox(height: 10), child],
+        children: [_buildSectionHeader(context), const SizedBox(height: 10), child],
       ),
     );
   }
 
   Widget _buildSectionHeader(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 16, end: 16, top: 20),
+      padding: const EdgeInsetsDirectional.only(start: 16, end: 16, top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -45,7 +45,7 @@ class NewSectionWidget extends StatelessWidget {
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0),
                   child: Transform.rotate(

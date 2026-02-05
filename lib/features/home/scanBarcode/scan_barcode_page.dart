@@ -70,6 +70,8 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
       children: [
         _scanStreamBuilder,
         Positioned(
+          top: 50.h,
+          right: 20.w,
           child: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -81,8 +83,6 @@ class _ScanBarcodeWidgetState extends BaseState<ScanBarcodePage> {
               height: 25.h,
             ),
           ),
-          top: 50.h,
-          right: 20.w,
         ),
         Positioned(
           bottom: 70,

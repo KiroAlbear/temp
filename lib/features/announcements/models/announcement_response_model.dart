@@ -9,17 +9,17 @@ class AnnouncementResponseModel {
     if (json['announcements'] != null) {
       announcements = <Announcements>[];
       json['announcements'].forEach((v) {
-        announcements!.add(new Announcements.fromJson(v));
+        announcements!.add(Announcements.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['count'] = this.count;
-    if (this.announcements != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['count'] = count;
+    if (announcements != null) {
       data['announcements'] =
-          this.announcements!.map((v) => v.toJson()).toList();
+          announcements!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -41,11 +41,11 @@ class Announcements {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['imagePath'] = this.imagePath;
-    data['link'] = this.link;
-    data['orderNo'] = this.orderNo;
-    data['relatedItemId'] = this.relatedItemId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['imagePath'] = imagePath;
+    data['link'] = link;
+    data['orderNo'] = orderNo;
+    data['relatedItemId'] = relatedItemId;
     return data;
   }
 }

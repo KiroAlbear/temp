@@ -3,7 +3,7 @@ import 'package:rxdart/rxdart.dart';
 
 class UpdateProfileImageRemote {
   BehaviorSubject<ApiState<LoginMapper>> callApiAsStream = BehaviorSubject();
-  UpdateProfileImageRemote() {}
+  UpdateProfileImageRemote();
 
   void uploadImage(File file) async {
     final url =

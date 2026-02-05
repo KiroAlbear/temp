@@ -19,7 +19,7 @@ class AnnouncementsHeroBannerItem extends StatelessWidget {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(_borderRadius),
       child: Padding(
-        padding: EdgeInsetsDirectional.symmetric(horizontal: 25),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 25),
         child: InkWell(
             borderRadius: BorderRadius.circular(_borderRadius),
             onTap: () {

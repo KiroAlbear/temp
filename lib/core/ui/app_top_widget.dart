@@ -84,7 +84,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   );
 
   Widget get _supportWidget => widget.isHavingSupport == false
-      ? SizedBox()
+      ? const SizedBox()
       : InkWell(
           onTap: () => _clickOnSupport(),
           child: ImageHelper(
@@ -97,7 +97,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
         );
 
   Widget get _logoWidget => widget.isHavingHomeLogo == false
-      ? SizedBox()
+      ? const SizedBox()
       : ImageHelper(
           image: Assets.svg.logoYellow,
           imageType: ImageType.svg,
@@ -151,7 +151,7 @@ class _AppTopWidgetState extends State<AppTopWidget> {
   Widget get _searchProductWidget => InkWell(
     onTap: () => widget.doSearch!(),
     child: Padding(
-      padding: EdgeInsetsDirectional.only(start: 15.0, end: 5.0),
+      padding: const EdgeInsetsDirectional.only(start: 15.0, end: 5.0),
       child: ImageHelper(
         image: Assets.svg.icSearch,
         imageType: ImageType.svg,

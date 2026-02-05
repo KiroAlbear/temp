@@ -108,7 +108,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                                     valueListenable:
                                         _backButtonVisibilityNotifier,
                                     builder: (context, value, child) {
-                                      return value ? _backButton : SizedBox();
+                                      return value ? _backButton : const SizedBox();
                                     },
                                   ),
                                   SizedBox(width: 10.w),
@@ -120,7 +120,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                           ),
                           SizedBox(height: 20.h),
                           _registerInfoWidget,
-                          SizedBox(height: 50),
+                          const SizedBox(height: 50),
                         ],
                       ),
                     ),
@@ -146,8 +146,8 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                   ),
                 ),
                 AppConstants.isHavingBottomPadding
-                    ? SizedBox(height: 32)
-                    : SizedBox(),
+                    ? const SizedBox(height: 32)
+                    : const SizedBox(),
               ],
             ),
 
@@ -268,7 +268,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
       children: [
         Expanded(
           child: hidePrevious
-              ? SizedBox()
+              ? const SizedBox()
               : PreviousNextButton(
                   isPrevious: true,
                   isButtonEnabledStream: previousValidationStream,
@@ -360,7 +360,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
   void animateToPage(int pageIndex) {
     pageController.animateToPage(
       pageIndex,
-      duration: Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 700),
       curve: Curves.easeInOut,
     );
   }

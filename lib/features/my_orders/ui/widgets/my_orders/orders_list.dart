@@ -6,7 +6,7 @@ class OrdersList extends StatelessWidget {
   final List<OrdersMapper>? orders;
   final OrderType orderType;
   final MyOrdersBloc myOrdersBloc;
-  const OrdersList({
+  const OrdersList({super.key, 
     required this.orders,
     required this.orderType,
     required this.myOrdersBloc,
@@ -37,7 +37,7 @@ class OrdersList extends StatelessWidget {
           )
         : ListView.separated(
             shrinkWrap: true,
-            separatorBuilder: (context, index) => SizedBox(height: 15),
+            separatorBuilder: (context, index) => const SizedBox(height: 15),
             itemCount: orders!.length,
             itemBuilder: (context, index) {
               return OrderItem(

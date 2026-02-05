@@ -32,13 +32,13 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
       );
 
   Widget _buildWidget(List<OfferMapper> list) => list.isEmpty
-      ? SizedBox()
+      ? const SizedBox()
       : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            widget.isMainPage ? SizedBox() : SizedBox(height: 20.h),
+            widget.isMainPage ? const SizedBox() : SizedBox(height: 20.h),
             widget.isMainPage
-                ? SizedBox()
+                ? const SizedBox()
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: CustomText(
@@ -49,7 +49,7 @@ class _OffersListingWidgetState extends State<OffersListingWidget>
                       ),
                     ),
                   ),
-            widget.isMainPage ? SizedBox() : SizedBox(height: 20.h),
+            widget.isMainPage ? const SizedBox() : SizedBox(height: 20.h),
             widget.isMainPage
                 ? Expanded(child: _buildOfferList(list))
                 : SizedBox(height: 120.h, child: _buildOfferList(list)),

@@ -34,7 +34,7 @@ class MapPreviewBloc extends BlocBase {
       if (!isLocationChanged) {
         latLng(event.latitude, event.longitude);
         if (onLocationDetection != null) {
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(const Duration(seconds: 1));
           onLocationDetection(event.latitude, event.longitude);
         }
       }

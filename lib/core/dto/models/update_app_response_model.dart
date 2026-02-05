@@ -12,10 +12,10 @@ class UpdateAppResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['versionNum'] = this.versionNum;
-    data['isForce'] = this.isForce;
-    data['type'] = this.type;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['versionNum'] = versionNum;
+    data['isForce'] = isForce;
+    data['type'] = type;
     return data;
   }
 }

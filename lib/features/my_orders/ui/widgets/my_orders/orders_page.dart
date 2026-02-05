@@ -6,7 +6,7 @@ enum OrderType { pastOrder, currentOrder }
 class OrdersPage extends StatefulWidget with ResponseHandlerModule {
   final MyOrdersBloc myOrdersBloc;
   final OrderType orderType;
-  const OrdersPage({required this.myOrdersBloc, required this.orderType});
+  const OrdersPage({super.key, required this.myOrdersBloc, required this.orderType});
 
   @override
   State<OrdersPage> createState() => _OrdersPageState();
