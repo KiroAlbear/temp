@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
-import 'package:deel/core/Utils/firebase_analytics_utl.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,14 +89,14 @@ class _ProductWidgetState extends State<ProductWidget> {
     required bool isCartProduct,
     required int maxLines, // optional if you already limit it
     TextDirection textDirection = TextDirection.ltr,
-    double textScaleFactor = 1.0,
+    TextScaler textScaler = const TextScaler.linear(1.0),
   }) {
     final tp = TextPainter(
       text: TextSpan(text: text, style: style),
       textDirection: textDirection,
       maxLines: maxLines,
       ellipsis: overflow == TextOverflow.ellipsis ? '…' : null,
-      textScaleFactor: textScaleFactor,
+      textScaler: textScaler,
     )..layout(maxWidth: maxWidth +(isCartProduct?180:80));
 
 
@@ -257,7 +255,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       padding: EdgeInsetsDirectional.only(start: 0.w),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.red.withOpacity(.5),
+          color: Colors.red.withAlpha((0.5 * 255).round()),
           borderRadius: BorderRadius.circular(5.r),
         ),
         child: Padding(
@@ -406,13 +404,13 @@ class _ProductWidgetState extends State<ProductWidget> {
               final CustomTextStyleModule style = widget.isCartProduct
                   ? BoldStyle(color: lightBlackColor, fontSize: 14.sp)
                   : MediumStyle(color: lightBlackColor, fontSize: 12.sp);
-              final double scale = MediaQuery.textScaleFactorOf(context);
+              final TextScaler scale = MediaQuery.textScalerOf(context);
               final int maxLines = 2;
               final twoOrMore = isTwoLinesOrMore(
                 text: text,
                 style: style.getStyle(),
                 maxWidth: constraints.maxWidth,
-                textScaleFactor: scale,
+                textScaler: scale,
                 overflow: TextOverflow.ellipsis,
                 maxLines: maxLines,
                 isCartProduct: widget.isCartProduct

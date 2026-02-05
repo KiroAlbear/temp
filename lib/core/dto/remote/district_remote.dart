@@ -2,7 +2,6 @@ import 'package:deel/core/dto/models/district/district_request.dart';
 
 import '../models/baseModules/api_state.dart';
 import '../models/baseModules/drop_down_mapper.dart';
-import '../models/state/state_request.dart';
 import '../models/state/state_response.dart';
 import '../modules/odoo_dio_module.dart';
 import '../modules/shared_pref_module.dart';

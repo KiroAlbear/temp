@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_loader/image_helper.dart';
 import '../dto/modules/app_color_module.dart';
 import '../dto/modules/custom_text_style_module.dart';
 import 'custom_text.dart';
@@ -38,7 +37,7 @@ class CustomMaterialBanner extends MaterialBanner {
               : actions,
           forceActionsBelow: false,
           dividerColor: greyColor,
-          surfaceTintColor: primaryColor.withOpacity(0.6),
+          surfaceTintColor: primaryColor.withAlpha((0.6 * 255).round()),
           shadowColor: greyColor,
           leadingPadding: EdgeInsets.symmetric(horizontal: 50.w),
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),

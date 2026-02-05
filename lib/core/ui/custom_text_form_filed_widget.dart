@@ -5,9 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:rxdart/rxdart.dart';
-import '../dto/modules/app_color_module.dart';
-import '../dto/modules/custom_text_style_module.dart';
-import 'custom_text.dart';
 
 class CustomTextFormFiled extends StatefulWidget {
   final bool enableInteractiveSelection;

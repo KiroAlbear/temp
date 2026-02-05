@@ -1,4 +1,3 @@
-import 'package:deel/core/ui/product/product_widget.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +20,7 @@ class ProductListWidget extends StatefulWidget {
 
   final Function(Function())? loadMore;
 
-  ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
+  final ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
 
   ProductListWidget({
     super.key,

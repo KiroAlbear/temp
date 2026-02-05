@@ -4,9 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../deel.dart';
-import '../../ui/custom_progress_widget.dart';
-import '../models/baseModules/api_state.dart';
-import 'alert_module.dart';
 
 mixin ResponseHandlerModule {
   /// Checks the API response state and updates the button and UI accordingly.

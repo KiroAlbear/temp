@@ -1,15 +1,13 @@
 import 'package:deel/deel.dart';
-import 'package:deel/features/cart/models/cart_order_details_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../cart_bloc.dart';
 
 class CartBottomSheet extends StatefulWidget {
-  CartBloc cartBloc;
-  CartBottomSheet({super.key, required this.cartBloc});
+  final CartBloc cartBloc;
+  const CartBottomSheet({super.key, required this.cartBloc});
 
   @override
   State<CartBottomSheet> createState() => _CartBottomSheetState();

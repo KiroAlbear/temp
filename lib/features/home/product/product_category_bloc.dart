@@ -145,7 +145,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
                 )));
             subCategoryByCategoryStream.sink
                 .add(SuccessState(event.response ?? []));
-            int? selectedSubCategoryId = event.response!.first.id;
+            final int? selectedSubCategoryId = event.response?.first.id;
             subcategoryId = selectedSubCategoryId;
             getBrandBy(selectedSubCategoryId ?? categoryId);
           } else {
@@ -162,7 +162,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     isLoading?.value = false;
     {
       BrandRemote()
-          .loadBrandBySubCategoryId(BrandRequest(subCategory!, true, 1, 100))
+          .loadBrandBySubCategoryId(BrandRequest(subCategory, true, 1, 100))
           .listen(
         (event) {
           if (event is SuccessState) {
@@ -208,14 +208,13 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
           .listen(
         (event) {
           if (event is SuccessState &&
-              event.response != null &&
-              event.response!.isNotEmpty) {
+              (event.response?.isNotEmpty ?? false)) {
             _handleProductResponse(event.response);
 
             if (onGettingMoreProducts != null) {
               onGettingMoreProducts();
             }
-          } else if (event.response != null && event.response!.isEmpty) {
+          } else if (event.response?.isEmpty ?? false) {
             _handleProductResponse(null);
           }
         },
@@ -225,7 +224,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
     else {
       ProductRemote()
           .loadProductBySubCategoryBrand(ProductSubcategoryBrandRequest(
-        subCategory!,
+        subCategory,
         brand,
         true,
         pageSize,
@@ -234,14 +233,13 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
           .listen(
         (event) {
           if (event is SuccessState &&
-              event.response != null &&
-              event.response!.isNotEmpty) {
+              (event.response?.isNotEmpty ?? false)) {
             _handleProductResponse(event.response);
 
             if (onGettingMoreProducts != null) {
               onGettingMoreProducts();
             }
-          } else if (event.response != null && event.response!.isEmpty) {
+          } else if (event.response?.isEmpty ?? false) {
             _handleProductResponse(null);
           }
         },
@@ -256,10 +254,9 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
         .listen(
       (event) {
         if (event is SuccessState &&
-            event.response != null &&
-            event.response!.isNotEmpty) {
+            (event.response?.isNotEmpty ?? false)) {
           _handleProductResponse(event.response);
-        } else if (event.response != null && event.response!.isEmpty) {
+        } else if (event.response?.isEmpty ?? false) {
           _handleProductResponse(null);
         }
       },
@@ -267,7 +264,7 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   }
 
   void _handleBrandResponse(List<BrandMapper>? response, int? subCategory) {
-    if (response != null && response!.isNotEmpty) {
+    if (response != null && response.isNotEmpty) {
       response.insert(
           0,
           BrandMapper(BrandResponse(

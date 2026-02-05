@@ -3,12 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../dto/commonBloc/expanded_bloc.dart';
-import '../dto/modules/app_color_module.dart';
-import '../dto/modules/custom_text_style_module.dart';
-import 'bases/base_state.dart';
-import 'bases/bloc_base.dart';
-import 'custom_text.dart';
 
 class ExpandedWidget extends StatefulWidget {
   final String question;

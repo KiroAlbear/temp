@@ -398,7 +398,6 @@ class _MoreWidgetState extends BaseState<MorePage> {
         .isPermissionGrantedStream
         .listen((event) async {
           if (event) {
-            Directory appDocDir = await getApplicationDocumentsDirectory();
             XFile? file = await widget.moreBloc.takePhoto();
             if (file != null) {
               widget.moreBloc.uploadImage(file.path);

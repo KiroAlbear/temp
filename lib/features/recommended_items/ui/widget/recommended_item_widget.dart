@@ -47,13 +47,13 @@ class RecommendedItemWidget extends StatelessWidget {
                   height: 40,
                   width: 40,
                   child: ImageHelper(
-                    image: product.image ?? "",
+                    image: product.image,
                     imageType: ImageType.network,
                   ),
                 ),
                 Expanded(
                   child: CustomText(
-                    text: product.name ?? "",
+                    text: product.name,
                     maxLines: 2,
                     customTextStyle: BoldStyle(
                       color: secondaryColor,

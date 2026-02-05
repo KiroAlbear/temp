@@ -1,17 +1,6 @@
-import 'package:deel/core/dto/modules/shared_pref_module.dart';
-import 'package:deel/core/routes/navigation_type.dart';
-import 'package:deel/core/routes/routes.dart';
-import 'package:deel/features/announcements/bloc/announcements_bloc.dart';
-import 'package:deel/features/announcements/ui/announcements_dialog_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:image_loader/image_helper.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../../../deel.dart';
-import '../enums/app_screen_enum.dart';
-import '../models/baseModules/api_state.dart';
-import '../remote/language_remote.dart';
-import 'odoo_dio_module.dart';
 
 /// This module manages various application-level states and configurations.
 /// It provides methods to change settings like locale, theme mode, and more.
@@ -199,11 +188,4 @@ class AppProviderModule with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Check if the user's token is expired or about to expire.
-  bool _isTokenExpired() =>
-      JwtDecoder.isExpired(SharedPrefModule().bearerToken ?? '') ||
-      JwtDecoder.getExpirationDate(SharedPrefModule().bearerToken ?? '')
-              .difference(DateTime.now())
-              .inDays >
-          5;
 }

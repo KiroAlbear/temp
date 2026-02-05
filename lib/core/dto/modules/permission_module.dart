@@ -7,16 +7,12 @@ import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../ui/custom_material_banner.dart';
-import '../../ui/custom_text.dart';
-import 'alert_module.dart';
-import 'custom_text_style_module.dart';
 
 class PermissionModule {
   late Permission _permission;
   late bool _isRequired;
   PermissionStatus _currentState = PermissionStatus.denied;
-  late String? _messageOnPermissionDeniedForever;
+  String? _messageOnPermissionDeniedForever;
   late String? _messageBeforeRequestPermission;
   late BuildContext _context;
   final BehaviorSubject<bool> _isOpenSettingsBehaviour = BehaviorSubject();
@@ -136,32 +132,18 @@ class PermissionModule {
     switch (locationStatus) {
       case loc.PermissionStatus.granted:
         status = PermissionStatus.granted;
+        break;
       case loc.PermissionStatus.grantedLimited:
         status = PermissionStatus.limited;
+        break;
       case loc.PermissionStatus.denied:
         status = PermissionStatus.denied;
+        break;
       case loc.PermissionStatus.deniedForever:
         status = PermissionStatus.permanentlyDenied;
-      default:
-        status = PermissionStatus.denied;
+        break;
     }
     return status;
-  }
-
-  Future<bool> get _permissionDenied async {
-    bool state = false;
-    if (_permission == Permission.location) {
-      final permissionState = await _location.hasPermission();
-      _setCurrentState(permissionState);
-      state = _currentState == PermissionStatus.denied;
-    } else {
-      state = _currentState == PermissionStatus.denied;
-    }
-    logger.log(
-      '${_permission.toString()}: permissionDenied: $state',
-      name: runtimeType.toString(),
-    );
-    return state;
   }
 
   Future<bool> get _permissionGranted async {
@@ -216,12 +198,16 @@ class PermissionModule {
     switch (permissionStatus) {
       case loc.PermissionStatus.granted:
         _currentState = PermissionStatus.granted;
+        break;
       case loc.PermissionStatus.grantedLimited:
         _currentState = PermissionStatus.limited;
+        break;
       case loc.PermissionStatus.denied:
         _currentState = PermissionStatus.denied;
+        break;
       case loc.PermissionStatus.deniedForever:
         _currentState = PermissionStatus.permanentlyDenied;
+        break;
     }
   }
 
@@ -236,13 +222,15 @@ class PermissionModule {
   }
 
   Future<bool> _showMessageOnPermissionDeniedForEver() async {
+    final String message = _messageOnPermissionDeniedForever ??
+        openSetting(
+          '${_permission.toString().split('.').last}',
+          _context,
+        );
     await AlertModule().showMessage(
       context: _context,
       materialBannerType: MaterialBannerType.info,
-      message: openSetting(
-        '${_permission.toString().split('.').last}',
-        _context,
-      ),
+      message: message,
       actions: [
         InkWell(
           onTap: () {

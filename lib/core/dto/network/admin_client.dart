@@ -1,17 +1,8 @@
-import 'package:deel/core/dto/models/notifications/notification_update_device_data_request_model.dart';
-import 'package:deel/core/dto/models/notifications/notification_update_device_data_response_model.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/most_selling/models/most_selling_request_model.dart';
-import 'package:deel/features/most_selling/models/most_selling_response_model.dart';
-import 'package:deel/features/recommended_items/models/recommended_items_request_model.dart';
-import 'package:deel/features/recommended_items/models/recommended_items_response_model.dart';
 import 'package:retrofit/error_logger.dart';
 
 import 'package:retrofit/http.dart';
 
-import '../../../features/announcements/models/announcement_request_model.dart';
-import '../../../features/announcements/models/announcement_response_model.dart';
-import '../models/update_app_response_model.dart';
 part 'admin_client.g.dart';
 part 'admin_client_key.dart';
 

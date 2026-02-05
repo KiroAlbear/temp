@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:deel/core/dto/models/product/product_mapper.dart';
 

@@ -30,7 +30,7 @@ class _SuccessRegisterWidgetState extends BaseState<RegisterSuccessPage> {
   bool isBottomSafeArea() => false;
 
   @override
-  Color? statusBarColor() => whiteColor.withOpacity(0.5);
+  Color? statusBarColor() => whiteColor.withAlpha((0.5 * 255).round());
 
   @override
   Color? systemNavigationBarColor() => whiteColor;

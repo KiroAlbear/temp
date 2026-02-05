@@ -1,13 +1,9 @@
-import 'dart:io';
 
-import 'package:deel/core/dto/remote/update_app_remote.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/more/updateProfile/remote/notifications_update_device_remote.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../../core/dto/models/update_app_response_model.dart';
 
 class MoreBloc extends BlocBase with ResponseHandlerModule {
   final PermissionBloc cameraPermissionBloc = PermissionBloc();

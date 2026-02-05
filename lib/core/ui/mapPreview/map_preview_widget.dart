@@ -32,7 +32,6 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
   final MapPreviewBloc _bloc = MapPreviewBloc();
   final String _mapUrlTemplate =
       'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-  final List<String> _mapSubDomains = ['a', 'b', 'c'];
   late final MapOptions _mapOptions = MapOptions(
     onMapReady: () {
       _bloc.mapReady(true);
@@ -86,7 +85,6 @@ class _MapPreviewWidgetState extends State<MapPreviewWidget> {
     children: [
       TileLayer(
         urlTemplate: _mapUrlTemplate,
-        // subdomains: _mapSubDomains,
       ),
       _markerStreamBuilder,
     ],

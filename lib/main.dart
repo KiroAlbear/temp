@@ -1,31 +1,11 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:deel/core/dto/models/notifications/notification_response_model.dart';
 import 'package:deel/deel.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paymob/flutter_paymob.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:simple_shared_pref/simple_shared_pref.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import 'core/dto/modules/admin_dio_module.dart';
-import 'core/dto/modules/app_provider_module.dart';
-import 'core/dto/modules/logger_module.dart';
-import 'core/dto/modules/odoo_dio_module.dart';
-import 'core/dto/network/app_http_overrides.dart';
-import 'core/services/dependency_injection_service.dart';
-import 'flavor_config.dart';
-import 'flavors.dart';
-import 'my_app.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 // late ObjectBox objectBox;
 FutureOr<void> main() async {

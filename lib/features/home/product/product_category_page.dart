@@ -12,9 +12,9 @@ class ProductCategoryPage extends BaseStatefulWidget {
 
   final ProductCategoryBloc productCategoryBloc;
   final CartBloc cartBloc;
-  ValueNotifier<int> selectedCategoryIndex = ValueNotifier(0);
-  ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
-  ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
+  final ValueNotifier<int> selectedCategoryIndex = ValueNotifier(0);
+  final ValueNotifier<int> selectedBrandIndex = ValueNotifier(0);
+  final ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
 
   static final String isForFavouriteKey = 'isForFavouriteKey';
   static final String isFavouriteValue = 'isFavouriteValue';

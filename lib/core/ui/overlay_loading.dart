@@ -16,7 +16,7 @@ class OverlayLoadingWidget extends StatelessWidget {
         return !value
             ? SizedBox()
             : Container(
-                color: Colors.black.withOpacity(0.3),
+                color: Colors.black.withAlpha((0.3 * 255).round()),
                 child: Center(
                   child: CustomProgress(
                     color: Theme.of(context).colorScheme.primary,

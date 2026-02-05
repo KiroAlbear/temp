@@ -4,12 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../dto/commonBloc/drop_down_bloc.dart';
-import '../dto/models/baseModules/drop_down_mapper.dart';
-import '../dto/modules/app_color_module.dart';
-import '../dto/modules/app_default_style.dart';
-import '../dto/modules/odoo_dio_module.dart';
-import 'custom_drop_down_widget.dart';
 
 class CountryWidget extends StatefulWidget {
   final DropDownBloc countryBloc;

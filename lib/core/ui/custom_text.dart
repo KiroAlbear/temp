@@ -25,6 +25,6 @@ class CustomText extends StatelessWidget {
     softWrap: softWrap,
     maxLines: maxLines,
     overflow: TextOverflow.ellipsis,
-    textScaleFactor: 1,
+    textScaler: const TextScaler.linear(1.0),
   );
 }

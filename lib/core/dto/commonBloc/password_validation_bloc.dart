@@ -49,15 +49,6 @@ class PasswordValidationBloc extends BlocBase {
     });
   }
 
-  void _validateCapLetter(ValidatorModule validatorModule, String value) {
-    if (validatorModule.isCustomValid(
-        value, ConstantModule.atLeastUpperCaseRegex)) {
-      capitalCharBehaviour.sink.add(true);
-    } else {
-      capitalCharBehaviour.sink.add(false);
-    }
-  }
-
   void _validateSmallLetter(ValidatorModule validatorModule, String value) {
     if (validatorModule.isCustomValid(
         value, ConstantModule.atLeastLowerCaseRegex)) {
@@ -82,15 +73,6 @@ class PasswordValidationBloc extends BlocBase {
       passwordLengthBehaviour.sink.add(true);
     } else {
       passwordLengthBehaviour.sink.add(false);
-    }
-  }
-
-  void _validateSpecialChar(ValidatorModule validatorModule, String value) {
-    if (validatorModule.isCustomValid(
-        value, ConstantModule.atLeastSpecialCharacter)) {
-      specialCharBehaviour.sink.add(true);
-    } else {
-      specialCharBehaviour.sink.add(false);
     }
   }
 

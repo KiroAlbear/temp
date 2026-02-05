@@ -25,7 +25,7 @@ class FilterItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: isSelected
-          ? secondaryColor.withOpacity(0.1)
+          ? secondaryColor.withAlpha((0.1 * 255).round())
           : withBorders
               ? Colors.transparent
               : productCardColor,

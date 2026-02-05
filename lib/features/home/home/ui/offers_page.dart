@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 class OffersPage extends BaseStatefulWidget {
-  HomeBloc homeBloc;
+  final HomeBloc homeBloc;
 
-  OffersPage({super.key, required this.homeBloc});
+  const OffersPage({super.key, required this.homeBloc});
 
   @override
   State<OffersPage> createState() => _OffersPageState();

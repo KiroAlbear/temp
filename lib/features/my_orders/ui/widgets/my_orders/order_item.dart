@@ -189,7 +189,7 @@ class OrderItem extends StatelessWidget {
       builder: (context) {
         return CancelOrderBottomSheet(
           myOrdersBloc: myOrdersBloc,
-          orderId: currentOrder!.id,
+          orderId: currentOrder.id,
         );
       },
     );

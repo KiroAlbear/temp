@@ -1,16 +1,9 @@
-import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../deel.dart';
-import '../models/baseModules/api_state.dart';
-import '../models/baseModules/header_response.dart';
-import '../modules/constants_module.dart';
-import '../modules/dio_module.dart';
-import '../modules/logger_module.dart';
-import 'package:dio/dio.dart';
 
 /// A base class for remote modules responsible for making API requests
 /// and handling responses.

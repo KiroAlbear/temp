@@ -20,9 +20,6 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  double appTopPadding() => 0;
-
-  @override
   void initState() {
     super.initState();
   }
@@ -117,7 +114,7 @@ class _NewAccountPasswordPageState extends State<NewAccountPasswordPage>
       return ValidatorModule()
           .matchValidator(context)
           .validateMatch(
-            widget.newAccountBloc.confirmPasswordBloc.value ?? '',
+            widget.newAccountBloc.confirmPasswordBloc.value,
             widget.newAccountBloc.passwordBloc.value,
           );
     },

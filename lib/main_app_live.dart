@@ -1,4 +1,3 @@
-import 'package:deel/core/dto/modules/constants_module.dart';
 
 import 'flavors.dart';
 import 'main.dart' as runner;

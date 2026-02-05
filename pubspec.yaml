@@ -1,5 +1,6 @@
 name: deel
 description: "A new Flutter project."
+publish_to: none
 
 version: 1.0.24+47
 
@@ -102,6 +103,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
+  flutter_lints: ^3.0.1
   flutter_flavorizr: ^2.2.3
   build_runner: ^2.4.15
   json_serializable: ^6.8.0

@@ -1,13 +1,9 @@
-import 'package:deel/core/Utils/AppConstants.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../dto/enums/app_screen_enum.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_text.dart';
-import 'custom_text_form_filed_widget.dart';
 
 class AppTopWidget extends StatefulWidget {
   final bool isHavingHomeLogo;

@@ -1,12 +1,8 @@
 import 'package:deel/deel.dart';
-import 'package:deel/features/cart/models/cart_available_model.dart';
-import 'package:deel/features/cart/models/cart_product_qty.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../core/dto/modules/pair.dart';
-import '../models/latlong.dart';
 
 class CartBloc extends BlocBase {
   final ButtonBloc buttonBloc = ButtonBloc();
@@ -121,8 +117,12 @@ class CartBloc extends BlocBase {
       productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
     ).listen((event) {
       if (event is SuccessState) {
-        orderId = event.response!;
-        SharedPrefModule().orderId = event.response!;
+        final response = event.response;
+        if (response == null) {
+          return;
+        }
+        orderId = response;
+        SharedPrefModule().orderId = response;
         getMyCart(
           onGettingCart: () {
             addCartInfoToProducts(producstList ?? []);
@@ -202,11 +202,13 @@ class CartBloc extends BlocBase {
         )
         .listen((event) {
           if (event is SuccessState) {
-            cartMinimumOrderBehaviour.sink.add(
-              event.response!.min_order_limit!,
-            );
+            final response = event.response;
+            if (response == null) {
+              return;
+            }
+            cartMinimumOrderBehaviour.sink.add(response.min_order_limit ?? 0);
             cartMinimumOrderCurrencyBehaviour.sink.add(
-              event.response!.currency_name!,
+              response.currency_name ?? '',
             );
           }
         });
@@ -253,19 +255,21 @@ class CartBloc extends BlocBase {
       }
     } else {
       if (cartProductsBehavior.hasValue == false) return;
+      final response = cartProductsBehavior.value.response;
+      if (response == null) return;
       for (int i = 0; i < productsList.length; i++) {
         for (
           int j = 0;
-          j < cartProductsBehavior.value.response!.getFirst.length;
+          j < response.getFirst.length;
           j++
         ) {
           if (productsList[i].id ==
-              cartProductsBehavior.value.response!.getFirst[j].productId) {
+              response.getFirst[j].productId) {
             productsList[i].cartUserQuantity =
-                cartProductsBehavior.value.response!.getFirst[j].quantity;
+                response.getFirst[j].quantity;
 
             productsList[i].productId =
-                cartProductsBehavior.value.response!.getFirst[j].id;
+                response.getFirst[j].id;
           }
         }
       }

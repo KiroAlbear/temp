@@ -1,13 +1,11 @@
-import 'package:deel/core/dto/modules/app_color_module.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
 class CustomNavigationBar extends StatelessWidget {
-  Function(int) onTap;
-  int _cartCounter = 0;
-  CustomNavigationBar({required this.onTap});
+  final ValueChanged<int> onTap;
+  const CustomNavigationBar({super.key, required this.onTap});
 
   BottomNavigationBarItem _buildCurvedNavigationBarItem({
     required String icon,
@@ -37,15 +35,11 @@ class CustomNavigationBar extends StatelessWidget {
               : StreamBuilder(
                   stream: getIt<CartBloc>().cartProductsBehavior.stream,
                   builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.data!.response != null &&
-                        snapshot.data!.response!.getFirst.isNotEmpty) {
-                      _cartCounter = snapshot.data!.response!.getFirst.length;
-                    } else if (snapshot.data?.response != null &&
-                        snapshot.data!.response!.getFirst.isEmpty) {
-                      _cartCounter = 0;
-                    }
-                    return _cartCounter == 0
+                    final cartCounter =
+                        (snapshot.data?.response?.getFirst.isNotEmpty ?? false)
+                            ? snapshot.data!.response!.getFirst.length
+                            : 0;
+                    return cartCounter == 0
                         ? SizedBox()
                         : Container(
                             height: 12.h,
@@ -56,7 +50,7 @@ class CustomNavigationBar extends StatelessWidget {
                             ),
                             child: Center(
                               child: CustomText(
-                                text: _cartCounter.toString(),
+                                text: cartCounter.toString(),
                                 customTextStyle: RegularStyle(
                                   color: Colors.white,
                                   fontSize: 8.sp,

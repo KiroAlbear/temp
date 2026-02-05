@@ -314,11 +314,9 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
                 );
 
                 _loadingNotifier.value = false;
-                SharedPrefModule().setCountryCode(
-                  widget._bloc.countryCode ?? '',
-                );
+                SharedPrefModule().setCountryCode(widget._bloc.countryCode);
                 SharedPrefModule().userPhoneWithoutCountry =
-                    widget._bloc.mobileNumber ?? '';
+                    widget._bloc.mobileNumber;
 
                 SharedPrefModule().setPassword(
                   widget._bloc.passwordBloc.textFormFiledBehaviour.value.text,

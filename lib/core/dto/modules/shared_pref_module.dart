@@ -196,6 +196,6 @@ class SharedPrefModule {
   }
 
   String _sharedKey(SharedPRefEnum enumKey) {
-    return enumKey.name.toString().split('.').last ?? '';
+    return enumKey.name.split('.').last;
   }
 }

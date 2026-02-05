@@ -1,6 +1,5 @@
 import 'package:deel/core/Utils/AppConstants.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'app_provider_module.dart';
 

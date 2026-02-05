@@ -1,12 +1,9 @@
 import 'package:deel/deel.dart';
-import 'package:deel/core/Utils/AppUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
 
-import 'app_color_module.dart';
-import 'custom_text_style_module.dart';
 
 class MapModule {
   Widget loadMap(

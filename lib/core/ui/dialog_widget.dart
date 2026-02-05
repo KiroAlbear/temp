@@ -2,7 +2,6 @@ import 'package:custom_progress_button/custom_progress_button.dart';
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'custom_text.dart';
 
 class DialogWidget extends StatefulWidget {
   final String? headerMessage;

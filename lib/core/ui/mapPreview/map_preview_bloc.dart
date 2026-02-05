@@ -32,11 +32,10 @@ class MapPreviewBloc extends BlocBase {
     await _permissionBloc.requestPermission(context, Permission.location);
     _currentLocationBloc.currentLocationBehaviour.listen((Position event) async {
       if (!isLocationChanged) {
-        latLng(event.latitude ?? 0.0, event.longitude ?? 0.0);
+        latLng(event.latitude, event.longitude);
         if (onLocationDetection != null) {
           await Future.delayed(Duration(seconds: 1));
-          onLocationDetection(
-              event.latitude ?? 0.0, event.longitude ?? 0.0);
+          onLocationDetection(event.latitude, event.longitude);
         }
       }
     });
@@ -44,15 +43,12 @@ class MapPreviewBloc extends BlocBase {
     _mapReadyBehaviour.listen((mapReady) {
       if (mapReady) {
         _updateMapCamera();
-
       }
     });
 
     _permissionBloc.easyPermissionHandler.isPermissionGrantedStream
         .listen((locationPermissionGranted) async {
       if (locationPermissionGranted) {
-
-
         await _currentLocationBloc.requestLocation();
       }
     });

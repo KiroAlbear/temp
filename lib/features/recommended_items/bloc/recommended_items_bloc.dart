@@ -1,8 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 
 import '../../../deel.dart';
-import '../models/recommended_items_request_model.dart';
-import '../remote/recommended_items_remote.dart';
 
 class RecommendedItemsBloc extends BlocBase with ResponseHandlerModule {
   final BehaviorSubject<ApiState<List<ProductMapper>>>

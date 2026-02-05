@@ -10,7 +10,7 @@ class HomePage extends BaseStatefulWidget {
 
   final UpdateProfileBloc updateProfileBloc;
   final ContactUsBloc contactUsBloc;
-  ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
+  final ValueNotifier<bool> showOverlayLoading = ValueNotifier(false);
 
   HomePage({
     super.key,

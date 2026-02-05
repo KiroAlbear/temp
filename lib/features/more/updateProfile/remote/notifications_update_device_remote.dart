@@ -1,4 +1,3 @@
-import 'package:deel/core/dto/models/notifications/notification_update_device_data_request_model.dart';
 import '../../../../deel.dart';
 
 class NotificationsUpdateDeviceRemote

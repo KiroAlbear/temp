@@ -2,7 +2,6 @@ import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'account_change_password_bloc.dart';
 
 class AccountChangePasswordPage extends BaseStatefulWidget {
   const AccountChangePasswordPage({super.key});

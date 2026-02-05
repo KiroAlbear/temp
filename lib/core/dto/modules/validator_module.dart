@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 import '../../../deel.dart';
-import 'constants_module.dart';
 
 class ValidatorModule {
   /// email validation

@@ -1,4 +1,3 @@
-import 'package:deel/core/dto/modules/shared_pref_module.dart';
 import 'package:deel/deel.dart';
 
 abstract class DioModule extends DioBuilder {
@@ -112,7 +111,7 @@ abstract class DioModule extends DioBuilder {
               error: headerResponse.message ?? '',
             ),
           );
-        } catch (e, stackTrace) {
+        } catch (e) {
           handler.next(
             DioException(
               requestOptions: _options,

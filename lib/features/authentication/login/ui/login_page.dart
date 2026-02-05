@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-import '../../../../core/Utils/firebase_analytics_key_names.dart';
 
 class LoginPage extends BaseStatefulWidget {
   final bool enableSkip;

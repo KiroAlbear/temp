@@ -1,20 +1,7 @@
-import 'package:deel/core/Utils/firebase_analytics_events_names.dart';
-import 'package:deel/core/routes/navigation_type.dart';
-import 'package:deel/core/services/dependency_injection_service.dart';
-import 'package:deel/core/ui/not_logged_in_widget.dart';
-import 'package:deel/features/authentication/ui/resetPassword/reset_password_page.dart';
-import 'package:deel/features/bottom_navigation/ui/bottomNavigation/custom_navigation_bar.dart';
 import 'package:deel/deel.dart';
-import 'package:deel/features/more/accountChangePassword/ui/account_change_password_page.dart';
-import 'package:deel/features/most_selling/ui/most_selling_page.dart';
-import 'package:deel/features/recommended_items/ui/recommended_items_page.dart'
-    show RecommendedItemsPage;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/cart/models/cart_order_details_args.dart';
-import '../Utils/firebase_analytics_utl.dart';
 
 class Routes {
   Routes._();
@@ -494,11 +481,6 @@ class Routes {
         );
         break;
 
-      default:
-        GoRouter.of(
-          context,
-        ).goNamed(screenName, queryParameters: queryParameters ?? {});
-        break;
     }
   }
 

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../deel.dart';
-import 'custom_progress_widget.dart';
 
 class CustomButtonWidget extends StatefulWidget {
   final BehaviorSubject<ButtonState>? buttonBehaviour;
