@@ -42,7 +42,6 @@ class CartBloc extends BlocBase {
   CartConfirmOrderRemote cartConfirmOrderRemote = CartConfirmOrderRemote();
   CartCheckAvailabilityRemote cartCheckAvailabilityRemote =
       CartCheckAvailabilityRemote();
-  PaymentVisibilityRemote paymentVisibilityRemote = PaymentVisibilityRemote();
 
   int clientId = 0;
   double clientLat = 0;
@@ -383,7 +382,7 @@ class CartBloc extends BlocBase {
   }
 
   void getPaymentVisibility() {
-    paymentVisibilityRemote.callApiAsStream().listen((event) {
+    PaymentVisibilityRemote().callApiAsStream().listen((event) {
       paymentVisibilityBehaviour.sink.add(event);
     });
   }

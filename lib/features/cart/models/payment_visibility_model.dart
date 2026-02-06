@@ -1,19 +1,6 @@
 enum PaymentType { cash, bankCard, wallet, fawry }
 
 extension PaymentTypeX on PaymentType {
-  int get id {
-    switch (this) {
-      case PaymentType.cash:
-        return 1;
-      case PaymentType.bankCard:
-        return 2;
-      case PaymentType.wallet:
-        return 3;
-      case PaymentType.fawry:
-        return 4;
-    }
-  }
-
   static PaymentType? fromId(int? id) {
     switch (id) {
       case 1:
