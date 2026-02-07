@@ -489,7 +489,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                               onTap: () {},
 
                                               idleText:
-                                                  "إضافة كل المنتجات للسلة",
+                                                  Loc.of(context)!.addAllProductsToCart,
                                               textStyle: SemiBoldStyle(
                                                 color: secondaryColor,
 

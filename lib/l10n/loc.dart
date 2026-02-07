@@ -121,6 +121,12 @@ abstract class Loc {
   /// **'Add to cart'**
   String get addToCart;
 
+  /// No description provided for @addAllProductsToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Add all products to cart'**
+  String get addAllProductsToCart;
+
   /// No description provided for @changePasswordError.
   ///
   /// In en, this message translates to:
