@@ -1,4 +1,9 @@
 import 'package:deel/deel.dart';
+import 'package:deel/features/cart/models/payment_visibility_model.dart';
+import 'package:deel/features/most_selling/models/most_selling_request_model.dart';
+import 'package:deel/features/most_selling/models/most_selling_response_model.dart';
+import 'package:deel/features/recommended_items/models/recommended_items_request_model.dart';
+import 'package:deel/features/recommended_items/models/recommended_items_response_model.dart';
 import 'package:retrofit/error_logger.dart';
 
 import 'package:retrofit/http.dart';
@@ -13,6 +18,10 @@ abstract class AdminClient {
   @POST(_AdminApiKey._getRecommendedItems)
   Future<AdminHeaderResponse<RecommendedItemsResponseModel>>
   getRecommendedItems(@Body() RecommendedItemsRequestModel requestModel);
+
+  @GET(_AdminApiKey._paymentVisibility)
+  Future<AdminHeaderResponse<List<PaymentVisibilityResponseModel>>>
+  getPaymentVisibility();
 
   @POST(_AdminApiKey._getMostSelling)
   Future<AdminHeaderResponse<MostSellingResponseModel>> getMostSelling(
