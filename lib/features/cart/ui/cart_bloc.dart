@@ -1,8 +1,10 @@
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '../models/payment_visibility_model.dart';
+import '../remote/payment_visibility_remote.dart';
 
 
 class CartBloc extends BlocBase {
