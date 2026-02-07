@@ -465,74 +465,99 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                       padding: const EdgeInsetsDirectional.only(
                                         start: 15,
                                         top: 5,
+                                        end: 15
                                       ),
-                                      child: CustomText(
-                                        text: Loc.of(context)!.promoItems,
-                                        textAlign: TextAlign.start,
-                                        customTextStyle: BoldStyle(
-                                          color: secondaryColor,
-                                          fontSize: 18.sp,
-                                        ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 6,
+                                            child: CustomText(
+                                              text: Loc.of(context)!.promoItems,
+                                              textAlign: TextAlign.start,
+                                              customTextStyle: BoldStyle(
+                                                color: secondaryColor,
+                                                fontSize: 18.sp,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: CustomButtonWidget(
+                                              height: 30,
+                                              onTap: () {},
+
+                                              idleText:
+                                                  "إضافة كل المنتجات للسلة",
+                                              textStyle: SemiBoldStyle(
+                                                color: secondaryColor,
+
+                                                fontSize: 10,
+                                              ).getStyle(),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     )
                                   : const SizedBox(),
                             ),
                             SliverFillRemaining(
                               hasScrollBody: true,
-                              child:
-                                  StreamBuilder<ApiState<List<ProductMapper>>>(
-                                    stream: widget
-                                        .productCategoryBloc
-                                        .loadedListStream,
-                                    initialData: LoadingState(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        if (snapshot.data!.response != null &&
-                                            snapshot.data!.response!.isEmpty) {
-                                          if (widget.isForFavourite) {
-                                            return const EmptyFavouriteProducts();
-                                          } else {
-                                            return Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                ImageHelper(
-                                                  image: Assets.svg.emptyOffers,
-                                                  imageType: ImageType.svg,
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                        }
+                              child: StreamBuilder<ApiState<List<ProductMapper>>>(
+                                stream:
+                                    widget.productCategoryBloc.loadedListStream,
+                                initialData: LoadingState(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data!.response != null &&
+                                        snapshot.data!.response!.isEmpty) {
+                                      if (widget.isForFavourite) {
+                                        return const EmptyFavouriteProducts();
+                                      } else {
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            ImageHelper(
+                                              image: Assets.svg.emptyOffers,
+                                              imageType: ImageType.svg,
+                                            ),
+                                          ],
+                                        );
                                       }
-                                      return checkResponseStateWithLoadingWidget(
-                                        onSuccessFunction: () {},
-                                        snapshot.data ??
-                                            LoadingState<List<ProductMapper>>(),
-                                        context,
-                                        onSuccess: ProductListWidget(
-                                          isForFavourite: widget.isForFavourite,
-                                          cartBloc: widget.cartBloc,
-                                          productCategoryBloc:
-                                              widget.productCategoryBloc,
-                                          productList:
-                                              snapshot.data?.response ?? [],
-                                          onTapFavourite:
-                                              (favourite, productMapper) {},
-                                          loadMore: (Function func) {
-                                            if (widget.isForFavourite) {
-                                              widget.productCategoryBloc
-                                                  .loadMore(true, func);
-                                            } else {
-                                              _loadProducts(false, func);
-                                            }
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                    }
+                                  }
+                                  return checkResponseStateWithLoadingWidget(
+                                    onSuccessFunction: () {},
+                                    snapshot.data ??
+                                        LoadingState<List<ProductMapper>>(),
+                                    context,
+                                    onSuccess: ProductListWidget(
+                                      isForFavourite: widget.isForFavourite,
+                                      cartBloc: widget.cartBloc,
+                                      productCategoryBloc:
+                                          widget.productCategoryBloc,
+                                      productList:
+                                          snapshot.data?.response ?? [],
+                                      onTapFavourite:
+                                          (favourite, productMapper) {},
+                                      loadMore: (Function func) {
+                                        if (widget.isForFavourite) {
+                                          widget.productCategoryBloc.loadMore(
+                                            true,
+                                            func,
+                                          );
+                                        } else {
+                                          _loadProducts(false, func);
+                                        }
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         ),
