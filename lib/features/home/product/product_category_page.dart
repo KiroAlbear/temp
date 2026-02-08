@@ -36,6 +36,19 @@ class ProductCategoryPage extends BaseStatefulWidget {
 
 class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   final double filterHorizontalPadding = 15.h;
+  final Map<int, ValueNotifier<int>> _qtyNotifiers = {};
+
+  ValueNotifier<int> _getQtyNotifier(ProductMapper product) {
+    final int? productId = product.id;
+    final int initialValue = product.cartUserQuantity.round();
+    if (productId == null) {
+      return ValueNotifier<int>(initialValue);
+    }
+    return _qtyNotifiers.putIfAbsent(
+      productId,
+      () => ValueNotifier<int>(initialValue),
+    );
+  }
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -125,6 +138,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   void dispose() {
     widget.homeBloc.reset();
     widget.productCategoryBloc.disposeReset();
+    for (final notifier in _qtyNotifiers.values) {
+      notifier.dispose();
+    }
     super.dispose();
   }
 
@@ -540,6 +556,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                           widget.productCategoryBloc,
                                       productList:
                                           snapshot.data?.response ?? [],
+                                      qtyNotifierProvider: _getQtyNotifier,
                                       onTapFavourite:
                                           (favourite, productMapper) {},
                                       loadMore: (Function func) {
