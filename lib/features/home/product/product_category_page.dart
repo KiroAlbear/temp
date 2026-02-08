@@ -50,6 +50,19 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
     );
   }
 
+  void _updateQtyNotifiers(List<ProductMapper> products) {
+      for (final product in products) {
+        final int? productId = product.productId;
+        final int? id =  product.id;
+
+        if(_qtyNotifiers.containsKey(productId)){
+          _qtyNotifiers[productId]!.value = product.cartUserQuantity.round();
+        }else if(_qtyNotifiers.containsKey(id)){
+          _qtyNotifiers[id]!.value = product.cartUserQuantity.round();
+        }
+      }
+  }
+
   @override
   PreferredSizeWidget? appBar() => null;
 
@@ -106,8 +119,14 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "product") {
+          widget.showOverlayLoading.value = true;
           widget.productCategoryBloc.getProductByIdList(
             widget.homeBloc.selectedOffer!.relatedItemId,
+              (){
+                widget.cartBloc.addCartInfoToProducts(widget.productCategoryBloc.loadedListBehaviour.value.response??[]);
+                _updateQtyNotifiers(widget.productCategoryBloc.loadedListBehaviour.value.response??[]);
+                widget.showOverlayLoading.value = false;
+              }
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "brand") {

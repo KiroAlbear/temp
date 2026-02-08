@@ -183,11 +183,12 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   }
 
 
-  void getProductByIdList(List<int> productsIds){
+  void getProductByIdList(List<int> productsIds, Function? onGettingMoreProducts){
     loadedProductsList.clear();
 
     void addNext(int index) {
       if (index >= productsIds.length) {
+        onGettingMoreProducts?.call();
         return;
       }
 
