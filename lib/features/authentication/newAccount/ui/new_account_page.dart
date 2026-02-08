@@ -294,6 +294,7 @@ class _NewAccountWidgetState extends BaseState<NewAccountPage> {
         if (event is LoadingState) {
           _loadingNotifier.value = true;
         } else if (event is SuccessState) {
+          widget._bloc.saveCoordinates(event.response?.userId ?? 0);
           widget._bloc.updateAddress(event.response?.userId ?? 0).listen((
             event,
           ) {

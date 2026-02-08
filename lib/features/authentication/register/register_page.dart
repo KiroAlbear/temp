@@ -127,11 +127,12 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
       idleText: Loc.of(context)!.next,
       onTap: () {
         if (_bloc.isValid) {
-          _bloc.checkPhone.listen((event) {
-            if (F.appFlavor == Flavor.app_test) {
-              if (event is SuccessState) onlyForTestingCode();
-            } else
-            {
+
+          if (F.appFlavor == Flavor.app_test) {
+             onlyForTestingCode();
+          }else{
+            _bloc.checkPhone.listen((event) {
+
               if (!mounted) return;
               checkResponseStateWithButton(
                 event,
@@ -141,41 +142,44 @@ class _RegisterWidgetState extends BaseState<RegisterPage> {
                 onSuccess: () {
                   _otpBloc
                       .sendOtp(
-                        "${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value.replaceRange(0, 1, "")}",
-                        Loc.of(context)!.otpPhoneIsNotValid,
-                      )
+                    "${_bloc.countryBloc.value!.description}${_bloc.mobileBloc.value.replaceRange(0, 1, "")}",
+                    Loc.of(context)!.otpPhoneIsNotValid,
+                  )
                       .then((value) {
+                    if (!mounted) return;
+                    checkResponseStateWithButton(
+                      value,
+                      context,
+                      failedBehaviour: _bloc.buttonBloc.failedBehaviour,
+                      buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
+                      headerErrorMessage: Loc.of(
+                        context,
+                      )!.otpPhoneIsNotValid,
+                      onSuccess: () {
                         if (!mounted) return;
-                        checkResponseStateWithButton(
-                          value,
+                        widget.authenticationSharedBloc.setDataToAuth(
+                          _bloc.countryBloc.value!,
+                          _bloc.mobileBloc.value,
+                          AppScreenEnum.newAccount.name,
+                        );
+                        Routes.navigateToScreen(
+                          Routes.otpPage,
+                          NavigationType.pushNamed,
                           context,
-                          failedBehaviour: _bloc.buttonBloc.failedBehaviour,
-                          buttonBehaviour: _bloc.buttonBloc.buttonBehavior,
-                          headerErrorMessage: Loc.of(
-                            context,
-                          )!.otpPhoneIsNotValid,
-                          onSuccess: () {
-                            if (!mounted) return;
-                            widget.authenticationSharedBloc.setDataToAuth(
-                              _bloc.countryBloc.value!,
-                              _bloc.mobileBloc.value,
-                              AppScreenEnum.newAccount.name,
-                            );
-                            Routes.navigateToScreen(
-                              Routes.otpPage,
-                              NavigationType.pushNamed,
-                              context,
-                              queryParameters: {
-                                OtpPage.nextPageKey: Routes.newAccountPage,
-                              },
-                            );
+                          queryParameters: {
+                            OtpPage.nextPageKey: Routes.newAccountPage,
                           },
                         );
-                      });
+                      },
+                    );
+                  });
                 },
               );
-            }
-          });
+
+            });
+          }
+
+
         }
       },
       buttonBehaviour: _bloc.buttonBloc.buttonBehavior,

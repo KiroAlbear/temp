@@ -186,7 +186,7 @@ class _ApiClient implements ApiClient {
   Future<HeaderResponse<List<CategoryResponse>>> getSubCategoryByCategoryId(
     String categoryId,
     SubcategoryRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -197,7 +197,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/get/category/subcategory/${categoryId}?lang_code=${lang_code}',
+            '/get/category/subcategory/${categoryId}?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -226,7 +226,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HeaderResponse<List<BrandResponse>>> getBrandBySubCategory(
     BrandRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -237,7 +237,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'get/brand/by_category?lang_code=${lang_code}',
+            'get/brand/by_category?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -266,7 +266,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HeaderResponse<List<BrandResponse>>> getAllBrands(
     AllBrandsRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -277,7 +277,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'get/brand?lang_code=${lang_code}',
+            'get/brand?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -383,7 +383,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HeaderResponse<List<ProductResponse>>> getProductBySubCategoryBrand(
     ProductSubcategoryBrandRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -394,7 +394,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'get/product/by_category?lang_code=${lang_code}',
+            'get/product/by_category?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -423,7 +423,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HeaderResponse<List<ProductResponse>>> getProductByBrand(
     ProductBrandRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -434,7 +434,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'get/product/by_brand?lang_code=${lang_code}',
+            'get/product/by_brand?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -587,7 +587,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HeaderResponse<List<ProductResponse>>> searchProduct(
     SearchProductRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -598,7 +598,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'search/product?lang_code=${lang_code}',
+            'search/product?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -1401,7 +1401,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HeaderResponse<List<StateResponse>>> getState(
     StateRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1412,7 +1412,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'get/state?lang_code=${lang_code}',
+            'get/state?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -1441,7 +1441,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HeaderResponse<List<StateResponse>>> getDistrict(
     DistrictRequest request,
-    String lang_code,
+    String langCode,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -1452,7 +1452,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'get/city?lang_code=${lang_code}',
+            'get/city?lang_code=${langCode}',
             queryParameters: queryParameters,
             data: _data,
           )

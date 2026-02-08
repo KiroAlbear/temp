@@ -8,12 +8,18 @@ import 'package:retrofit/error_logger.dart';
 
 import 'package:retrofit/http.dart';
 
+import '../models/save_coordinates_request_model.dart';
+
 part 'admin_client.g.dart';
 part 'admin_client_key.dart';
 
 @RestApi()
 abstract class AdminClient {
   factory AdminClient(Dio dio) = _AdminClient;
+
+  @POST(_AdminApiKey._saveCoordinates)
+  Future<AdminHeaderResponse>
+  saveCoordinates(@Body() SaveCoordinatesRequestModel requestModel);
 
   @POST(_AdminApiKey._getRecommendedItems)
   Future<AdminHeaderResponse<RecommendedItemsResponseModel>>

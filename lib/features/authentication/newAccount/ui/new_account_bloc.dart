@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:deel/core/dto/models/save_coordinates_request_model.dart';
 import 'package:deel/deel.dart';
+import 'package:deel/features/authentication/newAccount/remote/save_coordinates_remote.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';
@@ -165,6 +167,9 @@ class NewAccountBloc extends BlocBase {
 
   Stream<ApiState<List<DropDownMapper>>> get companyStream =>
       _companyTypeBehaviour.stream;
+
+  Stream<ApiState<bool>> saveCoordinates(int clientId) => SaveCoordinatesRemote(SaveCoordinatesRequestModel(clientId: clientId, latitude: _latitudeBehaviour.valueOrNull.toString(),
+    longitude: _longitudeBehaviour.valueOrNull.toString() ,)).callApiAsStream();
 
   Stream<ApiState<LoginMapper>> updateAddress(int clientId) =>
       UpdateAddressRemote(
