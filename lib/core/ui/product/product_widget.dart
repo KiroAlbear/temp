@@ -683,7 +683,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
         await Apputils.showNeedToLoginBottomSheet(context);
       } else {
-        if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
+        if (widget.productMapper.canAddToCart())
         {
           widget.onAddToCart!(widget.productMapper);
           qtyValueNotifier.value = widget.productMapper.minQuantity == 0

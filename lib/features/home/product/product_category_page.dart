@@ -487,12 +487,10 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                             child: CustomButtonWidget(
                                               height: 30,
                                               onTap: () {},
-
                                               idleText:
                                                   Loc.of(context)!.addAllProductsToCart,
                                               textStyle: SemiBoldStyle(
                                                 color: secondaryColor,
-
                                                 fontSize: 10,
                                               ).getStyle(),
                                             ),
