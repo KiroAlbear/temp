@@ -136,6 +136,45 @@ class CartBloc extends BlocBase {
     });
   }
 
+  void onAddProductListToCart({
+    required List<ProductMapper> productMappers,
+    required void Function() onGettingCart,}
+  ) {
+    if (productMappers.isEmpty) {
+      onGettingCart();
+      return;
+    }
+
+    void addNext(int index) {
+      if (index >= productMappers.length) {
+        getMyCart(
+          onGettingCart: () {
+            addCartInfoToProducts(productMappers ?? []);
+            onGettingCart();
+          },
+        );
+        return;
+      }
+
+      final productMapper = productMappers[index];
+      saveToCart(
+        productMapper.id,
+        productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
+      ).listen((event) {
+        if (event is SuccessState) {
+          final response = event.response;
+          if (response == null) {
+            return;
+          }
+          SharedPrefModule().orderId = response;
+          addNext(index + 1);
+        }
+      });
+    }
+
+    addNext(0);
+  }
+
   void onDeleteFromCart(
     ProductMapper productMapper,
     List<ProductMapper>? producstList,
