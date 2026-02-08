@@ -109,7 +109,6 @@ class ProductMapper {
 
   bool canAddToCart() {
     if (quantity > 0) {
-      isAddedToCart = true;
       return true;
     } else {
       return false;
