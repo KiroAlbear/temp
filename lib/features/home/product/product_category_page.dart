@@ -123,7 +123,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
           widget.productCategoryBloc.getProductByIdList(
             widget.homeBloc.selectedOffer!.relatedItemId,
               (){
-                widget.cartBloc.addCartInfoToProducts(widget.productCategoryBloc.loadedListBehaviour.value.response??[]);
+                widget.cartBloc.addCartInfoToProducts(widget.productCategoryBloc.loadedListBehaviour.stream.value.response??[]);
                 _updateQtyNotifiers(widget.productCategoryBloc.loadedListBehaviour.value.response??[]);
                 widget.showOverlayLoading.value = false;
               }
@@ -521,7 +521,16 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                             flex: 4,
                                             child: CustomButtonWidget(
                                               height: 30,
-                                              onTap: () {},
+                                              onTap: () {
+
+                                               final List<ProductMapper> products =  widget.productCategoryBloc.loadedListBehaviour.value.response ??[] ;
+
+                                                widget.showOverlayLoading.value = true;
+                                                widget.cartBloc.onAddProductListToCart(productMappers: products, onGettingCart: (products) {
+                                                  _updateQtyNotifiers(products);
+                                                  widget.showOverlayLoading.value= false;
+                                                },);
+                                              },
                                               idleText:
                                                   Loc.of(context)!.addAllProductsToCart,
                                               textStyle: SemiBoldStyle(
