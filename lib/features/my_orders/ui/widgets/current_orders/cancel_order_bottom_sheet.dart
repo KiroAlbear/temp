@@ -4,16 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_loader/image_helper.dart';
 
-class CancelOrderBottomSheet extends StatelessWidget {
+class CancelOrderBottomSheet extends StatefulWidget {
   final MyOrdersBloc myOrdersBloc;
   final int orderId;
-  final TextEditingController _cancelReasonController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   CancelOrderBottomSheet({
     super.key,
     required this.myOrdersBloc,
     required this.orderId,
   });
+
+  @override
+  State<CancelOrderBottomSheet> createState() => _CancelOrderBottomSheetState();
+}
+
+class _CancelOrderBottomSheetState extends State<CancelOrderBottomSheet> {
+  final TextEditingController _cancelReasonController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -70,22 +78,26 @@ class CancelOrderBottomSheet extends StatelessWidget {
                             textAlignVertical: TextAlignVertical.top,
                             textAlign: TextAlign.justify,
                             onChanged: (value) {
-                              myOrdersBloc.cancelOrderReason.add(value);
+                              widget.myOrdersBloc.cancelOrderReason.add(value);
 
                               if (value.trim().isEmpty) {
-                                myOrdersBloc.buttonBloc.buttonBehavior.sink.add(
-                                  ButtonState.idle,
-                                );
-                                myOrdersBloc.buttonBloc.buttonBehavior.add(
-                                  ButtonState.idle,
-                                );
+                                widget
+                                    .myOrdersBloc
+                                    .buttonBloc
+                                    .buttonBehavior
+                                    .sink
+                                    .add(ButtonState.idle);
+                                widget.myOrdersBloc.buttonBloc.buttonBehavior
+                                    .add(ButtonState.idle);
                               } else {
-                                myOrdersBloc.buttonBloc.buttonBehavior.sink.add(
-                                  ButtonState.success,
-                                );
-                                myOrdersBloc.buttonBloc.buttonBehavior.add(
-                                  ButtonState.success,
-                                );
+                                widget
+                                    .myOrdersBloc
+                                    .buttonBloc
+                                    .buttonBehavior
+                                    .sink
+                                    .add(ButtonState.success);
+                                widget.myOrdersBloc.buttonBloc.buttonBehavior
+                                    .add(ButtonState.success);
                               }
                             },
                             validator: (value) {
@@ -126,7 +138,8 @@ class CancelOrderBottomSheet extends StatelessWidget {
                   const Spacer(),
                   CustomButtonWidget(
                     idleText: Loc.of(context)!.next,
-                    buttonBehaviour: myOrdersBloc.buttonBloc.buttonBehavior,
+                    buttonBehaviour:
+                        widget.myOrdersBloc.buttonBloc.buttonBehavior,
                     buttonColor: disabledButtonColorLightMode,
                     successColor: primaryColor,
                     idleTextColor: disabledButtonTextColorLightMode,
@@ -136,17 +149,17 @@ class CancelOrderBottomSheet extends StatelessWidget {
 
                       final int clientId =
                           int.tryParse(SharedPrefModule().userId ?? "0") ?? 0;
-                      myOrdersBloc.cancelOrder(
+                      widget.myOrdersBloc.cancelOrder(
                         OrderCancelRequest(
                           customer_id: clientId,
-                          order_id: orderId,
+                          order_id: widget.orderId,
                           cancellation_reason: _cancelReasonController.text,
                         ),
                       );
                       Navigator.of(context).pop();
-                      myOrdersBloc.cancelOrderBehavior.listen((event) {
+                      widget.myOrdersBloc.cancelOrderBehavior.listen((event) {
                         if (event is SuccessState) {
-                          myOrdersBloc.getMyOrders(
+                          widget.myOrdersBloc.getMyOrders(
                             MyOrdersRequest(clientId.toString(), '1', '100'),
                           );
                         }

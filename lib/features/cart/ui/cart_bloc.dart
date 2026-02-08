@@ -181,8 +181,8 @@ class CartBloc extends BlocBase {
     void Function() onGettingCart,
   ) {
     editCart(
-      cartItemId: productMapper.productId,
-      productId: productMapper.id,
+      cartItemId: productMapper.id,
+      productId: productMapper.productId,
       quantity: 0,
       price: productMapper.finalPrice,
     ).listen((event) {

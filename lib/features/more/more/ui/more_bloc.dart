@@ -1,9 +1,7 @@
-
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rxdart/rxdart.dart';
-
 
 class MoreBloc extends BlocBase with ResponseHandlerModule {
   final PermissionBloc cameraPermissionBloc = PermissionBloc();
@@ -11,6 +9,7 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
   final UpdateProfileImageRemote uploadProfileRemote =
       UpdateProfileImageRemote();
   final UpdateAppRemote updateAppRemote = UpdateAppRemote();
+  final BalanceRemote balanceRemote = BalanceRemote();
 
   final BehaviorSubject<ApiState<ProfileMapper>> profileBehaviour =
       BehaviorSubject()..sink.add(LoadingState());
@@ -24,19 +23,17 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
     selectedFileBehaviour.listen((value) {
       if (value != "") {
         uploadProfileRemote.uploadImage(File(value));
-        uploadProfileRemote.callApiAsStream.listen(
-          (event) {
-            if (event is SuccessState) {
-            } else if (event is FailedState) {
-              showErrorDialog(Loc.of(context)!.failed, context);
-              selectedFileBehaviour.sink.add('');
-              LoggerModule.log(
-                message: "********* Failed to upload image",
-                name: "MoreBloc",
-              );
-            }
-          },
-        );
+        uploadProfileRemote.callApiAsStream.listen((event) {
+          if (event is SuccessState) {
+          } else if (event is FailedState) {
+            showErrorDialog(Loc.of(context)!.failed, context);
+            selectedFileBehaviour.sink.add('');
+            LoggerModule.log(
+              message: "********* Failed to upload image",
+              name: "MoreBloc",
+            );
+          }
+        });
       }
     });
   }
@@ -56,24 +53,29 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
   }
 
   Future<ApiState<bool>> updateNotificationsDeviceData(
-      String userId, String fcmToken) {
-    return NotificationsUpdateDeviceRemote()
-        .updateNotificationsDeviceData(userId, fcmToken);
+    String userId,
+    String fcmToken,
+  ) {
+    return NotificationsUpdateDeviceRemote().updateNotificationsDeviceData(
+      userId,
+      fcmToken,
+    );
   }
 
   Future<XFile?> pickFromGallery() async {
     return await _picker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 500,
-        maxHeight: 500,
-        imageQuality: 100);
+      source: ImageSource.gallery,
+      maxWidth: 500,
+      maxHeight: 500,
+      imageQuality: 100,
+    );
   }
 
   Stream<ApiState<List<UpdateAppResponseModel>>> get checkAppUpdateStream =>
       updateAppRemote.updateApp();
 
   Stream<ApiState<BalanceMapper>> get balanceStream =>
-      BalanceRemote().callApiAsStream();
+      balanceRemote.callApiAsStream();
 
   Stream<ApiState<void>> get deactivateAccountStream =>
       DeActiveProfileRemote().callApiAsStream();
@@ -84,16 +86,13 @@ class MoreBloc extends BlocBase with ResponseHandlerModule {
 
   void getProfileData() {
     if ((SharedPrefModule().userId ?? '').isNotEmpty) {
-      ProfileRemote().callApiAsStream().listen(
-        (event) {
-          profileBehaviour.sink.add(event);
-        },
-      );
+      ProfileRemote().callApiAsStream().listen((event) {
+        profileBehaviour.sink.add(event);
+      });
     } else {
       profileBehaviour.sink.add(IdleState());
     }
   }
-
 
   @override
   void dispose() {
