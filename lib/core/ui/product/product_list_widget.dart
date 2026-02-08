@@ -167,8 +167,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
     return ProductWidget(
       key: ValueKey(index),
       index: index,
-      onProductRemoved: (int productId) {
-        resetFavouriteList(productId);
+      onProductRemoved: (ProductMapper productMapper) {
+        resetFavouriteList(Apputils.getProductId(productMapper));
         refreshNotifier.value = !refreshNotifier.value;
       },
       cartBloc: widget.cartBloc,

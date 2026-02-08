@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:shorebird_code_push/shorebird_code_push.dart';
 
 class Apputils {
+
+  static int getProductId(ProductMapper product){
+      if(product.isAddedToCart){
+        return product.productId;
+      }else{
+        return product.id;
+      }
+  }
+
   static Future<void> showNeedToLoginBottomSheet(BuildContext context) async {
     await showModalBottomSheet(
       context: context,

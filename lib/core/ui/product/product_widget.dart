@@ -11,7 +11,7 @@ class ProductWidget extends StatefulWidget {
   final ProductMapper productMapper;
   final ProductCategoryBloc productCategoryBloc;
   final CartBloc? cartBloc;
-  final Function(int)? onProductRemoved;
+  final Function(ProductMapper productMapper)? onProductRemoved;
   final int index;
   final Function(bool favourite, ProductMapper productMapper)? onTapFavourite;
   final Function(ProductMapper productMapper)? onAddToCart;
@@ -297,7 +297,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         if (widget.productMapper.isFavourite) {
                           widget.productCategoryBloc
                               .removeProductFromFavourite(
-                                productId: widget.productMapper.id,
+                                productId: Apputils.getProductId(widget.productMapper),
                                 clientId: int.parse(
                                   SharedPrefModule().userId ?? '0',
                                 ),
@@ -307,7 +307,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                     event.response != null &&
                                     event.response!) {
                                   widget.onProductRemoved!(
-                                    widget.productMapper.id,
+                                    widget.productMapper,
                                   );
                                 }
                                 _handleFavouriteIcon(event, false);
@@ -319,7 +319,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         } else {
                           widget.productCategoryBloc
                               .addProductToFavourite(
-                                productId: widget.productMapper.id,
+                                productId:Apputils.getProductId(widget.productMapper),
                                 clientId: int.parse(
                                   SharedPrefModule().userId ?? '0',
                                 ),

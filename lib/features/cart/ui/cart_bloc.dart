@@ -276,6 +276,8 @@ class CartBloc extends BlocBase {
                 cartProductsBehavior.value.response!.getFirst[j].id;
             productsList[i].productId =
                 cartProductsBehavior.value.response!.getFirst[j].productId;
+
+            productsList[i].isAddedToCart = true;
           }
         }
       }
