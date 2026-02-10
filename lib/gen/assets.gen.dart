@@ -35,9 +35,6 @@ class $AssetsSvgGen {
   /// File path: assets/svg/Pin location.svg
   String get pinLocation => 'assets/svg/Pin location.svg';
 
-  /// File path: assets/svg/cart_success_logo.svg
-  String get cartSuccessLogo => 'assets/svg/cart_success_logo.svg';
-
   /// File path: assets/svg/empty_favourite.svg
   String get emptyFavourite => 'assets/svg/empty_favourite.svg';
 
@@ -225,7 +222,6 @@ class $AssetsSvgGen {
   /// List of all assets
   List<dynamic> get values => [
     pinLocation,
-    cartSuccessLogo,
     emptyFavourite,
     emptyOffers,
     icAcceptedOrderGray,
