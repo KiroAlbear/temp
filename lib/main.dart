@@ -18,8 +18,6 @@ FutureOr<void> main() async {
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
 
-
-
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     LoggerModule.log(
       message: "Notification category: ${message.category}",
@@ -31,59 +29,13 @@ FutureOr<void> main() async {
     );
   });
 
-  FirebaseMessaging.instance.onTokenRefresh
-      .listen((fcmToken) {
-    // print("********* fcm Token $fcmToken **********");
-    LoggerModule.log(
-      message: "********* fcm Token $fcmToken **********",
-      name: "fcm Token",
-    );
-  })
-      .onError((err) {
-    // print("********* error getting device fcm Token **********");
-    LoggerModule.log(
-      message: "********* error getting device fcm Token **********",
-      name: "fcm Token",
-    );
-  });
 
 
 
   // You may set the permission requests to "provisional" which allows the user to choose what type
   // of notifications they would like to receive once the user receives a notification.
 
-  if (Platform.isIOS) {
-    // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
-     await FirebaseMessaging.instance.getAPNSToken().then((apnsToken) async {
-      if (apnsToken != null) {
-        LoggerModule.log(
-          message: "********* apnToken $apnsToken **********",
-          name: "fcm Token",
-        );
 
-        AppConstants.fcmToken = apnsToken;
-        MoreBloc().updateNotificationsDeviceData(
-          SharedPrefModule().userId ?? "",
-          apnsToken,
-        );
-      }
-    });
-  } else {
-    await FirebaseMessaging.instance.getToken().then((tok) async {
-      if (tok != null) {
-        LoggerModule.log(
-          message: "********* fcmToken $tok **********",
-          name: "fcm Token",
-        );
-        AppConstants.fcmToken = tok;
-
-        MoreBloc().updateNotificationsDeviceData(
-          SharedPrefModule().userId ?? "",
-          tok,
-        );
-      }
-    });
-  }
 
   await SimpleSharedPref().init(allowEncryptAndDecrypt: false);
 

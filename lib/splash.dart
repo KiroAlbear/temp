@@ -154,22 +154,51 @@ class _SplashWidgetState extends BaseState<SplashScreen> {
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
       debugPrint('✅ Notifications authorized');
+      _updateDeviceToken();
     } else if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.provisional) {
+      _updateDeviceToken();
       debugPrint('⚠️ Notifications provisionally authorized');
     } else {
       debugPrint('❌ Notifications denied');
     }
 
-    // final PermissionStatus status = await Permission.notification.request();
-    // if (status.isGranted) {
-    //   // Notification permissions granted
-    // } else if (status.isDenied) {
-    //   // Notification permissions denied
-    // } else if (status.isPermanentlyDenied) {
-    //   // Notification permissions permanently denied, open app settings
-    //   // await openAppSettings();
-    // }
+
+  }
+
+  void _updateDeviceToken() async {
+    if (Platform.isIOS) {
+      // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
+      await FirebaseMessaging.instance.getAPNSToken().then((apnsToken) async {
+        if (apnsToken != null) {
+          LoggerModule.log(
+            message: "********* apnToken $apnsToken **********",
+            name: "fcm Token",
+          );
+
+          AppConstants.fcmToken = apnsToken;
+          MoreBloc().updateNotificationsDeviceData(
+            SharedPrefModule().userId ?? "",
+            apnsToken,
+          );
+        }
+      });
+    } else {
+      await FirebaseMessaging.instance.getToken().then((tok) async {
+        if (tok != null) {
+          LoggerModule.log(
+            message: "********* fcmToken $tok **********",
+            name: "fcm Token",
+          );
+          AppConstants.fcmToken = tok;
+
+          MoreBloc().updateNotificationsDeviceData(
+            SharedPrefModule().userId ?? "",
+            tok,
+          );
+        }
+      });
+    }
   }
 
   @override
