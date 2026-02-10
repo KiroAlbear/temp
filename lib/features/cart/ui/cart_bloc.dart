@@ -186,7 +186,7 @@ class CartBloc extends BlocBase {
     List<ProductMapper>? producstList,
     void Function() onGettingCart,
   ) {
-    resetDeletedProduct(productMapper);
+
     editCart(
       cartItemId: productMapper.id,
       productId: productMapper.productId,
@@ -194,7 +194,7 @@ class CartBloc extends BlocBase {
       price: productMapper.finalPrice,
     ).listen((event) {
       if (event is SuccessState) {
-
+        resetDeletedProduct(productMapper);
         getMyCart(
           onGettingCart: () {
             addCartInfoToProducts(producstList ?? []);
@@ -209,7 +209,9 @@ class CartBloc extends BlocBase {
     ProductMapper productMapper,){
     int productId = productMapper.productId;
     productMapper.isAddedToCart = false;
-    productMapper.id = productId;
+    if(productId != 0){
+      productMapper.id = productId;
+    }
     productMapper.productId = 0;
     productMapper.cartUserQuantity = 0;
   }

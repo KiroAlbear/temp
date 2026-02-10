@@ -548,7 +548,7 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                               hasScrollBody: true,
                               child: StreamBuilder<ApiState<List<ProductMapper>>>(
                                 stream:
-                                    widget.productCategoryBloc.loadedListStream,
+                                    widget.productCategoryBloc.loadedListBehaviour.stream,
                                 initialData: LoadingState(),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
