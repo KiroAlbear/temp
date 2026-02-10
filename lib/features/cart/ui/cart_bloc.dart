@@ -117,7 +117,7 @@ class CartBloc extends BlocBase {
     void Function() onGettingCart,
   ) {
     saveToCart(
-      productMapper.id,
+      Apputils.getProductId(productMapper),
       productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
     ).listen((event) {
       if (event is SuccessState) {
@@ -136,11 +136,57 @@ class CartBloc extends BlocBase {
     });
   }
 
+  List<ProductMapper> _getNonCartProducts(List<ProductMapper> productMappers) {
+    return productMappers.where((element) => !element.isAddedToCart).toList();
+  }
+
+  void onAddProductListToCart({
+    required List<ProductMapper> productMappers,
+    required void Function(List<ProductMapper>) onGettingCart,}
+  ) {
+    final products = _getNonCartProducts(productMappers);
+
+    if (productMappers.isEmpty || products.isEmpty) {
+      onGettingCart(products);
+      return;
+    }
+
+    void addNext(int index) {
+      if (index >= products.length) {
+        getMyCart(
+          onGettingCart: () {
+            addCartInfoToProducts(products ?? []);
+            onGettingCart(products);
+          },
+        );
+        return;
+      }
+
+      final productMapper = products[index];
+      saveToCart(
+       Apputils.getProductId(productMapper),
+        productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
+      ).listen((event) {
+        if (event is SuccessState) {
+          final response = event.response;
+          if (response == null) {
+            return;
+          }
+          SharedPrefModule().orderId = response;
+          addNext(index + 1);
+        }
+      });
+    }
+
+    addNext(0);
+  }
+
   void onDeleteFromCart(
     ProductMapper productMapper,
     List<ProductMapper>? producstList,
     void Function() onGettingCart,
   ) {
+
     editCart(
       cartItemId: productMapper.id,
       productId: productMapper.productId,
@@ -148,6 +194,7 @@ class CartBloc extends BlocBase {
       price: productMapper.finalPrice,
     ).listen((event) {
       if (event is SuccessState) {
+        resetDeletedProduct(productMapper);
         getMyCart(
           onGettingCart: () {
             addCartInfoToProducts(producstList ?? []);
@@ -156,6 +203,17 @@ class CartBloc extends BlocBase {
         );
       }
     });
+  }
+
+  void resetDeletedProduct(
+    ProductMapper productMapper,){
+    int productId = productMapper.productId;
+    productMapper.isAddedToCart = false;
+    if(productId != 0){
+      productMapper.id = productId;
+    }
+    productMapper.productId = 0;
+    productMapper.cartUserQuantity = 0;
   }
 
   void onDecrementIncrement(

@@ -21,6 +21,9 @@ class LocAr extends Loc {
   String get addToCart => 'أضف الي السلة';
 
   @override
+  String get addAllProductsToCart => 'إضافة كل المنتجات للسلة';
+
+  @override
   String get changePasswordError => 'خطأ في تغيير كلمة المرور';
 
   @override

@@ -3,6 +3,7 @@
   "confirmLocation": "Confirm Location",
   "accountInfo": "Account info",
   "addToCart": "Add to cart",
+  "addAllProductsToCart": "Add all products to cart",
   "changePasswordError": "Error in changing password",
   "atLeastOneCapChar": "At least one capital letter",
   "atLeastOneNumber": "Must contain numbers",

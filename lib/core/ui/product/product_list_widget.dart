@@ -10,6 +10,8 @@ class ProductListWidget extends StatefulWidget {
   final bool isForFavourite;
   final ScrollPhysics? scrollPhysics;
   final bool isHorizontalListView;
+  final ValueNotifier<int> Function(ProductMapper productMapper)?
+      qtyNotifierProvider;
 
   final Function(bool favourite, ProductMapper productMapper) onTapFavourite;
 
@@ -32,6 +34,7 @@ class ProductListWidget extends StatefulWidget {
     required this.loadMore,
     // required this.onDeleteClicked,
     required this.isForFavourite,
+    this.qtyNotifierProvider,
     this.isHorizontalListView = false,
     this.scrollPhysics,
     // this.onDecrementClicked,
@@ -164,6 +167,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   }
 
   ProductWidget _buildProductWidget(int index) {
+    final ProductMapper product = widget.isForFavourite
+        ? favouriteList[index]
+        : widget.productList[index];
     return ProductWidget(
       key: ValueKey(index),
       index: index,
@@ -173,9 +179,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
       },
       cartBloc: widget.cartBloc,
       productCategoryBloc: widget.productCategoryBloc,
-      productMapper: widget.isForFavourite
-          ? favouriteList[index]
-          : widget.productList[index],
+      productMapper: product,
+      qtyValueNotifier: widget.qtyNotifierProvider?.call(product),
       onAddToCart: (productMapper) {
         widget.showOverlayLoading.value = true;
         widget.cartBloc.onAddToCart(productMapper, widget.productList, () {

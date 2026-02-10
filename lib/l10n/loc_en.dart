@@ -21,6 +21,9 @@ class LocEn extends Loc {
   String get addToCart => 'Add to cart';
 
   @override
+  String get addAllProductsToCart => 'Add all products to cart';
+
+  @override
   String get changePasswordError => 'Error in changing password';
 
   @override

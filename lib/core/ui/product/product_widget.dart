@@ -19,6 +19,7 @@ class ProductWidget extends StatefulWidget {
   final Function(ProductMapper productMapper)? onDeleteClicked;
   final Function(ProductMapper productMapper)? onIncrementClicked;
   final Function(ProductMapper productMapper)? onDecrementClicked;
+  final ValueNotifier<int>? qtyValueNotifier;
 
   ProductWidget({
     super.key,
@@ -32,6 +33,7 @@ class ProductWidget extends StatefulWidget {
     this.isCartProduct = false,
     this.onIncrementClicked,
     this.onDecrementClicked,
+    this.qtyValueNotifier,
     required this.index,
   }) {
     if (!isCartProduct &&
@@ -61,11 +63,13 @@ class _ProductWidgetState extends State<ProductWidget> {
   final double plusMinusIconHeight = 30.h;
 
   String priceTextToShow = "";
-  ValueNotifier<int> qtyValueNotifier = ValueNotifier<int>(0);
+  late final ValueNotifier<int> qtyValueNotifier;
   ValueNotifier<bool> toolTipVisibility = ValueNotifier<bool>(true);
 
   @override
   void initState() {
+    qtyValueNotifier = widget.qtyValueNotifier ?? ValueNotifier<int>(0);
+
     if (widget.isCartProduct) {
       qtyValueNotifier.value = widget.productMapper.quantity.round();
     } else {
@@ -79,6 +83,14 @@ class _ProductWidgetState extends State<ProductWidget> {
     priceTextToShow = '$formattedPrice ${widget.productMapper.currency}';
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // if (widget.qtyValueNotifier != null) {
+    //   qtyValueNotifier.dispose();
+    // }
+    super.dispose();
   }
 
   bool isTwoLinesOrMore({
@@ -699,7 +711,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       if (SharedPrefModule().bearerToken?.isEmpty ?? true) {
         await Apputils.showNeedToLoginBottomSheet(context);
       } else {
-        if (widget.productMapper.canAddToCart()) //TODO: uncomment this line
+        if (widget.productMapper.canAddToCart())
         {
           widget.onAddToCart!(widget.productMapper);
           qtyValueNotifier.value = widget.productMapper.minQuantity == 0

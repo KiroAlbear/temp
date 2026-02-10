@@ -3,6 +3,7 @@
   "confirmLocation": "تأكيد الموقع",
   "accountInfo": "بيانات حسابي",
   "addToCart": "أضف الي السلة",
+  "addAllProductsToCart": "إضافة كل المنتجات للسلة",
   "changePasswordError": "خطأ في تغيير كلمة المرور",
   "atLeastOneCapChar": "يجب أن تحتوي على حرف كبير على الأقل",
   "atLeastOneNumber": "يجب أن تحتوي على أرقام",

@@ -36,6 +36,32 @@ class ProductCategoryPage extends BaseStatefulWidget {
 
 class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   final double filterHorizontalPadding = 15.h;
+  final Map<int, ValueNotifier<int>> _qtyNotifiers = {};
+
+  ValueNotifier<int> _getQtyNotifier(ProductMapper product) {
+    final int? productId = product.id;
+    final int initialValue = product.cartUserQuantity.round();
+    if (productId == null) {
+      return ValueNotifier<int>(initialValue);
+    }
+    return _qtyNotifiers.putIfAbsent(
+      productId,
+      () => ValueNotifier<int>(initialValue),
+    );
+  }
+
+  void _updateQtyNotifiers(List<ProductMapper> products) {
+      for (final product in products) {
+        final int? productId = product.productId;
+        final int? id =  product.id;
+
+        if(_qtyNotifiers.containsKey(productId)){
+          _qtyNotifiers[productId]!.value = product.cartUserQuantity.round();
+        }else if(_qtyNotifiers.containsKey(id)){
+          _qtyNotifiers[id]!.value = product.cartUserQuantity.round();
+        }
+      }
+  }
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -93,8 +119,14 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "product") {
+          widget.showOverlayLoading.value = true;
           widget.productCategoryBloc.getProductByIdList(
             widget.homeBloc.selectedOffer!.relatedItemId,
+              (){
+                widget.cartBloc.addCartInfoToProducts(widget.productCategoryBloc.loadedListBehaviour.stream.value.response??[]);
+                _updateQtyNotifiers(widget.productCategoryBloc.loadedListBehaviour.value.response??[]);
+                widget.showOverlayLoading.value = false;
+              }
           );
         } else if (widget.homeBloc.selectedOffer!.link.toLowerCase().trim() ==
             "brand") {
@@ -125,6 +157,9 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
   void dispose() {
     widget.homeBloc.reset();
     widget.productCategoryBloc.disposeReset();
+    for (final notifier in _qtyNotifiers.values) {
+      notifier.dispose();
+    }
     super.dispose();
   }
 
@@ -465,74 +500,107 @@ class _ProductCategoryWidgetState extends BaseState<ProductCategoryPage> {
                                       padding: const EdgeInsetsDirectional.only(
                                         start: 15,
                                         top: 5,
+                                        end: 15
                                       ),
-                                      child: CustomText(
-                                        text: Loc.of(context)!.promoItems,
-                                        textAlign: TextAlign.start,
-                                        customTextStyle: BoldStyle(
-                                          color: secondaryColor,
-                                          fontSize: 18.sp,
-                                        ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            flex: 6,
+                                            child: CustomText(
+                                              text: Loc.of(context)!.promoItems,
+                                              textAlign: TextAlign.start,
+                                              customTextStyle: BoldStyle(
+                                                color: secondaryColor,
+                                                fontSize: 18.sp,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 4,
+                                            child: CustomButtonWidget(
+                                              height: 30,
+                                              onTap: () {
+
+                                               final List<ProductMapper> products =  widget.productCategoryBloc.loadedListBehaviour.value.response ??[] ;
+
+                                                widget.showOverlayLoading.value = true;
+                                                widget.cartBloc.onAddProductListToCart(productMappers: products, onGettingCart: (products) {
+                                                  _updateQtyNotifiers(products);
+                                                  widget.showOverlayLoading.value= false;
+                                                },);
+                                              },
+                                              idleText:
+                                                  Loc.of(context)!.addAllProductsToCart,
+                                              textStyle: SemiBoldStyle(
+                                                color: secondaryColor,
+                                                fontSize: 10,
+                                              ).getStyle(),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     )
                                   : const SizedBox(),
                             ),
                             SliverFillRemaining(
                               hasScrollBody: true,
-                              child:
-                                  StreamBuilder<ApiState<List<ProductMapper>>>(
-                                    stream: widget
-                                        .productCategoryBloc
-                                        .loadedListStream,
-                                    initialData: LoadingState(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        if (snapshot.data!.response != null &&
-                                            snapshot.data!.response!.isEmpty) {
-                                          if (widget.isForFavourite) {
-                                            return const EmptyFavouriteProducts();
-                                          } else {
-                                            return Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                ImageHelper(
-                                                  image: Assets.svg.emptyOffers,
-                                                  imageType: ImageType.svg,
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                        }
+                              child: StreamBuilder<ApiState<List<ProductMapper>>>(
+                                stream:
+                                    widget.productCategoryBloc.loadedListBehaviour.stream,
+                                initialData: LoadingState(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data!.response != null &&
+                                        snapshot.data!.response!.isEmpty) {
+                                      if (widget.isForFavourite) {
+                                        return const EmptyFavouriteProducts();
+                                      } else {
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            ImageHelper(
+                                              image: Assets.svg.emptyOffers,
+                                              imageType: ImageType.svg,
+                                            ),
+                                          ],
+                                        );
                                       }
-                                      return checkResponseStateWithLoadingWidget(
-                                        onSuccessFunction: () {},
-                                        snapshot.data ??
-                                            LoadingState<List<ProductMapper>>(),
-                                        context,
-                                        onSuccess: ProductListWidget(
-                                          isForFavourite: widget.isForFavourite,
-                                          cartBloc: widget.cartBloc,
-                                          productCategoryBloc:
-                                              widget.productCategoryBloc,
-                                          productList:
-                                              snapshot.data?.response ?? [],
-                                          onTapFavourite:
-                                              (favourite, productMapper) {},
-                                          loadMore: (Function func) {
-                                            if (widget.isForFavourite) {
-                                              widget.productCategoryBloc
-                                                  .loadMore(true, func);
-                                            } else {
-                                              _loadProducts(false, func);
-                                            }
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                    }
+                                  }
+                                  return checkResponseStateWithLoadingWidget(
+                                    onSuccessFunction: () {},
+                                    snapshot.data ??
+                                        LoadingState<List<ProductMapper>>(),
+                                    context,
+                                    onSuccess: ProductListWidget(
+                                      isForFavourite: widget.isForFavourite,
+                                      cartBloc: widget.cartBloc,
+                                      productCategoryBloc:
+                                          widget.productCategoryBloc,
+                                      productList:
+                                          snapshot.data?.response ?? [],
+                                      qtyNotifierProvider: _getQtyNotifier,
+                                      onTapFavourite:
+                                          (favourite, productMapper) {},
+                                      loadMore: (Function func) {
+                                        if (widget.isForFavourite) {
+                                          widget.productCategoryBloc.loadMore(
+                                            true,
+                                            func,
+                                          );
+                                        } else {
+                                          _loadProducts(false, func);
+                                        }
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         ),
