@@ -166,6 +166,7 @@ class CartBloc extends BlocBase {
       saveToCart(
        Apputils.getProductId(productMapper),
         productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
+
       ).listen((event) {
         if (event is SuccessState) {
           final response = event.response;
@@ -192,15 +193,13 @@ class CartBloc extends BlocBase {
       productId: productMapper.productId,
       quantity: 0,
       price: productMapper.finalPrice,
+      onGettingCart: () {
+        addCartInfoToProducts(producstList ?? []);
+        onGettingCart();
+      },
     ).listen((event) {
       if (event is SuccessState) {
         resetDeletedProduct(productMapper);
-        getMyCart(
-          onGettingCart: () {
-            addCartInfoToProducts(producstList ?? []);
-            onGettingCart();
-          },
-        );
       }
     });
   }
@@ -228,12 +227,12 @@ class CartBloc extends BlocBase {
       productId: productMapper.productId,
       quantity: productMapper.cartUserQuantity.toInt(),
       price: productMapper.finalPrice,
+      onGettingCart:onEditingCart
     ).listen((event) {
       if (event is SuccessState) {
         if (productMapper.cartUserQuantity == 1) {
           addCartInfoToProducts(producstList ?? []);
         }
-        onEditingCart();
       }
     });
   }
@@ -280,6 +279,7 @@ class CartBloc extends BlocBase {
     required int productId,
     required double price,
     required int quantity,
+    Function()? onGettingCart,
   }) {
     final CartEditRequest request = CartEditRequest(
       client_id: clientId,
@@ -298,11 +298,10 @@ class CartBloc extends BlocBase {
     cartEditRemote.editCart(request).listen((event) async {
       if (event is SuccessState) {
         if (quantity == 0) {
-          _getCart(false, event, stream);
+          _getCart(false, event, stream,onGettingCart: onGettingCart);
         } else {
-          _getCart(true, event, stream);
+          _getCart(true, event, stream,onGettingCart: onGettingCart);
         }
-
       }
     });
 
@@ -485,7 +484,7 @@ class CartBloc extends BlocBase {
 
               }
             });
-      } else if (getCartEvent.response?.getFirst.isEmpty ?? true) {
+      } else if (getCartEvent is SuccessState && getCartEvent.response?.getFirst.isEmpty ==true) {
         if (isEditing == false) {
           if (apiState != null && stream != null) {
             stream.sink.add(apiState);

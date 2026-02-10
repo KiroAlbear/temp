@@ -19,7 +19,7 @@ class ProductWidget extends StatefulWidget {
   final Function(ProductMapper productMapper)? onDeleteClicked;
   final Function(ProductMapper productMapper)? onIncrementClicked;
   final Function(ProductMapper productMapper)? onDecrementClicked;
-  final ValueNotifier<int>? qtyValueNotifier;
+  ValueNotifier<int>? qtyValueNotifier;
 
   ProductWidget({
     super.key,
@@ -49,6 +49,9 @@ class ProductWidget extends StatefulWidget {
         'isCartProduct is true, onDeleteClicked should be provided',
       );
     }
+    if(qtyValueNotifier == null){
+      qtyValueNotifier = ValueNotifier(productMapper.quantity.round()) ;
+    }
   }
 
   @override
@@ -63,17 +66,16 @@ class _ProductWidgetState extends State<ProductWidget> {
   final double plusMinusIconHeight = 30.h;
 
   String priceTextToShow = "";
-  late final ValueNotifier<int> qtyValueNotifier;
+
   ValueNotifier<bool> toolTipVisibility = ValueNotifier<bool>(true);
 
   @override
   void initState() {
-    qtyValueNotifier = widget.qtyValueNotifier ?? ValueNotifier<int>(0);
 
     if (widget.isCartProduct) {
-      qtyValueNotifier.value = widget.productMapper.quantity.round();
+      widget.qtyValueNotifier!.value = widget.productMapper.quantity.round();
     } else {
-      qtyValueNotifier.value = widget.productMapper.cartUserQuantity.round();
+      widget.qtyValueNotifier!.value = widget.productMapper.cartUserQuantity.round();
     }
 
     double price = widget.isCartProduct
@@ -88,7 +90,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   void dispose() {
     // if (widget.qtyValueNotifier != null) {
-    //   qtyValueNotifier.dispose();
+    //   widget.qtyValueNotifier!.dispose();
     // }
     super.dispose();
   }
@@ -183,7 +185,8 @@ class _ProductWidgetState extends State<ProductWidget> {
               Padding(
                 padding: const EdgeInsets.only(top: 5.0),
                 child: ValueListenableBuilder(
-                  valueListenable: qtyValueNotifier,
+                  key: ValueKey(widget.productMapper.id),
+                  valueListenable: widget.qtyValueNotifier!,
                   builder: (context, value, child) {
                     return value == 0
                         ? Center(child: _addCartButton)
@@ -257,28 +260,6 @@ class _ProductWidgetState extends State<ProductWidget> {
           ],
         ),
       ],
-    );
-  }
-
-  Widget _notAvailableProduct() {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 0.w),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.red.withAlpha((0.5 * 255).round()),
-          borderRadius: BorderRadius.circular(5.r),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h),
-          child: CustomText(
-            text: Loc.of(context)!.productIsNotAvailable,
-            customTextStyle: RegularStyle(
-              color: lightBlackColor,
-              fontSize: 8.sp,
-            ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -556,7 +537,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           sameButtonsColor: false,
           onCancel: () {},
           onConfirm: () {
-            qtyValueNotifier.value = 0;
+            widget.qtyValueNotifier!.value = 0;
             widget.onDeleteClicked!(widget.productMapper);
             FirebaseAnalyticsUtil().logEvent(
               FirebaseAnalyticsEventsNames.remove_from_cart,
@@ -600,9 +581,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                       widget.productMapper.quantity;
                 }
 
-                if (qtyValueNotifier.value < widget.productMapper.maxQuantity) {
-                  qtyValueNotifier.value++;
-                  widget.productMapper.cartUserQuantity = qtyValueNotifier.value
+                if (widget.qtyValueNotifier!.value < widget.productMapper.maxQuantity) {
+                  widget.qtyValueNotifier!.value++;
+                  widget.productMapper.cartUserQuantity = widget.qtyValueNotifier!.value
                       .toDouble();
                   widget.onIncrementClicked!(widget.productMapper);
 
@@ -628,7 +609,8 @@ class _ProductWidgetState extends State<ProductWidget> {
             height: 20.h,
             width: 20.w,
             child: ValueListenableBuilder(
-              valueListenable: qtyValueNotifier,
+              key: ValueKey(widget.productMapper.id),
+              valueListenable: widget.qtyValueNotifier!,
               builder: (context, value, child) {
                 return Center(
                   child: CustomText(
@@ -649,10 +631,10 @@ class _ProductWidgetState extends State<ProductWidget> {
             padding: EdgeInsetsDirectional.only(end: horizontalSpace),
             child: InkWell(
               onTap: () {
-                if (qtyValueNotifier.value > widget.productMapper.minQuantity &&
-                    qtyValueNotifier.value > 1) {
-                  qtyValueNotifier.value--;
-                  widget.productMapper.cartUserQuantity = qtyValueNotifier.value
+                if (widget.qtyValueNotifier!.value > widget.productMapper.minQuantity &&
+                    widget.qtyValueNotifier!.value > 1) {
+                  widget.qtyValueNotifier!.value--;
+                  widget.productMapper.cartUserQuantity = widget.qtyValueNotifier!.value
                       .toDouble();
 
                   widget.onDecrementClicked!(widget.productMapper);
@@ -670,7 +652,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 height: plusMinusIconHeight,
                 child: Center(
                   child: ValueListenableBuilder(
-                    valueListenable: qtyValueNotifier,
+                    valueListenable: widget.qtyValueNotifier!,
                     builder: (context, value, child) {
                       return (value == widget.productMapper.minQuantity ||
                               value <= 1)
@@ -706,7 +688,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         if (widget.productMapper.canAddToCart())
         {
           widget.onAddToCart!(widget.productMapper);
-          qtyValueNotifier.value = widget.productMapper.minQuantity == 0
+          widget.qtyValueNotifier!.value = widget.productMapper.minQuantity == 0
               ? 1
               : widget.productMapper.minQuantity.toInt();
           if (widget.cartBloc != null) {
