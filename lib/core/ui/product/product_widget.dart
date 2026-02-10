@@ -223,9 +223,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       children: [Expanded(child: _productName)],
                     ),
                     SizedBox(height: 8.h),
-                    widget.productMapper.isAvailable
-                        ? const SizedBox()
-                        : _notAvailableProduct(),
+
                   ],
                 ),
                 _priceRow,
@@ -247,8 +245,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                   child: _productImage,
                 ),
                 // SizedBox(height: 19.h),
-                if (widget.productMapper.discountPercentage > 0)
-                  Positioned(top: 0, left: 0, child: _discountWidget),
+
+                  Positioned(top: 0, left: 0, child: _discountOrNotAvailableWidget),
               ],
             ),
             SizedBox(height: 8.h),
@@ -350,9 +348,13 @@ class _ProductWidgetState extends State<ProductWidget> {
           },
         ),
       const Spacer(),
-      widget.productMapper.canAddToCart() == false? _unavailableWidget: widget.productMapper.discountPercentage > 0? _discountWidget:SizedBox(),
+      _discountOrNotAvailableWidget
     ],
   );
+
+  Widget get _discountOrNotAvailableWidget {
+    return widget.productMapper.canAddToCart() == false? _unavailableWidget: widget.productMapper.discountPercentage > 0? _discountWidget:SizedBox();
+  }
 
   void _handleFavouriteIcon(ApiState<bool> event, bool isAdded) {
     if (event is SuccessState) {
@@ -365,38 +367,28 @@ class _ProductWidgetState extends State<ProductWidget> {
     }
   }
 
-  Widget get _discountWidget => Container(
-    padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 7.w),
-    decoration: BoxDecoration(
-      color: redColor,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(4.w),
-        bottomRight: Radius.circular(4.w),
-        topRight: Radius.circular(4.w),
-      ),
-    ),
-    child: CustomText(
-      text: discount('${widget.productMapper.discountPercentage}%'),
-      customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp),
-    ),
-  );
+  Widget get _discountWidget => _getTopLeftWidget(  discount('${widget.productMapper.discountPercentage}%'), redColor);
 
-  Widget get _unavailableWidget => Container(
-    padding: EdgeInsets.only(top: 0.h,bottom: 2.h, left: 7.w,right: 7.w),
-    decoration: BoxDecoration(
-      color: secondaryColor,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(4.w),
-        bottomRight: Radius.circular(4.w),
-        topRight: Radius.circular(4.w),
+  Widget get _unavailableWidget => _getTopLeftWidget(Loc.of(context)!.productNotAvailableNow, secondaryColor);
+
+  Widget _getTopLeftWidget(String text, Color backgroundColor) {
+    return Container(
+      padding: EdgeInsets.only(top: 0.h,bottom: 2.h, left: 7.w,right: 7.w),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(4.w),
+          bottomRight: Radius.circular(4.w),
+          topRight: Radius.circular(4.w),
+        ),
       ),
-    ),
-    child: CustomText(
-      text: Loc.of(context)!.productNotAvailableNow,
-      textAlign: TextAlign.center,
-      customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp,lineHeight: 1.8),
-    ),
-  );
+      child: CustomText(
+        text: text,
+        textAlign: TextAlign.center,
+        customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp,lineHeight: 1.8),
+      ),
+    );
+  }
 
   String discount(Object percent) {
     return '${Loc.of(context)!.discount} $percent';
