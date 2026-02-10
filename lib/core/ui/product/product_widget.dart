@@ -338,7 +338,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           },
         ),
       const Spacer(),
-      if (widget.productMapper.discountPercentage > 0) _discountWidget,
+      widget.productMapper.canAddToCart() == false? _unavailableWidget: widget.productMapper.discountPercentage > 0? _discountWidget:SizedBox(),
     ],
   );
 
@@ -359,7 +359,6 @@ class _ProductWidgetState extends State<ProductWidget> {
       color: redColor,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(4.w),
-
         bottomRight: Radius.circular(4.w),
         topRight: Radius.circular(4.w),
       ),
@@ -367,6 +366,23 @@ class _ProductWidgetState extends State<ProductWidget> {
     child: CustomText(
       text: discount('${widget.productMapper.discountPercentage}%'),
       customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp),
+    ),
+  );
+
+  Widget get _unavailableWidget => Container(
+    padding: EdgeInsets.only(top: 0.h,bottom: 2.h, left: 7.w,right: 7.w),
+    decoration: BoxDecoration(
+      color: secondaryColor,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(4.w),
+        bottomRight: Radius.circular(4.w),
+        topRight: Radius.circular(4.w),
+      ),
+    ),
+    child: CustomText(
+      text: Loc.of(context)!.productNotAvailableNow,
+      textAlign: TextAlign.center,
+      customTextStyle: RegularStyle(color: whiteColor, fontSize: 10.sp,lineHeight: 1.8),
     ),
   );
 

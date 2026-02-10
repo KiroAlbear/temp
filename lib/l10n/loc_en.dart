@@ -458,6 +458,9 @@ class LocEn extends Loc {
   String get productIsNotAvailable => 'Product is not available';
 
   @override
+  String get productNotAvailableNow => 'Not available now';
+
+  @override
   String get products => 'Products';
 
   @override

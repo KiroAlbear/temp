@@ -973,6 +973,12 @@ abstract class Loc {
   /// **'Product is not available'**
   String get productIsNotAvailable;
 
+  /// No description provided for @productNotAvailableNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available now'**
+  String get productNotAvailableNow;
+
   /// No description provided for @products.
   ///
   /// In en, this message translates to:

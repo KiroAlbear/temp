@@ -455,6 +455,9 @@ class LocAr extends Loc {
   String get productIsNotAvailable => 'المنتج غير متوفر';
 
   @override
+  String get productNotAvailableNow => 'غير متوفر الآن';
+
+  @override
   String get products => 'المنتجات';
 
   @override
