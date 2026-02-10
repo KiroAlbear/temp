@@ -87,9 +87,9 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void dispose() {
-    if (widget.qtyValueNotifier != null) {
-      qtyValueNotifier.dispose();
-    }
+    // if (widget.qtyValueNotifier != null) {
+    //   qtyValueNotifier.dispose();
+    // }
     super.dispose();
   }
 
