@@ -289,6 +289,7 @@ class _CartScreenState extends BaseState<CartPage> {
                   separatorBuilder: (context, index) => 16.verticalSpace,
                   shrinkWrap: true,
                   itemCount: snapshot.data!.response!.getFirst.length,
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
@@ -435,6 +436,17 @@ class _CartScreenState extends BaseState<CartPage> {
                   : const SizedBox();
             },
           ),
+          16.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              InkWell(
+                  onTap: () {
+
+                  },
+                  child: Text("مسح جميع المنتجات", style: BoldStyle(color: redColor, fontSize: 14.sp).getStyle().copyWith(decoration: TextDecoration.underline),)),
+            ],
+          )
 
         ],
       ),
