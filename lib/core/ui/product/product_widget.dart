@@ -329,7 +329,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           },
         ),
       const Spacer(),
-      _discountOrNotAvailableWidget
+      (SharedPrefModule().userId == null)?SizedBox():_discountOrNotAvailableWidget
     ],
   );
 
