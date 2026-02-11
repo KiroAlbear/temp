@@ -447,6 +447,18 @@ class _ProductWidgetState extends State<ProductWidget> {
                 0,
                 0,
               ),
+              content: Container(
+                color: tooltipColor,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 150,
+                    child: Text( widget.productMapper.name,
+                      style: RegularStyle(fontSize: 12.sp,color: black).getStyle(),
+                      softWrap: true,),
+                  ),
+                ),
+              ),
               child: value
                   ? Material(
                       color: Colors.transparent,
@@ -458,16 +470,6 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ),
                     )
                   : SizedBox(),
-              content: Container(
-                color: tooltipColor,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 150,
-                    child: Text(widget.productMapper.name),
-                  ),
-                ),
-              ),
             );
           },
         ),
