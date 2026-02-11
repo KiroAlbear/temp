@@ -229,6 +229,18 @@ abstract class Loc {
   /// **'Are you sure to remove the product from the cart?'**
   String get cartDeleteMessage;
 
+  /// No description provided for @cartProductRemovedFromCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Product removed from cart'**
+  String get cartProductRemovedFromCart;
+
+  /// No description provided for @cartAddAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Add again'**
+  String get cartAddAgain;
+
   /// No description provided for @cartDokkanWallet.
   ///
   /// In en, this message translates to:

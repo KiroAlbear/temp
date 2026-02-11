@@ -21,6 +21,8 @@
   "payCashOnDelivery": "الدفع كاش عند الاستلام",
   "cartConfirmOrder": "تأكيد الطلب",
   "cartDeleteMessage": "هل انت متاكد من ازاله المنتج من السلة؟",
+  "cartProductRemovedFromCart": "تم مسح المنتج من السلة",
+  "cartAddAgain": "إضافة مجدداً",
   "cartDokkanWallet": "محفظة",
   "cartDokkanWalletNumber": "رقم المحفظة",
   "cartDokkanBankCard": "كارت البنك",

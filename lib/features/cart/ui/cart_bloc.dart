@@ -50,6 +50,8 @@ class CartBloc extends BlocBase {
   bool isAnyProductOutOfStock = false;
   List<CartAvailableModel> productsOfMoreThanAvailable = [];
 
+  ProductMapper? lastDeletedProduct = null;
+
 
   void _getAddress() {
     addressBehaviour.sink.add(userAddressText);
@@ -262,6 +264,7 @@ class CartBloc extends BlocBase {
     ).listen((event) {
       if (event is SuccessState) {
         resetDeletedProduct(productMapper);
+        lastDeletedProduct = productMapper;
       }
     });
   }

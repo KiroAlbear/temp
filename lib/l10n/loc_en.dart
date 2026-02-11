@@ -76,6 +76,12 @@ class LocEn extends Loc {
       'Are you sure to remove the product from the cart?';
 
   @override
+  String get cartProductRemovedFromCart => 'Product removed from cart';
+
+  @override
+  String get cartAddAgain => 'Add again';
+
+  @override
   String get cartDokkanWallet => 'Wallet';
 
   @override

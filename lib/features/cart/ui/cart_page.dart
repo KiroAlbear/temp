@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:deel/deel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_loader/image_helper.dart';
 
 class CartPage extends BaseStatefulWidget {
   final CartBloc cartBloc;
@@ -19,6 +22,8 @@ class CartPage extends BaseStatefulWidget {
 
 class _CartScreenState extends BaseState<CartPage> {
   ValueNotifier<bool> isLoading = ValueNotifier(false);
+  ValueNotifier<bool> isUndoVisible = ValueNotifier(false);
+  Timer? _undoHideTimer;
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -45,6 +50,14 @@ class _CartScreenState extends BaseState<CartPage> {
     widget.cartBloc.getPaymentVisibility();
     widget.cartBloc.getMyCart();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _undoHideTimer?.cancel();
+    isLoading.dispose();
+    isUndoVisible.dispose();
+    super.dispose();
   }
 
   @override
@@ -82,7 +95,27 @@ class _CartScreenState extends BaseState<CartPage> {
                                     children: [
                                       _cartHeader(context),
                                       16.verticalSpace,
-                                      _productList(),
+                                      Expanded(
+                                        child: Stack(
+                                          children: [
+                                            _productList(),
+                                            ValueListenableBuilder<bool>(
+                                              valueListenable: isUndoVisible,
+                                              builder: (context, visible, _) {
+                                                if (!visible) {
+                                                  return const SizedBox.shrink();
+                                                }
+                                                return Positioned(
+                                                  bottom: 0,
+                                                  left: 10,
+                                                  right: 10,
+                                                  child: _undoWidget(context),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                       _bottomWidget(context),
                                     ],
                                   ),
@@ -96,6 +129,59 @@ class _CartScreenState extends BaseState<CartPage> {
               ),
             ],
           );
+  }
+
+  Widget _undoWidget(BuildContext context) {
+    return Card(
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4.r),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                ImageHelper(
+                  image: Assets.svg.icDelete,
+                  imageType: ImageType.svg,
+                  color: secondaryColor,
+                ),
+                8.horizontalSpace,
+                CustomText(
+                  text: Loc.of(context)!.cartProductRemovedFromCart,
+                  customTextStyle: RegularStyle(fontSize: 12.sp, color: black),
+                ),
+              ],
+            ),
+            InkWell(
+              onTap: () {
+                _hideUndoWidget();
+                if (widget.cartBloc.lastDeletedProduct != null) {
+                  isLoading.value = true;
+                  widget.cartBloc.onAddToCart(
+                    widget.cartBloc.lastDeletedProduct!,
+                    widget.productCategoryBloc.loadedListBehaviour.value.response,
+                    () {
+                      isLoading.value = false;
+                    },
+                  );
+                }
+              },
+              child: Text(
+                Loc.of(context)!.cartAddAgain,
+                style: BoldStyle(
+                  fontSize: 12.sp,
+                  color: secondaryColor,
+                ).getStyle().copyWith(decoration: TextDecoration.underline),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _seperator() {
@@ -298,85 +384,26 @@ class _CartScreenState extends BaseState<CartPage> {
                       productCategoryBloc: widget.productCategoryBloc,
                       onDecrementClicked: (ProductMapper productMapper) {
                         isLoading.value = true;
-                        widget.cartBloc
-                            .editCart(
-                              cartItemId:
-                                  snapshot.data!.response!.getFirst[index].id,
-                              productId: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .productId,
-                              quantity: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .cartUserQuantity
-                                  .toInt(),
-                              price: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .finalPrice,
-                            )
-                            .listen((event) {
-                              if (event is SuccessState) {
-                                isLoading.value = false;
-                              }
-                            });
+                        widget.cartBloc.onDecrementIncrement(productMapper, widget.productCategoryBloc.loadedListBehaviour.value.response, () {
+                          isLoading.value = false;
+                        });
                       },
                       onIncrementClicked: (productMapper) {
                         isLoading.value = true;
-                        widget.cartBloc
-                            .editCart(
-                              cartItemId:
-                                  snapshot.data!.response!.getFirst[index].id,
-                              productId: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .productId,
-                              quantity: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .cartUserQuantity
-                                  .toInt(),
-                              price: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .finalPrice,
-                            )
-                            .listen((event) {
-                              if (event is SuccessState) {
-                                isLoading.value = false;
-                              }
-                            });
+                        widget.cartBloc.onDecrementIncrement(productMapper, widget.productCategoryBloc.loadedListBehaviour.value.response, () {
+                          isLoading.value = false;
+                        });
                       },
                       onDeleteClicked: (productMapper) {
                         isLoading.value = true;
-                        widget.cartBloc
-                            .editCart(
-                              cartItemId:
-                                  snapshot.data!.response!.getFirst[index].id,
-                              productId: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .productId,
-                              quantity: 0,
-                              price: snapshot
-                                  .data!
-                                  .response!
-                                  .getFirst[index]
-                                  .finalPrice,
-                            )
-                            .listen((event) {
-                              if (event is SuccessState) {
-                                isLoading.value = false;
-                              }
-                            });
+                        widget.cartBloc.onDeleteFromCart(
+                          productMapper,
+                          widget.productCategoryBloc.loadedListBehaviour.value.response,
+                          () {
+                            isLoading.value = false;
+                            _showUndoWidgetFor3Seconds();
+                          },
+                        );
                       },
                     );
                   },
@@ -384,6 +411,17 @@ class _CartScreenState extends BaseState<CartPage> {
               );
       },
     );
+  }
+
+  void _showUndoWidgetFor3Seconds() {
+    isUndoVisible.value = true;
+    _undoHideTimer?.cancel();
+    _undoHideTimer = Timer(const Duration(seconds: 3), _hideUndoWidget);
+  }
+
+  void _hideUndoWidget() {
+    _undoHideTimer?.cancel();
+    isUndoVisible.value = false;
   }
 
   void _deleteAllCart() {
@@ -399,24 +437,23 @@ class _CartScreenState extends BaseState<CartPage> {
     );
   }
 
-  void _showDeleteAllConfirmation()async {
+  void _showDeleteAllConfirmation() async {
     await showModalBottomSheet(
-    context: Routes.rootNavigatorKey.currentContext!,
-    isScrollControlled: false,
-    useRootNavigator: true,
-    useSafeArea: true,
-    builder: (context2) {
-      return DialogWidget(
-        message: Loc.of(context)!.cartRemoveAllProductsConfirmation,
-        cancelMessage:
-        "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
-        confirmMessage:
-        "${Loc.of(context)!.yes}, ${Loc.of(context)!.cartRemoveAllProducts}",
-        onConfirm: () {
-          _deleteAllCart();
-        },
-      );
-    },
+      context: Routes.rootNavigatorKey.currentContext!,
+      isScrollControlled: false,
+      useRootNavigator: true,
+      useSafeArea: true,
+      builder: (context2) {
+        return DialogWidget(
+          message: Loc.of(context)!.cartRemoveAllProductsConfirmation,
+          cancelMessage: "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
+          confirmMessage:
+              "${Loc.of(context)!.yes}, ${Loc.of(context)!.cartRemoveAllProducts}",
+          onConfirm: () {
+            _deleteAllCart();
+          },
+        );
+      },
     );
   }
 

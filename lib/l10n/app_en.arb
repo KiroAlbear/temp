@@ -21,6 +21,8 @@
   "payCashOnDelivery": "Pay Cash on delivery",
   "cartConfirmOrder": "Confirm order",
   "cartDeleteMessage": "Are you sure to remove the product from the cart?",
+  "cartProductRemovedFromCart": "Product removed from cart",
+  "cartAddAgain": "Add again",
   "cartDokkanWallet": "Wallet",
   "cartDokkanWalletNumber": "Wallet Number",
   "cartDokkanBankCard": "Bank Card",

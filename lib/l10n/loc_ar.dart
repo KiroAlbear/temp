@@ -75,6 +75,12 @@ class LocAr extends Loc {
   String get cartDeleteMessage => 'هل انت متاكد من ازاله المنتج من السلة؟';
 
   @override
+  String get cartProductRemovedFromCart => 'تم مسح المنتج من السلة';
+
+  @override
+  String get cartAddAgain => 'إضافة مجدداً';
+
+  @override
   String get cartDokkanWallet => 'محفظة';
 
   @override
