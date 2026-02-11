@@ -526,8 +526,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     );
   }
 
-  void _showDeleteAlertDialog(String message, String qty) {
-    showModalBottomSheet(
+  Future<void> _showDeleteAlertDialog(String message, String qty) async {
+    await showModalBottomSheet(
       context: context,
       useRootNavigator: true,
       builder: (context) {
@@ -537,6 +537,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           cancelMessage: "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
           onCancel: () {},
           onConfirm: () {
+            widget.productMapper.cartUserQuantity = 0;
             widget.qtyValueNotifier!.value = 0;
             widget.onDeleteClicked!(widget.productMapper);
             FirebaseAnalyticsUtil().logEvent(
@@ -630,7 +631,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             // color: Colors.red,
             padding: EdgeInsetsDirectional.only(end: horizontalSpace),
             child: InkWell(
-              onTap: () {
+              onTap: () async {
                 if (widget.qtyValueNotifier!.value > widget.productMapper.minQuantity &&
                     widget.qtyValueNotifier!.value > 1) {
                   widget.qtyValueNotifier!.value--;
@@ -642,7 +643,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     FirebaseAnalyticsEventsNames.update_cart_quantity,
                   );
                 } else {
-                  _showDeleteAlertDialog(
+                  await _showDeleteAlertDialog(
                     Loc.of(context)!.cartDeleteMessage,
                     "",
                   );
