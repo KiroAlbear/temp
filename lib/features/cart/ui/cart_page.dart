@@ -443,6 +443,13 @@ class _CartScreenState extends BaseState<CartPage> {
               InkWell(
                   onTap: () {
 
+                    final List<ProductMapper> products =  widget.cartBloc.cartProductsBehavior.value.response?.getFirst ??[] ;
+
+                    isLoading.value = true;
+                    widget.cartBloc.onDeleteProductListFromCart(productMappers: products, onGettingCart: (products) {
+                      isLoading.value= false;
+                    },);
+
                   },
                   child: Text("مسح جميع المنتجات", style: BoldStyle(color: redColor, fontSize: 14.sp).getStyle().copyWith(decoration: TextDecoration.underline),)),
             ],
