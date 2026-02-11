@@ -2,7 +2,7 @@ name: deel
 description: "A new Flutter project."
 publish_to: none
 
-version: 1.0.25+48
+version: 1.0.26+49
 
 environment:
   sdk: 3.8.0
