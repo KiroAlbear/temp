@@ -343,6 +343,12 @@ abstract class Loc {
   /// **'Remove all products'**
   String get cartRemoveAllProducts;
 
+  /// No description provided for @cartRemoveAllProductsConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove all products from the cart?'**
+  String get cartRemoveAllProductsConfirmation;
+
   /// No description provided for @changePassword.
   ///
   /// In en, this message translates to:
@@ -1102,7 +1108,7 @@ abstract class Loc {
   /// No description provided for @selectPhotoFromCameraOrGallery.
   ///
   /// In en, this message translates to:
-  /// **'Which you would like to use?'**
+  /// **'Change profile picture'**
   String get selectPhotoFromCameraOrGallery;
 
   /// No description provided for @sendOTP.

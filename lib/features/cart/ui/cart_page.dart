@@ -386,6 +386,40 @@ class _CartScreenState extends BaseState<CartPage> {
     );
   }
 
+  void _deleteAllCart() {
+    final List<ProductMapper> products =
+        widget.cartBloc.cartProductsBehavior.value.response?.getFirst ?? [];
+
+    isLoading.value = true;
+    widget.cartBloc.onDeleteProductListFromCart(
+      productMappers: products,
+      onGettingCart: (products) {
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void _showDeleteAllConfirmation()async {
+    await showModalBottomSheet(
+    context: Routes.rootNavigatorKey.currentContext!,
+    isScrollControlled: false,
+    useRootNavigator: true,
+    useSafeArea: true,
+    builder: (context2) {
+      return DialogWidget(
+        message: Loc.of(context)!.cartRemoveAllProductsConfirmation,
+        cancelMessage:
+        "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
+        confirmMessage:
+        "${Loc.of(context)!.yes}, ${Loc.of(context)!.cartRemoveAllProducts}",
+        onConfirm: () {
+          _deleteAllCart();
+        },
+      );
+    },
+    );
+  }
+
   Widget _cartHeader(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -441,26 +475,19 @@ class _CartScreenState extends BaseState<CartPage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               InkWell(
-                  onTap: () {
-
-                    final List<ProductMapper> products =  widget.cartBloc.cartProductsBehavior.value.response?.getFirst ??[] ;
-
-                    isLoading.value = true;
-                    widget.cartBloc.onDeleteProductListFromCart(productMappers: products, onGettingCart: (products) {
-                      isLoading.value= false;
-                    },);
-
-                  },
-                  child: Text(
-                    Loc.of(context)!.cartRemoveAllProducts,
-                    style: BoldStyle(color: redColor, fontSize: 14.sp)
-                        .getStyle()
-                        .copyWith(decoration: TextDecoration.underline),
-                  ),
+                onTap: () async {
+                  _showDeleteAllConfirmation();
+                },
+                child: Text(
+                  Loc.of(context)!.cartRemoveAllProducts,
+                  style: BoldStyle(
+                    color: redColor,
+                    fontSize: 14.sp,
+                  ).getStyle().copyWith(decoration: TextDecoration.underline),
                 ),
+              ),
             ],
-          )
-
+          ),
         ],
       ),
     );

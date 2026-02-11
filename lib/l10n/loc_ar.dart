@@ -135,6 +135,10 @@ class LocAr extends Loc {
   String get cartRemoveAllProducts => 'مسح جميع المنتجات';
 
   @override
+  String get cartRemoveAllProductsConfirmation =>
+      'هل انت متأكد من مسح جميع المنتجات من السلة؟';
+
+  @override
   String get changePassword => 'تغيير كلمة السر';
 
   @override
@@ -520,7 +524,7 @@ class LocAr extends Loc {
   String get selectLocation => 'حدد موقعك';
 
   @override
-  String get selectPhotoFromCameraOrGallery => 'ماذا تفضل؟';
+  String get selectPhotoFromCameraOrGallery => 'تغيير صورة الحساب';
 
   @override
   String get sendOTP => 'إرسال رمز التحقق';

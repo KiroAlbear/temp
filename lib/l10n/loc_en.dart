@@ -136,6 +136,10 @@ class LocEn extends Loc {
   String get cartRemoveAllProducts => 'Remove all products';
 
   @override
+  String get cartRemoveAllProductsConfirmation =>
+      'Are you sure you want to remove all products from the cart?';
+
+  @override
   String get changePassword => 'Change password';
 
   @override
@@ -522,7 +526,7 @@ class LocEn extends Loc {
   String get selectLocation => 'Select your location';
 
   @override
-  String get selectPhotoFromCameraOrGallery => 'Which you would like to use?';
+  String get selectPhotoFromCameraOrGallery => 'Change profile picture';
 
   @override
   String get sendOTP => 'Send OTP';

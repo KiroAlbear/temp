@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DialogWidget extends StatefulWidget {
-
   final String message;
   final String? confirmMessage;
   final String? cancelMessage;
@@ -22,7 +21,7 @@ class DialogWidget extends StatefulWidget {
     this.onCancel,
     this.onConfirm,
     this.isConfirmButtonPrimary = false,
-    this.hasBottomPadding = false
+    this.hasBottomPadding = false,
 
   });
 
@@ -46,14 +45,12 @@ class _DialogWidgetState extends State<DialogWidget> {
 
             SizedBox(height: 21.h),
             _message,
-            SizedBox(height: 20.h),
+            SizedBox(height: 25.h),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 70.w),
+              padding: EdgeInsets.symmetric(horizontal: 60.w),
               child: Column(
                 children: [
-
-
                   if (widget.cancelMessage != null) ...[
                     _cancelButton,
                     SizedBox(height: 10.h),
@@ -89,6 +86,7 @@ class _DialogWidgetState extends State<DialogWidget> {
   Widget get _confirmButton => CustomButtonWidget(
     idleText: widget.confirmMessage,
     height: 38.h,
+    textSize: 14.sp,
     buttonColor:  widget.isConfirmButtonPrimary?null:Colors.transparent,
     onTap: () {
       if (widget.onConfirm != null) {
@@ -103,7 +101,7 @@ class _DialogWidgetState extends State<DialogWidget> {
     height: 38.h,
     validateStream: Stream.value(true),
     buttonShapeEnum: ButtonShapeEnum.flat,
-
+    textSize: 14.sp,
     onTap: () {
       if (widget.onCancel != null) {
         widget.onCancel!();
