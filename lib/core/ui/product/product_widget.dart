@@ -50,7 +50,12 @@ class ProductWidget extends StatefulWidget {
       );
     }
     if(qtyValueNotifier == null){
-      qtyValueNotifier = ValueNotifier(productMapper.quantity.round()) ;
+      qtyValueNotifier = ValueNotifier(productMapper.quantity.round());
+    }
+    if (isCartProduct) {
+      qtyValueNotifier!.value = productMapper.quantity.round();
+    } else {
+      qtyValueNotifier!.value = productMapper.cartUserQuantity.round();
     }
   }
 
@@ -71,12 +76,6 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void initState() {
-
-    if (widget.isCartProduct) {
-      widget.qtyValueNotifier!.value = widget.productMapper.quantity.round();
-    } else {
-      widget.qtyValueNotifier!.value = widget.productMapper.cartUserQuantity.round();
-    }
 
     double price = widget.isCartProduct
         ? widget.productMapper.cartFinalUnitPrice ?? 0
