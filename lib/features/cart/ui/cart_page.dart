@@ -451,7 +451,13 @@ class _CartScreenState extends BaseState<CartPage> {
                     },);
 
                   },
-                  child: Text("مسح جميع المنتجات", style: BoldStyle(color: redColor, fontSize: 14.sp).getStyle().copyWith(decoration: TextDecoration.underline),)),
+                  child: Text(
+                    Loc.of(context)!.cartRemoveAllProducts,
+                    style: BoldStyle(color: redColor, fontSize: 14.sp)
+                        .getStyle()
+                        .copyWith(decoration: TextDecoration.underline),
+                  ),
+                ),
             ],
           )
 

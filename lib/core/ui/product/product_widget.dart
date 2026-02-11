@@ -516,9 +516,9 @@ class _ProductWidgetState extends State<ProductWidget> {
       useRootNavigator: true,
       builder: (context) {
         return DialogWidget(
-          sameButtonsColor: false,
           message: "$message $qty",
-          confirmMessage: Loc.of(context)!.ok,
+          confirmMessage: "${Loc.of(context)!.yes}, ${Loc.of(context)!.ok}",
+          isConfirmButtonPrimary: true,
           onConfirm: () {},
         );
       },
@@ -532,9 +532,8 @@ class _ProductWidgetState extends State<ProductWidget> {
       builder: (context) {
         return DialogWidget(
           message: "$message $qty",
-          confirmMessage: Loc.of(context)!.ok,
-          cancelMessage: Loc.of(context)!.cancel,
-          sameButtonsColor: false,
+          confirmMessage: "${Loc.of(context)!.yes}, ${Loc.of(context)!.ok}",
+          cancelMessage: "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
           onCancel: () {},
           onConfirm: () {
             widget.qtyValueNotifier!.value = 0;

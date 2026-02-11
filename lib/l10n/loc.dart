@@ -337,6 +337,12 @@ abstract class Loc {
   /// **'Basket'**
   String get cartTitle;
 
+  /// No description provided for @cartRemoveAllProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove all products'**
+  String get cartRemoveAllProducts;
+
   /// No description provided for @changePassword.
   ///
   /// In en, this message translates to:
@@ -1230,6 +1236,12 @@ abstract class Loc {
   /// In en, this message translates to:
   /// **'Yes'**
   String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
 
   /// No description provided for @youCanStartOrderNow.
   ///

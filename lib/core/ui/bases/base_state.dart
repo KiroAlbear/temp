@@ -120,10 +120,10 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
 
         builder: (context) {
           return DialogWidget(
-            sameButtonsColor: false,
+
             message: Loc.of(context)!.closeApplicationMessage,
-            cancelMessage: Loc.of(context)!.cancel,
-            confirmMessage: Loc.of(context)!.ok,
+            cancelMessage: "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
+            confirmMessage: "${Loc.of(context)!.yes}, ${Loc.of(context)!.ok}",
             onCancel: () {},
             onConfirm: () {
               exit(0);

@@ -133,6 +133,9 @@ class LocEn extends Loc {
   String get cartTitle => 'Basket';
 
   @override
+  String get cartRemoveAllProducts => 'Remove all products';
+
+  @override
   String get changePassword => 'Change password';
 
   @override
@@ -586,6 +589,9 @@ class LocEn extends Loc {
 
   @override
   String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
 
   @override
   String get youCanStartOrderNow => 'You can start order now';

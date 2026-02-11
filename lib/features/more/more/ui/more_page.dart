@@ -365,8 +365,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
         return DialogWidget(
           message: Loc.of(context)!.selectPhotoFromCameraOrGallery,
           cancelMessage: Loc.of(context)!.gallery,
-          confirmMessage: Loc.of(context)!.camera,
-          sameButtonsColor: true,
+          confirmMessage:  Loc.of(context)!.camera,
+          isConfirmButtonPrimary: true,
+          hasBottomPadding: true,
           onCancel: () {
             _requestGalleryPermission();
             _listenForGalleryPermission();
@@ -563,10 +564,8 @@ class _MoreWidgetState extends BaseState<MorePage> {
       builder: (context2) {
         return DialogWidget(
           message: Loc.of(context)!.logoutMessage,
-          cancelMessage: Loc.of(context)!.cancel,
-          confirmMessage: Loc.of(context)!.yes,
-          headerMessage: Loc.of(context)!.logout,
-          errorColorInConfirm: true,
+          cancelMessage: "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
+          confirmMessage: "${Loc.of(context)!.yes}, ${Loc.of(context)!.logout}",
           onConfirm: () {
             Future.delayed(const Duration(milliseconds: 600)).then((value) {
               if (!mounted) return;
@@ -578,8 +577,7 @@ class _MoreWidgetState extends BaseState<MorePage> {
               );
             });
           },
-          hasCloseButton: true,
-          sameButtonsColor: false,
+
         );
       },
     );
@@ -593,12 +591,9 @@ class _MoreWidgetState extends BaseState<MorePage> {
       builder: (context) {
         return DialogWidget(
           message: Loc.of(context)!.deleteAccountMessage,
-          cancelMessage: Loc.of(context)!.cancel,
-          confirmMessage: Loc.of(context)!.deleteAccount,
-          headerMessage: Loc.of(context)!.deleteAccount,
-          errorColorInConfirm: true,
-          hasCloseButton: true,
-          sameButtonsColor: false,
+          cancelMessage: "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
+          confirmMessage:
+              "${Loc.of(context)!.yes}, ${Loc.of(context)!.deleteAccount}",
           onConfirm: () {
             widget.moreBloc.deactivateAccountStream.listen((event) async {
               if (event is SuccessState) {

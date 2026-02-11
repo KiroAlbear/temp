@@ -132,6 +132,9 @@ class LocAr extends Loc {
   String get cartTitle => 'السلة';
 
   @override
+  String get cartRemoveAllProducts => 'مسح جميع المنتجات';
+
+  @override
   String get changePassword => 'تغيير كلمة السر';
 
   @override
@@ -584,6 +587,9 @@ class LocAr extends Loc {
 
   @override
   String get yes => 'نعم';
+
+  @override
+  String get no => 'لا';
 
   @override
   String get youCanStartOrderNow =>

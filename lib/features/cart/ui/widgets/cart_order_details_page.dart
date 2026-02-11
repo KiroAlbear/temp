@@ -294,9 +294,9 @@ class _CartOrderDetailsState extends BaseState<CartOrderDetailsPage> {
       isScrollControlled: false,
       builder: (context) {
         return DialogWidget(
-          sameButtonsColor: false,
           message: Loc.of(context)!.invalidPayment,
           confirmMessage: Loc.of(context)!.ok,
+          isConfirmButtonPrimary: true,
           onConfirm: () {},
         );
       },

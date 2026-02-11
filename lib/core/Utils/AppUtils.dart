@@ -20,7 +20,6 @@ class Apputils {
         return DialogWidget(
           message: Loc.of(context)!.youNeedToLoginToUseApp,
           confirmMessage: Loc.of(context)!.ok,
-          sameButtonsColor: false,
           onConfirm: () {
             Routes.navigateToScreen(
               Routes.loginPage,
