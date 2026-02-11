@@ -9,12 +9,12 @@ android {
         }
         app_stage {
             dimension "flavor-type"
-            applicationId "com.icons.deelexpress"
+            applicationId "com.icons.deelexpress.stage"
             resValue "string", "app_name", "Deely stage"
         }
         app_test {
             dimension "flavor-type"
-            applicationId "com.icons.deelexpress"
+            applicationId "com.icons.deelexpress.test"
             resValue "string", "app_name", "Deely test"
         }
     }

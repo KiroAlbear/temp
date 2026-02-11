@@ -299,7 +299,7 @@ export 'features/recommended_items/models/recommended_items_response_model.dart'
 export 'features/recommended_items/remote/recommended_items_remote.dart';
 export 'features/recommended_items/ui/recommended_items_page.dart';
 export 'features/recommended_items/ui/widget/recommended_item_widget.dart';
-export 'firebase_options.dart';
+export 'firebase_options_prod.dart';
 export 'flavor_config.dart';
 export 'flavors.dart';
 export 'gen/assets.gen.dart';

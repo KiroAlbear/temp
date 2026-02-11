@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_staging.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDEu-f3AsuJSP1-Lafqm67VIwP4r4q0SaE',
-    appId: '1:450856944698:android:bb000d321cc4e7c5c6a103',
+    appId: '1:450856944698:android:bc08ba710975f026c6a103',
     messagingSenderId: '450856944698',
     projectId: 'deel-express',
     storageBucket: 'deel-express.firebasestorage.app',
@@ -59,11 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB1wme_GqaRBe1AcF9eyjtCSF6GuApvaMM',
-    appId: '1:450856944698:ios:15ffe5ac7c8e0797c6a103',
+    appId: '1:450856944698:ios:0dc671b9f3dd490fc6a103',
     messagingSenderId: '450856944698',
     projectId: 'deel-express',
     storageBucket: 'deel-express.firebasestorage.app',
-    iosBundleId: 'com.icons.deelexpress',
+    iosBundleId: 'com.icons.deelexpress.stage',
   );
-
 }

@@ -5,15 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_shared_pref/simple_shared_pref.dart';
 
-import 'package:firebase_core/firebase_core.dart';
+
 
 // late ObjectBox objectBox;
 FutureOr<void> main() async {
   /// ensure widget init
-  WidgetsFlutterBinding.ensureInitialized();
 
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
