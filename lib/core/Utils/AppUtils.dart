@@ -19,8 +19,8 @@ class Apputils {
       builder: (context) {
         return DialogWidget(
           message: Loc.of(context)!.youNeedToLoginToUseApp,
-          confirmMessage: Loc.of(context)!.ok,
-          sameButtonsColor: false,
+          confirmMessage: "${Loc.of(context)!.yes}, ${Loc.of(context)!.ok}",
+          cancelMessage:  "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
           onConfirm: () {
             Routes.navigateToScreen(
               Routes.loginPage,
@@ -28,7 +28,7 @@ class Apputils {
               context,
             );
           },
-          cancelMessage: Loc.of(context)!.cancel,
+
         );
       },
     );

@@ -446,6 +446,18 @@ class _ProductWidgetState extends State<ProductWidget> {
                 0,
                 0,
               ),
+              content: Container(
+                color: tooltipColor,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 150,
+                    child: Text( widget.productMapper.name,
+                      style: RegularStyle(fontSize: 12.sp,color: black).getStyle(),
+                      softWrap: true,),
+                  ),
+                ),
+              ),
               child: value
                   ? Material(
                       color: Colors.transparent,
@@ -457,16 +469,6 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ),
                     )
                   : SizedBox(),
-              content: Container(
-                color: tooltipColor,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 150,
-                    child: Text(widget.productMapper.name),
-                  ),
-                ),
-              ),
             );
           },
         ),
@@ -515,9 +517,9 @@ class _ProductWidgetState extends State<ProductWidget> {
       useRootNavigator: true,
       builder: (context) {
         return DialogWidget(
-          sameButtonsColor: false,
           message: "$message $qty",
-          confirmMessage: Loc.of(context)!.ok,
+          confirmMessage: "${Loc.of(context)!.yes}, ${Loc.of(context)!.ok}",
+          isConfirmButtonPrimary: true,
           onConfirm: () {},
         );
       },
@@ -531,9 +533,8 @@ class _ProductWidgetState extends State<ProductWidget> {
       builder: (context) {
         return DialogWidget(
           message: "$message $qty",
-          confirmMessage: Loc.of(context)!.ok,
-          cancelMessage: Loc.of(context)!.cancel,
-          sameButtonsColor: false,
+          confirmMessage: "${Loc.of(context)!.yes}, ${Loc.of(context)!.ok}",
+          cancelMessage: "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
           onCancel: () {},
           onConfirm: () {
             widget.qtyValueNotifier!.value = 0;

@@ -183,24 +183,39 @@ class ProductCategoryBloc extends LoadMoreBloc<ProductMapper> {
   }
 
 
-  void getProductByIdList(List<int> productsIds, Function? onGettingMoreProducts){
+  void getProductByIdList(
+    List<int> productsIds,
+    Function? onGettingMoreProducts,
+  ) {
     loadedProductsList.clear();
 
-    void addNext(int index) {
-      if (index >= productsIds.length) {
-        onGettingMoreProducts?.call();
-        return;
-      }
+    _addNextProductById(
+      productsIds: productsIds,
+      index: 0,
+      onGettingMoreProducts: onGettingMoreProducts,
+    );
+  }
 
-      ProductRemote().loadProductById(productsIds[index]).listen((event) {
-        if (event is SuccessState) {
-          _handleProductResponse(event.response ?? []);
-          addNext(index + 1);
-        }
-      });
+  void _addNextProductById({
+    required List<int> productsIds,
+    required int index,
+    Function? onGettingMoreProducts,
+  }) {
+    if (index >= productsIds.length) {
+      onGettingMoreProducts?.call();
+      return;
     }
 
-    addNext(0);
+    ProductRemote().loadProductById(productsIds[index]).listen((event) {
+      if (event is SuccessState) {
+        _handleProductResponse(event.response ?? []);
+        _addNextProductById(
+          productsIds: productsIds,
+          index: index + 1,
+          onGettingMoreProducts: onGettingMoreProducts,
+        );
+      }
+    });
   }
 
   void getProductWithSubcategoryBrand(

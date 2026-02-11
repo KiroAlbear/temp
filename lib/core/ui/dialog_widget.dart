@@ -4,27 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DialogWidget extends StatefulWidget {
-  final String? headerMessage;
   final String message;
-  final String confirmMessage;
+  final String? confirmMessage;
   final String? cancelMessage;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
-  final bool errorColorInConfirm;
-  final bool hasCloseButton;
-  final bool sameButtonsColor;
+  final bool isConfirmButtonPrimary;
+  final bool hasBottomPadding;
+
 
   const DialogWidget({
     super.key,
     required this.message,
-    required this.confirmMessage,
-    this.headerMessage,
+    this.confirmMessage,
     this.cancelMessage,
     this.onCancel,
     this.onConfirm,
-    this.hasCloseButton = false,
-    required this.sameButtonsColor,
-    this.errorColorInConfirm = false,
+    this.isConfirmButtonPrimary = false,
+    this.hasBottomPadding = false,
+
   });
 
   @override
@@ -44,17 +42,28 @@ class _DialogWidgetState extends State<DialogWidget> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 10.h),
-            if (widget.headerMessage != null) _headerMessage,
+
             SizedBox(height: 21.h),
             _message,
-            SizedBox(height: 20.h),
-            _confirmButton,
-            if (widget.cancelMessage != null) ...[
-              SizedBox(height: 17.h),
-              _cancelButton,
-              SizedBox(height: 28.h),
-            ],
+            SizedBox(height: 25.h),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 60.w),
+              child: Column(
+                children: [
+                  if (widget.cancelMessage != null) ...[
+                    _cancelButton,
+                    SizedBox(height: 10.h),
+                  ],
+
+                  if (widget.confirmMessage != null) ...[
+                    _confirmButton,
+                   (widget.isConfirmButtonPrimary == false || widget.hasBottomPadding )?SizedBox(height: 28.h): SizedBox(),
+                  ],
+                ],
+              ),
+            ),
+
             widget.cancelMessage == null ? SizedBox(height: 28.h) : const SizedBox(),
 
             AppConstants.isHavingBottomPadding
@@ -66,18 +75,9 @@ class _DialogWidgetState extends State<DialogWidget> {
     ),
   );
 
-  Widget get _headerMessage => CustomText(
-    text: widget.headerMessage ?? '',
-    customTextStyle: BoldStyle(
-      color: widget.errorColorInConfirm ? redColor : secondaryColor,
-      fontSize: 26.sp,
-    ),
-    textAlign: TextAlign.center,
-  );
-
   Widget get _message => CustomText(
     text: widget.message,
-    customTextStyle: MediumStyle(color: lightBlackColor, fontSize: 18.sp),
+    customTextStyle: RegularStyle(color: lightBlackColor, fontSize: 14.sp),
     softWrap: true,
     maxLines: 4,
     textAlign: TextAlign.center,
@@ -85,10 +85,9 @@ class _DialogWidgetState extends State<DialogWidget> {
 
   Widget get _confirmButton => CustomButtonWidget(
     idleText: widget.confirmMessage,
-    textSize: 20.sp,
     height: 38.h,
-    buttonColor: widget.errorColorInConfirm ? redColor : primaryColor,
-    textColor: widget.errorColorInConfirm ? whiteColor : lightBlackColor,
+    textSize: 14.sp,
+    buttonColor:  widget.isConfirmButtonPrimary?null:Colors.transparent,
     onTap: () {
       if (widget.onConfirm != null) {
         widget.onConfirm!();
@@ -99,12 +98,10 @@ class _DialogWidgetState extends State<DialogWidget> {
 
   Widget get _cancelButton => CustomButtonWidget(
     idleText: widget.cancelMessage ?? '',
-    textSize: 20.sp,
     height: 38.h,
-    buttonColor: widget.sameButtonsColor ? primaryColor : greyColor,
-    textColor: widget.sameButtonsColor ? lightBlackColor : whiteColor,
     validateStream: Stream.value(true),
     buttonShapeEnum: ButtonShapeEnum.flat,
+    textSize: 14.sp,
     onTap: () {
       if (widget.onCancel != null) {
         widget.onCancel!();

@@ -289,6 +289,7 @@ class _CartScreenState extends BaseState<CartPage> {
                   separatorBuilder: (context, index) => 16.verticalSpace,
                   shrinkWrap: true,
                   itemCount: snapshot.data!.response!.getFirst.length,
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return ProductWidget(
                       isCartProduct: true,
@@ -385,6 +386,40 @@ class _CartScreenState extends BaseState<CartPage> {
     );
   }
 
+  void _deleteAllCart() {
+    final List<ProductMapper> products =
+        widget.cartBloc.cartProductsBehavior.value.response?.getFirst ?? [];
+
+    isLoading.value = true;
+    widget.cartBloc.onDeleteProductListFromCart(
+      productMappers: products,
+      onGettingCart: (products) {
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void _showDeleteAllConfirmation()async {
+    await showModalBottomSheet(
+    context: Routes.rootNavigatorKey.currentContext!,
+    isScrollControlled: false,
+    useRootNavigator: true,
+    useSafeArea: true,
+    builder: (context2) {
+      return DialogWidget(
+        message: Loc.of(context)!.cartRemoveAllProductsConfirmation,
+        cancelMessage:
+        "${Loc.of(context)!.no}, ${Loc.of(context)!.cancel}",
+        confirmMessage:
+        "${Loc.of(context)!.yes}, ${Loc.of(context)!.cartRemoveAllProducts}",
+        onConfirm: () {
+          _deleteAllCart();
+        },
+      );
+    },
+    );
+  }
+
   Widget _cartHeader(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -435,7 +470,24 @@ class _CartScreenState extends BaseState<CartPage> {
                   : const SizedBox();
             },
           ),
-
+          16.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              InkWell(
+                onTap: () async {
+                  _showDeleteAllConfirmation();
+                },
+                child: Text(
+                  Loc.of(context)!.cartRemoveAllProducts,
+                  style: BoldStyle(
+                    color: redColor,
+                    fontSize: 14.sp,
+                  ).getStyle().copyWith(decoration: TextDecoration.underline),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

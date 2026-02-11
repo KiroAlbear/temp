@@ -142,8 +142,8 @@ class CartBloc extends BlocBase {
 
   void onAddProductListToCart({
     required List<ProductMapper> productMappers,
-    required void Function(List<ProductMapper>) onGettingCart,}
-  ) {
+    required void Function(List<ProductMapper>) onGettingCart,
+  }) {
     final products = _getNonCartProducts(productMappers);
 
     if (productMappers.isEmpty || products.isEmpty) {
@@ -151,35 +151,97 @@ class CartBloc extends BlocBase {
       return;
     }
 
-    void addNext(int index) {
-      if (index >= products.length) {
-        getMyCart(
-          onGettingCart: () {
-            addCartInfoToProducts(products ?? []);
-            onGettingCart(products);
-          },
-        );
-        return;
-      }
+    _addNextProductToCart(
+      products: products,
+      index: 0,
+      onGettingCart: onGettingCart,
+    );
+  }
 
-      final productMapper = products[index];
-      saveToCart(
-       Apputils.getProductId(productMapper),
-        productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
-
-      ).listen((event) {
-        if (event is SuccessState) {
-          final response = event.response;
-          if (response == null) {
-            return;
-          }
-          SharedPrefModule().orderId = response;
-          addNext(index + 1);
-        }
-      });
+  void _addNextProductToCart({
+    required List<ProductMapper> products,
+    required int index,
+    required void Function(List<ProductMapper>) onGettingCart,
+  }) {
+    if (index >= products.length) {
+      getMyCart(
+        onGettingCart: () {
+          addCartInfoToProducts(products);
+          onGettingCart(products);
+        },
+      );
+      return;
     }
 
-    addNext(0);
+    final productMapper = products[index];
+    saveToCart(
+      Apputils.getProductId(productMapper),
+      productMapper.minQuantity == 0 ? 1 : productMapper.minQuantity.toInt(),
+    ).listen((event) {
+      if (event is SuccessState) {
+        final response = event.response;
+        if (response == null) {
+          return;
+        }
+        SharedPrefModule().orderId = response;
+        _addNextProductToCart(
+          products: products,
+          index: index + 1,
+          onGettingCart: onGettingCart,
+        );
+      }
+    });
+  }
+
+  void onDeleteProductListFromCart({
+    required List<ProductMapper> productMappers,
+    required void Function(List<ProductMapper>) onGettingCart,
+  }) {
+
+
+    if (productMappers.isEmpty) {
+      onGettingCart(productMappers);
+      return;
+    }
+
+    _deleteNextProductFromCart(
+      products: productMappers,
+      index: 0,
+      onGettingCart: onGettingCart,
+    );
+  }
+
+  void _deleteNextProductFromCart({
+    required List<ProductMapper> products,
+    required int index,
+    required void Function(List<ProductMapper>) onGettingCart,
+  }) {
+    if (index >= products.length) {
+      getMyCart(
+        onGettingCart: () {
+          addCartInfoToProducts(products);
+          onGettingCart(products);
+        },
+      );
+      return;
+    }
+
+    final productMapper = products[index];
+    editCart(
+      cartItemId: productMapper.id,
+      productId: productMapper.productId,
+      quantity: 0,
+      price: productMapper.finalPrice,
+    ).listen((event) {
+      if (event is SuccessState) {
+        resetDeletedProduct(productMapper);
+        _deleteNextProductFromCart(
+          products: products,
+          index: index + 1,
+          onGettingCart: onGettingCart,
+        );
+      }
+    });
   }
 
   void onDeleteFromCart(
