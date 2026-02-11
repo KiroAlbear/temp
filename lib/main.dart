@@ -9,12 +9,8 @@ import 'package:simple_shared_pref/simple_shared_pref.dart';
 
 // late ObjectBox objectBox;
 FutureOr<void> main() async {
-  /// ensure widget init
-
-
 
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
-
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     LoggerModule.log(
