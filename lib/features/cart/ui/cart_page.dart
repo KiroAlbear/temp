@@ -89,36 +89,38 @@ class _CartScreenState extends BaseState<CartPage> {
                                 snapshot.data!.response?.getFirst.isEmpty ??
                                     true
                                 ? const CartEmptyWidget()
-                                : Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _cartHeader(context),
-                                      16.verticalSpace,
-                                      Expanded(
-                                        child: Stack(
-                                          children: [
-                                            _productList(),
-                                            ValueListenableBuilder<bool>(
-                                              valueListenable: isUndoVisible,
-                                              builder: (context, visible, _) {
-                                                if (!visible) {
-                                                  return const SizedBox.shrink();
-                                                }
-                                                return Positioned(
-                                                  bottom: 0,
-                                                  left: 10,
-                                                  right: 10,
-                                                  child: _undoWidget(context),
-                                                );
-                                              },
-                                            ),
-                                          ],
+                                : SizedBox.expand(
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        _cartHeader(context),
+                                        16.verticalSpace,
+                                        Expanded(
+                                          child: Stack(
+                                            children: [
+                                              _productList(),
+                                              ValueListenableBuilder<bool>(
+                                                valueListenable: isUndoVisible,
+                                                builder: (context, visible, _) {
+                                                  if (!visible) {
+                                                    return const SizedBox.shrink();
+                                                  }
+                                                  return Positioned(
+                                                    bottom: 0,
+                                                    left: 10,
+                                                    right: 10,
+                                                    child: _undoWidget(context),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      _bottomWidget(context),
-                                    ],
-                                  ),
+                                        _bottomWidget(context),
+                                      ],
+                                    ),
+                                ),
                           );
                         }
                       },
@@ -370,45 +372,43 @@ class _CartScreenState extends BaseState<CartPage> {
       builder: (context, snapshot) {
         return !snapshot.hasData
             ? const SizedBox()
-            : Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => 16.verticalSpace,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.response!.getFirst.length,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) {
-                    return ProductWidget(
-                      isCartProduct: true,
-                      index: index,
-                      productMapper: snapshot.data!.response!.getFirst[index],
-                      productCategoryBloc: widget.productCategoryBloc,
-                      onDecrementClicked: (ProductMapper productMapper) {
-                        isLoading.value = true;
-                        widget.cartBloc.onDecrementIncrement(productMapper, widget.productCategoryBloc.loadedListBehaviour.value.response, () {
-                          isLoading.value = false;
-                        });
-                      },
-                      onIncrementClicked: (productMapper) {
-                        isLoading.value = true;
-                        widget.cartBloc.onDecrementIncrement(productMapper, widget.productCategoryBloc.loadedListBehaviour.value.response, () {
-                          isLoading.value = false;
-                        });
-                      },
-                      onDeleteClicked: (productMapper) {
-                        isLoading.value = true;
-                        widget.cartBloc.onDeleteFromCart(
-                          productMapper,
-                          widget.productCategoryBloc.loadedListBehaviour.value.response,
-                          () {
-                            isLoading.value = false;
-                            _showUndoWidgetFor3Seconds();
-                          },
-                        );
+            : ListView.separated(
+              separatorBuilder: (context, index) => 16.verticalSpace,
+              shrinkWrap: true,
+              itemCount: snapshot.data!.response!.getFirst.length,
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                return ProductWidget(
+                  isCartProduct: true,
+                  index: index,
+                  productMapper: snapshot.data!.response!.getFirst[index],
+                  productCategoryBloc: widget.productCategoryBloc,
+                  onDecrementClicked: (ProductMapper productMapper) {
+                    isLoading.value = true;
+                    widget.cartBloc.onDecrementIncrement(productMapper, widget.productCategoryBloc.loadedListBehaviour.value.response, () {
+                      isLoading.value = false;
+                    });
+                  },
+                  onIncrementClicked: (productMapper) {
+                    isLoading.value = true;
+                    widget.cartBloc.onDecrementIncrement(productMapper, widget.productCategoryBloc.loadedListBehaviour.value.response, () {
+                      isLoading.value = false;
+                    });
+                  },
+                  onDeleteClicked: (productMapper) {
+                    isLoading.value = true;
+                    widget.cartBloc.onDeleteFromCart(
+                      productMapper,
+                      widget.productCategoryBloc.loadedListBehaviour.value.response,
+                      () {
+                        isLoading.value = false;
+                        _showUndoWidgetFor3Seconds();
                       },
                     );
                   },
-                ),
-              );
+                );
+              },
+            );
       },
     );
   }
